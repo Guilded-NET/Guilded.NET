@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+    <metadata>
+        <id>Guilded.NET.Objects</id>
+        <version>0.0.8</version>
+        <title>Guilded.NET.Objects</title>
+        <authors>IdkGoodName</authors>
+        <owners>IdkGoodName</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <license type="expression">MIT</license>
+        <projectUrl>https://github.com/IdkGoodName/Guilded.NET</projectUrl>
+        <icon>icon.png</icon>
+        <description>Guilded objects for Guilded.NET</description>
+        <releaseNotes>
+- Profile related things
+- Small and large heading, divider nodes
+- Content created event
+        </releaseNotes>
+        <copyright>Copyright 2020</copyright>
+        <tags>wrapper,api,chat,guilded</tags>
+        <dependencies>
+            <dependency id="Newtonsoft.Json" version="12.0.3" />
+            <dependency id="Newtonsoft.Json.Schema" version="3.0.13" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="readme.md" target="" />
+        <file src="icon.png" target="" />
+    </files>
+</package>

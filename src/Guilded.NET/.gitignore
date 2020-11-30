@@ -1,0 +1,10 @@
+bin
+obj
+bin/*
+obj/*
+bin/*.*
+obj/*.*
+*.nupkg
+icon.png
+*.dll
+*.vscode

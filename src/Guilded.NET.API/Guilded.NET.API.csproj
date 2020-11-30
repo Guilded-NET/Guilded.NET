@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Version>0.0.7</Version>
+    <PackageIcon>icon.png</PackageIcon>
+    <Product>Guilded.NET.API</Product>
+    <id>Guilded.NET.API</id>
+    <PackageId>Guilded.NET.API</PackageId>
+    <Authors>IdkGoodName</Authors>
+    <Description>API helpers for Guilded.NET</Description>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+    <PackageReference Include="Websocket.Client" Version="4.3.21" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="icon.png" Pack="true" PackagePath="" />
+    <None Include="readme.md" Pack="true" PackagePath=""/>
+  </ItemGroup>
+</Project>

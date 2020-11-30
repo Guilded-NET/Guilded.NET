@@ -1,0 +1,11 @@
+bin
+obj
+bin/*
+obj/*
+bin/*.*
+obj/*.*
+.vscode
+.vscode/*
+.vscode/*.*
+*.nupkg
+icon.png

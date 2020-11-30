@@ -1,0 +1,52 @@
+using System;
+using Guilded.NET.Objects.Content;
+using Guilded.NET.Objects.Teams;
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Events {
+    /// <summary>
+    /// When a forum post, media, document, schedule, event, etc. get created.
+    /// </summary>
+    public class ContentCreatedEvent: TeamEvent {
+        /// <summary>
+        /// Type of the channel.
+        /// </summary>
+        /// <value>Team</value>
+        [JsonProperty("contentType", Required = Required.Always)]
+        public ChannelType ContentType {
+            get; set;
+        }
+        /// <summary>
+        /// When the post was created.
+        /// </summary>
+        /// <value>When the post was created</value>
+        [JsonProperty("createdAt", Required = Required.Always)]
+        public DateTime CreatedAt {
+            get; set;
+        }
+        /// <summary>
+        /// Who created the content.
+        /// </summary>
+        /// <value>Content owner</value>
+        [JsonProperty("createdBy", Required = Required.Always)]
+        public GId CreatedBy {
+            get; set;
+        }
+        /// <summary>
+        /// A forum post posted in the channel.
+        /// </summary>
+        /// <value>Forum post</value>
+        [JsonProperty("thread")]
+        public ForumPost Thread {
+            get; set;
+        }
+        /// <summary>
+        /// A media which was posted in the channel.
+        /// </summary>
+        /// <value>Media</value>
+        [JsonProperty("media")]
+        public GuildedMedia Media {
+            get; set;
+        }
+    }
+}

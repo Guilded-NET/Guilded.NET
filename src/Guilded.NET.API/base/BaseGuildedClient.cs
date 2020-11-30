@@ -1,0 +1,326 @@
+﻿using System.Threading.Tasks;
+using System.Net;
+using RestSharp;
+using System;
+using System.Net.WebSockets;
+using Websocket.Client;
+using System.Threading;
+using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Guilded.NET.API {
+    /// <summary>
+    /// A base for Guilded client.
+    /// </summary>
+    public abstract class BaseGuildedClient: IDisposable {
+        /// <summary>
+        /// Events when client gets Connected/Disconnected.
+        /// </summary>
+        protected EventHandler ConnectedEvent, DisconnectedEvent;
+        /// <summary>
+        /// Event when exception occurs.
+        /// </summary>
+        protected EventHandler<GuildedException> ErrorEvent;
+        /// <summary>
+        /// Thread for heartbeats.
+        /// </summary>
+        /// <value>Thread</value>
+        protected Thread HeartbeatThread {
+            get; set;
+        }
+        /// <summary>
+        /// Token for cancelling heartbeat thread.
+        /// </summary>
+        /// <value>Cancellation Token</value>
+        protected CancellationTokenSource HeartbeatToken {
+            get; set;
+        }
+        /// <summary>
+        /// Guilded API URL.
+        /// </summary>
+        /// <value>URL</value>
+        public static readonly Uri GuildedAPIURL = new Uri("https://api.guilded.gg/");
+        /// <summary>
+        /// Guilded media URL. Allows you to upload images and videos.
+        /// </summary>
+        /// <value>URL</value>
+        public static readonly Uri GuildedMediaURL = new Uri("https://media.guilded.gg/");
+        /// <summary>
+        /// Guilded image CDN URL.
+        /// </summary>
+        /// <value>URL</value>
+        public static readonly Uri GuildedImgURL = new Uri("https://img.guildedcdn.com/");
+        /// <summary>
+        /// Guilded Websocket URL.
+        /// </summary>
+        /// <value>URL</value>
+        public static readonly string GuildedWebsocketURL = "wss://api.guilded.gg/socket.io/?jwt=undefined&EIO=3&transport=websocket";
+        /// <summary>
+        /// Default span of time between heartbeats.
+        /// </summary>
+        /// <value>Seconds</value>
+        public static readonly double DefaultHeartbeat = 25;
+        /// <summary>
+        /// Rest client for Guilded.
+        /// </summary>
+        /// <seealso cref="Websocket"/>
+        /// <value>Rest client</value>
+        protected internal RestClient Rest {
+            get; set;
+        }
+        /// <summary>
+        /// URL for media uploading.
+        /// </summary>
+        /// <value>URL</value>
+        protected Uri MediaUrl {
+            get; set;
+        }
+        /// <summary>
+        /// Websocket client for Guilded. Websocket is null until <see cref="InitWebsocket(double?, string, double, CookieContainer"/> is called.
+        /// </summary>
+        /// <seealso cref="Rest"/>
+        /// <value>Websocket</value>
+        protected internal WebsocketClient Websocket {
+            get; set;
+        }
+        /// <summary>
+        /// Span of time between each heartbeat.
+        /// </summary>
+        /// <value>Seconds</value>
+        public double HeartbeatTime {
+            get; set;
+        }
+        /// <summary>
+        /// Event when client connects to the Guilded.
+        /// </summary>
+        public event EventHandler Connected {
+            add => ConnectedEvent += value;
+            remove => ConnectedEvent -= value;
+        }
+        /// <summary>
+        /// Event when client disconnects from Guilded.
+        /// </summary>
+        public event EventHandler Disconnected {
+            add => DisconnectedEvent += value;
+            remove => DisconnectedEvent += value;
+        }
+        /// <summary>
+        /// Event when error occurs.
+        /// </summary>
+        public event EventHandler<GuildedException> Error {
+            add => ErrorEvent += value;
+            remove => ErrorEvent -= value;
+        }
+        /// <summary>
+        /// Cookies given when client logs in.
+        /// </summary>
+        /// <value>Login cookies</value>
+        public IList<GuildedCookie> LoginCookies {
+           get; set;
+        }
+        /// <param name="apiurl">URL of API</param>
+        /// <exception cref="ArgumentNullException">When apiurl or socketurl are null</exception>
+        /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
+        protected BaseGuildedClient(Uri apiurl, Uri mediaurl) {
+            // Set properties
+            MediaUrl = mediaurl ?? throw new ArgumentException($"{nameof(mediaurl)} can not be empty.");
+            // Initialize Rest client
+            Rest = new RestClient(apiurl ?? throw new ArgumentNullException($"{nameof(apiurl)} can not be empty."));
+        }
+        protected BaseGuildedClient(): this(GuildedAPIURL, GuildedMediaURL) =>
+            LoginCookies = null;
+        /// <summary>
+        /// Sets cookies to list of <see cref="RestResponseCookie"/>.
+        /// </summary>
+        /// <param name="cookies">List of login cookies</param>
+#pragma warning disable 0618
+        public void SetCookies(IList<RestResponseCookie> cookies) =>
+            LoginCookies = cookies.Select(x => new GuildedCookie(x.Name, x.Value, x.Path, x.Domain)).ToList();
+#pragma warning restore 0618
+        /// <summary>
+        /// Sends a request to Guilded's API with given arguments.
+        /// </summary>
+        /// <param name="endpoint">Guilded API endpoint</param>
+        /// <param name="args">Args to be given to that endpoint</param>
+        /// <param name="enableCookies">If it should add cookies to the request</param>
+        /// <typeparam name="T">Type of the response</typeparam>
+        /// <returns>Request response</returns>
+        public async Task<IRestResponse<T>> ExecuteRequest<T>(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) {
+            // Create new request
+            RestRequest req = new RestRequest(endpoint.Path, endpoint.EndpointMethod);
+            // Add parameters
+            foreach(var addable in enableCookies && LoginCookies != null ? addables.Concat(LoginCookies) : addables)
+                addable.AddTo(req);
+            // Executes response
+            IRestResponse<T> response = await Rest.ExecuteAsync<T>(req);
+            // Check if content isn't null and get it as JSON object
+            if(string.IsNullOrEmpty(response.Content)) return response;
+            JToken token = JToken.Parse(response.Content);
+            // Check if it has 2 properties
+            if(token.Type == JTokenType.Object) {
+                // Gets object
+                JObject obj = (JObject)token;
+                // Check if it's an error
+                if(obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2) {
+                    // If it does, treat it as an error
+                    GuildedException exc = new GuildedException() {
+                        Code = obj["code"].Value<string>(),
+                        ErrorMessage = obj["message"].Value<string>()
+                    };
+                    // Invokes the error event
+                    ErrorEvent?.Invoke(this, exc);
+                    // Returns null
+                    throw exc;
+                }
+            }
+            // Returns it
+            return response;
+        }
+        /// <summary>
+        /// Sends a request to Guilded's API with given arguments.
+        /// </summary>
+        /// <param name="endpoint">Guilded API endpoint</param>
+        /// <param name="args">Args to be given to that endpoint</param>
+        /// <typeparam name="T">Type of the response</typeparam>
+        /// <returns>Request response</returns>
+        public async Task<IRestResponse<T>> ExecuteRequest<T>(Endpoint endpoint, params IReqAddable[] addables) =>
+            await ExecuteRequest<T>(endpoint, true, addables);
+        /// <summary>
+        /// Sends a request to Guilded's API with given arguments.
+        /// </summary>
+        /// <param name="endpoint">Guilded API endpoint</param>
+        /// <param name="args">Args to be given to that endpoint</param>
+        /// <param name="enableCookies">If it should add cookies to the request</param>
+        /// <returns>Request response</returns>
+        public async Task<IRestResponse<object>> ExecuteRequest(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) =>
+            await ExecuteRequest<object>(endpoint, enableCookies, addables);
+        /// <summary>
+        /// Sends a request to Guilded's API with given arguments.
+        /// </summary>
+        /// <param name="endpoint">Guilded API endpoint</param>
+        /// <param name="args">Args to be given to that endpoint</param>
+        /// <returns>Request response</returns>
+        public async Task<IRestResponse<object>> ExecuteRequest(Endpoint endpoint, params IReqAddable[] addables) =>
+            await ExecuteRequest(endpoint, true, addables);
+        /// <summary>
+        /// Uploads image to Guilded.
+        /// </summary>
+        /// <param name="filepath">Path of the file</param>
+        /// <param name="filedata">Data of the file</param>
+        /// <returns>Image URL</returns>
+        public async Task<Uri> UploadImage(string filepath, byte[] filedata) {
+            if(string.IsNullOrWhiteSpace(filepath)) throw new ArgumentException($"{nameof(filepath)} can not be empty.");
+            // Create new request
+            RestRequest req = new RestRequest($"{MediaUrl}/{Endpoint.UPLOAD_MEDIA.Path}", Endpoint.UPLOAD_MEDIA.EndpointMethod);
+            // Add parameters
+            if(LoginCookies != null)
+                foreach(var addable in LoginCookies)
+                    addable.AddTo(req);
+            // Adds that file
+            req.AddFileBytes(Path.GetFileName(filepath), filedata, filepath);
+            // Executes response
+            IRestResponse<object> response = await Rest.ExecuteAsync<object>(req);
+            // Check if content isn't null and get it as JSON object
+            if(string.IsNullOrEmpty(response.Content)) return null;
+            // Gets it as a JSON token
+            JToken token = JToken.Parse(response.Content);
+            // Check if it has 2 properties
+            if(token.Type == JTokenType.Object) {
+                // Gets object
+                JObject obj = (JObject)token;
+                // Check if it's an error
+                if(obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2) {
+                    // If it does, treat it as an error
+                    GuildedException exc = new GuildedException() {
+                        Code = obj["code"].Value<string>(),
+                        ErrorMessage = obj["message"].Value<string>()
+                    };
+                    // Invokes the error event
+                    ErrorEvent?.Invoke(this, exc);
+                    // Returns null
+                    throw exc;
+                }
+                // If it has property "url" and it's the only property.
+                else if(obj.ContainsKey("url") && obj.Properties().Count() == 1) return new Uri(obj["url"].Value<string>());
+            }
+            // Else, return null
+            return null;
+        }
+        /// <summary>
+        /// Initializes websocket.
+        /// </summary>
+        /// <param name="reconnection">Seconds of time between each reconnection</param>
+        /// <param name="socketurl">URL of WebSocket</param>
+        /// <param name="heartbeat">Seconds between each heartbeat</param>
+#pragma warning disable 0618
+        protected virtual void InitWebsocket(double? reconnection, string socketurl, double heartbeat) {
+            // If socketurl is null, throw an exception
+            if(string.IsNullOrWhiteSpace(socketurl)) throw new ArgumentNullException($"{nameof(socketurl)} can not be null or empty.");
+            HeartbeatTime = heartbeat;
+            // Initialize Websocket client
+            var factory = new Func<ClientWebSocket>(() => new ClientWebSocket {
+                // Options of the ClientWebSocket
+                Options = {
+                    KeepAliveInterval = TimeSpan.FromSeconds(heartbeat),
+                    Cookies = CookieUtil.From(LoginCookies)
+#pragma warning restore 0618
+                }
+            });
+            Websocket = new WebsocketClient(new Uri(socketurl), factory);
+            // Starts a heartbeat thread
+            HeartbeatToken = new CancellationTokenSource();
+            HeartbeatThread = new Thread(async (o) => await HeartbeatThreadMethod(HeartbeatToken.Token));
+            // Reconnection
+            if(reconnection != null)
+                Websocket.ReconnectTimeout = TimeSpan.FromSeconds(reconnection.Value);
+        }
+        /// <summary>
+        /// Connects to Guilded client/user.
+        /// </summary>
+        /// <returns>Async Task</returns>
+        public abstract Task<IRestResponse<object>> ConnectAsync();
+        /// <summary>
+        /// Disconnects from Guilded client/user.
+        /// </summary>
+        /// <returns>Async Task</returns>
+        public abstract Task<IRestResponse<object>> DisconnectAsync();
+        /// <summary>
+        /// Disposes BaseGuildedClient.
+        /// </summary>
+        public virtual void Dispose() {
+            HeartbeatToken.Cancel();
+            HeartbeatThread.Join();
+            Websocket.Dispose();
+        }
+        /// <summary>
+        /// Method for hearbeat thread.
+        /// </summary>
+        /// <param name="token">Token for cancelling while loop</param>
+        /// <param name="cookies">Login cookies</param>
+#pragma warning disable 0618
+        protected virtual async Task HeartbeatThreadMethod(CancellationToken token) {
+            // Turn seconds into milliseconds
+            int ms = (int)HeartbeatTime * 1000;
+            // If thread wasn't cancelled
+            while(!token.IsCancellationRequested) {
+                // Sends a heartbeat
+                await SendHeartbeat("2");
+                // Make it sleep until the next hearbeat
+                Thread.Sleep(ms);
+            }
+        }
+#pragma warning restore 0618
+        /// <summary>
+        /// Sends a heartbeat to the websocket server.
+        /// </summary>
+        /// <param name="value">Heartbeat value</param>
+        protected virtual async Task SendHeartbeat(string value) {
+            // Websocket sends ping
+            Websocket.Send(value);
+            // Rest client sends a ping too
+            await ExecuteRequest<object>(Endpoint.PING);
+        }
+    }
+}
