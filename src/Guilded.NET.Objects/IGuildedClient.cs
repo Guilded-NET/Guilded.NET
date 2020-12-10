@@ -362,6 +362,52 @@ namespace Guilded.NET.Objects {
         /// <param name="message">Content of the forum post</param>
         void CreateForumReply(Guid channelId, uint postId, MessageContent message);
         /// <summary>
+        /// Gets all documents within a specific channel with given max count and before given date.
+        /// </summary>
+        /// <param name="channelId">ID of channel to fetch documents from</param>
+        /// <param name="maxItems">Amount of documents to get</param>
+        /// <param name="beforeDate">Date before which it should get documents</param>
+        /// <returns>List of documents</returns>
+        Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets all documents within a specific channel with given max count and before given date.
+        /// </summary>
+        /// <param name="channelId">ID of channel to fetch documents from</param>
+        /// <param name="maxItems">Amount of documents to get</param>
+        /// <param name="beforeDate">Date before which it should get documents</param>
+        /// <returns>List of documents</returns>
+        IList<GuildedDocument> GetDocuments(Guid channelId, uint maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets a specific document in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of channel to fetch documents from</param>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>Document</returns>
+        Task<GuildedDocument> GetDocumentAsync(Guid channelId, uint docId);
+        /// <summary>
+        /// Gets a specific document in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of channel to fetch documents from</param>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>Document</returns>
+        GuildedDocument GetDocument(Guid channelId, uint docId);
+        /// <summary>
+        /// Gets all medias within a specific channel with given max count and before given date.
+        /// </summary>
+        /// <param name="channelId">ID of channel to fetch media from</param>
+        /// <param name="maxItems">Amount of media posts to get</param>
+        /// <param name="beforeDate">Date before which it should get media</param>
+        /// <returns>List of media posts</returns>
+        Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId, uint maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets all medias within a specific channel with given max count and before given date.
+        /// </summary>
+        /// <param name="channelId">ID of channel to fetch media from</param>
+        /// <param name="maxItems">Amount of media posts to get</param>
+        /// <param name="beforeDate">Date before which it should get media</param>
+        /// <returns>List of media posts</returns>
+        IList<GuildedMedia> GetMedia(Guid channelId, uint maxItems, DateTime? beforeDate);
+        /// <summary>
         /// Creates a new thread as a response to a specific message.
         /// </summary>
         /// <param name="channelId">ID of the channel this thread should be created in</param>

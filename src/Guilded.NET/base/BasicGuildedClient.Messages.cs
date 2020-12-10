@@ -1,3 +1,4 @@
+using System.Xml.Schema;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -133,6 +134,28 @@ namespace Guilded.NET {
             remove => ReactionRemovedEvent -= value;
         }
         /// <summary>
+        /// When someone creates a forum post, media, document, etc..
+        /// </summary>
+        protected EventHandler<ContentCreatedEvent> ContentCreatedEvent;
+        /// <summary>
+        /// When someone creates a forum post, media, document, etc..
+        /// </summary>
+        public event EventHandler<ContentCreatedEvent> ContentCreated {
+            add => ContentCreatedEvent += value;
+            remove => ContentCreatedEvent -= value;
+        }
+        /// <summary>
+        /// When someone deletes a forum post, media, document, etc..
+        /// </summary>
+        protected EventHandler<ContentDeletedEvent> ContentRemovedEvent;
+        /// <summary>
+        /// When someone deletes a forum post, media, document, etc..
+        /// </summary>
+        public event EventHandler<ContentDeletedEvent> ContentRemoved {
+            add => ContentRemovedEvent += value;
+            remove => ContentRemovedEvent -= value;
+        }
+        /// <summary>
         /// Checks if there's a command in the message. If there is, it executes that command.
         /// </summary>
         /// <param name="o">Who invoked this method</param>
@@ -207,34 +230,48 @@ namespace Guilded.NET {
                 // Get the type of the event
                 switch(xe.MessageType) {
                     case "ChatMessageCreated":
-                        MessageCreatedEvent?.Invoke(this, xeobj.ToObject<MessageCreatedEvent>(GuildedSerializer));
+                        InvokeEvent<MessageCreatedEvent>(MessageCreatedEvent, xeobj);
                         break;
                     case "ChatMessageDeleted":
-                        MessageRemovedEvent?.Invoke(this, xeobj.ToObject<MessageDeletedEvent>(GuildedSerializer));
+                        InvokeEvent<MessageDeletedEvent>(MessageRemovedEvent, xeobj);
                         break;
                     case "ChatMessageUpdated":
-                        MessageUpdatedEvent?.Invoke(this, xeobj.ToObject<MessageUpdatedEvent>(GuildedSerializer));
+                        InvokeEvent<MessageUpdatedEvent>(MessageUpdatedEvent, xeobj);
                         break;
                     case "TemporalChannelCreated":
-                        ThreadCreatedEvent?.Invoke(this, xeobj.ToObject<ThreadCreatedEvent>(GuildedSerializer));
+                        InvokeEvent<ThreadCreatedEvent>(ThreadCreatedEvent, xeobj);
                         break;
                     case "ChatChannelTyping":
-                        UserTypingEvent?.Invoke(this, xeobj.ToObject<UserTypingEvent>(GuildedSerializer));
+                        InvokeEvent<UserTypingEvent>(UserTypingEvent, xeobj);
                         break;
                     case "USER_TEAMS_UPDATED":
-                        TeamsUpdatedEvent?.Invoke(this, xeobj.ToObject<UserTeamsUpdated>(GuildedSerializer));
+                        InvokeEvent<UserTeamsUpdated>(TeamsUpdatedEvent, xeobj);
                         break;
                     case "ChatMessageReactionAdded":
-                        ReactionAddedEvent?.Invoke(this, xeobj.ToObject<ReactionUpdatedEvent>(GuildedSerializer));
+                        InvokeEvent<ReactionUpdatedEvent>(ReactionAddedEvent, xeobj);
                         break;
                     case "ChatMessageReactionDeleted":
-                        ReactionRemovedEvent?.Invoke(this, xeobj.ToObject<ReactionUpdatedEvent>(GuildedSerializer));
+                        InvokeEvent<ReactionUpdatedEvent>(ReactionRemovedEvent, xeobj);
                         break;
+                    case "TEAM_CHANNEL_CONTENT_CREATED":
+                        InvokeEvent<ContentCreatedEvent>(ContentCreatedEvent, xeobj);
+                        break;
+                    case "TEAM_CHANNEL_CONTENT_DELETED":
+                        InvokeEvent<ContentDeletedEvent>(ContentRemovedEvent, xeobj);
+                        break;  
                 }
             }
             else if(x is SocketMessage xm)
                 // If it's a heartbeat response
                 if(xm.Number == 3) InvokeHeartbeatEvent(this, 3);
         }
+        /// <summary>
+        /// Shortens long event invokation.
+        /// </summary>
+        /// <param name="ev">Event to be invoked</param>
+        /// <param name="arg">JSON Objects which should be turned to other object</param>
+        /// <typeparam name="T">Event type</typeparam>
+        void InvokeEvent<T>(Delegate ev, JObject arg) where T: Event =>
+            ev?.DynamicInvoke(this, arg.ToObject<T>(GuildedSerializer));
     }
 }

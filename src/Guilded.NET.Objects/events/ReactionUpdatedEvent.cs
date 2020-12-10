@@ -7,7 +7,7 @@ namespace Guilded.NET.Objects.Events {
     /// <summary>
     /// When reaction is added to or remove from the message.
     /// </summary>
-    public class ReactionUpdatedEvent: TeamEvent {
+    public class ReactionUpdatedEvent: CommonEvent {
         /// <summary>
         /// Type of the channel this reaction is in.
         /// </summary>

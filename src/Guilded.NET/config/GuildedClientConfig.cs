@@ -1,5 +1,6 @@
+using System;
+
 namespace Guilded.NET {
-    using System;
     using Objects;
     using Objects.Events;
     /// <summary>

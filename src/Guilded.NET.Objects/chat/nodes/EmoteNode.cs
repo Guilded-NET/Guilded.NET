@@ -33,7 +33,7 @@ namespace Guilded.NET.Objects.Chat {
             // If emote is not null
             bool notNull = Emote != null;
             // Return the string representation of the emote. If it's null, it returns <:null:0>
-            return $"<:{(notNull ? Emote.Name : "null")}:{(notNull ? Emote.Id : 0)}>";
+            return $"<:{(notNull && Emote?.Name != null ? Emote.Name : "null")}:{(notNull ? Emote.Id : 0)}>";
         }
         /// <summary>
         /// Generates emote node.

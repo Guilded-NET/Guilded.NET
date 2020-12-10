@@ -11,7 +11,7 @@ namespace Guilded.NET.Objects.Content {
         /// Media which was posted in the profile or in a media channel.
         /// </summary>
         public GuildedMedia() =>
-            (Description, Tags) = (null, null);
+            (Description, Tags, UpdatedAt) = (null, null, null);
         /// <summary>
         /// The type of the media. If it's an image or a video.
         /// </summary>
@@ -50,6 +50,14 @@ namespace Guilded.NET.Objects.Content {
         /// <value>Visibility</value>
         [JsonProperty("visibility")]
         public string Visibility {
+            get; set;
+        }
+        /// <summary>
+        /// When the content were updated.
+        /// </summary>
+        /// <value>Created at</value>
+        [JsonProperty("updatedAt")]
+        public DateTime? UpdatedAt {
             get; set;
         }
     }

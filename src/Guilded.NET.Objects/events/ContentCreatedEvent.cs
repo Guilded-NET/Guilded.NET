@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
-    /// When a forum post, media, document, schedule, event, etc. get created.
+    /// When a forum post, media, document, schedule, event, etc. gets created.
     /// </summary>
     public class ContentCreatedEvent: TeamEvent {
         /// <summary>
@@ -46,6 +46,14 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Media</value>
         [JsonProperty("media")]
         public GuildedMedia Media {
+            get; set;
+        }
+        /// <summary>
+        /// A document which was posted in the channel.
+        /// </summary>
+        /// <value>Document</value>
+        [JsonProperty("document")]
+        public GuildedDocument Document {
             get; set;
         }
     }

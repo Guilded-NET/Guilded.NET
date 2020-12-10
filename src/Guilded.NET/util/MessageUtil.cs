@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace Guilded.NET.Util {
-    using Guilded.NET.Objects.Events;
-    using Guilded.NET.Objects.Teams;
+    using Objects.Events;
+    using Objects.Teams;
+    using Objects.Content;
     using Objects.Chat;
     using Objects;
     /// <summary>
@@ -93,5 +96,38 @@ namespace Guilded.NET.Util {
         /// <returns>Message owner</returns>
         public static User GetAuthor(this Message message) =>
             message.ParentClient.GetUser(message.AuthorId);
+        /// <summary>
+        /// Replies to a forum post.
+        /// </summary>
+        /// <param name="post">Post to reply to</param>
+        /// <param name="content">Content to reply with</param>
+        /// <returns>Async task</returns>
+        public static async Task ReplyAsync(this ForumPost post, MessageContent content) =>
+            await post.ParentClient.CreateForumReplyAsync((Guid)post.ChannelId, post.Id, content);
+        /// <summary>
+        /// Replies to a forum post.
+        /// </summary>
+        /// <param name="post">Post to reply to</param>
+        /// <param name="content">Content to reply with</param>
+        public static void Reply(this ForumPost post, MessageContent content) =>
+            post.ParentClient.CreateForumReply((Guid)post.ChannelId, post.Id, content);
+        /// <summary>
+        /// Gets replies of a specific forum post.
+        /// </summary>
+        /// <param name="post">Forum post to get replies of</param>
+        /// <param name="maxItems">Max amount of replies it should get</param>
+        /// <param name="afterDate">After which date should it get replies</param>
+        /// <returns>List of replies</returns>
+        public static async Task<IList<ForumReply>> GetRepliesAsync(this ForumPost post, uint maxItems, DateTime? afterDate = null) =>
+            await post.ParentClient.GetForumRepliesAsync((Guid)post.ChannelId, post.Id, maxItems, afterDate);
+        /// <summary>
+        /// Gets replies of a specific forum post.
+        /// </summary>
+        /// <param name="post">Forum post to get replies of</param>
+        /// <param name="maxItems">Max amount of replies it should get</param>
+        /// <param name="afterDate">After which date should it get replies</param>
+        /// <returns>List of replies</returns>
+        public static IList<ForumReply> GetReplies(this ForumPost post, uint maxItems, DateTime? afterDate = null) =>
+            post.ParentClient.GetForumReplies((Guid)post.ChannelId, post.Id, maxItems, afterDate);
     }
 }

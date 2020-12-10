@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 
 namespace Guilded.NET.Objects.Teams {
-    using Permissions;
+    using Guilded.NET.Objects.Permissions;
     /// <summary>
     /// A Guilded channel category.
     /// </summary>

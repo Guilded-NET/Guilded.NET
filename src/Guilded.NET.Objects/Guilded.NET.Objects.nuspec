@@ -14,7 +14,9 @@
         <releaseNotes>
 - Profile related things
 - Small and large heading, divider nodes
-- Content created event
+- Content created and removed events
+- Media, docs(no doc replies and no way to get a document from the channel), forum posts, forum replies
+- Role permission channel ID error fix
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

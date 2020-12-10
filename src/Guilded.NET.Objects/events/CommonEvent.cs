@@ -5,14 +5,14 @@ using System;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
-    /// A base for events in teams(reaction events, message events).
+    /// A base for events in both teams(reaction events, message events) and DMs.
     /// </summary>
-    public class TeamEvent: Event {
+    public class CommonEvent: Event {
         /// <summary>
-        /// A base for events in teams(reaction events, message events).
+        /// A base for events in both teams(reaction events, message events) and DMs.
         /// </summary>
-        public TeamEvent() =>
-            (CategoryId, GuildedClientId) = (null, null);
+        public CommonEvent() =>
+           (GuildedClientId, TeamId) = (null, null);
         /// <summary>
         /// ID of the Guilded client.
         /// </summary>
@@ -22,10 +22,10 @@ namespace Guilded.NET.Objects.Events {
             get; set;
         }
         /// <summary>
-        /// ID of the channel this reaction's message is in.
+        /// ID of the channel this event appeared. Can be a DM channel or a team channel.
         /// </summary>
         /// <value>Channel ID</value>
-        [JsonProperty("channelId", Required = Required.Always)]
+        [JsonProperty("channelId")]
         public Guid ChannelId {
             get; set;
         }
@@ -33,7 +33,7 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the category this reaction's channel is.
         /// </summary>
         /// <value>Category ID</value>
-        [JsonProperty("channelCategoryId", Required = Required.AllowNull)]
+        [JsonProperty("channelCategoryId")]
         public uint? CategoryId {
             get; set;
         }
@@ -49,7 +49,7 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the team this reaction is in.
         /// </summary>
         /// <value>Team ID</value>
-        [JsonProperty("teamId", Required = Required.Always)]
+        [JsonProperty("teamId", NullValueHandling = NullValueHandling.Ignore)]
         public GId TeamId {
             get; set;
         }

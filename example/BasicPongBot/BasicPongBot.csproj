@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Guilded.NET" Version="0.0.7" />
+    <PackageReference Include="Guilded.NET" Version="0.0.8.1" />
   </ItemGroup>
 
   <ItemGroup>

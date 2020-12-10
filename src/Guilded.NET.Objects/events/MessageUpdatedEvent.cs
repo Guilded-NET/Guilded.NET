@@ -7,7 +7,7 @@ namespace Guilded.NET.Objects.Events {
     /// <summary>
     /// Event when message gets updated.
     /// </summary>
-    public class MessageUpdatedEvent: TeamEvent {
+    public class MessageUpdatedEvent: CommonEvent {
         /// <summary>
         /// Type of the content.
         /// </summary>

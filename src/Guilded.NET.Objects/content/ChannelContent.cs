@@ -44,13 +44,5 @@ namespace Guilded.NET.Objects.Content {
         public DateTime CreatedAt {
             get; set;
         }
-        /// <summary>
-        /// When the content were updated.
-        /// </summary>
-        /// <value>Created at</value>
-        [JsonProperty("updatedAt")]
-        public DateTime UpdatedAt {
-            get; set;
-        }
     }
 }

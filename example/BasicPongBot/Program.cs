@@ -23,18 +23,17 @@ namespace BasicPongBot {
             // Tells us that it's starting with specific prefix
             Console.WriteLine($"Starting the bot with prefix '{prefix}'");
             // Creates new client
-            using(GuildedUserClient client = new GuildedUserClient(email, password, new GuildedClientConfig(GuildedClientConfig.BasicPrefix(prefix)))) {
-                // Fetches all commands from specific type
-                client.FetchCommands(
-                    typeof(CommandList)
-                );
-                // If client emits any errors
-                client.Error += (o, e) => Console.WriteLine($"Error [{e.Code}]: {e.ErrorMessage}");
-                // When client is ready
-                client.Connected += (o, e) => Console.WriteLine($"I successfully logged in!\n - ID: {client.CurrentUser.Id}\n - Name: {client.CurrentUser.Username}");
-                // Start the bot
-                StartAsync(client).GetAwaiter().GetResult();
-            }
+            using GuildedUserClient client = new GuildedUserClient(email, password, new GuildedClientConfig(GuildedClientConfig.BasicPrefix(prefix)))
+            // Fetches all commands from specific type
+            client.FetchCommands(
+                typeof(CommandList)
+            );
+            // If client emits any errors
+            client.Error += (o, e) => Console.WriteLine($"Error [{e.Code}]: {e.ErrorMessage}");
+            // When client is ready
+            client.Connected += (o, e) => Console.WriteLine($"I successfully logged in!\n - ID: {client.CurrentUser.Id}\n - Name: {client.CurrentUser.Username}");
+            // Start the bot
+            StartAsync(client).GetAwaiter().GetResult();
         }
         /// <summary>
         /// Makes bot connect to Guilded and then stops it from shutting down.

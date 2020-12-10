@@ -11,7 +11,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Mention matcher. Mention equivalent as string.
         /// </summary>
         /// <value>Matcher</value>
-        [JsonProperty("matcher", Required = Required.Always)]
+        [JsonProperty("matcher")]
         public string Matcher {
             get; set;
         }

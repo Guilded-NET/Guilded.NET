@@ -7,7 +7,7 @@ namespace Guilded.NET.Objects.Events {
     /// <summary>
     /// Event when message gets deleted.
     /// </summary>
-    public class MessageDeletedEvent: TeamEvent {
+    public class MessageDeletedEvent: CommonEvent {
         /// <summary>
         /// Type of the content.
         /// </summary>

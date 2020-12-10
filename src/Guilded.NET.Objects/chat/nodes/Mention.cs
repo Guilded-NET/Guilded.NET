@@ -9,8 +9,7 @@ namespace Guilded.NET.Objects.Chat {
     /// </summary>
     public class Mention: ContainerNode<IMessageObject> {
         public Mention() {
-            Type = NodeType.Mention;
-            Object = MsgObject.Inline;
+            (Type, Object) = (NodeType.Mention, MsgObject.Inline);
         }
         /// <summary>
         /// Gets mention data.

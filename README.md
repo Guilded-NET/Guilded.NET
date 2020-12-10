@@ -8,7 +8,7 @@ Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET all
 
 > **NOTE:** It's currently using undocumented and unsupported API. Guilded developers will not help you in any way, shape or form.
 
-[Click here]() (Temporarely closed) to get started with Guilded.NET.
+[Click here]() (Temporarily closed) to get started with Guilded.NET.
 
 > ## Used libraries
 > - **NewtonSoft.Json**: for Guilded JSON

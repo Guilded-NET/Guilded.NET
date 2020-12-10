@@ -7,7 +7,7 @@ namespace Guilded.NET.Objects.Events {
     /// <summary>
     /// Event when message is posted in the chat.
     /// </summary>
-    public class MessageCreatedEvent: TeamEvent {
+    public class MessageCreatedEvent: CommonEvent {
         /// <summary>
         /// Type of the content.
         /// </summary>
