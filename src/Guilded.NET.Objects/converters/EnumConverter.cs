@@ -45,10 +45,10 @@ namespace Guilded.NET.Objects.Converters {
         };
         // All nodetype enums and their string equivalents
         static readonly IDictionary<string, NodeType> nodetypes = new Dictionary<string, NodeType> {
+            {"paragraph", NodeType.Paragraph},
             {"block-quote-container", NodeType.BlockQuoteContainer},
             {"webhookMessage", NodeType.Embed},
             {"block-quote-line", NodeType.BlockQuoteLine},
-            {"paragraph", NodeType.Paragraph},
             {"markdown-plain-text", NodeType.MarkdownPlainText},
             {"code-container", NodeType.CodeContainer},
             {"code-line", NodeType.CodeLine},
@@ -130,25 +130,32 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="dict">Dictionary of the enum</param>
         /// <param name="t">Value</param>
         /// <returns>String</returns>
-        protected static string ConvertTo<T>(IDictionary<string, T> dict, T t) where T: IConvertible => dict.FirstOrDefault(x => object.Equals(x.Value, t)).Key;
+        protected static string ConvertTo<T>(IDictionary<string, T> dict, T t) where T: IConvertible => dict.FirstOrDefault(x => x.Value.Equals(t)).Key;
         /// <summary>
         /// Converts string to enum value.
         /// </summary>
         /// <param name="value">String to be parsed</param>
         /// <returns>Any enum value</returns>
         public static object ConvertFrom(string value, Type type) {
-            if(type == msgobjtype) return msgobj[value];
-            else if(type == marktype) return marktypes[value];
-            else if(type == member) return membershiptypes[value];
-            else if(type == chattype) return chattypes[value];
-            else if(type == msgtype) return messagetype[value];
-            else if(type == mentiontype) return mentions[value];
-            else if(type == channeltype) return channeltypes[value];
-            else if(type == chattype) return chattypes[value];
-            else if(type == mediatype) return media[value];
-            else return nodetypes[value];
+            if(type == msgobjtype) return ConvertFrom(value, msgobj);
+            else if(type == marktype) return ConvertFrom(value, marktypes);
+            else if(type == member) return ConvertFrom(value, membershiptypes);
+            else if(type == chattype) return ConvertFrom(value, chattypes);
+            else if(type == msgtype) return ConvertFrom(value, messagetype);
+            else if(type == mentiontype) return ConvertFrom(value, mentions);
+            else if(type == channeltype) return ConvertFrom(value, channeltypes);
+            else if(type == chattype) return ConvertFrom(value, chattypes);
+            else if(type == mediatype) return ConvertFrom(value, media);
+            else return ConvertFrom(value, nodetypes);
         }
-        
+        /// <summary>
+        /// Converts string to enum value.
+        /// </summary>
+        /// <param name="value">String to be parsed</param>
+        /// <param name="dict">String and enum dictionary</param>
+        /// <returns>Enum value</returns>
+        protected static T ConvertFrom<T>(string value, IDictionary<string, T> dict) =>
+            dict.ContainsKey(value) ? dict[value] : dict.First().Value;
         /// <summary>
         /// Converts string to enum.
         /// </summary>

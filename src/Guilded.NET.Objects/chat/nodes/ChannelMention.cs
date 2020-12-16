@@ -8,10 +8,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Mention of a team channel.
     /// </summary>
     public class ChannelMention: ContainerNode<IMessageObject> {
-        public ChannelMention() {
-            Type = NodeType.Channel;
-            Object = MsgObject.Inline;
-        }
+        /// <summary>
+        /// Mention of a team channel.
+        /// </summary>
+        public ChannelMention() =>
+            (Type, Object) = (NodeType.Channel, MsgObject.Inline);
         /// <summary>
         /// Gets mention data.
         /// </summary>

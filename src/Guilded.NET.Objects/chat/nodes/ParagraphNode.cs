@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's paragraph node.
     /// </summary>
     public class ParagraphNode: ContainerNode<IMessageObject> {
-        public ParagraphNode() {
-            Object = MsgObject.Block;
-            Type = NodeType.Paragraph;
-        }
+        /// <summary>
+        /// Represents Guilded's paragraph node.
+        /// </summary>
+        public ParagraphNode() =>
+            (Object, Type) = (MsgObject.Block, NodeType.Paragraph);
         /// <summary>
         /// Gets all leaves in paragraph.
         /// </summary>
@@ -67,6 +68,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns paragraph node to string.
         /// </summary>
         /// <returns>Paragraph as a string</returns>
-        public override string ToString() => string.Concat(Nodes) + '\n';
+        public override string ToString() => string.Concat(Nodes);
     }
 }

@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's small heading node.
     /// </summary>
     public class SmallTitleNode: ContainerNode<IMessageObject> {
-        public SmallTitleNode() {
-            Object = MsgObject.Block;
-            Type = NodeType.HeadingSmall;
-        }
+        /// <summary>
+        /// Represents Guilded's small heading node.
+        /// </summary>
+        public SmallTitleNode() =>
+            (Object, Type) = (MsgObject.Block, NodeType.HeadingSmall);
         /// <summary>
         /// Gets all leaves in SmallTitle.
         /// </summary>
@@ -67,6 +68,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns small heading node to string.
         /// </summary>
         /// <returns>Small heading node</returns>
-        public override string ToString() => $"## {string.Concat(Nodes)}\n";
+        public override string ToString() => $"## {string.Concat(Nodes)}";
     }
 }

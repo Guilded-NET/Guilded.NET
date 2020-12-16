@@ -34,7 +34,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns a message content into a string.
         /// </summary>
         /// <returns>Content as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
+        public override string ToString() => Document?.ToString();
         /// <summary>
         /// Generates message content. Used by Message.Generate and for editing messages.
         /// </summary>

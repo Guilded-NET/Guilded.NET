@@ -8,9 +8,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Role, user, @everyone or @here mention.
     /// </summary>
     public class Mention: ContainerNode<IMessageObject> {
-        public Mention() {
+        /// <summary>
+        /// Role, user, @everyone or @here mention.
+        /// </summary>
+        public Mention() =>
             (Type, Object) = (NodeType.Mention, MsgObject.Inline);
-        }
         /// <summary>
         /// Gets mention data.
         /// </summary>

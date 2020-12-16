@@ -84,6 +84,11 @@ namespace Guilded.NET.Objects.Chat {
             get => Content.Nodes;
         }
         /// <summary>
+        /// Turns a message into a string.
+        /// </summary>
+        /// <returns>Message as a string</returns>
+        public override string ToString() => Content?.ToString();
+        /// <summary>
         /// Generates a new message.
         /// </summary>
         /// <param name="nodes">List of nodes</param>
@@ -113,10 +118,5 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="embed">Embed to send</param>
         /// <returns>NewMessage</returns>
         public static NewMessage Generate(Embed embed) => Generate(new List<Node> {EmbedNode.Generate(embed)});
-        /// <summary>
-        /// Turns a message into a string.
-        /// </summary>
-        /// <returns>Message as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
     }
 }

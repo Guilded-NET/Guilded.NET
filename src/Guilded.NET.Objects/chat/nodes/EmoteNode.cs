@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's emote node.
     /// </summary>
     public class EmoteNode: ContainerNode<IMessageObject> {
-        public EmoteNode() {
-            Object = MsgObject.Inline;
-            Type = NodeType.Reaction;
-        }
+        /// <summary>
+        /// Represents Guilded's emote node.
+        /// </summary>
+        public EmoteNode() =>
+            (Object, Type) = (MsgObject.Inline, NodeType.Reaction);
         /// <summary>
         /// Gets emote node data.
         /// </summary>

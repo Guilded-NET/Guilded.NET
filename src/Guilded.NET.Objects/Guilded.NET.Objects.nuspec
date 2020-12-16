@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET.Objects</id>
-        <version>0.0.8</version>
+        <version>0.0.9</version>
         <title>Guilded.NET.Objects</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -12,11 +12,7 @@
         <icon>icon.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
-- Profile related things
-- Small and large heading, divider nodes
-- Content created and removed events
-- Media, docs(no doc replies and no way to get a document from the channel), forum posts, forum replies
-- Role permission channel ID error fix
+- Fixed newline at the end of the Message.ToString()
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

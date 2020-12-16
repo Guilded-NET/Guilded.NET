@@ -6,10 +6,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Line of quote block in Guilded.
     /// </summary>
     public class QuoteBlockLine: ContainerNode<IMessageObject> {
-        public QuoteBlockLine() {
-            Type = NodeType.BlockQuoteLine;
-            Object = MsgObject.Block;
-        }
+        /// <summary>
+        /// Line of quote block in Guilded.
+        /// </summary>
+        public QuoteBlockLine() =>
+            (Type, Object) = (NodeType.BlockQuoteLine, MsgObject.Block);
         /// <summary>
         /// Generates quote block line.
         /// </summary>
@@ -23,6 +24,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns quote block to string.
         /// </summary>
         /// <returns>Quote block as a string</returns>
-        public override string ToString() => $"> {string.Concat(Nodes)}\n";
+        public override string ToString() => $"> {string.Concat(Nodes)}";
     }
 }

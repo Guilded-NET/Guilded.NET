@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's large heading node.
     /// </summary>
     public class LargeTitleNode: ContainerNode<IMessageObject> {
-        public LargeTitleNode() {
-            Object = MsgObject.Block;
-            Type = NodeType.HeadingLarge;
-        }
+        /// <summary>
+        /// Represents Guilded's large heading node.
+        /// </summary>
+        public LargeTitleNode() =>
+            (Object, Type) = (MsgObject.Block, NodeType.HeadingLarge);
         /// <summary>
         /// Gets all leaves in LargeTitle.
         /// </summary>
@@ -67,6 +68,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns large heading node to string.
         /// </summary>
         /// <returns>Large heading node</returns>
-        public override string ToString() => $"# {string.Concat(Nodes)}\n";
+        public override string ToString() => $"# {string.Concat(Nodes)}";
     }
 }

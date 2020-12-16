@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Chat {
+    /// <summary>
+    /// Represents chat images in Guilded.
+    /// </summary>
     public class ImageNode: ContainerNode<IMessageObject> {
-        public ImageNode() {
-            Type = NodeType.Image;
-            Object = MsgObject.Block;
-        }
+        /// <summary>
+        /// Represents chat images in Guilded.
+        /// </summary>
+        public ImageNode() =>
+            (Type, Object) = (NodeType.Image, MsgObject.Block);
         /// <summary>
         /// Source URL of the image.
         /// </summary>
@@ -30,7 +34,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns image node to string.
         /// </summary>
         /// <returns>Image node as string</returns>
-        public override string ToString() => $"[ img {SourceURL} ]\n";
+        public override string ToString() => $"[ Image {SourceURL} ]\n";
         /// <summary>
         /// Generates an image node.
         /// </summary>

@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's divider node.
     /// </summary>
     public class DividerNode: ContainerNode<IMessageObject> {
-        public DividerNode() {
-            Object = MsgObject.Block;
-            Type = NodeType.Divider;
-        }
+        /// <summary>
+        /// Represents Guilded's divider node.
+        /// </summary>
+        public DividerNode() =>
+            (Object, Type) = (MsgObject.Block, NodeType.Divider);
         /// <summary>
         /// Generates divider node.
         /// </summary>
@@ -28,6 +29,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns divider node to string.
         /// </summary>
         /// <returns>Divider as a string</returns>
-        public override string ToString() => "---\n";
+        public override string ToString() => "---";
     }
 }

@@ -6,10 +6,11 @@ namespace Guilded.NET.Objects.Chat {
     /// List item in Guilded.
     /// </summary>
     public class ListItem: ContainerNode<IMessageObject> {
-        public ListItem() {
-            Type = NodeType.ListItem;
-            Object = MsgObject.Block;
-        }
+        /// <summary>
+        /// List item in Guilded.
+        /// </summary>
+        public ListItem() =>
+            (Type, Object) = (NodeType.ListItem, MsgObject.Block);
         /// <param name="objs">Text objects to create line from</param>
         public ListItem(params IMessageObject[] objs): this() => Nodes = objs.ToList();
         /// <summary>

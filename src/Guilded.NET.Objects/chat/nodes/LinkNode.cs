@@ -8,10 +8,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's link node.
     /// </summary>
     public class LinkNode: ContainerNode<IMessageObject> {
-        public LinkNode() {
-            Object = MsgObject.Inline;
-            Type = NodeType.Link;
-        }
+        /// <summary>
+        /// Represents Guilded's link node.
+        /// </summary>
+        public LinkNode() =>
+            (Object, Type) = (MsgObject.Inline, NodeType.Link);
         /// <summary>
         /// Turns link node to a string.
         /// </summary>

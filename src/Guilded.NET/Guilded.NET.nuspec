@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET</id>
-        <version>0.0.8.1</version>
+        <version>0.0.9</version>
         <title>Guilded.NET</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -12,7 +12,6 @@
         <icon>icon.png</icon>
         <description>API wrapper for Guilded</description>
         <releaseNotes>
-Dependency fix
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

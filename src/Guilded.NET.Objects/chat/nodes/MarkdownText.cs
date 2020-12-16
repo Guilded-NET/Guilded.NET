@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's paragraph node.
     /// </summary>
     public class MarkDownText: ContainerNode<IMessageObject> {
-        public MarkDownText() {
-            Object = MsgObject.Block;
-            Type = NodeType.MarkdownPlainText;
-        }
+        /// <summary>
+        /// Represents Guilded's paragraph node.
+        /// </summary>
+        public MarkDownText() =>
+            (Object, Type) = (MsgObject.Block, NodeType.MarkdownPlainText);
         /// <summary>
         /// Generates paragraph node.
         /// </summary>

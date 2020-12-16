@@ -31,9 +31,9 @@ namespace Guilded.NET.Objects.Chat {
             get; set;
         }
         /// <summary>
-        /// Turns a message content into a string.
+        /// Turns a message document into a string.
         /// </summary>
-        /// <returns>Content as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
+        /// <returns>Document as a string</returns>
+        public override string ToString() => string.Join('\n', Nodes);
     }
 }

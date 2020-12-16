@@ -5,9 +5,6 @@ namespace Guilded.NET.Util {
     using Objects.Teams;
     using Objects.Chat;
     using Objects;
-    using Guilded.NET.Objects.Permissions;
-    using System.Collections.Generic;
-
     /// <summary>
     /// Utilities for channel related things.
     /// </summary>

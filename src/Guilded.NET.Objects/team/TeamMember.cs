@@ -109,7 +109,7 @@ namespace Guilded.NET.Objects.Teams {
         /// Presence of the user.
         /// </summary>
         /// <value>Presence</value>
-        [JsonProperty("userPresenceStatus", Required = Required.Always)]
+        [JsonProperty("userPresenceStatus")]
         public Presence Presence {
             get; set;
         }

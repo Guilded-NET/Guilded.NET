@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Represents Guilded's code block node.
     /// </summary>
     public class CodeBlock: ContainerNode<CodeLine> {
-        public CodeBlock() {
-            Object = MsgObject.Block;
-            Type = NodeType.CodeContainer;
-        }
+        /// <summary>
+        /// Represents Guilded's code block node.
+        /// </summary>
+        public CodeBlock() =>
+            (Object, Type) = (MsgObject.Block, NodeType.CodeContainer);
         /// <summary>
         /// Generates code block node.
         /// </summary>
@@ -35,6 +36,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns code block to string.
         /// </summary>
         /// <returns>Code block as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
+        public override string ToString() => string.Join('\n', Nodes);
     }
 }

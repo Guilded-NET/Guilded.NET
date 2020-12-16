@@ -129,5 +129,40 @@ namespace Guilded.NET.Util {
         /// <returns>List of replies</returns>
         public static IList<ForumReply> GetReplies(this ForumPost post, uint maxItems, DateTime? afterDate = null) =>
             post.ParentClient.GetForumReplies((Guid)post.ChannelId, post.Id, maxItems, afterDate);
+        /// <summary>
+        /// If this message was posted by this client.
+        /// </summary>
+        /// <param name="message">Message to check</param>
+        /// <returns>Client message</returns>
+        public static bool IsClientMessage(this Message message) =>
+            message?.ParentClient is BasicGuildedClient client && message.IsMessageOf(client?.CurrentUser);
+        /// <summary>
+        /// If this message was posted by this client.
+        /// </summary>
+        /// <param name="message">Message to check</param>
+        /// <returns>Client message</returns>
+        public static bool IsClientMessage(this MessageCreatedEvent message) =>
+            message.Message.IsClientMessage();
+        /// <summary>
+        /// If this message was posted by given user
+        /// </summary>
+        /// <param name="message">Message to check</param>
+        /// <returns>Message by that user</returns>
+        public static bool IsMessageOf(this Message message, User user) =>
+            message.AuthorId == user?.Id;
+        /// <summary>
+        /// If this message was posted by given user.
+        /// </summary>
+        /// <param name="message">Message to check</param>
+        /// <returns>Message by that user</returns>
+        public static bool IsMessageOf(this MessageCreatedEvent message, User user) =>
+            message.Message.IsMessageOf(user);
+        /// <summary>
+        /// If message was updated by given user.
+        /// </summary>
+        /// <param name="message">Message to check</param>
+        /// <returns>Message updated by that user</returns>
+        public static bool WasUpdatedBy(this MessageUpdatedEvent message, User user) =>
+            message.UpdatedBy == user?.Id;
     }
 }

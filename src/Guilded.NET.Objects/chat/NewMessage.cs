@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
@@ -23,6 +24,14 @@ namespace Guilded.NET.Objects.Chat {
             get; set;
         }
         /// <summary>
+        /// Gets message content nodes.
+        /// </summary>
+        /// <value>List of Nodes</value>
+        [JsonIgnore]
+        public IList<Node> Nodes {
+            get => Content?.Nodes;
+        }
+        /// <summary>
         /// I don't even know what this is.
         /// </summary>
         /// <value>Something</value>
@@ -30,5 +39,10 @@ namespace Guilded.NET.Objects.Chat {
         public bool Confirmed {
             get; set;
         } = false;
+        /// <summary>
+        /// Turns a message into a string.
+        /// </summary>
+        /// <returns>Message as a string</returns>
+        public override string ToString() => Content?.ToString();
     }
 }
