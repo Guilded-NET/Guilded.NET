@@ -13,6 +13,8 @@
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
 - Fixed newline at the end of the Message.ToString()
+- Form related things
+- Form option/field IDs, base ID
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

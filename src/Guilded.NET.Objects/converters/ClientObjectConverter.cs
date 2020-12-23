@@ -1,9 +1,6 @@
 using System;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
-using Guilded.NET.Objects.Teams;
-using System.Runtime.CompilerServices;
 
 namespace Guilded.NET.Objects.Converters {
     /// <summary>

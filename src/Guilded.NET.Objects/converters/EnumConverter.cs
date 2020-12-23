@@ -8,6 +8,7 @@ namespace Guilded.NET.Objects.Converters {
     using Chat;
     using Teams;
     using Content;
+    using Forms;
     /// <summary>
     /// Converts enum to string and vice versa.
     /// </summary>
@@ -22,8 +23,10 @@ namespace Guilded.NET.Objects.Converters {
         static readonly Type mentiontype = typeof(MentionType);
         static readonly Type channeltype = typeof(ChannelType);
         static readonly Type mediatype = typeof(MediaType);
+        static readonly Type formtype = typeof(FormType);
+        static readonly Type formfieldtype = typeof(FormFieldType);
         // All of the allowed types
-        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype };
+        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype };
         // All msgobj enums and their string equivalents
         static readonly IDictionary<string, MsgObject> msgobj = new Dictionary<string, MsgObject> {
             {"block", MsgObject.Block},
@@ -98,6 +101,17 @@ namespace Guilded.NET.Objects.Converters {
             {"image", MediaType.Image},
             {"video", MediaType.Video}
         };
+        static readonly IDictionary<string, FormType> forms = new Dictionary<string, FormType> {
+            {"form", FormType.Form},
+            {"poll", FormType.Poll}
+        };
+        static readonly IDictionary<string, FormFieldType> formfields = new Dictionary<string, FormFieldType> {
+            {"Text", FormFieldType.Text},
+            {"TextArea", FormFieldType.TextArea},
+            {"Radios", FormFieldType.Radios},
+            {"Checkboxes", FormFieldType.Checkboxes},
+            {"Dropdown", FormFieldType.Dropdown}
+        };
         /// <summary>
         /// Writes enum to the string.
         /// </summary>
@@ -122,6 +136,8 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == channeltype) return ConvertTo(channeltypes, (ChannelType)value);
             else if(type == chattype) return ConvertTo(chattypes, (ChatType)value);
             else if(type == mediatype) return ConvertTo(media, (MediaType)value);
+            else if(type == formtype) return ConvertTo(forms, (FormType)value);
+            else if(type == formfieldtype) return ConvertTo(formfields, (FormFieldType)value);
             else throw new ArgumentException($"{nameof(value)} can not be converted. Given type: {type.FullName}");
         }
         /// <summary>
@@ -146,6 +162,8 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == channeltype) return ConvertFrom(value, channeltypes);
             else if(type == chattype) return ConvertFrom(value, chattypes);
             else if(type == mediatype) return ConvertFrom(value, media);
+            else if(type == formtype) return ConvertFrom(value, forms);
+            else if(type == formfieldtype) return ConvertFrom(value, formfields);
             else return ConvertFrom(value, nodetypes);
         }
         /// <summary>

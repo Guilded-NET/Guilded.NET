@@ -8,6 +8,7 @@ namespace Guilded.NET.Objects.Converters {
     public class IdConverter: JsonConverter {
         static readonly Type id = typeof(GId);
         static readonly Type guid = typeof(Guid);
+        static readonly Type formid = typeof(FormId);
         /// <summary>
         /// Writes ID to the JSON string.
         /// </summary>
@@ -27,6 +28,7 @@ namespace Guilded.NET.Objects.Converters {
             string str = (string)reader.Value;
             if(objectType == id) return GId.Parse(str);
             else if(objectType == guid) return Guid.Parse(str);
+            else if(objectType == formid) return FormId.Parse(str);
             else return reader.Value;
         }
         /// <summary>
@@ -34,6 +36,6 @@ namespace Guilded.NET.Objects.Converters {
         /// </summary>
         /// <param name="objectType">Type of the object</param>
         /// <returns>Can convert the type</returns>
-        public override bool CanConvert(Type objectType) => objectType == id || objectType == guid;
+        public override bool CanConvert(Type objectType) => objectType == id || objectType == guid || objectType == formid;
     }
 }
