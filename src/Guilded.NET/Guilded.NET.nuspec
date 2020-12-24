@@ -12,6 +12,8 @@
         <icon>icon.png</icon>
         <description>API wrapper for Guilded</description>
         <releaseNotes>
+- Content updated event
+- Voice/stream channel joined and left events
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
