@@ -10,7 +10,7 @@ namespace Guilded.NET.Objects.Teams {
         /// List of channel categories.
         /// </summary>
         /// <value>List of categories</value>
-        [JsonProperty("categories", Required = Required.Always)]
+        [JsonProperty("categories")]
         public IList<Category> Categories {
             get; set;
         }
@@ -18,7 +18,7 @@ namespace Guilded.NET.Objects.Teams {
         /// List of temporal channels.
         /// </summary>
         /// <value>List of temporal channels</value>
-        [JsonProperty("temporalChannels", Required = Required.Always)]
+        [JsonProperty("temporalChannels")]
         public IList<ThreadChannel> TemporalChannels {
             get; set;
         }

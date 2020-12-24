@@ -9,10 +9,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// A message sent by the system.
         /// </summary>
-        public SystemMessage() {
-            Type = NodeType.SystemMessage;
-            Object = MsgObject.Block;
-        }
+        public SystemMessage() =>
+            (Type, Object) = (NodeType.SystemMessage, MsgObject.Block);
         /// <summary>
         /// Type of the system message.
         /// </summary>

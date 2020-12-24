@@ -5,9 +5,9 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
-    /// When a forum post, media, document, schedule, event, etc. gets created.
+    /// When a forum post, media, document, schedule, event, etc. gets updated.
     /// </summary>
-    public class ContentCreatedEvent: TeamEvent {
+    public class ContentUpdatedEvent: TeamEvent {
         /// <summary>
         /// Type of the channel.
         /// </summary>
@@ -25,11 +25,11 @@ namespace Guilded.NET.Objects.Events {
             get; set;
         }
         /// <summary>
-        /// Who created the content.
+        /// Who updated the content.
         /// </summary>
-        /// <value>Content owner</value>
-        [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        /// <value>User ID</value>
+        [JsonProperty("updatedBy", Required = Required.Always)]
+        public GId UpdatedBy {
             get; set;
         }
         /// <summary>

@@ -6,12 +6,20 @@ namespace Guilded.NET.Objects.Content {
     /// <summary>
     /// Media which was posted in the profile or in a media channel.
     /// </summary>
-    public class GuildedMedia: ChannelContent<uint> {
+    public class GuildedMedia: ChannelPost<uint> {
         /// <summary>
         /// Media which was posted in the profile or in a media channel.
         /// </summary>
         public GuildedMedia() =>
             (Description, Tags, UpdatedAt) = (null, null, null);
+        /// <summary>
+        /// Title of the post.
+        /// </summary>
+        /// <value>Title</value>
+        [JsonProperty("name", Required = Required.Always)]
+        public string Name {
+            get; set;
+        }
         /// <summary>
         /// The type of the media. If it's an image or a video.
         /// </summary>
@@ -42,14 +50,6 @@ namespace Guilded.NET.Objects.Content {
         /// <value>Tags</value>
         [JsonProperty("tags")]
         public IList<string> Tags {
-            get; set;
-        }
-        /// <summary>
-        /// If it should be displayed to everyone or not.
-        /// </summary>
-        /// <value>Visibility</value>
-        [JsonProperty("visibility")]
-        public string Visibility {
             get; set;
         }
         /// <summary>

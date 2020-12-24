@@ -156,6 +156,39 @@ namespace Guilded.NET {
             remove => ContentRemovedEvent -= value;
         }
         /// <summary>
+        /// When someone updates a forum post, media, document, etc..
+        /// </summary>
+        protected EventHandler<ContentUpdatedEvent> ContentUpdatedEvent;
+        /// <summary>
+        /// When someone updates a forum post, media, document, etc..
+        /// </summary>
+        public event EventHandler<ContentUpdatedEvent> ContentUpdated {
+            add => ContentUpdatedEvent += value;
+            remove => ContentUpdatedEvent -= value;
+        }
+        /// <summary>
+        /// When someone joins a voice or a stream channel.
+        /// </summary>
+        protected EventHandler<VoiceUpdatedEvent> UserVoiceJoinedEvent;
+        /// <summary>
+        /// When someone joins a voice or a stream channel.
+        /// </summary>
+        public event EventHandler<VoiceUpdatedEvent> UserVoiceJoined {
+            add => UserVoiceJoinedEvent += value;
+            remove => UserVoiceJoinedEvent -= value;
+        }
+        /// <summary>
+        /// When someone leaves a voice or a stream channel.
+        /// </summary>
+        protected EventHandler<VoiceUpdatedEvent> UserVoiceLeftEvent;
+        /// <summary>
+        /// When someone leaves a voice or a stream channel.
+        /// </summary>
+        public event EventHandler<VoiceUpdatedEvent> UserVoiceLeft {
+            add => UserVoiceLeftEvent += value;
+            remove => UserVoiceLeftEvent -= value;
+        }
+        /// <summary>
         /// Checks if there's a command in the message. If there is, it executes that command.
         /// </summary>
         /// <param name="o">Who invoked this method</param>
@@ -258,7 +291,16 @@ namespace Guilded.NET {
                         break;
                     case "TEAM_CHANNEL_CONTENT_DELETED":
                         InvokeEvent<ContentDeletedEvent>(ContentRemovedEvent, xeobj);
-                        break;  
+                        break;
+                    case "TEAM_CHANNEL_CONTENT_UPDATED":
+                        InvokeEvent<ContentUpdatedEvent>(ContentUpdatedEvent, xeobj);
+                        break;
+                    case "TeamChannelVoiceParticipantAdded":
+                        InvokeEvent<VoiceUpdatedEvent>(UserVoiceJoinedEvent, xeobj);
+                        break;
+                    case "TeamChannelVoiceParticipantRemoved":
+                        InvokeEvent<VoiceUpdatedEvent>(UserVoiceLeftEvent, xeobj);
+                        break;
                 }
             }
             else if(x is SocketMessage xm)

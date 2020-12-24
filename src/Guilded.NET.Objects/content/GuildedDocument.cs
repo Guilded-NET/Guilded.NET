@@ -14,6 +14,14 @@ namespace Guilded.NET.Objects.Content {
         public GuildedDocument() =>
             (Replies, ModifiedBy, ModifiedAt) = (null, null, null);
         /// <summary>
+        /// Title of the post.
+        /// </summary>
+        /// <value>Title</value>
+        [JsonProperty("title", Required = Required.Always)]
+        public string Title {
+            get; set;
+        }
+        /// <summary>
         /// Content of this forum post.
         /// </summary>
         /// <value>Forum post content</value>

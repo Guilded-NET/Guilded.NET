@@ -14,14 +14,6 @@ namespace Guilded.NET.Objects.Content {
         public ChannelPost() =>
             CreatedByBotId = null;
         /// <summary>
-        /// Title of the post.
-        /// </summary>
-        /// <value>Title</value>
-        [JsonProperty("title", Required = Required.Always)]
-        public string Title {
-            get; set;
-        }
-        /// <summary>
         /// If it should be displayed to everyone or not.
         /// </summary>
         /// <value>Visibility</value>
