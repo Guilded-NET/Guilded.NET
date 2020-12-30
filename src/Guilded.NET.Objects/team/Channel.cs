@@ -13,12 +13,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         public Channel() =>
             (ParentChannel, ChannelCategoryId, AddedAt) = (null, null, null);
-        /// <summary>
-        /// Priority of this channel.
-        /// </summary>
-        /// <value>Priority</value>
+        /// <inheritdoc/>
         [JsonProperty("priority")]
-        public uint? Priority {
+        public long? Priority {
             get; set;
         }
         /// <summary>
@@ -29,10 +26,7 @@ namespace Guilded.NET.Objects.Teams {
         public Guid Id {
             get; set;
         }
-        /// <summary>
-        /// Name of this channel.
-        /// </summary>
-        /// <value>Name</value>
+        /// <inheritdoc/>
         [JsonProperty("name")]
         public string Name {
             get; set;
@@ -45,42 +39,22 @@ namespace Guilded.NET.Objects.Teams {
         public string Description {
             get; set;
         }
-        /// <summary>
-        /// Permissions of the roles in this channel.
-        /// </summary>
-        /// <value>Role Permissions</value>
+        /// <inheritdoc/>
         [JsonProperty("rolesById")]
         public IDictionary<string, ChannelPermission> RolePermissions {
             get; set;
         }
-        /// <summary>
-        /// Permissions of the users in this channel.
-        /// </summary>
-        /// <value>User Permissions</value>
+        /// <inheritdoc/>
         [JsonProperty("userPermissions")]
         public IList<UserPermission> UserPermissions {
             get; set;
         }
-        /// <summary>
-        /// Tournament permissions.
-        /// </summary>
-        /// <value>Permissions</value>
-        //[JsonProperty("tournamentRolesById")]
-        //public IDictionary<string, Permissions> TournamentRolePermissions {
-        //    get; set;
-        //}
-        /// <summary>
-        /// ID of team this channel is in.
-        /// </summary>
-        /// <value>Team ID</value>
+        /// <inheritdoc/>
         [JsonProperty("teamId")]
         public GId TeamId {
             get; set;
         }
-        /// <summary>
-        /// ID of the category this channel is in.
-        /// </summary>
-        /// <value>Nullable Channel ID</value>
+        /// <inheritdoc/>
         [JsonProperty("channelCategoryId")]
         public uint? ChannelCategoryId {
             get; set;
@@ -109,18 +83,12 @@ namespace Guilded.NET.Objects.Teams {
         public bool IsPublic {
             get; set;
         }
-        /// <summary>
-        /// ID of the group this channel is in.
-        /// </summary>
-        /// <value>Group ID</value>
+        /// <inheritdoc/>
         [JsonProperty("groupId")]
         public GId GroupId {
             get; set;
         }
-        /// <summary>
-        /// When the channel was created.
-        /// </summary>
-        /// <value>Date</value>
+        /// <inheritdoc/>
         [JsonProperty("createdAt", Required = Required.Always)]
         public DateTime CreatedAt {
             get; set;
@@ -133,10 +101,7 @@ namespace Guilded.NET.Objects.Teams {
         public GId CreatedBy {
             get; set;
         }
-        /// <summary>
-        /// When the channel was updated.
-        /// </summary>
-        /// <value>Date</value>
+        /// <inheritdoc/>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
         public DateTime? UpdatedAt {
             get; set;

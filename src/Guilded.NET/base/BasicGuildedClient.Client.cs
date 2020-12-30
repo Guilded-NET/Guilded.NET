@@ -1,18 +1,20 @@
-using RestSharp;
 using System.Threading.Tasks;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.WebSockets;
 using Websocket.Client;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace Guilded.NET {
     using API;
     using Util;
     using Objects.Converters;
     using Objects;
+    using Objects.Teams;
     /// <summary>
     /// A base for user bot clients and normal bot clients.
     /// </summary>
@@ -52,6 +54,10 @@ namespace Guilded.NET {
         public GuildedClientConfig ClientConfig {
             get; set;
         }
+        /// <summary>
+        /// A base for user bot clients and normal bot clients.
+        /// </summary>
+        /// <param name="config">A configuration which will change how Guilded.NET client will work</param>
         protected BasicGuildedClient(GuildedClientConfig config): base() {
             // Create new serializer
             GuildedSerializer = new JsonSerializer();
@@ -81,15 +87,32 @@ namespace Guilded.NET {
         /// </summary>
         /// <returns>Async Task</returns>
 #pragma warning disable 0618
-        protected async Task BasicConnectAsync() {
+        protected Task BasicConnectAsync() {
             // Inits websocket
-            base.InitWebsocket(25, GuildedWebsocketURL, 25);
+            InitWebsocket(25);
 #pragma warning restore 0618
-            // Message
-            Websocket.MessageReceived.Subscribe(WebsocketMessageReceived);
-            // Start
-            await Websocket.StartOrFail();
+            // A cancellation token for the thread
+            HeartbeatToken = new CancellationTokenSource();
+            // Thread for ping and heartbeat
+            HeartbeatThread = new Thread(async (o) => await HeartbeatThreadMethod(HeartbeatToken.Token));
+            // Starts heartbeat thread.
             HeartbeatThread.Start();
+            return Task.CompletedTask;
+        }
+        /// <summary>
+        /// Initializes websocket.
+        /// </summary>
+        /// <param name="reconnection">Seconds of time between each reconnection</param>
+        /// <param name="teamId">ID of the team to initialize websocket in</param>
+        public override WebsocketClient InitWebsocket(double? reconnection = null, string teamId = null) {
+            // Calls base to create a websocket
+            WebsocketClient websocket = base.InitWebsocket(reconnection, teamId);
+            Console.WriteLine("Creating client for {0}", teamId);
+            // Subscribe to message event, so we could get events such as message creation event
+            websocket.MessageReceived.Subscribe(o => Console.WriteLine("{0}:\n{1}", websocket.Url, o.Text));
+            // Start that websocket
+            websocket.StartOrFail().GetAwaiter().GetResult();
+            return websocket;
         }
         /// <summary>
         /// Used for when Websocket receives a message.
@@ -130,6 +153,49 @@ namespace Guilded.NET {
                 }
             }
         }
+        /// <summary>
+        /// Sets referer as a specific team channel.
+        /// </summary>
+        /// <param name="channel">Channel to refer to</param>
+        public async Task SetReferer(Channel channel) {
+            // Team that channel is in
+            Team team = await channel.GetTeamAsync();
+            // All groups of that team
+            IList<Group> groups = await team.GetGroupsAsync();
+            // Sets new referer
+            Referer = $"{team.Subdomain}/groups/{groups.FirstOrDefault(x => x.Id == channel.GroupId)}/channels/{channel.Id}/chat";
+        }
+        /// <summary>
+        /// Sets referer as a specific team thread.
+        /// </summary>
+        /// <param name="channel">Thread to refer to</param>
+        public async Task SetReferer(ThreadChannel channel) {
+            // Team that channel is in
+            Team team = await channel.GetTeamAsync();
+            // All groups of that team
+            IList<Group> groups = await team.GetGroupsAsync();
+            // Sets new referer
+            Referer = $"{team.Subdomain}/groups/{groups.FirstOrDefault(x => x.Id == channel.GroupId)}/channels/{channel.Id}/chat";
+        }
+        /// <summary>
+        /// Sets referer as a specific DM channel.
+        /// </summary>
+        /// <param name="channel">DM channel to set referer as</param>
+        public void SetReferer(DMChannel channel) =>
+            Referer = $"{channel.Id}/chat";
+        /// <summary>
+        /// Sets referer as a specific team's overvierw, audit, member list or applications.
+        /// </summary>
+        /// <param name="team">Team to refer to</param>
+        /// <param name="refer">To what it should refer to in the team</param>
+        public void SetReferer(Team team, TeamRefer refer) =>
+            Referer = $"{team.Subdomain}/{refer.ToString().ToLower()}";
+        /// <summary>
+        /// Creates a new websocket which focuses on a specific server.
+        /// </summary>
+        /// <param name="id">ID of the server. Nullable.</param>
+        public void FocusOnTeam(GId id) =>
+            InitWebsocket(25, id != null ? $"teamId={id}" : "jwt=undefined");
         /// <summary>
         /// Base for disconnect method.
         /// </summary>

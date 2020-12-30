@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Chat/text channel related permissions.
     /// </summary>
+    [Flags]
     public enum ChatPermissions {
         /// <summary>
         /// Allows you to send chat messages

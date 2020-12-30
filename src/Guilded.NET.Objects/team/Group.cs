@@ -27,7 +27,7 @@ namespace Guilded.NET.Objects.Teams {
         /// A description of a team.
         /// </summary>
         /// <value>Nullable string</value>
-        [JsonProperty("description", Required = Required.Always)]
+        [JsonProperty("description", Required = Required.AllowNull)]
         public string Description {
             get; set;
         }
@@ -36,7 +36,7 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public uint? Priority {
+        public long? Priority {
             get; set;
         }
         /// <summary>
@@ -91,7 +91,7 @@ namespace Guilded.NET.Objects.Teams {
         /// Priority of this group current user has set to.
         /// </summary>
         /// <value>User custom priority</value>
-        [JsonProperty("userPriority", Required = Required.AllowNull)]
+        [JsonProperty("userPriority")]
         public uint? UserPriority {
             get; set;
         }

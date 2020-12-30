@@ -103,7 +103,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates a new message using string.
         /// </summary>
-        /// <param name="content">Content of the message</param>
+        /// <param name="node">Content of the message</param>
         /// <returns>NewMessage</returns>
         public static NewMessage Generate(Node node) => Generate(new List<Node> { node });
         /// <summary>

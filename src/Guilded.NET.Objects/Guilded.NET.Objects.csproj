@@ -10,6 +10,7 @@
     <Authors>IdkGoodName</Authors>
     <Description>Guilded objects for Guilded.NET</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

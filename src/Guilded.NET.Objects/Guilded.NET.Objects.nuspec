@@ -17,6 +17,9 @@
 - Form option/field IDs, base ID
 - Schedules and events
 - Voice/stream channel joined and left events.
+- Undocumented API updated team crashes when parsing
+- Fixed permission enums(had no [Flags] attribute)
+- Documentation fixes
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

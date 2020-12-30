@@ -12,7 +12,7 @@ namespace Guilded.NET.Objects.Events {
         /// A base for events in both teams(reaction events, message events) and DMs.
         /// </summary>
         public CommonEvent() =>
-           (GuildedClientId, TeamId) = (null, null);
+           (GuildedClientId, TeamId, CategoryId) = (null, null, null);
         /// <summary>
         /// ID of the Guilded client.
         /// </summary>
@@ -41,7 +41,7 @@ namespace Guilded.NET.Objects.Events {
         /// Type of the channel.
         /// </summary>
         /// <value>Team</value>
-        [JsonProperty("channelType")]
+        [JsonProperty("channelType", Required = Required.Always)]
         public ChatType ChannelType {
             get; set;
         }
@@ -49,7 +49,7 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the team this reaction is in.
         /// </summary>
         /// <value>Team ID</value>
-        [JsonProperty("teamId", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("teamId")]
         public GId TeamId {
             get; set;
         }

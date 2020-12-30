@@ -189,6 +189,28 @@ namespace Guilded.NET {
             remove => UserVoiceLeftEvent -= value;
         }
         /// <summary>
+        /// When a message in chat gets pinned.
+        /// </summary>
+        protected EventHandler<MessagePinUpdatedEvent> MessagePinnedEvent;
+        /// <summary>
+        /// When a message in chat gets pinned.
+        /// </summary>
+        public event EventHandler<MessagePinUpdatedEvent> MessagePinned {
+            add => MessagePinnedEvent += value;
+            remove => MessagePinnedEvent -= value;
+        }
+        /// <summary>
+        /// When a message in chat gets unpinned.
+        /// </summary>
+        protected EventHandler<MessagePinUpdatedEvent> MessageUnpinnedEvent;
+        /// <summary>
+        /// When a message in chat gets unpinned.
+        /// </summary>
+        public event EventHandler<MessagePinUpdatedEvent> MessageUnpinned {
+            add => MessageUnpinnedEvent += value;
+            remove => MessageUnpinnedEvent -= value;
+        }
+        /// <summary>
         /// Checks if there's a command in the message. If there is, it executes that command.
         /// </summary>
         /// <param name="o">Who invoked this method</param>
@@ -218,8 +240,6 @@ namespace Guilded.NET {
         /// <summary>
         /// Method when someone invokes a command.
         /// </summary>
-        /// <param name="author">Author of the message</param>
-        /// <param name="team">Team the command was used in</param>
         /// <param name="client">Client currently being used</param>
         /// <param name="msg">Message created event</param>
         /// <param name="command">Command name</param>
@@ -300,6 +320,12 @@ namespace Guilded.NET {
                         break;
                     case "TeamChannelVoiceParticipantRemoved":
                         InvokeEvent<VoiceUpdatedEvent>(UserVoiceLeftEvent, xeobj);
+                        break;
+                    case "ChatPinnedMessageCreated":
+                        InvokeEvent<MessagePinUpdatedEvent>(MessagePinnedEvent, xeobj);
+                        break;
+                    case "ChatPinnedMessageDeleted":
+                        InvokeEvent<MessagePinUpdatedEvent>(MessageUnpinnedEvent, xeobj);
                         break;
                 }
             }

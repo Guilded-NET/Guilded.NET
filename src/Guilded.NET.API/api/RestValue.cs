@@ -4,8 +4,7 @@ namespace Guilded.NET.API {
     /// <summary>
     /// Value for RestRequests.
     /// </summary>
-    /// <typeparam name="TKey">Key type of the pair</typeparam>
-    /// <typeparam name="TValue">Value type of the pair</typeparam>
+    /// <typeparam name="T">Value's type</typeparam>
     public abstract class RestValue<T>: IReqAddable {
         /// <summary>
         /// Value of the request object.
@@ -19,18 +18,12 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <param name="value">Pair value</param>
         protected RestValue(T value) => Value = value;
-        /// <summary>
-        /// Adds this to RestRequest.
-        /// </summary>
-        /// <param name="client">API Request</param>
-        /// <returns>Given RestRequest</returns>
+        /// <inheritdoc/>
         public abstract IRestRequest AddTo(RestRequest req);
         /// <summary>
         /// Casts RestPair to KeyValuePair.
         /// </summary>
-        /// <param name="pair">Pair to be casted</param>
-        /// <typeparam name="TKey">Key type</typeparam>
-        /// <typeparam name="TValue">Value type</typeparam>
+        /// <param name="restvalue">Pair to be casted</param>
         /// <returns>New pair</returns>
         public static implicit operator T(RestValue<T> restvalue) =>
             restvalue.Value;

@@ -1,8 +1,4 @@
 bin
-bin/*
-bin/*.*
 obj
-obj/*
-obj/*.*
 *.nupkg
 icon.png

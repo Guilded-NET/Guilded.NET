@@ -7,10 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// Node containing embeds. A.k.a. webhook message in Guilded.
     /// </summary>
     public class EmbedNode: ContainerNode<IMessageObject> {
-        public EmbedNode() {
-            Type = NodeType.Embed;
-            Object = MsgObject.Block;
-        }
+        /// <summary>
+        /// Node containing embeds. A.k.a. webhook message in Guilded.
+        /// </summary>
+        public EmbedNode() =>
+            (Type, Object) = (NodeType.Embed, MsgObject.Block);
         /// <summary>
         /// List of embeds in this embed node.
         /// </summary>

@@ -23,34 +23,22 @@ namespace Guilded.NET.Objects.Teams {
         public ulong TeamRoleId {
             get; set;
         }
-        /// <summary>
-        /// The date when this permission was created.
-        /// </summary>
-        /// <value>Date</value>
+        /// <inheritdoc/>
         [JsonProperty("createdAt", Required = Required.Always)]
         public DateTime CreatedAt {
             get; set;
         }
-        /// <summary>
-        /// The date when this permission was updated.
-        /// </summary>
-        /// <value>Date</value>
+        /// <inheritdoc/>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
         public DateTime? UpdatedAt {
             get; set;
         }
-        /// <summary>
-        /// Denied permissions in this channel.
-        /// </summary>
-        /// <value>Permissions</value>
+        /// <inheritdoc/>
         [JsonProperty("denyPermissions")]
         public PermissionList DenyPermissions {
             get; set;
         }
-        /// <summary>
-        /// Allowed permissions in this channel.
-        /// </summary>
-        /// <value>Permissions</value>
+        /// <inheritdoc/>
         [JsonProperty("allowPermissions")]
         public PermissionList AllowPermissions {
             get; set;

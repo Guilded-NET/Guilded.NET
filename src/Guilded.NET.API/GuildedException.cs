@@ -21,9 +21,18 @@ namespace Guilded.NET {
         public string ErrorMessage {
             get; set;
         }
+        /// <summary>
+        /// Exception thrown by Guilded.
+        /// </summary>
         public GuildedException(): base("Guilded exception was thrown.") { }
+        /// <summary>
+        /// Exception thrown by Guilded.
+        /// </summary>
         /// <param name="inner">Inner exception of the Guilded exception</param>
         public GuildedException(Exception inner): base("Guilded exception was thrown.", inner) {}
+        /// <summary>
+        /// Exception thrown by Guilded.
+        /// </summary>
         /// <param name="info">Error serialization info</param>
         /// <param name="context">Streaming context</param>
         protected GuildedException(

@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Permissions of document/doc channel.
     /// </summary>
+    [Flags]
     public enum DocPermissions {
         /// <summary>
         /// Allows you to create docs

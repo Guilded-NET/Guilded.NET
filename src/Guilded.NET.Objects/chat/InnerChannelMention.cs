@@ -7,18 +7,12 @@ namespace Guilded.NET.Objects.Chat {
     /// Data of channel mention.
     /// </summary>
     public class ChannelMentionData: BaseObject, IMention {
-        /// <summary>
-        /// Mention matcher. Mention equivalent as string.
-        /// </summary>
-        /// <value>Matcher</value>
+        /// <inheritdoc/>
         [JsonProperty("matcher")]
         public string Matcher {
             get; set;
         }
-        /// <summary>
-        /// Name of the mention.
-        /// </summary>
-        /// <value>Name</value>
+        /// <inheritdoc/>
         [JsonProperty("name", Required = Required.Always)]
         public string Name {
             get; set;

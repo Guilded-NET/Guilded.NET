@@ -11,6 +11,10 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         public FormField() =>
             (Options, Header, DefaultValue) = (new List<FieldOption>(), "", null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [JsonProperty("grow")]
         public uint Grow {
             get; set;

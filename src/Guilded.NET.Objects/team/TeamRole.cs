@@ -36,7 +36,7 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority")]
-        public uint? Priority {
+        public long? Priority {
             get; set;
         } = null;
         /// <summary>

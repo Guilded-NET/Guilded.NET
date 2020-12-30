@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Voice chat/channel permissions.
     /// </summary>
+    [Flags]
     public enum VoicePermissions {
         /// <summary>
         /// Allows you to talk in voice chat

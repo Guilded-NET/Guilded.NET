@@ -29,12 +29,12 @@ namespace Guilded.NET.API {
             // Return it
             return container;
         }
-        [Obsolete("RestResponseCookie is obsolete.")]
         /// <summary>
         /// Turns <see cref="RestResponseCookie"/> to <see cref="CookieContainer"/>.
         /// </summary>
-        /// <param name="cookies"></param>
-        /// <returns></returns>
+        /// <param name="cookies">Cookies to turn to CookieContainer</param>
+        /// <returns>CookieContainer grom given cookies</returns>
+        [Obsolete("RestResponseCookie is obsolete.")]
         public static CookieContainer From(IEnumerable<RestResponseCookie> cookies) {
             // Init container
             CookieContainer container = new CookieContainer();
@@ -50,12 +50,12 @@ namespace Guilded.NET.API {
             // Return it
             return container;
         }
-        [Obsolete("HttpCookie is obsolete.")]
         /// <summary>
         /// Turns <see cref="HttpCookie"/> to <see cref="CookieContainer"/>.
         /// </summary>
-        /// <param name="cookies"></param>
-        /// <returns></returns>
+        /// <param name="cookies">Cookies to turn to CookieContainer</param>
+        /// <returns>CookieContainer from given cookies</returns>
+        [Obsolete("HttpCookie is obsolete.")]
         public static CookieContainer From(IEnumerable<HttpCookie> cookies) {
             // Init container
             CookieContainer container = new CookieContainer();

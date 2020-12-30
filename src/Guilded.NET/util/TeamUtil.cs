@@ -17,28 +17,28 @@ namespace Guilded.NET.Util {
         /// Gets team channels.
         /// </summary>
         /// <param name="team">Team itself</param>
-        /// <param name="client">Client to get channels with</param>
+        /// <returns>Channel, category and thread list</returns>
         public static async Task<Channels> GetChannelsAsync(this Team team) =>
             await team.ParentClient.GetChannelsAsync(team.Id);
         /// <summary>
-        /// Gets team channels. Sync version of <see cref="GetChannelsAsync"/>.
+        /// Gets team channels.
         /// </summary>
         /// <param name="team">Team itself</param>
-        /// <param name="client">Client to get channels with</param>
+        /// <returns>Channel, category and thread list</returns>
         public static Channels GetChannels(this Team team) =>
             team.ParentClient.GetChannels(team.Id);
         /// <summary>
         /// Gets team groups.
         /// </summary>
         /// <param name="team">Team itself</param>
-        /// <param name="client">Client to get groups with</param>
+        /// <returns>Group list</returns>
         public static async Task<IList<Group>> GetGroupsAsync(this Team team) =>
             await team.ParentClient.GetGroupsAsync(team.Id);
         /// <summary>
         /// Gets team groups. Sync version of <see cref="GetGroupsAsync"/>.
         /// </summary>
         /// <param name="team">Team itself</param>
-        /// <param name="client">Client to get groups with</param>
+        /// <returns>Group list</returns>
         public static IList<Group> GetGroups(this Team team) =>
             team.ParentClient.GetGroups(team.Id);
         /// <summary>

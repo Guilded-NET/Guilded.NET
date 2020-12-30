@@ -15,6 +15,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates code block node.
         /// </summary>
+        /// <param name="language">A language it should highlight as</param>
         /// <param name="objs">List of code lines</param>
         /// <returns>Code block node</returns>
         public static CodeBlock Generate(string language = null, params CodeLine[] objs) =>
@@ -28,6 +29,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates code block node.
         /// </summary>
+        /// <param name="language">A language it should highlight as</param>
         /// <param name="lines">List of code lines</param>
         /// <returns>Code block node</returns>
         public static CodeBlock Generate(string language = null, params string[] lines) =>

@@ -61,6 +61,10 @@ namespace Guilded.NET.Objects.Content {
         public bool IsDraft {
             get; set;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [JsonProperty("isCredentialed")]
         public bool IsCredentialed {
             get; set;

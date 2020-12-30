@@ -61,14 +61,26 @@ namespace Guilded.NET.Objects.Content {
         public DateTime? HappensAt {
             get; set;
         }
+        /// <summary>
+        /// When event participants were notified.
+        /// </summary>
+        /// <value>Participants notified at</value>
         [JsonProperty("notifiedAt", Required = Required.AllowNull)]
         public DateTime? NotifiedAt {
             get; set;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [JsonProperty("familyId", Required = Required.Always)]
         public Guid? FamilyId {
             get; set;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [JsonProperty("isSynthetic", Required = Required.Always)]
         public bool IsSynthetic {
             get; set;
@@ -109,7 +121,7 @@ namespace Guilded.NET.Objects.Content {
         /// At which timezone this event is happening.
         /// </summary>
         /// <value>Timezone</value>
-        [JsonProperty("happensAtClientTimezone", Required = Required.Always)]
+        [JsonProperty("happensAtClientTimezone", Required = Required.AllowNull)]
         public string HappensAtClientTimezone {
             get; set;
         }
@@ -129,6 +141,10 @@ namespace Guilded.NET.Objects.Content {
         public uint? RsvpLimit {
             get; set;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [JsonProperty("autofillWaitlist", Required = Required.Always)]
         public bool AutofillWaitlist {
             get; set;

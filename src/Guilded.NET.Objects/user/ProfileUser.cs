@@ -1,8 +1,10 @@
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 
 namespace Guilded.NET.Objects {
+    using Content;
     /// <summary>
     /// Guilded user. This is NOT Guild member.
     /// </summary>
@@ -143,6 +145,30 @@ namespace Guilded.NET.Objects {
         /// <value>Blocked by this user</value>
         [JsonProperty("isBlockedBy", Required = Required.Always)]
         public bool IsBlockedBy {
+            get; set;
+        }
+        /// <summary>
+        /// All social links of this member.
+        /// </summary>
+        /// <value>Social links</value>
+        [JsonProperty("socialLinks", Required = Required.AllowNull)]
+        public IList<SocialLink> SocialLinks {
+            get; set;
+        }
+        /// <summary>
+        /// Games this user has on their profile.
+        /// </summary>
+        /// <value>List of game aliases</value>
+        [JsonProperty("aliases", Required = Required.AllowNull)]
+        public IList<GameAlias> Aliases {
+            get; set;
+        }
+        /// <summary>
+        /// All media posted in this profile.
+        /// </summary>
+        /// <value>List of media</value>
+        [JsonProperty("media", Required = Required.AllowNull)]
+        public IList<GuildedMedia> Media {
             get; set;
         }
         /// <summary>

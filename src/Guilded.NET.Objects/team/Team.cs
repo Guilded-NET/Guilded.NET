@@ -11,6 +11,10 @@ namespace Guilded.NET.Objects.Teams {
     /// Guilded team/guild/server.
     /// </summary>
     public class Team: ClientObject {
+        //=======================//
+        //   Team IDs
+        //=======================//
+        
         /// <summary>
         /// ID of the team.
         /// </summary>
@@ -27,6 +31,10 @@ namespace Guilded.NET.Objects.Teams {
         public GId OwnerId {
             get; set;
         }
+        //=======================//
+        //   Name and Info
+        //=======================//
+        
         /// <summary>
         /// Name of the team.
         /// </summary>
@@ -44,6 +52,26 @@ namespace Guilded.NET.Objects.Teams {
             get; set;
         }
         /// <summary>
+        /// Team's "biography".
+        /// </summary>
+        /// <value>Biography</value>
+        [JsonProperty("bio", Required = Required.AllowNull)]
+        public string Bio {
+            get; set;
+        }
+        /// <summary>
+        /// Description of this team.
+        /// </summary>
+        /// <value>Description</value>
+        [JsonProperty("bio", Required = Required.AllowNull)]
+        public string Description {
+            get; set;
+        }
+        //=======================//
+        //   Icons & Banners
+        //=======================//
+        
+        /// <summary>
         /// URL of team's avatar.
         /// </summary>
         /// <value>URL</value>
@@ -60,37 +88,33 @@ namespace Guilded.NET.Objects.Teams {
             get; set;
         }
         /// <summary>
-        /// Large version of team's banner.
+        /// URL of team's banner(small version).
         /// </summary>
         /// <value>URL</value>
-        [JsonProperty("homeBannerImageLg", Required = Required.AllowNull)]
-        public Uri HomeBannerLarge {
-            get; set;
-        }
-        /// <summary>
-        /// Team's banner image.
-        /// </summary>
-        /// <value>URL</value>
-        [JsonProperty("homeBannerImageMd", Required = Required.AllowNull)]
-        public string HomeBannerMid {
-            get; set;
-        }
-        /// <summary>
-        /// Small version of team's banner.
-        /// </summary>
-        /// <value>URL</value>
-        [JsonProperty("homeBannerImageSm", Required = Required.AllowNull)]
+        [JsonProperty("homeBannerImageSm")]
         public Uri HomeBannerSmall {
             get; set;
         }
         /// <summary>
-        /// Team's selected timezone.
+        /// URL of team's banner(medium version).
         /// </summary>
-        /// <value>Timezone</value>
-        [JsonProperty("timezone", Required = Required.Always)]
-        public string Timezone {
+        /// <value>URL</value>
+        [JsonProperty("homeBannerImageMd")]
+        public Uri HomeBannerMedium {
             get; set;
         }
+        /// <summary>
+        /// URL of team's banner(large version).
+        /// </summary>
+        /// <value>URL</value>
+        [JsonProperty("homeBannerImageLarge")]
+        public Uri HomeBannerLarge {
+            get; set;
+        }
+        //=======================//
+        //   Is...
+        //=======================//
+
         /// <summary>
         /// Whether the team is recruiting or not.
         /// </summary>
@@ -116,14 +140,6 @@ namespace Guilded.NET.Objects.Teams {
             get; set;
         }
         /// <summary>
-        /// If it should always show team home.
-        /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("alwaysShowTeamHome", Required = Required.Always)]
-        public bool AlwaysShowTeamHome {
-            get; set;
-        }
-        /// <summary>
         /// Whether or not the team is pro(has paid?).
         /// </summary>
         /// <value>Boolean</value>
@@ -132,27 +148,83 @@ namespace Guilded.NET.Objects.Teams {
             get; set;
         }
         /// <summary>
-        /// If it should sync Discord roles.
+        /// If this user is following this team.
         /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("autoSyncDiscordRoles", Required = Required.AllowNull)]
-        public bool? AutoSyncDiscordRoles {
+        /// <value>Following</value>
+        [JsonProperty("userFollowsTeam", Required = Required.Always)]
+        public bool IsFollowing {
             get; set;
         }
         /// <summary>
-        /// Type of the team.
+        /// If this user applied for this server.
         /// </summary>
-        /// <value>CamelCase enum value</value>
-        //[JsonProperty("type")]
-        //public TeamType Type {
-        //    get; set;
-        //}
+        /// <value>Applied</value>
+        [JsonProperty("userIsApplication", Required = Required.Always)]
+        public bool IsApplicant {
+            get; set;
+        }
         /// <summary>
-        /// Count of members in the team.
+        /// If this user was invited.
         /// </summary>
-        /// <value>Count</value>
-        [JsonProperty("memberCount", Required = Required.AllowNull)]
-        public uint? MemberCount {
+        /// <value>Invited</value>
+        [JsonProperty("isUserInvited", Required = Required.Always)]
+        public bool IsInvited {
+            get; set;
+        }
+        /// <summary>
+        /// If this used was banned from this team.
+        /// </summary>
+        /// <value>Banned</value>
+        [JsonProperty("isUserBannedFromTeam", Required = Required.Always)]
+        public bool IsBanned {
+            get; set;
+        }
+        //=======================//
+        //   Discord
+        //=======================//
+
+        /// <summary>
+        /// If it should sync Discord roles.
+        /// </summary>
+        /// <value>Boolean</value>
+        [JsonProperty("autoSyncDiscordRoles", Required = Required.Always)]
+        public bool AutoSyncDiscordRoles {
+            get; set;
+        }
+        /// <summary>
+        /// If this team has imported a Discord server through Discord integration.
+        /// </summary>
+        /// <value>Imported Discord server</value>
+        [JsonProperty("hasImportedDiscordServer", Required = Required.Always)]
+        public bool ImportedDiscord {
+            get; set;
+        }
+        /// <summary>
+        /// ID of the Discord server this team has imported.
+        /// </summary>
+        /// <value>(Nullable) Discord Server ID</value>
+        [JsonProperty("discordGuildId", Required = Required.AllowNull)]
+        public ulong? DiscordId {
+            get; set;
+        }
+        /// <summary>
+        /// Name of the Discord server this team has imported.
+        /// </summary>
+        /// <value>(Nullable) Discord Server Name</value>
+        [JsonProperty("discordServerName", Required = Required.AllowNull)]
+        public string DiscordName {
+            get; set;
+        }
+        //=======================//
+        //   Members & Followers
+        //=======================//
+
+        /// <summary>
+        /// All roles in this team.
+        /// </summary>
+        /// <value>IDictionary of role id, role</value>
+        [JsonProperty("rolesById", Required = Required.Always)]
+        public IDictionary<string, TeamRole> RolesById {
             get; set;
         }
         /// <summary>
@@ -165,75 +237,51 @@ namespace Guilded.NET.Objects.Teams {
             get; set;
         }
         /// <summary>
-        /// Count of followers in the team.
+        /// Count of various things in this team.
         /// </summary>
-        /// <value>Count</value>
-        [JsonProperty("followerCount", Required = Required.Always)]
-        public uint FollowerCount {
+        /// <value>Team measurements</value>
+        [JsonProperty("measurements", Required = Required.Always)]
+        public TeamMeasurements Measurements {
+            get; set;
+        }
+        //======================//
+        //   Team features
+        //=======================//
+
+        /// <summary>
+        /// A main/home group in this team.
+        /// </summary>
+        /// <value>Group</value>
+        [JsonProperty("baseGroup", Required = Required.Always)]
+        public Group BaseGroup {
             get; set;
         }
         /// <summary>
-        /// If the team was favourited by the current user.
+        /// A list of all webhooks in this team.
         /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("isFavorite", Required = Required.Always)]
-        public bool IsFavorite {
+        /// <value>List of webhooks</value>
+        [JsonProperty("webhooks", Required = Required.Always)]
+        public IList<Webhook> Webhooks {
             get; set;
         }
         /// <summary>
-        /// Whether or not this user can invite members to this team.
+        /// All games in this team.
         /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("canInviteMembers", Required = Required.Always)]
-        public bool CanInviteMembers {
+        /// <value>Team game IDs</value>
+        [JsonProperty("games", Required = Required.Always)]
+        public IList<uint> Games {
             get; set;
         }
+        //======================//
+        //   Other
+        //=======================//
+        
         /// <summary>
-        /// Whether or not this user can update this team.
+        /// Team's selected timezone.
         /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("canUpdateTeam", Required = Required.Always)]
-        public bool CanUpdateTeam {
-            get; set;
-        }
-        /// <summary>
-        /// Whether or not this user can manage tournaments.
-        /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("canManageTournaments", Required = Required.Always)]
-        public bool CanManageTournaments {
-            get; set;
-        }
-        /// <summary>
-        /// Whether or not this client user is a member of this team.
-        /// </summary>
-        /// <value>Boolean</value>
-        [JsonProperty("viewerIsMember", Required = Required.Always)]
-        public bool ViewerIsMember {
-            get; set;
-        }
-        /// <summary>
-        /// Whether or not this user is an admin in this team.
-        /// </summary>
-        /// <value></value>
-        [JsonProperty("isAdmin", Required = Required.Always)]
-        public bool IsAdmin {
-            get; set;
-        }
-        /// <summary>
-        /// List of role IDs in this team.
-        /// </summary>
-        /// <value>List of IDs</value>
-        [JsonProperty("roleIds", Required = Required.Always)]
-        public IList<ulong> Roles {
-            get; set;
-        }
-        /// <summary>
-        /// All roles in this team.
-        /// </summary>
-        /// <value>IDictionary of role id, role</value>
-        [JsonProperty("rolesById", Required = Required.Always)]
-        public IDictionary<string, TeamRole> RolesById {
+        /// <value>Timezone</value>
+        [JsonProperty("timezone", Required = Required.AllowNull)]
+        public string Timezone {
             get; set;
         }
         /// <summary>

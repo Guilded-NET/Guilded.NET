@@ -14,6 +14,9 @@
         <releaseNotes>
 - Content updated event
 - Voice/stream channel joined and left events
+- Ability to create another websocket for a team(this means channel created and channel deleted events)
+- Documentation fixes
+- Set referer header
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

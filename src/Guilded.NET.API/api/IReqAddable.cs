@@ -8,7 +8,7 @@ namespace Guilded.NET.API {
         /// <summary>
         /// Adds this to RestRequest.
         /// </summary>
-        /// <param name="client">API Request</param>
+        /// <param name="req">API Request</param>
         /// <returns>Given RestRequest</returns>
         IRestRequest AddTo(RestRequest req);
     }

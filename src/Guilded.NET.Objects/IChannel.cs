@@ -7,10 +7,10 @@ namespace Guilded.NET.Objects {
     /// </summary>
     public interface IChannel {
         /// <summary>
-        /// Priority of this channel.
+        /// Priority/sort index of this channel.
         /// </summary>
         /// <value>Priority</value>
-        uint? Priority {
+        long? Priority {
             get; set;
         }
         /// <summary>

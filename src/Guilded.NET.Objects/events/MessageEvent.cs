@@ -3,11 +3,11 @@ using System;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
-    /// Message which has been deleted.
+    /// Message which has been deleted/pinned/unpinned.
     /// </summary>
-    public class MessageDeleted: BaseObject {
+    public class MessageEvent: ClientObject {
         /// <summary>
-        /// ID of the message deleted.
+        /// ID of the message which was deleted/pinned/unpinned.
         /// </summary>
         /// <value>Message ID</value>
         [JsonProperty("id", Required = Required.Always)]

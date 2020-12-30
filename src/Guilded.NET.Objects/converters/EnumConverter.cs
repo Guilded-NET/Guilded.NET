@@ -25,9 +25,9 @@ namespace Guilded.NET.Objects.Converters {
         static readonly Type mediatype = typeof(MediaType);
         static readonly Type formtype = typeof(FormType);
         static readonly Type formfieldtype = typeof(FormFieldType);
+        static readonly Type subscription = typeof(SubscriptionType);
         // All of the allowed types
-        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype };
-        // All msgobj enums and their string equivalents
+        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype, subscription };
         static readonly IDictionary<string, MsgObject> msgobj = new Dictionary<string, MsgObject> {
             {"block", MsgObject.Block},
             {"document", MsgObject.Document},
@@ -37,7 +37,6 @@ namespace Guilded.NET.Objects.Converters {
             {"text", MsgObject.Text},
             {"value", MsgObject.Value}
         };
-        // All marktype enums and their string equivalents
         static readonly IDictionary<string, MarkType> marktypes = new Dictionary<string, MarkType> {
             {"bold", MarkType.Bold},
             {"inline-code-v2", MarkType.InlineCode},
@@ -46,7 +45,6 @@ namespace Guilded.NET.Objects.Converters {
             {"strikethrough", MarkType.Strikethrough},
             {"underline", MarkType.Underline}
         };
-        // All nodetype enums and their string equivalents
         static readonly IDictionary<string, NodeType> nodetypes = new Dictionary<string, NodeType> {
             {"paragraph", NodeType.Paragraph},
             {"block-quote-container", NodeType.BlockQuoteContainer},
@@ -70,10 +68,6 @@ namespace Guilded.NET.Objects.Converters {
             {"joined", MembershipType.Joined},
             {"left", MembershipType.Left},
             {"following", MembershipType.Following}
-        };
-        static readonly IDictionary<string, ChatType> chattypes = new Dictionary<string, ChatType> {
-            {"Team", ChatType.Team},
-            {"DM", ChatType.DM}
         };
         static readonly IDictionary<string, ChannelType> channeltypes = new Dictionary<string, ChannelType> {
             {"chat", ChannelType.Chat},
@@ -105,13 +99,6 @@ namespace Guilded.NET.Objects.Converters {
             {"form", FormType.Form},
             {"poll", FormType.Poll}
         };
-        static readonly IDictionary<string, FormFieldType> formfields = new Dictionary<string, FormFieldType> {
-            {"Text", FormFieldType.Text},
-            {"TextArea", FormFieldType.TextArea},
-            {"Radios", FormFieldType.Radios},
-            {"Checkboxes", FormFieldType.Checkboxes},
-            {"Dropdown", FormFieldType.Dropdown}
-        };
         /// <summary>
         /// Writes enum to the string.
         /// </summary>
@@ -134,10 +121,9 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == msgtype) return ConvertTo(messagetype, (MessageType)value);
             else if(type == mentiontype) return ConvertTo(mentions, (MentionType)value);
             else if(type == channeltype) return ConvertTo(channeltypes, (ChannelType)value);
-            else if(type == chattype) return ConvertTo(chattypes, (ChatType)value);
             else if(type == mediatype) return ConvertTo(media, (MediaType)value);
             else if(type == formtype) return ConvertTo(forms, (FormType)value);
-            else if(type == formfieldtype) return ConvertTo(formfields, (FormFieldType)value);
+            else if(type == subscription || type == chattype || type == formfieldtype) return value.ToString();
             else throw new ArgumentException($"{nameof(value)} can not be converted. Given type: {type.FullName}");
         }
         /// <summary>
@@ -151,20 +137,21 @@ namespace Guilded.NET.Objects.Converters {
         /// Converts string to enum value.
         /// </summary>
         /// <param name="value">String to be parsed</param>
+        /// <param name="type">Type of the value</param>
         /// <returns>Any enum value</returns>
         public static object ConvertFrom(string value, Type type) {
             if(type == msgobjtype) return ConvertFrom(value, msgobj);
             else if(type == marktype) return ConvertFrom(value, marktypes);
-            else if(type == member) return ConvertFrom(value, membershiptypes);
-            else if(type == chattype) return ConvertFrom(value, chattypes);
             else if(type == msgtype) return ConvertFrom(value, messagetype);
+            else if(type == nodetype) return ConvertFrom(value, nodetypes);
             else if(type == mentiontype) return ConvertFrom(value, mentions);
             else if(type == channeltype) return ConvertFrom(value, channeltypes);
-            else if(type == chattype) return ConvertFrom(value, chattypes);
             else if(type == mediatype) return ConvertFrom(value, media);
             else if(type == formtype) return ConvertFrom(value, forms);
-            else if(type == formfieldtype) return ConvertFrom(value, formfields);
-            else return ConvertFrom(value, nodetypes);
+            else if(type == formfieldtype) return Enum.Parse<FormFieldType>(value);
+            else if(type == subscription) return Enum.Parse<SubscriptionType>(value);
+            else if(type == chattype) return Enum.Parse<ChatType>(value);
+            else return ConvertFrom(value, membershiptypes);
         }
         /// <summary>
         /// Converts string to enum value.

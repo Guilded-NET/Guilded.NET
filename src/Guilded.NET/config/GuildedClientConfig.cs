@@ -6,8 +6,6 @@ namespace Guilded.NET {
     /// <summary>
     /// Delegate for getting prefix based on the author, team and message creation event.
     /// </summary>
-    /// <param name="author">User who posted the message</param>
-    /// <param name="team">Team this message was posted in</param>
     /// <param name="messageCreated">Message creation event</param>
     /// <returns></returns>
     public delegate string PrefixInfo(MessageCreatedEvent messageCreated);
@@ -75,7 +73,7 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="prefix">A function for getting a prefix</param>
         /// <param name="owner">Owner of this bot</param>
-        /// <param name="moderators">IDs of the bot moderators</param>
+        /// <param name="enableCommands">If Guilded.NET's built-in command system should be used</param>
         public GuildedClientConfig(PrefixInfo prefix = null, GId owner = null, bool enableCommands = true) =>
             (Prefix, OwnerId, EnableCommands, IgnoreOwnCommands, DisableCancelKeyPress, CommandArgumentSplit, SplitOptions) = (prefix, owner, enableCommands, true, false, new string[] {" ", "\t"}, StringSplitOptions.None);
     }

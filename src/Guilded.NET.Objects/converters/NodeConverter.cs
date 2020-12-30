@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace Guilded.NET.Objects.Converters {
     using Chat;
+    /// <summary>
+    /// Converts JSON objects to nodes.
+    /// </summary>
     public class NodeConverter: JsonConverter {
         static readonly Type node = typeof(Node);
         static readonly Type msgobj = typeof(IMessageObject);

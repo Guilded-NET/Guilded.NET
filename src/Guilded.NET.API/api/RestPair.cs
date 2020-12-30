@@ -25,8 +25,6 @@ namespace Guilded.NET.API {
         /// Casts RestPair to KeyValuePair.
         /// </summary>
         /// <param name="pair">Pair to be casted</param>
-        /// <typeparam name="TKey">Key type</typeparam>
-        /// <typeparam name="TValue">Value type</typeparam>
         /// <returns>New pair</returns>
         public static implicit operator KeyValuePair<TKey, TValue>(RestPair<TKey, TValue> pair) =>
             new KeyValuePair<TKey, TValue>(pair.Key, pair.Value);

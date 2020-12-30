@@ -2,11 +2,11 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Forms {
     /// <summary>
-    /// A poll or a form created in Guilded. Used for creating new polls/forms and used as a base for <see cref="GuildedFormData"/>.
+    /// A poll or a form created in Guilded.
     /// </summary>
     public class BasicGuildedForm: ClientObject {
         /// <summary>
-        /// A poll or a form created in Guilded. Used for creating new polls/forms and used as a base for <see cref="GuildedFormData"/>.
+        /// A poll or a form created in Guilded.
         /// </summary>
         public BasicGuildedForm() =>
             (TeamId, IsPublic) = (null, true);

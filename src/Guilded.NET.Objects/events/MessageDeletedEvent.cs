@@ -21,7 +21,7 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Message deleted</value>
         [JsonProperty("message", Required = Required.Always)]
-        public MessageDeleted Message {
+        public MessageEvent Message {
             get; set;
         }
     }

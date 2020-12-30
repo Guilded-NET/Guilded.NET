@@ -15,7 +15,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates unordered(a.k.a. bulleted) list node.
         /// </summary>
-        /// <param name="nodes">List of text objects</param>
+        /// <param name="objs">List of text objects</param>
         /// <returns>Unordered list node</returns>
         public static UnorderedList Generate(params TextObj[] objs) =>
            new UnorderedList {

@@ -112,9 +112,9 @@ namespace Guilded.NET.Objects.Permissions {
             get; set;
         } = null;
         /// <summary>
-        /// I don't even know what this is tbf.
+        /// Permissions related to name and emote customization.
         /// </summary>
-        /// <value>Something I don't know</value>
+        /// <value>Permissions</value>
         [JsonProperty("customization", NullValueHandling = NullValueHandling.Ignore)]
         public CustomPermissions? Customization {
             get; set;
@@ -208,8 +208,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// <param name="second">Second to concat</param>
         /// <returns>OR-ed enum value</returns>
         #nullable enable
-        static T? Concat<T>(T? a, T? b) where T: struct, Enum =>
-            (T?)Enum.ToObject(typeof(T), Concat(Convert.ToUInt32(b), Convert.ToUInt32(a)));
+        static T? Concat<T>(T? first, T? second) where T: struct, Enum =>
+            (T?)Enum.ToObject(typeof(T), Concat(Convert.ToUInt32(first), Convert.ToUInt32(second)));
         #nullable restore
     }
 }

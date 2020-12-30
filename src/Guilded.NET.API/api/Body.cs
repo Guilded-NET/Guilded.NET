@@ -10,11 +10,7 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <param name="value">Value to be serialized</param>
         public JsonBody(object value): base(value) {}
-        /// <summary>
-        /// Adds this to RestRequest.
-        /// </summary>
-        /// <param name="client">API Request</param>
-        /// <returns>Given RestRequest</returns>
+        /// <inheritdoc/>
         public override IRestRequest AddTo(RestRequest req) => req.AddJsonBody(Value);
     }
 }

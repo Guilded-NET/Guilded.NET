@@ -21,6 +21,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates link node.
         /// </summary>
+        /// <param name="url">Link which should be used by this node</param>
         /// <param name="leaves">List of message leaves</param>
         /// <returns>Link node</returns>
         public static LinkNode Generate(Uri url, params Leaf[] leaves) =>
@@ -40,6 +41,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates link node.
         /// </summary>
+        /// <param name="url">Link which should be used by this node</param>
         /// <param name="objs">List of text objects</param>
         /// <returns>Link node</returns>
         public static LinkNode Generate(Uri url, params TextObj[] objs) =>

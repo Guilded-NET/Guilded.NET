@@ -3,6 +3,13 @@ namespace Guilded.NET.Objects {
     /// If the DM channel is a group or default.
     /// </summary>
     public enum DMType {
-        Default, Group
+        /// <summary>
+        /// A normal DM channel between 2 people.
+        /// </summary>
+        Default,
+        /// <summary>
+        /// A DM channel between 3+ people.
+        /// </summary>
+        Group
     }
 }

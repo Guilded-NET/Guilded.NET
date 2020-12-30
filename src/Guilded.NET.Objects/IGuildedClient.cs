@@ -45,7 +45,7 @@ namespace Guilded.NET.Objects {
         /// Edits message of the bot posted in the chat.
         /// </summary>
         /// <param name="channel">ID of the channel</param>
-        /// <param name="message">ID of the message to edit</param>
+        /// <param name="messageId">ID of the message to edit</param>
         /// <param name="content">New content of the message</param>
         void EditMessage(Guid channel, Guid messageId, MessageContent content);
         /// <summary>
@@ -59,7 +59,7 @@ namespace Guilded.NET.Objects {
         /// Deletes a message posted in the chat.
         /// </summary>
         /// <param name="channel">ID of the channel</param>
-        /// <param name="message">ID of the message to delete</param>
+        /// <param name="messageId">ID of the message to delete</param>
         void DeleteMessage(Guid channel, Guid messageId);
         /// <summary>
         /// Gets user this client is using.
@@ -317,7 +317,7 @@ namespace Guilded.NET.Objects {
         /// Gets forum posts from a specific forum channel.
         /// </summary>
         /// <param name="channelId">ID of the channel</param>
-        /// <param name="afterDate">Before what date it should get posts</param>
+        /// <param name="postId">ID of the post it should get replies of</param>
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <param name="afterDate">After what date it should get posts</param>
         /// <returns>Forum reply list</returns>
@@ -407,23 +407,5 @@ namespace Guilded.NET.Objects {
         /// <param name="beforeDate">Date before which it should get media</param>
         /// <returns>List of media posts</returns>
         IList<GuildedMedia> GetMedia(Guid channelId, uint maxItems, DateTime? beforeDate);
-        /// <summary>
-        /// Creates a new thread as a response to a specific message.
-        /// </summary>
-        /// <param name="channelId">ID of the channel this thread should be created in</param>
-        /// <param name="threadMessage">Message to respond to</param>
-        /// <param name="responseMessage">Message as a response to the other message</param>
-        /// <param name="name">Name of the thread</param>
-        /// <returns>Thread created</returns>
-        //Task<ThreadChannel> CreateThreadAsync(Guid channelId, Message threadMessage, NewMessage responseMessage, string name);
-        /// <summary>
-        /// Creates a new thread as a response to a specific message.
-        /// </summary>
-        /// <param name="channelId">ID of the channel this thread should be created in</param>
-        /// <param name="threadMessage">Message to respond to</param>
-        /// <param name="responseMessage">Message as a response to the other message</param>
-        /// <param name="name">Name of the thread</param>
-        /// <returns>Thread created</returns>
-        //ThreadChannel CreateThread(Guid channelId, Message threadMessage, NewMessage responseMessage, string name);
     }
 }

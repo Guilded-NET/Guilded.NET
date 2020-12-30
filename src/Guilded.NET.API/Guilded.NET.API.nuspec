@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET.API</id>
-        <version>0.0.7</version>
+        <version>0.0.9</version>
         <title>Guilded.NET.API</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -11,7 +11,12 @@
         <projectUrl>https://github.com/IdkGoodName/Guilded.NET</projectUrl>
         <icon>icon.png</icon>
         <description>API helpers for Guilded.NET.</description>
-        <releaseNotes></releaseNotes>
+        <releaseNotes>
+- Referer header
+- Ability to initialize new websocket
+- Ability to add a query to websocket, which means team events, such as channel creation can be detected
+- Documentation fix
+        </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
         <dependencies>

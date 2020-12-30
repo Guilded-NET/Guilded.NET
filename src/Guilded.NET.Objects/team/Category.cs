@@ -13,12 +13,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         public Category() =>
             (ChannelCategoryId, ParentChannel) = (null, null);
-        /// <summary>
-        /// Priority of this category.
-        /// </summary>
-        /// <value>Priority</value>
+        /// <inheritdoc/>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public uint? Priority {
+        public long? Priority {
             get; set;
         }
         /// <summary>
@@ -29,26 +26,17 @@ namespace Guilded.NET.Objects.Teams {
         public uint Id {
             get; set;
         }
-        /// <summary>
-        /// Name of this category.
-        /// </summary>
-        /// <value>Name</value>
+        /// <inheritdoc/>
         [JsonProperty("name", Required = Required.Always)]
         public string Name {
             get; set;
         }
-        /// <summary>
-        /// Permissions of the roles in this category.
-        /// </summary>
-        /// <value>Role Permissions</value>
+        /// <inheritdoc/>
         [JsonProperty("rolesById", Required = Required.AllowNull)]
         public IDictionary<string, ChannelPermission> RolePermissions {
             get; set;
         }
-        /// <summary>
-        /// Permissions of the users in this category.
-        /// </summary>
-        /// <value>User Permissions</value>
+        /// <inheritdoc/>
         [JsonProperty("userPermissions", Required = Required.AllowNull)]
         public IList<UserPermission> UserPermissions {
             get; set;
@@ -69,10 +57,7 @@ namespace Guilded.NET.Objects.Teams {
         public Guid? ParentChannel {
             get; set;
         }
-        /// <summary>
-        /// ID of the category this category is in.
-        /// </summary>
-        /// <value>Null</value>
+        /// <inheritdoc/>
         [JsonProperty("channelCategoryId")]
         public uint? ChannelCategoryId {
             get; set;
@@ -85,18 +70,12 @@ namespace Guilded.NET.Objects.Teams {
         public GId GroupId {
             get; set;
         }
-        /// <summary>
-        /// When the channel was created.
-        /// </summary>
-        /// <value>Date</value>
+        /// <inheritdoc/>
         [JsonProperty("createdAt", Required = Required.Always)]
         public DateTime CreatedAt {
             get; set;
         }
-        /// <summary>
-        /// When the channel was updated.
-        /// </summary>
-        /// <value>Date</value>
+        /// <inheritdoc/>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
         public DateTime? UpdatedAt {
             get; set;

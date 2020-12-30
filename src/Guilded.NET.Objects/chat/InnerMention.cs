@@ -3,6 +3,9 @@ using System;
 
 namespace Guilded.NET.Objects.Chat {
     using Teams;
+    /// <summary>
+    /// A data of mention node.
+    /// </summary>
     public class MentionData: BaseObject, IMention {
         /// <summary>
         /// Type of the mention.
@@ -12,18 +15,12 @@ namespace Guilded.NET.Objects.Chat {
         public string Type {
             get; set;
         }
-        /// <summary>
-        /// Mention matcher. Mention equivalent as string.
-        /// </summary>
-        /// <value>Matcher</value>
+        /// <inheritdoc/>
         [JsonProperty("matcher", Required = Required.Always)]
         public string Matcher {
             get; set;
         }
-        /// <summary>
-        /// Name of the mention.
-        /// </summary>
-        /// <value>Name</value>
+        /// <inheritdoc/>
         [JsonProperty("name", Required = Required.Always)]
         public string Name {
             get; set;
@@ -86,7 +83,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates member mention.
         /// </summary>
-        /// <param name="user">User to mention</param>
+        /// <param name="member">User to mention</param>
         /// <param name="colour">Colour of the mention</param>
         /// <returns>Mention data</returns>
         public static MentionData Generate(TeamMember member, string colour) =>

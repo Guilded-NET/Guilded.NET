@@ -30,7 +30,11 @@ namespace Guilded.NET.Objects.Chat {
         public IDictionary<string, object> Data {
             get; set;
         } = new Dictionary<string, object>();
-
+        /// <summary>
+        /// Gets a property from <see cref="Data"/> and checks if it exists.
+        /// </summary>
+        /// <param name="property">Property to get from data</param>
+        /// <returns>Property in data</returns>
         protected object GetDataProperty(string property) {
             // If Data is null, return null
             if(Data == null) return null;

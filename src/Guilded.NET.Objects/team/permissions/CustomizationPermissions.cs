@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Permissions which allow you to customize things, such as nicknames and emotes.
     /// </summary>
+    [Flags]
     public enum CustomPermissions {
         /// <summary>
         /// Allows the creation and management of server emoji

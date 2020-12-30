@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Permissions for managing bots and flowbots.
     /// </summary>
+    [Flags]
     public enum BotPermissions {
         /// <summary>
         /// Allows you to create and edit bots for automated workflows. 

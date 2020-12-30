@@ -3,6 +3,13 @@ namespace Guilded.NET.Objects.Chat {
     /// If the message is a normal message or a system message.
     /// </summary>
     public enum MessageType {
-        Default, System
+        /// <summary>
+        /// A normal message written by someone.
+        /// </summary>
+        Default,
+        /// <summary>
+        /// A message written by system(when channel gets renamed).
+        /// </summary>
+        System
     }
 }

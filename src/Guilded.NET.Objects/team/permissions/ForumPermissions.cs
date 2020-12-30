@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Permissions of forum channel.
     /// </summary>
+    [Flags]
     public enum ForumPermissions {
         /// <summary>
         /// Allows you to create forum topics

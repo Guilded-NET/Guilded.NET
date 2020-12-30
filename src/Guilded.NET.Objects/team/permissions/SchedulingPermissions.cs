@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Permissions for scheduling channel.
     /// </summary>
+    [Flags]
     public enum SchedulingPermissions {
         /// <summary>
         /// Allows you to let server know your available schedule

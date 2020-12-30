@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 using System;
 
 namespace Guilded.NET.Objects.Content {
+    /// <summary>
+    /// A schedule when a user is available. 
+    /// </summary>
     public class Availability: ChannelContent<uint> {
         /// <summary>
         /// ID of the user which have set their availability.

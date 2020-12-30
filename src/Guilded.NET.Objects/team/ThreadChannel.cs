@@ -19,7 +19,7 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public uint? Priority {
+        public long? Priority {
             get; set;
         }
         /// <summary>
@@ -62,14 +62,6 @@ namespace Guilded.NET.Objects.Teams {
         public IList<UserPermission> UserPermissions {
             get; set;
         }
-        /// <summary>
-        /// Tournament permissions.
-        /// </summary>
-        /// <value>Permissions</value>
-        //[JsonProperty("tournamentRolesById")]
-        //public IDictionary<string, Permissions> TournamentRolePermissions {
-        //    get; set;
-        //}
         /// <summary>
         /// ID of team this channel is in.
         /// </summary>

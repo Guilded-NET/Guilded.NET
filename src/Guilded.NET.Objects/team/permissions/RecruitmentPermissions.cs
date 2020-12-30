@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// All of the permissions related to applications and recruiting.
     /// </summary>
+    [Flags]
     public enum RecruitmentPermissions {
         /// <summary>
         /// Allows you to approve server and game applications

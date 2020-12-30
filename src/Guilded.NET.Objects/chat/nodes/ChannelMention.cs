@@ -49,7 +49,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates mention.
         /// </summary>
-        /// <param name="data">Mention data</param>
+        /// <param name="channel">Mention data</param>
         /// <returns>Mention</returns>
         public static ChannelMention Generate(Channel channel) => Generate(ChannelMentionData.Generate(channel));
         /// <summary>

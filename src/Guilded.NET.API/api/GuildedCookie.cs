@@ -29,12 +29,12 @@ namespace Guilded.NET.API {
         /// <returns></returns>
         public GuildedCookie(string name, string value, string path = null, string domain = null): base(name, value) =>
             (Path, Domain) = (path, domain);
-        /// <summary>
-        /// Adds this to RestRequest.
-        /// </summary>
-        /// <param name="client">API Request</param>
-        /// <returns>Given RestRequest</returns>
+        /// <inheritdoc/>
         public override IRestRequest AddTo(RestRequest req) => req.AddCookie(Key, Value);
+        /// <summary>
+        /// Turns <see cref="GuildedCookie"/> to string.
+        /// </summary>
+        /// <returns>GuildedCookie as string</returns>
 
         public override string ToString() => $"(Cookie with {{Domain = {Domain}, Path = {Path}}} {Key} = {Value})";
     }

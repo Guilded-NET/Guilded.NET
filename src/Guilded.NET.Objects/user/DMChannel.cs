@@ -19,7 +19,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority")]
-        public uint? Priority {
+        public long? Priority {
             get; set;
         }
         /// <summary>

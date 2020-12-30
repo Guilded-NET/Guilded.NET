@@ -68,7 +68,7 @@ namespace Guilded.NET {
         /// Edits message of the bot posted in the chat. Sync version of <see cref="EditMessageAsync"/>.
         /// </summary>
         /// <param name="channel">ID of the channel</param>
-        /// <param name="message">ID of the message to edit</param>
+        /// <param name="messageId">ID of the message to edit</param>
         /// <param name="content">New content of the message</param>
         public void EditMessage(Guid channel, Guid messageId, MessageContent content) =>
             EditMessageAsync(channel, messageId, content).GetAwaiter().GetResult();
@@ -84,7 +84,7 @@ namespace Guilded.NET {
         /// Deletes a message posted in the chat. Sync version of <see cref="DeleteMessageAsync"/>.
         /// </summary>
         /// <param name="channel">ID of the channel</param>
-        /// <param name="message">ID of the message to delete</param>
+        /// <param name="messageId">ID of the message to delete</param>
         public void DeleteMessage(Guid channel, Guid messageId) =>
             DeleteMessageAsync(channel, messageId).GetAwaiter().GetResult();
         /// <summary>
@@ -142,8 +142,11 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="id">Team ID</param>
         /// <returns>Team</returns>
-        public async Task<Team> GetTeamAsync(GId id) =>
-            JObject.Parse((await ExecuteRequest(new Endpoint($"/teams/{id}", Method.GET))).Content)["team"].ToObject<Team>(GuildedSerializer);
+        public async Task<Team> GetTeamAsync(GId id) {
+            var lib = JObject.Parse((await ExecuteRequest(new Endpoint($"/teams/{id}", Method.GET))).Content)["team"];
+            Console.WriteLine(lib);
+            return lib.ToObject<Team>(GuildedSerializer);
+        }
         /// <summary>
         /// Gets team with given ID. Sync version of <see cref="GetTeamAsync"/>.
         /// </summary>
@@ -171,7 +174,7 @@ namespace Guilded.NET {
         /// <param name="teamId">ID of the team</param>
         /// <returns>List of groups</returns>
         public async Task<IList<Group>> GetGroupsAsync(GId teamId) =>
-            JArray.Parse((await ExecuteRequest(new Endpoint($"/teams/{teamId}/groups", Method.GET))).Content)["groups"].ToObject<IList<Group>>(GuildedSerializer);
+            JObject.Parse((await ExecuteRequest(new Endpoint($"/teams/{teamId}/groups", Method.GET))).Content)["groups"].ToObject<IList<Group>>(GuildedSerializer);
         /// <summary>
         /// List of groups in given team. Sync version of <see cref="GetGroupsAsync"/>.
         /// </summary>
@@ -237,14 +240,7 @@ namespace Guilded.NET {
         /// <param name="id">ID of the invite to accept</param>
         public void AcceptInvite(GId id) =>
             AcceptInviteAsync(id).GetAwaiter().GetResult();
-        /// <summary>
-        /// Creates a new channel in a specific team and group.
-        /// </summary>
-        /// <param name="team">Team to create channel in</param>
-        /// <param name="group">Group to create channel in</param>
-        /// <param name="type">Channel type</param>
-        /// <param name="public">If channel should be public</param>
-        /// <returns>Async task</returns>
+        /// <inheritdoc/>
         public async Task CreateChannelAsync(GId team, GId group, ChannelType type, bool @public, string name) {
             // Creates object for serialization
             var info = new {
@@ -262,6 +258,7 @@ namespace Guilded.NET {
         /// <param name="group">Group to create channel in</param>
         /// <param name="type">Channel type</param>
         /// <param name="public">If channel should be public</param>
+        /// <param name="name">Name which should be assigned to the channel</param>
         public void CreateChannel(GId team, GId group, ChannelType type, bool @public, string name) =>
             CreateChannelAsync(team, group, type, @public, name).GetAwaiter().GetResult();
         /// <summary>
@@ -565,43 +562,5 @@ namespace Guilded.NET {
         /// <returns>List of media posts</returns>
         public IList<GuildedMedia> GetMedia(Guid channelId, uint maxItems, DateTime? beforeDate = null) =>
             GetMediaAsync(channelId, maxItems, beforeDate).GetAwaiter().GetResult();
-        /// <summary>
-        /// Creates a new thread as a response to a specific message.
-        /// </summary>
-        /// <param name="channelId">ID of the channel this thread should be created in</param>
-        /// <param name="threadMessage">Message to respond to</param>
-        /// <param name="responseMessage">Message as a response to the other message</param>
-        /// <param name="name">Name of the thread</param>
-        /// <returns>Thread created</returns>
-        // public async Task<ThreadChannel> CreateThreadAsync(Guid channelId, Message threadMessage, NewMessage responseMessage, string name) {
-        //     // Creates object to be serialized
-        //     var info = new {
-        //         message = responseMessage,
-        //         channelId,
-        //         threadMessageId = Guid.NewGuid(),
-        //         name,
-        //         initialThreadMessage = threadMessage,
-        //         contentType = ChannelType.Chat,
-        //         confirmed = false
-        //     };
-        //     // JSON to send
-        //     JsonBody body = new JsonBody(JsonConvert.SerializeObject(info, Converters));
-        //     // Creates new thread
-        //     var response = await ExecuteRequest(new Endpoint($"channels/{channelId}/threads", Method.POST), body);
-        //     // Get it as object
-        //     JObject obj = JObject.Parse(response.Content);
-        //     // Get thread property
-        //     return obj["thread"].ToObject<ThreadChannel>();
-        // }
-        /// <summary>
-        /// Creates a new thread as a response to a specific message. Sync version of <see cref="CreateThreadAsync"/>.
-        /// </summary>
-        /// <param name="channelId">ID of the channel this thread should be created in</param>
-        /// <param name="threadMessage">Message to respond to</param>
-        /// <param name="responseMessage">Message as a response to the other message</param>
-        /// <param name="name">Name of the thread</param>
-        /// <returns>Thread created</returns>
-        // public ThreadChannel CreateThread(Guid channelId, Message threadMessage, NewMessage responseMessage, string name) =>
-        //     CreateThreadAsync(channelId, threadMessage, responseMessage, name).GetAwaiter().GetResult();
     }
 }

@@ -1,6 +1,9 @@
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Teams {
+    /// <summary>
+    /// A group membership.
+    /// </summary>
     public class Membership: BaseObject {
         /// <summary>
         /// Type of the membership.

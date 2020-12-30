@@ -147,6 +147,7 @@ namespace Guilded.NET.Util {
         /// If this message was posted by given user
         /// </summary>
         /// <param name="message">Message to check</param>
+        /// <param name="user">User to check if it's message author</param>
         /// <returns>Message by that user</returns>
         public static bool IsMessageOf(this Message message, User user) =>
             message.AuthorId == user?.Id;
@@ -154,6 +155,7 @@ namespace Guilded.NET.Util {
         /// If this message was posted by given user.
         /// </summary>
         /// <param name="message">Message to check</param>
+        /// <param name="user">User to check if it's message author</param>
         /// <returns>Message by that user</returns>
         public static bool IsMessageOf(this MessageCreatedEvent message, User user) =>
             message.Message.IsMessageOf(user);
@@ -161,6 +163,7 @@ namespace Guilded.NET.Util {
         /// If message was updated by given user.
         /// </summary>
         /// <param name="message">Message to check</param>
+        /// <param name="user">User to check if it's message update author</param>
         /// <returns>Message updated by that user</returns>
         public static bool WasUpdatedBy(this MessageUpdatedEvent message, User user) =>
             message.UpdatedBy == user?.Id;

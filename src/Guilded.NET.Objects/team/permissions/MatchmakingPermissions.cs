@@ -1,7 +1,10 @@
+using System;
+
 namespace Guilded.NET.Objects.Permissions {
     /// <summary>
     /// Tournament and scrims permissions.
     /// </summary>
+    [Flags]
     public enum MatchmakingPermissions {
         /// <summary>
         /// Allows you to create matchmaking scrims

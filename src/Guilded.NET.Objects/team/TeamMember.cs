@@ -27,7 +27,7 @@ namespace Guilded.NET.Objects.Teams {
         /// Nickname of the user. Can be null.
         /// </summary>
         /// <value>Username</value>
-        [JsonProperty("nickname")]
+        [JsonProperty("nickname", Required = Required.AllowNull)]
         public string Nickname {
             get; set;
         }
@@ -35,7 +35,7 @@ namespace Guilded.NET.Objects.Teams {
         /// User badges in Guilded, like partner badge or staff badge. Can be null.
         /// </summary>
         /// <value>List of badges</value>
-        [JsonProperty("badges")]
+        [JsonProperty("badges", Required = Required.AllowNull)]
         public IList<string> Badges {
             get; set;
         }
@@ -51,7 +51,7 @@ namespace Guilded.NET.Objects.Teams {
         /// When the member was last online.
         /// </summary>
         /// <value>Date</value>
-        [JsonProperty("lastOnline")]
+        [JsonProperty("lastOnline", Required = Required.Always)]
         public DateTime LastOnline {
             get; set;
         }
@@ -87,11 +87,14 @@ namespace Guilded.NET.Objects.Teams {
         public UserStatus Status {
             get; set;
         }
-        // TODO: Add SocialLink
-        // [JsonProperty("socialLinks")]
-        // public IList<SocialLink> SocialLinks {
-        //     get; set;
-        // }
+        /// <summary>
+        /// All social links of this member.
+        /// </summary>
+        /// <value>Social links</value>
+        [JsonProperty("socialLinks", Required = Required.AllowNull)]
+        public IList<SocialLink> SocialLinks {
+            get; set;
+        }
         /// <summary>
         /// IDs of the roles this member has.
         /// </summary>
@@ -100,16 +103,19 @@ namespace Guilded.NET.Objects.Teams {
         public IList<uint> RoleIds {
             get; set;
         }
-        // TODO: Add Alias
-        // [JsonProperty("aliases")]
-        // public IList<Alias> Aliases {
-        //     get; set;
-        // }
+        /// <summary>
+        /// Games this user has on their profile.
+        /// </summary>
+        /// <value>List of game aliases</value>
+        [JsonProperty("aliases", Required = Required.AllowNull)]
+        public IList<GameAlias> Aliases {
+            get; set;
+        }
         /// <summary>
         /// Presence of the user.
         /// </summary>
         /// <value>Presence</value>
-        [JsonProperty("userPresenceStatus")]
+        [JsonProperty("userPresenceStatus", Required = Required.Always)]
         public Presence Presence {
             get; set;
         }

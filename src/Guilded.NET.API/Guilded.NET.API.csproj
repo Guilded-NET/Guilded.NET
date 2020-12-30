@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.7</Version>
+    <Version>0.0.9</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Product>Guilded.NET.API</Product>
     <id>Guilded.NET.API</id>
@@ -10,6 +10,7 @@
     <Authors>IdkGoodName</Authors>
     <Description>API helpers for Guilded.NET</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

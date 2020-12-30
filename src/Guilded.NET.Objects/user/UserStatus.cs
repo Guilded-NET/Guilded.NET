@@ -56,7 +56,7 @@ namespace Guilded.NET.Objects {
         /// <summary>
         /// Generates user status for setting your custom status.
         /// </summary>
-        /// <param name="emoteId">ID of the emote it should use</param>
+        /// <param name="emote">ID of the emote it should use</param>
         /// <param name="content">Content of the status</param>
         /// <returns>Generated status</returns>
         public UserStatus Generate(ChatEmote emote = null, MessageContent content = null) =>
@@ -64,7 +64,7 @@ namespace Guilded.NET.Objects {
         /// <summary>
         /// Generates user status for setting your custom status.
         /// </summary>
-        /// <param name="emoteId">ID of the emote it should use</param>
+        /// <param name="emote">ID of the emote it should use</param>
         /// <param name="content">Content of the status</param>
         /// <returns>Generated status</returns>
         public UserStatus Generate(ChatEmote emote = null, string content = null) =>
@@ -72,7 +72,7 @@ namespace Guilded.NET.Objects {
         /// <summary>
         /// Generates user status for setting your custom status.
         /// </summary>
-        /// <param name="emoteId">ID of the emote it should use</param>
+        /// <param name="emote">ID of the emote it should use</param>
         /// <param name="content">Content of the status</param>
         /// <returns>Generated status</returns>
         public UserStatus Generate(Emote emote = null, MessageContent content = null) =>
@@ -80,7 +80,7 @@ namespace Guilded.NET.Objects {
         /// <summary>
         /// Generates user status for setting your custom status.
         /// </summary>
-        /// <param name="emoteId">ID of the emote it should use</param>
+        /// <param name="emote">ID of the emote it should use</param>
         /// <param name="content">Content of the status</param>
         /// <returns>Generated status</returns>
         public UserStatus Generate(Emote emote = null, string content = null) =>

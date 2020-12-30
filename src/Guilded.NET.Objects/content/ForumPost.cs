@@ -52,6 +52,10 @@ namespace Guilded.NET.Objects.Content {
         public bool IsSticky {
             get; set;
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [JsonProperty("isShare", Required = Required.Always)]
         public bool IsShare {
             get; set;

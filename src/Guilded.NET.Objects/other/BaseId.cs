@@ -33,7 +33,7 @@ namespace Guilded.NET.Objects {
         /// <param name="obj">Other object</param>
         /// <returns>Boolean</returns>
         public override bool Equals(object obj) {
-            if(obj is BaseId id) return id._ == _;
+            if(obj is BaseId id) return id?._ == _;
             else return false;
         }
         /// <summary>
@@ -42,7 +42,7 @@ namespace Guilded.NET.Objects {
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
         /// <returns>Boolean</returns>
-        public static bool operator ==(BaseId id0, BaseId id1) => id0._ == id1._;
+        public static bool operator ==(BaseId id0, BaseId id1) => id0?._ == id1?._;
         /// <summary>
         /// Checks if given ID is not equal to this ID.
         /// </summary>

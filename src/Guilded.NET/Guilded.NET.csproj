@@ -11,6 +11,7 @@
     <Author>IdkGoodName</Author>
     <Description>API wrapper for Guilded</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,10 +30,10 @@
 
   <ItemGroup>
     <Reference Include="Guilded.NET.Objects">
-      <HintPath>Guilded.NET.Objects.dll</HintPath>
+      <HintPath>lib/Guilded.NET.Objects.dll</HintPath>
     </Reference>
     <Reference Include="Guilded.NET.API">
-      <HintPath>Guilded.NET.API.dll</HintPath>
+      <HintPath>lib/Guilded.NET.API.dll</HintPath>
     </Reference>
   </ItemGroup>
 
