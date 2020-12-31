@@ -1,17 +1,18 @@
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using System;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Events {
+    using Teams;
     /// <summary>
-    /// Represents Guilded channel.
+    /// An update which was applied to the channel.
     /// </summary>
-    public class Channel: ClientObject, ITeamChannel {
+    public class ChannelUpdate {
         /// <summary>
         /// Represents Guilded channel.
         /// </summary>
-        public Channel() =>
-            (ParentChannel, ChannelCategoryId, AddedAt, Settings) = (null, null, null, null);
+        public ChannelUpdate() =>
+            (ParentChannel, ChannelCategoryId, AddedAt) = (null, null, null);
         /// <inheritdoc/>
         [JsonProperty("priority")]
         public long? Priority {
@@ -34,7 +35,7 @@ namespace Guilded.NET.Objects.Teams {
         /// Description of this channel.
         /// </summary>
         /// <value>Channel Description</value>
-        [JsonProperty("description")]
+        [JsonProperty("description", Required = Required.Always)]
         public string Description {
             get; set;
         }
@@ -78,7 +79,7 @@ namespace Guilded.NET.Objects.Teams {
         /// Whether or not this channel is public.
         /// </summary>
         /// <value>Boolean</value>
-        [JsonProperty("isPublic")]
+        [JsonProperty("isPublic", Required = Required.Always)]
         public bool IsPublic {
             get; set;
         }
@@ -161,38 +162,5 @@ namespace Guilded.NET.Objects.Teams {
         public IDictionary<string, object> Settings {
             get; set;
         }
-        /// <summary>
-        /// Turns channel to string.
-        /// </summary>
-        /// <returns>Channel as a string</returns>
-        public override string ToString() => $"Channel({Id})";
-        /// <summary>
-        /// Whether or not objects are equal.
-        /// </summary>
-        /// <param name="obj">Equals to</param>
-        /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is Channel ch) return ch.TeamId == TeamId && ch.Id == Id;
-            else return false;
-        }
-        /// <summary>
-        /// Whether or not channels are equal.
-        /// </summary>
-        /// <param name="ch0">First channel to be compared</param>
-        /// <param name="ch1">Second channel to be compared</param>
-        /// <returns>If it's equal to other object</returns>
-        public static bool operator ==(Channel ch0, Channel ch1) => ch0.TeamId == ch1.TeamId && ch0.Id == ch1.Id;
-        /// <summary>
-        /// Whether or not channels are not equal.
-        /// </summary>
-        /// <param name="ch0">First channel to be compared</param>
-        /// <param name="ch1">Second channel to be compared</param>
-        /// <returns>If it's not equal to other object</returns>
-        public static bool operator !=(Channel ch0, Channel ch1) => !(ch0 == ch1);
-        /// <summary>
-        /// Gets channel hashcode.
-        /// </summary>
-        /// <returns>HashCode</returns>
-        public override int GetHashCode() => (TeamId.GetHashCode() + Id.GetHashCode() + 2000) / 2;
     }
 }

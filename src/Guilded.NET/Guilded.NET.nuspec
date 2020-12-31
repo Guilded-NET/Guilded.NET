@@ -17,6 +17,7 @@
 - Ability to create another websocket for a team(this means channel created and channel deleted events)
 - Documentation fixes
 - Set referer header
+- Channel created, deleted and updated events
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

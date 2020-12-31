@@ -7,20 +7,12 @@ namespace Guilded.NET.Objects.Events {
     /// <summary>
     /// A base for events in both teams(reaction events, message events) and DMs.
     /// </summary>
-    public class CommonEvent: Event {
+    public class CommonEvent: ClientEvent {
         /// <summary>
         /// A base for events in both teams(reaction events, message events) and DMs.
         /// </summary>
         public CommonEvent() =>
-           (GuildedClientId, TeamId, CategoryId) = (null, null, null);
-        /// <summary>
-        /// ID of the Guilded client.
-        /// </summary>
-        /// <value>Guilded client ID</value>
-        [JsonProperty("guildedClientId")]
-        public Guid? GuildedClientId {
-            get; set;
-        }
+           (TeamId, CategoryId) = (null, null);
         /// <summary>
         /// ID of the channel this event appeared. Can be a DM channel or a team channel.
         /// </summary>

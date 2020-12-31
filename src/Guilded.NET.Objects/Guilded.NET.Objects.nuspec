@@ -20,6 +20,7 @@
 - Undocumented API updated team crashes when parsing
 - Fixed permission enums(had no [Flags] attribute)
 - Documentation fixes
+- Channel created, updated, removed events
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

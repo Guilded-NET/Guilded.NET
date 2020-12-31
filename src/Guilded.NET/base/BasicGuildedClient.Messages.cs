@@ -211,6 +211,39 @@ namespace Guilded.NET {
             remove => MessageUnpinnedEvent -= value;
         }
         /// <summary>
+        /// When channel gets created.
+        /// </summary>
+        protected EventHandler<ChannelCreatedEvent> ChannelCreatedEvent;
+        /// <summary>
+        /// When channel gets created.
+        /// </summary>
+        public event EventHandler<ChannelCreatedEvent> ChannelCreated {
+            add => ChannelCreatedEvent += value;
+            remove => ChannelCreatedEvent -= value;
+        }
+        /// <summary>
+        /// When channel gets updated.
+        /// </summary>
+        protected EventHandler<ChannelUpdatedEvent> ChannelUpdatedEvent;
+        /// <summary>
+        /// When channel gets updated.
+        /// </summary>
+        public event EventHandler<ChannelUpdatedEvent> ChannelUpdated {
+            add => ChannelUpdatedEvent += value;
+            remove => ChannelUpdatedEvent -= value;
+        }
+        /// <summary>
+        /// When channel gets deleted.
+        /// </summary>
+        protected EventHandler<ChannelDeletedEvent> ChannelDeletedEvent;
+        /// <summary>
+        /// When channel gets deleted.
+        /// </summary>
+        public event EventHandler<ChannelDeletedEvent> ChannelDeleted {
+            add => ChannelDeletedEvent += value;
+            remove => ChannelDeletedEvent -= value;
+        }
+        /// <summary>
         /// Checks if there's a command in the message. If there is, it executes that command.
         /// </summary>
         /// <param name="o">Who invoked this method</param>
@@ -326,6 +359,15 @@ namespace Guilded.NET {
                         break;
                     case "ChatPinnedMessageDeleted":
                         InvokeEvent<MessagePinUpdatedEvent>(MessageUnpinnedEvent, xeobj);
+                        break;
+                    case "TeamChannelCreated":
+                        InvokeEvent<ChannelCreatedEvent>(ChannelCreatedEvent, xeobj);
+                        break;
+                    case "TeamChannelUpdated":
+                        InvokeEvent<ChannelUpdatedEvent>(ChannelUpdatedEvent, xeobj);
+                        break;
+                    case "TeamChannelDeleted":
+                        InvokeEvent<ChannelDeletedEvent>(ChannelDeletedEvent, xeobj);
                         break;
                 }
             }

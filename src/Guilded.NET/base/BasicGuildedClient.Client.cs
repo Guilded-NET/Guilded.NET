@@ -107,9 +107,8 @@ namespace Guilded.NET {
         public override WebsocketClient InitWebsocket(double? reconnection = null, string teamId = null) {
             // Calls base to create a websocket
             WebsocketClient websocket = base.InitWebsocket(reconnection, teamId);
-            Console.WriteLine("Creating client for {0}", teamId);
             // Subscribe to message event, so we could get events such as message creation event
-            websocket.MessageReceived.Subscribe(o => Console.WriteLine("{0}:\n{1}", websocket.Url, o.Text));
+            websocket.MessageReceived.Subscribe(WebsocketMessageReceived);
             // Start that websocket
             websocket.StartOrFail().GetAwaiter().GetResult();
             return websocket;
