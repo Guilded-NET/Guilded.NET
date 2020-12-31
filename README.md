@@ -2,7 +2,7 @@
 
 # Guilded.NET
 
-[![Version](https://img.shields.io/badge/Version-0.0.8-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Alpha-red?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-0.0.9-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Alpha-red?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
 Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET allows you to interact with API in an easy way. Use Guilded.NET to create bots, self-bots and whatever you want. Guilded.NET uses .NET, so be sure to install it before using it.
 
@@ -26,4 +26,3 @@ Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET all
 > ## See also
 > - **[Guilded.NET Discussions channel](https://www.guilded.gg/Programming/groups/1DvNOxOD/channels/94a1b65f-50e4-4fb3-a355-e285e7c5257d/chat)** - for discussing Guilded.NET. You need to join Programming Space for that.
 > - **[Programming Space](https://guilded.gg/Programming)** - a place to chill, place where you can discuss Guilded.NET.
-> - **[Advertisement Space](https://guilded.gg/Advertisement)** - a place to advertise your bots, Guilded, Discord servers, Matrix, etc..
