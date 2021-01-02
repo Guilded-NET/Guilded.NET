@@ -339,7 +339,7 @@ namespace Guilded.NET.API {
             HeartbeatToken.Cancel();
             HeartbeatThread.Join();
             // Disposes all websockets
-            foreach(string key in Websockets.Keys) Websockets[key].Dispose();
+            foreach(WebsocketClient client in Websockets.Values) client.Dispose();
         }
         /// <summary>
         /// Method for a heartbeat thread.
@@ -364,7 +364,7 @@ namespace Guilded.NET.API {
         /// <exception cref="GuildedException">When it fails to send a ping through REST client</exception>
         protected virtual async Task SendHeartbeat(string value) {
             // Websocket sends ping
-            foreach(string key in Websockets.Keys) Websockets[key].Send(value);
+            foreach(WebsocketClient client in Websockets.Values) client.Send(value);
             // Rest client sends a ping too
             await ExecuteRequest<object>(Endpoint.PING);
         }
