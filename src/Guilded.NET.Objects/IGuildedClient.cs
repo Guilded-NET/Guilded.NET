@@ -533,13 +533,27 @@ namespace Guilded.NET.Objects {
         /// Gets a form or a poll by form ID.
         /// </summary>
         /// <param name="formId">ID of the form to get</param>
-        /// <returns>A form or a poll</returns>
-        Task<GuildedForm> GetFormAsync(uint formId);
+        /// <returns>A form and a form response</returns>
+        Task<FormData> GetFormAsync(uint formId);
         /// <summary>
         /// Gets a form or a poll by form ID.
         /// </summary>
         /// <param name="formId">ID of the form to get</param>
-        /// <returns>A form or a poll</returns>
-        GuildedForm GetForm(uint formId);
+        /// <returns>A form and a form response</returns>
+        FormData GetForm(uint formId);
+        /// <summary>
+        /// Submits a form response.
+        /// </summary>
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        Task<uint> PostFormResponseAsync(uint formId, BasicFormResponse response);
+        /// <summary>
+        /// Submits a form response.
+        /// </summary>
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        uint PostFormResponse(uint formId, BasicFormResponse response);
     }
 }

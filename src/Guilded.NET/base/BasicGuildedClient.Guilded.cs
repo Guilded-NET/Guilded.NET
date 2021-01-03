@@ -7,12 +7,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET {
-    using Objects.Chat;
-    using Objects;
     using API;
+    using Util;
+    using Objects;
+    using Objects.Chat;
     using Objects.Teams;
-    using Guilded.NET.Objects.Content;
-    using Guilded.NET.Util;
+    using Objects.Forms;
+    using Objects.Content;
 
     /// <summary>
     /// Logged-in user in Guilded.
@@ -24,6 +25,39 @@ namespace Guilded.NET {
         protected Random RandomId;
         T Convert<T>(string content) where T: class =>
             content != null ? JsonConvert.DeserializeObject<T>(content, Converters) : null;
+        /// <summary>
+        /// Sends a request to Guilded, gets an object and gets a specific key.
+        /// </summary>
+        async Task<JObject> FromObject(Endpoint endpoint, params IReqAddable[] addables) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(endpoint, addables);
+            // Gets the response as an object and returns it
+            return JObject.Parse(response.Content);
+        }
+        /// <summary>
+        /// Sends a request to Guilded, gets an object and gets a specific key.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        async Task<T> FromObject<T>(Endpoint endpoint, params IReqAddable[] addables) =>
+            (await FromObject(endpoint, addables)).ToObject<T>(GuildedSerializer);
+        /// <summary>
+        /// Sends a request to Guilded, gets an object and gets a specific key.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        async Task<T> FromObject<T>(Endpoint endpoint, string key, params IReqAddable[] addables) =>
+            (await FromObject(endpoint, addables))[key].ToObject<T>(GuildedSerializer);
+        /// <summary>
+        /// Sends a request to Guilded, gets an array.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        async Task<List<T>> FromArray<T>(Endpoint endpoint, params IReqAddable[] addables) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(endpoint, addables);
+            // Gets the response as an object
+            JArray array = JArray.Parse(response.Content);
+            // Gets and returns parsed object
+            return array.ToObject<List<T>>(GuildedSerializer);
+        }
         /// <summary>
         /// Gets user this client is using.
         /// </summary>
@@ -635,14 +669,8 @@ namespace Guilded.NET {
         /// <param name="maxItems">How many announcements it should get</param>
         /// <param name="beforeDate">Before which date it should get announcements</param>
         /// <returns>List of announcements</returns>
-        public async Task<IList<Announcement>> GetAnnouncementsAsync(Guid channelId, uint? maxItems = 10, DateTime? beforeDate = null) {
-            // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/announcements?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
-            // Gets the response as an array
-            JObject obj = JObject.Parse(response.Content);
-            // Gets and returns list of announcements
-            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
-        }
+        public async Task<IList<Announcement>> GetAnnouncementsAsync(Guid channelId, uint? maxItems = 10, DateTime? beforeDate = null) =>
+            await FromObject<IList<Announcement>>(new Endpoint($"channels/{channelId}/announcements?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET), "");
         /// <summary>
         /// Gets a list of announcements in a specific channel.
         /// </summary>
@@ -659,14 +687,8 @@ namespace Guilded.NET {
         /// <param name="maxItems">How many announcements it should get</param>
         /// <param name="beforeDate">Before which date it should get announcements</param>
         /// <returns>List of announcements</returns>
-        public async Task<IList<Announcement>> GetAnnouncementsAsync(GId teamId, uint? maxItems = 10, DateTime? beforeDate = null) {
-            // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"teams/{teamId}/announcements?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
-            // Gets the response as an array
-            JObject obj = JObject.Parse(response.Content);
-            // Gets and returns list of announcements
-            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
-        }
+        public async Task<IList<Announcement>> GetAnnouncementsAsync(GId teamId, uint? maxItems = 10, DateTime? beforeDate = null) =>
+            await FromObject<IList<Announcement>>(new Endpoint($"teams/{teamId}/announcements?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET), "");
         /// <summary>
         /// Gets a list of announcements in a team.
         /// </summary>
@@ -681,14 +703,8 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="channelId">ID of the channel</param>
         /// <returns>List of announcements</returns>
-        public async Task<IList<Announcement>> GetPinnedAnnouncementsAsync(Guid channelId) {
-            // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/pinnedannouncements", Method.GET));
-            // Gets the response as an array
-            JObject obj = JObject.Parse(response.Content);
-            // Gets and returns list of announcements
-            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
-        }
+        public async Task<IList<Announcement>> GetPinnedAnnouncementsAsync(Guid channelId) =>
+            await FromObject<IList<Announcement>>(new Endpoint($"channels/{channelId}/announcements/pinned", Method.GET), "announcements");
         /// <summary>
         /// Gets a list of pinned announcements in a specific channel.
         /// </summary>
@@ -701,14 +717,8 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="teamId">ID of the team</param>
         /// <returns>List of announcements</returns>
-        public async Task<IList<Announcement>> GetPinnedAnnouncementsAsync(GId teamId) {
-            // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"teams/{teamId}/announcements/pinned", Method.GET));
-            // Gets the response as an array
-            JObject obj = JObject.Parse(response.Content);
-            // Gets and returns list of announcements
-            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
-        }
+        public async Task<IList<Announcement>> GetPinnedAnnouncementsAsync(GId teamId) =>
+            await FromObject<IList<Announcement>>(new Endpoint($"teams/{teamId}/announcements/pinned", Method.GET), "announcements");
         /// <summary>
         /// Gets a list of pinned announcements in a team.
         /// </summary>
@@ -716,5 +726,49 @@ namespace Guilded.NET {
         /// <returns>List of announcements</returns>
         public IList<Announcement> GetPinnedAnnouncements(GId teamId) =>
             GetPinnedAnnouncementsAsync(teamId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Creates a form for form node.
+        /// </summary>
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        public async Task<uint> CreateFormAsync(BasicGuildedForm form) =>
+            await FromObject<uint>(new Endpoint($"content/custom_forms/", Method.PUT), "customFormId", new JsonBody(form.Serialize(GuildedSerializer)));
+        /// <summary>
+        /// Creates a form for form node.
+        /// </summary>
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        public uint CreateForm(BasicGuildedForm form) =>
+            CreateFormAsync(form).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a form or a poll by form ID.
+        /// </summary>
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form and a form response</returns>
+        public async Task<FormData> GetFormAsync(uint formId) =>
+            await FromObject<FormData>(new Endpoint($"content/custom_forms/{formId}", Method.GET));
+        /// <summary>
+        /// Gets a form or a poll by form ID.
+        /// </summary>
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form and a form response</returns>
+        public FormData GetForm(uint formId) =>
+            GetFormAsync(formId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Submits a form response.
+        /// </summary>
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        public async Task<uint> PostFormResponseAsync(uint formId, BasicFormResponse response) =>
+            await FromObject<uint>(new Endpoint($"content/custom_forms/{formId}/responses", Method.PUT), "customFormResponseId", new JsonBody(response.Serialize(GuildedSerializer)));
+        /// <summary>
+        /// Submits a form response.
+        /// </summary>
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        public uint PostFormResponse(uint formId, BasicFormResponse response) =>
+            PostFormResponseAsync(formId, response).GetAwaiter().GetResult();
     }
 }
