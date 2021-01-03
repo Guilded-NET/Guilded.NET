@@ -398,11 +398,9 @@ namespace Guilded.NET {
         /// <param name="beforeDate">Before what date it should get posts</param>
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <returns>Forum post list</returns>
-        public async Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint maxItems, DateTime? beforeDate = null) {
-            // Turns beforeDate to string query
-            string before = beforeDate == null ? "" : $"&beforeDate={beforeDate}";
+        public async Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint? maxItems = 1000, DateTime? beforeDate = null) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums?maxItems={maxItems}{before}", Method.GET));
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an object
             JObject obj = JObject.Parse(response.Content);
             // Gets and returns list of forum posts
@@ -415,7 +413,7 @@ namespace Guilded.NET {
         /// <param name="beforeDate">Before what date it should get posts</param>
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <returns>Forum post list</returns>
-        public IList<ForumPost> GetForumPosts(Guid channelId, uint maxItems, DateTime? beforeDate = null) =>
+        public IList<ForumPost> GetForumPosts(Guid channelId, uint? maxItems = 1000, DateTime? beforeDate = null) =>
             GetForumPostsAsync(channelId, maxItems, beforeDate).GetAwaiter().GetResult();
         /// <summary>
         /// Gets forum posts from a specific forum channel.
@@ -425,11 +423,9 @@ namespace Guilded.NET {
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <param name="afterDate">After what date it should get posts</param>
         /// <returns>Forum reply list</returns>
-        public async Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint maxItems, DateTime? afterDate = null) {
-            // Turns afterDate to string query
-            string after = afterDate == null ? "" : $"&afterDate={afterDate}";
+        public async Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint? maxItems = 10, DateTime? afterDate = null) {
             // Gets response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies?maxItems={maxItems}{after}", Method.GET));
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies?maxItems={maxItems}&afterDate={afterDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an object
             JObject obj = JObject.Parse(response.Content);
             // Gets and returns list of forum posts
@@ -443,7 +439,7 @@ namespace Guilded.NET {
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <param name="afterDate">After what date it should get posts</param>
         /// <returns>Forum reply list</returns>
-        public IList<ForumReply> GetForumReplies(Guid channelId, uint postId, uint maxItems, DateTime? afterDate = null) =>
+        public IList<ForumReply> GetForumReplies(Guid channelId, uint postId, uint? maxItems = 10, DateTime? afterDate = null) =>
             GetForumRepliesAsync(channelId, postId, maxItems, afterDate).GetAwaiter().GetResult();
         /// <summary>
         /// Create a forum post in a forum channel.
@@ -480,7 +476,7 @@ namespace Guilded.NET {
         public async Task CreateForumReplyAsync(Guid channelId, uint postId, MessageContent message) {
             // Generates a forum reply
             var forumPost = new {
-                threadId = RandomId.Next(1000000000, int.MaxValue),
+                id = RandomId.Next(1000000000, int.MaxValue),
                 message
             };
             // Sends it
@@ -501,11 +497,9 @@ namespace Guilded.NET {
         /// <param name="maxItems">Amount of documents to get</param>
         /// <param name="beforeDate">Date before which it should get documents</param>
         /// <returns>List of documents</returns>
-        public async Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint maxItems, DateTime? beforeDate = null) {
-            // Turns beforeDate to string query
-            string before = beforeDate == null ? "" : $"&beforeDate={beforeDate}";
+        public async Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint? maxItems = 50, DateTime? beforeDate = null) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/docs?maxItems={maxItems}{before}", Method.GET));
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/docs?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an array
             JArray array = JArray.Parse(response.Content);
             // Gets and returns list of docs posts
@@ -518,7 +512,7 @@ namespace Guilded.NET {
         /// <param name="maxItems">Amount of documents to get</param>
         /// <param name="beforeDate">Date before which it should get documents</param>
         /// <returns>List of documents</returns>
-        public IList<GuildedDocument> GetDocuments(Guid channelId, uint maxItems, DateTime? beforeDate = null) =>
+        public IList<GuildedDocument> GetDocuments(Guid channelId, uint? maxItems = 50, DateTime? beforeDate = null) =>
             GetDocumentsAsync(channelId, maxItems, beforeDate).GetAwaiter().GetResult();
         /// <summary>
         /// Gets a specific document in a specific channel.
@@ -540,27 +534,99 @@ namespace Guilded.NET {
         /// Gets all medias within a specific channel with given max count and before given date.
         /// </summary>
         /// <param name="channelId">ID of channel to fetch media from</param>
-        /// <param name="maxItems">Amount of media posts to get</param>
-        /// <param name="beforeDate">Date before which it should get media</param>
         /// <returns>List of media posts</returns>
-        public async Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId, uint maxItems, DateTime? beforeDate = null) {
-            // Turns beforeDate to string query
-            string before = beforeDate == null ? "" : $"&beforeDate={beforeDate}";
+        public async Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/media?maxItems={maxItems}{before}", Method.GET));
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/media", Method.GET));
             // Gets the response as an object
             JArray array = JArray.Parse(response.Content);
-            // Gets and returns list of forum posts
+            // Gets and returns list of media posts
             return array.ToObject<IList<GuildedMedia>>(GuildedSerializer);
         }
         /// <summary>
         /// Gets all medias within a specific channel with given max count and before given date.
         /// </summary>
         /// <param name="channelId">ID of channel to fetch media from</param>
-        /// <param name="maxItems">Amount of media posts to get</param>
-        /// <param name="beforeDate">Date before which it should get media</param>
         /// <returns>List of media posts</returns>
-        public IList<GuildedMedia> GetMedia(Guid channelId, uint maxItems, DateTime? beforeDate = null) =>
-            GetMediaAsync(channelId, maxItems, beforeDate).GetAwaiter().GetResult();
+        public IList<GuildedMedia> GetMedia(Guid channelId) =>
+            GetMediaAsync(channelId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets given amount of events from a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many events it should get</param>
+        /// <param name="endDate">At which date it should end</param>
+        /// <param name="startDate">At which date it should start</param>
+        /// <returns>List of calendar events</returns>
+        public async Task<IList<CalendarEvent>> GetEventsAsync(Guid channelId, uint? maxItems = 250, DateTime? endDate = null, DateTime? startDate = null) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/events?endDate={endDate ?? DateTime.Now}maxItems={maxItems}&startDate={startDate ?? DateTime.Now}", Method.GET));
+            // Gets the response as an object
+            JObject obj = JObject.Parse(response.Content);
+            // Gets and returns list of events
+            return obj["events"].ToObject<IList<CalendarEvent>>(GuildedSerializer);
+        }
+        /// <summary>
+        /// Gets given amount of events from a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many events it should get</param>
+        /// <param name="endDate">At which date it should end</param>
+        /// <param name="startDate">At which date it should start</param>
+        /// <returns>List of calendar events</returns>
+        public IList<CalendarEvent> GetEvents(Guid channelId, uint? maxItems = 250, DateTime? endDate = null, DateTime? startDate = null) =>
+            GetEventsAsync(channelId, maxItems, endDate ?? DateTime.Today + TimeSpan.FromDays(30), startDate ?? DateTime.Today - TimeSpan.FromDays(30)).GetAwaiter().GetResult();
+        /// <summary>
+        /// Get availabilities in a schedule channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of availabilities</returns>
+        public async Task<IList<Availability>> GetSchedulesAsync(Guid channelId) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/availability", Method.GET));
+            // Gets the response as an array
+            JArray array = JArray.Parse(response.Content);
+            // Gets and returns list of availabilities
+            return array.ToObject<IList<Availability>>(GuildedSerializer);
+        }
+        /// <summary>
+        /// Get availabilities in a schedule channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of availabilities</returns>
+        public IList<Availability> GetSchedules(Guid channelId) =>
+            GetSchedulesAsync(channelId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Add a reaction to a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to add a reaction on</param>
+        /// <param name="emoteId">ID of the emote to add</param>
+        public async Task AddReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/messages/{messageId}/reactions/{emoteId}", Method.POST));
+        /// <summary>
+        /// Add a reaction to a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to add a reaction on</param>
+        /// <param name="emoteId">ID of the emote to add</param>
+        public void AddReaction(Guid channelId, Guid messageId, uint emoteId) =>
+            AddReactionAsync(channelId, messageId, emoteId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Removes a reaction from a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to remove a reaction from</param>
+        /// <param name="emoteId">ID of the emote to remove</param>
+        public async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/messages/{messageId}/reactions/{emoteId}", Method.DELETE));
+        /// <summary>
+        /// Removes a reaction from a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to remove a reaction from</param>
+        /// <param name="emoteId">ID of the emote to remove</param>
+        public void RemoveReaction(Guid channelId, Guid messageId, uint emoteId) =>
+            RemoveReactionAsync(channelId, messageId, emoteId).GetAwaiter().GetResult();
     }
 }

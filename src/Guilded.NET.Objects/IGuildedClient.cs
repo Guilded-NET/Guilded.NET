@@ -304,7 +304,7 @@ namespace Guilded.NET.Objects {
         /// <param name="beforeDate">Before what date it should get posts</param>
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <returns>Forum post list</returns>
-        Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint maxItems, DateTime? beforeDate);
+        Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint? maxItems, DateTime? beforeDate);
         /// <summary>
         /// Gets forum posts from a specific forum channel.
         /// </summary>
@@ -312,7 +312,7 @@ namespace Guilded.NET.Objects {
         /// <param name="beforeDate">Before what date it should get posts</param>
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <returns>Forum post list</returns>
-        IList<ForumPost> GetForumPosts(Guid channelId, uint maxItems, DateTime? beforeDate);
+        IList<ForumPost> GetForumPosts(Guid channelId, uint? maxItems, DateTime? beforeDate);
         /// <summary>
         /// Gets forum posts from a specific forum channel.
         /// </summary>
@@ -321,7 +321,7 @@ namespace Guilded.NET.Objects {
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <param name="afterDate">After what date it should get posts</param>
         /// <returns>Forum reply list</returns>
-        Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint maxItems, DateTime? afterDate);
+        Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint? maxItems, DateTime? afterDate);
         /// <summary>
         /// Gets forum replies from a forum post.
         /// </summary>
@@ -330,7 +330,7 @@ namespace Guilded.NET.Objects {
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <param name="afterDate">After what date it should get posts</param>
         /// <returns>Forum reply list</returns>
-        IList<ForumReply> GetForumReplies(Guid channelId, uint postId, uint maxItems, DateTime? afterDate);
+        IList<ForumReply> GetForumReplies(Guid channelId, uint postId, uint? maxItems, DateTime? afterDate);
         /// <summary>
         /// Create a forum post in a forum channel.
         /// </summary>
@@ -368,7 +368,7 @@ namespace Guilded.NET.Objects {
         /// <param name="maxItems">Amount of documents to get</param>
         /// <param name="beforeDate">Date before which it should get documents</param>
         /// <returns>List of documents</returns>
-        Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint maxItems, DateTime? beforeDate);
+        Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint? maxItems, DateTime? beforeDate);
         /// <summary>
         /// Gets all documents within a specific channel with given max count and before given date.
         /// </summary>
@@ -376,7 +376,7 @@ namespace Guilded.NET.Objects {
         /// <param name="maxItems">Amount of documents to get</param>
         /// <param name="beforeDate">Date before which it should get documents</param>
         /// <returns>List of documents</returns>
-        IList<GuildedDocument> GetDocuments(Guid channelId, uint maxItems, DateTime? beforeDate);
+        IList<GuildedDocument> GetDocuments(Guid channelId, uint? maxItems, DateTime? beforeDate);
         /// <summary>
         /// Gets a specific document in a specific channel.
         /// </summary>
@@ -395,17 +395,71 @@ namespace Guilded.NET.Objects {
         /// Gets all medias within a specific channel with given max count and before given date.
         /// </summary>
         /// <param name="channelId">ID of channel to fetch media from</param>
-        /// <param name="maxItems">Amount of media posts to get</param>
-        /// <param name="beforeDate">Date before which it should get media</param>
         /// <returns>List of media posts</returns>
-        Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId, uint maxItems, DateTime? beforeDate);
+        Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId);
         /// <summary>
         /// Gets all medias within a specific channel with given max count and before given date.
         /// </summary>
         /// <param name="channelId">ID of channel to fetch media from</param>
-        /// <param name="maxItems">Amount of media posts to get</param>
-        /// <param name="beforeDate">Date before which it should get media</param>
         /// <returns>List of media posts</returns>
-        IList<GuildedMedia> GetMedia(Guid channelId, uint maxItems, DateTime? beforeDate);
+        IList<GuildedMedia> GetMedia(Guid channelId);
+        /// <summary>
+        /// Gets given amount of events from a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many events it should get</param>
+        /// <param name="endDate">At which date it should end</param>
+        /// <param name="startDate">At which date it should start</param>
+        /// <returns>List of calendar events</returns>
+        Task<IList<CalendarEvent>> GetEventsAsync(Guid channelId, uint? maxItems, DateTime? endDate, DateTime? startDate);
+        /// <summary>
+        /// Gets given amount of events from a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many events it should get</param>
+        /// <param name="endDate">At which date it should end</param>
+        /// <param name="startDate">At which date it should start</param>
+        /// <returns>List of calendar events</returns>
+        IList<CalendarEvent> GetEvents(Guid channelId, uint? maxItems, DateTime? endDate, DateTime? startDate);
+        /// <summary>
+        /// Get availabilities in a schedule channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of availabilities</returns>
+        Task<IList<Availability>> GetSchedulesAsync(Guid channelId);
+        /// <summary>
+        /// Get availabilities in a schedule channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of availabilities</returns>
+        IList<Availability> GetSchedules(Guid channelId);
+        /// <summary>
+        /// Add a reaction to a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to add a reaction on</param>
+        /// <param name="emoteId">ID of the emote to add</param>
+        Task AddReactionAsync(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Add a reaction to a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to add a reaction on</param>
+        /// <param name="emoteId">ID of the emote to add</param>
+        void AddReaction(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Removes a reaction from a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to remove a reaction from</param>
+        /// <param name="emoteId">ID of the emote to remove</param>
+        Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Removes a reaction from a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to remove a reaction from</param>
+        /// <param name="emoteId">ID of the emote to remove</param>
+        void RemoveReaction(Guid channelId, Guid messageId, uint emoteId);
     }
 }

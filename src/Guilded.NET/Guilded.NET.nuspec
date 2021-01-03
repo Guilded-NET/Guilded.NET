@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET</id>
-        <version>0.0.9</version>
+        <version>0.0.10</version>
         <title>Guilded.NET</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -12,12 +12,7 @@
         <icon>icon.png</icon>
         <description>API wrapper for Guilded</description>
         <releaseNotes>
-- Content updated event
-- Voice/stream channel joined and left events
-- Ability to create another websocket for a team(this means channel created and channel deleted events)
-- Documentation fixes
-- Set referer header
-- Channel created, deleted and updated events
+
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
@@ -28,8 +23,8 @@
             <dependency id="Newtonsoft.Json.Schema" version="3.0.13" />
             <dependency id="Websocket.Client" version="4.3.21" />
             <dependency id="System.Reactive" version="4.4.1" />
-            <dependency id="Guilded.NET.API" version="0.0.9" />
-            <dependency id="Guilded.NET.Objects" version="0.0.9" />
+            <dependency id="Guilded.NET.API" version="0.0.10" />
+            <dependency id="Guilded.NET.Objects" version="0.0.10" />
         </dependencies>
     </metadata>
     <files>

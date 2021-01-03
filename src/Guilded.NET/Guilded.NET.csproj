@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.9</Version>
+    <Version>0.0.10</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Product>Guilded.NET</Product>
     <id>Guilded.NET</id>
@@ -15,8 +15,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Guilded.NET.API" Version="0.0.9" />
-    <PackageReference Include="Guilded.NET.Objects" Version="0.0.9" />
+    <!-- <PackageReference Include="Guilded.NET.API" Version="0.0.10" />
+    <PackageReference Include="Guilded.NET.Objects" Version="0.0.10" /> -->
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.13" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
@@ -28,13 +28,13 @@
     <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <!-- <ItemGroup>
+  <ItemGroup>
     <Reference Include="Guilded.NET.Objects">
       <HintPath>lib/Guilded.NET.Objects.dll</HintPath>
     </Reference>
     <Reference Include="Guilded.NET.API">
       <HintPath>lib/Guilded.NET.API.dll</HintPath>
     </Reference>
-  </ItemGroup> -->
+  </ItemGroup>
 
 </Project>

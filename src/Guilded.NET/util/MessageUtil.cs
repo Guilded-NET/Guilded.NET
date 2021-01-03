@@ -118,7 +118,7 @@ namespace Guilded.NET.Util {
         /// <param name="maxItems">Max amount of replies it should get</param>
         /// <param name="afterDate">After which date should it get replies</param>
         /// <returns>List of replies</returns>
-        public static async Task<IList<ForumReply>> GetRepliesAsync(this ForumPost post, uint maxItems, DateTime? afterDate = null) =>
+        public static async Task<IList<ForumReply>> GetRepliesAsync(this ForumPost post, uint? maxItems = 250, DateTime? afterDate = null) =>
             await post.ParentClient.GetForumRepliesAsync((Guid)post.ChannelId, post.Id, maxItems, afterDate);
         /// <summary>
         /// Gets replies of a specific forum post.
@@ -127,7 +127,7 @@ namespace Guilded.NET.Util {
         /// <param name="maxItems">Max amount of replies it should get</param>
         /// <param name="afterDate">After which date should it get replies</param>
         /// <returns>List of replies</returns>
-        public static IList<ForumReply> GetReplies(this ForumPost post, uint maxItems, DateTime? afterDate = null) =>
+        public static IList<ForumReply> GetReplies(this ForumPost post,  uint? maxItems = 250, DateTime? afterDate = null) =>
             post.ParentClient.GetForumReplies((Guid)post.ChannelId, post.Id, maxItems, afterDate);
         /// <summary>
         /// If this message was posted by this client.

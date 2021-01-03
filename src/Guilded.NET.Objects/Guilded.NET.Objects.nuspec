@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET.Objects</id>
-        <version>0.0.9</version>
+        <version>0.0.10</version>
         <title>Guilded.NET.Objects</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -12,15 +12,7 @@
         <icon>icon.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
-- Fixed newline at the end of the Message.ToString()
-- Form related things
-- Form option/field IDs, base ID
-- Schedules and events
-- Voice/stream channel joined and left events.
-- Undocumented API updated team crashes when parsing
-- Fixed permission enums(had no [Flags] attribute)
-- Documentation fixes
-- Channel created, updated, removed events
+
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
