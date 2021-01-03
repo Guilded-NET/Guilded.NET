@@ -12,6 +12,14 @@ namespace Guilded.NET.Objects.Forms {
         public GuildedForm() =>
             UpdatedAt = null;
         /// <summary>
+        /// ID of this form/poll.
+        /// </summary>
+        /// <value>Form ID</value>
+        [JsonProperty("id")]
+        public uint Id {
+            get; set;
+        }
+        /// <summary>
         /// Author who created this form/poll.
         /// </summary>
         /// <value>Author</value>

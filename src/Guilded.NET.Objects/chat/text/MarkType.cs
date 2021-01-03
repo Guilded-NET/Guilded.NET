@@ -24,8 +24,16 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         InlineCode,
         /// <summary>
+        /// Old type of inline code.
+        /// </summary>
+        InlineCodeLegacy,
+        /// <summary>
         /// Makes text invisible until it's clicked on.
         /// </summary>
-        Spoiler
+        Spoiler,
+        /// <summary>
+        /// Unknown.
+        /// </summary>
+        CodeFormat
     }
 }

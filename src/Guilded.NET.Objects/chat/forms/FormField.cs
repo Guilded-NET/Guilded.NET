@@ -75,5 +75,33 @@ namespace Guilded.NET.Objects.Forms {
         public string DefaultValue {
             get; set;
         }
+        /// <summary>
+        /// Generates a form field.
+        /// </summary>
+        /// <param name="title">Title of the form field</param>
+        /// <param name="type">What type it is</param>
+        /// <param name="isOptional">If it's optional</param>
+        /// <param name="options">All of the field options(if it's a radio, checkmark or dropdown field)</param>
+        /// <returns>A new field</returns>
+        public static FormField Generate(string title, FormFieldType type, bool isOptional = false, params FieldOption[] options) {
+            // A field option number
+            uint i = 1;
+            // Assign a number to each field option
+            foreach(FieldOption option in options) {
+                option.DefaultValue = $"Option {i}";
+                i++;
+            }
+            // Returns a new field
+            return new FormField {
+                Type = type,
+                Label = type == FormFieldType.Text ? "Answer" : title,
+                Header = type == FormFieldType.Text ? title : "",
+                FieldName = FormId.Random,
+                Options = options,
+                IsOptional = isOptional,
+                Grow = 1,
+                DefaultValue = null
+            };
+        }
     }
 }

@@ -50,5 +50,21 @@ namespace Guilded.NET.Objects.Forms {
         public FormId OptionName {
             get; set;
         }
+        /// <summary>
+        /// Creates an option for dropdown, radio and checkmark fields.
+        /// </summary>
+        /// <param name="label">A name for this option</param>
+        /// <returns>New option</returns>
+        public static FieldOption Generate(string label) {
+            // Creates a random form ID
+            FormId rand = FormId.Random;
+            // Creates an option
+            return new FieldOption {
+                FieldName = FormId.Random,
+                Label = label,
+                OptionName = rand,
+                Value = rand
+            };
+        }
     }
 }

@@ -84,6 +84,10 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// A role, user, @everyone or @here mention.
         /// </summary>
-        Mention
+        Mention,
+        /// <summary>
+        /// A poll/form node.
+        /// </summary>
+        Form
     }
 }

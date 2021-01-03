@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects {
-    using System.Transactions;
+    using Forms;
     using Guilded.NET.Objects.Content;
     using Teams;
     /// <summary>
@@ -517,5 +517,29 @@ namespace Guilded.NET.Objects {
         /// <param name="teamId">ID of the team</param>
         /// <returns>List of announcements</returns>
         IList<Announcement> GetPinnedAnnouncements(GId teamId);
+        /// <summary>
+        /// Creates a form for form node.
+        /// </summary>
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        Task<uint> CreateFormAsync(BasicGuildedForm form);
+        /// <summary>
+        /// Creates a form for form node.
+        /// </summary>
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        uint CreateForm(BasicGuildedForm form);
+        /// <summary>
+        /// Gets a form or a poll by form ID.
+        /// </summary>
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form or a poll</returns>
+        Task<GuildedForm> GetFormAsync(uint formId);
+        /// <summary>
+        /// Gets a form or a poll by form ID.
+        /// </summary>
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form or a poll</returns>
+        GuildedForm GetForm(uint formId);
     }
 }

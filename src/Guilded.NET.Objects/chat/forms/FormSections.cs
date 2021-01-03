@@ -1,17 +1,34 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Guilded.NET.Objects.Forms {
     /// <summary>
     /// A section of a form field.
     /// </summary>
-    public class FormSections {
+    public class FormSection: BaseObject {
         /// <summary>
-        /// Header for form fields(question 1, question 2, question 3, ...)
+        /// Hides reordering handle and disallows reordering.
         /// </summary>
-        /// <value>Header</value>
-        [JsonProperty("header")]
-        public string Header {
+        /// <value>Hide handle</value>
+        [JsonProperty("hideReorderHandle", Required = Required.Always)]
+        public bool HideReorderHandle {
+            get; set;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        [JsonProperty("hideOptionalFieldToggle", Required = Required.Always)]
+        public bool HideOptionalFieldToggle {
+            get; set;
+        }
+        /// <summary>
+        /// Form field type options.
+        /// </summary>
+        /// <value>List of field types</value>
+        [JsonProperty("fieldTypeOptions", Required = Required.Always)]
+        public IList<FormFieldType> FieldTypeOptions {
             get; set;
         }
         /// <summary>
@@ -22,5 +39,17 @@ namespace Guilded.NET.Objects.Forms {
         public IList<FormField> Fields {
             get; set;
         }
+        /// <summary>
+        /// Generates a form section with fields.
+        /// </summary>
+        /// <param name="fields">Fields to assign to a form section</param>
+        /// <returns>A new form section</returns>
+        public static FormSection Generate(params FormField[] fields) =>
+            new FormSection {
+                Fields = fields,
+                HideReorderHandle = true,
+                HideOptionalFieldToggle = true,
+                FieldTypeOptions = fields.Select(x => x.Type).ToArray()
+            };
     }
 }

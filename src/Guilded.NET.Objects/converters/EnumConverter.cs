@@ -39,11 +39,13 @@ namespace Guilded.NET.Objects.Converters {
         };
         static readonly IDictionary<string, MarkType> marktypes = new Dictionary<string, MarkType> {
             {"bold", MarkType.Bold},
+            {"inline-code", MarkType.InlineCodeLegacy},
             {"inline-code-v2", MarkType.InlineCode},
             {"italic", MarkType.Italic},
             {"spoiler", MarkType.Spoiler},
             {"strikethrough", MarkType.Strikethrough},
-            {"underline", MarkType.Underline}
+            {"underline", MarkType.Underline},
+            {"code-format", MarkType.CodeFormat}
         };
         static readonly IDictionary<string, NodeType> nodetypes = new Dictionary<string, NodeType> {
             {"paragraph", NodeType.Paragraph},
@@ -62,7 +64,8 @@ namespace Guilded.NET.Objects.Converters {
             {"mention", NodeType.Mention},
             {"channel", NodeType.Channel},
             {"heading-large", NodeType.HeadingLarge},
-            {"heading-small", NodeType.HeadingSmall}
+            {"heading-small", NodeType.HeadingSmall},
+            {"form", NodeType.Form}
         };
         static readonly IDictionary<string, MembershipType> membershiptypes = new Dictionary<string, MembershipType> {
             {"joined", MembershipType.Joined},

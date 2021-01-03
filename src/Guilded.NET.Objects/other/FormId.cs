@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -10,6 +11,18 @@ namespace Guilded.NET.Objects {
         /// Max length of one part.
         /// </summary>
         static readonly int partLength = 7;
+        /// <summary>
+        /// A random for generating random form IDs.
+        /// </summary>
+        /// <returns>Random</returns>
+        static readonly Random random = new Random();
+        /// <summary>
+        /// Creates a random form ID.
+        /// </summary>
+        /// <value>Form ID</value>
+        public static FormId Random {
+            get => Parse($"r-{random.Next(1000000, 9999999)}-{random.Next(1000000, 9999999)}");
+        }
         /// <summary>
         /// ID used in form fields, options and other form related things.
         /// </summary>

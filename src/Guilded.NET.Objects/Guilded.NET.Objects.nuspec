@@ -12,7 +12,8 @@
         <icon>icon.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
-
+- Announcements
+- Team overview
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
