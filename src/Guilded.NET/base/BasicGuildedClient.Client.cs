@@ -66,7 +66,8 @@ namespace Guilded.NET {
                 new EnumConverter(),
                 new IdConverter(),
                 new NodeConverter(),
-                new ClientObjectConverter(this)
+                new ClientObjectConverter(this),
+                new MiscConverter()
             };
             // Adds default converters
             foreach(JsonConverter converter in Converters)
