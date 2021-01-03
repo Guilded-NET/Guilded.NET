@@ -461,5 +461,61 @@ namespace Guilded.NET.Objects {
         /// <param name="messageId">ID of the message to remove a reaction from</param>
         /// <param name="emoteId">ID of the emote to remove</param>
         void RemoveReaction(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Gets a list of announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        Task<IList<Announcement>> GetAnnouncementsAsync(Guid channelId, uint? maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets a list of announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        IList<Announcement> GetAnnouncements(Guid channelId, uint? maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets a list of announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        Task<IList<Announcement>> GetAnnouncementsAsync(GId teamId, uint? maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets a list of announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        IList<Announcement> GetAnnouncements(GId teamId, uint? maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Gets a list of pinned announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of announcements</returns>
+        Task<IList<Announcement>> GetPinnedAnnouncementsAsync(Guid channelId);
+        /// <summary>
+        /// Gets a list of pinned announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of announcements</returns>
+        IList<Announcement> GetPinnedAnnouncements(Guid channelId);
+        /// <summary>
+        /// Gets a list of pinned announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>List of announcements</returns>
+        Task<IList<Announcement>> GetPinnedAnnouncementsAsync(GId teamId);
+        /// <summary>
+        /// Gets a list of pinned announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>List of announcements</returns>
+        IList<Announcement> GetPinnedAnnouncements(GId teamId);
     }
 }

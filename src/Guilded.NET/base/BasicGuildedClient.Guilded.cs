@@ -628,5 +628,93 @@ namespace Guilded.NET {
         /// <param name="emoteId">ID of the emote to remove</param>
         public void RemoveReaction(Guid channelId, Guid messageId, uint emoteId) =>
             RemoveReactionAsync(channelId, messageId, emoteId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a list of announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        public async Task<IList<Announcement>> GetAnnouncementsAsync(Guid channelId, uint? maxItems = 10, DateTime? beforeDate = null) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/announcements?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
+            // Gets the response as an array
+            JObject obj = JObject.Parse(response.Content);
+            // Gets and returns list of announcements
+            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
+        }
+        /// <summary>
+        /// Gets a list of announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        public IList<Announcement> GetAnnouncements(Guid channelId, uint? maxItems = 10, DateTime? beforeDate = null) =>
+            GetAnnouncementsAsync(channelId, maxItems, beforeDate).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a list of announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        public async Task<IList<Announcement>> GetAnnouncementsAsync(GId teamId, uint? maxItems = 10, DateTime? beforeDate = null) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"teams/{teamId}/announcements?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
+            // Gets the response as an array
+            JObject obj = JObject.Parse(response.Content);
+            // Gets and returns list of announcements
+            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
+        }
+        /// <summary>
+        /// Gets a list of announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="maxItems">How many announcements it should get</param>
+        /// <param name="beforeDate">Before which date it should get announcements</param>
+        /// <returns>List of announcements</returns>
+        public IList<Announcement> GetAnnouncements(GId teamId, uint? maxItems = 10, DateTime? beforeDate = null) =>
+            GetAnnouncementsAsync(teamId, maxItems, beforeDate).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a list of pinned announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of announcements</returns>
+        public async Task<IList<Announcement>> GetPinnedAnnouncementsAsync(Guid channelId) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/pinnedannouncements", Method.GET));
+            // Gets the response as an array
+            JObject obj = JObject.Parse(response.Content);
+            // Gets and returns list of announcements
+            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
+        }
+        /// <summary>
+        /// Gets a list of pinned announcements in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>List of announcements</returns>
+        public IList<Announcement> GetPinnedAnnouncements(Guid channelId) =>
+            GetPinnedAnnouncementsAsync(channelId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a list of pinned announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>List of announcements</returns>
+        public async Task<IList<Announcement>> GetPinnedAnnouncementsAsync(GId teamId) {
+            // Gets a response
+            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"teams/{teamId}/announcements/pinned", Method.GET));
+            // Gets the response as an array
+            JObject obj = JObject.Parse(response.Content);
+            // Gets and returns list of announcements
+            return obj["announcements"].ToObject<IList<Announcement>>(GuildedSerializer);
+        }
+        /// <summary>
+        /// Gets a list of pinned announcements in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>List of announcements</returns>
+        public IList<Announcement> GetPinnedAnnouncements(GId teamId) =>
+            GetPinnedAnnouncementsAsync(teamId).GetAwaiter().GetResult();
     }
 }
