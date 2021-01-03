@@ -277,7 +277,7 @@ namespace Guilded.NET {
         /// <param name="msg">Message created event</param>
         /// <param name="command">Command name</param>
         /// <param name="args">Command arguments</param>
-        protected void InvokeCommand(IGuildedClient client, MessageCreatedEvent msg, string command, IList<string> args) {
+        protected void InvokeCommand(BasicGuildedClient client, MessageCreatedEvent msg, string command, IList<string> args) {
             // Gets attribute by command name
             CommandAttribute attr = CommandDictionary.Keys.FirstOrDefault(x => x.IsNameEqual(command));
             // If attr is null, ignore the command

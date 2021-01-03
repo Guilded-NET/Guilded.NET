@@ -7,6 +7,11 @@ namespace Guilded.NET.Objects.Chat {
     /// </summary>
     public class Form: ContainerNode<IMessageObject> {
         /// <summary>
+        /// A form or a poll posted in the chat.
+        /// </summary>
+        public Form() =>
+            (Type, Object) = (NodeType.Form, MsgObject.Block);
+        /// <summary>
         /// ID of this form/poll.
         /// </summary>
         /// <value>Form ID</value>
@@ -26,7 +31,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="formId">ID of the form</param>
         /// <returns>New form</returns>
-        public Form Generate(uint formId) =>
+        public static Form Generate(uint formId) =>
             new Form {
                 Data = new Dictionary<string, object>() {
                     { "customFormId", formId }

@@ -12,7 +12,11 @@
         <icon>icon.png</icon>
         <description>API wrapper for Guilded</description>
         <releaseNotes>
-
+- Get announcements
+- Create, post, get forms
+- Submit form response
+- GuildedSerializer is now public
+- Command delegate now uses BasicGuildedClient instead of IGuildedClient
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

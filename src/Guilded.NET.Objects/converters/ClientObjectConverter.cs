@@ -16,6 +16,13 @@ namespace Guilded.NET.Objects.Converters {
             get; set;
         }
         /// <summary>
+        /// If this converter can write.
+        /// </summary>
+        /// <value>False</value>
+        public override bool CanWrite {
+            get => false;
+        }
+        /// <summary>
         /// Assigns client to every client object.
         /// </summary>
         /// <param name="client">Client to assign to ClientObject instances</param>

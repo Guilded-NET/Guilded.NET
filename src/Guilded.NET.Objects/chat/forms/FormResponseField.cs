@@ -4,7 +4,7 @@ namespace Guilded.NET.Objects.Forms {
     /// <summary>
     /// A field in form response.
     /// </summary>
-    public class FormResponseField {
+    public class FormResponseField: BaseObject {
         /// <summary>
         /// A field in form response.
         /// </summary>

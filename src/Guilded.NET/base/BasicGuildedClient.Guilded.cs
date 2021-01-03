@@ -732,7 +732,7 @@ namespace Guilded.NET {
         /// <param name="form">Form to create</param>
         /// <returns>Form ID</returns>
         public async Task<uint> CreateFormAsync(BasicGuildedForm form) =>
-            await FromObject<uint>(new Endpoint($"content/custom_forms/", Method.PUT), "customFormId", new JsonBody(form.Serialize(GuildedSerializer)));
+            await FromObject<uint>(new Endpoint($"content/custom_forms", Method.PUT), "customFormId", new JsonBody(form.Serialize(GuildedSerializer)));
         /// <summary>
         /// Creates a form for form node.
         /// </summary>

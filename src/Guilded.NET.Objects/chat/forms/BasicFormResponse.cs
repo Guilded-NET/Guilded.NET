@@ -5,7 +5,7 @@ namespace Guilded.NET.Objects.Forms {
     /// <summary>
     /// A form response which can be submitted
     /// </summary>
-    public class BasicFormResponse: ClientObject {
+    public class BasicFormResponse: BaseObject {
         /// <summary>
         /// Form fields filled out values.
         /// </summary>

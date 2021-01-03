@@ -10,5 +10,5 @@ namespace Guilded.NET {
     /// <param name="messageCreated">Message creation event</param>
     /// <param name="command">Command name</param>
     /// <param name="arguments">Arguments of the command</param>
-    public delegate void CommandMethod(IGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments);
+    public delegate void CommandMethod(BasicGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments);
 }

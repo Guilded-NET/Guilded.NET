@@ -18,7 +18,7 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="writer">JsonWriter</param>
         /// <param name="value">ID</param>
         /// <param name="serializer">Serializer</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => writer.WriteValue(JArray.FromObject(value));
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => writer.WriteValue(JArray.FromObject(new object[] {value}));
         /// <summary>
         /// Flattens the list.
         /// </summary>

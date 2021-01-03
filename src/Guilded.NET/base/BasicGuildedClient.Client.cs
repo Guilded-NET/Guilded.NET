@@ -44,7 +44,7 @@ namespace Guilded.NET {
         /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
         /// </summary>
         /// <value>Serializer</value>
-        protected JsonSerializer GuildedSerializer {
+        public JsonSerializer GuildedSerializer {
             get; set;
         }
         /// <summary>

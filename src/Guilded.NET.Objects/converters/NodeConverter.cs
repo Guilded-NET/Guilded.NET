@@ -36,6 +36,13 @@ namespace Guilded.NET.Objects.Converters {
             {"leaf", typeof(Leaf)}
         };
         /// <summary>
+        /// If this converter can write.
+        /// </summary>
+        /// <value>False</value>
+        public override bool CanWrite {
+            get => false;
+        }
+        /// <summary>
         /// Writes node to the JSON.
         /// </summary>
         /// <param name="writer">JsonWriter</param>
