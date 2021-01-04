@@ -31,6 +31,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns small heading node to string.
         /// </summary>
         /// <returns>Small heading node</returns>
-        public override string ToString() => $"## {string.Concat(Nodes)}";
+        public override string ToString() => $"## {base.ToString()}";
     }
 }

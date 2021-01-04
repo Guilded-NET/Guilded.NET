@@ -3,6 +3,7 @@ using System;
 using Guilded.NET.Objects.Chat;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     using Forms;
@@ -12,6 +13,13 @@ namespace Guilded.NET.Objects {
     /// Represents any Guilded client.
     /// </summary>
     public interface IGuildedClient {
+        /// <summary>
+        /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
+        /// </summary>
+        /// <value>Serializer</value>
+        JsonSerializer GuildedSerializer {
+            get; set;
+        }
         /// <summary>
         /// Event when someone posts a message in the chat.
         /// </summary>

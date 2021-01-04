@@ -92,6 +92,10 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// A header which tells to who a comment is replying to.
         /// </summary>
-        ReplyHeader
+        ReplyHeader,
+        /// <summary>
+        /// A caption for the image.
+        /// </summary>
+        ImageCaptionLine
     }
 }

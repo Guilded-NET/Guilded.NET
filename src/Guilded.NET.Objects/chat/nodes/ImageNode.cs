@@ -25,17 +25,19 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns image node to string.
         /// </summary>
         /// <returns>Image node as string</returns>
-        public override string ToString() => $"[ Image {SourceURL} ]\n";
+        public override string ToString() => $"[ Image {SourceURL} ]\n{base.ToString()}";
         /// <summary>
         /// Generates an image node.
         /// </summary>
         /// <param name="src">URL of the image</param>
+        /// <param name="caption">Caption to add</param>
         /// <returns>Image node</returns>
-        public static ImageNode Generate(Uri src) =>
+        public static ImageNode Generate(Uri src, string caption = null) =>
             new ImageNode {
                 Data = JObject.FromObject(new { src }),
                 Nodes = new List<IMessageObject> {
-                    TextObj.GenerateText("")
+                    // C# 8 casting
+                    caption == null ? TextObj.GenerateText("") : (IMessageObject)ImageCaption.Generate(Leaf.Generate(caption))
                 }
             };
     }

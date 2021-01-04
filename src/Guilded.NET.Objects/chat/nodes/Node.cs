@@ -6,7 +6,7 @@ namespace Guilded.NET.Objects.Chat {
     /// <summary>
     /// Represents message node.
     /// </summary>
-    public abstract class Node: BaseObject, IMessageObject {
+    public abstract class Node: ClientObject, IMessageObject {
         /// <summary>
         /// Represents message node.
         /// </summary>
@@ -47,7 +47,7 @@ namespace Guilded.NET.Objects.Chat {
             // If data does not contain that key, return null
             else if(!Data.ContainsKey(property)) return default;
             // Else, return that property
-            else return Data[property].ToObject<T>();
+            else return Data[property].ToObject<T>(ParentClient.GuildedSerializer);
         }
     }
 }

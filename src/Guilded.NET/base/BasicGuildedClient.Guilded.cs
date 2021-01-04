@@ -23,6 +23,13 @@ namespace Guilded.NET {
         /// A random for generating IDs.
         /// </summary>
         protected Random RandomId;
+        /// <summary>
+        /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
+        /// </summary>
+        /// <value>Serializer</value>
+        public JsonSerializer GuildedSerializer {
+            get; set;
+        }
         T Convert<T>(string content) where T: class =>
             content != null ? JsonConvert.DeserializeObject<T>(content, Converters) : null;
         /// <summary>

@@ -41,13 +41,6 @@ namespace Guilded.NET {
         /// <returns></returns>
         protected static Regex NumberStart = new Regex("^([0-9]+)");
         /// <summary>
-        /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
-        /// </summary>
-        /// <value>Serializer</value>
-        public JsonSerializer GuildedSerializer {
-            get; set;
-        }
-        /// <summary>
         /// Configuration of this client.
         /// </summary>
         /// <value>Configuration</value>

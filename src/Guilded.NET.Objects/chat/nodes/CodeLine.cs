@@ -28,10 +28,5 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Code block line</returns>
         public static CodeLine Generate(string line) =>
             Generate(TextObj.GenerateText(line));
-        /// <summary>
-        /// Turns code block line to string.
-        /// </summary>
-        /// <returns>Code block line as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
     }
 }

@@ -20,5 +20,10 @@ namespace Guilded.NET.Objects.Chat {
         public IList<T> Nodes {
             get; set;
         }
+        /// <summary>
+        /// Turns a container node to string
+        /// </summary>
+        /// <returns>Container node as a string</returns>
+        public override string ToString() => string.Concat(Nodes);
     }
 }

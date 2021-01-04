@@ -8,8 +8,12 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         Image,
         /// <summary>
-        /// A video file which can be played.
+        /// A video file which can be played and be viewed.
         /// </summary>
-        Video
+        Video,
+        /// <summary>
+        /// A file which can be played and produces audio.
+        /// </summary>
+        Audio
     }
 }

@@ -17,7 +17,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns link node to a string.
         /// </summary>
         /// <returns>Link node as a string</returns>
-        public override string ToString() => $"[{string.Concat(Nodes)}]({Data?["href"]})";
+        public override string ToString() => $"[{base.ToString()}]({Data?["href"]})";
         /// <summary>
         /// Generates link node.
         /// </summary>

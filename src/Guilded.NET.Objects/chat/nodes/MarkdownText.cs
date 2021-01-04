@@ -13,11 +13,6 @@ namespace Guilded.NET.Objects.Chat {
         public MarkDownText() =>
             Type = NodeType.MarkdownPlainText;
         /// <summary>
-        /// Turns quote block to string.
-        /// </summary>
-        /// <returns>Quote block as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
-        /// <summary>
         /// Generates paragraph node.
         /// </summary>
         /// <param name="content">Message content</param>

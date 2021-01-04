@@ -32,8 +32,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Reply header type</value>
         [JsonIgnore]
-        public string ReplyType {
-            get => GetDataProperty<string>("type");
+        public ReplyHeaderType ReplyType {
+            get => GetDataProperty<string>("type") == "block-quote" ? ReplyHeaderType.BlockQuote : ReplyHeaderType.Reply;
         }
         /// <summary>
         /// Turns reply header to string.

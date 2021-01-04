@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Chat {
@@ -12,6 +12,14 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         public CodeBlock() =>
             Type = NodeType.CodeContainer;
+        /// <summary>
+        /// Language this codeblock is highlighted with.
+        /// </summary>
+        /// <value>Highlighting language</value>
+        [JsonIgnore]
+        public string Language {
+            get => GetDataProperty<string>("language");
+        }
         /// <summary>
         /// Generates code block node.
         /// </summary>
@@ -38,6 +46,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Turns code block to string.
         /// </summary>
         /// <returns>Code block as a string</returns>
-        public override string ToString() => string.Join('\n', Nodes);
+        public override string ToString() => $"```{(Language != "unformatted" ? Language : "")}\n{string.Join('\n', Nodes)}\n```";
     }
 }

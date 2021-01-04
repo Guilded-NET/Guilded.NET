@@ -26,8 +26,9 @@ namespace Guilded.NET.Objects.Converters {
         static readonly Type formtype = typeof(FormType);
         static readonly Type formfieldtype = typeof(FormFieldType);
         static readonly Type subscription = typeof(SubscriptionType);
+        static readonly Type system = typeof(SystemMessageType);
         // All of the allowed types
-        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype, subscription };
+        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype, subscription, system };
         static readonly IDictionary<string, MsgObject> msgobj = new Dictionary<string, MsgObject> {
             {"block", MsgObject.Block},
             {"document", MsgObject.Document},
@@ -66,7 +67,8 @@ namespace Guilded.NET.Objects.Converters {
             {"heading-large", NodeType.HeadingLarge},
             {"heading-small", NodeType.HeadingSmall},
             {"form", NodeType.Form},
-            {"replying-to-user-header", NodeType.ReplyHeader}
+            {"replying-to-user-header", NodeType.ReplyHeader},
+            {"image-caption-line", NodeType.ImageCaptionLine}
         };
         static readonly IDictionary<string, MembershipType> membershiptypes = new Dictionary<string, MembershipType> {
             {"joined", MembershipType.Joined},
@@ -97,11 +99,37 @@ namespace Guilded.NET.Objects.Converters {
         };
         static readonly IDictionary<string, MediaType> media = new Dictionary<string, MediaType> {
             {"image", MediaType.Image},
-            {"video", MediaType.Video}
+            {"video", MediaType.Video},
+            {"audio", MediaType.Audio}
         };
         static readonly IDictionary<string, FormType> forms = new Dictionary<string, FormType> {
             {"form", FormType.Form},
             {"poll", FormType.Poll}
+        };
+        static readonly IDictionary<string, SystemMessageType> systemMessages = new Dictionary<string, SystemMessageType> {
+            {"auto-archive-enabled", SystemMessageType.AutoArchiveEnabled},
+            {"auto-archive-disabled", SystemMessageType.AutoArchiveDisabled},
+            {"group-dm-user-added", SystemMessageType.GroupDMUserAdded},
+            {"group-dm-user-removed", SystemMessageType.GroupDMUserRemoved},
+            {"group-dm-channel-created", SystemMessageType.GroupDMChannelCreated},
+            {"channel-renamed", SystemMessageType.ChannelRenamed},
+            {"channel-archived", SystemMessageType.ChannelArchived},
+            {"channel-restored", SystemMessageType.ChannelRestored},
+            {"dm-user-nickname-set", SystemMessageType.DMUserNicknameSet},
+            {"team-channel-created", SystemMessageType.TeamChannelCreated},
+            {"thread-created", SystemMessageType.ThreadCreated},
+            {"thread-users-added", SystemMessageType.ThreadUsersAdded},
+            {"thread-user-left", SystemMessageType.ThreadUserLeft},
+            {"video-call-started", SystemMessageType.VideoCallStarted},
+            {"voice-call-started", SystemMessageType.VoiceCallStarted},
+            {"team-stream-went-offline", SystemMessageType.TeamStreamWentOffline},
+            {"voice-group-invite", SystemMessageType.VoiceGroupInvite},
+            {"team-member-joined", SystemMessageType.TeamMemberJoined},
+            {"list-item-completed", SystemMessageType.ListItemCompleted},
+            {"list-item-incompleted", SystemMessageType.ListItemIncompleted},
+            {"list-item-moved", SystemMessageType.ListItemMoved},
+            {"match-created", SystemMessageType.MatchCreated},
+            {"streaming-screenshare-started", SystemMessageType.StreamingScreenshareStarted}
         };
         /// <summary>
         /// Writes enum to the string.
@@ -127,6 +155,7 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == channeltype) return ConvertTo(channeltypes, (ChannelType)value);
             else if(type == mediatype) return ConvertTo(media, (MediaType)value);
             else if(type == formtype) return ConvertTo(forms, (FormType)value);
+            else if(type == system) return ConvertTo(systemMessages, (SystemMessageType)value);
             else if(type == subscription || type == chattype || type == formfieldtype) return value.ToString();
             else throw new ArgumentException($"{nameof(value)} can not be converted. Given type: {type.FullName}");
         }
@@ -152,6 +181,7 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == channeltype) return ConvertFrom(value, channeltypes);
             else if(type == mediatype) return ConvertFrom(value, media);
             else if(type == formtype) return ConvertFrom(value, forms);
+            else if(type == system) return ConvertFrom(value, systemMessages);
             else if(type == formfieldtype) return Enum.Parse<FormFieldType>(value);
             else if(type == subscription) return Enum.Parse<SubscriptionType>(value);
             else if(type == chattype) return Enum.Parse<ChatType>(value);
