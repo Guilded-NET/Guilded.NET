@@ -18,7 +18,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <param name="converters">Converters to serialize object with</param>
         /// <returns>Serialized object</returns>
-        public string Serialize(params JsonConverter[] converters) =>
+        public virtual string Serialize(params JsonConverter[] converters) =>
             JsonConvert.SerializeObject(this, converters);
     }
 }

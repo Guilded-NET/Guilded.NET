@@ -11,7 +11,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Line of code block in Guilded.
         /// </summary>
         public CodeLine() =>
-            (Type, Object) = (NodeType.CodeLine, MsgObject.Block);
+            Type = NodeType.CodeLine;
         /// <summary>
         /// Generates code block line.
         /// </summary>
@@ -19,7 +19,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Code block line</returns>
         public static CodeLine Generate(params TextObj[] objs) =>
             new CodeLine {
-                Nodes = objs.Select(x => (IMessageObject)x).ToList()
+                Nodes = objs
             };
         /// <summary>
         /// Generates code block line.

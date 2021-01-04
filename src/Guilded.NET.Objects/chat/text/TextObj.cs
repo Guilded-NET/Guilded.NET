@@ -9,13 +9,18 @@ namespace Guilded.NET.Objects.Chat {
     /// </summary>
     public class TextObj: BaseObject, IMessageObject {
         /// <summary>
+        /// Represents text object which holds leaves.
+        /// </summary>
+        public TextObj() =>
+            Object = MsgObject.Text;
+        /// <summary>
         /// Object type of the text object.
         /// </summary>
         /// <value>MsgObject.Text</value>
         [JsonProperty("object", Required = Required.Always)]
         public MsgObject Object {
             get; set;
-        } = MsgObject.Text;
+        }
         /// <summary>
         /// List of leaves in this text object.
         /// </summary>
@@ -31,7 +36,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Text object</returns>
         public static TextObj GenerateText(params Leaf[] leaves) =>
             new TextObj {
-                Leaves = leaves.ToList()
+                Leaves = leaves
             };
         /// <summary>
         /// Generates normal text object.
@@ -39,11 +44,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="content">String to generate leaves from</param>
         /// <returns>Text object</returns>
         public static TextObj GenerateText(string content) =>
-            new TextObj {
-                Leaves = new List<Leaf> {
-                    Leaf.Generate(content)
-                }
-            };
+            GenerateText(Leaf.Generate(content));
         /// <summary>
         /// Turns text object to string.
         /// </summary>

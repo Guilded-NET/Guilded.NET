@@ -12,47 +12,31 @@ namespace Guilded.NET.Objects.Chat {
         /// Role, user, @everyone or @here mention.
         /// </summary>
         public Mention() =>
-            (Type, Object) = (NodeType.Mention, MsgObject.Inline);
+            Type = NodeType.Mention;
         /// <summary>
         /// Gets mention data.
         /// </summary>
         /// <value>Data of the mention</value>
         [JsonIgnore]
         public MentionData MentionData {
-            get {
-                // Get mention data
-                object data = GetDataProperty("mention");
-                // If it's null, return null
-                if(data == null) return null;
-                // Check if it's JObject or MentionData
-                if(data is MentionData mention) return mention;
-                else if(data is JObject obj) return obj.ToObject<MentionData>();
-                // If it's neither, return null
-                else return null;
-            }
+            get => GetDataProperty<MentionData>("mention");
         }
         /// <summary>
         /// Turns mention to string.
         /// </summary>
         /// <returns>Mention as string</returns>
-        public override string ToString() {
-            MentionData data = MentionData;
-            if(data == null) return "@???";
-            else return $"@{data.Name}";
-        }
+        public override string ToString() =>
+            $"@{MentionData?.Name}";
         /// <summary>
         /// Generates mention.
         /// </summary>
-        /// <param name="data">Mention data</param>
+        /// <param name="mention">Mention data</param>
         /// <returns>Mention</returns>
-        public static Mention Generate(MentionData data) =>
+        public static Mention Generate(MentionData mention) =>
             new Mention {
-                Data = new Dictionary<string, object> {
-                    {"mention", data}
-                },
-                Type = NodeType.Mention,
+                Data = JObject.FromObject(new { mention }),
                 Nodes = new List<IMessageObject> {
-                    TextObj.GenerateText($"@{data.Name}")
+                    TextObj.GenerateText($"@{mention.Name}")
                 }
             };
         /// <summary>

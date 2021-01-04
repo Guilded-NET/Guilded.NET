@@ -12,24 +12,14 @@ namespace Guilded.NET.Objects.Chat {
         /// Mention of a team channel.
         /// </summary>
         public ChannelMention() =>
-            (Type, Object) = (NodeType.Channel, MsgObject.Inline);
+            Type = NodeType.Channel;
         /// <summary>
         /// Gets mention data.
         /// </summary>
         /// <value>Data of the mention</value>
         [JsonIgnore]
         public ChannelMentionData MentionData {
-            get {;
-                // Get mention data
-                object data = GetDataProperty("channel");
-                // If it's null, return null
-                if(data == null) return null;
-                // Check if it's JObject or ChannelMentionData
-                if(data is ChannelMentionData mention) return mention;
-                else if(data is JObject obj) return obj.ToObject<ChannelMentionData>();
-                // If it's neither, return null
-                else return null;
-            }
+            get => GetDataProperty<ChannelMentionData>("channel");
         }
         /// <summary>
         /// Generates mention.
@@ -38,10 +28,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Mention</returns>
         public static ChannelMention Generate(ChannelMentionData data) =>
             new ChannelMention {
-                Data = new Dictionary<string, object> {
-                    {"channel", data}
-                },
-                Type = NodeType.Mention,
+                Data = JObject.FromObject(new { channel = data }),
                 Nodes = new List<IMessageObject> {
                     TextObj.GenerateText($"#{data.Name}")
                 }

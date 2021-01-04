@@ -65,7 +65,8 @@ namespace Guilded.NET.Objects.Converters {
             {"channel", NodeType.Channel},
             {"heading-large", NodeType.HeadingLarge},
             {"heading-small", NodeType.HeadingSmall},
-            {"form", NodeType.Form}
+            {"form", NodeType.Form},
+            {"replying-to-user-header", NodeType.ReplyHeader}
         };
         static readonly IDictionary<string, MembershipType> membershiptypes = new Dictionary<string, MembershipType> {
             {"joined", MembershipType.Joined},

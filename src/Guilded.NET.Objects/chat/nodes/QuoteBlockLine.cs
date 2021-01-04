@@ -10,7 +10,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Line of quote block in Guilded.
         /// </summary>
         public QuoteBlockLine() =>
-            (Type, Object) = (NodeType.BlockQuoteLine, MsgObject.Block);
+            Type = NodeType.BlockQuoteLine;
         /// <summary>
         /// Generates quote block line.
         /// </summary>
@@ -18,7 +18,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Quote block line</returns>
         public static QuoteBlockLine Generate(params IMessageObject[] objs) =>
             new QuoteBlockLine {
-                Nodes = objs.ToList()
+                Nodes = objs
             };
         /// <summary>
         /// Turns quote block to string.

@@ -28,10 +28,10 @@ namespace Guilded.NET.Objects.Chat {
         /// List of markdown marks in this leaf.
         /// </summary>
         /// <value>List of marks</value>
-        [JsonProperty("marks")]
+        [JsonProperty("marks", Required = Required.Always)]
         public IList<Mark> Marks {
             get; set;
-        } = null;
+        }
         /// <summary>
         /// Turns leaf to string.
         /// </summary>
@@ -53,11 +53,9 @@ namespace Guilded.NET.Objects.Chat {
         public static Leaf Generate(string text, params MarkType[] marks) =>
             new Leaf {
                 Text = text,
-                // From given mark types, generate marks themselves
                 Marks = marks.Select(x => new Mark {
-                    Type = x,
-                    Data = new Dictionary<string, object>()
-                }).ToList()
+                    Type = x
+                }).ToArray()
             };
     }
 }

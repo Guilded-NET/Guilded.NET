@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Chat {
@@ -10,32 +11,23 @@ namespace Guilded.NET.Objects.Chat {
         /// A form or a poll posted in the chat.
         /// </summary>
         public Form() =>
-            (Type, Object) = (NodeType.Form, MsgObject.Block);
+            Type = NodeType.Form;
         /// <summary>
         /// ID of this form/poll.
         /// </summary>
         /// <value>Form ID</value>
         [JsonIgnore]
         public uint? FormId {
-            get {
-                // Get form ID
-                object id = GetDataProperty("customFormId");
-                // If it's null
-                if(id == null) return null;
-                // If it's not, cast it as a form ID
-                return id as uint?;
-            }
+            get => GetDataProperty<uint>("customFormId");
         }
         /// <summary>
         /// Generates a form node. This is not a way to create a form. This is for creating a node in a message for a form.
         /// </summary>
-        /// <param name="formId">ID of the form</param>
+        /// <param name="customFormId">ID of the form</param>
         /// <returns>New form</returns>
-        public static Form Generate(uint formId) =>
+        public static Form Generate(uint customFormId) =>
             new Form {
-                Data = new Dictionary<string, object>() {
-                    { "customFormId", formId }
-                },
+                Data = JObject.FromObject(new { customFormId }),
                 Nodes = new List<IMessageObject> {
                     TextObj.GenerateText("")
                 }

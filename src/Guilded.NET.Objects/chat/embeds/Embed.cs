@@ -115,20 +115,14 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="fields">Fields to be added</param>
         /// <returns>This</returns>
-        public Embed AddFields(IEnumerable<EmbedField> fields) {
+        public Embed AddFields(params EmbedField[] fields) {
             // If fields list is null
-            if(Fields == null) Fields = fields.ToList();
+            if(Fields == null) Fields = fields;
             // Because for some reason, IList has no AddRange, where as List has AddRange.
             else foreach(EmbedField field in fields) Fields.Add(field);
             // Returns this embed
             return this;
         }
-        /// <summary>
-        /// Adds fields to this embed.
-        /// </summary>
-        /// <param name="fields">Fields to be added</param>
-        /// <returns>This</returns>
-        public Embed AddFields(params EmbedField[] fields) => AddFields(fields);
         /// <summary>
         /// Sets author to this embed.
         /// </summary>

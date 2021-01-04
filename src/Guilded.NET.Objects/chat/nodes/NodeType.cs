@@ -88,6 +88,10 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// A poll/form node.
         /// </summary>
-        Form
+        Form,
+        /// <summary>
+        /// A header which tells to who a comment is replying to.
+        /// </summary>
+        ReplyHeader
     }
 }

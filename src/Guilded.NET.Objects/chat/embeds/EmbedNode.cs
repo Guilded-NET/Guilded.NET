@@ -18,32 +18,16 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>List of embeds</value>
         [JsonIgnore]
         public IList<Embed> Embeds {
-            get {
-                // Embed data
-                object obj = GetDataProperty("embeds");
-                // If it's null, return null
-                if(obj == null) return null;
-                // Check if it's JArray or embed list
-                if(obj is IList<Embed> list) return list;
-                else if(obj is JArray arr) return arr.ToObject<IList<Embed>>();
-                // If it's neither, return null
-                else return null;
-            }
+            get => GetDataProperty<IList<Embed>>("embeds");
         }
         /// <summary>
         /// Generates embed node from given embed data.
         /// </summary>
-        /// <param name="embed">Embed data</param>
+        /// <param name="embeds">List of embed datas</param>
         /// <returns>Embed node</returns>
-        public static EmbedNode Generate(Embed embed) =>
+        public static EmbedNode Generate(params Embed[] embeds) =>
             new EmbedNode {
-                Data = new Dictionary<string, object> {
-                    {
-                        "embeds", new List<Embed> {
-                            embed
-                        }
-                    }
-                }
+                Data = JObject.FromObject(new { embeds })
             };
         /// <summary>
         /// Turns embed to string.

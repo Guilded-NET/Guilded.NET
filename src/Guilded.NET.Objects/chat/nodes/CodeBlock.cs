@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
@@ -11,7 +11,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's code block node.
         /// </summary>
         public CodeBlock() =>
-            (Object, Type) = (MsgObject.Block, NodeType.CodeContainer);
+            Type = NodeType.CodeContainer;
         /// <summary>
         /// Generates code block node.
         /// </summary>
@@ -20,11 +20,11 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Code block node</returns>
         public static CodeBlock Generate(string language = null, params CodeLine[] objs) =>
             new CodeBlock {
-                Nodes = objs.ToList(),
+                Nodes = objs,
                 // Sets a language. If it's null, then set it as unformatted
-                Data = new Dictionary<string, object> {
-                    { "language", string.IsNullOrWhiteSpace(language) ? "unformatted" : language.ToLower() }
-                }
+                Data = JObject.FromObject(
+                    new { language = string.IsNullOrWhiteSpace(language) ? "unformatted" : language.ToLower() }
+                )
             };
         /// <summary>
         /// Generates code block node.

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
@@ -16,12 +16,17 @@ namespace Guilded.NET.Objects.Chat {
             { MarkType.Underline, "__" }
         };
         /// <summary>
+        /// Represents markdown marks.
+        /// </summary>
+        public Mark() =>
+            (Object, Data) = (MsgObject.Mark, JObject.Parse("{}"));
+        /// <summary>
         /// Object of the mark.
         /// </summary>
         /// <value>MsgObject.Mark</value>
         public MsgObject Object {
             get; set;
-        } = MsgObject.Mark;
+        }
         /// <summary>
         /// Type of the markdown.
         /// </summary>
@@ -35,8 +40,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Mark data</value>
         [JsonProperty("data")]
-        public IDictionary<string, object> Data {
+        public JObject Data {
             get; set;
-        } = null;
+        }
     }
 }

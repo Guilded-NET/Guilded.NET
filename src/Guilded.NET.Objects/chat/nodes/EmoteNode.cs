@@ -11,20 +11,14 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's emote node.
         /// </summary>
         public EmoteNode() =>
-            (Object, Type) = (MsgObject.Inline, NodeType.Reaction);
+            Type = NodeType.Reaction;
         /// <summary>
         /// Gets emote node data.
         /// </summary>
         /// <value>Emote</value>
         [JsonIgnore]
         public Emote Emote {
-            get {
-                object obj = GetDataProperty("reaction");
-                // If o is null, return null
-                if(obj == null) return null;
-                // Convert the object to emote data
-                return JObject.FromObject(obj).ToObject<Emote>();
-            }
+            get => GetDataProperty<Emote>("reaction");
         }
         /// <summary>
         /// Turns emote to string.
@@ -39,49 +33,29 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates emote node.
         /// </summary>
-        /// <param name="emote">Emote to generate node of</param>
+        /// <param name="reaction">Emote to generate node of</param>
         /// <returns>Emote node</returns>
-        public static LinkNode Generate(ChatEmote emote) =>
+        public static LinkNode Generate(ChatEmote reaction) =>
             new LinkNode {
                 // Adds link to the link node
-                Data = new Dictionary<string, object> {
-                    {
-                        "reaction", JObject.FromObject(emote)
-                    }
-                },
+                Data = JObject.FromObject(new { reaction }),
                 // Emotes need nodes for some reason
                 Nodes = new List<IMessageObject> {
-                    new TextObj {
-                        //Generates leaves, because emotes need to
-                        Leaves = new List<Leaf> {
-                           Leaf.Generate($":{emote.Name}:")
-                        },
-                        Object = MsgObject.Text
-                    }
+                    TextObj.GenerateText($":{reaction.Name}:")
                 }
             };
         /// <summary>
         /// Generates emote node.
         /// </summary>
-        /// <param name="emote">Emote to generate node of</param>
+        /// <param name="reaction">Emote to generate node of</param>
         /// <returns>Emote node</returns>
-        public static LinkNode Generate(Emote emote) =>
+        public static LinkNode Generate(Emote reaction) =>
             new LinkNode {
                 // Adds link to the link node
-                Data = new Dictionary<string, object> {
-                    {
-                        "reaction", JObject.FromObject(ChatEmote.From(emote))
-                    }
-                },
+                Data = JObject.FromObject(new { reaction }),
                 // Emotes need nodes for some reason
                 Nodes = new List<IMessageObject> {
-                    new TextObj {
-                        //Generates leaves, because emotes need to
-                        Leaves = new List<Leaf> {
-                           Leaf.Generate($":{emote.Name}:")
-                        },
-                        Object = MsgObject.Text
-                    }
+                    TextObj.GenerateText($":{reaction.Name}:")
                 }
             };
     }

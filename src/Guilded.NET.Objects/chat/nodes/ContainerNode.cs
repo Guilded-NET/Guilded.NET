@@ -6,7 +6,12 @@ namespace Guilded.NET.Objects.Chat {
     /// <summary>
     /// Node which contains other nodes or <see cref="IMessageObject"/>.
     /// </summary>
-    public class ContainerNode<T>: Node where T: IMessageObject {
+    public abstract class ContainerNode<T>: Node where T: IMessageObject {
+        /// <summary>
+        /// Node which contains other nodes or <see cref="IMessageObject"/>.
+        /// </summary>
+        public ContainerNode() =>
+            (Object, Nodes) = (MsgObject.Block, new List<T>());
         /// <summary>
         /// List of inner nodes.
         /// </summary>
@@ -14,6 +19,6 @@ namespace Guilded.NET.Objects.Chat {
         [JsonProperty("nodes")]
         public IList<T> Nodes {
             get; set;
-        } = new List<T>();
+        }
     }
 }

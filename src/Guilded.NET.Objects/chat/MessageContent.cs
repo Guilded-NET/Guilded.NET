@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
@@ -7,13 +8,18 @@ namespace Guilded.NET.Objects.Chat {
     /// </summary>
     public class MessageContent: BaseObject, IMessageObject {
         /// <summary>
+        /// Content of the message.
+        /// </summary>
+        public MessageContent() =>
+            Object = MsgObject.Value;
+        /// <summary>
         /// Object of the content.
         /// </summary>
         /// <value>Content object</value>
         [JsonProperty("object", Required = Required.Always)]
         public MsgObject Object {
             get; set;
-        } = MsgObject.Value;
+        }
         /// <summary>
         /// Document of the message content.
         /// </summary>
@@ -44,7 +50,6 @@ namespace Guilded.NET.Objects.Chat {
             new MessageContent {
                 // Create document for message content and then assign given nodes
                 Document = new MessageDocument {
-                    Data = new Dictionary<string, object>(),
                     Nodes = nodes
                 }
             };

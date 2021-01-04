@@ -11,31 +11,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's numbered/ordered list node.
         /// </summary>
         public OrderedList() =>
-            (Object, Type) = (MsgObject.Block, NodeType.OrderedList);
-        /// <summary>
-        /// Generates ordered(a.k.a. list with numbers) list node.
-        /// </summary>
-        /// <param name="objs">List of text objects</param>
-        /// <returns>Ordered list node</returns>
-        public static OrderedList Generate(params TextObj[] objs) =>
-            new OrderedList {
-                // Set data to nothing, because lists don't need anything
-                Data = new Dictionary<string, object>(),
-                // Generate list of 1 text object with given leaves
-                Nodes = objs.Select(x => (Node)new ListItem(x)).ToList()
-            };
-        /// <summary>
-        /// Generates ordered(a.k.a. list with numbers) list node.
-        /// </summary>
-        /// <param name="nodes">List of nodes</param>
-        /// <returns>Ordered list node</returns>
-        public static OrderedList Generate(params Node[] nodes) =>
-            new OrderedList {
-                // Set data to nothing, because lists don't need anything
-                Data = new Dictionary<string, object>(),
-                // Sets its nodes
-                Nodes = nodes.ToList()
-            };
+            Type = NodeType.OrderedList;
         /// <summary>
         /// Turns list to string.
         /// </summary>
@@ -47,5 +23,22 @@ namespace Guilded.NET.Objects.Chat {
             // Join it all together
             return $"{start}{string.Join('\n' + startspace, x.ToString().Split('\n'))}";
         }));
+        /// <summary>
+        /// Generates ordered(a.k.a. list with numbers) list node.
+        /// </summary>
+        /// <param name="nodes">List of nodes</param>
+        /// <returns>Ordered list node</returns>
+        public static OrderedList Generate(params Node[] nodes) =>
+            new OrderedList {
+                // Sets its nodes
+                Nodes = nodes
+            };
+        /// <summary>
+        /// Generates ordered(a.k.a. list with numbers) list node.
+        /// </summary>
+        /// <param name="objs">List of text objects</param>
+        /// <returns>Ordered list node</returns>
+        public static OrderedList Generate(params TextObj[] objs) =>
+            Generate(objs.Select(x => (Node)ListItem.Generate(x)).ToArray());
     }
 }

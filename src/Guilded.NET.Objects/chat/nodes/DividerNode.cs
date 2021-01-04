@@ -11,15 +11,13 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's divider node.
         /// </summary>
         public DividerNode() =>
-            (Object, Type) = (MsgObject.Block, NodeType.Divider);
+            Type = NodeType.Divider;
         /// <summary>
         /// Generates divider node.
         /// </summary>
         /// <returns>Divider node</returns>
         public static DividerNode Generate() =>
             new DividerNode {
-                // Set data to nothing, because dividers don't need anything
-                Data = new Dictionary<string, object>(),
                 // If it's a list, don't turn it to list again
                 Nodes = new List<IMessageObject> {
                     TextObj.GenerateText("")

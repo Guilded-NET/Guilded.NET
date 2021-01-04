@@ -11,7 +11,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's paragraph node.
         /// </summary>
         public MarkDownText() =>
-            (Object, Type) = (MsgObject.Block, NodeType.MarkdownPlainText);
+            Type = NodeType.MarkdownPlainText;
         /// <summary>
         /// Generates paragraph node.
         /// </summary>
@@ -19,15 +19,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Markdown plain text node</returns>
         public static MarkDownText Generate(string content) =>
             new MarkDownText {
-                // Set data to nothing, because paragraphs don't need anything
-                Data = new Dictionary<string, object>(),
-                // Generate list of 1 text object with 1 leaf
                 Nodes = new List<IMessageObject> {
-                    new TextObj {
-                        Leaves = new List<Leaf> {
-                            Leaf.Generate(content)
-                        }
-                    }
+                    TextObj.GenerateText(content)
                 }
             };
         /// <summary>

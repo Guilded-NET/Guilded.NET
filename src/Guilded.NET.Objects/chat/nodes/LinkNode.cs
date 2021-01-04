@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 
 namespace Guilded.NET.Objects.Chat {
@@ -12,7 +12,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's link node.
         /// </summary>
         public LinkNode() =>
-            (Object, Type) = (MsgObject.Inline, NodeType.Link);
+            (Type, Object) = (NodeType.Link, MsgObject.Inline);
         /// <summary>
         /// Turns link node to a string.
         /// </summary>
@@ -21,37 +21,30 @@ namespace Guilded.NET.Objects.Chat {
         /// <summary>
         /// Generates link node.
         /// </summary>
-        /// <param name="url">Link which should be used by this node</param>
+        /// <param name="href">Link which should be used by this node</param>
         /// <param name="leaves">List of message leaves</param>
         /// <returns>Link node</returns>
-        public static LinkNode Generate(Uri url, params Leaf[] leaves) =>
+        public static LinkNode Generate(Uri href, params Leaf[] leaves) =>
             new LinkNode {
                 // Adds link to the link node
-                Data = new Dictionary<string, object> {
-                    { "href", url.ToString() }
-                },
+                Data = JObject.FromObject(new { href }),
                 // Generate list of 1 text object with given leaves
                 Nodes = new List<IMessageObject> {
-                    new TextObj {
-                        Leaves = leaves.ToList(),
-                        Object = MsgObject.Text
-                    }
+                    TextObj.GenerateText(leaves)
                 }
             };
         /// <summary>
         /// Generates link node.
         /// </summary>
-        /// <param name="url">Link which should be used by this node</param>
+        /// <param name="href">Link which should be used by this node</param>
         /// <param name="objs">List of text objects</param>
         /// <returns>Link node</returns>
-        public static LinkNode Generate(Uri url, params TextObj[] objs) =>
+        public static LinkNode Generate(Uri href, params TextObj[] objs) =>
             new LinkNode {
                 // Adds link to the link node
-                Data = new Dictionary<string, object> {
-                    { "href", url.ToString() }
-                },
+                Data = JObject.FromObject(new { href }),
                 // Generate list of 1 text object with given leaves
-                Nodes = objs.Select(x => (IMessageObject)x).ToList()
+                Nodes = objs
             };
     }
 }

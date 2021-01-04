@@ -13,15 +13,10 @@ namespace Guilded.NET.Objects.Chat {
         public UnorderedList() =>
             (Object, Type) = (MsgObject.Block, NodeType.UnorderedList);
         /// <summary>
-        /// Generates unordered(a.k.a. bulleted) list node.
+        /// Turns list to string.
         /// </summary>
-        /// <param name="objs">List of text objects</param>
-        /// <returns>Unordered list node</returns>
-        public static UnorderedList Generate(params TextObj[] objs) =>
-           new UnorderedList {
-               // Generate list of 1 text object with given leaves
-               Nodes = objs.Select(x => (Node)new ListItem(x)).ToList()
-           };
+        /// <returns>List as a string</returns>
+        public override string ToString() => string.Join('\n', Nodes.Select((x, i) => $"- {string.Join("\n  ", x.ToString().Split('\n'))}"));
         /// <summary>
         /// Generates unordered(a.k.a. bulleted) list node.
         /// </summary>
@@ -29,15 +24,15 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Unordered list node</returns>
         public static UnorderedList Generate(params Node[] nodes) =>
             new UnorderedList {
-                // Set data to nothing, because lists don't need anything
-                Data = new Dictionary<string, object>(),
                 // Sets its nodes
-                Nodes = nodes.ToList()
+                Nodes = nodes
             };
         /// <summary>
-        /// Turns list to string.
+        /// Generates unordered(a.k.a. bulleted) list node.
         /// </summary>
-        /// <returns>List as a string</returns>
-        public override string ToString() => string.Join('\n', Nodes.Select((x, i) => $"- {string.Join("\n  ", x.ToString().Split('\n'))}"));
+        /// <param name="objs">List of text objects</param>
+        /// <returns>Unordered list node</returns>
+        public static UnorderedList Generate(params TextObj[] objs) =>
+            Generate(objs.Select(x => (Node)ListItem.Generate(x)).ToArray());
     }
 }
