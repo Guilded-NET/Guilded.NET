@@ -12,6 +12,11 @@ namespace Guilded.NET.Objects.Chat {
         public ListItem() =>
             Type = NodeType.ListItem;
         /// <summary>
+        /// Turns list item to string.
+        /// </summary>
+        /// <returns>List item as a string</returns>
+        public override string ToString() => string.Concat(Nodes);
+        /// <summary>
         /// List item in Guilded.
         /// </summary>
         /// <param name="objs">Text objects to create line from</param>
@@ -20,10 +25,5 @@ namespace Guilded.NET.Objects.Chat {
             new ListItem {
                 Nodes = objs
             };
-        /// <summary>
-        /// Turns list item to string.
-        /// </summary>
-        /// <returns>List item as a string</returns>
-        public override string ToString() => string.Concat(Nodes);
     }
 }

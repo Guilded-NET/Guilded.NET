@@ -11,7 +11,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Represents Guilded's bulleted/unordered list node.
         /// </summary>
         public UnorderedList() =>
-            (Object, Type) = (MsgObject.Block, NodeType.UnorderedList);
+            Type = NodeType.UnorderedList;
         /// <summary>
         /// Turns list to string.
         /// </summary>

@@ -22,21 +22,6 @@ namespace Guilded.NET.Objects.Chat {
         /// Generates link node.
         /// </summary>
         /// <param name="href">Link which should be used by this node</param>
-        /// <param name="leaves">List of message leaves</param>
-        /// <returns>Link node</returns>
-        public static LinkNode Generate(Uri href, params Leaf[] leaves) =>
-            new LinkNode {
-                // Adds link to the link node
-                Data = JObject.FromObject(new { href }),
-                // Generate list of 1 text object with given leaves
-                Nodes = new List<IMessageObject> {
-                    TextObj.GenerateText(leaves)
-                }
-            };
-        /// <summary>
-        /// Generates link node.
-        /// </summary>
-        /// <param name="href">Link which should be used by this node</param>
         /// <param name="objs">List of text objects</param>
         /// <returns>Link node</returns>
         public static LinkNode Generate(Uri href, params TextObj[] objs) =>
@@ -46,5 +31,13 @@ namespace Guilded.NET.Objects.Chat {
                 // Generate list of 1 text object with given leaves
                 Nodes = objs
             };
+        /// <summary>
+        /// Generates link node.
+        /// </summary>
+        /// <param name="href">Link which should be used by this node</param>
+        /// <param name="leaves">List of message leaves</param>
+        /// <returns>Link node</returns>
+        public static LinkNode Generate(Uri href, params Leaf[] leaves) =>
+            Generate(href, TextObj.GenerateText(leaves));
     }
 }
