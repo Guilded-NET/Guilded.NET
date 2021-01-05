@@ -33,6 +33,6 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="objs">List of text objects</param>
         /// <returns>Unordered list node</returns>
         public static UnorderedList Generate(params TextObj[] objs) =>
-            Generate(objs.Select(x => (Node)ListItem.Generate(x)).ToArray());
+            Generate(objs.Select(x => (Node)ListItemNode.Generate(x)).ToArray());
     }
 }

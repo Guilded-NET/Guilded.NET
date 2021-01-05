@@ -563,5 +563,47 @@ namespace Guilded.NET.Objects {
         /// <param name="response">Response to submit</param>
         /// <returns>Response ID</returns>
         uint PostFormResponse(uint formId, BasicFormResponse response);
+        /// <summary>
+        /// Gets list items in a given channel.
+        /// </summary>
+        /// <param name="channelId">Channel ID</param>
+        /// <returns>List of list items</returns>
+        Task<IList<ListItem>> GetListItemsAsync(Guid channelId);
+        /// <summary>
+        /// Gets list items in a given channel.
+        /// </summary>
+        /// <param name="channelId">Channel ID</param>
+        /// <returns>List of list items</returns>
+        IList<ListItem> GetListItems(Guid channelId);
+        /// <summary>
+        /// Creates a new list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel to add a list item in</param>
+        /// <param name="title">Title content of this list item</param>
+        /// <param name="priority">Order of this list item</param>
+        /// <param name="parentId">ID of the parent</param>
+        /// <param name="note">Note of this list item</param>
+        Task CreateListItemAsync(Guid channelId, MessageContent title, long priority, Guid? parentId, MessageContent note);
+        /// <summary>
+        /// Creates a new list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel to add a list item in</param>
+        /// <param name="title">Title content of this list item</param>
+        /// <param name="priority">Order of this list item</param>
+        /// <param name="parentId">ID of the parent</param>
+        /// <param name="note">Note of this list item</param>
+        void CreateListItem(Guid channelId, MessageContent title, long priority, Guid? parentId, MessageContent note);
+        /// <summary>
+        /// Deletes a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="itemId">ID of the item</param>
+        Task DeleteListItemAsync(Guid channelId, Guid itemId);
+        /// <summary>
+        /// Deletes a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="itemId">ID of the item</param>
+        void DeleteListItem(Guid channelId, Guid itemId);
     }
 }

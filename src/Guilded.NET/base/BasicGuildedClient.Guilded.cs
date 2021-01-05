@@ -777,5 +777,63 @@ namespace Guilded.NET {
         /// <returns>Response ID</returns>
         public uint PostFormResponse(uint formId, BasicFormResponse response) =>
             PostFormResponseAsync(formId, response).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets list items in a given channel.
+        /// </summary>
+        /// <param name="channelId">Channel ID</param>
+        /// <returns>List of list items</returns>
+        public async Task<IList<ListItem>> GetListItemsAsync(Guid channelId) =>
+            await FromArray<ListItem>(new Endpoint($"channels/{channelId}/listitems", Method.GET));
+        /// <summary>
+        /// Gets list items in a given channel.
+        /// </summary>
+        /// <param name="channelId">Channel ID</param>
+        /// <returns>List of list items</returns>
+        public IList<ListItem> GetListItems(Guid channelId) =>
+            GetListItemsAsync(channelId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Creates a new list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel to add a list item in</param>
+        /// <param name="title">Title content of this list item</param>
+        /// <param name="priority">Order of this list item</param>
+        /// <param name="parentId">ID of the parent</param>
+        /// <param name="note">Note of this list item</param>
+        public async Task CreateListItemAsync(Guid channelId, MessageContent title, long priority = 0, Guid? parentId = null, MessageContent note = null) {
+            // Creates a new object for creating list item
+            var obj = new {
+                id = Guid.NewGuid(),
+                message = title,
+                priority,
+                parentId,
+                note
+            };
+            // Sends it to Guilded
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/listitems?notifyAllClients=undefined", Method.PUT), new JsonBody(JsonConvert.SerializeObject(obj, GuildedSerializer.Converters.ToArray())));
+        }
+        /// <summary>
+        /// Creates a new list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel to add a list item in</param>
+        /// <param name="title">Title content of this list item</param>
+        /// <param name="priority">Order of this list item</param>
+        /// <param name="parentId">ID of the parent</param>
+        /// <param name="note">Note of this list item</param>
+        public void CreateListItem(Guid channelId, MessageContent title, long priority = 0, Guid? parentId = null, MessageContent note = null) =>
+            CreateListItemAsync(channelId, title, priority, parentId, note).GetAwaiter().GetResult();
+        /// <summary>
+        /// Deletes a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="itemId">ID of the item</param>
+        public async Task DeleteListItemAsync(Guid channelId, Guid itemId) =>
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/listitems/{itemId}", Method.DELETE));
+        /// <summary>
+        /// Deletes a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel</param>
+        /// <param name="itemId">ID of the item</param>
+        public void DeleteListItem(Guid channelId, Guid itemId) =>
+            DeleteListItemAsync(channelId, itemId).GetAwaiter().GetResult();
     }
 }

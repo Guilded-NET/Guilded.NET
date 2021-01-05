@@ -22,7 +22,7 @@ namespace Guilded.NET.Objects.Converters {
             {"markdown-plain-text", typeof(MarkDownText)},
             {"unordered-list", typeof(UnorderedList)},
             {"ordered-list", typeof(OrderedList)},
-            {"list-item", typeof(ListItem)},
+            {"list-item", typeof(ListItemNode)},
             {"reaction", typeof(EmoteNode)},
             {"webhookMessage", typeof(EmbedNode)},
             {"systemMessage", typeof(SystemMessage)},
