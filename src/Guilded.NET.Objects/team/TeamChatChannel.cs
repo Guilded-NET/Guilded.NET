@@ -1,29 +1,43 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Guilded.NET.Objects.Chat;
 using Newtonsoft.Json;
+using System;
+using System.Threading.Tasks;
 
-namespace Guilded.NET.Objects {
-    using Teams;
+namespace Guilded.NET.Objects.Teams {
+    using Chat;
     /// <summary>
-    /// Represents DMs and DM groups.
+    /// Interface for team channels and categories.
     /// </summary>
-    public class DMChannel: BaseChannel<Guid> {
+    public class TeamChatChannel: TeamChannel<Guid> {
         /// <summary>
-        /// Who created this channel.
+        /// Who archived this channel.
         /// </summary>
-        /// <value>Created by</value>
-        [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        /// <value>Archived by</value>
+        [JsonProperty("archivedBy", Required = Required.AllowNull)]
+        public GId ArchivedBy {
             get; set;
         }
         /// <summary>
-        /// Who created this channel.
+        /// When this channel got archived.
         /// </summary>
-        /// <value>Created by</value>
-        [JsonProperty("ownerId", Required = Required.Always)]
-        public GId OwnerId {
+        /// <value>Archived at</value>
+        [JsonProperty("archivedAt", Required = Required.AllowNull)]
+        public DateTime? ArchivedAt {
+            get; set;
+        }
+        /// <summary>
+        /// Type of this channel.
+        /// </summary>
+        /// <value>Content Type</value>
+        [JsonProperty("contentType", Required = Required.Always)]
+        public ChannelType Type {
+            get; set;
+        }
+        /// <summary>
+        /// ID of the parent channel.
+        /// </summary>
+        /// <value>Channel ID</value>
+        [JsonProperty("parentChannelId", Required = Required.AllowNull)]
+        public Guid? ParentChannel {
             get; set;
         }
         /// <summary>
@@ -35,35 +49,35 @@ namespace Guilded.NET.Objects {
             get; set;
         }
         /// <summary>
-        /// All users in this DM channel.
+        /// Who created this channel.
         /// </summary>
-        /// <value>DM channel users</value>
-        [JsonProperty("users", Required = Required.Always)]
-        public IList<DMUser> Users {
+        /// <value>Created by</value>
+        [JsonProperty("createdBy", Required = Required.Always)]
+        public GId CreatedBy {
             get; set;
         }
         /// <summary>
-        /// If this DM channel is a group or default.
+        /// When this channel should get archived.
         /// </summary>
-        /// <value>Type</value>
-        [JsonProperty("dmType", Required = Required.Always)]
-        public DMType DMType {
+        /// <value>Auto archive at</value>
+        [JsonProperty("autoArchiveAt", Required = Required.AllowNull)]
+        public DateTime? AutoArchiveAt {
             get; set;
         }
         /// <summary>
-        /// Last message posted in this channel.
+        /// Which webhook created this channel.
         /// </summary>
-        /// <value>Last message</value>
-        [JsonProperty("lastMessage", Required = Required.AllowNull)]
-        public Message LastMessage {
+        /// <value>Created by webhook ID</value>
+        [JsonProperty("createdByWebhookId", Required = Required.AllowNull)]
+        public Guid? CreatedByWebhook {
             get; set;
         }
         /// <summary>
-        /// Type of this channel.
+        /// Which webhook archived this channel.
         /// </summary>
-        /// <value>Content Type</value>
-        [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType Type {
+        /// <value>Archived by webhook ID</value>
+        [JsonProperty("archivedByWebhookId", Required = Required.AllowNull)]
+        public Guid? ArchivedByWebhook {
             get; set;
         }
 
@@ -83,6 +97,20 @@ namespace Guilded.NET.Objects {
         /// <param name="message">Message itself</param>
         public void SendMessage(NewMessage message) =>
             ParentClient.SendMessage(Id, message);
+        /// <summary>
+        /// Gets a message in this channel.
+        /// </summary>
+        /// <param name="messageId">Message it should get</param>
+        /// <returns>Message</returns>
+        public async Task<Message> GetMessageAsync(Guid messageId) =>
+            await ParentClient.GetMessageAsync((await GetTeamAsync()).Subdomain, GroupId, Id, messageId);
+        /// <summary>
+        /// Gets a message in this channel.
+        /// </summary>
+        /// <param name="messageId">Message it should get</param>
+        /// <returns>Message</returns>
+        public Message GetMessage(Guid messageId) =>
+            ParentClient.GetMessage(GetTeam().Subdomain, GroupId, Id, messageId);
         /// <summary>
         /// Deletes a message posted in the chat.
         /// </summary>
@@ -111,38 +139,5 @@ namespace Guilded.NET.Objects {
         /// <param name="content">New content of the message</param>
         public void EditMessage(Guid messageId, MessageContent content) =>
             ParentClient.EditMessage(Id, messageId, content);
-        /// <summary>
-        /// Turns channel to string.
-        /// </summary>
-        /// <returns>Channel as a string</returns>
-        public override string ToString() => $"DM Channel({Id})";
-        /// <summary>
-        /// Whether or not objects are equal.
-        /// </summary>
-        /// <param name="obj">Equals to</param>
-        /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is DMChannel ch) return ch.Id == Id;
-            else return false;
-        }
-        /// <summary>
-        /// Whether or not channels are equal.
-        /// </summary>
-        /// <param name="ch0">First channel to be compared</param>
-        /// <param name="ch1">Second channel to be compared</param>
-        /// <returns>If it's equal to other object</returns>
-        public static bool operator ==(DMChannel ch0, DMChannel ch1) => ch0.Id == ch1.Id;
-        /// <summary>
-        /// Whether or not channels are not equal.
-        /// </summary>
-        /// <param name="ch0">First channel to be compared</param>
-        /// <param name="ch1">Second channel to be compared</param>
-        /// <returns>If it's not equal to other object</returns>
-        public static bool operator !=(DMChannel ch0, DMChannel ch1) => !(ch0 == ch1);
-        /// <summary>
-        /// Gets channel hashcode.
-        /// </summary>
-        /// <returns>HashCode</returns>
-        public override int GetHashCode() => (Id.GetHashCode() + 2000) / 2;
     }
 }

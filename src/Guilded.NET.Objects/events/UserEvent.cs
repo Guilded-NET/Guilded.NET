@@ -2,15 +2,15 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
-    /// An object with an ID.
+    /// A user in an event.
     /// </summary>
-    public struct WithId<T> {
+    public class UserEvent: ClientObject {
         /// <summary>
-        /// ID of this object.
+        /// ID of a user for the event.
         /// </summary>
-        /// <value>ID</value>
+        /// <value>User ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public T Id {
+        public GId Id {
             get; set;
         }
     }

@@ -71,8 +71,12 @@ namespace Guilded.NET {
                     Code = obj["code"].Value<string>(),
                     ErrorMessage = obj["message"].Value<string>()
                 };
-            // Turn it into current user
+            #pragma warning disable 0618
+            // This will be removed in a future versions
             CurrentUser = obj["user"].ToObject<User>(GuildedSerializer);
+            #pragma warning restore 0618
+            // Gets this user and sets as .Me
+            Me = await GetThisUserAsync();
             // Invokes login event
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
             return executed;

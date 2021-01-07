@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
@@ -83,6 +84,25 @@ namespace Guilded.NET.Objects.Chat {
         public IList<Node> Nodes {
             get => Content.Nodes;
         }
+        /// <summary>
+        /// Gets owner or author of this message.
+        /// </summary>
+        /// <returns>Message owner</returns>
+        public async Task<User> GetAuthorAsync() =>
+            await ParentClient.GetUserAsync(AuthorId);
+        /// <summary>
+        /// Gets owner or author of this message.
+        /// </summary>
+        /// <returns>Message owner</returns>
+        public User GetAuthor() =>
+            ParentClient.GetUser(AuthorId);
+        /// <summary>
+        /// If this message was posted by given user
+        /// </summary>
+        /// <param name="user">User to check if it's message author</param>
+        /// <returns>Message by that user</returns>
+        public bool IsMessageOf(User user) =>
+            AuthorId == user?.Id;
         /// <summary>
         /// Turns a message into a string.
         /// </summary>

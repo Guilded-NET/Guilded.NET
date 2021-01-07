@@ -6,7 +6,6 @@ using System;
 using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET {
-    using Objects;
     using Objects.Events;
     using Util;
     /// <summary>
@@ -252,7 +251,7 @@ namespace Guilded.NET {
             // If commands are not enabled or config is null
             if(ClientConfig == null || !ClientConfig.EnableCommands) return;
             // If message was posted by this user, ignore it.
-            if(msg.Message.AuthorId == CurrentUser.Id && ClientConfig.IgnoreOwnCommands) return;
+            if(msg.Message.AuthorId == Me.User.Id && ClientConfig.IgnoreOwnCommands) return;
             // If there's no prefix func, ignore the command
             if(ClientConfig.Prefix == null) return;
             // Gets prefix

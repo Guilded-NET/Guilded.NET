@@ -7,16 +7,11 @@ namespace Guilded.NET.Objects.Events {
     /// </summary>
     public class ClientEvent: Event {
         /// <summary>
-        /// An event which has ID of a client assigned.
-        /// </summary>
-        public ClientEvent() =>
-            GuildedClientId = null;
-        /// <summary>
         /// ID of the Guilded client.
         /// </summary>
         /// <value>Guilded client ID</value>
-        [JsonProperty("guildedClientId")]
-        public Guid? GuildedClientId {
+        [JsonProperty("guildedClientId", Required = Required.Always)]
+        public Guid GuildedClientId {
             get; set;
         }
     }

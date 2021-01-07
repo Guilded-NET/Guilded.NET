@@ -25,9 +25,17 @@ namespace Guilded.NET {
         /// User account this client is using.
         /// </summary>
         /// <value>Client user</value>
+        [Obsolete("Use .Me.User instead")]
         public User CurrentUser {
             get; protected set;
-        } = null;
+        }
+        /// <summary>
+        /// User account this client is using.
+        /// </summary>
+        /// <value>Me</value>
+        public Me Me {
+            get; protected set;
+        }
         /// <summary>
         /// JSON converters used to (de)serialize Guilded responses and websocket events.
         /// </summary>

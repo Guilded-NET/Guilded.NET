@@ -15,6 +15,10 @@
 - Announcements
 - Team overview
 - Changed data from dictionary to JObject
+- Added tons of methods from Guilded.NET.Util to objects by default now
+- Channel badged, channel seen events
+- Team member updated event
+- Team roles updated event
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

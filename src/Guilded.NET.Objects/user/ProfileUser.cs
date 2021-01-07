@@ -2,6 +2,7 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Guilded.NET.Objects {
     using Content;
@@ -9,6 +10,11 @@ namespace Guilded.NET.Objects {
     /// Guilded user. This is NOT Guild member.
     /// </summary>
     public class ProfileUser: ClientObject {
+        /// <summary>
+        /// Guilded user. This is NOT Guild member.
+        /// </summary>
+        public ProfileUser() =>
+            Email = null;
         /// <summary>
         /// Given ID of the user.
         /// </summary>
@@ -21,6 +27,22 @@ namespace Guilded.NET.Objects {
         /// </summary>
         [JsonProperty("name", Required = Required.Always)]
         public string Username {
+            get; set;
+        }
+        /// <summary>
+        /// A URL subdomain for this user.
+        /// </summary>
+        /// <value>Subdomain</value>
+        [JsonProperty("subdomain", Required = Required.AllowNull)]
+        public string Subdomain {
+            get; set;
+        }
+        /// <summary>
+        /// Your email address. This will not be visible in profiles of other people.
+        /// </summary>
+        /// <value>Email</value>
+        [JsonProperty("email")]
+        public string Email {
             get; set;
         }
         /// <summary>
@@ -97,15 +119,15 @@ namespace Guilded.NET.Objects {
         /// Status message and emote this user has set.
         /// </summary>
         /// <value>User status</value>
-        [JsonProperty("status")]
+        [JsonProperty("status", Required = Required.AllowNull)]
         public UserStatus Status {
             get; set;
         }
         /// <summary>
         /// Date of last time user was online.
         /// </summary>
-        [JsonProperty("lastOnline", Required = Required.AllowNull)]
-        public DateTime? LastOnline {
+        [JsonProperty("lastOnline", Required = Required.Always)]
+        public DateTime LastOnline {
             get; set;
         }
         /// <summary>
@@ -113,14 +135,6 @@ namespace Guilded.NET.Objects {
         /// </summary>
         [JsonProperty("joinDate", Required = Required.Always)]
         public DateTime JoinDate {
-            get; set;
-        }
-        /// <summary>
-        /// Unknown.
-        /// </summary>
-        /// <value>Teams</value>
-        [JsonProperty("teams")]
-        public bool Teams {
             get; set;
         }
         /// <summary>
@@ -134,7 +148,7 @@ namespace Guilded.NET.Objects {
         /// <summary>
         /// If this user was blocked by client's user.
         /// </summary>
-        /// <value>Blocked by this user</value>
+        /// <value>Blocked by client's user</value>
         [JsonProperty("isBlocked", Required = Required.Always)]
         public bool IsBlocked {
             get; set;
@@ -151,7 +165,7 @@ namespace Guilded.NET.Objects {
         /// All social links of this member.
         /// </summary>
         /// <value>Social links</value>
-        [JsonProperty("socialLinks", Required = Required.AllowNull)]
+        [JsonProperty("socialLinks", Required = Required.Always)]
         public IList<SocialLink> SocialLinks {
             get; set;
         }
@@ -159,7 +173,7 @@ namespace Guilded.NET.Objects {
         /// Games this user has on their profile.
         /// </summary>
         /// <value>List of game aliases</value>
-        [JsonProperty("aliases", Required = Required.AllowNull)]
+        [JsonProperty("aliases", Required = Required.Always)]
         public IList<GameAlias> Aliases {
             get; set;
         }
@@ -167,10 +181,39 @@ namespace Guilded.NET.Objects {
         /// All media posted in this profile.
         /// </summary>
         /// <value>List of media</value>
-        [JsonProperty("media", Required = Required.AllowNull)]
+        [JsonProperty("media", Required = Required.Always)]
         public IList<GuildedMedia> Media {
             get; set;
         }
+
+        //=========================//
+        //    Additional
+        //=========================//
+
+        /// <summary>
+        /// If this user is banned from Guilded's services.
+        /// </summary>
+        /// <value>Account terminated</value>
+        public bool IsBanned {
+            get => ModerationStatus == "banned";
+        }
+        /// <summary>
+        /// Creates a new DM channel.
+        /// </summary>
+        /// <returns>Channel</returns>
+        public async Task<DMChannel> CreateDMAsync() =>
+            await ParentClient.CreateDMChannelAsync(Id);
+        /// <summary>
+        /// Creates a new DM channel.
+        /// </summary>
+        /// <returns>Channel</returns>
+        public DMChannel CreateDM() =>
+            ParentClient.CreateDMChannel(Id);
+
+        //=========================//
+        //    Overrides
+        //=========================//
+
         /// <summary>
         /// Turns user to string.
         /// </summary>
@@ -181,10 +224,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is ProfileUser user) return user.Id == Id;
-            else return false;
-        }
+        public override bool Equals(object obj) =>
+            obj is ProfileUser user && user?.Id == Id;
         /// <summary>
         /// Whether or not users are equal.
         /// </summary>

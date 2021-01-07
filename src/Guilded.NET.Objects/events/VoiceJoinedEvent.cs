@@ -17,9 +17,9 @@ namespace Guilded.NET.Objects.Events {
         /// <summary>
         /// User which joined the voice or stream channel.
         /// </summary>
-        /// <value>With ID: User ID</value>
+        /// <value>User event data</value>
         [JsonProperty("user", Required = Required.Always)]
-        public WithId<GId> User {
+        public UserEvent User {
             get; set;
         }
     }

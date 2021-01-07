@@ -1,8 +1,11 @@
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Guilded.NET.Objects {
+    using Chat;
     /// <summary>
     /// Guilded user. This is NOT Guild member.
     /// </summary>
@@ -78,7 +81,7 @@ namespace Guilded.NET.Objects {
             get; set;
         }
         /// <summary>
-        /// Moderation status of the user.
+        /// Moderation status of the user. If this user is banned, it will return `banned`
         /// </summary>
         [JsonProperty("moderationStatus", Required = Required.AllowNull)]
         public string ModerationStatus {
@@ -94,8 +97,8 @@ namespace Guilded.NET.Objects {
         /// <summary>
         /// Date of last time user was online.
         /// </summary>
-        [JsonProperty("lastOnline", Required = Required.AllowNull)]
-        public DateTime? LastOnline {
+        [JsonProperty("lastOnline", Required = Required.Always)]
+        public DateTime LastOnline {
             get; set;
         }
         /// <summary>
@@ -106,6 +109,50 @@ namespace Guilded.NET.Objects {
             get; set;
         }
         /// <summary>
+        /// A list of all global badges this user has.
+        /// </summary>
+        /// <value>List of badges</value>
+        [JsonProperty("badges", Required = Required.Always)]
+        public IList<GlobalBadge> Badges {
+            get; set;
+        }
+
+        //=========================//
+        //    Additional
+        //=========================//
+
+        /// <summary>
+        /// Creates a mention based on a user.
+        /// </summary>
+        /// <value>User mention</value>
+        public Mention Mention {
+            get => Mention.Generate(this);
+        }
+        /// <summary>
+        /// If this user is banned from Guilded's services.
+        /// </summary>
+        /// <value>Account terminated</value>
+        public bool IsBanned {
+            get => ModerationStatus == "banned";
+        }
+        /// <summary>
+        /// Creates a new DM channel.
+        /// </summary>
+        /// <returns>Channel</returns>
+        public async Task<DMChannel> CreateDMAsync() =>
+            await ParentClient.CreateDMChannelAsync(Id);
+        /// <summary>
+        /// Creates a new DM channel.
+        /// </summary>
+        /// <returns>Channel</returns>
+        public DMChannel CreateDM() =>
+            ParentClient.CreateDMChannel(Id);
+        
+        //=========================//
+        //    Overrides
+        //=========================//
+
+        /// <summary>
         /// Turns user to string.
         /// </summary>
         /// <returns>User as a string</returns>
@@ -115,10 +162,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is User user) return user.Id == Id;
-            else return false;
-        }
+        public override bool Equals(object obj) =>
+            obj is User user && user?.Id == Id;
         /// <summary>
         /// Whether or not users are equal.
         /// </summary>

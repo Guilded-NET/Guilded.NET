@@ -10,8 +10,8 @@ namespace Guilded.NET.Objects.Converters {
     /// Converts specific interface types.
     /// </summary>
     public class MiscConverter: JsonConverter {
-        static readonly Type channel = typeof(IChannel);
-        static readonly Type teamChannel = typeof(ITeamChannel);
+        static readonly Type channel = typeof(Channel);
+        static readonly Type teamChannel = typeof(TeamChatChannel);
         static readonly Type formResponseField = typeof(FormResponseField);
         // All of the allowed types
         static readonly Type[] allowed = new Type[] { channel, teamChannel, formResponseField };

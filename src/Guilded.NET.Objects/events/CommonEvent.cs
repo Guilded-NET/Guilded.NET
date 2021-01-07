@@ -17,7 +17,7 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the channel this event appeared. Can be a DM channel or a team channel.
         /// </summary>
         /// <value>Channel ID</value>
-        [JsonProperty("channelId")]
+        [JsonProperty("channelId", Required = Required.Always)]
         public Guid ChannelId {
             get; set;
         }

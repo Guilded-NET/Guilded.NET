@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     using Teams;
+    using Converters;
     /// <summary>
     /// Information about this user.
     /// </summary>
@@ -21,7 +23,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>User</value>
         [JsonProperty("user")]
-        public User User {
+        public ThisUser User {
             get; set;
         }
         /// <summary>
@@ -36,6 +38,7 @@ namespace Guilded.NET.Objects {
         /// Custom emotes which can be used in Guilded by this user.
         /// </summary>
         /// <value></value>
+        [JsonConverter(typeof(FlatConverter))]
         [JsonProperty("customReactions")]
         public IList<ChatEmote> CustomEmotes {
             get; set;
@@ -48,5 +51,17 @@ namespace Guilded.NET.Objects {
         public IList<EmoteUse> EmoteUses {
             get; set;
         }
+
+        //=========================//
+        //    Additional
+        //=========================//
+
+        /// <summary>
+        /// Checks if this user is in a specific team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>Is in a team with given ID</returns>
+        public bool InTeam(GId teamId) =>
+            Teams.FirstOrDefault(x => x.Id == teamId) != null;
     }
 }

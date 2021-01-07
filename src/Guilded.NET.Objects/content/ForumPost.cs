@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Guilded.NET.Objects.Chat;
 using Newtonsoft.Json;
 
@@ -100,5 +102,33 @@ namespace Guilded.NET.Objects.Content {
         public DateTime UpdatedAt {
             get; set;
         }
+        /// <summary>
+        /// Replies to a forum post.
+        /// </summary>
+        /// <param name="content">Content to reply with</param>
+        public async Task ReplyAsync(MessageContent content) =>
+            await ParentClient.CreateForumReplyAsync((Guid)ChannelId, Id, content);
+        /// <summary>
+        /// Replies to a forum post.
+        /// </summary>
+        /// <param name="content">Content to reply with</param>
+        public void Reply(MessageContent content) =>
+            ParentClient.CreateForumReply((Guid)ChannelId, Id, content);
+        /// <summary>
+        /// Gets replies of a specific forum post.
+        /// </summary>
+        /// <param name="maxItems">Max amount of replies it should get</param>
+        /// <param name="afterDate">After which date should it get replies</param>
+        /// <returns>List of replies</returns>
+        public async Task<IList<ForumReply>> GetRepliesAsync(uint? maxItems = 250, DateTime? afterDate = null) =>
+            await ParentClient.GetForumRepliesAsync((Guid)ChannelId, Id, maxItems, afterDate);
+        /// <summary>
+        /// Gets replies of a specific forum post.
+        /// </summary>
+        /// <param name="maxItems">Max amount of replies it should get</param>
+        /// <param name="afterDate">After which date should it get replies</param>
+        /// <returns>List of replies</returns>
+        public IList<ForumReply> GetReplies(uint? maxItems = 250, DateTime? afterDate = null) =>
+            ParentClient.GetForumReplies((Guid)ChannelId, Id, maxItems, afterDate);
     }
 }

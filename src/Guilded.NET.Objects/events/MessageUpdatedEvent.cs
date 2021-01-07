@@ -40,5 +40,12 @@ namespace Guilded.NET.Objects.Events {
         public Guid ContentId {
             get; set;
         }
+        /// <summary>
+        /// If message was updated by given user.
+        /// </summary>
+        /// <param name="user">User to check if it's message update author</param>
+        /// <returns>Message updated by that user</returns>
+        public bool WasUpdatedBy(User user) =>
+            UpdatedBy == user?.Id;
     }
 }

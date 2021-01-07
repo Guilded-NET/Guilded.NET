@@ -72,5 +72,21 @@ namespace Guilded.NET.Objects.Events {
         public Availability Availability {
             get; set;
         }
+        /// <summary>
+        /// An announcement post.
+        /// </summary>
+        /// <value>Announcement</value>
+        [JsonProperty("announcement")]
+        public Announcement Announcement {
+            get; set;
+        }
+        /// <summary>
+        /// A completable list item in a list channel.
+        /// </summary>
+        /// <value>List item</value>
+        [JsonProperty("listItem")]
+        public ListItem List {
+            get; set;
+        }
     }
 }

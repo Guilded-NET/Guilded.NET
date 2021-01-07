@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Teams {
     using Permissions;
+    using Chat;
     /// <summary>
     /// Represents role in teams.
     /// </summary>
@@ -30,7 +31,7 @@ namespace Guilded.NET.Objects.Teams {
         [JsonProperty("color", Required = Required.AllowNull)]
         public string Color {
             get; set;
-        } = null;
+        }
         /// <summary>
         /// Priority of the role.
         /// </summary>
@@ -38,7 +39,7 @@ namespace Guilded.NET.Objects.Teams {
         [JsonProperty("priority")]
         public long? Priority {
             get; set;
-        } = null;
+        }
         /// <summary>
         /// Whether or not it's a base role/default role.
         /// </summary>
@@ -46,7 +47,7 @@ namespace Guilded.NET.Objects.Teams {
         [JsonProperty("isBase", Required = Required.Always)]
         public bool BaseRole {
             get; set;
-        } = false;
+        }
         /// <summary>
         /// ID of the team this role is in.
         /// </summary>
@@ -78,7 +79,7 @@ namespace Guilded.NET.Objects.Teams {
         [JsonProperty("isMentionable", Required = Required.Always)]
         public bool Mentionable {
             get; set;
-        } = false;
+        }
         /// <summary>
         /// Whether it should be self assignable.
         /// </summary>
@@ -86,7 +87,7 @@ namespace Guilded.NET.Objects.Teams {
         [JsonProperty("isSelfAssignable", Required = Required.Always)]
         public bool SelfAssignable {
             get; set;
-        } = false;
+        }
         /// <summary>
         /// Whether it should be displayed seperately from other roles.
         /// </summary>
@@ -111,5 +112,11 @@ namespace Guilded.NET.Objects.Teams {
         public PermissionList Permissions {
             get; set;
         }
+        /// <summary>
+        /// Creates a mentioned based on this role.
+        /// </summary>
+        /// <returns>Role mention</returns>
+        public Mention CreateMention() =>
+            Mention.Generate(this);
     }
 }

@@ -128,19 +128,23 @@ namespace Guilded.NET.Objects {
         /// <returns>List of groups</returns>
         IList<Group> GetGroups(GId teamId);
         /// <summary>
-        /// Gets message inside a specific channel.
+        /// Gets a message in a specific channel.
         /// </summary>
-        /// <param name="channel">Channel to get message in</param>
-        /// <param name="messageId">ID of the message</param>
+        /// <param name="subdomain">Subdomain of a team where that message and channel of that message is</param>
+        /// <param name="groupId">ID of the group where that channel is in</param>
+        /// <param name="channelId">ID of the channel where that message is</param>
+        /// <param name="messageId">ID of message it should get</param>
         /// <returns>Message</returns>
-        Task<Message> GetMessageAsync(Channel channel, Guid messageId);
+        Task<Message> GetMessageAsync(string subdomain, GId groupId, Guid channelId, Guid messageId);
         /// <summary>
-        /// Gets message inside a specific channel.
+        /// Gets a message in a specific channel.
         /// </summary>
-        /// <param name="channel">Channel to get message in</param>
-        /// <param name="messageId">ID of the message</param>
+        /// <param name="subdomain">Subdomain of a team where that message and channel of that message is</param>
+        /// <param name="groupId">ID of the group where that channel is in</param>
+        /// <param name="channelId">ID of the channel where that message is</param>
+        /// <param name="messageId">ID of message it should get</param>
         /// <returns>Message</returns>
-        Message GetMessage(Channel channel, Guid messageId);
+        Message GetMessage(string subdomain, GId groupId, Guid channelId, Guid messageId);
         /// <summary>
         /// Changes the name of the user.
         /// </summary>
@@ -605,5 +609,53 @@ namespace Guilded.NET.Objects {
         /// <param name="channelId">ID of the channel</param>
         /// <param name="itemId">ID of the item</param>
         void DeleteListItem(Guid channelId, Guid itemId);
+        /// <summary>
+        /// Gets an overview page of a team.
+        /// </summary>
+        /// <param name="teamId">Team to get overview of</param>
+        /// <returns>Team overview page</returns>
+        Task<TeamOverview> GetOverviewAsync(GId teamId);
+        /// <summary>
+        /// Gets an overview page of a team.
+        /// </summary>
+        /// <param name="teamId">Team to get overview of</param>
+        /// <returns>Team overview page</returns>
+        TeamOverview GetOverview(GId teamId);
+        /// <summary>
+        /// Gets all comments in a given announcement.
+        /// </summary>
+        /// <param name="announcementId">ID of the announcement</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetAnnouncementRepliesAsync(GId announcementId);
+        /// <summary>
+        /// Gets all comments in a given announcement.
+        /// </summary>
+        /// <param name="announcementId">ID of the announcement</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetAnnouncementReplies(GId announcementId);
+        /// <summary>
+        /// Gets all comments in a given document.
+        /// </summary>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetDocRepliesAsync(uint docId);
+        /// <summary>
+        /// Gets all comments in a given document.
+        /// </summary>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetDocReplies(uint docId);
+        /// <summary>
+        /// Gets all comments in a given media post.
+        /// </summary>
+        /// <param name="mediaId">ID of the media post</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetMediaRepliesAsync(uint mediaId);
+        /// <summary>
+        /// Gets all comments in a given media post.
+        /// </summary>
+        /// <param name="mediaId">ID of the media post</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetMediaReplies(uint mediaId);
     }
 }

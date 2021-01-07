@@ -2,9 +2,9 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
-using Newtonsoft.Json.Linq;
 using System.Linq;
 using Guilded.NET.Objects.Converters;
+using System.Threading.Tasks;
 
 namespace Guilded.NET.Objects.Teams {
     /// <summary>
@@ -284,6 +284,53 @@ namespace Guilded.NET.Objects.Teams {
         public string Timezone {
             get; set;
         }
+        //=====================//
+        //   Methods
+        //=====================//
+        /// <summary>
+        /// Gets team channels.
+        /// </summary>
+        /// <returns>Channel, category and thread list</returns>
+        public async Task<Channels> GetChannelsAsync() =>
+            await ParentClient.GetChannelsAsync(Id);
+        /// <summary>
+        /// Gets team channels.
+        /// </summary>
+        /// <returns>Channel, category and thread list</returns>
+        public Channels GetChannels() =>
+            ParentClient.GetChannels(Id);
+        /// <summary>
+        /// Gets team groups.
+        /// </summary>
+        /// <returns>Group list</returns>
+        public async Task<IList<Group>> GetGroupsAsync() =>
+            await ParentClient.GetGroupsAsync(Id);
+        /// <summary>
+        /// Gets team groups.
+        /// </summary>
+        /// <returns>Group list</returns>
+        public IList<Group> GetGroups() =>
+            ParentClient.GetGroups(Id);
+        /// <summary>
+        /// Gets owner of this team as an user.
+        /// </summary>
+        /// <returns>Team owner</returns>
+        public async Task<User> GetOwnerAsync() =>
+            await ParentClient.GetUserAsync(OwnerId);
+        /// <summary>
+        /// Gets owner of this team as an user.
+        /// </summary>
+        /// <returns>Team owner</returns>
+        public User GetOwner() =>
+            ParentClient.GetUser(OwnerId);
+        /// <summary>
+        /// If the team has a member with given ID.
+        /// </summary>
+        /// <param name="memberId">ID of the member</param>
+        /// <returns>Has a member with given ID</returns>
+        public bool HasMember(GId memberId) =>
+            Members.FirstOrDefault(x => x.Id == memberId) != null;
+
         /// <summary>
         /// Turns team to string.
         /// </summary>

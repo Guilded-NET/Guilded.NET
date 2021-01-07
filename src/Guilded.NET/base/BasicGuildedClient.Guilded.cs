@@ -151,7 +151,7 @@ namespace Guilded.NET {
             // Turns all user IDs to objects
             IEnumerable<string> ids = users.Select(x => $"{{\"id\": \"{x}\"}}");
             // Get response
-            IRestResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{CurrentUser.Id}/channels", Method.POST), new JsonBody($"{{\"users\": [{string.Join(", ", ids)}]}}"));
+            IRestResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/channels", Method.POST), new JsonBody($"{{\"users\": [{string.Join(", ", ids)}]}}"));
             // Returns channel property
             return JObject.Parse(channel.Content)["channel"].ToObject<DMChannel>(GuildedSerializer);
         }
@@ -168,7 +168,7 @@ namespace Guilded.NET {
         /// <returns>Channel</returns>
         public async Task<IList<DMChannel>> GetDMChannelsAsync() {
             // Get response
-            IRestResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{CurrentUser.Id}/channels", Method.GET));
+            IRestResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/channels", Method.GET));
             // Returns channel property
             return JObject.Parse(channel.Content)["channels"].ToObject<IList<DMChannel>>(GuildedSerializer);
         }
@@ -224,32 +224,36 @@ namespace Guilded.NET {
         public IList<Group> GetGroups(GId teamId) =>
             GetGroupsAsync(teamId).GetAwaiter().GetResult();
         /// <summary>
-        /// Gets message inside a specific channel.
+        /// Gets a message in a specific channel.
         /// </summary>
-        /// <param name="channel">Channel to get message in</param>
-        /// <param name="messageId">ID of the message</param>
+        /// <param name="subdomain">Subdomain of a team where that message and channel of that message is</param>
+        /// <param name="groupId">ID of the group where that channel is in</param>
+        /// <param name="channelId">ID of the channel where that message is</param>
+        /// <param name="messageId">ID of message it should get</param>
         /// <returns>Message</returns>
-        public async Task<Message> GetMessageAsync(Channel channel, Guid messageId) {
-            // Get messages
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"content/route/metadata?route=/{(await channel.GetTeamAsync()).Subdomain}/groups/{channel.GroupId}/channels/{channel.Id}/chat?messageId={messageId}", Method.GET));
-            // Parse the content and get message itself
-            return JObject.Parse(response.Content)["metadata"]["message"].ToObject<Message>(GuildedSerializer);
-        }
+        public async Task<Message> GetMessageAsync(string subdomain, GId groupId, Guid channelId, Guid messageId) =>
+            (await FromObject(new Endpoint($"content/route/metadata?route=/{subdomain}/groups/{groupId}/channels/{channelId}/chat?messageId={messageId}", Method.GET)))["metadata"]["message"].ToObject<Message>(GuildedSerializer);
         /// <summary>
-        /// Gets message inside a specific channel. Sync version of <see cref="GetMessageAsync"/>.
+        /// Gets a message in a specific channel.
         /// </summary>
-        /// <param name="channel">Channel to get message in</param>
-        /// <param name="messageId">ID of the message</param>
+        /// <param name="subdomain">Subdomain of a team where that message and channel of that message is</param>
+        /// <param name="groupId">ID of the group where that channel is in</param>
+        /// <param name="channelId">ID of the channel where that message is</param>
+        /// <param name="messageId">ID of message it should get</param>
         /// <returns>Message</returns>
-        public Message GetMessage(Channel channel, Guid messageId) =>
-            GetMessageAsync(channel, messageId).GetAwaiter().GetResult();
+        public Message GetMessage(string subdomain, GId groupId, Guid channelId, Guid messageId) =>
+            GetMessageAsync(subdomain, groupId, channelId, messageId).GetAwaiter().GetResult();
         /// <summary>
         /// Changes the name of the user.
         /// </summary>
         /// <param name="name">New name</param>
         /// <returns>Async task</returns>
-        public async Task ChangeNameAsync(string name) =>
-            await ExecuteRequest(new Endpoint($"users/{CurrentUser.Id}/profilev2", Method.POST), new JsonBody(new { name = "name" }));
+        public async Task ChangeNameAsync(string name) {
+            // Sets a new name of this user
+            await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/profilev2", Method.POST), new JsonBody(new { name = "name" }));
+            // Changes current user username, so it doesn't remain outdated
+            Me.User.Username = name;
+        }
         /// <summary>
         /// Changes the name of the user. Sync version of <see cref="ChangeNameAsync"/>.
         /// </summary>
@@ -347,7 +351,7 @@ namespace Guilded.NET {
         /// <param name="team">Team to join</param>
         /// <returns>Async task</returns>
         public async Task JoinTeamAsync(GId team) =>
-            await ExecuteRequest(new Endpoint($"teams/{team}/members/{CurrentUser.Id}/join", Method.PUT), new JsonBody("{}"));
+            await ExecuteRequest(new Endpoint($"teams/{team}/members/{Me.User.Id}/join", Method.PUT), new JsonBody("{}"));
         /// <summary>
         /// Joins a specific team. Sync version of <see cref="JoinTeamAsync"/>.
         /// </summary>
@@ -360,7 +364,7 @@ namespace Guilded.NET {
         /// <param name="team">Team to leave</param>
         /// <returns>Async task</returns>
         public async Task LeaveTeamAsync(GId team) =>
-            await ExecuteRequest(new Endpoint($"teams/{team}/members/{CurrentUser.Id}", Method.DELETE));
+            await ExecuteRequest(new Endpoint($"teams/{team}/members/{Me.User.Id}", Method.DELETE));
         /// <summary>
         /// Leaves a specific team. Sync version of <see cref="JoinTeamAsync"/>.
         /// </summary>
@@ -835,5 +839,62 @@ namespace Guilded.NET {
         /// <param name="itemId">ID of the item</param>
         public void DeleteListItem(Guid channelId, Guid itemId) =>
             DeleteListItemAsync(channelId, itemId).GetAwaiter().GetResult();
+        
+        /// <summary>
+        /// Gets an overview page of a team.
+        /// </summary>
+        /// <param name="teamId">Team to get overview of</param>
+        /// <returns>Team overview page</returns>
+        public async Task<TeamOverview> GetOverviewAsync(GId teamId) =>
+            await FromObject<TeamOverview>(new Endpoint($"teams/{teamId}/overview", Method.GET));
+        /// <summary>
+        /// Gets an overview page of a team.
+        /// </summary>
+        /// <param name="teamId">Team to get overview of</param>
+        /// <returns>Team overview page</returns>
+        public TeamOverview GetOverview(GId teamId) =>
+            GetOverviewAsync(teamId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets all comments in a given announcement.
+        /// </summary>
+        /// <param name="announcementId">ID of the announcement</param>
+        /// <returns>List of content replies</returns>
+        public async Task<IList<ContentReply>> GetAnnouncementRepliesAsync(GId announcementId) =>
+            await FromArray<ContentReply>(new Endpoint($"content/announcement/{announcementId}/replies", Method.GET));
+        /// <summary>
+        /// Gets all comments in a given announcement.
+        /// </summary>
+        /// <param name="announcementId">ID of the announcement</param>
+        /// <returns>List of content replies</returns>
+        public IList<ContentReply> GetAnnouncementReplies(GId announcementId) =>
+            GetAnnouncementRepliesAsync(announcementId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets all comments in a given document.
+        /// </summary>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>List of content replies</returns>
+        public async Task<IList<ContentReply>> GetDocRepliesAsync(uint docId) =>
+            await FromArray<ContentReply>(new Endpoint($"content/doc/{docId}/replies", Method.GET));
+        /// <summary>
+        /// Gets all comments in a given document.
+        /// </summary>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>List of content replies</returns>
+        public IList<ContentReply> GetDocReplies(uint docId) =>
+            GetDocRepliesAsync(docId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets all comments in a given media post.
+        /// </summary>
+        /// <param name="mediaId">ID of the media post</param>
+        /// <returns>List of content replies</returns>
+        public async Task<IList<ContentReply>> GetMediaRepliesAsync(uint mediaId) =>
+            await FromArray<ContentReply>(new Endpoint($"content/team_media/{mediaId}/replies", Method.GET));
+        /// <summary>
+        /// Gets all comments in a given media post.
+        /// </summary>
+        /// <param name="mediaId">ID of the media post</param>
+        /// <returns>List of content replies</returns>
+        public IList<ContentReply> GetMediaReplies(uint mediaId) =>
+            GetMediaRepliesAsync(mediaId).GetAwaiter().GetResult();
     }
 }
