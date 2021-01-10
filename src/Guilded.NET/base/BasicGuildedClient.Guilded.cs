@@ -37,7 +37,7 @@ namespace Guilded.NET {
         /// </summary>
         async Task<JObject> FromObject(Endpoint endpoint, params IReqAddable[] addables) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(endpoint, addables);
+            ExecutionResponse<object> response = await ExecuteRequest(endpoint, addables);
             // Gets the response as an object and returns it
             return JObject.Parse(response.Content);
         }
@@ -59,7 +59,7 @@ namespace Guilded.NET {
         /// <typeparam name="T">Result type</typeparam>
         async Task<List<T>> FromArray<T>(Endpoint endpoint, params IReqAddable[] addables) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(endpoint, addables);
+            ExecutionResponse<object> response = await ExecuteRequest(endpoint, addables);
             // Gets the response as an object
             JArray array = JArray.Parse(response.Content);
             // Gets and returns parsed object
@@ -69,8 +69,11 @@ namespace Guilded.NET {
         /// Gets user this client is using.
         /// </summary>
         /// <returns>Task[Current User]</returns>
-        public async Task<Me> GetThisUserAsync() =>
-            Convert<Me>((await ExecuteRequest(Endpoint.ME)).Content);
+        public async Task<Me> GetThisUserAsync() {
+            string s = (await ExecuteRequest(Endpoint.ME)).Content;
+            Console.WriteLine(JObject.Parse(s)["teams"][0]);
+            return Convert<Me>(s);
+        }
         /// <summary>
         /// Gets user this client is using. Sync version of <see cref="GetThisUserAsync"/>.
         /// </summary>
@@ -151,7 +154,7 @@ namespace Guilded.NET {
             // Turns all user IDs to objects
             IEnumerable<string> ids = users.Select(x => $"{{\"id\": \"{x}\"}}");
             // Get response
-            IRestResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/channels", Method.POST), new JsonBody($"{{\"users\": [{string.Join(", ", ids)}]}}"));
+            ExecutionResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/channels", Method.POST), new JsonBody($"{{\"users\": [{string.Join(", ", ids)}]}}"));
             // Returns channel property
             return JObject.Parse(channel.Content)["channel"].ToObject<DMChannel>(GuildedSerializer);
         }
@@ -168,7 +171,7 @@ namespace Guilded.NET {
         /// <returns>Channel</returns>
         public async Task<IList<DMChannel>> GetDMChannelsAsync() {
             // Get response
-            IRestResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/channels", Method.GET));
+            ExecutionResponse<object> channel = await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/channels", Method.GET));
             // Returns channel property
             return JObject.Parse(channel.Content)["channels"].ToObject<IList<DMChannel>>(GuildedSerializer);
         }
@@ -331,7 +334,7 @@ namespace Guilded.NET {
         /// <returns>List of messages</returns>
         public async Task<IList<Message>> GetMessagesAsync(Guid channel, uint limit) {
             // Gets message list request response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channel}/messages?limit={limit}", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channel}/messages?limit={limit}", Method.GET));
             // Parses the response and gets the `message` property
             JToken messages = JObject.Parse(response.Content)["messages"];
             // Turns array to list of messages
@@ -445,7 +448,7 @@ namespace Guilded.NET {
         /// <returns>Forum post list</returns>
         public async Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint? maxItems = 1000, DateTime? beforeDate = null) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an object
             JObject obj = JObject.Parse(response.Content);
             // Gets and returns list of forum posts
@@ -470,7 +473,7 @@ namespace Guilded.NET {
         /// <returns>Forum reply list</returns>
         public async Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint? maxItems = 10, DateTime? afterDate = null) {
             // Gets response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies?maxItems={maxItems}&afterDate={afterDate ?? DateTime.Now}", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies?maxItems={maxItems}&afterDate={afterDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an object
             JObject obj = JObject.Parse(response.Content);
             // Gets and returns list of forum posts
@@ -544,7 +547,7 @@ namespace Guilded.NET {
         /// <returns>List of documents</returns>
         public async Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint? maxItems = 50, DateTime? beforeDate = null) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/docs?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/docs?maxItems={maxItems}&beforeDate={beforeDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an array
             JArray array = JArray.Parse(response.Content);
             // Gets and returns list of docs posts
@@ -582,7 +585,7 @@ namespace Guilded.NET {
         /// <returns>List of media posts</returns>
         public async Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/media", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/media", Method.GET));
             // Gets the response as an object
             JArray array = JArray.Parse(response.Content);
             // Gets and returns list of media posts
@@ -605,7 +608,7 @@ namespace Guilded.NET {
         /// <returns>List of calendar events</returns>
         public async Task<IList<CalendarEvent>> GetEventsAsync(Guid channelId, uint? maxItems = 250, DateTime? endDate = null, DateTime? startDate = null) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/events?endDate={endDate ?? DateTime.Now}maxItems={maxItems}&startDate={startDate ?? DateTime.Now}", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/events?endDate={endDate ?? DateTime.Now}maxItems={maxItems}&startDate={startDate ?? DateTime.Now}", Method.GET));
             // Gets the response as an object
             JObject obj = JObject.Parse(response.Content);
             // Gets and returns list of events
@@ -628,7 +631,7 @@ namespace Guilded.NET {
         /// <returns>List of availabilities</returns>
         public async Task<IList<Availability>> GetSchedulesAsync(Guid channelId) {
             // Gets a response
-            IRestResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/availability", Method.GET));
+            ExecutionResponse<object> response = await ExecuteRequest(new Endpoint($"channels/{channelId}/availability", Method.GET));
             // Gets the response as an array
             JArray array = JArray.Parse(response.Content);
             // Gets and returns list of availabilities
@@ -896,5 +899,80 @@ namespace Guilded.NET {
         /// <returns>List of content replies</returns>
         public IList<ContentReply> GetMediaReplies(uint mediaId) =>
             GetMediaRepliesAsync(mediaId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Sets a new nickname for a member.
+        /// </summary>
+        /// <param name="teamId">ID of the team to change nickname in</param>
+        /// <param name="memberId">ID of the member to change nickname of</param>
+        /// <param name="nickname">A new nickname to set</param>
+        public async Task SetNicknameAsync(GId teamId, GId memberId, string nickname) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}/nickname", Method.PUT), new JsonBody(JsonConvert.SerializeObject(new { nickname })));
+        /// <summary>
+        /// Sets a new nickname for a member.
+        /// </summary>
+        /// <param name="teamId">ID of the team to change nickname in</param>
+        /// <param name="memberId">ID of the member to change nickname of</param>
+        /// <param name="nickname">A new nickname to set</param>
+        public void SetNickname(GId teamId, GId memberId, string nickname) =>
+            SetNicknameAsync(teamId, memberId, nickname).GetAwaiter().GetResult();
+        /// <summary>
+        /// Kicks a member from a server.
+        /// </summary>
+        /// <param name="teamId">ID of the team to kick from</param>
+        /// <param name="memberId">ID of the member to kick</param>
+        public async Task KickMemberAsync(GId teamId, GId memberId) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}", Method.DELETE));
+        /// <summary>
+        /// Kicks a member from a server.
+        /// </summary>
+        /// <param name="teamId">ID of the team to kick from</param>
+        /// <param name="memberId">ID of the member to kick</param>
+        public void KickMember(GId teamId, GId memberId) =>
+            KickMemberAsync(teamId, memberId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Bans a member from a server.
+        /// </summary>
+        /// <param name="teamId">ID of the team to ban from</param>
+        /// <param name="memberId">ID of the member to ban</param>
+        /// <param name="reason">Reason for banning this user</param>
+        /// <param name="deleteHistoryOption">Either 7(for 1 week) or 24(for 1 day)</param>
+        public async Task BanMemberAsync(GId teamId, GId memberId, string reason, uint deleteHistoryOption) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}/ban", Method.DELETE), new JsonBody(JsonConvert.SerializeObject(
+                new {
+                    deleteHistoryOption,
+                    teamId,
+                    memberId,
+                    reason,
+                    afterDate = DateTime.Now
+                }
+            )));
+        /// <summary>
+        /// Bans a member from a server.
+        /// </summary>
+        /// <param name="teamId">ID of the team to ban from</param>
+        /// <param name="memberId">ID of the member to ban</param>
+        /// <param name="reason">Reason for banning this user</param>
+        /// <param name="deleteHistoryOption">Either 7(for 1 week) or 24(for 1 day)</param>
+        public void BanMember(GId teamId, GId memberId, string reason, uint deleteHistoryOption) =>
+            BanMemberAsync(teamId, memberId, reason, deleteHistoryOption).GetAwaiter().GetResult();
+        /// <summary>
+        /// Unbans a member in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to unban in</param>
+        /// <param name="memberId">ID of the member to unban</param>
+        public async Task UnbanMemberAsync(GId teamId, GId memberId) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}/ban", Method.PUT), new JsonBody(JsonConvert.SerializeObject(
+                new {
+                    teamId,
+                    memberId
+                }
+            )));
+        /// <summary>
+        /// Unbans a member in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to unban in</param>
+        /// <param name="memberId">ID of the member to unban</param>
+        public void UnbanMember(GId teamId, GId memberId) =>
+            UnbanMemberAsync(teamId, memberId).GetAwaiter().GetResult();
     }
 }

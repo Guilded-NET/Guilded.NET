@@ -45,14 +45,13 @@ namespace Guilded.NET {
         /// <summary>
         /// Connects to Guilded using password and email.
         /// </summary>
-        /// <returns>Task</returns>
-        public override async Task<IRestResponse<object>> ConnectAsync() {
+        public override async Task ConnectAsync() {
             // Creates login details to send to Guilded
             var login = new { email = Email, password = Password };
             // Sends login details to Guilded
             var executed = await ExecuteRequest(Endpoint.LOGIN, false, new JsonBody(login));
             // Set login cookies
-            SetCookies(executed.Cookies);
+            LoginCookies = executed.Cookies;
 #pragma warning disable 0618
             // Executes base
             await BasicConnectAsync();
@@ -79,19 +78,15 @@ namespace Guilded.NET {
             Me = await GetThisUserAsync();
             // Invokes login event
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
-            return executed;
         }
         /// <summary>
         /// Disconnects from Guilded.
         /// </summary>
-        /// <returns>Task</returns>
-        public override async Task<IRestResponse<object>> DisconnectAsync() {
+        public override async Task DisconnectAsync() {
             // Disconnect
-            var executed = await ExecuteRequest(Endpoint.LOGOUT);
+            await ExecuteRequest(Endpoint.LOGOUT);
             // Invoke disconnection event
             await BasicDisconnectAsync();
-            // Return response
-            return executed;
         }
         /// <summary>
         /// Sets a new password for this user.

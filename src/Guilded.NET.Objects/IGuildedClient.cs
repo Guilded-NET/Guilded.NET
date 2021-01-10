@@ -657,5 +657,59 @@ namespace Guilded.NET.Objects {
         /// <param name="mediaId">ID of the media post</param>
         /// <returns>List of content replies</returns>
         IList<ContentReply> GetMediaReplies(uint mediaId);
+        /// <summary>
+        /// Sets a new nickname for a member.
+        /// </summary>
+        /// <param name="teamId">ID of the team to change nickname in</param>
+        /// <param name="memberId">ID of the member to change nickname of</param>
+        /// <param name="nickname">A new nickname to set</param>
+        Task SetNicknameAsync(GId teamId, GId memberId, string nickname);
+        /// <summary>
+        /// Sets a new nickname for a member.
+        /// </summary>
+        /// <param name="teamId">ID of the team to change nickname in</param>
+        /// <param name="memberId">ID of the member to change nickname of</param>
+        /// <param name="nickname">A new nickname to set</param>
+        void SetNickname(GId teamId, GId memberId, string nickname);
+        /// <summary>
+        /// Kicks a member from a server.
+        /// </summary>
+        /// <param name="teamId">ID of the team to kick from</param>
+        /// <param name="memberId">ID of the member to kick</param>
+        Task KickMemberAsync(GId teamId, GId memberId);
+        /// <summary>
+        /// Kicks a member from a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to kick from</param>
+        /// <param name="memberId">ID of the member to kick</param>
+        void KickMember(GId teamId, GId memberId);
+        /// <summary>
+        /// Bans a member from a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to ban from</param>
+        /// <param name="memberId">ID of the member to ban</param>
+        /// <param name="reason">Reason for banning this user</param>
+        /// <param name="deleteHistoryOption">Either 7(for 1 week) or 24(for 1 day)</param>
+        Task BanMemberAsync(GId teamId, GId memberId, string reason, uint deleteHistoryOption);
+        /// <summary>
+        /// Bans a member from a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to ban from</param>
+        /// <param name="memberId">ID of the member to ban</param>
+        /// <param name="reason">Reason for banning this user</param>
+        /// <param name="deleteHistoryOption">Either 7(for 1 week) or 24(for 1 day)</param>
+        void BanMember(GId teamId, GId memberId, string reason, uint deleteHistoryOption);
+        /// <summary>
+        /// Unbans a member in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to unban in</param>
+        /// <param name="memberId">ID of the member to unban</param>
+        Task UnbanMemberAsync(GId teamId, GId memberId);
+        /// <summary>
+        /// Unbans a member in a team.
+        /// </summary>
+        /// <param name="teamId">ID of the team to unban in</param>
+        /// <param name="memberId">ID of the member to unban</param>
+        void UnbanMember(GId teamId, GId memberId);
     }
 }

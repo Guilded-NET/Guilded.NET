@@ -36,7 +36,7 @@ namespace Guilded.NET.API {
         /// <summary>
         /// Endpoint for uploading media to Guilded and receiving new URL. Use Guilded media URL for this, not a normal Guilded API URL.
         /// </summary>
-        public static readonly Endpoint UPLOAD_MEDIA = new Endpoint("media/upload?dynamicMediaTypeId=ContentMedia", Method.POST);
+        public static readonly Endpoint UPLOAD_MEDIA = new Endpoint("media/upload", Method.POST);
         /// <summary>
         /// Path to the REST Endpoint.
         /// </summary>
@@ -51,11 +51,12 @@ namespace Guilded.NET.API {
         public Method EndpointMethod {
             get; set;
         }
+        /// <summary>
+        /// Represents endpoint in Guilded API.
+        /// </summary>
         /// <param name="path">Path of the REST Endpoint</param>
         /// <param name="method">Method of the REST Endpoint</param>
-        public Endpoint(string path, Method method) {
-            Path = path;
-            EndpointMethod = method;
-        }
+        public Endpoint(string path, Method method) =>
+            (Path, EndpointMethod) = (path, method);
     }
 }

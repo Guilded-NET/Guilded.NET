@@ -17,6 +17,7 @@
 - Submit form response
 - GuildedSerializer is now public
 - Command delegate now uses BasicGuildedClient instead of IGuildedClient
+- CurrentUser is now deprecated. Use `.Me.User` instead.
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

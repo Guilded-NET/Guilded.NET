@@ -8,6 +8,11 @@ namespace Guilded.NET.Objects.Teams {
     /// </summary>
     public class Group: ClientObject {
         /// <summary>
+        /// Represents Guilded team group/subserver.
+        /// </summary>
+        public Group() =>
+            (MembershipUpdates, MembershipUpdatesByUserId) = (new List<Membership>(), new Dictionary<uint, MembershipType>());
+        /// <summary>
         /// ID of this group.
         /// </summary>
         /// <value>Group ID</value>
@@ -75,7 +80,7 @@ namespace Guilded.NET.Objects.Teams {
         /// User membership updates in this group.
         /// </summary>
         /// <value>List of Membership Updates</value>
-        [JsonProperty("membershipUpdates", Required = Required.AllowNull)]
+        [JsonProperty("membershipUpdates")]
         public IList<Membership> MembershipUpdates {
             get; set;
         }
@@ -83,7 +88,7 @@ namespace Guilded.NET.Objects.Teams {
         /// User membership updates in this group by user ID.
         /// </summary>
         /// <value>Uint, Membership type</value>
-        [JsonProperty("membershipUpdatesByUserId", Required = Required.AllowNull)]
+        [JsonProperty("membershipUpdatesByUserId")]
         public IDictionary<uint, MembershipType> MembershipUpdatesByUserId {
             get; set;
         }

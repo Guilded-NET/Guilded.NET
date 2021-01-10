@@ -11,6 +11,11 @@ namespace Guilded.NET.Objects {
     /// </summary>
     public class User: ClientObject {
         /// <summary>
+        /// Guilded user. This is NOT Guild member.
+        /// </summary>
+        public User() =>
+            Badges = new List<GlobalBadge>();
+        /// <summary>
         /// Given ID of the user.
         /// </summary>
         [JsonProperty("id", Required = Required.Always)]
@@ -112,7 +117,7 @@ namespace Guilded.NET.Objects {
         /// A list of all global badges this user has.
         /// </summary>
         /// <value>List of badges</value>
-        [JsonProperty("badges", Required = Required.Always)]
+        [JsonProperty("badges")]
         public IList<GlobalBadge> Badges {
             get; set;
         }

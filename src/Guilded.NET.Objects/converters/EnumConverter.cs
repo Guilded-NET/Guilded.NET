@@ -27,8 +27,12 @@ namespace Guilded.NET.Objects.Converters {
         static readonly Type formfieldtype = typeof(FormFieldType);
         static readonly Type subscription = typeof(SubscriptionType);
         static readonly Type system = typeof(SystemMessageType);
-        // All of the allowed types
-        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype, subscription, system };
+        static readonly Type team = typeof(TeamType);
+        /// <summary>
+        /// All of the enum types which are allowed to be converted.
+        /// </summary>
+        /// <value>Allowed enum types</value>
+        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype, subscription, system, team };
         static readonly IDictionary<string, MsgObject> msgobj = new Dictionary<string, MsgObject> {
             {"block", MsgObject.Block},
             {"document", MsgObject.Document},
@@ -131,6 +135,16 @@ namespace Guilded.NET.Objects.Converters {
             {"match-created", SystemMessageType.MatchCreated},
             {"streaming-screenshare-started", SystemMessageType.StreamingScreenshareStarted}
         };
+        static readonly IDictionary<string, TeamType> teams = new Dictionary<string, TeamType> {
+            {"team", TeamType.Team},
+            {"organization", TeamType.Organization},
+            {"community", TeamType.Community},
+            {"clan", TeamType.Clan},
+            {"guild", TeamType.Guild},
+            {"friends", TeamType.Friends},
+            {"streaming", TeamType.Streaming},
+            {"other", TeamType.Other}
+        };
         /// <summary>
         /// Writes enum to the string.
         /// </summary>
@@ -156,6 +170,7 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == mediatype) return ConvertTo(media, (MediaType)value);
             else if(type == formtype) return ConvertTo(forms, (FormType)value);
             else if(type == system) return ConvertTo(systemMessages, (SystemMessageType)value);
+            else if(type == team) return ConvertTo(teams, (TeamType)value);
             else if(type == subscription || type == chattype || type == formfieldtype) return value.ToString();
             else throw new ArgumentException($"{nameof(value)} can not be converted. Given type: {type.FullName}");
         }
@@ -182,6 +197,7 @@ namespace Guilded.NET.Objects.Converters {
             else if(type == mediatype) return ConvertFrom(value, media);
             else if(type == formtype) return ConvertFrom(value, forms);
             else if(type == system) return ConvertFrom(value, systemMessages);
+            else if(type == team) return ConvertFrom(value, teams);
             else if(type == formfieldtype) return Enum.Parse<FormFieldType>(value);
             else if(type == subscription) return Enum.Parse<SubscriptionType>(value);
             else if(type == chattype) return Enum.Parse<ChatType>(value);

@@ -2,6 +2,7 @@ using RestSharp;
 using System.Linq;
 using System.Collections.Generic;
 using System;
+using System.Net;
 
 namespace Guilded.NET.API {
     /// <summary>
@@ -9,31 +10,10 @@ namespace Guilded.NET.API {
     /// </summary>
     public class ExecutionResponse<T> {
         /// <summary>
-        /// A response from execution
-        /// </summary>
-        /// <param name="response">Response from execution</param>
-        public ExecutionResponse(RestResponse<T> response) {
-            Response = response;
-            // As who client is authenticated
-            AuthenticatedAs = response.Headers.FirstOrDefault(x => x.Name == "authenticated-as")?.Value as string;
-            // Gets allowed methods header
-            var parameter = response.Headers.FirstOrDefault(x => x.Name == "access-control-allow-methods");
-            // If it's not null
-            AllowedMethods = parameter != null
-                // Gets header's value, split's it by space, trims all values and parse them as Method enum value
-                ? ((string)parameter.Value).Split(' ').Select(x => Enum.Parse<Method>(x.Trim())).ToList()
-                // If it is null, then AllowedMethods will be null
-                : null;
-            // Sets origin from origin header
-            Origin = new Uri(response.Headers.FirstOrDefault(x => x.Name == "access-control-allow-origin")?.Value as string);
-            // Sets a request ID
-            RequestId = Guid.Parse(response.Headers.FirstOrDefault(x => x.Name == "request-id")?.Value as string);
-        }
-        /// <summary>
         /// Response given from execution.
         /// </summary>
         /// <value>REST Response</value>
-        public RestResponse<T> Response {
+        public IRestResponse<T> Response {
             get; protected set;
         }
         /// <summary>
@@ -70,6 +50,40 @@ namespace Guilded.NET.API {
         /// <value>JSON</value>
         public string Content {
             get => Response.Content;
+        }
+        /// <summary>
+        /// A list of all cookies.
+        /// </summary>
+        /// <value>Cookies</value>
+        public IList<GuildedCookie> Cookies {
+            get; set;
+        }
+        /// <summary>
+        /// A response from execution
+        /// </summary>
+        /// <param name="response">Response from execution</param>
+        public ExecutionResponse(IRestResponse<T> response) {
+            Response = response;
+            // As who client is authenticated
+            AuthenticatedAs = response.Headers.FirstOrDefault(x => x.Name == "authenticated-as")?.Value as string;
+            // Gets allowed methods header
+            var parameter = response.Headers.FirstOrDefault(x => x.Name == "access-control-allow-methods");
+            // If it's not null
+            AllowedMethods = parameter != null
+                // Gets header's value, split's it by space, trims all values and parse them as Method enum value
+                ? ((string)parameter.Value).Split(' ').Select(x => Enum.Parse<Method>(x.Trim())).ToList()
+                // If it is null, then AllowedMethods will be null
+                : null;
+            // Gets origin header as a string
+            string originHeader = (string)response.Headers.FirstOrDefault(x => x.Name == "access-control-allow-origin")?.Value;
+            // Sets an origin
+            Origin = originHeader != null ? new Uri(originHeader) : null;
+            // Gets request ID header as a string
+            string requestHeader = (string)response.Headers.FirstOrDefault(x => x.Name == "request-id")?.Value;
+            // Sets a request ID
+            RequestId = requestHeader != null ? Guid.Parse(requestHeader) : null as Guid?;
+            // Sets cookies
+            Cookies = response.Cookies.Select(x => new GuildedCookie(x.Name, x.Value, x.Path, x.Domain)).ToList();
         }
     }
 }

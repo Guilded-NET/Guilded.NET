@@ -8,12 +8,14 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 
 namespace Guilded.NET.API {
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
     public abstract class BaseGuildedClient: IDisposable {
+        static readonly Random random = new Random();
         static readonly string emptyTeam = "jwt=undefined";
         internal static readonly string WebsocketQuery = "EIO=3&transport=websocket";
         /// <summary>
@@ -158,14 +160,6 @@ namespace Guilded.NET.API {
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
         protected BaseGuildedClient(): this(GuildedAPIURL, GuildedMediaURL) {}
         /// <summary>
-        /// Sets cookies to list of <see cref="RestResponseCookie"/>.
-        /// </summary>
-        /// <param name="cookies">List of login cookies</param>
-#pragma warning disable 0618
-        public void SetCookies(IList<RestResponseCookie> cookies) =>
-            LoginCookies = cookies.Select(x => new GuildedCookie(x.Name, x.Value, x.Path, x.Domain)).ToList();
-#pragma warning restore 0618
-        /// <summary>
         /// Sends a request to Guilded's API with given arguments.
         /// </summary>
         /// <param name="endpoint">Guilded API endpoint</param>
@@ -174,7 +168,7 @@ namespace Guilded.NET.API {
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <typeparam name="T">Type of the response</typeparam>
         /// <returns>Request response</returns>
-        public async Task<IRestResponse<T>> ExecuteRequest<T>(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) {
+        public async Task<ExecutionResponse<T>> ExecuteRequest<T>(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) {
             // Create new request
             RestRequest req = new RestRequest(endpoint.Path, endpoint.EndpointMethod);
             // Add parameters
@@ -185,7 +179,7 @@ namespace Guilded.NET.API {
             // Executes response
             IRestResponse<T> response = await Rest.ExecuteAsync<T>(req);
             // Check if content isn't null and get it as JSON object
-            if(string.IsNullOrEmpty(response.Content)) return response;
+            if(string.IsNullOrEmpty(response.Content)) return new ExecutionResponse<T>(response);
             JToken token = JToken.Parse(response.Content);
             // Check if it has 2 properties
             if(token.Type == JTokenType.Object) {
@@ -205,7 +199,7 @@ namespace Guilded.NET.API {
                 }
             }
             // Returns it
-            return response;
+            return new ExecutionResponse<T>(response);
         }
         /// <summary>
         /// Sends a request to Guilded's API with given arguments.
@@ -215,7 +209,7 @@ namespace Guilded.NET.API {
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <typeparam name="T">Type of the response</typeparam>
         /// <returns>Request response</returns>
-        public async Task<IRestResponse<T>> ExecuteRequest<T>(Endpoint endpoint, params IReqAddable[] addables) =>
+        public async Task<ExecutionResponse<T>> ExecuteRequest<T>(Endpoint endpoint, params IReqAddable[] addables) =>
             await ExecuteRequest<T>(endpoint, true, addables);
         /// <summary>
         /// Sends a request to Guilded's API with given arguments.
@@ -225,7 +219,7 @@ namespace Guilded.NET.API {
         /// <param name="enableCookies">If it should add cookies to the request</param>
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <returns>Request response</returns>
-        public async Task<IRestResponse<object>> ExecuteRequest(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) =>
+        public async Task<ExecutionResponse<object>> ExecuteRequest(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) =>
             await ExecuteRequest<object>(endpoint, enableCookies, addables);
         /// <summary>
         /// Sends a request to Guilded's API with given arguments.
@@ -234,7 +228,7 @@ namespace Guilded.NET.API {
         /// <param name="addables">Args to be given to that endpoint</param>
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <returns>Request response</returns>
-        public async Task<IRestResponse<object>> ExecuteRequest(Endpoint endpoint, params IReqAddable[] addables) =>
+        public async Task<ExecutionResponse<object>> ExecuteRequest(Endpoint endpoint, params IReqAddable[] addables) =>
             await ExecuteRequest(endpoint, true, addables);
         /// <summary>
         /// Uploads image to Guilded.
@@ -246,7 +240,9 @@ namespace Guilded.NET.API {
         public async Task<Uri> UploadImage(string filepath, byte[] filedata) {
             if(string.IsNullOrWhiteSpace(filepath)) throw new ArgumentException($"{nameof(filepath)} can not be empty.");
             // Create new request
-            RestRequest req = new RestRequest($"{MediaUrl}/{Endpoint.UPLOAD_MEDIA.Path}", Endpoint.UPLOAD_MEDIA.EndpointMethod);
+            RestRequest req = new RestRequest($"{MediaUrl}/{Endpoint.UPLOAD_MEDIA.Path}?dynamicMediaTypeId=ContentMedia", Endpoint.UPLOAD_MEDIA.EndpointMethod) {
+                AlwaysMultipartFormData = true
+            };
             // Add parameters
             if(LoginCookies != null)
                 foreach(var addable in LoginCookies)
@@ -255,8 +251,46 @@ namespace Guilded.NET.API {
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
             // Adds that file
             req.AddFile(Path.GetFileName(filepath), filedata, filepath);
+            // Adds a header telling its type
+            req.AddHeader("Content-Type", "multipart/form-data");
+            // Sends that request and gets URL from it
+            return await GetMedia(req);
+        }
+        /// <summary>
+        /// Uploads image to Guilded.
+        /// </summary>
+        /// <param name="url">Link to the image</param>
+        /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
+        /// <returns>Image URL</returns>
+        public async Task<Uri> UploadImage(Uri url) {
+            if(url == null) throw new ArgumentException($"{nameof(url)} can not be null.");
+            // Create new request
+            RestRequest req = new RestRequest($"{MediaUrl}/{Endpoint.UPLOAD_MEDIA.Path}", Endpoint.UPLOAD_MEDIA.EndpointMethod);
+            // Add parameters
+            if(LoginCookies != null)
+                foreach(var addable in LoginCookies)
+                    addable.AddTo(req);
+            // To what it is referring
+            req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
+            // Adds a new JSON
+            /* {
+             *   "mediaInfo": { "src": "url" },
+             *   "dyanmicMediaTypeId": "ContentMedia",
+             *   "uploadTrackingId": "r-1000000-1000000"
+             * }
+             */
+            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": {url} }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"r-{random.Next(1000000, int.MaxValue)}-{random.Next(1000000, int.MaxValue)}\" }}");
+            // Sends that request and gets URL from it
+            return await GetMedia(req);
+        }
+        /// <summary>
+        /// Sends a request and gets media URL from it.
+        /// </summary>
+        /// <param name="request">Request to send</param>
+        /// <returns>Media URL</returns>
+        async Task<Uri> GetMedia(RestRequest request) {
             // Executes response
-            IRestResponse<object> response = await Rest.ExecuteAsync<object>(req);
+            IRestResponse<object> response = await Rest.ExecuteAsync<object>(request);
             // Check if content isn't null and get it as JSON object
             if(string.IsNullOrEmpty(response.Content)) return null;
             // Gets it as a JSON token
@@ -325,13 +359,11 @@ namespace Guilded.NET.API {
         /// <summary>
         /// Connects to Guilded client/user.
         /// </summary>
-        /// <returns>Async Task</returns>
-        public abstract Task<IRestResponse<object>> ConnectAsync();
+        public abstract Task ConnectAsync();
         /// <summary>
         /// Disconnects from Guilded client/user.
         /// </summary>
-        /// <returns>Async Task</returns>
-        public abstract Task<IRestResponse<object>> DisconnectAsync();
+        public abstract Task DisconnectAsync();
         /// <summary>
         /// Disposes BaseGuildedClient.
         /// </summary>

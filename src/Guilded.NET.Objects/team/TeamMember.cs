@@ -1,8 +1,10 @@
 using Newtonsoft.Json;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Teams {
+    using Permissions;
     /// <summary>
     /// Represents member, or user of the team.
     /// </summary>
@@ -36,7 +38,7 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>List of badges</value>
         [JsonProperty("badges", Required = Required.AllowNull)]
-        public IList<string> Badges {
+        public IList<GlobalBadge> Badges {
             get; set;
         }
         /// <summary>
@@ -127,5 +129,22 @@ namespace Guilded.NET.Objects.Teams {
         public long Xp {
             get; set;
         }
+
+        //=========================//
+        //    Additional
+        //=========================//
+
+        /// <summary>
+        /// Gets this member as a user.
+        /// </summary>
+        /// <returns>User</returns>
+        public async Task<User> AsUserAsync() =>
+            await ParentClient.GetUserAsync(Id);
+        /// <summary>
+        /// Gets this member as a user.
+        /// </summary>
+        /// <returns>User</returns>
+        public User AsUser() =>
+            ParentClient.GetUser(Id);
     }
 }

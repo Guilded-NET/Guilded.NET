@@ -30,12 +30,22 @@ namespace Guilded.NET.Objects.Teams {
         public uint? ChannelCategoryId {
             get; set;
         }
+
+        //=========================//
+        //    Additional
+        //=========================//
+
         /// <summary>
         /// Creates a channel mention based on a given channel.
         /// </summary>
         /// <returns>Channel mention</returns>
         public ChannelMention CreateMention() =>
             ChannelMention.Generate(this);
+
+        //=========================//
+        //    Overrides
+        //=========================//
+
         /// <summary>
         /// Turns channel to string.
         /// </summary>

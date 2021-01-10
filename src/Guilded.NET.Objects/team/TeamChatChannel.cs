@@ -29,7 +29,7 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Content Type</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType Type {
+        public ChannelType ContentType {
             get; set;
         }
         /// <summary>

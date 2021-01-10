@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects {
@@ -62,5 +63,17 @@ namespace Guilded.NET.Objects {
         public bool CanRedeemGold {
             get; set;
         }
+        /// <summary>
+        /// Changes the name of the user.
+        /// </summary>
+        /// <param name="name">New name</param>
+        public async Task ChangeNameAsync(string name) =>
+            await ParentClient.ChangeNameAsync(name);
+        /// <summary>
+        /// Changes the name of the user.
+        /// </summary>
+        /// <param name="name">New name</param>
+        public void ChangeName(string name) =>
+            ParentClient.ChangeName(name);
     }
 }
