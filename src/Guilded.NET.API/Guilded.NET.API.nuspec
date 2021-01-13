@@ -12,6 +12,8 @@
         <icon>icon.png</icon>
         <description>API helpers for Guilded.NET.</description>
         <releaseNotes>
+- ExecutionResponse
+- Ability to upload image links
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

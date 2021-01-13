@@ -279,7 +279,7 @@ namespace Guilded.NET.API {
              *   "uploadTrackingId": "r-1000000-1000000"
              * }
              */
-            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": {url} }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"r-{random.Next(1000000, int.MaxValue)}-{random.Next(1000000, int.MaxValue)}\" }}");
+            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"r-{random.Next(1000000, int.MaxValue)}-{random.Next(1000000, int.MaxValue)}\" }}");
             // Sends that request and gets URL from it
             return await GetMedia(req);
         }
