@@ -19,6 +19,8 @@
 - Channel badged, channel seen events
 - Team member updated event
 - Team roles updated event
+- Get all permissions user has in a team
+- Get all permissions user has in a team AND channel
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

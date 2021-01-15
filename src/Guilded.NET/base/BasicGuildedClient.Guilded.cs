@@ -69,11 +69,8 @@ namespace Guilded.NET {
         /// Gets user this client is using.
         /// </summary>
         /// <returns>Task[Current User]</returns>
-        public async Task<Me> GetThisUserAsync() {
-            string s = (await ExecuteRequest(Endpoint.ME)).Content;
-            Console.WriteLine(JObject.Parse(s)["teams"][0]);
-            return Convert<Me>(s);
-        }
+        public async Task<Me> GetThisUserAsync() =>
+            Convert<Me>((await ExecuteRequest(Endpoint.ME)).Content);
         /// <summary>
         /// Gets user this client is using. Sync version of <see cref="GetThisUserAsync"/>.
         /// </summary>
@@ -186,11 +183,8 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="id">Team ID</param>
         /// <returns>Team</returns>
-        public async Task<Team> GetTeamAsync(GId id) {
-            var lib = JObject.Parse((await ExecuteRequest(new Endpoint($"/teams/{id}", Method.GET))).Content)["team"];
-            Console.WriteLine(lib);
-            return lib.ToObject<Team>(GuildedSerializer);
-        }
+        public async Task<Team> GetTeamAsync(GId id) =>
+            JObject.Parse((await ExecuteRequest(new Endpoint($"/teams/{id}", Method.GET))).Content)["team"].ToObject<Team>(GuildedSerializer);
         /// <summary>
         /// Gets team with given ID. Sync version of <see cref="GetTeamAsync"/>.
         /// </summary>

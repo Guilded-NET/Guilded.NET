@@ -3,8 +3,10 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace Guilded.NET.Objects.Teams {
+    using Permissions;
     /// <summary>
     /// Guilded team/guild/server.
     /// </summary>
@@ -98,9 +100,9 @@ namespace Guilded.NET.Objects.Teams {
         //=======================//
 
         /// <summary>
-        /// Whether the team is recruiting or not.
+        /// Whether the team is recruiting members or not.
         /// </summary>
-        /// <value>Boolean</value>
+        /// <value>Recruiting</value>
         [JsonProperty("isRecruiting", Required = Required.Always)]
         public bool IsRecruiting {
             get; set;
@@ -108,7 +110,7 @@ namespace Guilded.NET.Objects.Teams {
         /// <summary>
         /// Whether or not the team is verified.
         /// </summary>
-        /// <value>Boolean</value>
+        /// <value>Verified</value>
         [JsonProperty("isVerified", Required = Required.Always)]
         public bool IsVerified {
             get; set;
@@ -116,15 +118,15 @@ namespace Guilded.NET.Objects.Teams {
         /// <summary>
         /// Whether or not the team is public.
         /// </summary>
-        /// <value>Boolean</value>
+        /// <value>Public</value>
         [JsonProperty("isPublic", Required = Required.Always)]
         public bool IsPublic {
             get; set;
         }
         /// <summary>
-        /// Whether or not the team is pro(has paid?).
+        /// Whether or not the team is pro verified.
         /// </summary>
-        /// <value>Boolean</value>
+        /// <value>Pro verified</value>
         [JsonProperty("isPro", Required = Required.Always)]
         public bool IsPro {
             get; set;
@@ -306,6 +308,13 @@ namespace Guilded.NET.Objects.Teams {
         /// <param name="deleteHistoryOption">How much of the history should be deleted</param>
         public void BanMember(TeamMember member, string reason, uint deleteHistoryOption) =>
             ParentClient.BanMember(Id, member.Id, reason, deleteHistoryOption);
+        /// <summary>
+        /// Gets all permissions(server-wide) of a specific member.
+        /// </summary>
+        /// <param name="member">Member to get permissions of</param>
+        /// <returns>Allowed permissions</returns>
+        public PermissionList GetPermissionsOf(TeamMember member) =>
+            RolesById["baseRole"].Permissions + member.RoleIds.Select(x => RolesById[x.ToString()].Permissions).Aggregate((a, b) => a + b);
         
         //=====================//
         //   Overrides

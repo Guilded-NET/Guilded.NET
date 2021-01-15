@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System;
+using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace Guilded.NET.Objects.Teams {
     using Chat;
+    using Permissions;
     /// <summary>
     /// Represents Guilded channel.
     /// </summary>

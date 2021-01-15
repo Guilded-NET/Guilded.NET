@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace Guilded.NET.Objects.Teams {
+    using Permissions;
     /// <summary>
     /// Interface for team channels and categories.
     /// </summary>
@@ -87,9 +88,39 @@ namespace Guilded.NET.Objects.Teams {
         /// <returns>Team</returns>
         public Group GetGroup() =>
             ParentClient.GetGroups(TeamId).FirstOrDefault(x => x.Id == GroupId);
+        /// <summary>
+        /// Gets all team and channel permissions, then adds them all up.
+        /// </summary>
+        /// <param name="member">Member to get all permissions of</param>
+        /// <param name="team">Team this channel is in</param>
+        /// <returns>Allowed permissions</returns>
+        public PermissionList GetFullPermissionsOf(Team team, TeamMember member) {
+            // All of the permissions this user has in a team
+            PermissionList teamPerms = team.GetPermissionsOf(member);
+            // Gets all role permissions this user has
+            IEnumerable<ChannelPermission> rolePerms =
+                RolePermissions
+                    .Where(x => (uint.TryParse(x.Key, out uint y) && member.RoleIds.Contains(y)) || x.Key == "baseRole")
+                    .Select(x => x.Value);
+            // Gets user permissions
+            UserPermission userPerms = UserPermissions?.FirstOrDefault(x => x.UserId == member?.Id);
+            // Adds up all user permissions and role permissions
+            return teamPerms
+                - OptionalAddition(rolePerms.Select(x => x.DenyPermissions))
+                - userPerms?.DenyPermissions
+                + OptionalAddition(rolePerms.Select(x => x.AllowPermissions))
+                + userPerms?.AllowPermissions; 
+        }
+        /// <summary>
+        /// Gets all team and channel permissions, then adds them all up.
+        /// </summary>
+        /// <param name="member">Member to get all permissions of</param>
+        /// <returns>Allowed permissions</returns>
+        public async Task<PermissionList> GetFullPermissionsOf(TeamMember member) =>
+            GetFullPermissionsOf(await GetTeamAsync(), member);
 
         //=========================//
-        //    Overrides
+        //    Overrides & Utilities
         //=========================//
 
         /// <summary>
@@ -120,5 +151,12 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <returns>HashCode</returns>
         public override int GetHashCode() => (TeamId.GetHashCode() + Id.GetHashCode() + 2000) / 2;
+        /// <summary>
+        /// Optionally aggregates permission list
+        /// </summary>
+        /// <param name="perms">Permission list to aggregate</param>
+        /// <returns>Aggregated permission list</returns>
+        static PermissionList OptionalAddition(IEnumerable<PermissionList> perms) =>
+            perms.Count() > 1 ? perms.Aggregate((x, y) => x + y) : perms.FirstOrDefault();
     }
 }

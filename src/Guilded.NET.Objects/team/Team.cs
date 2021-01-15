@@ -59,10 +59,10 @@ namespace Guilded.NET.Objects.Teams {
             get; set;
         }
         /// <summary>
-        /// If this user applied for this server.
+        /// If this user has applied for this server.
         /// </summary>
         /// <value>Applied</value>
-        [JsonProperty("userIsApplication", Required = Required.Always)]
+        [JsonProperty("isUserApplicant", Required = Required.Always)]
         public bool IsApplicant {
             get; set;
         }

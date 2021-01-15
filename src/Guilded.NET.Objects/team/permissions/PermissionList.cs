@@ -1,5 +1,6 @@
 using System;
-using System.Collections.Concurrent;
+using System.Linq;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Permissions {
@@ -13,6 +14,14 @@ namespace Guilded.NET.Objects.Permissions {
         /// <value>Permissions</value>
         [JsonProperty("chat", NullValueHandling = NullValueHandling.Ignore)]
         public ChatPermissions? Chat {
+            get; set;
+        } = null;
+        /// <summary>
+        /// Represents voice channel permissions.
+        /// </summary>
+        /// <value>Permissions</value>
+        [JsonProperty("voice", NullValueHandling = NullValueHandling.Ignore)]
+        public VoicePermissions? Voice {
             get; set;
         } = null;
         /// <summary>
@@ -127,32 +136,21 @@ namespace Guilded.NET.Objects.Permissions {
         /// <returns>Added up permission list</returns>
         public static PermissionList operator+(PermissionList first, PermissionList second) =>
             new PermissionList {
-                // ORs chat permissions
-                Chat = Concat(first.Chat, second.Chat),
-                // ORs docs permissions
-                Docs = Concat(first.Docs, second.Docs),
-                // ORs form permissions
-                Forms = Concat(first.Forms, second.Forms),
-                // ORs list permissions
-                Lists = Concat(first.Lists, second.Lists),
-                // ORs media permissions
-                Media = Concat(first.Media, second.Media),
-                // ORs forum permissions
-                Forums = Concat(first.Forums, second.Forums),
-                // ORs stream permissions
-                Streams = Concat(first.Streams, second.Streams),
-                // ORs calendar permissions
-                Calendar = Concat(first.Calendar, second.Calendar),
-                // ORs scheduling permissions
-                Scheduling = Concat(first.Scheduling, second.Scheduling),
-                // ORs matchmaking permissions
-                Matchmaking = Concat(first.Matchmaking, second.Matchmaking),
-                // ORs recruitment permissions
-                Recruitment = Concat(first.Recruitment, second.Recruitment),
-                // ORs announcement permissions
-                Announcements = Concat(first.Announcements, second.Announcements),
-                // ORs customization permissions
-                Customization = Concat(first.Customization, second.Customization)
+                Chat = Concat(first?.Chat, second?.Chat),
+                General = Concat(first?.General, second?.General),
+                Voice = Concat(first?.Voice, second?.Voice),
+                Docs = Concat(first?.Docs, second?.Docs),
+                Forms = Concat(first?.Forms, second?.Forms),
+                Lists = Concat(first?.Lists, second?.Lists),
+                Media = Concat(first?.Media, second?.Media),
+                Forums = Concat(first?.Forums, second?.Forums),
+                Streams = Concat(first?.Streams, second?.Streams),
+                Calendar = Concat(first?.Calendar, second?.Calendar),
+                Scheduling = Concat(first?.Scheduling, second?.Scheduling),
+                Matchmaking = Concat(first?.Matchmaking, second?.Matchmaking),
+                Recruitment = Concat(first?.Recruitment, second?.Recruitment),
+                Announcements = Concat(first?.Announcements, second?.Announcements),
+                Customization = Concat(first?.Customization, second?.Customization)
             };
         /// <summary>
         /// Removes second PermissionList instance from first.
@@ -162,32 +160,21 @@ namespace Guilded.NET.Objects.Permissions {
         /// <returns>New permission list instance</returns>
         public static PermissionList operator-(PermissionList first, PermissionList second) =>
             new PermissionList {
-                // Removes second from first chat permission
-                Chat = first.Chat & ~second.Chat,
-                // Removes second from first docs permission
-                Docs = first.Docs & ~second.Docs,
-                // Removes second from first form permission
-                Forms = first.Forms & ~second.Forms,
-                // Removes second from first list permission
-                Lists = first.Lists & ~second.Lists,
-                // Removes second from first media permission
-                Media = first.Media & ~second.Media,
-                // Removes second from first forum permission
-                Forums = first.Forums & ~second.Forums,
-                // Removes second from first stream permission
-                Streams = first.Streams & ~second.Streams,
-                // Removes second from first calendar permission
-                Calendar = first.Calendar & ~second.Calendar,
-                // Removes second from first scheduling permission
-                Scheduling = first.Scheduling & ~second.Scheduling,
-                // Removes second from first matchmaking permission
-                Matchmaking = first.Matchmaking & ~second.Matchmaking,
-                // Removes second from first recruitment permission
-                Recruitment = first.Recruitment & ~second.Recruitment,
-                // Removes second from first announcement permission
-                Announcements = first.Announcements & ~second.Announcements,
-                // Removes second from first customization permission
-                Customization = first.Customization & ~second.Customization
+                Chat = Substract(first?.Chat, second?.Chat),
+                General = Substract(first?.General, second?.General),
+                Voice = Substract(first?.Voice, second?.Voice),
+                Docs = Substract(first?.Docs, second?.Docs),
+                Forms = Substract(first?.Forms, second?.Forms),
+                Lists = Substract(first?.Lists, second?.Lists),
+                Media = Substract(first?.Media, second?.Media),
+                Forums = Substract(first?.Forums, second?.Forums),
+                Streams = Substract(first?.Streams, second?.Streams),
+                Calendar = Substract(first?.Calendar, second?.Calendar),
+                Scheduling = Substract(first?.Scheduling, second?.Scheduling),
+                Matchmaking = Substract(first?.Matchmaking, second?.Matchmaking),
+                Recruitment = Substract(first?.Recruitment, second?.Recruitment),
+                Announcements = Substract(first?.Announcements, second?.Announcements),
+                Customization = Substract(first?.Customization, second?.Customization)
             };
         /// <summary>
         /// Used to concat and check 2 enum values.
@@ -210,6 +197,28 @@ namespace Guilded.NET.Objects.Permissions {
         #nullable enable
         static T? Concat<T>(T? first, T? second) where T: struct, Enum =>
             (T?)Enum.ToObject(typeof(T), Concat(Convert.ToUInt32(first), Convert.ToUInt32(second)));
+        #nullable restore
+        /// <summary>
+        /// Substracts second enum value from first.
+        /// </summary>
+        /// <param name="first">To substract from</param>
+        /// <param name="second">To substract with</param>
+        /// <returns>New enum value</returns>
+        static uint? Substract(uint? first, uint? second) {
+            // If first one is null, then we can't substract
+            if(first == null) return null;
+            // Substract second from first. If second is null, then we will substract nothing
+            else return first & (~second ?? 0);
+        }
+        /// <summary>
+        /// Substracts second enum value from first.
+        /// </summary>
+        /// <param name="first">To substract from</param>
+        /// <param name="second">To substract with</param>
+        /// <returns>New enum value</returns>
+        #nullable enable
+        static T? Substract<T>(T? first, T? second) where T: struct, Enum =>
+            (T?)Enum.ToObject(typeof(T), Substract(Convert.ToUInt32(first), Convert.ToUInt32(second)));
         #nullable restore
     }
 }
