@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Teams {
-    using Permissions;
+    using Chat;
     /// <summary>
     /// Represents member, or user of the team.
     /// </summary>
@@ -133,7 +133,14 @@ namespace Guilded.NET.Objects.Teams {
         //=========================//
         //    Additional
         //=========================//
-
+        /// <summary>
+        /// Gets either a nickname or a username of this member.
+        /// </summary>
+        /// <value>Nickname or username</value>
+        [JsonIgnore]
+        public string DisplayName {
+            get => Nickname ?? Username;
+        }
         /// <summary>
         /// Gets this member as a user.
         /// </summary>
@@ -146,5 +153,17 @@ namespace Guilded.NET.Objects.Teams {
         /// <returns>User</returns>
         public User AsUser() =>
             ParentClient.GetUser(Id);
+        /// <summary>
+        /// Creates a new DM channel.
+        /// </summary>
+        /// <returns>Channel</returns>
+        public async Task<DMChannel> CreateDMAsync() =>
+            await ParentClient.CreateDMChannelAsync(Id);
+        /// <summary>
+        /// Creates a new DM channel.
+        /// </summary>
+        /// <returns>Channel</returns>
+        public DMChannel CreateDM() =>
+            ParentClient.CreateDMChannel(Id);
     }
 }

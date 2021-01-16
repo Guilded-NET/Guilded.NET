@@ -21,6 +21,7 @@
 - Team roles updated event
 - Get all permissions user has in a team
 - Get all permissions user has in a team AND channel
+- Get profiles
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

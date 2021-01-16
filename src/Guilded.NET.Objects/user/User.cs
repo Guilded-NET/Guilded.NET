@@ -130,6 +130,7 @@ namespace Guilded.NET.Objects {
         /// Creates a mention based on a user.
         /// </summary>
         /// <value>User mention</value>
+        [JsonIgnore]
         public Mention Mention {
             get => Mention.Generate(this);
         }
