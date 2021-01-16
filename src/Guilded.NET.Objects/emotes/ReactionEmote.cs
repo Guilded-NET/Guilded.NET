@@ -5,7 +5,7 @@ namespace Guilded.NET.Objects {
     /// <summary>
     /// Emote used in a reaction.
     /// </summary>
-    public class ReactionEmote: ClientObject {
+    public class Reaction: ClientObject {
         /// <summary>
         /// All of the people who reacted to using this reaction.
         /// </summary>

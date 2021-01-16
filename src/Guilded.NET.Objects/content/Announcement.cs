@@ -29,7 +29,7 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>List of reactions</value>
         [JsonProperty("reactions", Required = Required.Always)]
-        public IList<ReactionEmote> Reactions {
+        public IList<Reaction> Reactions {
             get; set;
         }
         /// <summary>

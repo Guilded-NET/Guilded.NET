@@ -1,8 +1,9 @@
 using System;
-using Guilded.NET.Objects.Chat;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects.Content {
+    using Chat;
     /// <summary>
     /// A post which was posted in the profile.
     /// </summary>
@@ -43,7 +44,7 @@ namespace Guilded.NET.Objects {
         /// When this post was bumped.
         /// </summary>
         /// <value>Bumped at</value>
-        [JsonProperty("bumpedAt")]
+        [JsonProperty("bumpedAt", Required = Required.Always)]
         public DateTime BumpedAt {
             get; set;
         }
@@ -59,7 +60,7 @@ namespace Guilded.NET.Objects {
         /// 
         /// </summary>
         /// <value>Is Share</value>
-        [JsonProperty("isShare")]
+        [JsonProperty("isShare", Required = Required.Always)]
         public bool IsShare {
             get; set;
         }
@@ -107,8 +108,24 @@ namespace Guilded.NET.Objects {
         /// Who created this profile post.
         /// </summary>
         /// <value>Profile post owner</value>
-        [JsonProperty("createdByInfo")]
+        [JsonProperty("createdByInfo", Required = Required.Always)]
         public ProfileUser CreatedByInfo {
+            get; set;
+        }
+        /// <summary>
+        /// Reactions on this post.
+        /// </summary>
+        /// <value>List of reactions</value>
+        [JsonProperty("reactions", Required = Required.Always)]
+        public IList<Reaction> Reactions {
+            get; set;
+        }
+        /// <summary>
+        /// A list of replies on this profile post.
+        /// </summary>
+        /// <value>Post repliess</value>
+        [JsonProperty("replies", Required = Required.AllowNull)]
+        public IList<PostReply> Replies {
             get; set;
         }
     }

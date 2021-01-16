@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects {
+    using Content;
     public partial interface IGuildedClient {
         /// <summary>
         /// Gets user this client is using.
@@ -92,5 +93,47 @@ namespace Guilded.NET.Objects {
         /// <param name="userId">ID of the user to get profile of</param>
         /// <returns>User profile</returns>
         ProfileUser GetProfile(GId userId);
+        /// <summary>
+        /// Gets a set amount of posts in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile posts from</param>
+        /// <param name="maxPosts">How many posts it should get</param>
+        /// <param name="offset">At which index it should start getting posts</param>
+        /// <returns>List of posts</returns>
+        Task<IList<ProfilePost>> GetProfilePostsAsync(GId userId, uint maxPosts, uint offset);
+        /// <summary>
+        /// Gets a set amount of posts in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile posts from</param>
+        /// <param name="maxPosts">How many posts it should get</param>
+        /// <param name="offset">At which index it should start getting posts</param>
+        /// <returns>List of posts</returns>
+        IList<ProfilePost> GetProfilePosts(GId userId, uint maxPosts, uint offset);
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile post from</param>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        Task<ProfilePost> GetProfilePostAsync(GId userId, uint postId);
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile post from</param>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        ProfilePost GetProfilePost(GId userId, uint postId);
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        Task<IList<PostReply>> GetProfileRepliesAsync(uint postId);
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        IList<PostReply> GetProfileReplies(uint postId);
     }
 }

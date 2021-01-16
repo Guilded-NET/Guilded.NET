@@ -968,5 +968,67 @@ namespace Guilded.NET {
         /// <param name="memberId">ID of the member to unban</param>
         public void UnbanMember(GId teamId, GId memberId) =>
             UnbanMemberAsync(teamId, memberId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a profile of a user.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile of</param>
+        /// <returns>User profile</returns>
+        public async Task<ProfileUser> GetProfileAsync(GId userId) =>
+            await FromObject<ProfileUser>(new Endpoint($"users/{userId}/profilev3", Method.GET));
+        /// <summary>
+        /// Gets a profile of a user.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile of</param>
+        /// <returns>User profile</returns>
+        public ProfileUser GetProfile(GId userId) =>
+            GetProfileAsync(userId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a set amount of posts in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile posts from</param>
+        /// <param name="maxPosts">How many posts it should get</param>
+        /// <param name="offset">At which index it should start getting posts</param>
+        /// <returns>List of posts</returns>
+        public async Task<IList<ProfilePost>> GetProfilePostsAsync(GId userId, uint maxPosts = 5, uint offset = 0) =>
+            await FromArray<ProfilePost>(new Endpoint($"users/{userId}/posts?maxPosts={maxPosts}&offset={offset}", Method.GET));
+        /// <summary>
+        /// Gets a set amount of posts in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile posts from</param>
+        /// <param name="maxPosts">How many posts it should get</param>
+        /// <param name="offset">At which index it should start getting posts</param>
+        /// <returns>List of posts</returns>
+        public IList<ProfilePost> GetProfilePosts(GId userId, uint maxPosts = 5, uint offset = 0) =>
+            GetProfilePostsAsync(userId, maxPosts, offset).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile post from</param>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        public async Task<ProfilePost> GetProfilePostAsync(GId userId, uint postId) =>
+            await FromObject<ProfilePost>(new Endpoint($"users/{userId}/posts/{postId}", Method.GET));
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="userId">ID of the user to get profile post from</param>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        public ProfilePost GetProfilePost(GId userId, uint postId) =>
+            GetProfilePostAsync(userId, postId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        public async Task<IList<PostReply>> GetProfileRepliesAsync(uint postId) =>
+            await FromArray<PostReply>(new Endpoint($"content/profilePost/{postId}/replies", Method.GET));
+        /// <summary>
+        /// Gets a specific post in user's profile.
+        /// </summary>
+        /// <param name="postId">ID of the post to get</param>
+        /// <returns>Profile post</returns>
+        public IList<PostReply> GetProfileReplies(uint postId) =>
+            GetProfileRepliesAsync(postId).GetAwaiter().GetResult();
     }
 }
