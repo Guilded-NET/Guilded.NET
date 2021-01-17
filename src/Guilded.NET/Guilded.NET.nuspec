@@ -28,7 +28,6 @@
             <dependency id="Websocket.Client" version="4.3.21" />
             <dependency id="Newtonsoft.Json" version="12.0.3" />
             <dependency id="Newtonsoft.Json.Schema" version="3.0.13" />
-            <dependency id="Websocket.Client" version="4.3.21" />
             <dependency id="System.Reactive" version="4.4.1" />
             <dependency id="Guilded.NET.API" version="0.0.10" />
             <dependency id="Guilded.NET.Objects" version="0.0.10" />

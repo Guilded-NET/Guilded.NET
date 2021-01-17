@@ -31,7 +31,7 @@ namespace BasicPongBot {
             // If client emits any errors
             client.Error += (o, e) => Console.WriteLine($"Error [{e.Code}]: {e.ErrorMessage}");
             // When client is ready
-            client.Connected += (o, e) => Console.WriteLine($"I successfully logged in!\n - ID: {client.CurrentUser.Id}\n - Name: {client.CurrentUser.Username}");
+            client.Connected += (o, e) => Console.WriteLine($"I successfully logged in!\n - ID: {client.Me.Id}\n - Name: {client.Me.Username}");
             // Start the bot
             StartAsync(client).GetAwaiter().GetResult();
         }

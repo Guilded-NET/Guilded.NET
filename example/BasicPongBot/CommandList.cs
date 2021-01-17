@@ -18,7 +18,7 @@ namespace BasicPongBot {
         /// <param name="command">Name of the command used</param>
         /// <param name="arguments">Command arguments</param>
         [Command("ping", "pong", Description = "Responds with `Pong!`")]
-        public static async void Ping(IGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments) {
+        public static async void Ping(BasicGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments) {
             // Sends a message to channel where `ping`/`pong` command was used
             await messageCreated.RespondAsync(
                 // Generates a new message with content `Pong!`
