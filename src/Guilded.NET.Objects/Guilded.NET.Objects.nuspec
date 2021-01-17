@@ -21,7 +21,7 @@
 - Team roles updated event
 - Get all permissions user has in a team
 - Get all permissions user has in a team AND channel
-- Get profiles
+- Get profiles, profile posts, profile post replies
 - ReactionEmote renamed to Reaction
         </releaseNotes>
         <copyright>Copyright 2020</copyright>

@@ -109,7 +109,7 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Profile post owner</value>
         [JsonProperty("createdByInfo", Required = Required.Always)]
-        public ProfileUser CreatedByInfo {
+        public ProfileUserInfo CreatedByInfo {
             get; set;
         }
         /// <summary>

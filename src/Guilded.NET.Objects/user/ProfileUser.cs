@@ -119,7 +119,7 @@ namespace Guilded.NET.Objects {
         /// Status message and emote this user has set.
         /// </summary>
         /// <value>User status</value>
-        [JsonProperty("status", Required = Required.AllowNull)]
+        [JsonProperty("userStatus", Required = Required.AllowNull)]
         public UserStatus Status {
             get; set;
         }
@@ -182,7 +182,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>List of media</value>
         [JsonProperty("media", Required = Required.Always)]
-        public IList<GuildedMedia> Media {
+        public IList<ProfileMedia> Media {
             get; set;
         }
 

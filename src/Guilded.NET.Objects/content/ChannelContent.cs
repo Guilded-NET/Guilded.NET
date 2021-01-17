@@ -6,12 +6,7 @@ namespace Guilded.NET.Objects.Content {
     /// A base for forum posts, media, announcements, etc..
     /// </summary>
     /// <typeparam name="T">ID type</typeparam>
-    public class ChannelContent<T>: ClientObject {
-        /// <summary>
-        /// A base for forum posts, media, announcements, etc..
-        /// </summary>
-        public ChannelContent() =>
-            (TeamId, ChannelId) = (null, null);
+    public abstract class ChannelContent<T>: ClientObject {
         /// <summary>
         /// ID of the content which was posted.
         /// </summary>
@@ -24,7 +19,7 @@ namespace Guilded.NET.Objects.Content {
         /// ID of the team this content was posted in.
         /// </summary>
         /// <value>Team ID</value>
-        [JsonProperty("teamId")]
+        [JsonProperty("teamId", Required = Required.Always)]
         public GId TeamId {
             get; set;
         }
@@ -32,8 +27,8 @@ namespace Guilded.NET.Objects.Content {
         /// ID of the team this content was posted in.
         /// </summary>
         /// <value>Channel ID</value>
-        [JsonProperty("channelId")]
-        public Guid? ChannelId {
+        [JsonProperty("channelId", Required = Required.Always)]
+        public Guid ChannelId {
             get; set;
         }
         /// <summary>

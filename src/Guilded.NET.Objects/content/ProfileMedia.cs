@@ -1,17 +1,17 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Content {
     /// <summary>
-    /// Media which was posted in the profile or in a media channel.
+    /// A media posted in a profile.
     /// </summary>
-    public class GuildedMedia: ChannelPost<uint> {
-        /// <summary>
-        /// Media which was posted in the profile or in a media channel.
-        /// </summary>
-        public GuildedMedia() =>
-            (Description, Tags, UpdatedAt) = (null, null, null);
+    public class ProfileMedia: ClientObject, IMedia {
+        /// <inheritdoc/>
+        [JsonProperty("id", Required = Required.Always)]
+        public uint Id {
+            get; set;
+        }
         /// <inheritdoc/>
         [JsonProperty("title", Required = Required.Always)]
         public string Title {
@@ -37,17 +37,25 @@ namespace Guilded.NET.Objects.Content {
         public IList<string> Tags {
             get; set;
         }
-        /// <summary>
-        /// When this media was updated last time.
-        /// </summary>
-        /// <value>Updated at</value>
-        [JsonProperty("updatedAt")]
-        public DateTime? UpdatedAt {
+        /// <inheritdoc/>
+        [JsonProperty("reactions", Required = Required.Always)]
+        public IList<Reaction> Reactions {
             get; set;
         }
-        /// <inheritdoc/>
-        [JsonProperty("reactions", Required = Required.AllowNull)]
-        public IList<Reaction> Reactions {
+        /// <summary>
+        /// ID of the profile user this media was posted in.
+        /// </summary>
+        /// <value>User ID</value>
+        [JsonProperty("userId", Required = Required.Always)]
+        public GId UserId {
+            get; set;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
+        [JsonProperty("showInBanner", Required = Required.Always)]
+        public bool ShowInBanner {
             get; set;
         }
         /// <inheritdoc/>
