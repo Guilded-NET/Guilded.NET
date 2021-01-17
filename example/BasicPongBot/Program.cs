@@ -23,7 +23,7 @@ namespace BasicPongBot {
             // Tells us that it's starting with specific prefix
             Console.WriteLine($"Starting the bot with prefix '{prefix}'");
             // Creates new client
-            using GuildedUserClient client = new GuildedUserClient(email, password, new GuildedClientConfig(GuildedClientConfig.BasicPrefix(prefix)))
+            using GuildedUserClient client = new GuildedUserClient(email, password, new GuildedClientConfig(GuildedClientConfig.BasicPrefix(prefix)));
             // Fetches all commands from specific type
             client.FetchCommands(
                 typeof(CommandList)

@@ -2,17 +2,16 @@
 
 # Guilded.NET
 
-[![Version](https://img.shields.io/badge/Version-0.0.9-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Alpha-red?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-0.0.10-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Alpha-red?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
 Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET allows you to interact with API in an easy way. Use Guilded.NET to create bots, self-bots and whatever you want. Guilded.NET uses .NET, so be sure to install it before using it.
 
 > **NOTE:** It's currently using undocumented and unsupported API. Guilded developers will not help you in any way, shape or form.
 
-[Click here]() (Temporarily closed) to get started with Guilded.NET.
+[Click here](https://guilded-net.github.io/guides) to get started with Guilded.NET.
 
 > ## Used libraries
 > - **NewtonSoft.Json**: for Guilded JSON
-> - **NewtonSoft.Json.Schema**: for Guilded JSON
 > - **RestSharp**: for REST client
 > - **Websocket.Client**: for Websocket client
 
@@ -20,7 +19,7 @@ Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET all
 > - **IdkGoodName** - founder, developer, icon designer
 
 > ## Links
-> - [Wiki](https://github.com/IdkGoodName/Guilded.NET/wiki)
+> - [Website](https://guilded-net.github.io/)
 > - [NuGet](https://www.nuget.org/packages/Guilded.NET/)
 
 > ## See also
