@@ -1,5 +1,3 @@
-using System;
-
 namespace Guilded.NET.Objects.Events {
     using Newtonsoft.Json;
     using Teams;

@@ -19,6 +19,7 @@
 - Command delegate now uses BasicGuildedClient instead of IGuildedClient
 - CurrentUser is now deprecated. Use `.Me.User` instead.
 - Get profile of a user, get profile post, get profile post replies
+- RolesUpdated, MemberUpdated, CHANNEL_SEEN, CHANNEL_BADGED events
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

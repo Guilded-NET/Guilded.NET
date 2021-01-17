@@ -243,6 +243,50 @@ namespace Guilded.NET {
             remove => ChannelDeletedEvent -= value;
         }
         /// <summary>
+        /// When a notification appears in a channel.
+        /// </summary>
+        protected EventHandler<ChannelBadgedEvent> ChannelBadgedEvent;
+        /// <summary>
+        /// When a notification appears in a channel.
+        /// </summary>
+        public event EventHandler<ChannelBadgedEvent> ChannelBadged {
+            add => ChannelBadgedEvent += value;
+            remove => ChannelBadgedEvent -= value;
+        }
+        /// <summary>
+        /// When the client views a channel and clears the notifications.
+        /// </summary>
+        protected EventHandler<ChannelSeenEvent> ChannelSeenEvent;
+        /// <summary>
+        /// When the client views a channel and clears the notifications.
+        /// </summary>
+        public event EventHandler<ChannelSeenEvent> ChannelSeen {
+            add => ChannelSeenEvent += value;
+            remove => ChannelSeenEvent -= value;
+        }
+        /// <summary>
+        /// When member's information gets updated in a team.
+        /// </summary>
+        protected EventHandler<TeamMemberUpdatedEvent> MemberUpdatedEvent;
+        /// <summary>
+        /// When member's information gets updated in a team.
+        /// </summary>
+        public event EventHandler<TeamMemberUpdatedEvent> MemberUpdated {
+            add => MemberUpdatedEvent += value;
+            remove => MemberUpdatedEvent -= value;
+        }
+        /// <summary>
+        /// When member's roles get updated.
+        /// </summary>
+        protected EventHandler<TeamRolesUpdatedEvent> RolesUpdatedEvent;
+        /// <summary>
+        /// When member's roles get updated.
+        /// </summary>
+        public event EventHandler<TeamRolesUpdatedEvent> RolesUpdated {
+            add => RolesUpdatedEvent += value;
+            remove => RolesUpdatedEvent -= value;
+        }
+        /// <summary>
         /// Checks if there's a command in the message. If there is, it executes that command.
         /// </summary>
         /// <param name="o">Who invoked this method</param>
@@ -367,6 +411,18 @@ namespace Guilded.NET {
                         break;
                     case "TeamChannelDeleted":
                         InvokeEvent<ChannelDeletedEvent>(ChannelDeletedEvent, xeobj);
+                        break;
+                    case "CHANNEL_BADGED":
+                        InvokeEvent<ChannelBadgedEvent>(ChannelBadgedEvent, xeobj);
+                        break;
+                    case "CHANNEL_SEEN":
+                        InvokeEvent<ChannelSeenEvent>(ChannelSeenEvent, xeobj);
+                        break;
+                    case "TeamMemberUpdated":
+                        InvokeEvent<TeamMemberUpdatedEvent>(MemberUpdatedEvent, xeobj);
+                        break;
+                    case "teamRolesUpdated":
+                        InvokeEvent<TeamRolesUpdatedEvent>(RolesUpdatedEvent, xeobj);
                         break;
                 }
             }
