@@ -17,7 +17,7 @@ namespace Guilded.NET.Objects {
         /// URL to emote's PNG file.
         /// </summary>
         /// <value>.PNG URL</value>
-        [JsonProperty("png")]
+        [JsonProperty("png", Required = Required.AllowNull)]
         public string PNGUrl {
             get; set;
         }
@@ -25,7 +25,7 @@ namespace Guilded.NET.Objects {
         /// URL to emote's APNG(Animated PNG) file.
         /// </summary>
         /// <value>.APNG URL</value>
-        [JsonProperty("apng")]
+        [JsonProperty("apng", Required = Required.AllowNull)]
         public string APNGUrl {
             get; set;
         }
@@ -33,7 +33,7 @@ namespace Guilded.NET.Objects {
         /// URL to emote's WebP file.
         /// </summary>
         /// <value>.WEBP URL</value>
-        [JsonProperty("webp")]
+        [JsonProperty("webp", Required = Required.AllowNull)]
         public string WebPUrl {
             get; set;
         }
@@ -41,7 +41,7 @@ namespace Guilded.NET.Objects {
         /// Name of the emote.
         /// </summary>
         /// <value>Name</value>
-        [JsonProperty("name")]
+        [JsonProperty("name", Required = Required.Always)]
         public string Name {
             get; set;
         }

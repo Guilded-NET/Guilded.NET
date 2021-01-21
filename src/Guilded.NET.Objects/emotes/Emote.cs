@@ -9,10 +9,15 @@ namespace Guilded.NET.Objects {
     /// </summary>
     public class Emote: BaseObject {
         /// <summary>
+        /// Guilded emote object.
+        /// </summary>
+        public Emote() =>
+            DiscordEmojiId = null;
+        /// <summary>
         /// Who created the emote.
         /// </summary>
         /// <value>User ID</value>
-        [JsonProperty("createdBy")]
+        [JsonProperty("createdBy", Required = Required.Always)]
         public GId Author {
             get; set;
         }
@@ -20,7 +25,7 @@ namespace Guilded.NET.Objects {
         /// When the emote was created.
         /// </summary>
         /// <value>Date</value>
-        [JsonProperty("createdAt")]
+        [JsonProperty("createdAt", Required = Required.Always)]
         public DateTime CreatedAt {
             get; set;
         }
@@ -28,10 +33,10 @@ namespace Guilded.NET.Objects {
         /// ID of the team where emote is in.
         /// </summary>
         /// <value>Team ID</value>
-        [JsonProperty("teamId")]
+        [JsonProperty("teamId", Required = Required.Always)]
         public GId TeamId {
             get; set;
-        } = null;
+        }
         /// <summary>
         /// ID of the emote.
         /// </summary>
@@ -52,7 +57,7 @@ namespace Guilded.NET.Objects {
         /// URL to emote's PNG file.
         /// </summary>
         /// <value>.PNG URL</value>
-        [JsonProperty("png")]
+        [JsonProperty("png", Required = Required.AllowNull)]
         public string PNGUrl {
             get; set;
         }
@@ -60,7 +65,7 @@ namespace Guilded.NET.Objects {
         /// URL to emote's APNG(Animated PNG) file.
         /// </summary>
         /// <value>.APNG URL</value>
-        [JsonProperty("apng")]
+        [JsonProperty("apng", Required = Required.AllowNull)]
         public string APNGUrl {
             get; set;
         }
@@ -68,7 +73,7 @@ namespace Guilded.NET.Objects {
         /// URL to emote's WebP file.
         /// </summary>
         /// <value>.WEBP URL</value>
-        [JsonProperty("webp")]
+        [JsonProperty("webp", Required = Required.AllowNull)]
         public string WebPUrl {
             get; set;
         }
@@ -76,7 +81,7 @@ namespace Guilded.NET.Objects {
         /// Name of the emote.
         /// </summary>
         /// <value>Name</value>
-        [JsonProperty("name")]
+        [JsonProperty("name", Required = Required.Always)]
         public string Name {
             get; set;
         }
@@ -87,7 +92,7 @@ namespace Guilded.NET.Objects {
         [JsonProperty("isDeleted")]
         public bool IsDeleted {
             get; set;
-        } = false;
+        }
         /// <summary>
         /// ID of the Discord emoji Guilded emote is synced with.
         /// </summary>
@@ -95,6 +100,6 @@ namespace Guilded.NET.Objects {
         [JsonProperty("discordEmojiId")]
         public ulong? DiscordEmojiId {
             get; set;
-        } = null;
+        }
     }
 }
