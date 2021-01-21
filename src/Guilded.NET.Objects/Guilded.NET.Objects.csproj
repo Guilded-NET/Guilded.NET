@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.10</Version>
+    <Version>0.0.10.1</Version>
     <PackageIcon>icon.png</PackageIcon>
     <Product>Guilded.NET.Objects</Product>
     <id>Guilded.NET.Objects</id>

@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET</id>
-        <version>0.0.10</version>
+        <version>0.0.10.1</version>
         <title>Guilded.NET</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -12,14 +12,7 @@
         <icon>icon.png</icon>
         <description>API wrapper for Guilded</description>
         <releaseNotes>
-- Get announcements
-- Create, post, get forms
-- Submit form response
-- GuildedSerializer is now public
-- Command delegate now uses BasicGuildedClient instead of IGuildedClient
-- CurrentUser is now deprecated. Use `.Me.User` instead.
-- Get profile of a user, get profile post, get profile post replies
-- RolesUpdated, MemberUpdated, CHANNEL_SEEN, CHANNEL_BADGED events
+Emote fix
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

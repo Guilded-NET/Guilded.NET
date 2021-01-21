@@ -2,7 +2,7 @@
 <package>
     <metadata>
         <id>Guilded.NET.Objects</id>
-        <version>0.0.10</version>
+        <version>0.0.10.1</version>
         <title>Guilded.NET.Objects</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
@@ -12,17 +12,7 @@
         <icon>icon.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
-- Announcements
-- Team overview
-- Changed data from dictionary to JObject
-- Added tons of methods from Guilded.NET.Util to objects by default now
-- Channel badged, channel seen events
-- Team member updated event
-- Team roles updated event
-- Get all permissions user has in a team
-- Get all permissions user has in a team AND channel
-- Get profiles, profile posts, profile post replies
-- ReactionEmote renamed to Reaction
+Emote fix
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
