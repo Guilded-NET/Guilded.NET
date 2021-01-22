@@ -22,12 +22,15 @@ namespace Guilded.NET {
         event EventHandler<SocketMessage> GuildedWebsocketMessageEvent;
         event EventHandler<int> HeartbeatEvent;
         /// <summary>
-        /// User account this client is using.
+        /// An event when client is connected and it is fully ready to be used.
         /// </summary>
-        /// <value>Client user</value>
-        [Obsolete("Use .Me.User instead")]
-        public User CurrentUser {
-            get; protected set;
+        protected EventHandler PreparedEvent;
+        /// <summary>
+        /// An event when client is connected and it is fully ready to be used.
+        /// </summary>
+        public event EventHandler Prepared {
+            add => PreparedEvent += value;
+            remove => PreparedEvent -= value;
         }
         /// <summary>
         /// User account this client is using.
@@ -60,23 +63,22 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="config">A configuration which will change how Guilded.NET client will work</param>
         protected BasicGuildedClient(GuildedClientConfig config): base() {
+            Me = null;
             // Create new serializer
-            GuildedSerializer = new JsonSerializer();
-            // Converters for JSON
-            Converters = new JsonConverter[] {
-                new EnumConverter(),
-                new IdConverter(),
-                new NodeConverter(),
-                new ClientObjectConverter(this),
-                new MiscConverter()
-            };
+            (GuildedSerializer, Converters) = (new JsonSerializer(),
+                new JsonConverter[] {
+                    new EnumConverter(),
+                    new IdConverter(),
+                    new NodeConverter(),
+                    new ClientObjectConverter(this),
+                    new MiscConverter()
+                }
+            );
             // Adds default converters
             foreach(JsonConverter converter in Converters)
                 GuildedSerializer.Converters.Add(converter);
             // Sets properties
-            ClientConfig = config;
-            CommandDictionary = new Dictionary<CommandAttribute, CommandMethod>();
-            RandomId = new Random();
+            (ClientConfig, CommandDictionary, RandomId) = (config, new Dictionary<CommandAttribute, CommandMethod>(), new Random());
             GuildedWebsocketMessage += HandleSocketMessages;
             // If the client should be disposed on CTRL + C, then add method to CancelKeyPress
             if(!ClientConfig.DisableCancelKeyPress) Console.CancelKeyPress += (o, e) => Dispose();

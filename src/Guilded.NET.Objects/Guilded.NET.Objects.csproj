@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.10.1</Version>
-    <PackageIcon>icon.png</PackageIcon>
+    <Version>0.0.11</Version>
+    <PackageIcon>../../assets/IconWhiteOutline.png</PackageIcon>
     <Product>Guilded.NET.Objects</Product>
     <id>Guilded.NET.Objects</id>
     <PackageId>Guilded.NET.Objects</PackageId>
@@ -15,11 +15,9 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Newtonsoft.Json.Schema" Version="3.0.13" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="icon.png" Pack="true" PackagePath="" />
     <None Include="readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

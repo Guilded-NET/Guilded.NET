@@ -2,27 +2,24 @@
 <package>
     <metadata>
         <id>Guilded.NET.Objects</id>
-        <version>0.0.10.1</version>
+        <version>0.0.11</version>
         <title>Guilded.NET.Objects</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">MIT</license>
-        <projectUrl>https://github.com/IdkGoodName/Guilded.NET</projectUrl>
-        <icon>icon.png</icon>
+        <projectUrl>https://github.com/Guilded-NET/Guilded.NET</projectUrl>
+        <icon>../../assets/IconWhiteOutline.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
-Emote fix
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
         <dependencies>
             <dependency id="Newtonsoft.Json" version="12.0.3" />
-            <dependency id="Newtonsoft.Json.Schema" version="3.0.13" />
         </dependencies>
     </metadata>
     <files>
         <file src="readme.md" target="" />
-        <file src="icon.png" target="" />
     </files>
 </package>

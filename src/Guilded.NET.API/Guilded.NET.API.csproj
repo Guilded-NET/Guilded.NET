@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.10</Version>
-    <PackageIcon>icon.png</PackageIcon>
+    <Version>0.0.11</Version>
+    <PackageIcon>../../assets/IconWhiteOutline.png</PackageIcon>
     <Product>Guilded.NET.API</Product>
     <id>Guilded.NET.API</id>
     <PackageId>Guilded.NET.API</PackageId>
@@ -20,7 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="icon.png" Pack="true" PackagePath="" />
     <None Include="readme.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 </Project>

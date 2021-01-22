@@ -18,7 +18,8 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="prefix">Default prefix</param>
         /// <returns>PrefixInfo function</returns>
-        public static PrefixInfo BasicPrefix(string prefix) => e => prefix;
+        public static PrefixInfo BasicPrefix(string prefix) =>
+            e => prefix;
         /// <summary>
         /// Gets a prefix for the bot based on team, group, channel and user which invoked the command.
         /// </summary>
@@ -75,6 +76,13 @@ namespace Guilded.NET {
         /// <param name="owner">Owner of this bot</param>
         /// <param name="enableCommands">If Guilded.NET's built-in command system should be used</param>
         public GuildedClientConfig(PrefixInfo prefix = null, GId owner = null, bool enableCommands = true) =>
-            (Prefix, OwnerId, EnableCommands, IgnoreOwnCommands, DisableCancelKeyPress, CommandArgumentSplit, SplitOptions) = (prefix, owner, enableCommands, true, false, new string[] {" ", "\t"}, StringSplitOptions.None);
+            (Prefix, OwnerId, EnableCommands, IgnoreOwnCommands, DisableCancelKeyPress, CommandArgumentSplit, SplitOptions) = (prefix ?? BasicPrefix("!"), owner, enableCommands, true, false, new string[] {" ", "\t"}, StringSplitOptions.None);
+        /// <summary>
+        /// Config of Guilded client.
+        /// </summary>
+        /// <param name="prefix">A global prefix which should be used everywhere. For server-wide prefixes, use prefix function instead.</param>
+        /// <param name="owner">Owner of this bot</param>
+        /// <param name="enableCommands">If Guilded.NET's built-in command system should be used</param>
+        public GuildedClientConfig(string prefix, GId owner = null, bool enableCommands = true): this(BasicPrefix(prefix), owner, enableCommands) {}
     }
 }
