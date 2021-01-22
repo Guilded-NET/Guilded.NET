@@ -11,7 +11,7 @@ Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET all
 [Click here](https://guilded-net.github.io/docs/guides) to get started with Guilded.NET.
 
 > ## Read this
-> I do not support anyone's actions, how they use this and I am not responsable of what people do with this library. I do not encourage anyone to abuse Guilded's API or disobey Guilded API's ETA. I do not encourage anyone to spam/raid servers, groups, users or profiles. I won't take any responsibility of anything what happens with this library at all. This is simply an open-source side-project which is supposed to help people interact with API.
+> I do not support anyone's actions, how they use this and I am not responsible of what people do with this library. I do not encourage anyone to abuse Guilded's API or disobey Guilded API's ETA. I do not encourage anyone to spam/raid servers, groups, users or profiles. I won't take any responsibility of anything what happens with this library at all. This is simply an open-source side-project which is supposed to help people interact with API.
 
 > ## Used libraries
 > - **NewtonSoft.Json**: for Guilded JSON
