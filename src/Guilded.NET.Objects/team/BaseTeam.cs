@@ -1,9 +1,10 @@
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System.Collections.Generic;
-using System;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Linq;
+using System;
 
 namespace Guilded.NET.Objects.Teams {
     using Permissions;
@@ -315,6 +316,19 @@ namespace Guilded.NET.Objects.Teams {
         /// <returns>Allowed permissions</returns>
         public PermissionList GetPermissionsOf(TeamMember member) =>
             RolesById["baseRole"].Permissions + member.RoleIds.Select(x => RolesById[x.ToString()].Permissions).Aggregate((a, b) => a + b);
+        /// <summary>
+        /// Gets a colour of a specific member.
+        /// </summary>
+        /// <param name="member">Member's colour</param>
+        /// <returns>Colour</returns>
+        public Color GetColorOf(TeamMember member) {
+            // Gets a colour from roles
+            Color roleColour = member.RoleIds
+                .Select(x => RolesById[x.ToString()].Color)
+                .FirstOrDefault(x => x.A != 0);
+            // If role colour is empty, then return base role colour. Else, return role colour.
+            return roleColour != default ? roleColour : RolesById["baseRole"].Color;
+        }
         
         //=====================//
         //   Overrides

@@ -1,9 +1,11 @@
 using System;
+using System.Drawing;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Teams {
     using Permissions;
     using Chat;
+    using Converters;
     /// <summary>
     /// Represents role in teams.
     /// </summary>
@@ -28,8 +30,8 @@ namespace Guilded.NET.Objects.Teams {
         /// Colour of the role.
         /// </summary>
         /// <value>Hex colour</value>
-        [JsonProperty("color", Required = Required.AllowNull)]
-        public string Color {
+        [JsonProperty("color", Required = Required.Always)]
+        public Color Color {
             get; set;
         }
         /// <summary>
