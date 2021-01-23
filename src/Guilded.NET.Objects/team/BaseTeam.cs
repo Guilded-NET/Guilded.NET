@@ -329,6 +329,20 @@ namespace Guilded.NET.Objects.Teams {
             // If role colour is empty, then return base role colour. Else, return role colour.
             return roleColour != default ? roleColour : RolesById["baseRole"].Color;
         }
+        /// <summary>
+        /// Get a channel with given ID in this team.
+        /// </summary>
+        /// <param name="channelId">ID of the channel to get</param>
+        /// <returns>Channel</returns>
+        public async Task<Channel> GetChannelAsync(Guid channelId) =>
+            await ParentClient.GetChannelAsync(Id, channelId);
+        /// <summary>
+        /// Get a channel with given ID in this team.
+        /// </summary>
+        /// <param name="channelId">ID of the channel to get</param>
+        /// <returns>Channel</returns>
+        public Channel GetChannel(Guid channelId) =>
+            ParentClient.GetChannel(Id, channelId);
         
         //=====================//
         //   Overrides

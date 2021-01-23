@@ -8,24 +8,28 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
-using System.Net;
 
 namespace Guilded.NET.API {
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
     public abstract class BaseGuildedClient: IDisposable {
-        static readonly Random random = new Random();
+        /// <summary>
+        /// A random for generating IDs.
+        /// </summary>
+        protected static readonly Random IdRandom = new Random();
+        /// <summary>
+        /// When no team is given, use this query.
+        /// </summary>
         static readonly string emptyTeam = "jwt=undefined";
+        /// <summary>
+        /// An additional query to websockets.
+        /// </summary>
         internal static readonly string WebsocketQuery = "EIO=3&transport=websocket";
         /// <summary>
         /// Events when client gets Connected/Disconnected.
         /// </summary>
         protected EventHandler ConnectedEvent, DisconnectedEvent;
-        /// <summary>
-        /// Event when exception occurs.
-        /// </summary>
-        protected EventHandler<GuildedException> ErrorEvent;
         /// <summary>
         /// Thread for heartbeats.
         /// </summary>
@@ -110,13 +114,6 @@ namespace Guilded.NET.API {
             remove => DisconnectedEvent += value;
         }
         /// <summary>
-        /// Event when error occurs.
-        /// </summary>
-        public event EventHandler<GuildedException> Error {
-            add => ErrorEvent += value;
-            remove => ErrorEvent -= value;
-        }
-        /// <summary>
         /// Cookies given when client logs in.
         /// </summary>
         /// <value>Login cookies</value>
@@ -192,8 +189,6 @@ namespace Guilded.NET.API {
                         Code = obj["code"].Value<string>(),
                         ErrorMessage = obj["message"].Value<string>()
                     };
-                    // Invokes the error event
-                    ErrorEvent?.Invoke(this, exc);
                     // Returns null
                     throw exc;
                 }
@@ -279,7 +274,7 @@ namespace Guilded.NET.API {
              *   "uploadTrackingId": "r-1000000-1000000"
              * }
              */
-            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"r-{random.Next(1000000, int.MaxValue)}-{random.Next(1000000, int.MaxValue)}\" }}");
+            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"r-{IdRandom.Next(1000000, int.MaxValue)}-{IdRandom.Next(1000000, int.MaxValue)}\" }}");
             // Sends that request and gets URL from it
             return await GetMedia(req);
         }
@@ -301,15 +296,11 @@ namespace Guilded.NET.API {
                 JObject obj = (JObject)token;
                 // Check if it's an error
                 if(obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2) {
-                    // If it does, treat it as an error
-                    GuildedException exc = new GuildedException() {
+                    // If it is, then throw it as an error
+                    throw new GuildedException() {
                         Code = obj["code"].Value<string>(),
                         ErrorMessage = obj["message"].Value<string>()
                     };
-                    // Invokes the error event
-                    ErrorEvent?.Invoke(this, exc);
-                    // Returns null
-                    throw exc;
                 }
                 // If it has property "url" and it's the only property.
                 else if(obj.ContainsKey("url") && obj.Properties().Count() == 1) return new Uri(obj["url"].Value<string>());
@@ -328,9 +319,7 @@ namespace Guilded.NET.API {
                 // Options of the ClientWebSocket
                 Options = {
                     KeepAliveInterval = TimeSpan.FromSeconds(HeartbeatTime),
-#pragma warning disable 0618
                     Cookies = CookieUtil.From(LoginCookies)
-#pragma warning restore 0618
                 }
             });
             // Creates a new websocket
@@ -348,12 +337,14 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <param name="teamId">ID of the team to remove websocket in</param>
         public virtual void RemoveWebsocket(string teamId = null) {
+            // Gets a key for the team
+            string teamQuery = "teamId=" + teamId;
             // If that websocket exists
-            if(Websockets.ContainsKey(teamId)) {
+            if(Websockets.ContainsKey(teamQuery)) {
                 // Disposes that websocket
-                Websockets[teamId].Dispose();
+                Websockets[teamQuery].Dispose();
                 // Removes it from dictionary
-                Websockets.Remove(teamId);
+                Websockets.Remove(teamQuery);
             }
         }
         /// <summary>

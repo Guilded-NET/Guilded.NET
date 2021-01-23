@@ -59,6 +59,17 @@ namespace Guilded.NET {
             get; set;
         }
         /// <summary>
+        /// A random for generating IDs.
+        /// </summary>
+        protected Random RandomId;
+        /// <summary>
+        /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
+        /// </summary>
+        /// <value>Serializer</value>
+        public JsonSerializer GuildedSerializer {
+            get; set;
+        }
+        /// <summary>
         /// A base for user bot clients and normal bot clients.
         /// </summary>
         /// <param name="config">A configuration which will change how Guilded.NET client will work</param>
@@ -220,5 +231,38 @@ namespace Guilded.NET {
         /// <param name="sender">Who is invoking the event</param>
         /// <param name="value">Heartbeat response</param>
         protected void InvokeHeartbeatEvent(object sender, int value) => HeartbeatEvent?.Invoke(sender, value);
+        /// <summary>
+        /// Sends a request to Guilded, gets an object and gets a specific key.
+        /// </summary>
+        async Task<JObject> FromObject(Endpoint endpoint, params IReqAddable[] addables) {
+            // Gets a response
+            ExecutionResponse<object> response = await ExecuteRequest(endpoint, addables);
+            // Gets the response as an object and returns it
+            return JObject.Parse(response.Content ?? "{}");
+        }
+        /// <summary>
+        /// Sends a request to Guilded, gets an object and gets a specific key.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        async Task<T> FromObject<T>(Endpoint endpoint, params IReqAddable[] addables) =>
+            (await FromObject(endpoint, addables)).ToObject<T>(GuildedSerializer);
+        /// <summary>
+        /// Sends a request to Guilded, gets an object and gets a specific key.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        async Task<T> FromObject<T>(Endpoint endpoint, string key, params IReqAddable[] addables) =>
+            (await FromObject(endpoint, addables))[key].ToObject<T>(GuildedSerializer);
+        /// <summary>
+        /// Sends a request to Guilded, gets an array.
+        /// </summary>
+        /// <typeparam name="T">Result type</typeparam>
+        async Task<List<T>> FromArray<T>(Endpoint endpoint, params IReqAddable[] addables) {
+            // Gets a response
+            ExecutionResponse<object> response = await ExecuteRequest(endpoint, addables);
+            // Gets the response as an object
+            JArray array = JArray.Parse(response.Content ?? "[]");
+            // Gets and returns parsed object
+            return array.ToObject<List<T>>(GuildedSerializer);
+        }
     }
 }

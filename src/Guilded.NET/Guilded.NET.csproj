@@ -28,10 +28,10 @@
 
   <ItemGroup>
     <Reference Include="Guilded.NET.Objects">
-      <HintPath>lib/Guilded.NET.Objects.dll</HintPath>
+      <HintPath>../Guilded.NET.Objects/bin/Debug/netstandard2.1/Guilded.NET.Objects.dll</HintPath>
     </Reference>
     <Reference Include="Guilded.NET.API">
-      <HintPath>lib/Guilded.NET.API.dll</HintPath>
+      <HintPath>../Guilded.NET.API/bin/Debug/netstandard2.1/Guilded.NET.API.dll</HintPath>
     </Reference>
   </ItemGroup>
 

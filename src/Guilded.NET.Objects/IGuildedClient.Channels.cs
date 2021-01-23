@@ -18,6 +18,11 @@ namespace Guilded.NET.Objects {
         JsonSerializer GuildedSerializer {
             get; set;
         }
+
+        //=======================//
+        //   Chat
+        //=======================//
+
         /// <summary>
         /// Sends a message into the chat.
         /// </summary>
@@ -91,6 +96,11 @@ namespace Guilded.NET.Objects {
         /// <param name="limit">How many messages it should get</param>
         /// <returns>List of messages</returns>
         IList<Message> GetMessages(Guid channel, uint limit);
+
+        //=======================//
+        //   Forums
+        //=======================//
+
         /// <summary>
         /// Gets forum posts from a specific forum channel.
         /// </summary>
@@ -107,6 +117,49 @@ namespace Guilded.NET.Objects {
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <returns>Forum post list</returns>
         IList<ForumPost> GetForumPosts(Guid channelId, uint? maxItems, DateTime? beforeDate);
+        /// <summary>
+        /// Create a forum post in a forum channel.
+        /// </summary>
+        /// <param name="channelId">ID of the forum channel</param>
+        /// <param name="title">A title of the forum post</param>
+        /// <param name="message">Content of the forum post</param>
+        /// <returns>Async task</returns>
+        Task CreateForumPostAsync(Guid channelId, string title, MessageContent message);
+        /// <summary>
+        /// Create a forum post in a forum channel.
+        /// </summary>
+        /// <param name="channelId">ID of the forum channel</param>
+        /// <param name="title">A title of the forum post</param>
+        /// <param name="message">Content of the forum post</param>
+        void CreateForumPost(Guid channelId, string title, MessageContent message);
+        /// <summary>
+        /// Deletes a forum post in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the post is in</param>
+        /// <param name="postId">ID of the post to delete</param>
+        Task DeleteForumPostAsync(Guid channelId, uint postId);
+        /// <summary>
+        /// Deletes a forum post in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the post is in</param>
+        /// <param name="postId">ID of the post to delete</param>
+        void DeleteForumPost(Guid channelId, uint postId);
+        /// <summary>
+        /// Edits a forum post in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel post is in</param>
+        /// <param name="postId">ID of the post</param>
+        /// <param name="title">New title of this post</param>
+        /// <param name="message">New content of the post</param>
+        Task EditForumPostAsync(Guid channelId, uint postId, string title, MessageContent message);
+        /// <summary>
+        /// Edits a forum post in a specific channel.
+        /// </summary>
+        /// <param name="channelId">ID of the channel post is in</param>
+        /// <param name="postId">ID of the post</param>
+        /// <param name="title">New title of this post</param>
+        /// <param name="message">New content of the post</param>
+        void EditForumPost(Guid channelId, uint postId, string title, MessageContent message);
         /// <summary>
         /// Gets forum posts from a specific forum channel.
         /// </summary>
@@ -126,21 +179,6 @@ namespace Guilded.NET.Objects {
         /// <returns>Forum reply list</returns>
         IList<ForumReply> GetForumReplies(Guid channelId, uint postId, uint? maxItems, DateTime? afterDate);
         /// <summary>
-        /// Create a forum post in a forum channel.
-        /// </summary>
-        /// <param name="channelId">ID of the forum channel</param>
-        /// <param name="title">A title of the forum post</param>
-        /// <param name="message">Content of the forum post</param>
-        /// <returns>Async task</returns>
-        Task CreateForumPostAsync(Guid channelId, string title, MessageContent message);
-        /// <summary>
-        /// Create a forum post in a forum channel.
-        /// </summary>
-        /// <param name="channelId">ID of the forum channel</param>
-        /// <param name="title">A title of the forum post</param>
-        /// <param name="message">Content of the forum post</param>
-        void CreateForumPost(Guid channelId, string title, MessageContent message);
-        /// <summary>
         /// Replies to a forum post.
         /// </summary>
         /// <param name="channelId">ID of the forum channel</param>
@@ -155,6 +193,41 @@ namespace Guilded.NET.Objects {
         /// <param name="postId">ID of the post it should reply to</param>
         /// <param name="message">Content of the forum post</param>
         void CreateForumReply(Guid channelId, uint postId, MessageContent message);
+        /// <summary>
+        /// Deletes a forum reply/comment.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the post is in</param>
+        /// <param name="postId">A forum post where reply should be deleted</param>
+        /// <param name="replyId">A reply of a forum post which should be deleted</param>
+        Task DeleteForumReplyAsync(Guid channelId, uint postId, ulong replyId);
+        /// <summary>
+        /// Deletes a forum reply/comment.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the post is in</param>
+        /// <param name="postId">A forum post where reply should be deleted</param>
+        /// <param name="replyId">A reply of a forum post which should be deleted</param>
+        void DeleteForumReply(Guid channelId, uint postId, ulong replyId);
+        /// <summary>
+        /// Edits a forum reply.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where forum post is in</param>
+        /// <param name="postId">ID of the post to edit reply in</param>
+        /// <param name="replyId">Reply to edit contents of</param>
+        /// <param name="content">New content which will replace the old content</param>
+        Task EditForumReplyAsync(Guid channelId, uint postId, ulong replyId, MessageContent content);
+        /// <summary>
+        /// Edits a forum reply.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where forum post is in</param>
+        /// <param name="postId">ID of the post to edit reply in</param>
+        /// <param name="replyId">Reply to edit contents of</param>
+        /// <param name="content">New content which will replace the old content</param>
+        void EditForumReply(Guid channelId, uint postId, ulong replyId, MessageContent content);
+
+        //=======================//
+        //   Documents
+        //=======================//
+
         /// <summary>
         /// Gets all documents within a specific channel with given max count and before given date.
         /// </summary>
@@ -186,6 +259,23 @@ namespace Guilded.NET.Objects {
         /// <returns>Document</returns>
         GuildedDocument GetDocument(Guid channelId, uint docId);
         /// <summary>
+        /// Gets all comments in a given document.
+        /// </summary>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetDocRepliesAsync(uint docId);
+        /// <summary>
+        /// Gets all comments in a given document.
+        /// </summary>
+        /// <param name="docId">ID of the document</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetDocReplies(uint docId);
+
+        //=======================//
+        //   Media
+        //=======================//
+
+        /// <summary>
         /// Gets all medias within a specific channel with given max count and before given date.
         /// </summary>
         /// <param name="channelId">ID of channel to fetch media from</param>
@@ -197,6 +287,23 @@ namespace Guilded.NET.Objects {
         /// <param name="channelId">ID of channel to fetch media from</param>
         /// <returns>List of media posts</returns>
         IList<GuildedMedia> GetMedia(Guid channelId);
+        /// <summary>
+        /// Gets all comments in a given media post.
+        /// </summary>
+        /// <param name="mediaId">ID of the media post</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetMediaRepliesAsync(uint mediaId);
+        /// <summary>
+        /// Gets all comments in a given media post.
+        /// </summary>
+        /// <param name="mediaId">ID of the media post</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetMediaReplies(uint mediaId);
+
+        //=======================//
+        //   Calendar
+        //=======================//
+
         /// <summary>
         /// Gets given amount of events from a specific channel.
         /// </summary>
@@ -215,6 +322,11 @@ namespace Guilded.NET.Objects {
         /// <param name="startDate">At which date it should start</param>
         /// <returns>List of calendar events</returns>
         IList<CalendarEvent> GetEvents(Guid channelId, uint? maxItems, DateTime? endDate, DateTime? startDate);
+
+        //=======================//
+        //   Scheduling
+        //=======================//
+
         /// <summary>
         /// Get availabilities in a schedule channel.
         /// </summary>
@@ -255,6 +367,11 @@ namespace Guilded.NET.Objects {
         /// <param name="messageId">ID of the message to remove a reaction from</param>
         /// <param name="emoteId">ID of the emote to remove</param>
         void RemoveReaction(Guid channelId, Guid messageId, uint emoteId);
+
+        //=======================//
+        //   Announcements
+        //=======================//
+
         /// <summary>
         /// Gets a list of announcements in a specific channel.
         /// </summary>
@@ -312,6 +429,23 @@ namespace Guilded.NET.Objects {
         /// <returns>List of announcements</returns>
         IList<Announcement> GetPinnedAnnouncements(GId teamId);
         /// <summary>
+        /// Gets all comments in a given announcement.
+        /// </summary>
+        /// <param name="announcementId">ID of the announcement</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetAnnouncementRepliesAsync(GId announcementId);
+        /// <summary>
+        /// Gets all comments in a given announcement.
+        /// </summary>
+        /// <param name="announcementId">ID of the announcement</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetAnnouncementReplies(GId announcementId);
+
+        //=======================//
+        //   List
+        //=======================//
+
+        /// <summary>
         /// Gets list items in a given channel.
         /// </summary>
         /// <param name="channelId">Channel ID</param>
@@ -353,41 +487,5 @@ namespace Guilded.NET.Objects {
         /// <param name="channelId">ID of the channel</param>
         /// <param name="itemId">ID of the item</param>
         void DeleteListItem(Guid channelId, Guid itemId);
-        /// <summary>
-        /// Gets all comments in a given announcement.
-        /// </summary>
-        /// <param name="announcementId">ID of the announcement</param>
-        /// <returns>List of content replies</returns>
-        Task<IList<ContentReply>> GetAnnouncementRepliesAsync(GId announcementId);
-        /// <summary>
-        /// Gets all comments in a given announcement.
-        /// </summary>
-        /// <param name="announcementId">ID of the announcement</param>
-        /// <returns>List of content replies</returns>
-        IList<ContentReply> GetAnnouncementReplies(GId announcementId);
-        /// <summary>
-        /// Gets all comments in a given document.
-        /// </summary>
-        /// <param name="docId">ID of the document</param>
-        /// <returns>List of content replies</returns>
-        Task<IList<ContentReply>> GetDocRepliesAsync(uint docId);
-        /// <summary>
-        /// Gets all comments in a given document.
-        /// </summary>
-        /// <param name="docId">ID of the document</param>
-        /// <returns>List of content replies</returns>
-        IList<ContentReply> GetDocReplies(uint docId);
-        /// <summary>
-        /// Gets all comments in a given media post.
-        /// </summary>
-        /// <param name="mediaId">ID of the media post</param>
-        /// <returns>List of content replies</returns>
-        Task<IList<ContentReply>> GetMediaRepliesAsync(uint mediaId);
-        /// <summary>
-        /// Gets all comments in a given media post.
-        /// </summary>
-        /// <param name="mediaId">ID of the media post</param>
-        /// <returns>List of content replies</returns>
-        IList<ContentReply> GetMediaReplies(uint mediaId);
     }
 }
