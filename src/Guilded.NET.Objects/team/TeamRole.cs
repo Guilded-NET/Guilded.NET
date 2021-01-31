@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Objects.Teams {
     using Permissions;
     using Chat;
-    using Converters;
     /// <summary>
     /// Represents role in teams.
     /// </summary>

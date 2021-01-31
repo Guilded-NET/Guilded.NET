@@ -309,7 +309,7 @@ namespace Guilded.NET {
             // Get first item in the array, which is a command name
             string command = split[0].Trim();
             // Get rest of the items, which are the command arguments
-            IList<string> args = split.Skip(1).ToList();
+            IList<string> args = split[1..];
             // Invokes command event
             CommandInvokedEvent?.Invoke(this, msg, command, args);
         }

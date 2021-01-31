@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Converters {
     /// <summary>
-    /// Converts ID to string or vice versa in a JSON.
+    /// Flattens a list.
     /// </summary>
     public class FlatConverter: JsonConverter {
         static readonly Type ilist = typeof(IList<>);
@@ -28,6 +28,7 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="serializer">Serializer</param>
         /// <returns>Flat list</returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+            // Gets it as array
             JArray array = JArray.Load(reader);
             // If it has another array in it
             JToken first = array.FirstOrDefault(x => x != null);

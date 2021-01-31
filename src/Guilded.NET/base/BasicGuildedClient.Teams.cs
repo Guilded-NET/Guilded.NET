@@ -73,6 +73,22 @@ namespace Guilded.NET {
         public IList<Group> GetGroups(GId teamId) =>
             GetGroupsAsync(teamId).GetAwaiter().GetResult();
         /// <summary>
+        /// Gets a group by ID.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="groupId">ID of the groupp</param>
+        /// <returns>Group</returns>
+        public async Task<Group> GetGroupAsync(GId teamId, GId groupId) =>
+            await FromObject<Group>(new Endpoint($"teams/{teamId}/groups/{groupId}", Method.GET), "group");
+        /// <summary>
+        /// Gets a group by ID.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="groupId">ID of the groupp</param>
+        /// <returns>Group</returns>
+        public Group GetGroup(GId teamId, GId groupId) =>
+            GetGroupAsync(teamId, groupId).GetAwaiter().GetResult();
+        /// <summary>
         /// List of channels and categories in given team.
         /// </summary>
         /// <param name="teamId">ID of the team</param>

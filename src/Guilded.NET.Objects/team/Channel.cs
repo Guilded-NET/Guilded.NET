@@ -1,12 +1,7 @@
-using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.Linq;
-using System.Threading.Tasks;
-using System;
 
 namespace Guilded.NET.Objects.Teams {
     using Chat;
-    using Permissions;
     /// <summary>
     /// Represents Guilded channel.
     /// </summary>
@@ -30,6 +25,14 @@ namespace Guilded.NET.Objects.Teams {
         /// <value>Nullable Channel ID</value>
         [JsonProperty("channelCategoryId", Required = Required.AllowNull)]
         public uint? ChannelCategoryId {
+            get; set;
+        }
+        /// <summary>
+        /// Settings of this channel.
+        /// </summary>
+        /// <value>Settings</value>
+        [JsonProperty("settings", Required = Required.AllowNull)]
+        public ChannelSettings Settings {
             get; set;
         }
 

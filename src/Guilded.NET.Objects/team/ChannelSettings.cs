@@ -21,5 +21,21 @@ namespace Guilded.NET.Objects.Teams {
         public bool DisableComments {
             get; set;
         }
+        /// <summary>
+        /// Bitrate in a voice channel.
+        /// </summary>
+        /// <value>Bitrate</value>
+        [JsonProperty("voiceBitrate")]
+        public uint VoiceBitrate {
+            get; set;
+        }
+        /// <summary>
+        /// A region of the server this voice channel is using.
+        /// </summary>
+        /// <value>Voice region</value>
+        [JsonProperty("channelRegion")]
+        public VoiceRegion ChannelRegion {
+            get; set;
+        }
     }
 }

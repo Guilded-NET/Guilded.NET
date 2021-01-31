@@ -12,6 +12,7 @@
     <Description>API wrapper for Guilded</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,10 +29,10 @@
 
   <ItemGroup>
     <Reference Include="Guilded.NET.Objects">
-      <HintPath>../Guilded.NET.Objects/bin/Debug/netstandard2.1/Guilded.NET.Objects.dll</HintPath>
+      <HintPath>../Guilded.NET.Objects/bin/Release/netstandard2.1/Guilded.NET.Objects.dll</HintPath>
     </Reference>
     <Reference Include="Guilded.NET.API">
-      <HintPath>../Guilded.NET.API/bin/Debug/netstandard2.1/Guilded.NET.API.dll</HintPath>
+      <HintPath>../Guilded.NET.API/bin/Release/netstandard2.1/Guilded.NET.API.dll</HintPath>
     </Reference>
   </ItemGroup>
 

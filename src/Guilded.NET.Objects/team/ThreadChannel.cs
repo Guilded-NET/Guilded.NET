@@ -37,6 +37,6 @@ namespace Guilded.NET.Objects.Teams {
         /// Turns a thread into string.
         /// </summary>
         /// <returns>Thread as a string</returns>
-        public override string ToString() => $"Thread({Id})";
+        public override string ToString() => $"Thread {Id}: {Name}";
     }
 }

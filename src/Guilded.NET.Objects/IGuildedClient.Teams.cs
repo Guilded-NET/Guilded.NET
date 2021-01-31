@@ -161,6 +161,20 @@ namespace Guilded.NET.Objects {
         /// <returns>Channel</returns>
         Channel GetChannel(GId teamId, Guid channelId);
         /// <summary>
+        /// Gets a group by ID.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="groupId">ID of the groupp</param>
+        /// <returns>Group</returns>
+        Task<Group> GetGroupAsync(GId teamId, GId groupId);
+        /// <summary>
+        /// Gets a group by ID.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="groupId">ID of the groupp</param>
+        /// <returns>Group</returns>
+        Group GetGroup(GId teamId, GId groupId);
+        /// <summary>
         /// Clears all notifications in a specific channel.
         /// </summary>
         /// <param name="channelId">ID of the channel to clear notifications in</param>

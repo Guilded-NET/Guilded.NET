@@ -11,6 +11,7 @@
     <Description>Guilded objects for Guilded.NET</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

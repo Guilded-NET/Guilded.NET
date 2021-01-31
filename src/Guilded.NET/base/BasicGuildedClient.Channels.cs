@@ -18,6 +18,13 @@ namespace Guilded.NET {
     /// Logged-in user in Guilded.
     /// </summary>
     public abstract partial class BasicGuildedClient: IGuildedClient {
+        static readonly Dictionary<ChannelType, string> ContentTypes = new Dictionary<ChannelType, string> {
+            {ChannelType.Document, "doc"},
+            {ChannelType.Media, "team_media"},
+            {ChannelType.Event, "event"},
+            {ChannelType.Forum, "forum"},
+            {ChannelType.Announcement, "announcement"}
+        };
 
         //=======================//
         //   Chat
@@ -283,20 +290,6 @@ namespace Guilded.NET {
         /// <returns>Document</returns>
         public GuildedDocument GetDocument(Guid channelId, uint docId) =>
             GetDocumentAsync(channelId, docId).GetAwaiter().GetResult();
-        /// <summary>
-        /// Gets all comments in a given document.
-        /// </summary>
-        /// <param name="docId">ID of the document</param>
-        /// <returns>List of content replies</returns>
-        public async Task<IList<ContentReply>> GetDocRepliesAsync(uint docId) =>
-            await FromArray<ContentReply>(new Endpoint($"content/doc/{docId}/replies", Method.GET));
-        /// <summary>
-        /// Gets all comments in a given document.
-        /// </summary>
-        /// <param name="docId">ID of the document</param>
-        /// <returns>List of content replies</returns>
-        public IList<ContentReply> GetDocReplies(uint docId) =>
-            GetDocRepliesAsync(docId).GetAwaiter().GetResult();
         
         //=======================//
         //   Media
@@ -474,5 +467,46 @@ namespace Guilded.NET {
         /// <param name="itemId">ID of the item</param>
         public void DeleteListItem(Guid channelId, Guid itemId) =>
             DeleteListItemAsync(channelId, itemId).GetAwaiter().GetResult();
+
+        //=======================//
+        //   Multiple
+        //=======================//
+
+        /// <summary>
+        /// Gets all comments in a given document or media.
+        /// </summary>
+        /// <param name="contentId">ID of content</param>
+        /// <param name="type">Type of the channel</param>
+        /// <returns>List of content replies</returns>
+        public async Task<IList<ContentReply>> GetContentRepliesAsync(uint contentId, ChannelType type) =>
+            await FromArray<ContentReply>(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies", Method.GET));
+        /// <summary>
+        /// Gets all comments in a given document or media.
+        /// </summary>
+        /// <param name="contentId">ID of content</param>
+        /// <param name="type">Type of the channel</param>
+        /// <returns>List of content replies</returns>
+        public IList<ContentReply> GetContentReplies(uint contentId, ChannelType type) =>
+            GetContentRepliesAsync(contentId, type).GetAwaiter().GetResult();
+        /// <summary>
+        /// Deletes a document or a media reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        /// <param name="type">Channel's type</param>
+        public async Task DeleteContentReplyAsync(GId teamId, uint contentId, ulong replyId, ChannelType type) =>
+            await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new {
+                teamId
+            }));
+        /// <summary>
+        /// Deletes a document or a media reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        /// <param name="type">Channel's type</param>
+        public void DeleteContentReply(GId teamId, uint contentId, ulong replyId, ChannelType type) =>
+            DeleteContentReplyAsync(teamId, contentId, replyId, type).GetAwaiter().GetResult();
     }
 }

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Teams {
-    using Chat;
     /// <summary>
     /// Represents member, or user of the team.
     /// </summary>

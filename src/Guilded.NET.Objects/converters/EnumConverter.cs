@@ -1,216 +1,47 @@
-using System;
 using Newtonsoft.Json;
-using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Linq;
+using System.Reflection;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
-// Ultimate spaghetti code
 namespace Guilded.NET.Objects.Converters {
-    using Chat;
-    using Teams;
-    using Content;
-    using Forms;
     /// <summary>
     /// Converts enum to string and vice versa.
     /// </summary>
     public class EnumConverter: JsonConverter {
-        // For checking types
-        static readonly Type msgobjtype = typeof(MsgObject);
-        static readonly Type marktype = typeof(MarkType);
-        static readonly Type nodetype = typeof(NodeType);
-        static readonly Type member = typeof(Membership);
-        static readonly Type chattype = typeof(ChatType);
-        static readonly Type msgtype = typeof(MessageType);
-        static readonly Type mentiontype = typeof(MentionType);
-        static readonly Type channeltype = typeof(ChannelType);
-        static readonly Type mediatype = typeof(MediaType);
-        static readonly Type formtype = typeof(FormType);
-        static readonly Type formfieldtype = typeof(FormFieldType);
-        static readonly Type subscription = typeof(SubscriptionType);
-        static readonly Type system = typeof(SystemMessageType);
-        static readonly Type team = typeof(TeamType);
-        /// <summary>
-        /// All of the enum types which are allowed to be converted.
-        /// </summary>
-        /// <value>Allowed enum types</value>
-        static readonly Type[] allowed = new Type[] { msgobjtype, marktype, nodetype, member, chattype, msgtype, mentiontype, channeltype, mediatype, formtype, formfieldtype, subscription, system, team };
-        static readonly IDictionary<string, MsgObject> msgobj = new Dictionary<string, MsgObject> {
-            {"block", MsgObject.Block},
-            {"document", MsgObject.Document},
-            {"inline", MsgObject.Inline},
-            {"leaf", MsgObject.Leaf},
-            {"mark", MsgObject.Mark},
-            {"text", MsgObject.Text},
-            {"value", MsgObject.Value}
-        };
-        static readonly IDictionary<string, MarkType> marktypes = new Dictionary<string, MarkType> {
-            {"bold", MarkType.Bold},
-            {"inline-code", MarkType.InlineCodeLegacy},
-            {"inline-code-v2", MarkType.InlineCode},
-            {"italic", MarkType.Italic},
-            {"spoiler", MarkType.Spoiler},
-            {"strikethrough", MarkType.Strikethrough},
-            {"underline", MarkType.Underline},
-            {"code-format", MarkType.CodeFormat}
-        };
-        static readonly IDictionary<string, NodeType> nodetypes = new Dictionary<string, NodeType> {
-            {"paragraph", NodeType.Paragraph},
-            {"block-quote-container", NodeType.BlockQuoteContainer},
-            {"webhookMessage", NodeType.Embed},
-            {"block-quote-line", NodeType.BlockQuoteLine},
-            {"markdown-plain-text", NodeType.MarkdownPlainText},
-            {"code-container", NodeType.CodeContainer},
-            {"code-line", NodeType.CodeLine},
-            {"unordered-list", NodeType.UnorderedList},
-            {"ordered-list", NodeType.OrderedList},
-            {"list-item", NodeType.ListItem},
-            {"image", NodeType.Image},
-            {"reaction", NodeType.Reaction},
-            {"systemMessage", NodeType.SystemMessage},
-            {"mention", NodeType.Mention},
-            {"channel", NodeType.Channel},
-            {"heading-large", NodeType.HeadingLarge},
-            {"heading-small", NodeType.HeadingSmall},
-            {"form", NodeType.Form},
-            {"replying-to-user-header", NodeType.ReplyHeader},
-            {"image-caption-line", NodeType.ImageCaptionLine}
-        };
-        static readonly IDictionary<string, MembershipType> membershiptypes = new Dictionary<string, MembershipType> {
-            {"joined", MembershipType.Joined},
-            {"left", MembershipType.Left},
-            {"following", MembershipType.Following}
-        };
-        static readonly IDictionary<string, ChannelType> channeltypes = new Dictionary<string, ChannelType> {
-            {"chat", ChannelType.Chat},
-            {"announcement", ChannelType.Announcement},
-            {"voice", ChannelType.Voice},
-            {"forum", ChannelType.Forum},
-            {"doc", ChannelType.Document},
-            {"media", ChannelType.Media},
-            {"event", ChannelType.Event},
-            {"list", ChannelType.List},
-            {"scheduling", ChannelType.Scheduling},
-            {"stream", ChannelType.Stream}
-        };
-        static readonly IDictionary<string, MessageType> messagetype = new Dictionary<string, MessageType> {
-            {"default", MessageType.Default},
-            {"system", MessageType.System}
-        };
-        static readonly IDictionary<string, MentionType> mentions = new Dictionary<string, MentionType> {
-            {"person", MentionType.Person},
-            {"here", MentionType.Here},
-            {"everyone", MentionType.Everyone},
-            {"role", MentionType.Role}
-        };
-        static readonly IDictionary<string, MediaType> media = new Dictionary<string, MediaType> {
-            {"image", MediaType.Image},
-            {"video", MediaType.Video},
-            {"audio", MediaType.Audio}
-        };
-        static readonly IDictionary<string, FormType> forms = new Dictionary<string, FormType> {
-            {"form", FormType.Form},
-            {"poll", FormType.Poll}
-        };
-        static readonly IDictionary<string, SystemMessageType> systemMessages = new Dictionary<string, SystemMessageType> {
-            {"auto-archive-enabled", SystemMessageType.AutoArchiveEnabled},
-            {"auto-archive-disabled", SystemMessageType.AutoArchiveDisabled},
-            {"group-dm-user-added", SystemMessageType.GroupDMUserAdded},
-            {"group-dm-user-removed", SystemMessageType.GroupDMUserRemoved},
-            {"group-dm-channel-created", SystemMessageType.GroupDMChannelCreated},
-            {"channel-renamed", SystemMessageType.ChannelRenamed},
-            {"channel-archived", SystemMessageType.ChannelArchived},
-            {"channel-restored", SystemMessageType.ChannelRestored},
-            {"dm-user-nickname-set", SystemMessageType.DMUserNicknameSet},
-            {"team-channel-created", SystemMessageType.TeamChannelCreated},
-            {"thread-created", SystemMessageType.ThreadCreated},
-            {"thread-users-added", SystemMessageType.ThreadUsersAdded},
-            {"thread-user-left", SystemMessageType.ThreadUserLeft},
-            {"video-call-started", SystemMessageType.VideoCallStarted},
-            {"voice-call-started", SystemMessageType.VoiceCallStarted},
-            {"team-stream-went-offline", SystemMessageType.TeamStreamWentOffline},
-            {"voice-group-invite", SystemMessageType.VoiceGroupInvite},
-            {"team-member-joined", SystemMessageType.TeamMemberJoined},
-            {"list-item-completed", SystemMessageType.ListItemCompleted},
-            {"list-item-incompleted", SystemMessageType.ListItemIncompleted},
-            {"list-item-moved", SystemMessageType.ListItemMoved},
-            {"match-created", SystemMessageType.MatchCreated},
-            {"streaming-screenshare-started", SystemMessageType.StreamingScreenshareStarted}
-        };
-        static readonly IDictionary<string, TeamType> teams = new Dictionary<string, TeamType> {
-            {"team", TeamType.Team},
-            {"organization", TeamType.Organization},
-            {"community", TeamType.Community},
-            {"clan", TeamType.Clan},
-            {"guild", TeamType.Guild},
-            {"friends", TeamType.Friends},
-            {"streaming", TeamType.Streaming},
-            {"other", TeamType.Other}
-        };
+        static readonly Type flags = typeof(FlagsAttribute);
+        static readonly Type enumMember = typeof(EnumMemberAttribute);
         /// <summary>
         /// Writes enum to the string.
         /// </summary>
         /// <param name="writer">JsonWriter</param>
         /// <param name="value">Enum</param>
         /// <param name="serializer">Serializer</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
-            writer.WriteValue(ConvertTo(value, value.GetType()));
-        /// <summary>
-        /// Converts enum value to string.
-        /// </summary>
-        /// <param name="value">Value to convert to string</param>
-        /// <param name="type">Type of the value</param>
-        /// <returns>String</returns>
-        public static string ConvertTo(object value, Type type) {
-            if(type == msgobjtype) return ConvertTo(msgobj, (MsgObject)value);
-            else if(type == marktype) return ConvertTo(marktypes, (MarkType)value);
-            else if(type == nodetype) return ConvertTo(nodetypes, (NodeType)value);
-            else if(type == member) return ConvertTo(membershiptypes, (MembershipType)value);
-            else if(type == msgtype) return ConvertTo(messagetype, (MessageType)value);
-            else if(type == mentiontype) return ConvertTo(mentions, (MentionType)value);
-            else if(type == channeltype) return ConvertTo(channeltypes, (ChannelType)value);
-            else if(type == mediatype) return ConvertTo(media, (MediaType)value);
-            else if(type == formtype) return ConvertTo(forms, (FormType)value);
-            else if(type == system) return ConvertTo(systemMessages, (SystemMessageType)value);
-            else if(type == team) return ConvertTo(teams, (TeamType)value);
-            else if(type == subscription || type == chattype || type == formfieldtype) return value.ToString();
-            else throw new ArgumentException($"{nameof(value)} can not be converted. Given type: {type.FullName}");
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+            // Gets value's type
+            Type type = value.GetType();
+            // Gets value as enum
+            Enum val = (Enum)value;
+            // If this value is a value of flags enum
+            bool isFlag = val.GetType().CustomAttributes.FirstOrDefault(x => x.AttributeType == flags) != null;
+            // Writes enum as integer if it's value of flags enum
+            if(isFlag) writer.WriteValue(JToken.FromObject(Convert.ToUInt32(val)));
+            // Else, writes enum as string
+            else {
+                // Value as string
+                string valStr = value.ToString();
+                // Gets that enum member
+                MemberInfo member = type.GetMember(valStr).FirstOrDefault(x => x.DeclaringType == type);
+                // Gets EnumMember attribute
+                EnumMemberAttribute attr = (EnumMemberAttribute)member.GetCustomAttributes(enumMember, false).FirstOrDefault();
+                // If attribute and value aren't null
+                if(attr != null && attr?.Value != null) writer.WriteValue(JToken.FromObject(attr.Value));
+                // If one of them is null
+                else writer.WriteValue(JToken.FromObject(valStr));
+            }
         }
-        /// <summary>
-        /// Converts enum value to string.
-        /// </summary>
-        /// <param name="dict">Dictionary of the enum</param>
-        /// <param name="t">Value</param>
-        /// <returns>String</returns>
-        protected static string ConvertTo<T>(IDictionary<string, T> dict, T t) where T: IConvertible => dict.FirstOrDefault(x => x.Value.Equals(t)).Key;
-        /// <summary>
-        /// Converts string to enum value.
-        /// </summary>
-        /// <param name="value">String to be parsed</param>
-        /// <param name="type">Type of the value</param>
-        /// <returns>Any enum value</returns>
-        public static object ConvertFrom(string value, Type type) {
-            if(type == msgobjtype) return ConvertFrom(value, msgobj);
-            else if(type == marktype) return ConvertFrom(value, marktypes);
-            else if(type == msgtype) return ConvertFrom(value, messagetype);
-            else if(type == nodetype) return ConvertFrom(value, nodetypes);
-            else if(type == mentiontype) return ConvertFrom(value, mentions);
-            else if(type == channeltype) return ConvertFrom(value, channeltypes);
-            else if(type == mediatype) return ConvertFrom(value, media);
-            else if(type == formtype) return ConvertFrom(value, forms);
-            else if(type == system) return ConvertFrom(value, systemMessages);
-            else if(type == team) return ConvertFrom(value, teams);
-            else if(type == formfieldtype) return Enum.Parse<FormFieldType>(value);
-            else if(type == subscription) return Enum.Parse<SubscriptionType>(value);
-            else if(type == chattype) return Enum.Parse<ChatType>(value);
-            else return ConvertFrom(value, membershiptypes);
-        }
-        /// <summary>
-        /// Converts string to enum value.
-        /// </summary>
-        /// <param name="value">String to be parsed</param>
-        /// <param name="dict">String and enum dictionary</param>
-        /// <returns>Enum value</returns>
-        protected static T ConvertFrom<T>(string value, IDictionary<string, T> dict) =>
-            dict.ContainsKey(value) ? dict[value] : dict.First().Value;
         /// <summary>
         /// Converts string to enum.
         /// </summary>
@@ -219,12 +50,41 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="existingValue">Previous property value</param>
         /// <param name="serializer">Serializer</param>
         /// <returns>GLongId or GId</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) => ConvertFrom((string)reader.Value, objectType);
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+            // Gets value
+            JToken token = JToken.Load(reader);
+            // If it's integer, get it as integer and turn it into enum
+            if(token.Type == JTokenType.Integer) return Enum.ToObject(objectType, token.Value<int>());
+            // If it's string, then...
+            else if(token.Type == JTokenType.String) {
+                // Gets enum value's name
+                string name = token.Value<string>();
+                // Gets values
+                IEnumerable<Enum> vals = Enum.GetValues(objectType).OfType<Enum>();
+                // First enum value by that name
+                Enum first = vals.FirstOrDefault(x => x.ToString() == name);
+                // If enum has that value
+                if(first != default) return first;
+                // If it doesn't
+                else {
+                    // Gets all members in the enum
+                    MemberInfo[] members = objectType.GetMembers();
+                    // Gets first member with specific name
+                    MemberInfo member = members.FirstOrDefault(x =>
+                        x.GetCustomAttributes(enumMember, false).FirstOrDefault(y => ((EnumMemberAttribute)y).Value == name) != null
+                    );
+                    // If member isn't null, get its value
+                    if(member != null) return objectType.GetEnumValues().OfType<Enum>().FirstOrDefault(x => x.ToString() == member.Name);
+                    // If it is, get first enum's value
+                    else return vals.First();    
+                }
+            } else return Enum.GetValues(objectType).OfType<Enum>().FirstOrDefault();
+        }
         /// <summary>
         /// Whether or not this converter can convert given type.
         /// </summary>
         /// <param name="objectType">Type of the object</param>
         /// <returns>Can convert the type</returns>
-        public override bool CanConvert(Type objectType) => allowed.Contains(objectType);
+        public override bool CanConvert(Type objectType) => objectType.IsEnum;
     }
 }

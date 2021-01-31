@@ -25,7 +25,7 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>System message type</value>
         [JsonIgnore]
         public SystemMessageType MessageType {
-            get => (SystemMessageType)EnumConverter.ConvertFrom(GetDataProperty<string>("type"), _this);
+            get => GetDataProperty<SystemMessageType>("type");
         }
         /// <summary>
         /// Who did the action.

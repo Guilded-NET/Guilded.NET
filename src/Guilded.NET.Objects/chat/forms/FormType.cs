@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace Guilded.NET.Objects.Forms {
     /// <summary>
     /// Type of the form(form, poll)
@@ -7,11 +9,13 @@ namespace Guilded.NET.Objects.Forms {
         /// A form which can have multiple fields and optional fields. <br/>
         /// Useful for making applications.
         /// </summary>
+        [EnumMember(Value = "form")]
         Form,
         /// <summary>
         /// A form which can only have 1 field and they can't be optional. <br/>
         /// Useful for making quick questions.
         /// </summary>
+        [EnumMember(Value = "poll")]
         Poll
     }
 }

@@ -78,13 +78,6 @@ namespace Guilded.NET.API {
             get; set;
         }
         /// <summary>
-        /// URL for media uploading.
-        /// </summary>
-        /// <value>URL</value>
-        protected Uri MediaUrl {
-            get; set;
-        }
-        /// <summary>
         /// Websocket clients for Guilded. Initialize websocket with <see cref="InitWebsocket"/>.
         /// </summary>
         /// <seealso cref="Rest"/>
@@ -131,12 +124,9 @@ namespace Guilded.NET.API {
         /// A base for Guilded client.
         /// </summary>
         /// <param name="apiUrl">URL of Guilded API</param>
-        /// <param name="mediaUrl">URL for media uploading</param>
         /// <exception cref="ArgumentNullException">When apiurl or socketurl are null</exception>
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
-        protected BaseGuildedClient(Uri apiUrl, Uri mediaUrl) {
-            // Set properties
-            MediaUrl = mediaUrl ?? throw new ArgumentException($"{nameof(mediaUrl)} can not be empty.");
+        protected BaseGuildedClient(Uri apiUrl) {
             // Initialize Rest client
             Rest = new RestClient(apiUrl ?? throw new ArgumentNullException($"{nameof(apiUrl)} can not be empty."));
             // Because the client has not logged in yet
@@ -155,7 +145,7 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <exception cref="ArgumentNullException">When apiurl or socketurl are null</exception>
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
-        protected BaseGuildedClient(): this(GuildedAPIURL, GuildedMediaURL) {}
+        protected BaseGuildedClient(): this(GuildedAPIURL) {}
         /// <summary>
         /// Sends a request to Guilded's API with given arguments.
         /// </summary>
@@ -175,8 +165,9 @@ namespace Guilded.NET.API {
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
             // Executes response
             IRestResponse<T> response = await Rest.ExecuteAsync<T>(req);
-            // Check if content isn't null and get it as JSON object
+            // Check if content isn't null 
             if(string.IsNullOrEmpty(response.Content)) return new ExecutionResponse<T>(response);
+            // Parses it
             JToken token = JToken.Parse(response.Content);
             // Check if it has 2 properties
             if(token.Type == JTokenType.Object) {
@@ -235,7 +226,7 @@ namespace Guilded.NET.API {
         public async Task<Uri> UploadImage(string filepath, byte[] filedata) {
             if(string.IsNullOrWhiteSpace(filepath)) throw new ArgumentException($"{nameof(filepath)} can not be empty.");
             // Create new request
-            RestRequest req = new RestRequest($"{MediaUrl}/{Endpoint.UPLOAD_MEDIA.Path}?dynamicMediaTypeId=ContentMedia", Endpoint.UPLOAD_MEDIA.EndpointMethod) {
+            RestRequest req = new RestRequest($"{GuildedMediaURL}/{Endpoint.UPLOAD_MEDIA.Path}?dynamicMediaTypeId=ContentMedia", Endpoint.UPLOAD_MEDIA.EndpointMethod) {
                 AlwaysMultipartFormData = true
             };
             // Add parameters
@@ -260,7 +251,7 @@ namespace Guilded.NET.API {
         public async Task<Uri> UploadImage(Uri url) {
             if(url == null) throw new ArgumentException($"{nameof(url)} can not be null.");
             // Create new request
-            RestRequest req = new RestRequest($"{MediaUrl}/{Endpoint.UPLOAD_MEDIA.Path}", Endpoint.UPLOAD_MEDIA.EndpointMethod);
+            RestRequest req = new RestRequest($"{GuildedMediaURL}/{Endpoint.UPLOAD_MEDIA.Path}", Endpoint.UPLOAD_MEDIA.EndpointMethod);
             // Add parameters
             if(LoginCookies != null)
                 foreach(var addable in LoginCookies)
@@ -270,7 +261,7 @@ namespace Guilded.NET.API {
             // Adds a new JSON
             /* {
              *   "mediaInfo": { "src": "url" },
-             *   "dyanmicMediaTypeId": "ContentMedia",
+             *   "dynamicMediaTypeId": "ContentMedia",
              *   "uploadTrackingId": "r-1000000-1000000"
              * }
              */
@@ -359,8 +350,8 @@ namespace Guilded.NET.API {
         /// Disposes BaseGuildedClient.
         /// </summary>
         public virtual void Dispose() {
-            HeartbeatToken.Cancel();
-            HeartbeatThread.Join();
+            HeartbeatToken?.Cancel();
+            HeartbeatThread?.Join();
             // Disposes all websockets
             foreach(WebsocketClient client in Websockets.Values) client.Dispose();
         }

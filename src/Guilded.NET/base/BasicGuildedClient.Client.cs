@@ -101,11 +101,9 @@ namespace Guilded.NET {
         /// Base for connecting to Guilded.
         /// </summary>
         /// <returns>Async Task</returns>
-#pragma warning disable 0618
         protected Task BasicConnectAsync() {
             // Inits websocket
             InitWebsocket(25);
-#pragma warning restore 0618
             // A cancellation token for the thread
             HeartbeatToken = new CancellationTokenSource();
             // Thread for ping and heartbeat

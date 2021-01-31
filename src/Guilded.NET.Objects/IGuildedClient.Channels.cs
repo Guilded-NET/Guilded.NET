@@ -258,18 +258,6 @@ namespace Guilded.NET.Objects {
         /// <param name="docId">ID of the document</param>
         /// <returns>Document</returns>
         GuildedDocument GetDocument(Guid channelId, uint docId);
-        /// <summary>
-        /// Gets all comments in a given document.
-        /// </summary>
-        /// <param name="docId">ID of the document</param>
-        /// <returns>List of content replies</returns>
-        Task<IList<ContentReply>> GetDocRepliesAsync(uint docId);
-        /// <summary>
-        /// Gets all comments in a given document.
-        /// </summary>
-        /// <param name="docId">ID of the document</param>
-        /// <returns>List of content replies</returns>
-        IList<ContentReply> GetDocReplies(uint docId);
 
         //=======================//
         //   Media
@@ -487,5 +475,40 @@ namespace Guilded.NET.Objects {
         /// <param name="channelId">ID of the channel</param>
         /// <param name="itemId">ID of the item</param>
         void DeleteListItem(Guid channelId, Guid itemId);
+
+        //=======================//
+        //   Multiple
+        //=======================//
+
+        /// <summary>
+        /// Gets all comments in a given document or media.
+        /// </summary>
+        /// <param name="contentId">ID of content</param>
+        /// <param name="type">Type of the channel</param>
+        /// <returns>List of content replies</returns>
+        Task<IList<ContentReply>> GetContentRepliesAsync(uint contentId, ChannelType type);
+        /// <summary>
+        /// Gets all comments in a given document or media.
+        /// </summary>
+        /// <param name="contentId">ID of content</param>
+        /// <param name="type">Type of the channel</param>
+        /// <returns>List of content replies</returns>
+        IList<ContentReply> GetContentReplies(uint contentId, ChannelType type);
+        /// <summary>
+        /// Deletes a document or a media reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        /// <param name="type">Channel's type</param>
+        Task DeleteContentReplyAsync(GId teamId, uint contentId, ulong replyId, ChannelType type);
+        /// <summary>
+        /// Deletes a document or a media reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        /// <param name="type">Channel's type</param>
+        void DeleteContentReply(GId teamId, uint contentId, ulong replyId, ChannelType type);
     }
 }

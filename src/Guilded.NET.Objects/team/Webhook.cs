@@ -80,8 +80,24 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt", Required = Required.AllowNull)]
-        public DateTime DeletedAt {
+        public DateTime? DeletedAt {
             get; set;
+        }
+        /// <summary>
+        /// If this webhook was deleted.
+        /// </summary>
+        /// <value>Deleted</value>
+        [JsonIgnore]
+        public bool IsDeleted {
+            get => DeletedAt != null;
+        }
+        /// <summary>
+        /// A link to this webhook.
+        /// </summary>
+        /// <value>Webhook link</value>
+        [JsonIgnore]
+        public string Link {
+            get => $"https://media.guilded.gg/webhooks/{Id}/{Token}";
         }
     }
 }
