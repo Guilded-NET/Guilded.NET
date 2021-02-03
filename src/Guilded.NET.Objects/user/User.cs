@@ -9,73 +9,45 @@ namespace Guilded.NET.Objects {
     /// <summary>
     /// Guilded user. This is NOT Guild member.
     /// </summary>
-    public class User: ClientObject {
+    public class User: BaseUser {
         /// <summary>
         /// Guilded user. This is NOT Guild member.
         /// </summary>
         public User() =>
             Badges = new List<GlobalBadge>();
         /// <summary>
-        /// Given ID of the user.
-        /// </summary>
-        [JsonProperty("id", Required = Required.Always)]
-        public GId Id {
-            get; set;
-        }
-        /// <summary>
-        /// Current name of the user.
-        /// </summary>
-        [JsonProperty("name", Required = Required.Always)]
-        public string Username {
-            get; set;
-        }
-        /// <summary>
         /// Large version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureLg")]
-        public Uri AvatarLarge {
-            get; set;
-        }
-        /// <summary>
-        /// User's current profile picture.
-        /// </summary>
-        [JsonProperty("profilePicture")]
-        public Uri Avatar {
+        public Uri ProfilePictureLarge {
             get; set;
         }
         /// <summary>
         /// Small version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureSm")]
-        public Uri AvatarSmall {
+        public Uri ProfilePictureSmall {
             get; set;
         }
         /// <summary>
         /// Blurry version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureBlur")]
-        public Uri AvatarBlurry {
+        public Uri ProfilePictureBlurry {
             get; set;
         }
         /// <summary>
         /// Large version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerLg")]
-        public Uri BannerLarge {
+        public Uri ProfileBannerLarge {
             get; set;
         }
         /// <summary>
         /// Small version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerSm")]
-        public Uri BannerSmall {
-            get; set;
-        }
-        /// <summary>
-        /// Blurry version of profile banner.
-        /// </summary>
-        [JsonProperty("profileBannerBlur")]
-        public Uri BannerBlurry {
+        public Uri ProfileBannerSmall {
             get; set;
         }
         /// <summary>
@@ -141,18 +113,6 @@ namespace Guilded.NET.Objects {
         public bool IsBanned {
             get => ModerationStatus == "banned";
         }
-        /// <summary>
-        /// Creates a new DM channel.
-        /// </summary>
-        /// <returns>Channel</returns>
-        public async Task<DMChannel> CreateDMAsync() =>
-            await ParentClient.CreateDMChannelAsync(Id);
-        /// <summary>
-        /// Creates a new DM channel.
-        /// </summary>
-        /// <returns>Channel</returns>
-        public DMChannel CreateDM() =>
-            ParentClient.CreateDMChannel(Id);
         
         //=========================//
         //    Overrides

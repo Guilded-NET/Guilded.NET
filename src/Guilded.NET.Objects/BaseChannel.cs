@@ -37,5 +37,10 @@ namespace Guilded.NET.Objects {
         public T Id {
             get; set;
         }
+        /// <summary>
+        /// Gets channel hashcode.
+        /// </summary>
+        /// <returns>HashCode</returns>
+        public override int GetHashCode() => Id.GetHashCode() - 21;
     }
 }

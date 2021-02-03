@@ -96,6 +96,34 @@ namespace Guilded.NET.Objects {
         /// <param name="limit">How many messages it should get</param>
         /// <returns>List of messages</returns>
         IList<Message> GetMessages(Guid channel, uint limit);
+        /// <summary>
+        /// Add a reaction to a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to add a reaction on</param>
+        /// <param name="emoteId">ID of the emote to add</param>
+        Task AddReactionAsync(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Add a reaction to a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to add a reaction on</param>
+        /// <param name="emoteId">ID of the emote to add</param>
+        void AddReaction(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Removes a reaction from a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to remove a reaction from</param>
+        /// <param name="emoteId">ID of the emote to remove</param>
+        Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId);
+        /// <summary>
+        /// Removes a reaction from a specific message.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where the message is in</param>
+        /// <param name="messageId">ID of the message to remove a reaction from</param>
+        /// <param name="emoteId">ID of the emote to remove</param>
+        void RemoveReaction(Guid channelId, Guid messageId, uint emoteId);
 
         //=======================//
         //   Forums
@@ -328,33 +356,51 @@ namespace Guilded.NET.Objects {
         /// <returns>List of availabilities</returns>
         IList<Availability> GetSchedules(Guid channelId);
         /// <summary>
-        /// Add a reaction to a specific message.
+        /// Creates a schedule availability.
         /// </summary>
-        /// <param name="channelId">ID of the channel where the message is in</param>
-        /// <param name="messageId">ID of the message to add a reaction on</param>
-        /// <param name="emoteId">ID of the emote to add</param>
-        Task AddReactionAsync(Guid channelId, Guid messageId, uint emoteId);
+        /// <param name="channelId">ID of the channel where to create a schedule</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        /// <returns>Created schedule availability</returns>
+        Task<IList<Availability>> CreateScheduleAsync(Guid channelId, DateTime startDate, DateTime endDate);
         /// <summary>
-        /// Add a reaction to a specific message.
+        /// Creates a schedule availability.
         /// </summary>
-        /// <param name="channelId">ID of the channel where the message is in</param>
-        /// <param name="messageId">ID of the message to add a reaction on</param>
-        /// <param name="emoteId">ID of the emote to add</param>
-        void AddReaction(Guid channelId, Guid messageId, uint emoteId);
+        /// <param name="channelId">ID of the channel where to create a schedule</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        /// <returns>Created schedule availability</returns>
+        IList<Availability> CreateSchedule(Guid channelId, DateTime startDate, DateTime endDate);
         /// <summary>
-        /// Removes a reaction from a specific message.
+        /// Edits a schedule availability.
         /// </summary>
-        /// <param name="channelId">ID of the channel where the message is in</param>
-        /// <param name="messageId">ID of the message to remove a reaction from</param>
-        /// <param name="emoteId">ID of the emote to remove</param>
-        Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId);
+        /// <param name="channelId">ID of the channel where an availability is</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        /// <returns>Edited schedule availability</returns>
+        Task<IList<Availability>> EditScheduleAsync(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate);
         /// <summary>
-        /// Removes a reaction from a specific message.
+        /// Edits a schedule availability.
         /// </summary>
-        /// <param name="channelId">ID of the channel where the message is in</param>
-        /// <param name="messageId">ID of the message to remove a reaction from</param>
-        /// <param name="emoteId">ID of the emote to remove</param>
-        void RemoveReaction(Guid channelId, Guid messageId, uint emoteId);
+        /// <param name="channelId">ID of the channel where to create a schedule</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        /// <returns>Edited schedule availability</returns>
+        IList<Availability> EditSchedule(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate);
+        /// <summary>
+        /// Deletes a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where an availability is</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        Task DeleteScheduleAsync(Guid channelId, uint availabilityId);
+        /// <summary>
+        /// Deletes a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where an availability is</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        void DeleteSchedule(Guid channelId, uint availabilityId);
 
         //=======================//
         //   Announcements
@@ -421,13 +467,111 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <param name="announcementId">ID of the announcement</param>
         /// <returns>List of content replies</returns>
-        Task<IList<ContentReply>> GetAnnouncementRepliesAsync(GId announcementId);
+        Task<IList<AnnouncementReply>> GetAnnouncementRepliesAsync(GId announcementId);
         /// <summary>
         /// Gets all comments in a given announcement.
         /// </summary>
         /// <param name="announcementId">ID of the announcement</param>
         /// <returns>List of content replies</returns>
-        IList<ContentReply> GetAnnouncementReplies(GId announcementId);
+        IList<AnnouncementReply> GetAnnouncementReplies(GId announcementId);
+        /// <summary>
+        /// Deletes an announcement reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, ulong replyId);
+        /// <summary>
+        /// Deletes an announcement reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        void DeleteAnnouncementReply(GId teamId, GId contentId, ulong replyId);
+        /// <summary>
+        /// Edits announcement reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="message">New message content to replace with</param>
+        Task EditAnnouncementReplyAsync(GId contentId, ulong replyId, MessageContent message);
+        /// <summary>
+        /// Edits announcement reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="message">New message content to replace with</param>
+        void EditAnnouncementReply(GId contentId, ulong replyId, MessageContent message);
+        /// <summary>
+        /// Creates and posts a new announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team to create announcement in</param>
+        /// <param name="channelId">ID of the channel to create announcement in</param>
+        /// <param name="title">Title of the announcement</param>
+        /// <param name="content">Content of the announcement</param>
+        /// <param name="dontSendNotifications">If it should not send a notification to everyone</param>
+        /// <param name="gameId">ID of the group's game</param>
+        /// <returns>Created announcement</returns>
+        Task<Announcement> PostAnnouncementAsync(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications, uint? gameId);
+        /// <summary>
+        /// Creates and posts a new announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team to create announcement in</param>
+        /// <param name="channelId">ID of the channel to create announcement in</param>
+        /// <param name="title">Title of the announcement</param>
+        /// <param name="content">Content of the announcement</param>
+        /// <param name="dontSendNotifications">If it should not send a notification to everyone</param>
+        /// <param name="gameId">ID of the group's game</param>
+        /// <returns>Created announcement</returns>
+        Announcement PostAnnouncement(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications = false, uint? gameId = null);
+        /// <summary>
+        /// Pins or unpins an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is in</param>
+        /// <param name="announcementId">ID of the announcement to (un)pin</param>
+        /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
+        Task PinAnnouncementAsync(Guid channelId, GId announcementId, bool isPinned = true);
+        /// <summary>
+        /// Pins or unpins an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is in</param>
+        /// <param name="announcementId">ID of the announcement to (un)pin</param>
+        /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
+        void PinAnnouncement(Guid channelId, GId announcementId, bool isPinned = true);
+        /// <summary>
+        /// Updates/edits an announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team where announcement is</param>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to edit</param>
+        /// <param name="title">New title</param>
+        /// <param name="content">New content</param>
+        /// <returns>ID of edited/updated announcement</returns>
+        Task<GId> UpdateAnnouncementAsync(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content);
+        /// <summary>
+        /// Updates/edits an announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team where announcement is</param>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to edit</param>
+        /// <param name="title">New title</param>
+        /// <param name="content">New content</param>
+        /// <returns>ID of edited/updated announcement</returns>
+        GId UpdateAnnouncement(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content);
+        /// <summary>
+        /// Deletes an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to delete</param>
+        /// <returns>Deleted announcement</returns>
+        Task<Announcement> DeleteAnnouncementAsync(Guid channelId, GId announcementId);
+        /// <summary>
+        /// Deletes an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to delete</param>
+        /// <returns>Deleted announcement</returns>
+        Announcement DeleteAnnouncement(Guid channelId, GId announcementId);
 
         //=======================//
         //   List
@@ -463,6 +607,22 @@ namespace Guilded.NET.Objects {
         /// <param name="parentId">ID of the parent</param>
         /// <param name="note">Note of this list item</param>
         void CreateListItem(Guid channelId, MessageContent title, long priority, Guid? parentId, MessageContent note);
+        /// <summary>
+        /// Edits a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where list item is</param>
+        /// <param name="itemId">List item to edit</param>
+        /// <param name="content">New list item content/message/title(null if you only need to edit a note)</param>
+        /// <param name="note">New list item note(null if you only need to edit content)</param>
+        Task EditListItemAsync(Guid channelId, Guid itemId, MessageContent content, MessageContent note);
+        /// <summary>
+        /// Edits a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where list item is</param>
+        /// <param name="itemId">List item to edit</param>
+        /// <param name="content">New list item content/message/title(null if you only need to edit a note)</param>
+        /// <param name="note">New list item note(null if you only need to edit content)</param>
+        void EditListItem(Guid channelId, Guid itemId, MessageContent content, MessageContent note);
         /// <summary>
         /// Deletes a list item.
         /// </summary>
@@ -510,5 +670,21 @@ namespace Guilded.NET.Objects {
         /// <param name="replyId">ID of the reply to delete</param>
         /// <param name="type">Channel's type</param>
         void DeleteContentReply(GId teamId, uint contentId, ulong replyId, ChannelType type);
+        /// <summary>
+        /// Edits content reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="type">Type of the channel this reply is in</param>
+        /// <param name="message">New message content to replace with</param>
+        Task EditContentReplyAsync(uint contentId, ulong replyId, ChannelType type, MessageContent message);
+        /// <summary>
+        /// Edits content reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="type">Type of the channel this reply is in</param>
+        /// <param name="message">New message content to replace with</param>
+        void EditContentReply(uint contentId, ulong replyId, ChannelType type, MessageContent message);
     }
 }

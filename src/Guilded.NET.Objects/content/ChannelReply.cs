@@ -19,5 +19,13 @@ namespace Guilded.NET.Objects.Content {
         public IList<Reaction> Reactions {
             get; set;
         }
+        /// <summary>
+        /// A team this channel reply is in.
+        /// </summary>
+        /// <value>Team ID</value>
+        [JsonProperty("teamId", Required = Required.Always)]
+        public GId TeamId {
+            get; set;
+        }
     }
 }

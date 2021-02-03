@@ -10,11 +10,6 @@ namespace Guilded.NET.Objects.Chat {
     /// </summary>
     public class SystemMessage: ContainerNode<IMessageObject> {
         /// <summary>
-        /// This node's type.
-        /// </summary>
-        /// <returns>SystemMessage</returns>
-        static readonly Type _this = typeof(SystemMessageType);
-        /// <summary>
         /// A message sent by the system.
         /// </summary>
         public SystemMessage() =>

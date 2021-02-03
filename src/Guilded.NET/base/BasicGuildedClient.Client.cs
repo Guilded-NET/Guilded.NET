@@ -78,7 +78,6 @@ namespace Guilded.NET {
             // Create new serializer
             (GuildedSerializer, Converters) = (new JsonSerializer(),
                 new JsonConverter[] {
-                    new EnumConverter(),
                     new IdConverter(),
                     new NodeConverter(),
                     new ClientObjectConverter(this),

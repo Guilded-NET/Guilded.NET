@@ -38,5 +38,10 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <returns>Thread as a string</returns>
         public override string ToString() => $"Thread {Id}: {Name}";
+        /// <summary>
+        /// Gets thread's hashcode.
+        /// </summary>
+        /// <returns>HashCode</returns>
+        public override int GetHashCode() => base.GetHashCode() + 10;
     }
 }

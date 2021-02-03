@@ -1,7 +1,11 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
 namespace Guilded.NET.Objects.Forms {
     /// <summary>
     /// What type of form field it is.
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum FormFieldType {
         /// <summary>
         /// A small text box/input which can be used for anything.

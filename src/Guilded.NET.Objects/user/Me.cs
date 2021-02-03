@@ -5,7 +5,6 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
-    using Teams;
     using Converters;
     /// <summary>
     /// Information about this user.

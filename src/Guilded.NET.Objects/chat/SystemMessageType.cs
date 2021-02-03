@@ -1,9 +1,12 @@
 using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
     /// A type of the system message.
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum SystemMessageType {
         /// <summary>
         /// Channel auto archive got enabled.
@@ -19,17 +22,17 @@ namespace Guilded.NET.Objects.Chat {
         /// User was added to a DM group.
         /// </summary>
         [EnumMember(Value = "group-dm-user-added")]
-        GroupDMUserAdded,
+        GroupDmUserAdded,
         /// <summary>
         /// User was removed from a DM group.
         /// </summary>
         [EnumMember(Value = "group-dm-user-removed")]
-        GroupDMUserRemoved,
+        GroupDmUserRemoved,
         /// <summary>
         /// DM group was created.
         /// </summary>
         [EnumMember(Value = "group-dm-channel-created")]
-        GroupDMChannelCreated,
+        GroupDmChannelCreated,
         /// <summary>
         /// Channel name was changed.
         /// </summary>
@@ -49,7 +52,7 @@ namespace Guilded.NET.Objects.Chat {
         /// User in DMs changed their nickname.
         /// </summary>
         [EnumMember(Value = "dm-user-nickname-set")]
-        DMUserNicknameSet,
+        DmUserNicknameSet,
         /// <summary>
         /// User in DMs changed their nickname.
         /// </summary>

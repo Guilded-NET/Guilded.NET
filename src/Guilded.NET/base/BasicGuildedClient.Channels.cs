@@ -11,7 +11,6 @@ namespace Guilded.NET {
     using Objects;
     using Objects.Chat;
     using Objects.Teams;
-    using Objects.Forms;
     using Objects.Content;
 
     /// <summary>
@@ -19,7 +18,7 @@ namespace Guilded.NET {
     /// </summary>
     public abstract partial class BasicGuildedClient: IGuildedClient {
         static readonly Dictionary<ChannelType, string> ContentTypes = new Dictionary<ChannelType, string> {
-            {ChannelType.Document, "doc"},
+            {ChannelType.Doc, "doc"},
             {ChannelType.Media, "team_media"},
             {ChannelType.Event, "event"},
             {ChannelType.Forum, "forum"},
@@ -367,6 +366,60 @@ namespace Guilded.NET {
         /// <returns>List of availabilities</returns>
         public IList<Availability> GetSchedules(Guid channelId) =>
             GetSchedulesAsync(channelId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Creates a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where to create a schedule</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        public async Task<IList<Availability>> CreateScheduleAsync(Guid channelId, DateTime startDate, DateTime endDate) =>
+            await FromObject<IList<Availability>>(new Endpoint($"channels/{channelId}/availability", Method.POST), "availabilities", new JsonBody(new {
+                startDate,
+                endDate
+            }));
+        /// <summary>
+        /// Creates a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where to create a schedule</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        public IList<Availability> CreateSchedule(Guid channelId, DateTime startDate, DateTime endDate) =>
+            CreateScheduleAsync(channelId, startDate, endDate).GetAwaiter().GetResult();
+        /// <summary>
+        /// Edits a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where an availability is</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        public async Task<IList<Availability>> EditScheduleAsync(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate) =>
+            await FromObject<IList<Availability>>(new Endpoint($"channels/{channelId}/availability/{availabilityId}", Method.PUT), new JsonBody(new {
+                startDate,
+                endDate
+            }));
+        /// <summary>
+        /// Edits a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where to create a schedule</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        /// <param name="startDate">Start date of this availability</param>
+        /// <param name="endDate">End date of this availability</param>
+        public IList<Availability> EditSchedule(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate) =>
+            EditScheduleAsync(channelId, availabilityId, startDate, endDate).GetAwaiter().GetResult();
+        /// <summary>
+        /// Deletes a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where an availability is</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        public async Task DeleteScheduleAsync(Guid channelId, uint availabilityId) =>
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/availability/{availabilityId}", Method.DELETE));
+        /// <summary>
+        /// Deletes a schedule availability.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where an availability is</param>
+        /// <param name="availabilityId">ID of schedule availability to edit</param>
+        public void DeleteSchedule(Guid channelId, uint availabilityId) =>
+            DeleteScheduleAsync(channelId, availabilityId).GetAwaiter().GetResult();
         
         //=======================//
         //   Announcements
@@ -403,7 +456,136 @@ namespace Guilded.NET {
         /// <param name="channelId">ID of the channel</param>
         /// <returns>List of announcements</returns>
         public IList<Announcement> GetPinnedAnnouncements(Guid channelId) =>
-            GetPinnedAnnouncementsAsync(channelId).GetAwaiter().GetResult();
+            GetPinnedAnnouncementsAsync(channelId).GetAwaiter().GetResult();        
+        /// <summary>
+        /// Deletes an announcement reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        public async Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, ulong replyId) =>
+            await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new {
+                teamId
+            }));
+        /// <summary>
+        /// Deletes an announcement reply.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="contentId">ID of the content</param>
+        /// <param name="replyId">ID of the reply to delete</param>
+        public void DeleteAnnouncementReply(GId teamId, GId contentId, ulong replyId) =>
+            DeleteAnnouncementReplyAsync(teamId, contentId, replyId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Edits announcement reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="message">New message content to replace with</param>
+        public async Task EditAnnouncementReplyAsync(GId contentId, ulong replyId, MessageContent message) =>
+            await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new {
+                id = replyId,
+                contentId,
+                contentType = "announcement",
+                message
+            }));
+        /// <summary>
+        /// Edits announcement reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="message">New message content to replace with</param>
+        public void EditAnnouncementReply(GId contentId, ulong replyId, MessageContent message) =>
+            EditAnnouncementReplyAsync(contentId, replyId, message).GetAwaiter().GetResult();
+        /// <summary>
+        /// Creates and posts a new announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team to create announcement in</param>
+        /// <param name="channelId">ID of the channel to create announcement in</param>
+        /// <param name="title">Title of the announcement</param>
+        /// <param name="content">Content of the announcement</param>
+        /// <param name="dontSendNotifications">If it should not send a notification to everyone</param>
+        /// <param name="gameId">ID of the group's game</param>
+        /// <returns>Created announcement</returns>
+        public async Task<Announcement> PostAnnouncementAsync(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications = false, uint? gameId = null) =>
+            await FromObject<Announcement>(new Endpoint($"channels/{channelId}/announcements", Method.POST), "announcement", new JsonBody(new {
+                title,
+                content,
+                teamId,
+                gameId,
+                dontSendNotifications
+            }));
+        /// <summary>
+        /// Creates and posts a new announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team to create announcement in</param>
+        /// <param name="channelId">ID of the channel to create announcement in</param>
+        /// <param name="title">Title of the announcement</param>
+        /// <param name="content">Content of the announcement</param>
+        /// <param name="dontSendNotifications">If it should not send a notification to everyone</param>
+        /// <param name="gameId">ID of the group's game</param>
+        /// <returns>Created announcement</returns>
+        public Announcement PostAnnouncement(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications = false, uint? gameId = null) =>
+            PostAnnouncementAsync(teamId, channelId, title, content, dontSendNotifications, gameId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Pins or unpins an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is in</param>
+        /// <param name="announcementId">ID of the announcement to (un)pin</param>
+        /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
+        public async Task PinAnnouncementAsync(Guid channelId, GId announcementId, bool isPinned = true) =>
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/toggleannouncementpin/{announcementId}", Method.PUT), new JsonBody(new {
+                isPinned
+            }));
+        /// <summary>
+        /// Pins or unpins an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is in</param>
+        /// <param name="announcementId">ID of the announcement to (un)pin</param>
+        /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
+        public void PinAnnouncement(Guid channelId, GId announcementId, bool isPinned = true) =>
+            PinAnnouncementAsync(channelId, announcementId, isPinned).GetAwaiter().GetResult();
+        /// <summary>
+        /// Updates/edits an announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team where announcement is</param>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to edit</param>
+        /// <param name="title">New title</param>
+        /// <param name="content">New content</param>
+        /// <returns>ID of edited/updated announcement</returns>
+        public async Task<GId> UpdateAnnouncementAsync(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content) =>
+            await FromObject<GId>(new Endpoint($"channels/{channelId}/announcements/{announcementId}", Method.PUT), "announcementId", new JsonBody(new {
+                teamId,
+                title,
+                content
+            }));
+        /// <summary>
+        /// Updates/edits an announcement.
+        /// </summary>
+        /// <param name="teamId">ID of the team where announcement is</param>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to edit</param>
+        /// <param name="title">New title</param>
+        /// <param name="content">New content</param>
+        /// <returns>ID of edited/updated announcement</returns>
+        public GId UpdateAnnouncement(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content) =>
+            UpdateAnnouncementAsync(teamId, channelId, announcementId, title, content).GetAwaiter().GetResult();
+        /// <summary>
+        /// Deletes an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to delete</param>
+        /// <returns>Deleted announcement</returns>
+        public async Task<Announcement> DeleteAnnouncementAsync(Guid channelId, GId announcementId) =>
+            await FromObject<Announcement>(new Endpoint($"channels/{channelId}/announcements/{announcementId}", Method.DELETE));
+        /// <summary>
+        /// Deletes an announcement.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where announcement is</param>
+        /// <param name="announcementId">ID of the announcement to delete</param>
+        /// <returns>Deleted announcement</returns>
+        public Announcement DeleteAnnouncement(Guid channelId, GId announcementId) =>
+            DeleteAnnouncementAsync(channelId, announcementId).GetAwaiter().GetResult();
 
         //=======================//
         //   List
@@ -453,6 +635,27 @@ namespace Guilded.NET {
         /// <param name="note">Note of this list item</param>
         public void CreateListItem(Guid channelId, MessageContent title, long priority = 0, Guid? parentId = null, MessageContent note = null) =>
             CreateListItemAsync(channelId, title, priority, parentId, note).GetAwaiter().GetResult();
+        /// <summary>
+        /// Edits a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where list item is</param>
+        /// <param name="itemId">List item to edit</param>
+        /// <param name="content">New list item content/message/title(null if you only need to edit a note)</param>
+        /// <param name="note">New list item note(null if you only need to edit content)</param>
+        public async Task EditListItemAsync(Guid channelId, Guid itemId, MessageContent content = null, MessageContent note = null) =>
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/listitems/{itemId}/message", Method.PUT), new JsonBody(new {
+                message = content,
+                note
+            }));
+        /// <summary>
+        /// Edits a list item.
+        /// </summary>
+        /// <param name="channelId">ID of the channel where list item is</param>
+        /// <param name="itemId">List item to edit</param>
+        /// <param name="content">New list item content/message/title(null if you only need to edit a note)</param>
+        /// <param name="note">New list item note(null if you only need to edit content)</param>
+        public void EditListItem(Guid channelId, Guid itemId, MessageContent content = null, MessageContent note = null) =>
+            EditListItemAsync(channelId, itemId, content, note).GetAwaiter().GetResult();
         /// <summary>
         /// Deletes a list item.
         /// </summary>
@@ -508,5 +711,28 @@ namespace Guilded.NET {
         /// <param name="type">Channel's type</param>
         public void DeleteContentReply(GId teamId, uint contentId, ulong replyId, ChannelType type) =>
             DeleteContentReplyAsync(teamId, contentId, replyId, type).GetAwaiter().GetResult();
+        /// <summary>
+        /// Edits content reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="type">Type of the channel this reply is in</param>
+        /// <param name="message">New message content to replace with</param>
+        public async Task EditContentReplyAsync(uint contentId, ulong replyId, ChannelType type, MessageContent message) =>
+            await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new {
+                id = replyId,
+                contentId,
+                contentType = ContentTypes[type],
+                message
+            }));
+        /// <summary>
+        /// Edits content reply's message.
+        /// </summary>
+        /// <param name="contentId">ID of the content reply is in</param>
+        /// <param name="replyId">ID of the reply to edit</param>
+        /// <param name="type">Type of the channel this reply is in</param>
+        /// <param name="message">New message content to replace with</param>
+        public void EditContentReply(uint contentId, ulong replyId, ChannelType type, MessageContent message) =>
+            EditContentReplyAsync(contentId, replyId, type, message).GetAwaiter().GetResult();
     }
 }

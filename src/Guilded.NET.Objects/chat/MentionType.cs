@@ -1,29 +1,27 @@
-using System.Runtime.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
     /// What kind of mention it is.
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter), true)]
     public enum MentionType {
         /// <summary>
         /// Mention of a specific person or a member.
         /// </summary>
-        [EnumMember(Value = "person")]
         Person,
         /// <summary>
         /// Mentions all people currently in the channel and online.
         /// </summary>
-        [EnumMember(Value = "here")]
         Here,
         /// <summary>
         /// Mentions every user.
         /// </summary>
-        [EnumMember(Value = "everyone")]
         Everyone,
         /// <summary>
         /// Mentions everyone in a specific role.
         /// </summary>
-        [EnumMember(Value = "role")]
         Role
     }
 }

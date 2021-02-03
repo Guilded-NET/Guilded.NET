@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System;
 using System.Threading.Tasks;
 
 namespace Guilded.NET.Objects.Events {
@@ -12,7 +13,7 @@ namespace Guilded.NET.Objects.Events {
         /// Type of the content.
         /// </summary>
         /// <value>Content type</value>
-        [JsonProperty("contentType")]
+        [JsonProperty("contentType", Required = Required.Always)]
         public ChannelType ContentType {
             get; set;
         }
@@ -20,23 +21,59 @@ namespace Guilded.NET.Objects.Events {
         /// The message which was posted.
         /// </summary>
         /// <value>Message</value>
-        [JsonProperty("message")]
+        [JsonProperty("message", Required = Required.Always)]
         public Message Message {
             get; set;
         }
+
         /// <summary>
-        /// Sends a message in the same channel as the given message.
+        /// Adds a reaction on a message.
         /// </summary>
-        /// <param name="response">Message response</param>
-        /// <returns>Async task</returns>
-        public async Task<object> RespondAsync(NewMessage response) =>
-            await ParentClient.SendMessageAsync(ChannelId, response);
+        /// <param name="emoteId">ID of the emote to react with</param>
+        public async Task AddReactionAsync(uint emoteId) =>
+            await ParentClient.AddReactionAsync(ChannelId, Message.Id, emoteId);
         /// <summary>
-        /// Sends a message in the same channel as the given message.
+        /// Adds a reaction on a message.
         /// </summary>
-        /// <param name="response">Message response</param>
-        public void Respond(NewMessage response) =>
-            ParentClient.SendMessage(ChannelId, response);
+        /// <param name="emoteId">ID of the emote to react with</param>
+        public void AddReaction(uint emoteId) =>
+            ParentClient.AddReaction(ChannelId, Message.Id, emoteId);
+        /// <summary>
+        /// Adds a reaction on a message.
+        /// </summary>
+        /// <param name="emote">Emote to react with</param>
+        public async Task AddReactionAsync(ChatEmote emote) =>
+            await AddReactionAsync(emote.Id);
+        /// <summary>
+        /// Adds a reaction on a message.
+        /// </summary>
+        /// <param name="emote">Emote to react with</param>
+        public void AddReaction(ChatEmote emote) =>
+            AddReaction(emote.Id);
+        /// <summary>
+        /// Removes a reaction from a message
+        /// </summary>
+        /// <param name="emoteId">ID of the emote to unreact with</param>
+        public async Task RemoveReactionAsync(uint emoteId) =>
+            await ParentClient.RemoveReactionAsync(ChannelId, Message.Id, emoteId);
+        /// <summary>
+        /// Removes a reaction from a message
+        /// </summary>
+        /// <param name="emoteId">ID of the emote to unreact with</param>
+        public void RemoveReaction(uint emoteId) =>
+            ParentClient.RemoveReaction(ChannelId, Message.Id, emoteId);
+        /// <summary>
+        /// Removes a reaction from a message
+        /// </summary>
+        /// <param name="emote">Emote to unreact with</param>
+        public async Task RemoveReactionAsync(ChatEmote emote) =>
+            await RemoveReactionAsync(emote.Id);
+        /// <summary>
+        /// Removes a reaction from a message
+        /// </summary>
+        /// <param name="emote">Emote to unreact with</param>
+        public void RemoveReaction(ChatEmote emote) =>
+            RemoveReaction(emote.Id);
         /// <summary>
         /// Deletes this message.
         /// </summary>
@@ -48,30 +85,6 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         public void Delete() =>
             ParentClient.DeleteMessage(ChannelId, Message.Id);
-        /// <summary>
-        /// Gets parent channel of this message event.
-        /// </summary>
-        /// <returns>Parent channel</returns>
-        public async Task<BaseChannel> GetChannelAsync() =>
-            await ParentClient.GetChannelAsync(TeamId, ChannelId);
-        /// <summary>
-        /// Gets parent channel of this message event.
-        /// </summary>
-        /// <returns>Parent channel</returns>
-        public BaseChannel GetChannel() =>
-            ParentClient.GetChannel(TeamId, ChannelId);
-        /// <summary>
-        /// Gets parent team of this message event.
-        /// </summary>
-        /// <returns>Parent team</returns>
-        public async Task<Team> GetTeamAsync() =>
-            await ParentClient.GetTeamAsync(TeamId);
-        /// <summary>
-        /// Gets parent team of this message event.
-        /// </summary>
-        /// <returns>Parent team</returns>
-        public Team GetTeam() =>
-            ParentClient.GetTeam(TeamId);
         /// <summary>
         /// Gets owner or author of this message.
         /// </summary>

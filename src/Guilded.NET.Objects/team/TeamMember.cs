@@ -7,23 +7,7 @@ namespace Guilded.NET.Objects.Teams {
     /// <summary>
     /// Represents member, or user of the team.
     /// </summary>
-    public class TeamMember: ClientObject {
-        /// <summary>
-        /// ID of the member.
-        /// </summary>
-        /// <value>User ID</value>
-        [JsonProperty("id", Required = Required.Always)]
-        public GId Id {
-            get; set;
-        }
-        /// <summary>
-        /// Username of the user.
-        /// </summary>
-        /// <value>Username</value>
-        [JsonProperty("name", Required = Required.Always)]
-        public string Username {
-            get; set;
-        }
+    public class TeamMember: BaseUser {
         /// <summary>
         /// Nickname of the user. Can be null.
         /// </summary>
@@ -54,30 +38,6 @@ namespace Guilded.NET.Objects.Teams {
         /// <value>Date</value>
         [JsonProperty("lastOnline", Required = Required.Always)]
         public DateTime LastOnline {
-            get; set;
-        }
-        /// <summary>
-        /// Profile picture of the user.
-        /// </summary>
-        /// <value>URL</value>
-        [JsonProperty("profilePicture", Required = Required.AllowNull)]
-        public Uri ProfilePicture {
-            get; set;
-        }
-        /// <summary>
-        /// User's blurry profile banner.
-        /// </summary>
-        /// <value>URL</value>
-        [JsonProperty("profileBannerBlur", Required = Required.AllowNull)]
-        public Uri ProfileBanner {
-            get; set;
-        }
-        /// <summary>
-        /// About info of this user.
-        /// </summary>
-        /// <value>User about</value>
-        [JsonProperty("aboutInfo", Required = Required.AllowNull)]
-        public About AboutInfo {
             get; set;
         }
         /// <summary>
@@ -140,29 +100,11 @@ namespace Guilded.NET.Objects.Teams {
         public string DisplayName {
             get => Nickname ?? Username;
         }
+
         /// <summary>
-        /// Gets this member as a user.
+        /// Gets user's hashcode.
         /// </summary>
-        /// <returns>User</returns>
-        public async Task<User> AsUserAsync() =>
-            await ParentClient.GetUserAsync(Id);
-        /// <summary>
-        /// Gets this member as a user.
-        /// </summary>
-        /// <returns>User</returns>
-        public User AsUser() =>
-            ParentClient.GetUser(Id);
-        /// <summary>
-        /// Creates a new DM channel.
-        /// </summary>
-        /// <returns>Channel</returns>
-        public async Task<DMChannel> CreateDMAsync() =>
-            await ParentClient.CreateDMChannelAsync(Id);
-        /// <summary>
-        /// Creates a new DM channel.
-        /// </summary>
-        /// <returns>Channel</returns>
-        public DMChannel CreateDM() =>
-            ParentClient.CreateDMChannel(Id);
+        /// <returns>HashCode</returns>
+        public override int GetHashCode() => base.GetHashCode() + 71;
     }
 }

@@ -8,6 +8,11 @@ namespace Guilded.NET.Objects {
     /// </summary>
     public class ThisUser: User {
         /// <summary>
+        /// Current user account being controlled by this client.
+        /// </summary>
+        public ThisUser() =>
+            MinimalNav = true;
+        /// <summary>
         /// A URL subdomain for this user.
         /// </summary>
         /// <value>Subdomain</value>
@@ -51,7 +56,7 @@ namespace Guilded.NET.Objects {
         /// If simplified navigation is turned on.
         /// </summary>
         /// <value>Simplified navigation</value>
-        [JsonProperty("useMinimalNav", Required = Required.Always)]
+        [JsonProperty("useMinimalNav")]
         public bool MinimalNav {
             get; set;
         }

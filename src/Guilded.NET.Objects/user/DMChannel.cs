@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.NET.Objects.Chat;
@@ -115,16 +116,14 @@ namespace Guilded.NET.Objects {
         /// Turns channel to string.
         /// </summary>
         /// <returns>Channel as a string</returns>
-        public override string ToString() => $"DM Channel({Id})";
+        public override string ToString() => $"DMs {Id}: [{string.Join(", ", Users.Select(x => x.Id))}]";
         /// <summary>
         /// Whether or not objects are equal.
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is DMChannel ch) return ch.Id == Id;
-            else return false;
-        }
+        public override bool Equals(object obj) =>
+            obj is DMChannel ch && ch.Id == Id;
         /// <summary>
         /// Whether or not channels are equal.
         /// </summary>

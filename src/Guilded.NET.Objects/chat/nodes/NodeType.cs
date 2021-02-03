@@ -1,9 +1,12 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System.Runtime.Serialization;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
     /// Type of the node.
     /// </summary>
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum NodeType {
         // Embeds & blocks
         /// <summary>

@@ -256,14 +256,14 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="announcementId">ID of the announcement</param>
         /// <returns>List of content replies</returns>
-        public async Task<IList<ContentReply>> GetAnnouncementRepliesAsync(GId announcementId) =>
-            await FromArray<ContentReply>(new Endpoint($"content/announcement/{announcementId}/replies", Method.GET));
+        public async Task<IList<AnnouncementReply>> GetAnnouncementRepliesAsync(GId announcementId) =>
+            await FromArray<AnnouncementReply>(new Endpoint($"content/announcement/{announcementId}/replies", Method.GET));
         /// <summary>
         /// Gets all comments in a given announcement.
         /// </summary>
         /// <param name="announcementId">ID of the announcement</param>
         /// <returns>List of content replies</returns>
-        public IList<ContentReply> GetAnnouncementReplies(GId announcementId) =>
+        public IList<AnnouncementReply> GetAnnouncementReplies(GId announcementId) =>
             GetAnnouncementRepliesAsync(announcementId).GetAwaiter().GetResult();
                 /// <summary>
         /// Gets a list of pinned announcements in a team.

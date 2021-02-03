@@ -70,14 +70,14 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="user">User to mention</param>
         /// <returns>Mention data</returns>
-        public static MentionData Generate(User user) =>
+        public static MentionData Generate(BaseUser user) =>
             new MentionData {
                 Type = "person",
                 Matcher = "@" + user.Username.ToLower(),
                 Color = null,
                 Name = user.Username,
                 Id = user.Id.ToString(),
-                Avatar = user.Avatar,
+                Avatar = user.ProfilePicture,
                 Nickname = false
             };
         /// <summary>

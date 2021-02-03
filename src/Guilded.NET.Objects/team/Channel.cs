@@ -55,6 +55,11 @@ namespace Guilded.NET.Objects.Teams {
         /// Turns channel to string.
         /// </summary>
         /// <returns>Channel as a string</returns>
-        public override string ToString() => $"Channel({Id})";
+        public override string ToString() => $"Channel {Id}: {Name}";
+        /// <summary>
+        /// Gets channel's hashcode.
+        /// </summary>
+        /// <returns>HashCode</returns>
+        public override int GetHashCode() => base.GetHashCode() - 50;
     }
 }
