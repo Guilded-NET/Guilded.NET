@@ -88,6 +88,11 @@ namespace Guilded.NET {
         /// <returns>Group</returns>
         public Group GetGroup(GId teamId, GId groupId) =>
             GetGroupAsync(teamId, groupId).GetAwaiter().GetResult();
+
+        //=======================//
+        //   Channels
+        //=======================//
+
         /// <summary>
         /// List of channels and categories in given team.
         /// </summary>
@@ -118,6 +123,11 @@ namespace Guilded.NET {
         /// <returns>Channel</returns>
         public Channel GetChannel(GId teamId, Guid channelId) =>
             GetChannelAsync(teamId, channelId).GetAwaiter().GetResult();
+
+        //=======================//
+        //   Channel management
+        //=======================//
+
         /// <summary>
         /// Creates a new channel in a specific team and group. Sync version of <see cref="CreateChannelAsync"/>.
         /// </summary>
@@ -159,6 +169,158 @@ namespace Guilded.NET {
         /// <param name="channel">Channel to be deleted</param>
         public void DeleteChannel(GId team, GId group, Guid channel) =>
             DeleteChannelAsync(team, group, channel).GetAwaiter().GetResult();
+
+
+        /// <summary>
+        /// Reorders channels by given channel ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team channels are in</param>
+        /// <param name="categoryId">ID of the category channels are in</param>
+        /// <param name="channelList">Channels to reorder</param>
+        public async Task ReorderChannelsAsync(GId teamId, uint? categoryId = null, params Guid[] channelList) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/channelpriorities/{categoryId?.ToString() ?? "null"}", Method.PUT), new JsonBody(channelList));
+        /// <summary>
+        /// Reorders channels by given channel ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team channels are in</param>
+        /// <param name="categoryId">ID of the category channels are in</param>
+        /// <param name="channelList">Channels to reorder</param>
+        public void ReorderChannels(GId teamId, uint? categoryId = null, params Guid[] channelList) =>
+            ReorderChannelsAsync(teamId, categoryId, channelList).GetAwaiter().GetResult();
+        
+        /// <summary>
+        /// Reorders categories by given category ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team categirues are in</param>
+        /// <param name="categoryList">Categories to reorder</param>
+        public async Task ReorderCategoriesAsync(GId teamId, params uint[] categoryList) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/categorypriorities", Method.PUT), new JsonBody(new {
+                orderedChannelCategoryIds = categoryList
+            }));
+        /// <summary>
+        /// Reorders categories by given category ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team categories are in</param>
+        /// <param name="categoryList">Chategories to reorder</param>
+        public void ReorderCategories(GId teamId, params uint[] categoryList) =>
+            ReorderCategoriesAsync(teamId, categoryList).GetAwaiter().GetResult();
+
+
+        /// <summary>
+        /// Assigns a channel to a specific category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="categoryId">Category where channel should be in</param>
+        /// <param name="channelId">ID of the channel to move</param>
+        /// <param name="shouldRoleSync">If role permissions should be synced with category</param>
+        public async Task AssignToCategoryAsync(GId teamId, uint categoryId, Guid channelId, bool shouldRoleSync = false) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/channels/{channelId}", Method.PUT), new JsonBody(new {
+                shouldRoleSync
+            }));
+        /// <summary>
+        /// Assigns a channel to a specific category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="categoryId">Category where channel should be in</param>
+        /// <param name="channelId">ID of the channel to move</param>
+        /// <param name="shouldRoleSync">If role permissions should be synced with category</param>
+        public void AssignToCategory(GId teamId, uint categoryId, Guid channelId, bool shouldRoleSync = false) =>
+            AssignToCategoryAsync(teamId, categoryId, channelId, shouldRoleSync).GetAwaiter().GetResult();
+        /// <summary>
+        /// Unassigns a channel from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove from category</param>
+        public async Task UnassignFromCategoryAsync(GId teamId, Guid channelId) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/channels/{channelId}/channelcategory", Method.DELETE));
+        /// <summary>
+        /// Unassigns a channel from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove from category</param>
+        public void UnassignFromCategory(GId teamId, Guid channelId) =>
+            UnassignFromCategoryAsync(teamId, channelId).GetAwaiter().GetResult();
+
+
+        /// <summary>
+        /// Adds a role to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated channel</returns>
+        public async Task<Channel> AddChannelRoleAsync(GId teamId, Guid channelId, uint roleId) =>
+            await FromObject<Channel>(new Endpoint($"teams/{teamId}/groups/undefined/channels/{channelId}/roles/{roleId}", Method.POST), "channel");
+        /// <summary>
+        /// Adds a role to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated channel</returns>
+        public Channel AddChannelRole(GId teamId, Guid channelId, uint roleId) =>
+            AddChannelRoleAsync(teamId, channelId, roleId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Removes a role from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated channel</returns>
+        public async Task<Channel> RemoveChannelRoleAsync(GId teamId, Guid channelId, uint roleId) =>
+            await FromObject<Channel>(new Endpoint($"teams/{teamId}/groups/undefined/channels/{channelId}/roles/{roleId}", Method.DELETE), "channel");
+        /// <summary>
+        /// Removes a role from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated channel</returns>
+        public Channel RemoveChannelRole(GId teamId, Guid channelId, uint roleId) =>
+            RemoveChannelRoleAsync(teamId, channelId, roleId).GetAwaiter().GetResult();
+        
+
+        /// <summary>
+        /// Adds a role to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated category</returns>
+        public async Task<Category> AddCategoryRoleAsync(GId teamId, uint categoryId, uint roleId) =>
+            await FromObject<Category>(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/roles/{roleId}", Method.POST), "category");
+        /// <summary>
+        /// Adds a role to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated category</returns>
+        public Category AddCategoryRole(GId teamId, uint categoryId, uint roleId) =>
+            AddCategoryRoleAsync(teamId, categoryId, roleId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Removes a role from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated category</returns>
+        public async Task<Category> RemoveCategoryRoleAsync(GId teamId, uint categoryId, uint roleId) =>
+            await FromObject<Category>(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/roles/{roleId}", Method.DELETE), "category");
+        /// <summary>
+        /// Removes a role from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated category</returns>
+        public Category RemoveCategoryRole(GId teamId, uint categoryId, uint roleId) =>
+            RemoveCategoryRoleAsync(teamId, categoryId, roleId).GetAwaiter().GetResult();
+        
+        //=======================//
+        //   Members
+        //=======================//
+
         /// <summary>
         /// Gets member with given ID.
         /// </summary>

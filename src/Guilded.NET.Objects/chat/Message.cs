@@ -12,7 +12,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Message posted in chat.
         /// </summary>
         public Message() =>
-            (IsPinned, ChannelId) = (false, null);
+            (IsPinned, ChannelId, Reactions, WebhookId, BotId, PinnedBy) = (false, null, new List<Reaction>(), null, null, null);
         /// <summary>
         /// ID of the message.
         /// </summary>
@@ -35,6 +35,22 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Message ID</value>
         [JsonProperty("createdBy", Required = Required.Always)]
         public GId AuthorId {
+            get; set;
+        }
+        /// <summary>
+        /// ID of the webhook which posted this message.
+        /// </summary>
+        /// <value>Webhook ID</value>
+        [JsonProperty("webhookId")]
+        public Guid? WebhookId {
+            get; set;
+        }
+        /// <summary>
+        /// ID of the bot which posted this message.
+        /// </summary>
+        /// <value>Bot ID</value>
+        [JsonProperty("botId")]
+        public Guid? BotId {
             get; set;
         }
         /// <summary>
@@ -74,6 +90,22 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Pinned</value>
         [JsonProperty("isPinned")]
         public bool IsPinned {
+            get; set;
+        }
+        /// <summary>
+        /// ID of the user who pinned this message.
+        /// </summary>
+        /// <value>User ID</value>
+        [JsonProperty("pinnedBy")]
+        public GId PinnedBy {
+            get; set;
+        }
+        /// <summary>
+        /// A list of all reactions on this message.
+        /// </summary>
+        /// <value>Reactions</value>
+        [JsonProperty("reactions")]
+        public IList<Reaction> Reactions {
             get; set;
         }
         /// <summary>

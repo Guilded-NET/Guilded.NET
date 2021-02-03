@@ -174,11 +174,13 @@ namespace Guilded.NET.Objects {
         /// <param name="groupId">ID of the groupp</param>
         /// <returns>Group</returns>
         Group GetGroup(GId teamId, GId groupId);
+
+
+
         /// <summary>
         /// Clears all notifications in a specific channel.
         /// </summary>
         /// <param name="channelId">ID of the channel to clear notifications in</param>
-        /// <returns>Async task</returns>
         Task ClearNotificationsAsync(Guid channelId);
         /// <summary>
         /// Clears all notifications in a specific channel.
@@ -193,7 +195,6 @@ namespace Guilded.NET.Objects {
         /// <param name="type">Channel type</param>
         /// <param name="public">If channel should be public</param>
         /// <param name="name">Name of the channel</param>
-        /// <returns>Async task</returns>
         Task CreateChannelAsync(GId team, GId group, ChannelType type, bool @public, string name);
         /// <summary>
         /// Creates a new channel in a specific team and group.
@@ -210,7 +211,6 @@ namespace Guilded.NET.Objects {
         /// <param name="team">Team to delete channel in</param>
         /// <param name="group">Group to delete channel in</param>
         /// <param name="channel">Channel to be deleted</param>
-        /// <returns>Async task</returns>
         Task DeleteChannelAsync(GId team, GId group, Guid channel);
         /// <summary>
         /// Deletes a channel in a specific team and group.
@@ -219,6 +219,127 @@ namespace Guilded.NET.Objects {
         /// <param name="group">Group to delete channel in</param>
         /// <param name="channel">Channel to be deleted</param>
         void DeleteChannel(GId team, GId group, Guid channel);
+        /// <summary>
+        /// Reorders channels by given channel ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team channels are in</param>
+        /// <param name="categoryId">ID of the category channels are in</param>
+        /// <param name="channelList">Channels to reorder</param>
+        Task ReorderChannelsAsync(GId teamId, uint? categoryId, params Guid[] channelList);
+        /// <summary>
+        /// Reorders channels by given channel ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team channels are in</param>
+        /// <param name="categoryId">ID of the category channels are in</param>
+        /// <param name="channelList">Channels to reorder</param>
+        void ReorderChannels(GId teamId, uint? categoryId, params Guid[] channelList);
+        /// <summary>
+        /// Reorders categories by given category ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team categirues are in</param>
+        /// <param name="categoryList">Categories to reorder</param>
+        Task ReorderCategoriesAsync(GId teamId, params uint[] categoryList);
+        /// <summary>
+        /// Reorders categories by given category ID array.
+        /// </summary>
+        /// <param name="teamId">ID of the team categories are in</param>
+        /// <param name="categoryList">Chategories to reorder</param>
+        void ReorderCategories(GId teamId, params uint[] categoryList);
+        /// <summary>
+        /// Assigns a channel to a specific category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="categoryId">Category where channel should be in</param>
+        /// <param name="channelId">ID of the channel to move</param>
+        /// <param name="shouldRoleSync">If role permissions should be synced with category</param>
+        Task AssignToCategoryAsync(GId teamId, uint categoryId, Guid channelId, bool shouldRoleSync);
+        /// <summary>
+        /// Assigns a channel to a specific category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="categoryId">Category where channel should be in</param>
+        /// <param name="channelId">ID of the channel to move</param>
+        /// <param name="shouldRoleSync">If role permissions should be synced with category</param>
+        void AssignToCategory(GId teamId, uint categoryId, Guid channelId, bool shouldRoleSync);
+        /// <summary>
+        /// Unassigns a channel from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove from category</param>
+        Task UnassignFromCategoryAsync(GId teamId, Guid channelId);
+        /// <summary>
+        /// Unassigns a channel from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove from category</param>
+        void UnassignFromCategory(GId teamId, Guid channelId);
+        /// <summary>
+        /// Adds a role to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated channel</returns>
+        Task<Channel> AddChannelRoleAsync(GId teamId, Guid channelId, uint roleId);
+        /// <summary>
+        /// Adds a role to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated channel</returns>
+        Channel AddChannelRole(GId teamId, Guid channelId, uint roleId);
+        /// <summary>
+        /// Removes a role from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated channel</returns>
+        Task<Channel> RemoveChannelRoleAsync(GId teamId, Guid channelId, uint roleId);
+        /// <summary>
+        /// Removes a role from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated channel</returns>
+        Channel RemoveChannelRole(GId teamId, Guid channelId, uint roleId);
+        /// <summary>
+        /// Adds a role to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated category</returns>
+        Task<Category> AddCategoryRoleAsync(GId teamId, uint categoryId, uint roleId);
+        /// <summary>
+        /// Adds a role to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add role in</param>
+        /// <param name="roleId">ID of the role to add</param>
+        /// <returns>Updated category</returns>
+        Category AddCategoryRole(GId teamId, uint categoryId, uint roleId);
+        /// <summary>
+        /// Removes a role from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated category</returns>
+        Task<Category> RemoveCategoryRoleAsync(GId teamId, uint categoryId, uint roleId);
+        /// <summary>
+        /// Removes a role from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove role in</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        /// <returns>Updated category</returns>
+        Category RemoveCategoryRole(GId teamId, uint categoryId, uint roleId);
+
+
+
         /// <summary>
         /// Gets team with given ID.
         /// </summary>

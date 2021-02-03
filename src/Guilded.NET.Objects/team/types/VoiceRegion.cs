@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Runtime.Serialization;
 
 namespace Guilded.NET.Objects.Teams {
     /// <summary>
@@ -10,22 +11,27 @@ namespace Guilded.NET.Objects.Teams {
         /// <summary>
         /// Central EU (Frankfurt)
         /// </summary>
+        [EnumMember(Value = "eu-central-1")]
         EUCentral,
         /// <summary>
         /// Western USA (Oregon)
         /// </summary>
+        [EnumMember(Value = "us-west-2")]
         USWest,
         /// <summary>
         /// Eastern USA (Ohio)
         /// </summary>
+        [EnumMember(Value = "us-east-2")]
         USEast,
         /// <summary>
         /// Asia Pacific (Sydney)
         /// </summary>
+        [EnumMember(Value = "ap-southeast-2")]
         APSydney,
         /// <summary>
         /// South America (Sao Paulo)
         /// </summary>
-        SouthAmerica
+        [EnumMember(Value = "sa-east-1")]
+        SouthAmericaEast
     }
 }
