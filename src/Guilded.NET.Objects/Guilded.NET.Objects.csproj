@@ -3,9 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
     <Version>0.0.11</Version>
-    <PackageIcon>../../assets/IconWhiteOutline.png</PackageIcon>
+    <!-- <PackageIcon>../../assets/IconWhiteOutline.png</PackageIcon> -->
     <Product>Guilded.NET.Objects</Product>
-    <id>Guilded.NET.Objects</id>
     <PackageId>Guilded.NET.Objects</PackageId>
     <Authors>IdkGoodName</Authors>
     <Description>Guilded objects for Guilded.NET</Description>
@@ -20,5 +19,6 @@
 
   <ItemGroup>
     <None Include="readme.md" Pack="true" PackagePath="" />
+    <None Include="../../assets/IconWhiteOutline.png" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

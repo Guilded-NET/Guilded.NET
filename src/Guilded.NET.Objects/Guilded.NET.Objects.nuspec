@@ -8,10 +8,12 @@
         <owners>IdkGoodName</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">MIT</license>
-        <projectUrl>https://github.com/Guilded-NET/Guilded.NET</projectUrl>
         <icon>../../assets/IconWhiteOutline.png</icon>
         <description>Guilded objects for Guilded.NET</description>
+        <projectUrl>https://guilded-net.github.io/index</projectUrl>
+        <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git"/>
         <releaseNotes>
+Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/main/CHANGELOG.md).
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>
@@ -21,5 +23,6 @@
     </metadata>
     <files>
         <file src="readme.md" target="" />
+        <file src="../../assets/IconWhiteOutline.png" target="" />
     </files>
 </package>
