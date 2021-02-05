@@ -1,10 +1,16 @@
 using Newtonsoft.Json;
+using System;
 
 namespace Guilded.NET.Objects {
     /// <summary>
     /// Emote in status or in a message.
     /// </summary>
     public class ChatEmote {
+        /// <summary>
+        /// Emote in status or in a message.
+        /// </summary>
+        public ChatEmote() =>
+            (PNGUrl, APNGUrl, WebPUrl) = (null, null, null);
         /// <summary>
         /// ID of the emote.
         /// </summary>
@@ -17,24 +23,24 @@ namespace Guilded.NET.Objects {
         /// URL to emote's PNG file.
         /// </summary>
         /// <value>.PNG URL</value>
-        [JsonProperty("png", Required = Required.AllowNull)]
-        public string PNGUrl {
+        [JsonProperty("png")]
+        public Uri PNGUrl {
             get; set;
         }
         /// <summary>
         /// URL to emote's APNG(Animated PNG) file.
         /// </summary>
         /// <value>.APNG URL</value>
-        [JsonProperty("apng", Required = Required.AllowNull)]
-        public string APNGUrl {
+        [JsonProperty("apng")]
+        public Uri APNGUrl {
             get; set;
         }
         /// <summary>
         /// URL to emote's WebP file.
         /// </summary>
         /// <value>.WEBP URL</value>
-        [JsonProperty("webp", Required = Required.AllowNull)]
-        public string WebPUrl {
+        [JsonProperty("webp")]
+        public Uri WebPUrl {
             get; set;
         }
         /// <summary>

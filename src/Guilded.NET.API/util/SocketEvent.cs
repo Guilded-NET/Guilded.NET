@@ -1,8 +1,8 @@
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Util {
+namespace Guilded.NET.API {
     /// <summary>
-    /// Websocket message given by 
+    /// Socket response by Guilded.
     /// </summary>
     public class SocketEvent: ObjectMessage {
         /// <summary>
@@ -12,6 +12,9 @@ namespace Guilded.NET.Util {
         public string MessageType {
             get; set;
         }
+        /// <summary>
+        /// Socket response by Guilded.
+        /// </summary>
         /// <param name="number">Number of the Socket Message</param>
         /// <param name="obj">Object of the Socket Message</param>
         /// <param name="type">Type of the Guilded event</param>

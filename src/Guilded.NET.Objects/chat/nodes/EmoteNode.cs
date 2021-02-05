@@ -48,12 +48,5 @@ namespace Guilded.NET.Objects.Chat {
         /// <returns>Emote node</returns>
         public static LinkNode Generate(ChatEmote reaction) =>
             Generate(EmoteInfo.Generate(reaction));
-        /// <summary>
-        /// Generates emote node.
-        /// </summary>
-        /// <param name="reaction">Emote to generate node of</param>
-        /// <returns>Emote node</returns>
-        public static LinkNode Generate(Emote reaction) =>
-            Generate(EmoteInfo.Generate(reaction));
     }
 }

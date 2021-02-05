@@ -49,7 +49,7 @@ namespace Guilded.NET.Objects {
         /// <returns>Generated status</returns>
         public UserStatus Generate(uint? emoteId = null, string content = null) {
             // Generates message content for this
-            MessageContent newContent = content != null ? MessageContent.Generate(ParagraphNode.Generate(Leaf.Generate(content))) : null;
+            MessageContent newContent = content != null ? MessageContent.Generate(ParagraphNode.Generate(content)) : null;
             // Generates status
             return Generate(emoteId, newContent);
         }
@@ -68,22 +68,6 @@ namespace Guilded.NET.Objects {
         /// <param name="content">Content of the status</param>
         /// <returns>Generated status</returns>
         public UserStatus Generate(ChatEmote emote = null, string content = null) =>
-            Generate(emote?.Id, content);
-        /// <summary>
-        /// Generates user status for setting your custom status.
-        /// </summary>
-        /// <param name="emote">ID of the emote it should use</param>
-        /// <param name="content">Content of the status</param>
-        /// <returns>Generated status</returns>
-        public UserStatus Generate(Emote emote = null, MessageContent content = null) =>
-            Generate(emote?.Id, content);
-        /// <summary>
-        /// Generates user status for setting your custom status.
-        /// </summary>
-        /// <param name="emote">ID of the emote it should use</param>
-        /// <param name="content">Content of the status</param>
-        /// <returns>Generated status</returns>
-        public UserStatus Generate(Emote emote = null, string content = null) =>
             Generate(emote?.Id, content);
     }
 }

@@ -23,4 +23,10 @@
   <ItemGroup>
     <None Include="readme.md" Pack="true" PackagePath=""/>
   </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Guilded.NET.Objects">
+      <HintPath>../Guilded.NET.Objects/bin/Release/netstandard2.1/Guilded.NET.Objects.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

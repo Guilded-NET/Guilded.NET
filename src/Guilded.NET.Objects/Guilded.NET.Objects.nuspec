@@ -12,8 +12,6 @@
         <icon>../../assets/IconWhiteOutline.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <releaseNotes>
-- Edit/delete forum posts
-- Channel settings
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

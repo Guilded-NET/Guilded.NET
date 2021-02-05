@@ -1,4 +1,4 @@
-namespace Guilded.NET.Util {
+namespace Guilded.NET.API {
     /// <summary>
     /// Socket response by Guilded.
     /// </summary>
@@ -10,6 +10,9 @@ namespace Guilded.NET.Util {
         public uint Number {
             get; set;
         }
+        /// <summary>
+        /// Socket response by Guilded.
+        /// </summary>
         /// <param name="number">Number of the Socket Message</param>
         public SocketMessage(uint number) =>
             Number = number;

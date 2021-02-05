@@ -278,8 +278,43 @@ namespace Guilded.NET {
         /// <returns>Updated channel</returns>
         public Channel RemoveChannelRole(GId teamId, Guid channelId, uint roleId) =>
             RemoveChannelRoleAsync(teamId, channelId, roleId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Adds a user permission to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated channel</returns>
+        public async Task<Channel> AddChannelUserAsync(GId teamId, Guid channelId, GId userId) =>
+            await FromObject<Channel>(new Endpoint($"teams/{teamId}/groups/undefined/channels/{channelId}/userpermissions/{userId}", Method.POST), "channel");
+        /// <summary>
+        /// Adds a user permission to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated channel</returns>
+        public Channel AddChannelUser(GId teamId, Guid channelId, GId userId) =>
+            AddChannelUserAsync(teamId, channelId, userId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Removes a user permission from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated channel</returns>
+        public async Task<Channel> RemoveChannelUserAsync(GId teamId, Guid channelId, GId userId) =>
+            await FromObject<Channel>(new Endpoint($"teams/{teamId}/groups/undefined/channels/{channelId}/userpermissions/{userId}", Method.DELETE), "channel");
+        /// <summary>
+        /// Removes a user permission from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated channel</returns>
+        public Channel RemoveChannelUser(GId teamId, Guid channelId, GId userId) =>
+            RemoveChannelUserAsync(teamId, channelId, userId).GetAwaiter().GetResult();
         
-
         /// <summary>
         /// Adds a role to a category.
         /// </summary>
@@ -317,6 +352,43 @@ namespace Guilded.NET {
         public Category RemoveCategoryRole(GId teamId, uint categoryId, uint roleId) =>
             RemoveCategoryRoleAsync(teamId, categoryId, roleId).GetAwaiter().GetResult();
         
+        /// <summary>
+        /// Adds a user permission to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated category</returns>
+        public async Task<Category> AddCategoryUserAsync(GId teamId, uint categoryId, GId userId) =>
+            await FromObject<Category>(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/userpermissions/{userId}", Method.POST), "category");
+        /// <summary>
+        /// Adds a user permission to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated category</returns>
+        public Category AddCategoryUser(GId teamId, uint categoryId, GId userId) =>
+            AddCategoryUserAsync(teamId, categoryId, userId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Removes a user permission from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated category</returns>
+        public async Task<Category> RemoveCategoryUserAsync(GId teamId, uint categoryId, GId userId) =>
+            await FromObject<Category>(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/userpermissions/{userId}", Method.DELETE), "category");
+        /// <summary>
+        /// Removes a user permission from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated category</returns>
+        public Category RemoveCategoryUser(GId teamId, uint categoryId, GId userId) =>
+            RemoveCategoryUserAsync(teamId, categoryId, userId).GetAwaiter().GetResult();
+        
         //=======================//
         //   Members
         //=======================//
@@ -338,49 +410,42 @@ namespace Guilded.NET {
         public TeamMember GetMember(GId team, GId user) =>
             GetMemberAsync(team, user).GetAwaiter().GetResult();
         /// <summary>
-        /// Creates a form for form node.
+        /// Gives a role to a member.
         /// </summary>
-        /// <param name="form">Form to create</param>
-        /// <returns>Form ID</returns>
-        public async Task<uint> CreateFormAsync(BasicGuildedForm form) =>
-            await FromObject<uint>(new Endpoint($"content/custom_forms", Method.PUT), "customFormId", new JsonBody(form, Converters));
+        /// <param name="teamId">ID of the team where member is in</param>
+        /// <param name="memberId">ID of the member who should get a role</param>
+        /// <param name="roleId">ID of the role to give</param>
+        public async Task GiveRoleAsync(GId teamId, GId memberId, uint roleId) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/roles/{roleId}/users/{memberId}", Method.PUT));
         /// <summary>
-        /// Creates a form for form node.
+        /// Gives a role to a member.
         /// </summary>
-        /// <param name="form">Form to create</param>
-        /// <returns>Form ID</returns>
-        public uint CreateForm(BasicGuildedForm form) =>
-            CreateFormAsync(form).GetAwaiter().GetResult();
+        /// <param name="teamId">ID of the team where member is in</param>
+        /// <param name="memberId">ID of the member who should get a role</param>
+        /// <param name="roleId">ID of the role to give</param>
+        public void GiveRole(GId teamId, GId memberId, uint roleId) =>
+            GiveRoleAsync(teamId, memberId, roleId).GetAwaiter().GetResult();
         /// <summary>
-        /// Gets a form or a poll by form ID.
+        /// Removes a role from a member.
         /// </summary>
-        /// <param name="formId">ID of the form to get</param>
-        /// <returns>A form and a form response</returns>
-        public async Task<FormData> GetFormAsync(uint formId) =>
-            await FromObject<FormData>(new Endpoint($"content/custom_forms/{formId}", Method.GET));
+        /// <param name="teamId">ID of the team where member is in</param>
+        /// <param name="memberId">ID of the member who should lose a role</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        public async Task RemoveRoleAsync(GId teamId, GId memberId, uint roleId) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/roles/{roleId}/users/{memberId}", Method.DELETE));
         /// <summary>
-        /// Gets a form or a poll by form ID.
+        /// Removes a role from a member.
         /// </summary>
-        /// <param name="formId">ID of the form to get</param>
-        /// <returns>A form and a form response</returns>
-        public FormData GetForm(uint formId) =>
-            GetFormAsync(formId).GetAwaiter().GetResult();
-        /// <summary>
-        /// Submits a form response.
-        /// </summary>
-        /// <param name="formId">Form ID it is responding to</param>
-        /// <param name="response">Response to submit</param>
-        /// <returns>Response ID</returns>
-        public async Task<uint> PostFormResponseAsync(uint formId, BasicFormResponse response) =>
-            await FromObject<uint>(new Endpoint($"content/custom_forms/{formId}/responses", Method.PUT), "customFormResponseId", new JsonBody(response, Converters));
-        /// <summary>
-        /// Submits a form response.
-        /// </summary>
-        /// <param name="formId">Form ID it is responding to</param>
-        /// <param name="response">Response to submit</param>
-        /// <returns>Response ID</returns>
-        public uint PostFormResponse(uint formId, BasicFormResponse response) =>
-            PostFormResponseAsync(formId, response).GetAwaiter().GetResult();
+        /// <param name="teamId">ID of the team where member is in</param>
+        /// <param name="memberId">ID of the member who should lose a role</param>
+        /// <param name="roleId">ID of the role to remove</param>
+        public void RemoveRole(GId teamId, GId memberId, uint roleId) =>
+            RemoveRoleAsync(teamId, memberId, roleId).GetAwaiter().GetResult();
+
+        //=======================//
+        //   Overview
+        //=======================//
+
         /// <summary>
         /// Gets an overview page of a team.
         /// </summary>
@@ -441,6 +506,53 @@ namespace Guilded.NET {
         /// <returns>List of announcements</returns>
         public IList<Announcement> GetPinnedAnnouncements(GId teamId) =>
             GetPinnedAnnouncementsAsync(teamId).GetAwaiter().GetResult();
+
+
+
+        /// <summary>
+        /// Creates a form for form node.
+        /// </summary>
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        public async Task<uint> CreateFormAsync(BasicGuildedForm form) =>
+            await FromObject<uint>(new Endpoint($"content/custom_forms", Method.PUT), "customFormId", new JsonBody(form, Converters));
+        /// <summary>
+        /// Creates a form for form node.
+        /// </summary>
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        public uint CreateForm(BasicGuildedForm form) =>
+            CreateFormAsync(form).GetAwaiter().GetResult();
+        /// <summary>
+        /// Gets a form or a poll by form ID.
+        /// </summary>
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form and a form response</returns>
+        public async Task<FormData> GetFormAsync(uint formId) =>
+            await FromObject<FormData>(new Endpoint($"content/custom_forms/{formId}", Method.GET));
+        /// <summary>
+        /// Gets a form or a poll by form ID.
+        /// </summary>
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form and a form response</returns>
+        public FormData GetForm(uint formId) =>
+            GetFormAsync(formId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Submits a form response.
+        /// </summary>
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        public async Task<uint> PostFormResponseAsync(uint formId, BasicFormResponse response) =>
+            await FromObject<uint>(new Endpoint($"content/custom_forms/{formId}/responses", Method.PUT), "customFormResponseId", new JsonBody(response, Converters));
+        /// <summary>
+        /// Submits a form response.
+        /// </summary>
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        public uint PostFormResponse(uint formId, BasicFormResponse response) =>
+            PostFormResponseAsync(formId, response).GetAwaiter().GetResult();
         /// <summary>
         /// Sets a new nickname for a member.
         /// </summary>

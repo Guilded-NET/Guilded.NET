@@ -6,6 +6,10 @@ namespace Guilded.NET.Objects {
     using Forms;
     using Teams;
     public partial interface IGuildedClient {
+        //=======================//
+        //   Overview
+        //=======================//
+
         /// <summary>
         /// Gets an overview page of a team.
         /// </summary>
@@ -18,6 +22,50 @@ namespace Guilded.NET.Objects {
         /// <param name="teamId">Team to get overview of</param>
         /// <returns>Team overview page</returns>
         TeamOverview GetOverview(GId teamId);
+
+        //=======================//
+        //   Teams
+        //=======================//
+
+        /// <summary>
+        /// Joins a specific team.
+        /// </summary>
+        /// <param name="team">Team to join</param>
+        /// <returns>Async task</returns>
+        Task JoinTeamAsync(GId team);
+        /// <summary>
+        /// Joins a specific team.
+        /// </summary>
+        /// <param name="team">Team to join</param>
+        void JoinTeam(GId team);
+        /// <summary>
+        /// Leaves a specific team.
+        /// </summary>
+        /// <param name="team">Team to leave</param>
+        /// <returns>Async task</returns>
+        Task LeaveTeamAsync(GId team);
+        /// <summary>
+        /// Leaves a specific team.
+        /// </summary>
+        /// <param name="team">Team to leave</param>
+        void LeaveTeam(GId team);
+        /// <summary>
+        /// Gets team with given ID.
+        /// </summary>
+        /// <param name="id">Team ID</param>
+        /// <returns>Team</returns>
+        Task<Team> GetTeamAsync(GId id);
+        /// <summary>
+        /// Gets team with given ID.
+        /// </summary>
+        /// <param name="id">Team ID</param>
+        /// <returns>Team</returns>
+        Team GetTeam(GId id);
+
+        //=======================//
+        //   Members
+        //=======================//
+
         /// <summary>
         /// Sets a new nickname for a member.
         /// </summary>
@@ -73,66 +121,6 @@ namespace Guilded.NET.Objects {
         /// <param name="memberId">ID of the member to unban</param>
         void UnbanMember(GId teamId, GId memberId);
         /// <summary>
-        /// Creates a form for form node.
-        /// </summary>
-        /// <param name="form">Form to create</param>
-        /// <returns>Form ID</returns>
-        Task<uint> CreateFormAsync(BasicGuildedForm form);
-        /// <summary>
-        /// Creates a form for form node.
-        /// </summary>
-        /// <param name="form">Form to create</param>
-        /// <returns>Form ID</returns>
-        uint CreateForm(BasicGuildedForm form);
-        /// <summary>
-        /// Gets a form or a poll by form ID.
-        /// </summary>
-        /// <param name="formId">ID of the form to get</param>
-        /// <returns>A form and a form response</returns>
-        Task<FormData> GetFormAsync(uint formId);
-        /// <summary>
-        /// Gets a form or a poll by form ID.
-        /// </summary>
-        /// <param name="formId">ID of the form to get</param>
-        /// <returns>A form and a form response</returns>
-        FormData GetForm(uint formId);
-        /// <summary>
-        /// Submits a form response.
-        /// </summary>
-        /// <param name="formId">Form ID it is responding to</param>
-        /// <param name="response">Response to submit</param>
-        /// <returns>Response ID</returns>
-        Task<uint> PostFormResponseAsync(uint formId, BasicFormResponse response);
-        /// <summary>
-        /// Submits a form response.
-        /// </summary>
-        /// <param name="formId">Form ID it is responding to</param>
-        /// <param name="response">Response to submit</param>
-        /// <returns>Response ID</returns>
-        uint PostFormResponse(uint formId, BasicFormResponse response);
-        /// <summary>
-        /// Joins a specific team.
-        /// </summary>
-        /// <param name="team">Team to join</param>
-        /// <returns>Async task</returns>
-        Task JoinTeamAsync(GId team);
-        /// <summary>
-        /// Joins a specific team.
-        /// </summary>
-        /// <param name="team">Team to join</param>
-        void JoinTeam(GId team);
-        /// <summary>
-        /// Leaves a specific team.
-        /// </summary>
-        /// <param name="team">Team to leave</param>
-        /// <returns>Async task</returns>
-        Task LeaveTeamAsync(GId team);
-        /// <summary>
-        /// Leaves a specific team.
-        /// </summary>
-        /// <param name="team">Team to leave</param>
-        void LeaveTeam(GId team);
-        /// <summary>
         /// Gets member with given ID.
         /// </summary>
         /// <param name="team">Team ID</param>
@@ -146,20 +134,11 @@ namespace Guilded.NET.Objects {
         /// <param name="user">User ID</param>
         /// <returns>Member</returns>
         TeamMember GetMember(GId team, GId user);
-        /// <summary>
-        /// Gets a channel by ID.
-        /// </summary>
-        /// <param name="teamId">ID of the team</param>
-        /// <param name="channelId">ID of the channel</param>
-        /// <returns>Channel</returns>
-        Task<Channel> GetChannelAsync(GId teamId, Guid channelId);
-        /// <summary>
-        /// Gets a channel by ID.
-        /// </summary>
-        /// <param name="teamId">ID of the team</param>
-        /// <param name="channelId">ID of the channel</param>
-        /// <returns>Channel</returns>
-        Channel GetChannel(GId teamId, Guid channelId);
+
+        //=======================//
+        //   Groups
+        //=======================//
+
         /// <summary>
         /// Gets a group by ID.
         /// </summary>
@@ -174,9 +153,37 @@ namespace Guilded.NET.Objects {
         /// <param name="groupId">ID of the groupp</param>
         /// <returns>Group</returns>
         Group GetGroup(GId teamId, GId groupId);
+        /// <summary>
+        /// List of groups in given team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>List of groups</returns>
+        Task<IList<Group>> GetGroupsAsync(GId teamId);
+        /// <summary>
+        /// List of groups in given team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>List of groups</returns>
+        IList<Group> GetGroups(GId teamId);
 
+        //=======================//
+        //   Channels
+        //=======================//
 
-
+        /// <summary>
+        /// Gets a channel by ID.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>Channel</returns>
+        Task<Channel> GetChannelAsync(GId teamId, Guid channelId);
+        /// <summary>
+        /// Gets a channel by ID.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <param name="channelId">ID of the channel</param>
+        /// <returns>Channel</returns>
+        Channel GetChannel(GId teamId, Guid channelId);
         /// <summary>
         /// Clears all notifications in a specific channel.
         /// </summary>
@@ -219,6 +226,23 @@ namespace Guilded.NET.Objects {
         /// <param name="group">Group to delete channel in</param>
         /// <param name="channel">Channel to be deleted</param>
         void DeleteChannel(GId team, GId group, Guid channel);
+        /// <summary>
+        /// List of channels and categories in given team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>Channel list</returns>
+        Task<Channels> GetChannelsAsync(GId teamId);
+        /// <summary>
+        /// List of channels and categories in given team.
+        /// </summary>
+        /// <param name="teamId">ID of the team</param>
+        /// <returns>Channel list</returns>
+        Channels GetChannels(GId teamId);
+
+        //=================================//
+        //   Channel & category ordering
+        //=================================//
+
         /// <summary>
         /// Reorders channels by given channel ID array.
         /// </summary>
@@ -273,6 +297,11 @@ namespace Guilded.NET.Objects {
         /// <param name="teamId">ID of the team where channel is in</param>
         /// <param name="channelId">ID of the channel to remove from category</param>
         void UnassignFromCategory(GId teamId, Guid channelId);
+
+        //==================================//
+        //   Channel & category permissions
+        //==================================//
+
         /// <summary>
         /// Adds a role to a channel.
         /// </summary>
@@ -337,44 +366,112 @@ namespace Guilded.NET.Objects {
         /// <param name="roleId">ID of the role to remove</param>
         /// <returns>Updated category</returns>
         Category RemoveCategoryRole(GId teamId, uint categoryId, uint roleId);
+        /// <summary>
+        /// Adds a user permission to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated channel</returns>
+        Task<Channel> AddChannelUserAsync(GId teamId, Guid channelId, GId userId);
+        /// <summary>
+        /// Adds a user permission to a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated channel</returns>
+        Channel AddChannelUser(GId teamId, Guid channelId, GId userId);
+        /// <summary>
+        /// Removes a user permission from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated channel</returns>
+        Task<Channel> RemoveChannelUserAsync(GId teamId, Guid channelId, GId userId);
+        /// <summary>
+        /// Removes a user permission from a channel.
+        /// </summary>
+        /// <param name="teamId">ID of the team where channel is in</param>
+        /// <param name="channelId">ID of the channel to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated channel</returns>
+        Channel RemoveChannelUser(GId teamId, Guid channelId, GId userId);
+        /// <summary>
+        /// Adds a user permission to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated category</returns>
+        Task<Category> AddCategoryUserAsync(GId teamId, uint categoryId, GId userId);
+        /// <summary>
+        /// Adds a user permission to a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to add user in</param>
+        /// <param name="userId">ID of the user to add</param>
+        /// <returns>Updated category</returns>
+        Category AddCategoryUser(GId teamId, uint categoryId, GId userId);
+        /// <summary>
+        /// Removes a user permission from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated category</returns>
+        Task<Category> RemoveCategoryUserAsync(GId teamId, uint categoryId, GId userId);
+        /// <summary>
+        /// Removes a user permission from a category.
+        /// </summary>
+        /// <param name="teamId">ID of the team where category is in</param>
+        /// <param name="categoryId">ID of the category to remove user permission in</param>
+        /// <param name="userId">ID of the user to remove permissions of</param>
+        /// <returns>Updated category</returns>
+        Category RemoveCategoryUser(GId teamId, uint categoryId, GId userId);
 
+        //=======================//
+        //   Forms
+        //=======================//
 
-
         /// <summary>
-        /// Gets team with given ID.
+        /// Creates a form for form node.
         /// </summary>
-        /// <param name="id">Team ID</param>
-        /// <returns>Team</returns>
-        Task<Team> GetTeamAsync(GId id);
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        Task<uint> CreateFormAsync(BasicGuildedForm form);
         /// <summary>
-        /// Gets team with given ID.
+        /// Creates a form for form node.
         /// </summary>
-        /// <param name="id">Team ID</param>
-        /// <returns>Team</returns>
-        Team GetTeam(GId id);
+        /// <param name="form">Form to create</param>
+        /// <returns>Form ID</returns>
+        uint CreateForm(BasicGuildedForm form);
         /// <summary>
-        /// List of channels and categories in given team.
+        /// Gets a form or a poll by form ID.
         /// </summary>
-        /// <param name="teamId">ID of the team</param>
-        /// <returns>Channel list</returns>
-        Task<Channels> GetChannelsAsync(GId teamId);
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form and a form response</returns>
+        Task<FormData> GetFormAsync(uint formId);
         /// <summary>
-        /// List of channels and categories in given team.
+        /// Gets a form or a poll by form ID.
         /// </summary>
-        /// <param name="teamId">ID of the team</param>
-        /// <returns>Channel list</returns>
-        Channels GetChannels(GId teamId);
+        /// <param name="formId">ID of the form to get</param>
+        /// <returns>A form and a form response</returns>
+        FormData GetForm(uint formId);
         /// <summary>
-        /// List of groups in given team.
+        /// Submits a form response.
         /// </summary>
-        /// <param name="teamId">ID of the team</param>
-        /// <returns>List of groups</returns>
-        Task<IList<Group>> GetGroupsAsync(GId teamId);
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        Task<uint> PostFormResponseAsync(uint formId, BasicFormResponse response);
         /// <summary>
-        /// List of groups in given team.
+        /// Submits a form response.
         /// </summary>
-        /// <param name="teamId">ID of the team</param>
-        /// <returns>List of groups</returns>
-        IList<Group> GetGroups(GId teamId);
+        /// <param name="formId">Form ID it is responding to</param>
+        /// <param name="response">Response to submit</param>
+        /// <returns>Response ID</returns>
+        uint PostFormResponse(uint formId, BasicFormResponse response);
     }
 }

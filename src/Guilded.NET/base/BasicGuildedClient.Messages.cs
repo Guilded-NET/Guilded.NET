@@ -1,4 +1,3 @@
-using System.Xml.Schema;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET {
     using Objects.Events;
-    using Util;
+    using API;
     /// <summary>
     /// A base for user bot clients and normal bot clients.
     /// </summary>
@@ -95,20 +94,6 @@ namespace Guilded.NET {
         /// <value>Dictionary of key(command attribute) and value(command method)</value>
         public Dictionary<CommandAttribute, CommandMethod> CommandDictionary {
             get; set;
-        }
-        /// <summary>
-        /// An event when Guilded gives a heartbeat response.
-        /// </summary>
-        public event EventHandler<int> HeartbeatResponse {
-            add => HeartbeatEvent += value;
-            remove => HeartbeatEvent -= value;
-        }
-        /// <summary>
-        /// Event when Websocket receives a message.
-        /// </summary>
-        protected event EventHandler<SocketMessage> GuildedWebsocketMessage {
-            add => GuildedWebsocketMessageEvent += value;
-            remove => GuildedWebsocketMessageEvent -= value;
         }
         /// <summary>
         /// When someone adds a reaction to a message.

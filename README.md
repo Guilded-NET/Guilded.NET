@@ -2,7 +2,7 @@
 
 # Guilded.NET
 
-[![Version](https://img.shields.io/badge/Version-0.0.10-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Alpha-red?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-0.0.11-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Alpha-red?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
 Guilded.NET is an API wrapper for [Guilded](https://guilded.gg). Guilded.NET allows you to interact with API in an easy way. Use Guilded.NET to create bots, self-bots and whatever you want. Guilded.NET uses .NET, so be sure to install it before using it.
 

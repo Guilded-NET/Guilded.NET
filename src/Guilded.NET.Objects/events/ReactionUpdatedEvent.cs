@@ -21,7 +21,7 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Reaction emote</value>
         [JsonProperty("reaction")]
-        public Reaction Emote {
+        public ChatEmote Emote {
             get; set;
         }
         /// <summary>

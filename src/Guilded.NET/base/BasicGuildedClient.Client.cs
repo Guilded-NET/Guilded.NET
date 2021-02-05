@@ -11,7 +11,6 @@ using System.Threading;
 
 namespace Guilded.NET {
     using API;
-    using Util;
     using Objects.Converters;
     using Objects;
     using Objects.Teams;
@@ -19,8 +18,6 @@ namespace Guilded.NET {
     /// A base for user bot clients and normal bot clients.
     /// </summary>
     public abstract partial class BasicGuildedClient: BaseGuildedClient {
-        event EventHandler<SocketMessage> GuildedWebsocketMessageEvent;
-        event EventHandler<int> HeartbeatEvent;
         /// <summary>
         /// An event when client is connected and it is fully ready to be used.
         /// </summary>
@@ -46,11 +43,6 @@ namespace Guilded.NET {
         protected static JsonConverter[] Converters {
             get; set;
         }
-        /// <summary>
-        /// Regexp for numbers at the start of Guilded's mess
-        /// </summary>
-        /// <returns></returns>
-        protected static Regex NumberStart = new Regex("^([0-9]+)");
         /// <summary>
         /// Configuration of this client.
         /// </summary>
@@ -81,7 +73,8 @@ namespace Guilded.NET {
                     new IdConverter(),
                     new NodeConverter(),
                     new ClientObjectConverter(this),
-                    new MiscConverter()
+                    new MiscConverter(),
+                    new ColourConverter()
                 }
             );
             // Adds default converters
@@ -112,102 +105,6 @@ namespace Guilded.NET {
             return Task.CompletedTask;
         }
         /// <summary>
-        /// Initializes websocket.
-        /// </summary>
-        /// <param name="reconnection">Seconds of time between each reconnection</param>
-        /// <param name="teamId">ID of the team to initialize websocket in</param>
-        public override WebsocketClient InitWebsocket(double? reconnection = null, string teamId = null) {
-            // Calls base to create a websocket
-            WebsocketClient websocket = base.InitWebsocket(reconnection, teamId);
-            // Subscribe to message event, so we could get events such as message creation event
-            websocket.MessageReceived.Subscribe(WebsocketMessageReceived);
-            // Start that websocket
-            websocket.StartOrFail().GetAwaiter().GetResult();
-            return websocket;
-        }
-        /// <summary>
-        /// Used for when Websocket receives a message.
-        /// </summary>
-        /// <param name="msg">Websocket message</param>
-        protected virtual void WebsocketMessageReceived(ResponseMessage msg) {
-            if(msg.MessageType == WebSocketMessageType.Text) {
-                // Matches the number using Regex
-                string strnum = NumberStart.Match(msg.Text).Value;
-                // Parses the number
-                uint.TryParse(strnum, out uint num);
-                // Trimmed string
-                string trimmed = msg.Text[strnum.Length..];
-                // If there is nothing else besides number, invoke the event
-                if(string.IsNullOrWhiteSpace(trimmed)) {
-                    GuildedWebsocketMessageEvent?.Invoke(this, new SocketMessage(num));
-                    return;
-                }
-                // Parses it as token
-                JToken token = JToken.Parse(trimmed);
-                // Get type of the socket message
-                if(token.Type == JTokenType.Array) {
-                    JArray array = (JArray)token;
-                    // If first item is string and second item is object, then it's SocketEvent
-                    if (array[0].Type == JTokenType.String && array[1].Type == JTokenType.Object) {
-                        // Get first item as value and second item as object
-                        JValue value = (JValue)array[0];
-                        JObject obj = (JObject)array[1];
-                        // Invoke the event
-                        GuildedWebsocketMessageEvent?.Invoke(this, new SocketEvent(num, obj, value.ToString()));
-                    }
-                }
-                else if(token.Type == JTokenType.Object) {
-                    // Get token as object
-                    JObject jobj = (JObject)token;
-                    // Invoke the event
-                    GuildedWebsocketMessageEvent?.Invoke(this, new ObjectMessage(num, jobj));
-                }
-            }
-        }
-        /// <summary>
-        /// Sets referer as a specific team channel.
-        /// </summary>
-        /// <param name="channel">Channel to refer to</param>
-        public async Task SetReferer(Channel channel) {
-            // Team that channel is in
-            Team team = await channel.GetTeamAsync();
-            // All groups of that team
-            IList<Group> groups = await team.GetGroupsAsync();
-            // Sets new referer
-            Referer = $"{team.Subdomain}/groups/{groups.FirstOrDefault(x => x.Id == channel.GroupId)}/channels/{channel.Id}/chat";
-        }
-        /// <summary>
-        /// Sets referer as a specific team thread.
-        /// </summary>
-        /// <param name="channel">Thread to refer to</param>
-        public async Task SetReferer(ThreadChannel channel) {
-            // Team that channel is in
-            Team team = await channel.GetTeamAsync();
-            // All groups of that team
-            IList<Group> groups = await team.GetGroupsAsync();
-            // Sets new referer
-            Referer = $"{team.Subdomain}/groups/{groups.FirstOrDefault(x => x.Id == channel.GroupId)}/channels/{channel.Id}/chat";
-        }
-        /// <summary>
-        /// Sets referer as a specific DM channel.
-        /// </summary>
-        /// <param name="channel">DM channel to set referer as</param>
-        public void SetReferer(DMChannel channel) =>
-            Referer = $"{channel.Id}/chat";
-        /// <summary>
-        /// Sets referer as a specific team's overvierw, audit, member list or applications.
-        /// </summary>
-        /// <param name="team">Team to refer to</param>
-        /// <param name="refer">To what it should refer to in the team</param>
-        public void SetReferer(Team team, TeamRefer refer) =>
-            Referer = $"{team.Subdomain}/{refer.ToString().ToLower()}";
-        /// <summary>
-        /// Creates a new websocket which focuses on a specific server.
-        /// </summary>
-        /// <param name="id">ID of the server. Nullable.</param>
-        public void FocusOnTeam(GId id) =>
-            InitWebsocket(25, id != null ? $"teamId={id}" : "jwt=undefined");
-        /// <summary>
         /// Base for disconnect method.
         /// </summary>
         /// <returns>Task</returns>
@@ -222,12 +119,6 @@ namespace Guilded.NET {
             DisconnectAsync().GetAwaiter().GetResult();
             base.Dispose();
         }
-        /// <summary>
-        /// Invokes a heartbeat event.
-        /// </summary>
-        /// <param name="sender">Who is invoking the event</param>
-        /// <param name="value">Heartbeat response</param>
-        protected void InvokeHeartbeatEvent(object sender, int value) => HeartbeatEvent?.Invoke(sender, value);
         /// <summary>
         /// Sends a request to Guilded, gets an object and gets a specific key.
         /// </summary>

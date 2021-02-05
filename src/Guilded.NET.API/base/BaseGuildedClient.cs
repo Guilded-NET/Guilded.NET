@@ -3,17 +3,18 @@ using RestSharp;
 using System;
 using System.Net.WebSockets;
 using Websocket.Client;
-using System.Threading;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 
 namespace Guilded.NET.API {
+    using Objects;
+    using Objects.Teams;
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
-    public abstract class BaseGuildedClient: IDisposable {
+    public abstract partial class BaseGuildedClient: IDisposable {
         /// <summary>
         /// A random for generating IDs.
         /// </summary>
@@ -30,20 +31,6 @@ namespace Guilded.NET.API {
         /// Events when client gets Connected/Disconnected.
         /// </summary>
         protected EventHandler ConnectedEvent, DisconnectedEvent;
-        /// <summary>
-        /// Thread for heartbeats.
-        /// </summary>
-        /// <value>Thread</value>
-        protected Thread HeartbeatThread {
-            get; set;
-        }
-        /// <summary>
-        /// Token for cancelling heartbeat thread.
-        /// </summary>
-        /// <value>Cancellation Token</value>
-        protected CancellationTokenSource HeartbeatToken {
-            get; set;
-        }
         /// <summary>
         /// Guilded API URL.
         /// </summary>
@@ -236,7 +223,7 @@ namespace Guilded.NET.API {
             // To what it is referring
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
             // Adds that file
-            req.AddFile(Path.GetFileName(filepath), filedata, filepath);
+            req.AddFile(Path.GetFileName(filepath), filedata, filepath, "multipart/form-data");
             // Adds a header telling its type
             req.AddHeader("Content-Type", "multipart/form-data");
             // Sends that request and gets URL from it
@@ -320,23 +307,12 @@ namespace Guilded.NET.API {
                 client.ReconnectTimeout = TimeSpan.FromSeconds(reconnection.Value);
             // Adds it to websocket dictionary
             Websockets.Add(additionalQuery ?? "", client);
+            // Subscribe to message event, so we could get events such as message creation event
+            client.MessageReceived.Subscribe(WebsocketMessageReceived);
+            // Start that websocket
+            client.StartOrFail().GetAwaiter().GetResult();
             // Returns that websocket
             return client;
-        }
-        /// <summary>
-        /// Removes a websocket from a specific team.
-        /// </summary>
-        /// <param name="teamId">ID of the team to remove websocket in</param>
-        public virtual void RemoveWebsocket(string teamId = null) {
-            // Gets a key for the team
-            string teamQuery = "teamId=" + teamId;
-            // If that websocket exists
-            if(Websockets.ContainsKey(teamQuery)) {
-                // Disposes that websocket
-                Websockets[teamQuery].Dispose();
-                // Removes it from dictionary
-                Websockets.Remove(teamQuery);
-            }
         }
         /// <summary>
         /// Connects to Guilded client/user.
@@ -356,31 +332,47 @@ namespace Guilded.NET.API {
             foreach(WebsocketClient client in Websockets.Values) client.Dispose();
         }
         /// <summary>
-        /// Method for a heartbeat thread.
+        /// Sets referer as a specific team channel.
         /// </summary>
-        /// <param name="token">Token for cancelling while loop</param>
-        /// <exception cref="GuildedException">When it fails to send a ping through REST client</exception>
-        protected virtual async Task HeartbeatThreadMethod(CancellationToken token) {
-            // Turn seconds into milliseconds
-            int ms = (int)HeartbeatTime * 1000;
-            // If thread wasn't cancelled
-            while(!token.IsCancellationRequested) {
-                // Sends a heartbeat
-                await SendHeartbeat("2");
-                // Make it sleep until the next hearbeat
-                Thread.Sleep(ms);
-            }
+        /// <param name="channel">Channel to refer to</param>
+        public async Task SetReferer(Channel channel) {
+            // Team that channel is in
+            Team team = await channel.GetTeamAsync();
+            // All groups of that team
+            IList<Group> groups = await team.GetGroupsAsync();
+            // Sets new referer
+            Referer = $"{team.Subdomain}/groups/{groups.FirstOrDefault(x => x.Id == channel.GroupId)}/channels/{channel.Id}/chat";
         }
         /// <summary>
-        /// Sends a heartbeat to the websocket server.
+        /// Sets referer as a specific team thread.
         /// </summary>
-        /// <param name="value">Heartbeat value</param>
-        /// <exception cref="GuildedException">When it fails to send a ping through REST client</exception>
-        protected virtual async Task SendHeartbeat(string value) {
-            // Websocket sends ping
-            foreach(WebsocketClient client in Websockets.Values) client.Send(value);
-            // Rest client sends a ping too
-            await ExecuteRequest<object>(Endpoint.PING);
+        /// <param name="channel">Thread to refer to</param>
+        public async Task SetReferer(ThreadChannel channel) {
+            // Team that channel is in
+            Team team = await channel.GetTeamAsync();
+            // All groups of that team
+            IList<Group> groups = await team.GetGroupsAsync();
+            // Sets new referer
+            Referer = $"{team.Subdomain}/groups/{groups.FirstOrDefault(x => x.Id == channel.GroupId)}/channels/{channel.Id}/chat";
         }
+        /// <summary>
+        /// Sets referer as a specific DM channel.
+        /// </summary>
+        /// <param name="channel">DM channel to set referer as</param>
+        public void SetReferer(DMChannel channel) =>
+            Referer = $"{channel.Id}/chat";
+        /// <summary>
+        /// Sets referer as a specific team's overvierw, audit, member list or applications.
+        /// </summary>
+        /// <param name="team">Team to refer to</param>
+        /// <param name="refer">To what it should refer to in the team</param>
+        public void SetReferer(Team team, TeamRefer refer) =>
+            Referer = $"{team.Subdomain}/{refer.ToString().ToLower()}";
+        /// <summary>
+        /// Creates a new websocket which focuses on a specific server.
+        /// </summary>
+        /// <param name="id">ID of the server. Nullable.</param>
+        public void FocusOnTeam(GId id) =>
+            InitWebsocket(25, id != null ? $"teamId={id}" : "jwt=undefined");
     }
 }

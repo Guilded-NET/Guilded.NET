@@ -25,7 +25,15 @@ namespace Guilded.NET.Objects.Events {
         public Message Message {
             get; set;
         }
-
+        /// <summary>
+        /// Author of the message.
+        /// </summary>
+        /// <value>User ID</value>
+        [JsonIgnore]
+        public GId AuthorId {
+            get => Message.AuthorId;
+        }
+        
         /// <summary>
         /// Adds a reaction on a message.
         /// </summary>
@@ -90,13 +98,13 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <returns>Message owner</returns>
         public async Task<User> GetAuthorAsync() =>
-            await ParentClient.GetUserAsync(Message.AuthorId);
+            await ParentClient.GetUserAsync(AuthorId);
         /// <summary>
         /// Gets owner or author of this message.
         /// </summary>
         /// <returns>Message owner</returns>
         public User GetAuthor() =>
-            ParentClient.GetUser(Message.AuthorId);
+            ParentClient.GetUser(AuthorId);
         /// <summary>
         /// If this message was posted by given user.
         /// </summary>

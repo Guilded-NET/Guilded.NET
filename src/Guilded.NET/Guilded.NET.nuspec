@@ -12,9 +12,6 @@
         <icon>../../assets/IconWhiteOutline.png</icon>
         <description>API wrapper for Guilded</description>
         <releaseNotes>
-- Now you can give prefix as a string in GuildedClientConfig
-- Connected is now called before `.Me` is assigned.
-- Added Prepared event when client is ready and `.Me` is assigned.
         </releaseNotes>
         <copyright>Copyright 2020</copyright>
         <tags>wrapper,api,chat,guilded</tags>

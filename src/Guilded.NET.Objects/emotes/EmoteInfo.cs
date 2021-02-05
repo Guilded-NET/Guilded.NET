@@ -40,12 +40,5 @@ namespace Guilded.NET.Objects {
                 CustomEmoteId = emote.Id,
                 CustomEmote = emote
             };
-        /// <summary>
-        /// Generates an emote info.
-        /// </summary>
-        /// <param name="emote">Emote to generate emote info from</param>
-        /// <returns>Emote info</returns>
-        public static EmoteInfo Generate(Emote emote) =>
-            Generate(ChatEmote.From(emote));
     }
 }

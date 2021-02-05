@@ -2,7 +2,7 @@ using RestSharp;
 using System.Linq;
 using System.Collections.Generic;
 using System;
-using System.Net;
+using Guilded.NET.Objects;
 
 namespace Guilded.NET.API {
     /// <summary>
@@ -20,7 +20,7 @@ namespace Guilded.NET.API {
         /// What user it currently is authenticated as.
         /// </summary>
         /// <value>User ID</value>
-        public string AuthenticatedAs {
+        public GId AuthenticatedAs {
             get; protected set;
         }
         /// <summary>
@@ -65,7 +65,7 @@ namespace Guilded.NET.API {
         public ExecutionResponse(IRestResponse<T> response) {
             Response = response;
             // As who client is authenticated
-            AuthenticatedAs = response.Headers.FirstOrDefault(x => x.Name == "authenticated-as")?.Value as string;
+            AuthenticatedAs = GId.Parse(response.Headers.FirstOrDefault(x => x.Name == "authenticated-as")?.Value as string);
             // Gets allowed methods header
             var parameter = response.Headers.FirstOrDefault(x => x.Name == "access-control-allow-methods");
             // If it's not null

@@ -1,4 +1,4 @@
-namespace Guilded.NET {
+namespace Guilded.NET.API {
     /// <summary>
     /// To what referer should be set as in the team.
     /// </summary>

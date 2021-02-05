@@ -6,7 +6,7 @@ namespace Guilded.NET.Objects.Teams {
     /// <summary>
     /// Represents permission in a channel.
     /// </summary>
-    public class ChannelPermission: BaseObject, IPermission {
+    public class ChannelPermission: PermissionBase, IPermission {
         /// <summary>
         /// Id of the team this permission's channel is in.
         /// </summary>
@@ -31,16 +31,6 @@ namespace Guilded.NET.Objects.Teams {
         /// <inheritdoc/>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
         public DateTime? UpdatedAt {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("denyPermissions")]
-        public PermissionList DenyPermissions {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("allowPermissions")]
-        public PermissionList AllowPermissions {
             get; set;
         }
     }
