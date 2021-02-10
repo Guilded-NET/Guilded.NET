@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
@@ -10,8 +11,9 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the Guilded client.
         /// </summary>
         /// <value>Guilded client ID</value>
-        [JsonProperty("guildedClientId", Required = Required.Always)]
-        public Guid GuildedClientId {
+        [JsonProperty("guildedClientId")]
+        [DefaultValue(null)]
+        public Guid? GuildedClientId {
             get; set;
         }
     }

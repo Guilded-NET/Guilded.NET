@@ -40,7 +40,7 @@ namespace Guilded.NET {
         /// JSON converters used to (de)serialize Guilded responses and websocket events.
         /// </summary>
         /// <value>List of JSON converters</value>
-        protected static JsonConverter[] Converters {
+        public JsonConverter[] Converters {
             get; set;
         }
         /// <summary>

@@ -1,3 +1,9 @@
+## `ALPHA` 0.0.11.1
+
+- Fixed a bug where client's message would make Guilded.NET hang because of client ID missing
+- Fixed converters for some unknown reason being static and protected. Now they are public.
+- Fixed icons
+
 ## `ALPHA` 0.0.11
 
 - Now you can give prefix as a string in GuildedClientConfig

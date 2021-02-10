@@ -2,13 +2,13 @@
 <package>
     <metadata>
         <id>Guilded.NET.Objects</id>
-        <version>0.0.11</version>
+        <version>0.0.11.1</version>
         <title>Guilded.NET.Objects</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">MIT</license>
-        <icon>../../assets/IconWhiteOutline.png</icon>
+        <icon>Icon.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <projectUrl>https://guilded-net.github.io/index</projectUrl>
         <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git"/>
@@ -23,6 +23,6 @@ Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/mai
     </metadata>
     <files>
         <file src="readme.md" target="" />
-        <file src="../../assets/IconWhiteOutline.png" target="" />
+        <file src="Icon.png" target="" />
     </files>
 </package>

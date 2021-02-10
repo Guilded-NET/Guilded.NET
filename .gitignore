@@ -1,0 +1,7 @@
+src/Guilded*/bin
+src/Guilded*/bin/*
+src/Guilded*/obj
+src/Guilded*/obj/*
+src/Guilded*/Icon.png
+*.vscode
+*.nupkg

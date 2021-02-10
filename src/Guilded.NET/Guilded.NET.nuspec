@@ -2,13 +2,13 @@
 <package>
     <metadata>
         <id>Guilded.NET</id>
-        <version>0.0.11</version>
+        <version>0.0.11.1</version>
         <title>Guilded.NET</title>
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <license type="expression">MIT</license>
-        <icon>../../assets/IconWhiteOutline.png</icon>
+        <icon>Icon.png</icon>
         <description>API wrapper for Guilded</description>
         <projectUrl>https://guilded-net.github.io/index</projectUrl>
         <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git"/>
@@ -22,11 +22,12 @@ Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/mai
             <dependency id="Websocket.Client" version="4.3.21" />
             <dependency id="Newtonsoft.Json" version="12.0.3" />
             <dependency id="System.Reactive" version="4.4.1" />
-            <dependency id="Guilded.NET.API" version="0.0.11" />
-            <dependency id="Guilded.NET.Objects" version="0.0.11" />
+            <dependency id="Guilded.NET.API" version="0.0.11.1" />
+            <dependency id="Guilded.NET.Objects" version="0.0.11.1" />
         </dependencies>
     </metadata>
     <files>
         <file src="readme.md" target="" />
+        <file src="Icon.png" target="" />
     </files>
 </package>

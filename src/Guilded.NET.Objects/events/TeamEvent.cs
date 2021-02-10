@@ -1,6 +1,7 @@
 using Guilded.NET.Objects.Chat;
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace Guilded.NET.Objects.Events {
@@ -9,11 +10,6 @@ namespace Guilded.NET.Objects.Events {
     /// A base for events in teams(reaction events, message events).
     /// </summary>
     public class TeamEvent: ClientEvent {
-        /// <summary>
-        /// A base for events in teams(reaction events, message events).
-        /// </summary>
-        public TeamEvent() =>
-            CategoryId = null;
         /// <summary>
         /// ID of the channel this reaction's message is in.
         /// </summary>
@@ -27,6 +23,7 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Category ID</value>
         [JsonProperty("channelCategoryId", Required = Required.AllowNull)]
+        [DefaultValue(null)]
         public uint? CategoryId {
             get; set;
         }
@@ -35,7 +32,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Team</value>
         [JsonProperty("channelType")]
-        public ChatType ChannelType {
+        [DefaultValue(null)]
+        public ChatType? ChannelType {
             get; set;
         }
         /// <summary>
