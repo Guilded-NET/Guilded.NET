@@ -26,7 +26,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="leaves">List of message leaves</param>
         /// <returns>Small heading node</returns>
-        public static SmallTitleNode Generate(params Leaf[] leaves) => Generate(TextObj.GenerateText(leaves));
+        public static SmallTitleNode GenerateFromLeaves(params Leaf[] leaves) => Generate(TextObj.GenerateText(leaves));
         /// <summary>
         /// Turns small heading node to string.
         /// </summary>

@@ -24,6 +24,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Object of the mark.
         /// </summary>
         /// <value>MsgObject.Mark</value>
+        [JsonProperty("object", Required = Required.Always)]
         public MsgObject Object {
             get; set;
         }

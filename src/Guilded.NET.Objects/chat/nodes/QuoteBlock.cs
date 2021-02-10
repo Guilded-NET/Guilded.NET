@@ -29,6 +29,18 @@ namespace Guilded.NET.Objects.Chat {
         public static QuoteBlock Generate(params TextObj[] objs) =>
             Generate(objs.Select(x => QuoteBlockLine.Generate(x)).ToArray());
         /// <summary>
+        /// Generates quote block node.
+        /// </summary>
+        /// <param name="content">List of strings to generate quote block from</param>
+        /// <returns>Quote block node</returns>
+        public static QuoteBlock Generate(params string[] content) => Generate(content.Select(x => QuoteBlockLine.Generate(x)).ToArray());
+        /// <summary>
+        /// Generates quote block node from given leaves.
+        /// </summary>
+        /// <param name="leaves">List of leaves to generate quote block from</param>
+        /// <returns>Quote block node</returns>
+        public static QuoteBlock GenerateFromLeaves(params Leaf[] leaves) => Generate(TextObj.GenerateText(leaves));
+        /// <summary>
         /// Turns quote block to string.
         /// </summary>
         /// <returns>Quote block as a string</returns>

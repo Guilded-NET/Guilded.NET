@@ -315,7 +315,7 @@ namespace Guilded.NET.Objects.Teams {
         /// <param name="member">Member to get permissions of</param>
         /// <returns>Allowed permissions</returns>
         public PermissionList GetPermissionsOf(TeamMember member) =>
-            RolesById["baseRole"].Permissions + member.RoleIds.Select(x => RolesById[x.ToString()].Permissions).Aggregate((a, b) => a + b);
+            RolesById["baseRole"].Permissions + member.RoleIds?.Select(x => RolesById[x.ToString()].Permissions)?.Aggregate((a, b) => a + b);
         /// <summary>
         /// Gets a colour of a specific member.
         /// </summary>

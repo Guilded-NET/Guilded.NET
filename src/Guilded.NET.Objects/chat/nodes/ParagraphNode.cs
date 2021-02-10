@@ -22,16 +22,16 @@ namespace Guilded.NET.Objects.Chat {
                 Nodes = objs
             };
         /// <summary>
-        /// Generates paragraph node.
-        /// </summary>
-        /// <param name="leaves">List of message leaves</param>
-        /// <returns>Paragraph node</returns>
-        public static ParagraphNode Generate(params Leaf[] leaves) => Generate(TextObj.GenerateText(leaves));
-        /// <summary>
-        /// Generates paragraph node.
+        /// Generates paragraph node from given string array.
         /// </summary>
         /// <param name="content">A list of strings to turn to text objects</param>
         /// <returns>Paragraph node</returns>
         public static ParagraphNode Generate(params string[] content) => Generate(content.Select(x => Leaf.Generate(x)).ToArray());
+        /// <summary>
+        /// Generates paragraph node from given leaves.
+        /// </summary>
+        /// <param name="leaves">List of message leaves</param>
+        /// <returns>Paragraph node</returns>
+        public static ParagraphNode GenerateFromLeaves(params Leaf[] leaves) => Generate(TextObj.GenerateText(leaves));
     }
 }

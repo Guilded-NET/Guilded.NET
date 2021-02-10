@@ -1,3 +1,9 @@
+## `ALPHA` 0.0.11.2
+
+- Node generation fixes
+- MarkType & Mark fixes
+- Fixed .GetPermissionOf() errors
+
 ## `ALPHA` 0.0.11.1
 
 - Fixed a bug where client's message would make Guilded.NET hang because of client ID missing

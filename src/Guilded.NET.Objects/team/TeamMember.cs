@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Teams {
@@ -60,7 +60,8 @@ namespace Guilded.NET.Objects.Teams {
         /// IDs of the roles this member has.
         /// </summary>
         /// <value>Role IDs</value>
-        [JsonProperty("roleIds", Required = Required.AllowNull)]
+        [JsonProperty("roleIds", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
+        [DefaultValue(new uint[] {})]
         public IList<uint> RoleIds {
             get; set;
         }
