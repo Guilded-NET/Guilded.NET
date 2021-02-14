@@ -16,10 +16,6 @@ namespace Guilded.NET.API {
     /// </summary>
     public abstract partial class BaseGuildedClient: IDisposable {
         /// <summary>
-        /// A random for generating IDs.
-        /// </summary>
-        protected static readonly Random IdRandom = new Random();
-        /// <summary>
         /// When no team is given, use this query.
         /// </summary>
         static readonly string emptyTeam = "jwt=undefined";
@@ -214,7 +210,8 @@ namespace Guilded.NET.API {
             if(string.IsNullOrWhiteSpace(filepath)) throw new ArgumentException($"{nameof(filepath)} can not be empty.");
             // Create new request
             RestRequest req = new RestRequest($"{GuildedMediaURL}/{Endpoint.UPLOAD_MEDIA.Path}?dynamicMediaTypeId=ContentMedia", Endpoint.UPLOAD_MEDIA.EndpointMethod) {
-                AlwaysMultipartFormData = true
+                AlwaysMultipartFormData = true,
+                RequestFormat = DataFormat.Json
             };
             // Add parameters
             if(LoginCookies != null)
@@ -224,6 +221,7 @@ namespace Guilded.NET.API {
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
             // Adds that file
             req.AddFile(Path.GetFileName(filepath), filedata, filepath, "multipart/form-data");
+            req.AddParameter("uploadTrackingId", FormId.Random.ToString(), "multipart/form-data", ParameterType.GetOrPost);
             // Adds a header telling its type
             req.AddHeader("Content-Type", "multipart/form-data");
             // Sends that request and gets URL from it
@@ -252,7 +250,7 @@ namespace Guilded.NET.API {
              *   "uploadTrackingId": "r-1000000-1000000"
              * }
              */
-            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"r-{IdRandom.Next(1000000, int.MaxValue)}-{IdRandom.Next(1000000, int.MaxValue)}\" }}");
+            req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"{FormId.Random}\" }}");
             // Sends that request and gets URL from it
             return await GetMedia(req);
         }

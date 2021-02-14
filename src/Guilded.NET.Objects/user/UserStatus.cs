@@ -35,39 +35,22 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <param name="emoteId">ID of the emote it should use</param>
         /// <param name="content">Content of the status</param>
+        /// <param name="expiresIn">When it should expire in milliseconds</param>
         /// <returns>Generated status</returns>
-        public UserStatus Generate(uint? emoteId = null, MessageContent content = null) =>
+        public static UserStatus Generate(uint? emoteId = null, MessageContent content = null, ulong? expiresIn = null) =>
             new UserStatus {
                 EmoteId = emoteId,
-                Content = content
+                Content = content,
+                ExpiresIn = expiresIn
             };
         /// <summary>
         /// Generates user status for setting your custom status.
         /// </summary>
-        /// <param name="emoteId">ID of the emote it should use</param>
-        /// <param name="content">Content of the status</param>
-        /// <returns>Generated status</returns>
-        public UserStatus Generate(uint? emoteId = null, string content = null) {
-            // Generates message content for this
-            MessageContent newContent = content != null ? MessageContent.Generate(ParagraphNode.Generate(content)) : null;
-            // Generates status
-            return Generate(emoteId, newContent);
-        }
-        /// <summary>
-        /// Generates user status for setting your custom status.
-        /// </summary>
         /// <param name="emote">ID of the emote it should use</param>
         /// <param name="content">Content of the status</param>
+        /// <param name="expiresIn">When it should expire in milliseconds</param>
         /// <returns>Generated status</returns>
-        public UserStatus Generate(ChatEmote emote = null, MessageContent content = null) =>
-            Generate(emote?.Id, content);
-        /// <summary>
-        /// Generates user status for setting your custom status.
-        /// </summary>
-        /// <param name="emote">ID of the emote it should use</param>
-        /// <param name="content">Content of the status</param>
-        /// <returns>Generated status</returns>
-        public UserStatus Generate(ChatEmote emote = null, string content = null) =>
-            Generate(emote?.Id, content);
+        public static UserStatus Generate(ChatEmote emote, MessageContent content = null, ulong? expiresIn = null) =>
+            Generate(emote.Id, content, expiresIn);
     }
 }

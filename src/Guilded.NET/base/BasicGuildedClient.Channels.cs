@@ -96,6 +96,73 @@ namespace Guilded.NET {
         /// <returns>Message</returns>
         public Message GetMessage(string subdomain, GId groupId, Guid channelId, Guid messageId) =>
             GetMessageAsync(subdomain, groupId, channelId, messageId).GetAwaiter().GetResult();
+        /// <summary>
+        /// Creates a thread as a response to a message.
+        /// </summary>
+        /// <param name="contentType">Type of the channel where thread should be created in</param>
+        /// <param name="name">Name of the thread</param>
+        /// <param name="message">Message to respond to</param>
+        /// <param name="response">Content of the response</param>
+        /// <returns>Thread created</returns>
+        public async Task<ThreadChannel> CreateThreadAsync(ChannelType contentType, string name, Message message, MessageContent response) {
+            // Thread's ID
+            Guid channelId = Guid.NewGuid();
+            // Creates new thread info
+            var threadInit = new {
+                // A response message
+                message = new {
+                    id = Guid.NewGuid(),
+                    channelId,
+                    content = response,
+                    type = MessageType.Default,
+                    createdBy = Me.Id,
+                    createdAt = DateTime.Now,
+                    webhookId = (Guid?)null,
+                    botId = (Guid?)null,
+                    isOptimistic = true
+                },
+                // ID of the thread
+                channelId,
+                // ID of the message thread is created in
+                threadMessageId = message.Id,
+                // Name of the thread
+                name,
+                // Message thread is created in COPY
+                initialThreadMessage = new {
+                    id = Guid.NewGuid(),
+                    channelId,
+                    content = message.Content,
+                    type = message.Type,
+                    createdBy = message.AuthorId,
+                    createdAt = message.CreatedAt,
+                    webhookId = message.WebhookId,
+                    botId = message.BotId,
+                    isOptimistic = false
+                },
+                // Type of the channel where thread was created in
+                contentType,
+                // Not sure
+                confirmed = false
+            };
+            // TODO: Fix `Channel not found`
+
+            // Console.WriteLine("========================");
+            // Console.WriteLine(JsonConvert.SerializeObject(threadInit, Formatting.Indented, Converters));
+            // Console.WriteLine("========================");
+
+            // Creates and returns the thread
+            return await FromObject<ThreadChannel>(new Endpoint($"channels/{message.ChannelId}/threads", Method.POST), "thread", new JsonBody(threadInit, Converters));
+        }
+        /// <summary>
+        /// Creates a thread as a response to a message.
+        /// </summary>
+        /// <param name="contentType">Type of the channel where thread should be created in</param>
+        /// <param name="name">Name of the thread</param>
+        /// <param name="message">Message to respond to</param>
+        /// <param name="response">Content of the response</param>
+        /// <returns>Thread created</returns>
+        public ThreadChannel CreateThread(ChannelType contentType, string name, Message message, MessageContent response) =>
+            CreateThreadAsync(contentType, name, message, response).GetAwaiter().GetResult();
 
         //=======================//
         //   Forums
