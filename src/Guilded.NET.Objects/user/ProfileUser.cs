@@ -1,8 +1,9 @@
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Guilded.NET.Objects {
     using Content;
@@ -10,11 +11,6 @@ namespace Guilded.NET.Objects {
     /// Guilded user. This is NOT Guild member.
     /// </summary>
     public class ProfileUser: BaseUser {
-        /// <summary>
-        /// Guilded user. This is NOT Guild member.
-        /// </summary>
-        public ProfileUser() =>
-            Email = null;
         /// <summary>
         /// A URL subdomain for this user.
         /// </summary>
@@ -28,41 +24,42 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Email</value>
         [JsonProperty("email")]
+        [DefaultValue(null)]
         public string Email {
             get; set;
         }
         /// <summary>
         /// Large version of profile picture.
         /// </summary>
-        [JsonProperty("profilePictureLg")]
+        [JsonProperty("profilePictureLg", Required = Required.AllowNull)]
         public Uri AvatarLarge {
             get; set;
         }
         /// <summary>
         /// Small version of profile picture.
         /// </summary>
-        [JsonProperty("profilePictureSm")]
+        [JsonProperty("profilePictureSm", Required = Required.AllowNull)]
         public Uri AvatarSmall {
             get; set;
         }
         /// <summary>
         /// Blurry version of profile picture.
         /// </summary>
-        [JsonProperty("profilePictureBlur")]
+        [JsonProperty("profilePictureBlur", Required = Required.AllowNull)]
         public Uri AvatarBlurry {
             get; set;
         }
         /// <summary>
         /// Large version of profile banner.
         /// </summary>
-        [JsonProperty("profileBannerLg")]
+        [JsonProperty("profileBannerLg", Required = Required.AllowNull)]
         public Uri ProfileBannerLarge {
             get; set;
         }
         /// <summary>
         /// Small version of profile banner.
         /// </summary>
-        [JsonProperty("profileBannerSm")]
+        [JsonProperty("profileBannerSm", Required = Required.AllowNull)]
         public Uri ProfileBannerSmall {
             get; set;
         }

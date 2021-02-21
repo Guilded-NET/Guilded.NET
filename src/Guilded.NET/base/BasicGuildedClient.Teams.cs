@@ -99,7 +99,7 @@ namespace Guilded.NET {
         /// <param name="teamId">ID of the team</param>
         /// <returns>Channel list</returns>
         public async Task<Channels> GetChannelsAsync(GId teamId) =>
-            await FromObject<Channels>(new Endpoint($"/teams/{teamId}/channels", Method.GET));
+            await FromObject<Channels>(new Endpoint($"teams/{teamId}/channels", Method.GET));
         /// <summary>
         /// List of channels and categories in given team. Sync version of <see cref="GetChannelsAsync"/>.
         /// </summary>

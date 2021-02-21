@@ -1,6 +1,7 @@
 using Guilded.NET.Objects.Chat;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.ComponentModel;
 using System.Threading.Tasks;
 
@@ -63,24 +64,32 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <returns>Parent channel</returns>
         public async Task<BaseChannel> GetChannelAsync() =>
-            await ParentClient.GetChannelAsync(TeamId, ChannelId);
+            ChannelType == ChatType.Team
+            ? (BaseChannel)await ParentClient.GetChannelAsync(TeamId, ChannelId)
+            : (await ParentClient.GetDMChannelsAsync()).FirstOrDefault(x => x.Id == ChannelId);
         /// <summary>
         /// Gets parent channel of this message event.
         /// </summary>
         /// <returns>Parent channel</returns>
         public BaseChannel GetChannel() =>
-            ParentClient.GetChannel(TeamId, ChannelId);
+            ChannelType == ChatType.Team
+            ? (BaseChannel)ParentClient.GetChannel(TeamId, ChannelId)
+            : ParentClient.GetDMChannels().FirstOrDefault(x => x.Id == ChannelId);
         /// <summary>
         /// Gets parent team of this message event.
         /// </summary>
         /// <returns>Parent team</returns>
         public async Task<Team> GetTeamAsync() =>
-            await ParentClient.GetTeamAsync(TeamId);
+            ChannelType == ChatType.Team
+            ? await ParentClient.GetTeamAsync(TeamId)
+            : null;
         /// <summary>
         /// Gets parent team of this message event.
         /// </summary>
         /// <returns>Parent team</returns>
         public Team GetTeam() =>
-            ParentClient.GetTeam(TeamId);
+            ChannelType == ChatType.Team
+            ? ParentClient.GetTeam(TeamId)
+            : null;
     }
 }

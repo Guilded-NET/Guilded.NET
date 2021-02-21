@@ -1,23 +1,14 @@
 using System;
-using Newtonsoft.Json;
+using System.ComponentModel;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
     using Teams;
     /// <summary>
     /// An update which was applied to the channel.
     /// </summary>
-    public class ChannelUpdate {
-        /// <summary>
-        /// Represents Guilded channel.
-        /// </summary>
-        public ChannelUpdate() =>
-            (ParentChannel, ChannelCategoryId, AddedAt) = (null, null, null);
-        /// <inheritdoc/>
-        [JsonProperty("priority")]
-        public long? Priority {
-            get; set;
-        }
+    public class ChannelUpdate: ClientObject {
         /// <summary>
         /// ID of this channel.
         /// </summary>
@@ -26,53 +17,20 @@ namespace Guilded.NET.Objects.Events {
         public Guid Id {
             get; set;
         }
-        /// <inheritdoc/>
+        /// <summary>
+        /// Name of this channel.
+        /// </summary>
+        /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
         public string Name {
             get; set;
         }
         /// <summary>
-        /// Description of this channel.
+        /// A description/topic of this channel.
         /// </summary>
-        /// <value>Channel Description</value>
-        [JsonProperty("description", Required = Required.Always)]
+        /// <value>Description</value>
+        [JsonProperty("description", Required = Required.AllowNull)]
         public string Description {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("rolesById")]
-        public IDictionary<string, ChannelPermission> RolePermissions {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("userPermissions")]
-        public IList<UserPermission> UserPermissions {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("teamId")]
-        public GId TeamId {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("channelCategoryId")]
-        public uint? ChannelCategoryId {
-            get; set;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <value>Date</value>
-        [JsonProperty("addedAt")]
-        public DateTime? AddedAt {
-            get; set;
-        }
-        /// <summary>
-        /// If role permissions are synced with the category.
-        /// </summary>
-        /// <value></value>
-        [JsonProperty("isRoleSynced")]
-        public bool? IsRoleSynced {
             get; set;
         }
         /// <summary>
@@ -83,51 +41,49 @@ namespace Guilded.NET.Objects.Events {
         public bool IsPublic {
             get; set;
         }
-        /// <inheritdoc/>
-        [JsonProperty("groupId")]
-        public GId GroupId {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        /// <summary>
+        /// ID of the category this channel is in.
+        /// </summary>
+        /// <value>Nullable Channel ID</value>
+        [JsonProperty("channelCategoryId")]
+        [DefaultValue(null)]
+        public uint? ChannelCategoryId {
             get; set;
         }
         /// <summary>
-        /// Who created the channel.
+        /// Settings of this channel.
         /// </summary>
-        /// <value>User ID</value>
-        [JsonProperty("createdBy")]
-        public GId CreatedBy {
-            get; set;
-        }
-        /// <inheritdoc/>
-        [JsonProperty("updatedAt", Required = Required.AllowNull)]
-        public DateTime? UpdatedAt {
+        /// <value>Settings</value>
+        [JsonProperty("settings")]
+        [DefaultValue(null)]
+        public ChannelSettings Settings {
             get; set;
         }
         /// <summary>
-        /// Type of the channel.
+        /// Who archived this channel.
         /// </summary>
-        /// <value>Content Type</value>
-        [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType Type {
+        /// <value>Archived by</value>
+        [JsonProperty("archivedBy")]
+        [DefaultValue(null)]
+        public GId ArchivedBy {
             get; set;
         }
         /// <summary>
-        /// When the channel was archived.
+        /// When this channel got archived.
         /// </summary>
-        /// <value>Date</value>
-        [JsonProperty("archivedAt", Required = Required.AllowNull)]
+        /// <value>Archived at</value>
+        [JsonProperty("archivedAt")]
+        [DefaultValue(null)]
         public DateTime? ArchivedAt {
             get; set;
         }
         /// <summary>
-        /// User who archived it.
+        /// Type of this channel.
         /// </summary>
-        /// <value>User ID</value>
-        [JsonProperty("archivedBy", Required = Required.AllowNull)]
-        public GId ArchivedBy {
+        /// <value>Content Type</value>
+        [JsonProperty("contentType")]
+        [DefaultValue(null)]
+        public ChannelType ContentType {
             get; set;
         }
         /// <summary>
@@ -135,31 +91,98 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("parentChannelId")]
+        [DefaultValue(null)]
         public Guid? ParentChannel {
             get; set;
         }
         /// <summary>
-        /// Auto archive date.
+        /// When this channel got deleted.
         /// </summary>
-        /// <value>Date</value>
-        [JsonProperty("autoArchiveAt", Required = Required.AllowNull)]
-        public DateTime? AutoArchiveAt {
-            get; set;
-        }
-        /// <summary>
-        /// Date when it was deleted.
-        /// </summary>
-        /// <value>Date</value>
-        [JsonProperty("deletedAt", Required = Required.AllowNull)]
+        /// <value>Deleted at</value>
+        [JsonProperty("deletedAt")]
+        [DefaultValue(null)]
         public DateTime? DeletedAt {
             get; set;
         }
         /// <summary>
-        /// All of the settings of the current channel.
+        /// Who created this channel.
         /// </summary>
-        /// <value>Channel settings</value>
-        [JsonProperty("settings")]
-        public IDictionary<string, object> Settings {
+        /// <value>Created by</value>
+        [JsonProperty("createdBy")]
+        [DefaultValue(null)]
+        public GId CreatedBy {
+            get; set;
+        }
+        /// <summary>
+        /// When this channel should get archived.
+        /// </summary>
+        /// <value>Auto archive at</value>
+        [JsonProperty("autoArchiveAt")]
+        [DefaultValue(null)]
+        public DateTime? AutoArchiveAt {
+            get; set;
+        }
+        /// <summary>
+        /// Which webhook created this channel.
+        /// </summary>
+        /// <value>Created by webhook ID</value>
+        [JsonProperty("createdByWebhookId")]
+        [DefaultValue(null)]
+        public Guid? CreatedByWebhook {
+            get; set;
+        }
+        /// <summary>
+        /// Which webhook archived this channel.
+        /// </summary>
+        /// <value>Archived by webhook ID</value>
+        [JsonProperty("archivedByWebhookId")]
+        [DefaultValue(null)]
+        public Guid? ArchivedByWebhook {
+            get; set;
+        }
+        /// <summary>
+        /// Priority/sort index of this channel.
+        /// </summary>
+        /// <value>Priority</value>
+        [JsonProperty("priority")]
+        [DefaultValue(null)]
+        public long? Priority {
+            get; set;
+        }
+        /// <summary>
+        /// Permissions of the roles in this channel.
+        /// </summary>
+        /// <value>Role Permissions</value>
+        [JsonProperty("rolesById")]
+        [DefaultValue(null)]
+        public IDictionary<string, ChannelPermission> RolePermissions {
+            get; set;
+        }
+        /// <summary>
+        /// Permissions of the users in this channel.
+        /// </summary>
+        /// <value>User Permissions</value>
+        [JsonProperty("userPermissions")]
+        [DefaultValue(null)]
+        public IList<UserPermission> UserPermissions {
+            get; set;
+        }
+        /// <summary>
+        /// ID of team this channel is in.
+        /// </summary>
+        /// <value>Team ID</value>
+        [JsonProperty("teamId")]
+        [DefaultValue(null)]
+        public GId TeamId {
+            get; set;
+        }
+        /// <summary>
+        /// ID of the group this channel is in.
+        /// </summary>
+        /// <value>Group ID</value>
+        [JsonProperty("groupId")]
+        [DefaultValue(null)]
+        public GId GroupId {
             get; set;
         }
     }

@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
@@ -18,16 +19,18 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Removed</value>
         [JsonProperty("isRemoved")]
-        public bool? IsRemoved {
+        [DefaultValue(false)]
+        public bool IsRemoved {
             get; set;
-        } = null;
+        }
         /// <summary>
         /// If the user was banned from the team.
         /// </summary>
         /// <value>Banned from team</value>
         [JsonProperty("isUserBannedFromTeam")]
-        public bool? IsBanned {
+        [DefaultValue(false)]
+        public bool IsBanned {
             get; set;
-        } = null;
+        }
     }
 }

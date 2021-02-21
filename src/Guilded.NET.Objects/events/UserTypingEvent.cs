@@ -10,7 +10,7 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the channel this message was posted in.
         /// </summary>
         /// <value>Channel ID</value>
-        [JsonProperty("channelId")]
+        [JsonProperty("channelId", Required = Required.Always)]
         public Guid ChannelId {
             get; set;
         }
@@ -18,7 +18,7 @@ namespace Guilded.NET.Objects.Events {
         /// ID of the channel this message was posted in.
         /// </summary>
         /// <value>Channel ID</value>
-        [JsonProperty("userId")]
+        [JsonProperty("userId", Required = Required.Always)]
         public GId UserId {
             get; set;
         }

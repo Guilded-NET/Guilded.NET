@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.11.2</Version>
+    <Version>0.0.12</Version>
     <Product>Guilded.NET.Objects</Product>
     <Authors>IdkGoodName</Authors>
     <Description>Guilded objects for Guilded.NET</Description>

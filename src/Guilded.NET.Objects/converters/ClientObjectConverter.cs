@@ -44,12 +44,16 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="serializer">Serializer used</param>
         /// <returns>ClientObject with client assigned</returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
-            // Creates new ClientObject instance
-            ClientObject clientObject = (ClientObject)Activator.CreateInstance(objectType);
-            // Assigns client to client object
+            // Gets index of this converter to insert it back later
+            int index = serializer.Converters.IndexOf(this);
+            // Temporarily removes this serializer
+            serializer.Converters.Remove(this);
+            // Deserializes the object without this converter
+            ClientObject clientObject = (ClientObject)serializer.Deserialize(reader, objectType);
+            // Assigns client to the client object
             clientObject.ParentClient = Client;
-            // Populates it
-            serializer.Populate(reader, clientObject);
+            // Adds it back
+            serializer.Converters.Insert(index, this);
             // Returns client object
             return clientObject;
         }

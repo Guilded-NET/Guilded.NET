@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace Guilded.NET.Objects.Events {
     /// <summary>
@@ -6,11 +7,6 @@ namespace Guilded.NET.Objects.Events {
     /// </summary>
     /// <value>USER_UPDATED</value>
     public class UserUpdatedEvent: Event {
-        /// <summary>
-        /// When user gets updated.
-        /// </summary>
-        public UserUpdatedEvent() =>
-            (Name, Subdomain, Email) = (null, null, null);
         /// <summary>
         /// ID of the user updated.
         /// </summary>
@@ -24,6 +20,7 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Null or name</value>
         [JsonProperty("name")]
+        [DefaultValue(null)]
         public string Name {
             get; set;
         } 
@@ -32,6 +29,7 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Null or email</value>
         [JsonProperty("email")]
+        [DefaultValue(null)]
         public string Email {
             get; set;
         } 
@@ -40,8 +38,18 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Null or subdomain</value>
         [JsonProperty("subdomain")]
+        [DefaultValue(null)]
         public string Subdomain {
             get; set;
-        } 
+        }
+        /// <summary>
+        /// A new about info(tagline, about section) for this user.
+        /// </summary>
+        /// <value>Null or about info</value>
+        [JsonProperty("aboutInfo")]
+        [DefaultValue(null)]
+        public About About {
+            get; set;
+        }
     }
 }

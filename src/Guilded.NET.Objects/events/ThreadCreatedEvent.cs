@@ -9,7 +9,7 @@ namespace Guilded.NET.Objects.Events {
         /// Thread which was created.
         /// </summary>
         /// <value>Thread</value>
-        [JsonProperty("channel")]
+        [JsonProperty("channel", Required = Required.Always)]
         public ThreadChannel Channel {
             get; set;
         }

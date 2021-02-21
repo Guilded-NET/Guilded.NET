@@ -343,6 +343,18 @@ namespace Guilded.NET.Objects.Teams {
         /// <returns>Channel</returns>
         public Channel GetChannel(Guid channelId) =>
             ParentClient.GetChannel(Id, channelId);
+        /// <summary>
+        /// Gets this user team as a normal team.
+        /// </summary>
+        /// <returns>Team</returns>
+        public async Task<Team> AsTeamAsync() =>
+            await ParentClient.GetTeamAsync(Id);
+        /// <summary>
+        /// Gets this user team as a normal team.
+        /// </summary>
+        /// <returns>Team</returns>
+        public Team AsTeam() =>
+            ParentClient.GetTeam(Id);
         
         //=====================//
         //   Overrides

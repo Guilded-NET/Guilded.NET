@@ -12,7 +12,7 @@ namespace Guilded.NET.Objects.Events {
         /// Type of the channel this reaction is in.
         /// </summary>
         /// <value>Channel type</value>
-        [JsonProperty("contentType")]
+        [JsonProperty("contentType", Required = Required.Always)]
         public ChannelType ContentType {
             get; set;
         }
@@ -20,7 +20,7 @@ namespace Guilded.NET.Objects.Events {
         /// Reaction's emote.
         /// </summary>
         /// <value>Reaction emote</value>
-        [JsonProperty("reaction")]
+        [JsonProperty("reaction", Required = Required.Always)]
         public ChatEmote Emote {
             get; set;
         }

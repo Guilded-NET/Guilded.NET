@@ -2,10 +2,12 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     using Converters;
+    using Teams;
     /// <summary>
     /// Information about this user.
     /// </summary>
@@ -14,24 +16,24 @@ namespace Guilded.NET.Objects {
         /// List of teams/guilds/server this user is currently in.
         /// </summary>
         /// <value>List of teams</value>
-        [JsonProperty("teams")]
-        public IList<UserTeam> Teams {
+        [JsonProperty("teams", Required = Required.Always)]
+        public IList<BaseTeam> Teams {
             get; set;
         }
         /// <summary>
         /// The user itself.
         /// </summary>
         /// <value>User</value>
-        [JsonProperty("user")]
+        [JsonProperty("user", Required = Required.Always)]
         public ThisUser User {
             get; set;
         }
         /// <summary>
-        /// I don't know what this is, honestly.
+        /// Message of the latest update on Guilded.
         /// </summary>
-        /// <value>Message</value>
-        [JsonProperty("updateMessage")]
-        public string UpdateMessage {
+        /// <value>Message content</value>
+        [JsonProperty("updateMessage", Required = Required.AllowNull)]
+        public JObject UpdateMessage {
             get; set;
         }
         /// <summary>
@@ -39,7 +41,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value></value>
         [JsonConverter(typeof(FlatConverter))]
-        [JsonProperty("customReactions")]
+        [JsonProperty("customReactions", Required = Required.Always)]
         public IList<ChatEmote> CustomEmotes {
             get; set;
         }
@@ -47,8 +49,16 @@ namespace Guilded.NET.Objects {
         /// How many times these emotes have been used.
         /// </summary>
         /// <value></value>
-        [JsonProperty("reactionUsages")]
+        [JsonProperty("reactionUsages", Required = Required.Always)]
         public IList<EmoteUse> EmoteUses {
+            get; set;
+        }
+        /// <summary>
+        /// A list of friends of this user, friend requests sent by user and friend requests sent to user.
+        /// </summary>
+        /// <value>List of friends</value>
+        [JsonProperty("friends", Required = Required.Always)]
+        public IList<Friend> Friends {
             get; set;
         }
         /// <summary>

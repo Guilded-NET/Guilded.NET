@@ -97,6 +97,12 @@ namespace Guilded.NET {
         public Message GetMessage(string subdomain, GId groupId, Guid channelId, Guid messageId) =>
             GetMessageAsync(subdomain, groupId, channelId, messageId).GetAwaiter().GetResult();
         /// <summary>
+        /// Starts typing in a specific channel. Use it every 2-3 seconds to make typing longer.
+        /// </summary>
+        /// <param name="channelId">Channel to start typing in</param>
+        public void StartTyping(Guid channelId) =>
+            Websockets[""].Send($"42[\"ChatChannelTyping\",{{\"channelId\":\"{channelId}\"}}]");
+        /// <summary>
         /// Creates a thread as a response to a message.
         /// </summary>
         /// <param name="contentType">Type of the channel where thread should be created in</param>
@@ -127,7 +133,7 @@ namespace Guilded.NET {
                 threadMessageId = message.Id,
                 // Name of the thread
                 name,
-                // Message thread is created in COPY
+                // A copy of a message thread
                 initialThreadMessage = new {
                     id = Guid.NewGuid(),
                     channelId,

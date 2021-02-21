@@ -1,7 +1,8 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Guilded.NET.Objects.Chat {
     /// <summary>
@@ -12,7 +13,7 @@ namespace Guilded.NET.Objects.Chat {
         /// Message posted in chat.
         /// </summary>
         public Message() =>
-            (IsPinned, ChannelId, Reactions, WebhookId, BotId, PinnedBy) = (false, null, new List<Reaction>(), null, null, null);
+            Reactions = new List<Reaction>();
         /// <summary>
         /// ID of the message.
         /// </summary>
@@ -26,6 +27,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channelId", NullValueHandling = NullValueHandling.Ignore)]
+        [DefaultValue(null)]
         public Guid? ChannelId {
             get; set;
         }
@@ -42,6 +44,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Webhook ID</value>
         [JsonProperty("webhookId")]
+        [DefaultValue(null)]
         public Guid? WebhookId {
             get; set;
         }
@@ -50,6 +53,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Bot ID</value>
         [JsonProperty("botId")]
+        [DefaultValue(null)]
         public Guid? BotId {
             get; set;
         }
@@ -58,13 +62,14 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Message type</value>
         [JsonProperty("type")]
+        [DefaultValue(MessageType.Default)]
         public MessageType Type {
             get; set;
         }
         /// <summary>
         /// Date of when the message was posted.
         /// </summary>
-        [JsonProperty("createdAt")]
+        [JsonProperty("createdAt", Required = Required.Always)]
         public DateTime CreatedAt {
             get; set;
         }
@@ -81,6 +86,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value></value>
         [JsonProperty("channelType")]
+        [DefaultValue(ChatType.Team)]
         public ChatType ChannelType {
             get; set;
         }
@@ -89,6 +95,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Pinned</value>
         [JsonProperty("isPinned")]
+        [DefaultValue(false)]
         public bool IsPinned {
             get; set;
         }
@@ -97,6 +104,7 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("pinnedBy")]
+        [DefaultValue(null)]
         public GId PinnedBy {
             get; set;
         }
