@@ -31,7 +31,7 @@ namespace Guilded.NET.API {
         /// Guilded API URL.
         /// </summary>
         /// <value>URL</value>
-        public static readonly Uri GuildedAPIURL = new Uri("https://api.guilded.gg/");
+        public static readonly Uri GuildedAPIURL = new Uri("https://www.guilded.gg/api/");
         /// <summary>
         /// Guilded media URL. Allows you to upload images and videos.
         /// </summary>

@@ -70,9 +70,9 @@ namespace Guilded.NET {
             // Create new serializer
             (GuildedSerializer, Converters) = (new JsonSerializer(),
                 new JsonConverter[] {
+                    new ClientObjectConverter(this),
                     new IdConverter(),
                     new NodeConverter(),
-                    new ClientObjectConverter(this),
                     new MiscConverter(),
                     new ColourConverter()
                 }
