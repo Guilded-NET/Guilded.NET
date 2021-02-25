@@ -1,11 +1,14 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace Guilded.NET.Objects.Forms {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// A field in a form or a poll.
     /// </summary>
-    public class FormField {
+    public class FormField
+    {
         /// <summary>
         /// A field in a form or a poll.
         /// </summary>
@@ -16,7 +19,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value></value>
         [JsonProperty("grow")]
-        public uint Grow {
+        public uint Grow
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +28,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form field type</value>
         [JsonProperty("type", Required = Required.Always)]
-        public FormFieldType Type {
+        public FormFieldType Type
+        {
             get; set;
         }
         /// <summary>
@@ -32,7 +37,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Optional</value>
         [JsonProperty("isOptional", Required = Required.Always)]
-        public bool IsOptional {
+        public bool IsOptional
+        {
             get; set;
         }
         /// <summary>
@@ -40,7 +46,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("header")]
-        public string Header {
+        public string Header
+        {
             get; set;
         }
         /// <summary>
@@ -48,7 +55,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("label", Required = Required.Always)]
-        public string Label {
+        public string Label
+        {
             get; set;
         }
         /// <summary>
@@ -56,7 +64,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>List of field options</value>
         [JsonProperty("options")]
-        public IList<FieldOption> Options {
+        public IList<FieldOption> Options
+        {
             get; set;
         }
         /// <summary>
@@ -64,7 +73,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Field ID</value>
         [JsonProperty("fieldName")]
-        public FormId FieldName {
+        public FormId FieldName
+        {
             get; set;
         }
         /// <summary>
@@ -72,7 +82,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Null</value>
         [JsonProperty("defaultValue", Required = Required.AllowNull)]
-        public string DefaultValue {
+        public string DefaultValue
+        {
             get; set;
         }
         /// <summary>
@@ -83,16 +94,19 @@ namespace Guilded.NET.Objects.Forms {
         /// <param name="isOptional">If it's optional</param>
         /// <param name="options">All of the field options(if it's a radio, checkmark or dropdown field)</param>
         /// <returns>A new field</returns>
-        public static FormField Generate(string title, FormFieldType type, bool isOptional = false, params FieldOption[] options) {
+        public static FormField Generate(string title, FormFieldType type, bool isOptional = false, params FieldOption[] options)
+        {
             // A field option number
             uint i = 1;
             // Assign a number to each field option
-            foreach(FieldOption option in options) {
+            foreach (FieldOption option in options)
+            {
                 option.DefaultValue = $"Option {i}";
                 i++;
             }
             // Returns a new field
-            return new FormField {
+            return new FormField
+            {
                 Type = type,
                 Label = type == FormFieldType.Text ? "Answer" : title,
                 Header = type == FormFieldType.Text ? title : "",

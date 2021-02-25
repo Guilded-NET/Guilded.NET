@@ -5,7 +5,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Line of quote block in Guilded.
     /// </summary>
-    public class QuoteBlockLine: ContainerNode<IMessageObject> {
+    public class QuoteBlockLine : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Line of quote block in Guilded.
         /// </summary>
@@ -17,7 +18,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">Text objects to create line from</param>
         /// <returns>Quote block line</returns>
         public static QuoteBlockLine Generate(params IMessageObject[] objs) =>
-            new QuoteBlockLine {
+            new QuoteBlockLine
+            {
                 Nodes = objs
             };
         /// <summary>

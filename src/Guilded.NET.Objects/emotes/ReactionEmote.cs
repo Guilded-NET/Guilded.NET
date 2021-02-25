@@ -3,17 +3,20 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Emote used in a reaction.
     /// </summary>
-    public class Reaction: ClientObject {
+    public class Reaction : ClientObject
+    {
         /// <summary>
         /// All of the people who reacted to using this reaction.
         /// </summary>
         /// <value>Authors</value>
         [JsonProperty("reactedUsers", Required = Required.Always)]
-        public IList<GId> ReactedUsers {
+        public IList<GId> ReactedUsers
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("createdBy")]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Emote ID</value>
         [JsonProperty("customReactionId")]
-        public uint EmoteId {
+        public uint EmoteId
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Emote</value>
         [JsonProperty("customReaction")]
-        public ChatEmote Emote {
+        public ChatEmote Emote
+        {
             get; set;
         }
         /// <summary>

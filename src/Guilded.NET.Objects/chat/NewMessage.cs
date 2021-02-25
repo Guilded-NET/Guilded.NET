@@ -3,17 +3,20 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Message posted in chat.
     /// </summary>
-    public class NewMessage: BaseObject, IMessage {
+    public class NewMessage : BaseObject, IMessage
+    {
         /// <summary>
         /// ID of the message.
         /// </summary>
         /// <value>Message ID</value>
         [JsonProperty("messageId", Required = Required.Always)]
-        public Guid Id {
+        public Guid Id
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Message content</value>
         [JsonProperty("content", Required = Required.Always)]
-        public MessageContent Content {
+        public MessageContent Content
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>List of Nodes</value>
         [JsonIgnore]
-        public IList<Node> Nodes {
+        public IList<Node> Nodes
+        {
             get => Content?.Nodes;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Something</value>
         [JsonProperty("confirmed")]
-        public bool Confirmed {
+        public bool Confirmed
+        {
             get; set;
         } = false;
         /// <summary>

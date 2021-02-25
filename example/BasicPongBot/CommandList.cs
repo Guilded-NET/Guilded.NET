@@ -1,15 +1,17 @@
-using Guilded.NET;
-using Guilded.NET.Util;
-using Guilded.NET.Objects;
-using Guilded.NET.Objects.Chat;
-using Guilded.NET.Objects.Events;
 using System.Collections.Generic;
 
-namespace BasicPongBot {
+using Guilded.NET;
+using Guilded.NET.Objects.Chat;
+using Guilded.NET.Objects.Events;
+using Guilded.NET.Util;
+
+namespace BasicPongBot
+{
     /// <summary>
     /// List of user bot commands.
     /// </summary>
-    public static class CommandList {
+    public static class CommandList
+    {
         /// <summary>
         /// Responds with `Pong!`
         /// </summary>
@@ -18,7 +20,8 @@ namespace BasicPongBot {
         /// <param name="command">Name of the command used</param>
         /// <param name="arguments">Command arguments</param>
         [Command("ping", "pong", Description = "Responds with `Pong!`")]
-        public static async void Ping(BasicGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments) {
+        public static async void Ping(BasicGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments)
+        {
             // Sends a message to channel where `ping`/`pong` command was used
             await messageCreated.RespondAsync(
                 // Generates a new message with content `Pong!`

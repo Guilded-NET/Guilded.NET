@@ -1,8 +1,10 @@
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// User status presence.
     /// </summary>
-    public enum Presence {
+    public enum Presence
+    {
         /// <summary>
         /// User is online and is currently available to talk.
         /// </summary>

@@ -2,18 +2,21 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// When member's role list gets updated.
     /// </summary>
     /// <value>teamRolesUpdated</value>
-    public class TeamRolesUpdatedEvent: Event {
+    public class TeamRolesUpdatedEvent : Event
+    {
         /// <summary>
         /// ID of the team where member roles got updated.
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>List of member role updates</value>
         [JsonProperty("memberRoleIds", Required = Required.Always)]
-        public IList<MemberRoleUpdate> MemberRoleIds {
+        public IList<MemberRoleUpdate> MemberRoleIds
+        {
             get; set;
         }
     }

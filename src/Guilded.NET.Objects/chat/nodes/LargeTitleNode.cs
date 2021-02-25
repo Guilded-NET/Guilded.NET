@@ -3,7 +3,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's large heading node.
     /// </summary>
-    public class LargeTitleNode: ContainerNode<IMessageObject> {
+    public class LargeTitleNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents Guilded's large heading node.
         /// </summary>
@@ -15,7 +16,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">List of text objects</param>
         /// <returns>Large heading node</returns>
         public static LargeTitleNode Generate(params IMessageObject[] objs) =>
-            new LargeTitleNode {
+            new LargeTitleNode
+            {
                 Nodes = objs
             };
         /// <summary>

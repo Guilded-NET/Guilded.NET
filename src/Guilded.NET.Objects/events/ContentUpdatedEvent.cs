@@ -5,17 +5,20 @@ using Guilded.NET.Objects.Teams;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// When a forum post, media, document, schedule, event, etc. gets updated.
     /// </summary>
-    public class ContentUpdatedEvent: TeamEvent {
+    public class ContentUpdatedEvent : TeamEvent
+    {
         /// <summary>
         /// Type of the channel.
         /// </summary>
         /// <value>Team</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -23,7 +26,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>When the post was created</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -31,7 +35,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("updatedBy", Required = Required.Always)]
-        public GId UpdatedBy {
+        public GId UpdatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -39,7 +44,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Forum post</value>
         [JsonProperty("thread")]
-        public ForumPost Thread {
+        public ForumPost Thread
+        {
             get; set;
         }
         /// <summary>
@@ -47,7 +53,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Media</value>
         [JsonProperty("media")]
-        public GuildedMedia Media {
+        public GuildedMedia Media
+        {
             get; set;
         }
         /// <summary>
@@ -55,7 +62,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Document</value>
         [JsonProperty("document")]
-        public GuildedDocument Document {
+        public GuildedDocument Document
+        {
             get; set;
         }
         /// <summary>
@@ -63,7 +71,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Calendar event</value>
         [JsonProperty("event")]
-        public CalendarEvent Event {
+        public CalendarEvent Event
+        {
             get; set;
         }
         /// <summary>
@@ -71,7 +80,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Schedule</value>
         [JsonProperty("availability")]
-        public Availability Availability {
+        public Availability Availability
+        {
             get; set;
         }
         /// <summary>
@@ -79,7 +89,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Announcement</value>
         [JsonProperty("announcement")]
-        public Announcement Announcement {
+        public Announcement Announcement
+        {
             get; set;
         }
         /// <summary>
@@ -87,7 +98,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>List item</value>
         [JsonProperty("listItem")]
-        public ListItem List {
+        public ListItem List
+        {
             get; set;
         }
     }

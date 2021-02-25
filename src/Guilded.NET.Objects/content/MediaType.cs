@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// What kind of media this is.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum MediaType {
+    public enum MediaType
+    {
         /// <summary>
         /// A PNG, APNG, GIF, JPG, JPEG or any other file.
         /// </summary>

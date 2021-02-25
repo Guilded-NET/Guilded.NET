@@ -2,19 +2,22 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     using Teams;
     /// <summary>
     /// When a notification gets received.
     /// </summary>
     /// <value>CHANNEL_BADGED</value>
-    public class ChannelBadgedEvent: CommonEvent {
+    public class ChannelBadgedEvent : CommonEvent
+    {
         /// <summary>
         /// When this notification appeared.
         /// </summary>
         /// <value>Created at</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -22,7 +25,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Content ID</value>
         [JsonProperty("contentId", Required = Required.Always)]
-        public string ContentId {
+        public string ContentId
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +34,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Channel type</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
     }

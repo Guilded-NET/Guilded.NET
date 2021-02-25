@@ -1,22 +1,26 @@
 using RestSharp;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     /// <summary>
     /// Cookie for RestRequest.
     /// </summary>
-    public class GuildedCookie: RestPair<string, string> {
+    public class GuildedCookie : RestPair<string, string>
+    {
         /// <summary>
         /// URI path of the cookie.
         /// </summary>
         /// <value>Path</value>
-        public string Path {
+        public string Path
+        {
             get; set;
         }
         /// <summary>
         /// Domain of the cookie.
         /// </summary>
         /// <value></value>
-        public string Domain {
+        public string Domain
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +31,7 @@ namespace Guilded.NET.API {
         /// <param name="path">Path of the cookie</param>
         /// <param name="domain">Domain of the cookie</param>
         /// <returns></returns>
-        public GuildedCookie(string name, string value, string path = null, string domain = null): base(name, value) =>
+        public GuildedCookie(string name, string value, string path = null, string domain = null) : base(name, value) =>
             (Path, Domain) = (path, domain);
         /// <inheritdoc/>
         public override IRestRequest AddTo(RestRequest req) => req.AddCookie(Key, Value);

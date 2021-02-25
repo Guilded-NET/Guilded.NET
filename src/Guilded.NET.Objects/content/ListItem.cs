@@ -2,18 +2,21 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     using Chat;
     /// <summary>
     /// A list item in a list channel.
     /// </summary>
-    public class ListItem: ChannelContent<Guid> {
+    public class ListItem : ChannelContent<Guid>
+    {
         /// <summary>
         /// The content of this item's title.
         /// </summary>
         /// <value>Title</value>
         [JsonProperty("content", Required = Required.Always)]
-        public MessageContent Content {
+        public MessageContent Content
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public long? Priority {
+        public long? Priority
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Created by</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Has a note</value>
         [JsonProperty("hasNote", Required = Required.Always)]
-        public bool HasNote {
+        public bool HasNote
+        {
             get; set;
         }
         /// <summary>
@@ -45,7 +51,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Note created by</value>
         [JsonProperty("noteCreatedBy", Required = Required.AllowNull)]
-        public GId NoteCreatedBy {
+        public GId NoteCreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -53,7 +60,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Bot ID</value>
         [JsonProperty("noteCreatedByBotId", Required = Required.AllowNull)]
-        public Guid? NoteCreatedByBot {
+        public Guid? NoteCreatedByBot
+        {
             get; set;
         }
         /// <summary>
@@ -61,7 +69,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Note created at</value>
         [JsonProperty("noteCreatedAt", Required = Required.AllowNull)]
-        public DateTime? NoteCreatedAt {
+        public DateTime? NoteCreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -69,7 +78,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Note updated by</value>
         [JsonProperty("noteUpdatedBy", Required = Required.AllowNull)]
-        public GId NoteUpdatedBy {
+        public GId NoteUpdatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -77,7 +87,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Note updated at</value>
         [JsonProperty("noteUpdatedAt", Required = Required.AllowNull)]
-        public DateTime? NodeUpdatedAt {
+        public DateTime? NodeUpdatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -85,7 +96,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Updated by</value>
         [JsonProperty("updatedBy", Required = Required.AllowNull)]
-        public GId UpdatedBy {
+        public GId UpdatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -93,7 +105,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Updated at</value>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
-        public DateTime? UpdatedAt {
+        public DateTime? UpdatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -101,7 +114,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Completed by</value>
         [JsonProperty("completedBy", Required = Required.AllowNull)]
-        public GId CompletedBy {
+        public GId CompletedBy
+        {
             get; set;
         }
         /// <summary>
@@ -109,7 +123,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Completed at</value>
         [JsonProperty("completedAt", Required = Required.AllowNull)]
-        public DateTime? CompletedAt {
+        public DateTime? CompletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -117,7 +132,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Deleted by</value>
         [JsonProperty("deletedBy", Required = Required.AllowNull)]
-        public GId DeletedBy {
+        public GId DeletedBy
+        {
             get; set;
         }
         /// <summary>
@@ -125,7 +141,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt", Required = Required.AllowNull)]
-        public DateTime? DeletedAt {
+        public DateTime? DeletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -133,7 +150,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>List item ID</value>
         [JsonProperty("parentId", Required = Required.AllowNull)]
-        public Guid? ParentId {
+        public Guid? ParentId
+        {
             get; set;
         }
         /// <summary>
@@ -141,7 +159,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Bot ID</value>
         [JsonProperty("botId", Required = Required.AllowNull)]
-        public Guid? BotId {
+        public Guid? BotId
+        {
             get; set;
         }
     }

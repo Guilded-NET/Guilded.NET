@@ -2,11 +2,13 @@
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Base object for all JSON-based Guilded objects.
     /// </summary>
-    public abstract class BaseObject {
+    public abstract class BaseObject
+    {
         /// <summary>
         /// Serializes this object.
         /// </summary>

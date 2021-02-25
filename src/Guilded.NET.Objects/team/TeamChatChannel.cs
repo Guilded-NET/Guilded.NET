@@ -3,18 +3,21 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     using Chat;
     /// <summary>
     /// Interface for team channels and categories.
     /// </summary>
-    public class TeamChatChannel: TeamChannel<Guid> {
+    public class TeamChatChannel : TeamChannel<Guid>
+    {
         /// <summary>
         /// Who archived this channel.
         /// </summary>
         /// <value>Archived by</value>
         [JsonProperty("archivedBy", Required = Required.AllowNull)]
-        public GId ArchivedBy {
+        public GId ArchivedBy
+        {
             get; set;
         }
         /// <summary>
@@ -22,7 +25,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Archived at</value>
         [JsonProperty("archivedAt", Required = Required.AllowNull)]
-        public DateTime? ArchivedAt {
+        public DateTime? ArchivedAt
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +34,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Content Type</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -38,7 +43,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("parentChannelId", Required = Required.AllowNull)]
-        public Guid? ParentChannel {
+        public Guid? ParentChannel
+        {
             get; set;
         }
         /// <summary>
@@ -46,7 +52,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt", Required = Required.AllowNull)]
-        public DateTime? DeletedAt {
+        public DateTime? DeletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -54,7 +61,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Created by</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -62,7 +70,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Auto archive at</value>
         [JsonProperty("autoArchiveAt", Required = Required.AllowNull)]
-        public DateTime? AutoArchiveAt {
+        public DateTime? AutoArchiveAt
+        {
             get; set;
         }
         /// <summary>
@@ -70,7 +79,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Created by webhook ID</value>
         [JsonProperty("createdByWebhookId", Required = Required.AllowNull)]
-        public Guid? CreatedByWebhook {
+        public Guid? CreatedByWebhook
+        {
             get; set;
         }
         /// <summary>
@@ -78,7 +88,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Archived by webhook ID</value>
         [JsonProperty("archivedByWebhookId", Required = Required.AllowNull)]
-        public Guid? ArchivedByWebhook {
+        public Guid? ArchivedByWebhook
+        {
             get; set;
         }
 

@@ -4,19 +4,22 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     using Permissions;
     /// <summary>
     /// Interface for team channels and categories.
     /// </summary>
     /// <typeparam name="T">Type of channel's ID</typeparam>
-    public abstract class TeamChannel<T>: BaseChannel<T> {
+    public abstract class TeamChannel<T> : BaseChannel<T>
+    {
         /// <summary>
         /// Priority/sort index of this channel.
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public long? Priority {
+        public long? Priority
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +27,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -32,7 +36,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Role Permissions</value>
         [JsonProperty("rolesById", Required = Required.Always)]
-        public IDictionary<string, ChannelPermission> RolePermissions {
+        public IDictionary<string, ChannelPermission> RolePermissions
+        {
             get; set;
         }
         /// <summary>
@@ -40,7 +45,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>User Permissions</value>
         [JsonProperty("userPermissions", Required = Required.AllowNull)]
-        public IList<UserPermission> UserPermissions {
+        public IList<UserPermission> UserPermissions
+        {
             get; set;
         }
         /// <summary>
@@ -48,7 +54,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -56,7 +63,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Group ID</value>
         [JsonProperty("groupId", Required = Required.Always)]
-        public GId GroupId {
+        public GId GroupId
+        {
             get; set;
         }
 
@@ -76,7 +84,7 @@ namespace Guilded.NET.Objects.Teams {
         /// <returns>Team</returns>
         public Team GetTeam() =>
             ParentClient.GetTeam(TeamId);
-        
+
         /// <summary>
         /// Gets the team of a channel.
         /// </summary>
@@ -95,7 +103,8 @@ namespace Guilded.NET.Objects.Teams {
         /// <param name="member">Member to get all permissions of</param>
         /// <param name="team">Team this channel is in</param>
         /// <returns>Allowed permissions</returns>
-        public PermissionList GetFullPermissionsOf(Team team, TeamMember member) {
+        public PermissionList GetFullPermissionsOf(Team team, TeamMember member)
+        {
             // All of the permissions this user has in a team
             PermissionList teamPerms = team.GetPermissionsOf(member);
             // Gets all role permissions this user has
@@ -110,7 +119,7 @@ namespace Guilded.NET.Objects.Teams {
                 - OptionalAddition(rolePerms.Select(x => x.DenyPermissions))
                 - userPerms?.DenyPermissions
                 + OptionalAddition(rolePerms.Select(x => x.AllowPermissions))
-                + userPerms?.AllowPermissions; 
+                + userPerms?.AllowPermissions;
         }
         /// <summary>
         /// Gets all team and channel permissions, then adds them all up.
@@ -129,8 +138,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is TeamChannel<T> ch) return ch.TeamId == TeamId && Equals(ch.Id, Id);
+        public override bool Equals(object obj)
+        {
+            if (obj is TeamChannel<T> ch) return ch.TeamId == TeamId && Equals(ch.Id, Id);
             else return false;
         }
         /// <summary>

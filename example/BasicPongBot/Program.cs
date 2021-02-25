@@ -6,15 +6,18 @@ using Guilded.NET;
 
 using Newtonsoft.Json.Linq;
 
-namespace BasicPongBot {
+namespace BasicPongBot
+{
     /// <summary>
     /// User bot client program.
     /// </summary>
-    public class Program {
+    public class Program
+    {
         /// <summary>
         /// Creates a new user bot client.
-        /// </summary>
-        static void Main() {
+        /// /// </summary>
+        static void Main()
+        {
             // Read JSON "config/config.json"
             JObject config = JObject.Parse(File.ReadAllText("./config/config.json"));
             // Get login info
@@ -41,7 +44,8 @@ namespace BasicPongBot {
         /// </summary>
         /// <param name="client">Client to connect</param>
         /// <returns>Async task</returns>
-        static async Task StartAsync(GuildedUserClient client) {
+        static async Task StartAsync(GuildedUserClient client)
+        {
             // Connects to Guilded
             await client.ConnectAsync();
             // Makes it stop forever, so the bot wouldn't instantly shutdown after connecting

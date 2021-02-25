@@ -3,17 +3,20 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Guilded user. This is NOT Guild member.
     /// </summary>
-    public class DMUser: BaseUser {
+    public class DMUser : BaseUser
+    {
         /// <summary>
         /// When the user was added to DMs.
         /// </summary>
         /// <value>Added</value>
         [JsonProperty("addedAt", Required = Required.Always)]
-        public DateTime AddedAt {
+        public DateTime AddedAt
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Removed</value>
         [JsonProperty("removedAt")]
-        public DateTime? RemovedAt {
+        public DateTime? RemovedAt
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Status</value>
         [JsonProperty("userStatus")]
-        public UserStatus UserStatus {
+        public UserStatus UserStatus
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channelId", Required = Required.Always)]
-        public Guid ChannelId {
+        public Guid ChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -45,7 +51,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>DM owner</value>
         [JsonProperty("isOwner")]
-        public bool IsOwner {
+        public bool IsOwner
+        {
             get; set;
         }
         /// <summary>

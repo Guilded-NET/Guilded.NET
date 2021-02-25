@@ -7,7 +7,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's link node.
     /// </summary>
-    public class LinkNode: ContainerNode<IMessageObject> {
+    public class LinkNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents Guilded's link node.
         /// </summary>
@@ -25,7 +26,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">List of text objects</param>
         /// <returns>Link node</returns>
         public static LinkNode Generate(Uri href, params TextObj[] objs) =>
-            new LinkNode {
+            new LinkNode
+            {
                 // Adds link to the link node
                 Data = JObject.FromObject(new { href }),
                 // Generate list of 1 text object with given leaves

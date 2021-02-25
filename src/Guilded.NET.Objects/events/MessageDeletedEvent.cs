@@ -7,13 +7,15 @@ namespace Guilded.NET.Objects.Events
     /// <summary>
     /// Event when message gets deleted.
     /// </summary>
-    public class MessageDeletedEvent: CommonEvent {
+    public class MessageDeletedEvent : CommonEvent
+    {
         /// <summary>
         /// Type of the content.
         /// </summary>
         /// <value>Content type</value>
         [JsonProperty("contentType")]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +23,8 @@ namespace Guilded.NET.Objects.Events
         /// </summary>
         /// <value>Message deleted</value>
         [JsonProperty("message", Required = Required.Always)]
-        public MessageEvent Message {
+        public MessageEvent Message
+        {
             get; set;
         }
     }

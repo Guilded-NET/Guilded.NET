@@ -5,7 +5,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's paragraph node.
     /// </summary>
-    public class MarkDownText: ContainerNode<IMessageObject> {
+    public class MarkDownText : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents Guilded's paragraph node.
         /// </summary>
@@ -17,7 +18,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="content">Message content</param>
         /// <returns>Markdown plain text node</returns>
         public static MarkDownText Generate(string content) =>
-            new MarkDownText {
+            new MarkDownText
+            {
                 Nodes = new List<IMessageObject> {
                     TextObj.GenerateText(content)
                 }

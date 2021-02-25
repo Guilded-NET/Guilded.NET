@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// A type of a team(clan, community, guild, etc.).
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum TeamType {
+    public enum TeamType
+    {
         /// <summary>
         /// 
         /// </summary>

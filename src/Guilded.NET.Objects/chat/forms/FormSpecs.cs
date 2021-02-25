@@ -1,12 +1,15 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Guilded.NET.Objects.Forms {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// Specifications of forms and polls. Contains fields.
     /// </summary>
-    public class FormSpecs: BaseObject {
+    public class FormSpecs : BaseObject
+    {
         /// <summary>
         /// Specifications of forms and polls. Contains fields.
         /// </summary>
@@ -17,7 +20,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>List of sections</value>
         [JsonProperty("sections", Required = Required.Always)]
-        public IList<FormSection> Sections {
+        public IList<FormSection> Sections
+        {
             get; set;
         }
         /// <summary>
@@ -25,7 +29,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Valid</value>
         [JsonProperty("isValid", Required = Required.Always)]
-        public bool IsValid {
+        public bool IsValid
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +39,8 @@ namespace Guilded.NET.Objects.Forms {
         /// <param name="sections">Sections to include</param>
         /// <returns>New form spec</returns>
         public static FormSpecs Generate(params FormSection[] sections) =>
-            new FormSpecs {
+            new FormSpecs
+            {
                 Sections = sections
             };
         /// <summary>

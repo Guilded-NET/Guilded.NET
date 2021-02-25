@@ -1,24 +1,28 @@
 using System;
+using System.ComponentModel;
 using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// Represents Guilded team group/subserver.
     /// </summary>
-    public class Group: ClientObject {
+    public class Group : ClientObject
+    {
         /// <summary>
         /// Represents Guilded team group/subserver.
         /// </summary>
         public Group() =>
-            (MembershipUpdates, MembershipUpdatesByUserId, AdditionalMembershipRoles, AdditionalVisibilityRoles, UserPriority) = (new List<Membership>(), new Dictionary<uint, MembershipType>(), new uint[] {}, new uint[] {}, null);
+            (MembershipUpdates, MembershipUpdatesByUserId) = (new List<Membership>(), new Dictionary<uint, MembershipType>());
         /// <summary>
         /// ID of this group.
         /// </summary>
         /// <value>Group ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public GId Id {
+        public GId Id
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +30,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +39,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Nullable string</value>
         [JsonProperty("description", Required = Required.AllowNull)]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <summary>
@@ -42,7 +48,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public long? Priority {
+        public long? Priority
+        {
             get; set;
         }
         /// <summary>
@@ -50,7 +57,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Group type</value>
         [JsonProperty("type", Required = Required.Always)]
-        public GroupType Type {
+        public GroupType Type
+        {
             get; set;
         }
         /// <summary>
@@ -58,7 +66,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("avatar", Required = Required.AllowNull)]
-        public Uri Avatar {
+        public Uri Avatar
+        {
             get; set;
         }
         /// <summary>
@@ -66,7 +75,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("banner", Required = Required.AllowNull)]
-        public Uri Banner {
+        public Uri Banner
+        {
             get; set;
         }
         /// <summary>
@@ -74,7 +84,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -82,7 +93,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Game ID</value>
         [JsonProperty("gameId", Required = Required.AllowNull)]
-        public uint? GameId {
+        public uint? GameId
+        {
             get; set;
         }
         /// <summary>
@@ -90,7 +102,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>List of Membership Updates</value>
         [JsonProperty("membershipUpdates")]
-        public IList<Membership> MembershipUpdates {
+        public IList<Membership> MembershipUpdates
+        {
             get; set;
         }
         /// <summary>
@@ -98,7 +111,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Uint, Membership type</value>
         [JsonProperty("membershipUpdatesByUserId")]
-        public IDictionary<uint, MembershipType> MembershipUpdatesByUserId {
+        public IDictionary<uint, MembershipType> MembershipUpdatesByUserId
+        {
             get; set;
         }
         /// <summary>
@@ -106,7 +120,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Role ID list</value>
         [JsonProperty("additionalMembershipTeamRoleIds")]
-        public IList<uint> AdditionalMembershipRoles {
+        [DefaultValue(new uint[] { })]
+        public IList<uint> AdditionalMembershipRoles
+        {
             get; set;
         }
         /// <summary>
@@ -114,7 +130,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Role ID list</value>
         [JsonProperty("additionalVisibilityTeamRoleIds")]
-        public IList<uint> AdditionalVisibilityRoles {
+        [DefaultValue(new uint[] { })]
+        public IList<uint> AdditionalVisibilityRoles
+        {
             get; set;
         }
         /// <summary>
@@ -122,7 +140,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Role ID</value>
         [JsonProperty("membershipTeamRoleId", Required = Required.AllowNull)]
-        public uint? MembershipRole {
+        public uint? MembershipRole
+        {
             get; set;
         }
         /// <summary>
@@ -130,7 +149,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Role ID</value>
         [JsonProperty("visibilityTeamRoleId", Required = Required.AllowNull)]
-        public uint? VisibilityRole {
+        public uint? VisibilityRole
+        {
             get; set;
         }
         /// <summary>
@@ -138,15 +158,18 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>User custom priority</value>
         [JsonProperty("userPriority")]
-        public uint? UserPriority {
+        [DefaultValue(null)]
+        public uint? UserPriority
+        {
             get; set;
-        }
+        } = null;
         /// <summary>
         /// If this group is a main group in a team.
         /// </summary>
         /// <value>Main group</value>
         [JsonProperty("isBase", Required = Required.Always)]
-        public bool IsBase {
+        public bool IsBase
+        {
             get; set;
         }
         /// <summary>
@@ -154,8 +177,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is Group gr) return gr.TeamId == TeamId && gr.Id == Id;
+        public override bool Equals(object obj)
+        {
+            if (obj is Group gr) return gr.TeamId == TeamId && gr.Id == Id;
             else return false;
         }
         /// <summary>

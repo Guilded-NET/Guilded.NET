@@ -3,11 +3,13 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Current user account being controlled by this client.
     /// </summary>
-    public class ThisUser: User {
+    public class ThisUser : User
+    {
         /// <summary>
         /// Current user account being controlled by this client.
         /// </summary>
@@ -18,7 +20,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Subdomain</value>
         [JsonProperty("subdomain", Required = Required.AllowNull)]
-        public string Subdomain {
+        public string Subdomain
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +29,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Email</value>
         [JsonProperty("email", Required = Required.Always)]
-        public string Email {
+        public string Email
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +38,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Social links</value>
         [JsonProperty("socialLinks", Required = Required.Always)]
-        public IList<SocialLink> SocialLinks {
+        public IList<SocialLink> SocialLinks
+        {
             get; set;
         }
         /// <summary>
@@ -42,7 +47,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>List of game aliases</value>
         [JsonProperty("aliases", Required = Required.Always)]
-        public IList<GameAlias> Aliases {
+        public IList<GameAlias> Aliases
+        {
             get; set;
         }
         /// <summary>
@@ -50,7 +56,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>List of user IDs</value>
         [JsonProperty("blockedUsers", Required = Required.Always)]
-        public IList<GId> BlockedUsers {
+        public IList<GId> BlockedUsers
+        {
             get; set;
         }
         /// <summary>
@@ -58,7 +65,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Simplified navigation</value>
         [JsonProperty("useMinimalNav")]
-        public bool MinimalNav {
+        public bool MinimalNav
+        {
             get; set;
         }
         /// <summary>
@@ -66,7 +74,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Redeem gold</value>
         [JsonProperty("canRedeemGold", Required = Required.Always)]
-        public bool CanRedeemGold {
+        public bool CanRedeemGold
+        {
             get; set;
         }
         /// <summary>

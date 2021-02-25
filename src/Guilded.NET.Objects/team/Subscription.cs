@@ -1,16 +1,19 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
-    /// 
+    /// A subscription/donation to the server.
     /// </summary>
-    public class TeamSubscription: ClientObject {
+    public class TeamSubscription : ClientObject
+    {
         /// <summary>
         /// Type of the subscription in this server.
         /// </summary>
         /// <value>Subscription type</value>
         [JsonProperty("type", Required = Required.Always)]
-        public SubscriptionType Type {
+        public SubscriptionType Type
+        {
             get; set;
         }
         /// <summary>
@@ -18,7 +21,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Months</value>
         [JsonProperty("monthsRemaining", Required = Required.Always)]
-        public uint MonthsRemaining {
+        public uint MonthsRemaining
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +30,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
     }

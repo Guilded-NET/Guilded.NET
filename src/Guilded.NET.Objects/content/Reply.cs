@@ -2,18 +2,21 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     using Chat;
     /// <summary>
     /// A reply to anything.
     /// </summary>
-    public abstract class Reply: ClientObject {
+    public abstract class Reply : ClientObject
+    {
         /// <summary>
         /// ID of the reply.
         /// </summary>
         /// <value></value>
         [JsonProperty("id", Required = Required.Always)]
-        public ulong Id {
+        public ulong Id
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Reply message</value>
         [JsonProperty("message", Required = Required.Always)]
-        public MessageContent Message {
+        public MessageContent Message
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Created at</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Edited at</value>
         [JsonProperty("editedAt", Required = Required.AllowNull)]
-        public DateTime? EditedAt {
+        public DateTime? EditedAt
+        {
             get; set;
         }
         /// <summary>
@@ -45,7 +51,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Author</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
     }

@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Chat/text channel related permissions.
     /// </summary>
     [Flags]
-    public enum ChatPermissions {
+    public enum ChatPermissions
+    {
         /// <summary>
         /// Allows you to send chat messages
         /// </summary>

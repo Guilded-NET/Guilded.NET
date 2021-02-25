@@ -5,17 +5,20 @@ using Guilded.NET.Objects.Teams;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// When reaction is added to or remove from the message.
     /// </summary>
-    public class ReactionUpdatedEvent: CommonEvent {
+    public class ReactionUpdatedEvent : CommonEvent
+    {
         /// <summary>
         /// Type of the channel this reaction is in.
         /// </summary>
         /// <value>Channel type</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -23,7 +26,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Reaction emote</value>
         [JsonProperty("reaction", Required = Required.Always)]
-        public ChatEmote Emote {
+        public ChatEmote Emote
+        {
             get; set;
         }
         /// <summary>
@@ -31,14 +35,16 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Object(id: Guid)</value>
         [JsonProperty("message", Required = Required.Always)]
-        public JObject MessageObject {
+        public JObject MessageObject
+        {
             get; set;
         }
         /// <summary>
         /// Gets ID of the message where reactions were updated.
         /// </summary>
         /// <value>Message ID</value>
-        public Guid MessageId {
+        public Guid MessageId
+        {
             get => MessageObject["id"].Value<Guid>();
         }
         /// <summary>
@@ -46,7 +52,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Removed</value>
         [JsonIgnore]
-        public bool WasRemoved {
+        public bool WasRemoved
+        {
             get => EventType == "ChatMessageReactionDeleted";
         }
         /// <summary>
@@ -54,7 +61,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Added</value>
         [JsonIgnore]
-        public bool WasAdded {
+        public bool WasAdded
+        {
             get => EventType == "ChatMessageReactionCreated";
         }
     }

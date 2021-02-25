@@ -1,11 +1,13 @@
 using System.Threading.Tasks;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     using Chat;
     /// <summary>
     /// A reply to an announcement.
     /// </summary>
-    public class AnnouncementReply: ContentReply<GId> {
+    public class AnnouncementReply : ContentReply<GId>
+    {
         /// <summary>
         /// Deletes this reply.
         /// </summary>

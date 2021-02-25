@@ -2,17 +2,20 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Game's information in a profile.
     /// </summary>
-    public class GameAlias: BaseObject {
+    public class GameAlias : BaseObject
+    {
         /// <summary>
         /// Name of this user in that game.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Discriminator</value>
         [JsonProperty("discriminator", Required = Required.AllowNull)]
-        public string Discriminator {
+        public string Discriminator
+        {
             get; set;
         }
         /// <summary>
@@ -28,7 +32,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Game ID</value>
         [JsonProperty("gameId", Required = Required.Always)]
-        public uint GameId {
+        public uint GameId
+        {
             get; set;
         }
         /// <summary>
@@ -36,7 +41,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Additional info</value>
         [JsonProperty("additionalInfo", Required = Required.Always)]
-        public IDictionary<string, string> AdditionalInfo {
+        public IDictionary<string, string> AdditionalInfo
+        {
             get; set;
         }
     }

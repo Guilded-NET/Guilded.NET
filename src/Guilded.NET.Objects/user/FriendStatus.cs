@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Friendship status.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum FriendStatus {
+    public enum FriendStatus
+    {
         /// <summary>
         /// They are friends.
         /// </summary>

@@ -7,23 +7,20 @@ namespace Guilded.NET.Objects.Teams
     /// <summary>
     /// A Guilded channel category.
     /// </summary>
-    public class Category: TeamChannel<uint> {
-        /// <summary>
-        /// A Guilded channel category.
-        /// </summary>
-        public Category() =>
-            ChannelCategoryId = null;
+    public class Category : TeamChannel<uint>
+    {
         /// <summary>
         /// ID of the category this channel is in.
         /// </summary>
         /// <value>Nullable Channel ID</value>
         [JsonProperty("channelCategoryId", Required = Required.AllowNull)]
-        public uint? ChannelCategoryId {
+        public uint? ChannelCategoryId
+        {
             get; set;
-        }
+        } = null;
 
 
-        
+
         /// <summary>
         /// Adds a role to a category.
         /// </summary>

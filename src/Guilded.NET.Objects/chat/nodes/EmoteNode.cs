@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents Guilded's emote node.
     /// </summary>
-    public class EmoteNode: ContainerNode<IMessageObject> {
+    public class EmoteNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents Guilded's emote node.
         /// </summary>
@@ -18,7 +20,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Emote info</value>
         [JsonIgnore]
-        public EmoteInfo Emote {
+        public EmoteInfo Emote
+        {
             get => GetDataProperty<EmoteInfo>("reaction");
         }
         /// <summary>
@@ -34,7 +37,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="reaction">Emote to generate node of</param>
         /// <returns>Emote node</returns>
         public static LinkNode Generate(EmoteInfo reaction) =>
-            new LinkNode {
+            new LinkNode
+            {
                 // Adds link to the link node
                 Data = JObject.FromObject(new { reaction }),
                 // Emotes need nodes for some reason

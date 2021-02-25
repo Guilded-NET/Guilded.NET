@@ -4,17 +4,20 @@ using System.Drawing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Converters {
+namespace Guilded.NET.Objects.Converters
+{
     /// <summary>
     /// Converts colour to hex.
     /// </summary>
-    public class ColourConverter: JsonConverter {
+    public class ColourConverter : JsonConverter
+    {
         static readonly Type colour = typeof(Color);
         /// <summary>
         /// If this converter can read JSON value.
         /// </summary>
         /// <value>False</value>
-        public override bool CanRead {
+        public override bool CanRead
+        {
             get => false;
         }
         /// <summary>
@@ -23,7 +26,8 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="writer">JsonWriter</param>
         /// <param name="value">ID</param>
         /// <param name="serializer">Serializer</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
             Color col = (Color)value;
             writer.WriteValue(JToken.FromObject(
                 col.A == 0

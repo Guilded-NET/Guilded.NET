@@ -3,44 +3,53 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A media posted in a profile.
     /// </summary>
-    public class ProfileMedia: ClientObject, IMedia {
+    public class ProfileMedia : ClientObject, IMedia
+    {
         /// <inheritdoc/>
         [JsonProperty("id", Required = Required.Always)]
-        public uint Id {
+        public uint Id
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("title", Required = Required.Always)]
-        public string Title {
+        public string Title
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("type", Required = Required.Always)]
-        public MediaType Type {
+        public MediaType Type
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("src", Required = Required.Always)]
-        public Uri MediaSource {
+        public Uri MediaSource
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("description")]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("tags")]
-        public IList<string> Tags {
+        public IList<string> Tags
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("reactions", Required = Required.Always)]
-        public IList<Reaction> Reactions {
+        public IList<Reaction> Reactions
+        {
             get; set;
         }
         /// <summary>
@@ -48,7 +57,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("userId", Required = Required.Always)]
-        public GId UserId {
+        public GId UserId
+        {
             get; set;
         }
         /// <summary>
@@ -56,12 +66,14 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value></value>
         [JsonProperty("showInBanner", Required = Required.Always)]
-        public bool ShowInBanner {
+        public bool ShowInBanner
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("srcThumbnail", Required = Required.AllowNull)]
-        public Uri ThumbnailSource {
+        public Uri ThumbnailSource
+        {
             get; set;
         }
     }

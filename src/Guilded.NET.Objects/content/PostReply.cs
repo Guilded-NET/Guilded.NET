@@ -7,13 +7,15 @@ namespace Guilded.NET.Objects.Content
     /// <summary>
     /// A reply to a profile post.
     /// </summary>
-    public class PostReply: Reply {
+    public class PostReply : Reply
+    {
         /// <summary>
         /// A name of the author.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +23,8 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("profilePicture", Required = Required.Always)]
-        public Uri Avatar {
+        public Uri Avatar
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +32,8 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("userId", Required = Required.Always)]
-        public GId UserId {
+        public GId UserId
+        {
             get; set;
         }
     }

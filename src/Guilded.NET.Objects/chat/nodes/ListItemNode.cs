@@ -3,7 +3,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// List item in Guilded.
     /// </summary>
-    public class ListItemNode: ContainerNode<IMessageObject> {
+    public class ListItemNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// List item in Guilded.
         /// </summary>
@@ -15,7 +16,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">Text objects to create line from</param>
         /// <returns>New ListItem</returns>
         public static ListItemNode Generate(params IMessageObject[] objs) =>
-            new ListItemNode {
+            new ListItemNode
+            {
                 Nodes = objs
             };
     }

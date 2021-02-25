@@ -1,11 +1,14 @@
-using Newtonsoft.Json;
 using System;
 
-namespace Guilded.NET.Objects.Forms {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// Data of a poll or a form created in Guilded.
     /// </summary>
-    public class GuildedForm: BasicGuildedForm {
+    public class GuildedForm : BasicGuildedForm
+    {
         /// <summary>
         /// Data of a poll or a form created in Guilded.
         /// </summary>
@@ -16,7 +19,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form ID</value>
         [JsonProperty("id")]
-        public uint Id {
+        public uint Id
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +28,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Author</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -32,7 +37,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Creation time</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -40,7 +46,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Creation time</value>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
-        public DateTime? UpdatedAt {
+        public DateTime? UpdatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -48,7 +55,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form/poll response count</value>
         [JsonProperty("responceCount", Required = Required.Always)]
-        public uint ResponseCount {
+        public uint ResponseCount
+        {
             get; set;
         }
     }

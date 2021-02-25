@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Permissions related to announcement channel(and Overview channel, if it's CreateAnnouncements).
     /// </summary>
     [Flags]
-    public enum AnnounPermissions {
+    public enum AnnounPermissions
+    {
         /// <summary>
         /// Allows you to create and remove announcements
         /// </summary>

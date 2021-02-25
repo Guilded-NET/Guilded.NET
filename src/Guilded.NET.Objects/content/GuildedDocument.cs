@@ -3,12 +3,14 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     using Chat;
     /// <summary>
     /// A document posted in the doc channel.
     /// </summary>
-    public class GuildedDocument: ChannelPost<uint> {
+    public class GuildedDocument : ChannelPost<uint>
+    {
         /// <summary>
         /// A document posted in the doc channel.
         /// </summary>
@@ -19,7 +21,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Title</value>
         [JsonProperty("title", Required = Required.Always)]
-        public string Title {
+        public string Title
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +30,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Forum post content</value>
         [JsonProperty("content", Required = Required.Always)]
-        public MessageContent Content {
+        public MessageContent Content
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +39,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Created at</value>
         [JsonProperty("modifiedAt")]
-        public DateTime? ModifiedAt {
+        public DateTime? ModifiedAt
+        {
             get; set;
         }
         /// <summary>
@@ -43,7 +48,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Author ID</value>
         [JsonProperty("modifiedBy")]
-        public GId ModifiedBy {
+        public GId ModifiedBy
+        {
             get; set;
         }
         /// <summary>
@@ -51,7 +57,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Public document</value>
         [JsonProperty("isPublic")]
-        public bool IsPublic {
+        public bool IsPublic
+        {
             get; set;
         }
         /// <summary>
@@ -59,7 +66,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Draft document</value>
         [JsonProperty("isDraft")]
-        public bool IsDraft {
+        public bool IsDraft
+        {
             get; set;
         }
         /// <summary>
@@ -67,7 +75,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value></value>
         [JsonProperty("isCredentialed")]
-        public bool IsCredentialed {
+        public bool IsCredentialed
+        {
             get; set;
         }
         /// <summary>
@@ -75,7 +84,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>List of document replies</value>
         [JsonProperty("replies")]
-        public IList<ContentReply> Replies {
+        public IList<ContentReply> Replies
+        {
             get; set;
         }
     }

@@ -7,13 +7,15 @@ namespace Guilded.NET.Objects.Content
     /// <summary>
     /// A reply to a forum post.
     /// </summary>
-    public class ForumReply: ContentReply {
+    public class ForumReply : ContentReply
+    {
         /// <summary>
         /// To what it is replying. If it's not replying to anyone, it gives ID of the post.
         /// </summary>
         /// <value>Post/Reply ID</value>
         [JsonProperty("repliesTo", Required = Required.Always)]
-        public ulong RepliesTo {
+        public ulong RepliesTo
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +23,8 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>Bot ID</value>
         [JsonProperty("createdByBotId", Required = Required.AllowNull)]
-        public Guid? CreatedByBotId {
+        public Guid? CreatedByBotId
+        {
             get; set;
         }
     }

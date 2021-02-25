@@ -3,7 +3,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// A caption under an image.
     /// </summary>
-    public class ImageCaption: ContainerNode<IMessageObject> {
+    public class ImageCaption : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// A caption under an image.
         /// </summary>
@@ -20,7 +21,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">List of message objects</param>
         /// <returns>Image caption node</returns>
         public static ParagraphNode Generate(params IMessageObject[] objs) =>
-            new ParagraphNode {
+            new ParagraphNode
+            {
                 Nodes = objs
             };
         /// <summary>

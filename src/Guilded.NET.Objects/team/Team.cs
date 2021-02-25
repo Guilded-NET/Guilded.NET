@@ -6,17 +6,20 @@ using Guilded.NET.Objects.Converters;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// Guilded team/guild/server.
     /// </summary>
-    public class Team: BaseTeam {
+    public class Team : BaseTeam
+    {
         /// <summary>
         /// Team's "biography".
         /// </summary>
         /// <value>Biography</value>
         [JsonProperty("bio", Required = Required.AllowNull)]
-        public string Bio {
+        public string Bio
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +27,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("description", Required = Required.AllowNull)]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <summary>
@@ -33,7 +37,8 @@ namespace Guilded.NET.Objects.Teams {
         /// <value>List of members or list of list of members</value>
         [JsonConverter(typeof(FlatConverter))]
         [JsonProperty("members", Required = Required.Always)]
-        public IList<TeamMember> Members {
+        public IList<TeamMember> Members
+        {
             get; set;
         }
         /// <summary>
@@ -41,7 +46,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team measurements</value>
         [JsonProperty("measurements", Required = Required.Always)]
-        public TeamMeasurements Measurements {
+        public TeamMeasurements Measurements
+        {
             get; set;
         }
         /// <summary>
@@ -49,7 +55,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>List of webhooks</value>
         [JsonProperty("webhooks", Required = Required.Always)]
-        public IList<Webhook> Webhooks {
+        public IList<Webhook> Webhooks
+        {
             get; set;
         }
         /// <summary>
@@ -57,7 +64,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Following</value>
         [JsonProperty("userFollowsTeam", Required = Required.Always)]
-        public bool IsFollowing {
+        public bool IsFollowing
+        {
             get; set;
         }
         /// <summary>
@@ -65,7 +73,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Applied</value>
         [JsonProperty("isUserApplicant", Required = Required.Always)]
-        public bool IsApplicant {
+        public bool IsApplicant
+        {
             get; set;
         }
         /// <summary>
@@ -73,7 +82,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Invited</value>
         [JsonProperty("isUserInvited", Required = Required.Always)]
-        public bool IsInvited {
+        public bool IsInvited
+        {
             get; set;
         }
         /// <summary>
@@ -81,7 +91,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Banned</value>
         [JsonProperty("isUserBannedFromTeam", Required = Required.Always)]
-        public bool IsBanned {
+        public bool IsBanned
+        {
             get; set;
         }
         /// <summary>
@@ -89,7 +100,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Imported Discord server</value>
         [JsonProperty("hasImportedDiscordServer", Required = Required.Always)]
-        public bool ImportedDiscord {
+        public bool ImportedDiscord
+        {
             get; set;
         }
         /// <summary>

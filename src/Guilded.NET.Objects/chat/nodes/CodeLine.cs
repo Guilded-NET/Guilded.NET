@@ -3,7 +3,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Line of code block in Guilded.
     /// </summary>
-    public class CodeLine: ContainerNode<IMessageObject> {
+    public class CodeLine : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Line of code block in Guilded.
         /// </summary>
@@ -15,7 +16,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">Text objects to create line from</param>
         /// <returns>Code block line</returns>
         public static CodeLine Generate(params TextObj[] objs) =>
-            new CodeLine {
+            new CodeLine
+            {
                 Nodes = objs
             };
         /// <summary>

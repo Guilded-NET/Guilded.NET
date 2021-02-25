@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// List channel's permissions.
     /// </summary>
     [Flags]
-    public enum ListPermissions {
+    public enum ListPermissions
+    {
         /// <summary>
         /// Allows you to create list items
         /// </summary>

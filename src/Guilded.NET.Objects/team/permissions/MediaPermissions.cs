@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Permissions related to media channel.
     /// </summary>
     [Flags]
-    public enum MediaPermissions {
+    public enum MediaPermissions
+    {
         /// <summary>
         /// Allows you to create media
         /// </summary>

@@ -2,18 +2,21 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A base for forum posts, media, announcements, etc..
     /// </summary>
     /// <typeparam name="T">ID type</typeparam>
-    public abstract class ChannelContent<T>: ClientObject {
+    public abstract class ChannelContent<T> : ClientObject
+    {
         /// <summary>
         /// ID of the content which was posted.
         /// </summary>
         /// <value>Content ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public T Id {
+        public T Id
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channelId", Required = Required.Always)]
-        public Guid ChannelId {
+        public Guid ChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Created at</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
     }

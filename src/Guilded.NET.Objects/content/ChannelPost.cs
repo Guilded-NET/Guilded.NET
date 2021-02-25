@@ -8,7 +8,8 @@ namespace Guilded.NET.Objects.Content
     /// A base for forum posts, announcements and documents.
     /// </summary>
     /// <typeparam name="T">ID type</typeparam>
-    public class ChannelPost<T>: ChannelContent<T> {
+    public class ChannelPost<T> : ChannelContent<T>
+    {
         /// <summary>
         /// A base for forum posts, announcements and documents.
         /// </summary>
@@ -19,7 +20,8 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>Visibility</value>
         [JsonProperty("visibility", Required = Required.Always)]
-        public string Visibility {
+        public string Visibility
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +29,8 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>Author ID</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +38,8 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>Bot ID</value>
         [JsonProperty("createdByBotId")]
-        public Guid? CreatedByBotId {
+        public Guid? CreatedByBotId
+        {
             get; set;
         }
     }

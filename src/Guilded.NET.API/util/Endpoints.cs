@@ -1,10 +1,12 @@
 using RestSharp;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     /// <summary>
     /// Represents endpoint in Guilded API.
     /// </summary>
-    public class Endpoint {
+    public class Endpoint
+    {
         /// <summary>
         /// Endpoint for logging into Guilded user.
         /// </summary>
@@ -41,14 +43,16 @@ namespace Guilded.NET.API {
         /// Path to the REST Endpoint.
         /// </summary>
         /// <value>Endpoint Path</value>
-        public string Path {
+        public string Path
+        {
             get; set;
         }
         /// <summary>
         /// Method of the Endpoint(GET, POST, ...).
         /// </summary>
         /// <value>EndPointMethod</value>
-        public Method EndpointMethod {
+        public Method EndpointMethod
+        {
             get; set;
         }
         /// <summary>

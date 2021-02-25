@@ -2,59 +2,68 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Guilded.NET {
+namespace Guilded.NET
+{
     /// <summary>
     /// Declares method as a command.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method, Inherited = false, AllowMultiple = false)]
-    public class CommandAttribute: Attribute {
+    public class CommandAttribute : Attribute
+    {
         /// <summary>
         /// The name of the command. Used for finding the command.
         /// </summary>
         /// <value>Command name</value>
-        public string Name {
+        public string Name
+        {
             get; protected set;
         }
         /// <summary>
         /// Description of the command. Can be used for help commands.
         /// </summary>
         /// <value></value>
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <summary>
         /// Alternative names for the command.
         /// </summary>
         /// <value>Array of names</value>
-        public string[] Alias {
+        public string[] Alias
+        {
             get; set;
         }
         /// <summary>
         /// How this command should be used.
         /// </summary>
         /// <value>Command usage</value>
-        public string Usage {
+        public string Usage
+        {
             get; set;
         }
         /// <summary>
         /// All of the extra info this command should hold. Can be used for more info on help commands. E.g., sub-command list
         /// </summary>
         /// <value>Info</value>
-        public Dictionary<string, object> ExtraInfo {
+        public Dictionary<string, object> ExtraInfo
+        {
             get; set;
         }
         /// <summary>
         /// If the command name and alias should ignore the case. False by default.
         /// </summary>
         /// <value>Ignore</value>
-        public bool IgnoreCase {
+        public bool IgnoreCase
+        {
             get; set;
         }
         /// <summary>
         /// If all people can use this command. If false, then only owner can use it.
         /// </summary>
         /// <value>Public</value>
-        public bool IsPublic {
+        public bool IsPublic
+        {
             get; set;
         }
         /// <summary>
@@ -69,7 +78,8 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="name">Name to check</param>
         /// <returns>If it equals to any of the names</returns>
-        public bool IsNameEqual(string name) {
+        public bool IsNameEqual(string name)
+        {
             // Get lowcase versions of them, if case should be ignored
             string newer = IgnoreCase ? name.ToLower() : name;
             string lowername = IgnoreCase ? Name.ToLower() : Name;

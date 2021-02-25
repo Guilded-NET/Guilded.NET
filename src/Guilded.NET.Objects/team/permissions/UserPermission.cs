@@ -1,17 +1,20 @@
 using System;
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Represents user permissions in the channel.
     /// </summary>
-    public class UserPermission: BaseObject, IPermission {
+    public class UserPermission : BaseObject, IPermission
+    {
         /// <summary>
         /// ID of the user.
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("userId", Required = Required.Always)]
-        public GId UserId {
+        public GId UserId
+        {
             get; set;
         }
         /// <summary>
@@ -19,7 +22,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +31,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
-        public DateTime? UpdatedAt {
+        public DateTime? UpdatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +40,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("denyPermissions")]
-        public PermissionList DenyPermissions {
+        public PermissionList DenyPermissions
+        {
             get; set;
         }
         /// <summary>
@@ -43,7 +49,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("allowPermissions")]
-        public PermissionList AllowPermissions {
+        public PermissionList AllowPermissions
+        {
             get; set;
         }
     }

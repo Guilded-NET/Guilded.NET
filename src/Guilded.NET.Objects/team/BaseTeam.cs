@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     using Permissions;
     /// <summary>
     /// Guilded team/guild/server.
     /// </summary>
-    public class BaseTeam: ClientObject {
+    public class BaseTeam : ClientObject
+    {
         //=======================//
         //   Team IDs
         //=======================//
-        
+
         /// <summary>
         /// ID of the team.
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public GId Id {
+        public GId Id
+        {
             get; set;
         }
         /// <summary>
@@ -30,19 +33,21 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("ownerId", Required = Required.Always)]
-        public GId OwnerId {
+        public GId OwnerId
+        {
             get; set;
         }
         //=======================//
         //   Name and Info
         //=======================//
-        
+
         /// <summary>
         /// Name of the team.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -50,19 +55,21 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Subdomain</value>
         [JsonProperty("subdomain", Required = Required.Always)]
-        public string Subdomain {
+        public string Subdomain
+        {
             get; set;
         }
         //=======================//
         //   Icons & Banners
         //=======================//
-        
+
         /// <summary>
         /// URL of team's avatar.
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("profilePicture")]
-        public Uri Avatar {
+        public Uri Avatar
+        {
             get; set;
         }
         /// <summary>
@@ -70,7 +77,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("teamDashImage", Required = Required.AllowNull)]
-        public Uri DashImage {
+        public Uri DashImage
+        {
             get; set;
         }
         /// <summary>
@@ -78,7 +86,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("homeBannerImageSm")]
-        public Uri HomeBannerSmall {
+        public Uri HomeBannerSmall
+        {
             get; set;
         }
         /// <summary>
@@ -86,7 +95,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("homeBannerImageMd")]
-        public Uri HomeBannerMedium {
+        public Uri HomeBannerMedium
+        {
             get; set;
         }
         /// <summary>
@@ -94,7 +104,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("homeBannerImageLarge")]
-        public Uri HomeBannerLarge {
+        public Uri HomeBannerLarge
+        {
             get; set;
         }
         //=======================//
@@ -106,7 +117,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Recruiting</value>
         [JsonProperty("isRecruiting", Required = Required.Always)]
-        public bool IsRecruiting {
+        public bool IsRecruiting
+        {
             get; set;
         }
         /// <summary>
@@ -114,7 +126,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Verified</value>
         [JsonProperty("isVerified", Required = Required.Always)]
-        public bool IsVerified {
+        public bool IsVerified
+        {
             get; set;
         }
         /// <summary>
@@ -122,7 +135,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Public</value>
         [JsonProperty("isPublic", Required = Required.Always)]
-        public bool IsPublic {
+        public bool IsPublic
+        {
             get; set;
         }
         /// <summary>
@@ -130,7 +144,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Pro verified</value>
         [JsonProperty("isPro", Required = Required.Always)]
-        public bool IsPro {
+        public bool IsPro
+        {
             get; set;
         }
         //=======================//
@@ -142,7 +157,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Boolean</value>
         [JsonProperty("autoSyncDiscordRoles", Required = Required.Always)]
-        public bool AutoSyncDiscordRoles {
+        public bool AutoSyncDiscordRoles
+        {
             get; set;
         }
         /// <summary>
@@ -150,7 +166,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>(Nullable) Discord Server ID</value>
         [JsonProperty("discordGuildId", Required = Required.AllowNull)]
-        public ulong? DiscordId {
+        public ulong? DiscordId
+        {
             get; set;
         }
         /// <summary>
@@ -158,7 +175,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>(Nullable) Discord Server Name</value>
         [JsonProperty("discordServerName", Required = Required.AllowNull)]
-        public string DiscordName {
+        public string DiscordName
+        {
             get; set;
         }
         //=======================//
@@ -170,7 +188,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>IDictionary of role id, role</value>
         [JsonProperty("rolesById", Required = Required.Always)]
-        public IDictionary<string, TeamRole> RolesById {
+        public IDictionary<string, TeamRole> RolesById
+        {
             get; set;
         }
         //======================//
@@ -182,7 +201,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Group</value>
         [JsonProperty("baseGroup", Required = Required.Always)]
-        public Group BaseGroup {
+        public Group BaseGroup
+        {
             get; set;
         }
         /// <summary>
@@ -190,19 +210,21 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team game IDs</value>
         [JsonProperty("games", Required = Required.Always)]
-        public IList<uint> Games {
+        public IList<uint> Games
+        {
             get; set;
         }
         //======================//
         //   Other
         //=======================//
-        
+
         /// <summary>
         /// Team's selected timezone.
         /// </summary>
         /// <value>Timezone</value>
         [JsonProperty("timezone", Required = Required.AllowNull)]
-        public string Timezone {
+        public string Timezone
+        {
             get; set;
         }
         /// <summary>
@@ -210,7 +232,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team type</value>
         [JsonProperty("type", Required = Required.AllowNull)]
-        public TeamType? Type {
+        public TeamType? Type
+        {
             get; set;
         }
 
@@ -322,7 +345,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <param name="member">Member's colour</param>
         /// <returns>Colour</returns>
-        public Color GetColorOf(TeamMember member) {
+        public Color GetColorOf(TeamMember member)
+        {
             // Gets a colour from roles
             Color roleColour = member.RoleIds
                 .Select(x => RolesById[x.ToString()].Color)
@@ -356,7 +380,7 @@ namespace Guilded.NET.Objects.Teams {
         /// <returns>Team</returns>
         public Team AsTeam() =>
             ParentClient.GetTeam(Id);
-        
+
         //=====================//
         //   Overrides
         //=====================//
@@ -371,8 +395,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is BaseTeam team) return team.Id == Id;
+        public override bool Equals(object obj)
+        {
+            if (obj is BaseTeam team) return team.Id == Id;
             else return false;
         }
         /// <summary>

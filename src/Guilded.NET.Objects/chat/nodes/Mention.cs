@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     using Teams;
     /// <summary>
     /// Role, user, @everyone or @here mention.
     /// </summary>
-    public class Mention: ContainerNode<IMessageObject> {
+    public class Mention : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Role, user, @everyone or @here mention.
         /// </summary>
@@ -19,7 +21,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Data of the mention</value>
         [JsonIgnore]
-        public MentionData MentionData {
+        public MentionData MentionData
+        {
             get => GetDataProperty<MentionData>("mention");
         }
         /// <summary>
@@ -34,7 +37,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="mention">Mention data</param>
         /// <returns>Mention</returns>
         public static Mention Generate(MentionData mention) =>
-            new Mention {
+            new Mention
+            {
                 Data = JObject.FromObject(new { mention }),
                 Nodes = new List<IMessageObject> {
                     TextObj.GenerateText($"@{mention.Name}")

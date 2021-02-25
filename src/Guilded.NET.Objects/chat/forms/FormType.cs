@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Forms {
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// Type of the form(form, poll)
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum FormType {
+    public enum FormType
+    {
         /// <summary>
         /// A form which can have multiple fields and optional fields. <br/>
         /// Useful for making applications.

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Guilded emote object.
     /// </summary>
-    public class Emote: ChatEmote {
+    public class Emote : ChatEmote
+    {
         /// <summary>
         /// Guilded emote object.
         /// </summary>
@@ -19,7 +21,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId Author {
+        public GId Author
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +30,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +39,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -43,7 +48,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>List of names</value>
         [JsonProperty("aliases")]
-        public IList<string> Aliases {
+        public IList<string> Aliases
+        {
             get; set;
         }
         /// <summary>
@@ -51,7 +57,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Deleted</value>
         [JsonProperty("isDeleted")]
-        public bool IsDeleted {
+        public bool IsDeleted
+        {
             get; set;
         }
         /// <summary>
@@ -59,7 +66,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value></value>
         [JsonProperty("discordEmojiId")]
-        public ulong? DiscordEmojiId {
+        public ulong? DiscordEmojiId
+        {
             get; set;
         }
     }

@@ -6,7 +6,8 @@ namespace Guilded.NET
     /// <summary>
     /// A base for user bot clients and normal bot clients.
     /// </summary>
-    public abstract partial class BasicGuildedClient {
+    public abstract partial class BasicGuildedClient
+    {
         /// <summary>
         /// When message was posted in the chat.
         /// </summary>
@@ -14,7 +15,8 @@ namespace Guilded.NET
         /// <summary>
         /// When message was posted in the channel.
         /// </summary>
-        public event EventHandler<MessageCreatedEvent> MessageCreated {
+        public event EventHandler<MessageCreatedEvent> MessageCreated
+        {
             add => MessageCreatedEvent += value;
             remove => MessageCreatedEvent -= value;
         }
@@ -25,7 +27,8 @@ namespace Guilded.NET
         /// <summary>
         /// When message gets editted/updated.
         /// </summary>
-        public event EventHandler<MessageUpdatedEvent> MessageUpdated {
+        public event EventHandler<MessageUpdatedEvent> MessageUpdated
+        {
             add => MessageUpdatedEvent += value;
             remove => MessageUpdatedEvent -= value;
         }
@@ -36,7 +39,8 @@ namespace Guilded.NET
         /// <summary>
         /// When message gets deleted/removed.
         /// </summary>
-        public event EventHandler<MessageDeletedEvent> MessageRemoved {
+        public event EventHandler<MessageDeletedEvent> MessageRemoved
+        {
             add => MessageRemovedEvent += value;
             remove => MessageRemovedEvent -= value;
         }
@@ -48,7 +52,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone is typing in the chat.
         /// </summary>
-        public event EventHandler<UserTypingEvent> UserTyping {
+        public event EventHandler<UserTypingEvent> UserTyping
+        {
             add => UserTypingEvent += value;
             remove => UserTypingEvent -= value;
         }
@@ -60,7 +65,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone adds a reaction to a message.
         /// </summary>
-        public event EventHandler<ReactionUpdatedEvent> ReactionAdded {
+        public event EventHandler<ReactionUpdatedEvent> ReactionAdded
+        {
             add => ReactionAddedEvent += value;
             remove => ReactionAddedEvent -= value;
         }
@@ -71,11 +77,12 @@ namespace Guilded.NET
         /// <summary>
         /// When someone removes a reaction from a message.
         /// </summary>
-        public event EventHandler<ReactionUpdatedEvent> ReactionRemoved {
+        public event EventHandler<ReactionUpdatedEvent> ReactionRemoved
+        {
             add => ReactionRemovedEvent += value;
             remove => ReactionRemovedEvent -= value;
         }
-        
+
         /// <summary>
         /// When a message in chat gets pinned.
         /// </summary>
@@ -83,7 +90,8 @@ namespace Guilded.NET
         /// <summary>
         /// When a message in chat gets pinned.
         /// </summary>
-        public event EventHandler<MessagePinUpdatedEvent> MessagePinned {
+        public event EventHandler<MessagePinUpdatedEvent> MessagePinned
+        {
             add => MessagePinnedEvent += value;
             remove => MessagePinnedEvent -= value;
         }
@@ -94,7 +102,8 @@ namespace Guilded.NET
         /// <summary>
         /// When a message in chat gets unpinned.
         /// </summary>
-        public event EventHandler<MessagePinUpdatedEvent> MessageUnpinned {
+        public event EventHandler<MessagePinUpdatedEvent> MessageUnpinned
+        {
             add => MessageUnpinnedEvent += value;
             remove => MessageUnpinnedEvent -= value;
         }
@@ -106,7 +115,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone joins a voice or a stream channel.
         /// </summary>
-        public event EventHandler<VoiceUpdatedEvent> UserVoiceJoined {
+        public event EventHandler<VoiceUpdatedEvent> UserVoiceJoined
+        {
             add => UserVoiceJoinedEvent += value;
             remove => UserVoiceJoinedEvent -= value;
         }
@@ -117,7 +127,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone leaves a voice or a stream channel.
         /// </summary>
-        public event EventHandler<VoiceUpdatedEvent> UserVoiceLeft {
+        public event EventHandler<VoiceUpdatedEvent> UserVoiceLeft
+        {
             add => UserVoiceLeftEvent += value;
             remove => UserVoiceLeftEvent -= value;
         }
@@ -129,7 +140,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone creates a forum post, media, document, etc..
         /// </summary>
-        public event EventHandler<ContentCreatedEvent> ContentCreated {
+        public event EventHandler<ContentCreatedEvent> ContentCreated
+        {
             add => ContentCreatedEvent += value;
             remove => ContentCreatedEvent -= value;
         }
@@ -140,7 +152,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone deletes a forum post, media, document, etc..
         /// </summary>
-        public event EventHandler<ContentDeletedEvent> ContentRemoved {
+        public event EventHandler<ContentDeletedEvent> ContentRemoved
+        {
             add => ContentRemovedEvent += value;
             remove => ContentRemovedEvent -= value;
         }
@@ -151,7 +164,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone updates a forum post, media, document, etc..
         /// </summary>
-        public event EventHandler<ContentUpdatedEvent> ContentUpdated {
+        public event EventHandler<ContentUpdatedEvent> ContentUpdated
+        {
             add => ContentUpdatedEvent += value;
             remove => ContentUpdatedEvent -= value;
         }
@@ -163,7 +177,8 @@ namespace Guilded.NET
         /// <summary>
         /// When channel gets created.
         /// </summary>
-        public event EventHandler<ChannelCreatedEvent> ChannelCreated {
+        public event EventHandler<ChannelCreatedEvent> ChannelCreated
+        {
             add => ChannelCreatedEvent += value;
             remove => ChannelCreatedEvent -= value;
         }
@@ -174,7 +189,8 @@ namespace Guilded.NET
         /// <summary>
         /// When channel gets updated.
         /// </summary>
-        public event EventHandler<ChannelUpdatedEvent> ChannelUpdated {
+        public event EventHandler<ChannelUpdatedEvent> ChannelUpdated
+        {
             add => ChannelUpdatedEvent += value;
             remove => ChannelUpdatedEvent -= value;
         }
@@ -185,7 +201,8 @@ namespace Guilded.NET
         /// <summary>
         /// When channel gets deleted.
         /// </summary>
-        public event EventHandler<ChannelDeletedEvent> ChannelDeleted {
+        public event EventHandler<ChannelDeletedEvent> ChannelDeleted
+        {
             add => ChannelDeletedEvent += value;
             remove => ChannelDeletedEvent -= value;
         }
@@ -196,7 +213,8 @@ namespace Guilded.NET
         /// <summary>
         /// When someone creates a thread as a response to the specific message.
         /// </summary>
-        public event EventHandler<ThreadCreatedEvent> ThreadCreated {
+        public event EventHandler<ThreadCreatedEvent> ThreadCreated
+        {
             add => ThreadCreatedEvent += value;
             remove => ThreadCreatedEvent -= value;
         }
@@ -207,7 +225,8 @@ namespace Guilded.NET
         /// <summary>
         /// When a notification appears in a channel.
         /// </summary>
-        public event EventHandler<ChannelBadgedEvent> ChannelBadged {
+        public event EventHandler<ChannelBadgedEvent> ChannelBadged
+        {
             add => ChannelBadgedEvent += value;
             remove => ChannelBadgedEvent -= value;
         }
@@ -218,7 +237,8 @@ namespace Guilded.NET
         /// <summary>
         /// When the client views a channel and clears the notifications.
         /// </summary>
-        public event EventHandler<ChannelSeenEvent> ChannelSeen {
+        public event EventHandler<ChannelSeenEvent> ChannelSeen
+        {
             add => ChannelSeenEvent += value;
             remove => ChannelSeenEvent -= value;
         }
@@ -230,7 +250,8 @@ namespace Guilded.NET
         /// <summary>
         /// When group gets created in a team.
         /// </summary>
-        public event EventHandler<GroupCreatedEvent> GroupCreated {
+        public event EventHandler<GroupCreatedEvent> GroupCreated
+        {
             add => GroupCreatedEvent += value;
             remove => GroupCreatedEvent -= value;
         }
@@ -241,7 +262,8 @@ namespace Guilded.NET
         /// <summary>
         /// When group gets updated in a team.
         /// </summary>
-        public event EventHandler<GroupUpdatedEvent> GroupUpdated {
+        public event EventHandler<GroupUpdatedEvent> GroupUpdated
+        {
             add => GroupUpdatedEvent += value;
             remove => GroupUpdatedEvent -= value;
         }
@@ -252,7 +274,8 @@ namespace Guilded.NET
         /// <summary>
         /// When group gets deleted in a team.
         /// </summary>
-        public event EventHandler<TeamGroupEvent> GroupDeleted {
+        public event EventHandler<TeamGroupEvent> GroupDeleted
+        {
             add => GroupDeletedEvent += value;
             remove => GroupDeletedEvent -= value;
         }
@@ -263,7 +286,8 @@ namespace Guilded.NET
         /// <summary>
         /// When group gets archived in a team.
         /// </summary>
-        public event EventHandler<TeamGroupEvent> GroupArchived {
+        public event EventHandler<TeamGroupEvent> GroupArchived
+        {
             add => GroupArchivedEvent += value;
             remove => GroupArchivedEvent -= value;
         }
@@ -274,7 +298,8 @@ namespace Guilded.NET
         /// <summary>
         /// When group gets unarchived in a team.
         /// </summary>
-        public event EventHandler<TeamGroupEvent> GroupRestored {
+        public event EventHandler<TeamGroupEvent> GroupRestored
+        {
             add => GroupRestoredEvent += value;
             remove => GroupRestoredEvent -= value;
         }
@@ -286,7 +311,8 @@ namespace Guilded.NET
         /// <summary>
         /// When member's information gets updated in a team.
         /// </summary>
-        public event EventHandler<TeamMemberUpdatedEvent> MemberUpdated {
+        public event EventHandler<TeamMemberUpdatedEvent> MemberUpdated
+        {
             add => MemberUpdatedEvent += value;
             remove => MemberUpdatedEvent -= value;
         }
@@ -297,7 +323,8 @@ namespace Guilded.NET
         /// <summary>
         /// When member's roles get updated.
         /// </summary>
-        public event EventHandler<TeamRolesUpdatedEvent> RolesUpdated {
+        public event EventHandler<TeamRolesUpdatedEvent> RolesUpdated
+        {
             add => RolesUpdatedEvent += value;
             remove => RolesUpdatedEvent -= value;
         }
@@ -309,7 +336,8 @@ namespace Guilded.NET
         /// <summary>
         /// When user gets updated.
         /// </summary>
-        public event EventHandler<UserUpdatedEvent> UserUpdated {
+        public event EventHandler<UserUpdatedEvent> UserUpdated
+        {
             add => UserUpdatedEvent += value;
             remove => UserUpdatedEvent -= value;
         }
@@ -320,7 +348,8 @@ namespace Guilded.NET
         /// <summary>
         /// When user leaves/joins a team or gets kicked/banned from the team.
         /// </summary>
-        public event EventHandler<UserTeamsUpdated> TeamsUpdated {
+        public event EventHandler<UserTeamsUpdated> TeamsUpdated
+        {
             add => TeamsUpdatedEvent += value;
             remove => TeamsUpdatedEvent -= value;
         }
@@ -332,7 +361,8 @@ namespace Guilded.NET
         /// <summary>
         /// When command gets invoked.
         /// </summary>
-        public event CommandMethod CommandInvoked {
+        public event CommandMethod CommandInvoked
+        {
             add => CommandInvokedEvent += value;
             remove => CommandInvokedEvent -= value;
         }

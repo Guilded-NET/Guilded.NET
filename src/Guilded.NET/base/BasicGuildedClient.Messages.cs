@@ -5,19 +5,22 @@ using System.Reflection;
 
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET {
+namespace Guilded.NET
+{
     using API;
 
     using Objects.Events;
     /// <summary>
     /// A base for user bot clients and normal bot clients.
     /// </summary>
-    public abstract partial class BasicGuildedClient {
+    public abstract partial class BasicGuildedClient
+    {
         /// <summary>
         /// Dictionary of command attribute and command methods. Stores all of the given commands.
         /// </summary>
         /// <value>Dictionary of key(command attribute) and value(command method)</value>
-        public Dictionary<CommandAttribute, CommandMethod> CommandDictionary {
+        public Dictionary<CommandAttribute, CommandMethod> CommandDictionary
+        {
             get; set;
         }
         /// <summary>
@@ -25,19 +28,20 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="o">Who invoked this method</param>
         /// <param name="msg">Message creation event</param>
-        protected virtual void CommandChecking(object o, MessageCreatedEvent msg) {
+        protected virtual void CommandChecking(object o, MessageCreatedEvent msg)
+        {
             // If commands are not enabled or config is null
-            if(ClientConfig == null || !ClientConfig.EnableCommands) return;
+            if (ClientConfig == null || !ClientConfig.EnableCommands) return;
             // If message was posted by this user, ignore it.
-            if(msg.Message.AuthorId == Me.User.Id && ClientConfig.IgnoreOwnCommands) return;
+            if (msg.Message.AuthorId == Me.User.Id && ClientConfig.IgnoreOwnCommands) return;
             // If there's no prefix func, ignore the command
-            if(ClientConfig.Prefix == null) return;
+            if (ClientConfig.Prefix == null) return;
             // Gets prefix
             string prefix = ClientConfig.Prefix(msg);
             // Turns message content to string
             string content = msg.Message.ToString();
             // If the message doesn't start with prefix, ignore it.
-            if(!content.StartsWith(prefix)) return;
+            if (!content.StartsWith(prefix)) return;
             // Skip the prefix and split rest of the content
             string[] split = content[prefix.Length..].Split(ClientConfig.CommandArgumentSplit, ClientConfig.SplitOptions);
             // Get first item in the array, which is a command name
@@ -54,11 +58,12 @@ namespace Guilded.NET {
         /// <param name="msg">Message created event</param>
         /// <param name="command">Command name</param>
         /// <param name="args">Command arguments</param>
-        protected void InvokeCommand(BasicGuildedClient client, MessageCreatedEvent msg, string command, IList<string> args) {
+        protected void InvokeCommand(BasicGuildedClient client, MessageCreatedEvent msg, string command, IList<string> args)
+        {
             // Gets attribute by command name
             CommandAttribute attr = CommandDictionary.Keys.FirstOrDefault(x => x.IsNameEqual(command));
             // If attr is null, ignore the command
-            if(attr == null) return;
+            if (attr == null) return;
             // Else, get the CommandMethod and execute it
             CommandDictionary[attr](client, msg, command, args);
         }
@@ -66,18 +71,22 @@ namespace Guilded.NET {
         /// Gets all command methods from the specific type.
         /// </summary>
         /// <param name="type">Type to fetch commands from</param>
-        public void FetchCommands(Type type) {
+        public void FetchCommands(Type type)
+        {
             // Get all methods from it
-            foreach(MethodInfo method in type.GetMethods()) {
+            foreach (MethodInfo method in type.GetMethods())
+            {
                 // Gets the command attribute
-                if(method.GetCustomAttribute(typeof(CommandAttribute), true) is CommandAttribute attr) {
+                if (method.GetCustomAttribute(typeof(CommandAttribute), true) is CommandAttribute attr)
+                {
                     // Create delegate instance from the method
                     object obj = Delegate.CreateDelegate(typeof(CommandMethod), method, false);
                     // If obj is null, throw an error that it does not match `CommandMethod`
-                    if(obj == null) throw new InvalidProgramException($"{method.Name} must match delegate {nameof(CommandMethod)}.");
+                    if (obj == null) throw new InvalidProgramException($"{method.Name} must match delegate {nameof(CommandMethod)}.");
                     // Casts the object to CommandMethod and adds it to the dictionary along with attribute
                     CommandDictionary.Add(attr, (CommandMethod)obj);
-                } else continue;
+                }
+                else continue;
             }
         }
         /// <summary>
@@ -85,13 +94,16 @@ namespace Guilded.NET {
         /// </summary>
         /// <param name="o">Object which invoked the event</param>
         /// <param name="x">Socket message</param>
-        protected void HandleSocketMessages(object o, SocketMessage x) {
+        protected void HandleSocketMessages(object o, SocketMessage x)
+        {
             // Check if it's socket event
-            if(x is SocketEvent xe) {
+            if (x is SocketEvent xe)
+            {
                 // Get the given data
                 JObject xeobj = xe.Object;
                 // Get the type of the event
-                switch(xe.MessageType) {
+                switch (xe.MessageType)
+                {
                     // Message events
                     case "ChatMessageCreated":
                         InvokeEvent<MessageCreatedEvent>(MessageCreatedEvent, xeobj);
@@ -182,7 +194,7 @@ namespace Guilded.NET {
                         // Convert xeobj to user updated event
                         UserUpdatedEvent updated = xeobj.ToObject<UserUpdatedEvent>(GuildedSerializer);
                         // If client's user got updated
-                        if(updated.UserId == Me.Id)
+                        if (updated.UserId == Me.Id)
                             MeUpdated(updated);
                         // Invoke the event
                         UserUpdatedEvent?.DynamicInvoke(this, updated);
@@ -197,9 +209,9 @@ namespace Guilded.NET {
                         break;
                 }
             }
-            else if(x is SocketMessage xm)
+            else if (x is SocketMessage xm)
                 // If it's a heartbeat response
-                if(xm.Number == 3) InvokeHeartbeatEvent(this, 3);
+                if (xm.Number == 3) InvokeHeartbeatEvent(this, 3);
         }
         /// <summary>
         /// Shortens long event invokation.
@@ -207,7 +219,7 @@ namespace Guilded.NET {
         /// <param name="ev">Event to be invoked</param>
         /// <param name="arg">JSON Objects which should be turned to other object</param>
         /// <typeparam name="T">Event type</typeparam>
-        void InvokeEvent<T>(Delegate ev, JObject arg) where T: Event =>
+        void InvokeEvent<T>(Delegate ev, JObject arg) where T : Event =>
             ev?.DynamicInvoke(this, arg.ToObject<T>(GuildedSerializer));
         /// <summary>
         /// Method when this user gets updated.
@@ -222,9 +234,10 @@ namespace Guilded.NET {
         /// Updates Me.Teams when <see cref="UserTeamsUpdated"/> event occurs.
         /// </summary>
         /// <param name="e"></param>
-        protected virtual void MeUpdated(UserTeamsUpdated e) {
+        protected virtual void MeUpdated(UserTeamsUpdated e)
+        {
             // If the team was removed
-            if(e.IsBanned || e.IsRemoved) Me.Teams = Me.Teams.Where(x => x.Id != e.TeamId).ToList();
+            if (e.IsBanned || e.IsRemoved) Me.Teams = Me.Teams.Where(x => x.Id != e.TeamId).ToList();
             // Else, add that team
             else Me.Teams.Add(GetTeam(e.TeamId));
         }

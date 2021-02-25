@@ -1,12 +1,15 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Node containing embeds. A.k.a. webhook message in Guilded.
     /// </summary>
-    public class EmbedNode: ContainerNode<IMessageObject> {
+    public class EmbedNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Node containing embeds. A.k.a. webhook message in Guilded.
         /// </summary>
@@ -17,7 +20,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>List of embeds</value>
         [JsonIgnore]
-        public IList<Embed> Embeds {
+        public IList<Embed> Embeds
+        {
             get => GetDataProperty<IList<Embed>>("embeds");
         }
         /// <summary>
@@ -26,7 +30,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="embeds">List of embed datas</param>
         /// <returns>Embed node</returns>
         public static EmbedNode Generate(params Embed[] embeds) =>
-            new EmbedNode {
+            new EmbedNode
+            {
                 Data = JObject.FromObject(new { embeds })
             };
         /// <summary>

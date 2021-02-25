@@ -7,18 +7,21 @@ using Guilded.NET.Objects.Chat;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     using Teams;
     /// <summary>
     /// A base for events in both teams(reaction events, message events) and DMs.
     /// </summary>
-    public class CommonEvent: ClientEvent {
+    public class CommonEvent : ClientEvent
+    {
         /// <summary>
         /// ID of the channel this event appeared. Can be a DM channel or a team channel.
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channelId", Required = Required.Always)]
-        public Guid ChannelId {
+        public Guid ChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +30,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Category ID</value>
         [JsonProperty("channelCategoryId")]
         [DefaultValue(null)]
-        public uint? CategoryId {
+        public uint? CategoryId
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +39,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Team</value>
         [JsonProperty("channelType", Required = Required.Always)]
-        public ChatType ChannelType {
+        public ChatType ChannelType
+        {
             get; set;
         }
         /// <summary>
@@ -44,7 +49,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Team ID</value>
         [JsonProperty("teamId")]
         [DefaultValue(null)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
 

@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Tournament and scrims permissions.
     /// </summary>
     [Flags]
-    public enum MatchmakingPermissions {
+    public enum MatchmakingPermissions
+    {
         /// <summary>
         /// Allows you to create matchmaking scrims
         /// </summary>

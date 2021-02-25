@@ -10,7 +10,8 @@ namespace Guilded.NET.Objects
     /// <summary>
     /// Guilded user. This is NOT Guild member.
     /// </summary>
-    public class User: BaseUser {
+    public class User : BaseUser
+    {
         /// <summary>
         /// Guilded user. This is NOT Guild member.
         /// </summary>
@@ -20,70 +21,80 @@ namespace Guilded.NET.Objects
         /// Large version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureLg")]
-        public Uri ProfilePictureLarge {
+        public Uri ProfilePictureLarge
+        {
             get; set;
         }
         /// <summary>
         /// Small version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureSm")]
-        public Uri ProfilePictureSmall {
+        public Uri ProfilePictureSmall
+        {
             get; set;
         }
         /// <summary>
         /// Blurry version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureBlur")]
-        public Uri ProfilePictureBlurry {
+        public Uri ProfilePictureBlurry
+        {
             get; set;
         }
         /// <summary>
         /// Large version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerLg")]
-        public Uri ProfileBannerLarge {
+        public Uri ProfileBannerLarge
+        {
             get; set;
         }
         /// <summary>
         /// Small version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerSm")]
-        public Uri ProfileBannerSmall {
+        public Uri ProfileBannerSmall
+        {
             get; set;
         }
         /// <summary>
         /// User's steam ID.
         /// </summary>
         [JsonProperty("steamId", Required = Required.AllowNull)]
-        public string SteamID {
+        public string SteamID
+        {
             get; set;
         }
         /// <summary>
         /// Moderation status of the user. If this user is banned, it will return `banned`
         /// </summary>
         [JsonProperty("moderationStatus", Required = Required.AllowNull)]
-        public string ModerationStatus {
+        public string ModerationStatus
+        {
             get; set;
         }
         /// <summary>
         /// User's profile <strong>about</strong> section.
         /// </summary>
         [JsonProperty("aboutInfo", Required = Required.AllowNull)]
-        public About About {
+        public About About
+        {
             get; set;
         }
         /// <summary>
         /// Date of last time user was online.
         /// </summary>
         [JsonProperty("lastOnline", Required = Required.Always)]
-        public DateTime LastOnline {
+        public DateTime LastOnline
+        {
             get; set;
         }
         /// <summary>
         /// Date of user's registration.
         /// </summary>
         [JsonProperty("joinDate", Required = Required.Always)]
-        public DateTime JoinDate {
+        public DateTime JoinDate
+        {
             get; set;
         }
         /// <summary>
@@ -91,7 +102,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>List of badges</value>
         [JsonProperty("badges")]
-        public IList<GlobalBadge> Badges {
+        public IList<GlobalBadge> Badges
+        {
             get; set;
         }
 
@@ -104,17 +116,19 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>User mention</value>
         [JsonIgnore]
-        public Mention Mention {
+        public Mention Mention
+        {
             get => Mention.Generate(this);
         }
         /// <summary>
         /// If this user is banned from Guilded's services.
         /// </summary>
         /// <value>Account terminated</value>
-        public bool IsBanned {
+        public bool IsBanned
+        {
             get => ModerationStatus == "banned";
         }
-        
+
         //=========================//
         //    Overrides
         //=========================//

@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Voice chat/channel permissions.
     /// </summary>
     [Flags]
-    public enum VoicePermissions {
+    public enum VoicePermissions
+    {
         /// <summary>
         /// Allows you to talk in voice chat
         /// </summary>

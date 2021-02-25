@@ -18,7 +18,8 @@ namespace Guilded.NET
     /// <summary>
     /// Logged-in user in Guilded.
     /// </summary>
-    public abstract partial class BasicGuildedClient: IGuildedClient {
+    public abstract partial class BasicGuildedClient : IGuildedClient
+    {
         /// <summary>
         /// Gets user this client is using.
         /// </summary>
@@ -76,7 +77,8 @@ namespace Guilded.NET
         /// </summary>
         /// <param name="name">New name</param>
         /// <returns>Async task</returns>
-        public async Task ChangeNameAsync(string name) {
+        public async Task ChangeNameAsync(string name)
+        {
             // Sets a new name of this user
             await ExecuteRequest(new Endpoint($"users/{Me.User.Id}/profilev2", Method.POST), new JsonBody(new { name }));
             // Changes current user username, so it doesn't remain outdated
@@ -188,7 +190,7 @@ namespace Guilded.NET
         /// <param name="emoteId">ID of the emote to remove</param>
         public void RemoveReaction(Guid channelId, Guid messageId, uint emoteId) =>
             RemoveReactionAsync(channelId, messageId, emoteId).GetAwaiter().GetResult();
-        
+
         /// <summary>
         /// Gets a profile of a user.
         /// </summary>
@@ -251,7 +253,7 @@ namespace Guilded.NET
         /// <returns>Profile post</returns>
         public IList<PostReply> GetProfileReplies(uint postId) =>
             GetProfileRepliesAsync(postId).GetAwaiter().GetResult();
-        
-        
+
+
     }
 }

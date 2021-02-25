@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents chat images in Guilded.
     /// </summary>
-    public class ImageNode: ContainerNode<IMessageObject> {
+    public class ImageNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents chat images in Guilded.
         /// </summary>
@@ -19,7 +21,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>URL</value>
         [JsonIgnore]
-        public Uri SourceURL {
+        public Uri SourceURL
+        {
             get => GetDataProperty<Uri>("src");
         }
         /// <summary>
@@ -34,7 +37,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="caption">Caption to add</param>
         /// <returns>Image node</returns>
         public static ImageNode Generate(Uri src, string caption = null) =>
-            new ImageNode {
+            new ImageNode
+            {
                 Data = JObject.FromObject(new { src }),
                 Nodes = new List<IMessageObject> {
                     // C# 8 casting

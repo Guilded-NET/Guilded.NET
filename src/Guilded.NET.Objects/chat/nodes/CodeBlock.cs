@@ -3,11 +3,13 @@ using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents Guilded's code block node.
     /// </summary>
-    public class CodeBlock: ContainerNode<CodeLine> {
+    public class CodeBlock : ContainerNode<CodeLine>
+    {
         /// <summary>
         /// Represents Guilded's code block node.
         /// </summary>
@@ -18,7 +20,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Highlighting language</value>
         [JsonIgnore]
-        public string Language {
+        public string Language
+        {
             get => GetDataProperty<string>("language");
         }
         /// <summary>
@@ -28,7 +31,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="objs">List of code lines</param>
         /// <returns>Code block node</returns>
         public static CodeBlock Generate(string language = null, params CodeLine[] objs) =>
-            new CodeBlock {
+            new CodeBlock
+            {
                 Nodes = objs,
                 // Sets a language. If it's null, then set it as unformatted
                 Data = JObject.FromObject(

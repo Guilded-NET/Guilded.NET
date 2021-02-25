@@ -3,12 +3,14 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Type of the node.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum NodeType {
+    public enum NodeType
+    {
         // Embeds & blocks
         /// <summary>
         /// A container which holds block quote lines.

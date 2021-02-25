@@ -1,19 +1,22 @@
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Message embed data.
     /// </summary>
-    public class Embed: BaseObject {
+    public class Embed : BaseObject
+    {
         /// <summary>
         /// Title of the embed.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("title", NullValueHandling = NullValueHandling.Ignore)]
-        public string Title {
+        public string Title
+        {
             get; set;
         } = null;
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value></value>
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description {
+        public string Description
+        {
             get; set;
         } = null;
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri Url {
+        public Uri Url
+        {
             get; set;
         } = null;
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Colour</value>
         [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
-        public uint? Color {
+        public uint? Color
+        {
             get; set;
         } = null;
         /// <summary>
@@ -45,7 +51,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("timestamp", NullValueHandling = NullValueHandling.Ignore)]
-        public DateTime? Timestamp {
+        public DateTime? Timestamp
+        {
             get; set;
         } = null;
         /// <summary>
@@ -53,7 +60,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Image</value>
         [JsonProperty("image", NullValueHandling = NullValueHandling.Ignore)]
-        public EmbedImage Image {
+        public EmbedImage Image
+        {
             get; set;
         } = null;
         /// <summary>
@@ -61,7 +69,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Image</value>
         [JsonProperty("thumbnail", NullValueHandling = NullValueHandling.Ignore)]
-        public EmbedImage Thumbnail {
+        public EmbedImage Thumbnail
+        {
             get; set;
         } = null;
         /// <summary>
@@ -69,7 +78,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Footer</value>
         [JsonProperty("footer", NullValueHandling = NullValueHandling.Ignore)]
-        public EmbedFooter Footer {
+        public EmbedFooter Footer
+        {
             get; set;
         } = null;
         /// <summary>
@@ -77,7 +87,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Author</value>
         [JsonProperty("author", NullValueHandling = NullValueHandling.Ignore)]
-        public EmbedAuthor Author {
+        public EmbedAuthor Author
+        {
             get; set;
         } = null;
         /// <summary>
@@ -85,7 +96,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>List of fields</value>
         [JsonProperty("fields", NullValueHandling = NullValueHandling.Ignore)]
-        public IList<EmbedField> Fields {
+        public IList<EmbedField> Fields
+        {
             get; set;
         } = null;
         /// <summary>
@@ -101,9 +113,10 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="field">Field to be added</param>
         /// <returns>This</returns>
-        public Embed AddField(EmbedField field) {
+        public Embed AddField(EmbedField field)
+        {
             // If fields list is null
-            if(Fields == null) Fields = new List<EmbedField> {
+            if (Fields == null) Fields = new List<EmbedField> {
                 field
             };
             else Fields.Add(field);
@@ -115,11 +128,12 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="fields">Fields to be added</param>
         /// <returns>This</returns>
-        public Embed AddFields(params EmbedField[] fields) {
+        public Embed AddFields(params EmbedField[] fields)
+        {
             // If fields list is null
-            if(Fields == null) Fields = fields;
+            if (Fields == null) Fields = fields;
             // Because for some reason, IList has no AddRange, where as List has AddRange.
-            else foreach(EmbedField field in fields) Fields.Add(field);
+            else foreach (EmbedField field in fields) Fields.Add(field);
             // Returns this embed
             return this;
         }
@@ -128,7 +142,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="author">Author to be set to</param>
         /// <returns>This</returns>
-        public Embed SetAuthor(EmbedAuthor author) {
+        public Embed SetAuthor(EmbedAuthor author)
+        {
             Author = author;
             return this;
         }
@@ -146,7 +161,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="name">Name of the title</param>
         /// <param name="url">URL of the title</param>
         /// <returns>This</returns>
-        public Embed SetTitle(string name, Uri url = null) {
+        public Embed SetTitle(string name, Uri url = null)
+        {
             Title = name;
             Url = url;
             return this;
@@ -156,7 +172,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="description">Embed's description</param>
         /// <returns>This</returns>
-        public Embed SetDescription(string description) {
+        public Embed SetDescription(string description)
+        {
             Description = description;
             return this;
         }
@@ -165,8 +182,10 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="url">URL to the image</param>
         /// <returns>This</returns>
-        public Embed SetImage(Uri url) {
-            Image = new EmbedImage {
+        public Embed SetImage(Uri url)
+        {
+            Image = new EmbedImage
+            {
                 Url = url
             };
             return this;
@@ -176,8 +195,10 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="url">URL to the image</param>
         /// <returns>This</returns>
-        public Embed SetThumbnail(Uri url) {
-            Thumbnail = new EmbedImage {
+        public Embed SetThumbnail(Uri url)
+        {
+            Thumbnail = new EmbedImage
+            {
                 Url = url
             };
             return this;
@@ -187,7 +208,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="time">Date to be set to</param>
         /// <returns>This</returns>
-        public Embed SetTimestamp(DateTime time) {
+        public Embed SetTimestamp(DateTime time)
+        {
             Timestamp = time;
             return this;
         }
@@ -204,7 +226,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </example>
         /// <param name="color">Colour</param>
         /// <returns></returns>
-        public Embed SetColor(uint color) {
+        public Embed SetColor(uint color)
+        {
             Color = color;
             return this;
         }
@@ -213,7 +236,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="footer">Footer to add</param>
         /// <returns>This</returns>
-        public Embed SetFooter(EmbedFooter footer) {
+        public Embed SetFooter(EmbedFooter footer)
+        {
             Footer = footer;
             return this;
         }

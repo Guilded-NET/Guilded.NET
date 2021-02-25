@@ -1,17 +1,21 @@
 using System;
+
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Footer of the embed.
     /// </summary>
-    public class EmbedFooter: BaseObject {
+    public class EmbedFooter : BaseObject
+    {
         /// <summary>
         /// Footer icon URL.
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("iconUrl", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri IconUrl {
+        public Uri IconUrl
+        {
             get; set;
         } = null;
         /// <summary>
@@ -19,7 +23,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("text", Required = Required.Always)]
-        public string Text {
+        public string Text
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +34,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="iconUrl">Icon of the footer</param>
         /// <returns>Footer</returns>
         public static EmbedFooter Generate(string text, Uri iconUrl = null) =>
-            new EmbedFooter {
+            new EmbedFooter
+            {
                 Text = text,
                 IconUrl = iconUrl
             };

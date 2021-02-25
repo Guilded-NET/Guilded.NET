@@ -2,18 +2,21 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     using Teams;
     /// <summary>
     /// When channel gets deleted in a specific team.
     /// </summary>
-    public class ChannelDeletedEvent: ClientEvent {
+    public class ChannelDeletedEvent : ClientEvent
+    {
         /// <summary>
         /// ID of the team channel was deleted in.
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channel", Required = Required.Always)]
-        public Guid Channel {
+        public Guid Channel
+        {
             get; set;
         }
     }

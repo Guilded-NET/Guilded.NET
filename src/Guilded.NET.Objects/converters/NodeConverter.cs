@@ -10,7 +10,8 @@ namespace Guilded.NET.Objects.Converters
     /// <summary>
     /// Converts JSON objects to nodes.
     /// </summary>
-    public class NodeConverter: JsonConverter {
+    public class NodeConverter : JsonConverter
+    {
         static readonly Type node = typeof(Node);
         static readonly Type msgobj = typeof(IMessageObject);
         static readonly IDictionary<string, Type> types = new Dictionary<string, Type> {
@@ -40,7 +41,8 @@ namespace Guilded.NET.Objects.Converters
         /// If this converter can write.
         /// </summary>
         /// <value>False</value>
-        public override bool CanWrite {
+        public override bool CanWrite
+        {
             get => false;
         }
         /// <summary>
@@ -58,20 +60,23 @@ namespace Guilded.NET.Objects.Converters
         /// <param name="existingValue">Previous property value</param>
         /// <param name="serializer">Serializer</param>
         /// <returns>GLongId or GId</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
             JObject obj = JObject.Load(reader);
             // Convert JSON to Node
             string objparam = obj["object"].Value<string>();
             // If it's neither text, nor mark, nor leaf
-            if(!objs.ContainsKey(objparam)) {
+            if (!objs.ContainsKey(objparam))
+            {
                 // Gets object type
                 string objtype = obj["type"].Value<string>();
                 // If it has objtype property(e.g., if types has key paragraph, code-line, etc.)
-                if(types.ContainsKey(objtype)) return obj.ToObject(types[objtype], serializer);
+                if (types.ContainsKey(objtype)) return obj.ToObject(types[objtype], serializer);
                 // If it doesn't, return null
                 else return null;
-            // Else, parse it as leaf/text/mark.
-            } else return obj.ToObject(objs[objparam], serializer);
+                // Else, parse it as leaf/text/mark.
+            }
+            else return obj.ToObject(objs[objparam], serializer);
         }
         /// <summary>
         /// Whether or not this converter can convert given type.

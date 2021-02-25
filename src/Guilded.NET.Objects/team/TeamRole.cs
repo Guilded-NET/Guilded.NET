@@ -3,20 +3,23 @@ using System.Drawing;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     using Chat;
 
     using Permissions;
     /// <summary>
     /// Represents role in teams.
     /// </summary>
-    public class TeamRole: ClientObject {
+    public class TeamRole : ClientObject
+    {
         /// <summary>
         /// ID of the role.
         /// </summary>
         /// <value>Role ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public uint Id {
+        public uint Id
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +27,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -32,7 +36,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Hex colour</value>
         [JsonProperty("color", Required = Required.Always)]
-        public Color Color {
+        public Color Color
+        {
             get; set;
         }
         /// <summary>
@@ -40,7 +45,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority")]
-        public long? Priority {
+        public long? Priority
+        {
             get; set;
         }
         /// <summary>
@@ -48,7 +54,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Boolean</value>
         [JsonProperty("isBase", Required = Required.Always)]
-        public bool BaseRole {
+        public bool BaseRole
+        {
             get; set;
         }
         /// <summary>
@@ -56,7 +63,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -64,7 +72,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -72,7 +81,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("updatedAt", Required = Required.Always)]
-        public DateTime UpdatedAt {
+        public DateTime UpdatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -80,7 +90,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value></value>
         [JsonProperty("isMentionable", Required = Required.Always)]
-        public bool Mentionable {
+        public bool Mentionable
+        {
             get; set;
         }
         /// <summary>
@@ -88,7 +99,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value></value>
         [JsonProperty("isSelfAssignable", Required = Required.Always)]
-        public bool SelfAssignable {
+        public bool SelfAssignable
+        {
             get; set;
         }
         /// <summary>
@@ -96,7 +108,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Boolean</value>
         [JsonProperty("isDisplayedSeparately", Required = Required.Always)]
-        public bool DisplayedSeparately {
+        public bool DisplayedSeparately
+        {
             get; set;
         }
         /// <summary>
@@ -104,7 +117,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Discord role ID</value>
         [JsonProperty("discordRoleId")]
-        public ulong? DiscordRoleId {
+        public ulong? DiscordRoleId
+        {
             get; set;
         }
         /// <summary>
@@ -112,7 +126,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("permissions", Required = Required.Always)]
-        public PermissionList Permissions {
+        public PermissionList Permissions
+        {
             get; set;
         }
         /// <summary>

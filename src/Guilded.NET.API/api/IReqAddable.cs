@@ -1,10 +1,12 @@
 using RestSharp;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     /// <summary>
     /// Object addable to RestRequest.
     /// </summary>
-    public interface IReqAddable {
+    public interface IReqAddable
+    {
         /// <summary>
         /// Adds this to RestRequest.
         /// </summary>

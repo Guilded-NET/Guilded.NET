@@ -6,65 +6,75 @@ using Guilded.NET.Objects;
 
 using RestSharp;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     /// <summary>
     /// A response from execution
     /// </summary>
-    public class ExecutionResponse<T> {
+    public class ExecutionResponse<T>
+    {
         /// <summary>
         /// Response given from execution.
         /// </summary>
         /// <value>REST Response</value>
-        public IRestResponse<T> Response {
+        public IRestResponse<T> Response
+        {
             get; protected set;
         }
         /// <summary>
         /// What user it currently is authenticated as.
         /// </summary>
         /// <value>User ID</value>
-        public GId AuthenticatedAs {
+        public GId AuthenticatedAs
+        {
             get; protected set;
         }
         /// <summary>
         /// All of the allowed methods.
         /// </summary>
         /// <value>List of methods</value>
-        public IList<Method> AllowedMethods {
+        public IList<Method> AllowedMethods
+        {
             get; protected set;
         }
         /// <summary>
         /// Origin website URL.
         /// </summary>
         /// <value>URL</value>
-        public Uri Origin {
+        public Uri Origin
+        {
             get; protected set;
         }
         /// <summary>
         /// An ID of the request.
         /// </summary>
         /// <value>Request ID</value>
-        public Guid? RequestId {
+        public Guid? RequestId
+        {
             get; protected set;
         }
         /// <summary>
         /// Content from the response.
         /// </summary>
         /// <value>JSON</value>
-        public string Content {
+        public string Content
+        {
             get => Response.Content;
         }
         /// <summary>
         /// A list of all cookies.
         /// </summary>
         /// <value>Cookies</value>
-        public IList<GuildedCookie> Cookies {
+        public IList<GuildedCookie> Cookies
+        {
             get; set;
         }
         /// <summary>
         /// A response from execution
         /// </summary>
         /// <param name="response">Response from execution</param>
-        public ExecutionResponse(IRestResponse<T> response) {
+        public ExecutionResponse(IRestResponse<T> response)
+        {
             Response = response;
             // As who client is authenticated
             AuthenticatedAs = GId.Parse(response.Headers.FirstOrDefault(x => x.Name == "authenticated-as")?.Value as string);

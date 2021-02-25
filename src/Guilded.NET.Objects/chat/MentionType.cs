@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// What kind of mention it is.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum MentionType {
+    public enum MentionType
+    {
         /// <summary>
         /// Mention of a specific person or a member.
         /// </summary>

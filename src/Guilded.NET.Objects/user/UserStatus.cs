@@ -1,17 +1,20 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     using Chat;
     /// <summary>
     /// Status message of the user.
     /// </summary>
-    public class UserStatus: BaseObject {
+    public class UserStatus : BaseObject
+    {
         /// <summary>
         /// Status message content. Null if there's no content.
         /// </summary>
         /// <value></value>
         [JsonProperty("content")]
-        public MessageContent Content {
+        public MessageContent Content
+        {
             get; set;
         }
         /// <summary>
@@ -19,7 +22,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Emote's ID</value>
         [JsonProperty("customReactionId")]
-        public uint? EmoteId {
+        public uint? EmoteId
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +31,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Milliseconds</value>
         [JsonProperty("expireInMs")]
-        public ulong? ExpiresIn {
+        public ulong? ExpiresIn
+        {
             get; set;
         }
         /// <summary>
@@ -38,7 +43,8 @@ namespace Guilded.NET.Objects {
         /// <param name="expiresIn">When it should expire in milliseconds</param>
         /// <returns>Generated status</returns>
         public static UserStatus Generate(uint? emoteId = null, MessageContent content = null, ulong? expiresIn = null) =>
-            new UserStatus {
+            new UserStatus
+            {
                 EmoteId = emoteId,
                 Content = content,
                 ExpiresIn = expiresIn

@@ -4,18 +4,21 @@ using System.ComponentModel;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     using Teams;
     /// <summary>
     /// An update which was applied to the channel.
     /// </summary>
-    public class ChannelUpdate: ClientObject {
+    public class ChannelUpdate : ClientObject
+    {
         /// <summary>
         /// ID of this channel.
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public Guid Id {
+        public Guid Id
+        {
             get; set;
         }
         /// <summary>
@@ -23,7 +26,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -31,7 +35,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("description", Required = Required.AllowNull)]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <summary>
@@ -39,7 +44,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Boolean</value>
         [JsonProperty("isPublic", Required = Required.Always)]
-        public bool IsPublic {
+        public bool IsPublic
+        {
             get; set;
         }
         /// <summary>
@@ -48,7 +54,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Nullable Channel ID</value>
         [JsonProperty("channelCategoryId")]
         [DefaultValue(null)]
-        public uint? ChannelCategoryId {
+        public uint? ChannelCategoryId
+        {
             get; set;
         }
         /// <summary>
@@ -57,7 +64,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Settings</value>
         [JsonProperty("settings")]
         [DefaultValue(null)]
-        public ChannelSettings Settings {
+        public ChannelSettings Settings
+        {
             get; set;
         }
         /// <summary>
@@ -66,7 +74,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Archived by</value>
         [JsonProperty("archivedBy")]
         [DefaultValue(null)]
-        public GId ArchivedBy {
+        public GId ArchivedBy
+        {
             get; set;
         }
         /// <summary>
@@ -75,7 +84,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Archived at</value>
         [JsonProperty("archivedAt")]
         [DefaultValue(null)]
-        public DateTime? ArchivedAt {
+        public DateTime? ArchivedAt
+        {
             get; set;
         }
         /// <summary>
@@ -84,7 +94,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Content Type</value>
         [JsonProperty("contentType")]
         [DefaultValue(null)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -93,7 +104,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Channel ID</value>
         [JsonProperty("parentChannelId")]
         [DefaultValue(null)]
-        public Guid? ParentChannel {
+        public Guid? ParentChannel
+        {
             get; set;
         }
         /// <summary>
@@ -102,7 +114,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt")]
         [DefaultValue(null)]
-        public DateTime? DeletedAt {
+        public DateTime? DeletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -111,7 +124,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Created by</value>
         [JsonProperty("createdBy")]
         [DefaultValue(null)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -120,7 +134,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Auto archive at</value>
         [JsonProperty("autoArchiveAt")]
         [DefaultValue(null)]
-        public DateTime? AutoArchiveAt {
+        public DateTime? AutoArchiveAt
+        {
             get; set;
         }
         /// <summary>
@@ -129,7 +144,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Created by webhook ID</value>
         [JsonProperty("createdByWebhookId")]
         [DefaultValue(null)]
-        public Guid? CreatedByWebhook {
+        public Guid? CreatedByWebhook
+        {
             get; set;
         }
         /// <summary>
@@ -138,7 +154,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Archived by webhook ID</value>
         [JsonProperty("archivedByWebhookId")]
         [DefaultValue(null)]
-        public Guid? ArchivedByWebhook {
+        public Guid? ArchivedByWebhook
+        {
             get; set;
         }
         /// <summary>
@@ -147,7 +164,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Priority</value>
         [JsonProperty("priority")]
         [DefaultValue(null)]
-        public long? Priority {
+        public long? Priority
+        {
             get; set;
         }
         /// <summary>
@@ -156,7 +174,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Role Permissions</value>
         [JsonProperty("rolesById")]
         [DefaultValue(null)]
-        public IDictionary<string, ChannelPermission> RolePermissions {
+        public IDictionary<string, ChannelPermission> RolePermissions
+        {
             get; set;
         }
         /// <summary>
@@ -165,7 +184,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>User Permissions</value>
         [JsonProperty("userPermissions")]
         [DefaultValue(null)]
-        public IList<UserPermission> UserPermissions {
+        public IList<UserPermission> UserPermissions
+        {
             get; set;
         }
         /// <summary>
@@ -174,7 +194,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Team ID</value>
         [JsonProperty("teamId")]
         [DefaultValue(null)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -183,7 +204,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Group ID</value>
         [JsonProperty("groupId")]
         [DefaultValue(null)]
-        public GId GroupId {
+        public GId GroupId
+        {
             get; set;
         }
     }

@@ -6,20 +6,23 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     using Converters;
 
     using Teams;
     /// <summary>
     /// Information about this user.
     /// </summary>
-    public class Me: ClientObject {
+    public class Me : ClientObject
+    {
         /// <summary>
         /// List of teams/guilds/server this user is currently in.
         /// </summary>
         /// <value>List of teams</value>
         [JsonProperty("teams", Required = Required.Always)]
-        public IList<BaseTeam> Teams {
+        public IList<BaseTeam> Teams
+        {
             get; set;
         }
         /// <summary>
@@ -27,7 +30,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>User</value>
         [JsonProperty("user", Required = Required.Always)]
-        public ThisUser User {
+        public ThisUser User
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +39,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Message content</value>
         [JsonProperty("updateMessage", Required = Required.AllowNull)]
-        public JObject UpdateMessage {
+        public JObject UpdateMessage
+        {
             get; set;
         }
         /// <summary>
@@ -44,7 +49,8 @@ namespace Guilded.NET.Objects {
         /// <value></value>
         [JsonConverter(typeof(FlatConverter))]
         [JsonProperty("customReactions", Required = Required.Always)]
-        public IList<ChatEmote> CustomEmotes {
+        public IList<ChatEmote> CustomEmotes
+        {
             get; set;
         }
         /// <summary>
@@ -52,7 +58,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value></value>
         [JsonProperty("reactionUsages", Required = Required.Always)]
-        public IList<EmoteUse> EmoteUses {
+        public IList<EmoteUse> EmoteUses
+        {
             get; set;
         }
         /// <summary>
@@ -60,21 +67,24 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>List of friends</value>
         [JsonProperty("friends", Required = Required.Always)]
-        public IList<Friend> Friends {
+        public IList<Friend> Friends
+        {
             get; set;
         }
         /// <summary>
         /// Username of this user.
         /// </summary>
         /// <value>Name</value>
-        public string Username {
+        public string Username
+        {
             get => User.Username;
         }
         /// <summary>
         /// ID of this user.
         /// </summary>
         /// <value>User ID</value>
-        public GId Id {
+        public GId Id
+        {
             get => User.Id;
         }
 

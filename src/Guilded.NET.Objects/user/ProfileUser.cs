@@ -11,13 +11,15 @@ namespace Guilded.NET.Objects
     /// <summary>
     /// Guilded user. This is NOT Guild member.
     /// </summary>
-    public class ProfileUser: BaseUser {
+    public class ProfileUser : BaseUser
+    {
         /// <summary>
         /// A URL subdomain for this user.
         /// </summary>
         /// <value>Subdomain</value>
         [JsonProperty("subdomain", Required = Required.AllowNull)]
-        public string Subdomain {
+        public string Subdomain
+        {
             get; set;
         }
         /// <summary>
@@ -26,63 +28,72 @@ namespace Guilded.NET.Objects
         /// <value>Email</value>
         [JsonProperty("email")]
         [DefaultValue(null)]
-        public string Email {
+        public string Email
+        {
             get; set;
         }
         /// <summary>
         /// Large version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureLg", Required = Required.AllowNull)]
-        public Uri AvatarLarge {
+        public Uri AvatarLarge
+        {
             get; set;
         }
         /// <summary>
         /// Small version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureSm", Required = Required.AllowNull)]
-        public Uri AvatarSmall {
+        public Uri AvatarSmall
+        {
             get; set;
         }
         /// <summary>
         /// Blurry version of profile picture.
         /// </summary>
         [JsonProperty("profilePictureBlur", Required = Required.AllowNull)]
-        public Uri AvatarBlurry {
+        public Uri AvatarBlurry
+        {
             get; set;
         }
         /// <summary>
         /// Large version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerLg", Required = Required.AllowNull)]
-        public Uri ProfileBannerLarge {
+        public Uri ProfileBannerLarge
+        {
             get; set;
         }
         /// <summary>
         /// Small version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerSm", Required = Required.AllowNull)]
-        public Uri ProfileBannerSmall {
+        public Uri ProfileBannerSmall
+        {
             get; set;
         }
         /// <summary>
         /// User's steam ID.
         /// </summary>
         [JsonProperty("steamId", Required = Required.AllowNull)]
-        public string SteamID {
+        public string SteamID
+        {
             get; set;
         }
         /// <summary>
         /// Moderation status of the user.
         /// </summary>
         [JsonProperty("moderationStatus", Required = Required.AllowNull)]
-        public string ModerationStatus {
+        public string ModerationStatus
+        {
             get; set;
         }
         /// <summary>
         /// User's profile <strong>about</strong> section.
         /// </summary>
         [JsonProperty("aboutInfo", Required = Required.AllowNull)]
-        public About About {
+        public About About
+        {
             get; set;
         }
         /// <summary>
@@ -90,21 +101,24 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>User status</value>
         [JsonProperty("userStatus", Required = Required.AllowNull)]
-        public UserStatus Status {
+        public UserStatus Status
+        {
             get; set;
         }
         /// <summary>
         /// Date of last time user was online.
         /// </summary>
         [JsonProperty("lastOnline", Required = Required.Always)]
-        public DateTime LastOnline {
+        public DateTime LastOnline
+        {
             get; set;
         }
         /// <summary>
         /// Date of user's registration.
         /// </summary>
         [JsonProperty("joinDate", Required = Required.Always)]
-        public DateTime JoinDate {
+        public DateTime JoinDate
+        {
             get; set;
         }
         /// <summary>
@@ -112,7 +126,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>Teammate</value>
         [JsonProperty("isTeammate", Required = Required.Always)]
-        public bool IsTeammate {
+        public bool IsTeammate
+        {
             get; set;
         }
         /// <summary>
@@ -120,7 +135,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>Blocked by client's user</value>
         [JsonProperty("isBlocked", Required = Required.Always)]
-        public bool IsBlocked {
+        public bool IsBlocked
+        {
             get; set;
         }
         /// <summary>
@@ -128,7 +144,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>Blocked by this user</value>
         [JsonProperty("isBlockedBy", Required = Required.Always)]
-        public bool IsBlockedBy {
+        public bool IsBlockedBy
+        {
             get; set;
         }
         /// <summary>
@@ -136,7 +153,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>Social links</value>
         [JsonProperty("socialLinks", Required = Required.Always)]
-        public IList<SocialLink> SocialLinks {
+        public IList<SocialLink> SocialLinks
+        {
             get; set;
         }
         /// <summary>
@@ -144,7 +162,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>List of game aliases</value>
         [JsonProperty("aliases", Required = Required.Always)]
-        public IList<GameAlias> Aliases {
+        public IList<GameAlias> Aliases
+        {
             get; set;
         }
         /// <summary>
@@ -152,7 +171,8 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>List of media</value>
         [JsonProperty("media", Required = Required.Always)]
-        public IList<ProfileMedia> Media {
+        public IList<ProfileMedia> Media
+        {
             get; set;
         }
 
@@ -164,7 +184,8 @@ namespace Guilded.NET.Objects
         /// If this user is banned from Guilded's services.
         /// </summary>
         /// <value>Account terminated</value>
-        public bool IsBanned {
+        public bool IsBanned
+        {
             get => ModerationStatus == "banned";
         }
 

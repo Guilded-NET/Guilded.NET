@@ -3,37 +3,43 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// A base for all users.
     /// </summary>
-    public class BaseUser: ClientObject {
+    public class BaseUser : ClientObject
+    {
         /// <summary>
         /// Given ID of the user.
         /// </summary>
         [JsonProperty("id", Required = Required.Always)]
-        public GId Id {
+        public GId Id
+        {
             get; set;
         }
         /// <summary>
         /// Current name of the user.
         /// </summary>
         [JsonProperty("name", Required = Required.Always)]
-        public string Username {
+        public string Username
+        {
             get; set;
         }
         /// <summary>
         /// User's current profile picture.
         /// </summary>
         [JsonProperty("profilePicture")]
-        public Uri ProfilePicture {
+        public Uri ProfilePicture
+        {
             get; set;
         }
         /// <summary>
         /// Blurry version of profile banner.
         /// </summary>
         [JsonProperty("profileBannerBlur")]
-        public Uri ProfileBannerBlurry {
+        public Uri ProfileBannerBlurry
+        {
             get; set;
         }
 
@@ -72,8 +78,9 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj) {
-            if(obj is BaseUser user) return user.Id == Id;
+        public override bool Equals(object obj)
+        {
+            if (obj is BaseUser user) return user.Id == Id;
             else return false;
         }
         /// <summary>

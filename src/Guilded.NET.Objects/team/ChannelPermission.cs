@@ -2,18 +2,20 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
-    using Permissions;
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// Represents permission in a channel.
     /// </summary>
-    public class ChannelPermission: PermissionBase, IPermission {
+    public class ChannelPermission : PermissionBase, IPermission
+    {
         /// <summary>
         /// Id of the team this permission's channel is in.
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -21,17 +23,20 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value></value>
         [JsonProperty("teamRoleId", Required = Required.Always)]
-        public ulong TeamRoleId {
+        public ulong TeamRoleId
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
-        public DateTime? UpdatedAt {
+        public DateTime? UpdatedAt
+        {
             get; set;
         }
     }

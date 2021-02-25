@@ -2,17 +2,20 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Interface for DM channels, normal channels and categories.
     /// </summary>
-    public abstract class BaseChannel: ClientObject {
+    public abstract class BaseChannel : ClientObject
+    {
         /// <summary>
         /// When the channel was created.
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("updatedAt", Required = Required.AllowNull)]
-        public DateTime? UpdatedAt {
+        public DateTime? UpdatedAt
+        {
             get; set;
         }
     }
@@ -28,13 +32,15 @@ namespace Guilded.NET.Objects {
     /// Interface for DM channels, normal channels and categories.
     /// </summary>
     /// <typeparam name="T">Type of channel's ID</typeparam>
-    public class BaseChannel<T>: BaseChannel {
+    public class BaseChannel<T> : BaseChannel
+    {
         /// <summary>
         /// ID of this channel.
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public T Id {
+        public T Id
+        {
             get; set;
         }
         /// <summary>

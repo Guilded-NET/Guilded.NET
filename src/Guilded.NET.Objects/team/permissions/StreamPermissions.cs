@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Permissions for streaming/stream channel.
     /// </summary>
     [Flags]
-    public enum StreamPermissions {
+    public enum StreamPermissions
+    {
         /// <summary>
         /// Allows you to add a stream and also talk in the stream channel
         /// </summary>

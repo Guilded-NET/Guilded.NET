@@ -1,17 +1,20 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     using Teams;
     /// <summary>
     /// When a forum post, media, document, schedule, event, etc. gets deleted.
     /// </summary>
-    public class ContentDeletedEvent: TeamEvent {
+    public class ContentDeletedEvent : TeamEvent
+    {
         /// <summary>
         /// Type of the channel.
         /// </summary>
         /// <value>Team</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -19,7 +22,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Content ID</value>
         [JsonProperty("contentId")]
-        public string ContentId {
+        public string ContentId
+        {
             get; set;
         }
     }

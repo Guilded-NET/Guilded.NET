@@ -3,12 +3,14 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// A type of the system message.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum SystemMessageType {
+    public enum SystemMessageType
+    {
         /// <summary>
         /// Channel auto archive got enabled.
         /// </summary>

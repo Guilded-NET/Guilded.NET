@@ -8,7 +8,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// A message sent by the system.
     /// </summary>
-    public class SystemMessage: ContainerNode<IMessageObject> {
+    public class SystemMessage : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// A message sent by the system.
         /// </summary>
@@ -19,7 +20,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>System message type</value>
         [JsonIgnore]
-        public SystemMessageType MessageType {
+        public SystemMessageType MessageType
+        {
             get => GetDataProperty<SystemMessageType>("type");
         }
         /// <summary>
@@ -27,7 +29,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>User ID</value>
         [JsonIgnore]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get => GetDataProperty<GId>("createdBy");
         }
         /// <summary>
@@ -35,7 +38,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>User ID</value>
         [JsonIgnore]
-        public GId OwnerId {
+        public GId OwnerId
+        {
             get => GetDataProperty<GId>("ownerId");
         }
         /// <summary>
@@ -43,7 +47,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Message URL</value>
         [JsonIgnore]
-        public Uri OriginatingUrl {
+        public Uri OriginatingUrl
+        {
             get => GetDataProperty<Uri>("originatingUrl");
         }
         /// <summary>
@@ -51,7 +56,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Origin channel type</value>
         [JsonIgnore]
-        public ChannelType OriginatingContentType {
+        public ChannelType OriginatingContentType
+        {
             get => GetDataProperty<ChannelType>("originatingContentType");
         }
         /// <summary>
@@ -59,7 +65,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Name</value>
         [JsonIgnore]
-        public string OldName {
+        public string OldName
+        {
             get => GetDataProperty<string>("oldName");
         }
         /// <summary>
@@ -67,7 +74,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Name</value>
         [JsonIgnore]
-        public string NewName {
+        public string NewName
+        {
             get => GetDataProperty<string>("newName");
         }
         /// <summary>
@@ -75,7 +83,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>User ID</value>
         [JsonIgnore]
-        public GId UserId {
+        public GId UserId
+        {
             get => GetDataProperty<GId>("userId");
         }
     }

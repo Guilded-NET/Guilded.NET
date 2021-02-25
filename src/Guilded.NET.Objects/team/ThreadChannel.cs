@@ -7,13 +7,15 @@ namespace Guilded.NET.Objects.Teams
     /// <summary>
     /// Represents Guilded channel.
     /// </summary>
-    public class ThreadChannel: TeamChatChannel {
+    public class ThreadChannel : TeamChatChannel
+    {
         /// <summary>
         /// ID of the channel which thread was created in.
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("originatingChannelId", Required = Required.Always)]
-        public Guid OriginatingChannelId {
+        public Guid OriginatingChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +23,8 @@ namespace Guilded.NET.Objects.Teams
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("originatingChannelContentType", Required = Required.Always)]
-        public ChannelType OriginatingChannelChannelType {
+        public ChannelType OriginatingChannelChannelType
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +32,8 @@ namespace Guilded.NET.Objects.Teams
         /// </summary>
         /// <value>Message ID</value>
         [JsonProperty("threadMessageId", Required = Required.Always)]
-        public Guid ThreadMessageId {
+        public Guid ThreadMessageId
+        {
             get; set;
         }
         /// <summary>

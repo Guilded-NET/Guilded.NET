@@ -2,31 +2,30 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     using Chat;
     /// <summary>
     /// Represents Guilded channel.
     /// </summary>
-    public class Channel: TeamChatChannel {
-        /// <summary>
-        /// Represents Guilded channel.
-        /// </summary>
-        public Channel() =>
-            ChannelCategoryId = null;
+    public class Channel : TeamChatChannel
+    {
         /// <summary>
         /// A description/topic of this channel.
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("description", Required = Required.AllowNull)]
-        public string Description {
+        public string Description
+        {
             get; set;
-        }
+        } = null;
         /// <summary>
         /// ID of the category this channel is in.
         /// </summary>
         /// <value>Nullable Channel ID</value>
         [JsonProperty("channelCategoryId", Required = Required.AllowNull)]
-        public uint? ChannelCategoryId {
+        public uint? ChannelCategoryId
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +33,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Settings</value>
         [JsonProperty("settings", Required = Required.AllowNull)]
-        public ChannelSettings Settings {
+        public ChannelSettings Settings
+        {
             get; set;
         }
 

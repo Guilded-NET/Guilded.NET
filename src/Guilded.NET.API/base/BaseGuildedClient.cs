@@ -11,13 +11,15 @@ using RestSharp;
 
 using Websocket.Client;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     using Objects;
     using Objects.Teams;
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
-    public abstract partial class BaseGuildedClient: IDisposable {
+    public abstract partial class BaseGuildedClient : IDisposable
+    {
         /// <summary>
         /// When no team is given, use this query.
         /// </summary>
@@ -60,7 +62,8 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <seealso cref="Websocket"/>
         /// <value>Rest client</value>
-        protected internal RestClient Rest {
+        protected internal RestClient Rest
+        {
             get; set;
         }
         /// <summary>
@@ -68,27 +71,31 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <seealso cref="Rest"/>
         /// <value>String, websocket dictionary</value>
-        public Dictionary<string, WebsocketClient> Websockets {
+        public Dictionary<string, WebsocketClient> Websockets
+        {
             get; set;
         }
         /// <summary>
         /// Span of time between each heartbeat.
         /// </summary>
         /// <value>Seconds</value>
-        public double HeartbeatTime {
+        public double HeartbeatTime
+        {
             get; set;
         }
         /// <summary>
         /// Event when client connects to the Guilded.
         /// </summary>
-        public event EventHandler Connected {
+        public event EventHandler Connected
+        {
             add => ConnectedEvent += value;
             remove => ConnectedEvent -= value;
         }
         /// <summary>
         /// Event when client disconnects from Guilded.
         /// </summary>
-        public event EventHandler Disconnected {
+        public event EventHandler Disconnected
+        {
             add => DisconnectedEvent += value;
             remove => DisconnectedEvent += value;
         }
@@ -96,14 +103,16 @@ namespace Guilded.NET.API {
         /// Cookies given when client logs in.
         /// </summary>
         /// <value>Login cookies</value>
-        public IList<GuildedCookie> LoginCookies {
-           get; set;
+        public IList<GuildedCookie> LoginCookies
+        {
+            get; set;
         }
         /// <summary>
         /// To what this event is referring to. Allows Guilded to keep track of where you are right now.
         /// </summary>
         /// <value>Referer header</value>
-        public string Referer {
+        public string Referer
+        {
             get; set;
         }
         /// <summary>
@@ -112,7 +121,8 @@ namespace Guilded.NET.API {
         /// <param name="apiUrl">URL of Guilded API</param>
         /// <exception cref="ArgumentNullException">When apiurl or socketurl are null</exception>
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
-        protected BaseGuildedClient(Uri apiUrl) {
+        protected BaseGuildedClient(Uri apiUrl)
+        {
             // Initialize Rest client
             Rest = new RestClient(apiUrl ?? throw new ArgumentNullException($"{nameof(apiUrl)} can not be empty."));
             // Because the client has not logged in yet
@@ -131,7 +141,7 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <exception cref="ArgumentNullException">When apiurl or socketurl are null</exception>
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
-        protected BaseGuildedClient(): this(GuildedAPIURL) {}
+        protected BaseGuildedClient() : this(GuildedAPIURL) { }
         /// <summary>
         /// Sends a request to Guilded's API with given arguments.
         /// </summary>
@@ -141,28 +151,32 @@ namespace Guilded.NET.API {
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <typeparam name="T">Type of the response</typeparam>
         /// <returns>Request response</returns>
-        public async Task<ExecutionResponse<T>> ExecuteRequest<T>(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables) {
+        public async Task<ExecutionResponse<T>> ExecuteRequest<T>(Endpoint endpoint, bool enableCookies, params IReqAddable[] addables)
+        {
             // Create new request
             RestRequest req = new RestRequest(endpoint.Path, endpoint.EndpointMethod);
             // Add parameters
-            foreach(var addable in enableCookies && LoginCookies != null ? addables.Concat(LoginCookies) : addables)
+            foreach (var addable in enableCookies && LoginCookies != null ? addables.Concat(LoginCookies) : addables)
                 addable.AddTo(req);
             // To what it is referring
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
             // Executes response
             IRestResponse<T> response = await Rest.ExecuteAsync<T>(req);
             // Check if content isn't null 
-            if(string.IsNullOrEmpty(response.Content)) return new ExecutionResponse<T>(response);
+            if (string.IsNullOrEmpty(response.Content)) return new ExecutionResponse<T>(response);
             // Parses it
             JToken token = JToken.Parse(response.Content);
             // Check if it has 2 properties
-            if(token.Type == JTokenType.Object) {
+            if (token.Type == JTokenType.Object)
+            {
                 // Gets object
                 JObject obj = (JObject)token;
                 // Check if it's an error
-                if(obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2) {
+                if (obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2)
+                {
                     // If it does, treat it as an error
-                    GuildedException exc = new GuildedException() {
+                    GuildedException exc = new GuildedException()
+                    {
                         Code = obj["code"].Value<string>(),
                         ErrorMessage = obj["message"].Value<string>()
                     };
@@ -209,16 +223,18 @@ namespace Guilded.NET.API {
         /// <param name="filedata">Data of the file</param>
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <returns>Image URL</returns>
-        public async Task<Uri> UploadImage(string filepath, byte[] filedata) {
-            if(string.IsNullOrWhiteSpace(filepath)) throw new ArgumentException($"{nameof(filepath)} can not be empty.");
+        public async Task<Uri> UploadImage(string filepath, byte[] filedata)
+        {
+            if (string.IsNullOrWhiteSpace(filepath)) throw new ArgumentException($"{nameof(filepath)} can not be empty.");
             // Create new request
-            RestRequest req = new RestRequest($"{GuildedMediaURL}/{Endpoint.UPLOAD_MEDIA.Path}?dynamicMediaTypeId=ContentMedia", Endpoint.UPLOAD_MEDIA.EndpointMethod) {
+            RestRequest req = new RestRequest($"{GuildedMediaURL}/{Endpoint.UPLOAD_MEDIA.Path}?dynamicMediaTypeId=ContentMedia", Endpoint.UPLOAD_MEDIA.EndpointMethod)
+            {
                 AlwaysMultipartFormData = true,
                 RequestFormat = DataFormat.Json
             };
             // Add parameters
-            if(LoginCookies != null)
-                foreach(var addable in LoginCookies)
+            if (LoginCookies != null)
+                foreach (var addable in LoginCookies)
                     addable.AddTo(req);
             // To what it is referring
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
@@ -236,13 +252,14 @@ namespace Guilded.NET.API {
         /// <param name="url">Link to the image</param>
         /// <exception cref="GuildedException">When Guilded itself throws an error</exception>
         /// <returns>Image URL</returns>
-        public async Task<Uri> UploadImage(Uri url) {
-            if(url == null) throw new ArgumentException($"{nameof(url)} can not be null.");
+        public async Task<Uri> UploadImage(Uri url)
+        {
+            if (url == null) throw new ArgumentException($"{nameof(url)} can not be null.");
             // Create new request
             RestRequest req = new RestRequest($"{GuildedMediaURL}/{Endpoint.UPLOAD_MEDIA.Path}", Endpoint.UPLOAD_MEDIA.EndpointMethod);
             // Add parameters
-            if(LoginCookies != null)
-                foreach(var addable in LoginCookies)
+            if (LoginCookies != null)
+                foreach (var addable in LoginCookies)
                     addable.AddTo(req);
             // To what it is referring
             req.AddHeader("referer", $"https://guilded.gg/{Referer}/");
@@ -262,27 +279,31 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <param name="request">Request to send</param>
         /// <returns>Media URL</returns>
-        async Task<Uri> GetMedia(RestRequest request) {
+        async Task<Uri> GetMedia(RestRequest request)
+        {
             // Executes response
             IRestResponse<object> response = await Rest.ExecuteAsync<object>(request);
             // Check if content isn't null and get it as JSON object
-            if(string.IsNullOrEmpty(response.Content)) return null;
+            if (string.IsNullOrEmpty(response.Content)) return null;
             // Gets it as a JSON token
             JToken token = JToken.Parse(response.Content);
             // Check if it has 2 properties
-            if(token.Type == JTokenType.Object) {
+            if (token.Type == JTokenType.Object)
+            {
                 // Gets object
                 JObject obj = (JObject)token;
                 // Check if it's an error
-                if(obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2) {
+                if (obj.ContainsKey("code") && obj.ContainsKey("message") && obj.Properties().Count() == 2)
+                {
                     // If it is, then throw it as an error
-                    throw new GuildedException() {
+                    throw new GuildedException()
+                    {
                         Code = obj["code"].Value<string>(),
                         ErrorMessage = obj["message"].Value<string>()
                     };
                 }
                 // If it has property "url" and it's the only property.
-                else if(obj.ContainsKey("url") && obj.Properties().Count() == 1) return new Uri(obj["url"].Value<string>());
+                else if (obj.ContainsKey("url") && obj.Properties().Count() == 1) return new Uri(obj["url"].Value<string>());
             }
             // Else, return null
             return null;
@@ -292,9 +313,11 @@ namespace Guilded.NET.API {
         /// </summary>
         /// <param name="reconnection">Seconds of time between each reconnection</param>
         /// <param name="additionalQuery">Query which should be added to the websocket link</param>
-        public virtual WebsocketClient InitWebsocket(double? reconnection = null, string additionalQuery = null) {
+        public virtual WebsocketClient InitWebsocket(double? reconnection = null, string additionalQuery = null)
+        {
             // Initialize Websocket client
-            var factory = new Func<ClientWebSocket>(() => new ClientWebSocket {
+            var factory = new Func<ClientWebSocket>(() => new ClientWebSocket
+            {
                 // Options of the ClientWebSocket
                 Options = {
                     KeepAliveInterval = TimeSpan.FromSeconds(HeartbeatTime),
@@ -304,7 +327,7 @@ namespace Guilded.NET.API {
             // Creates a new websocket
             WebsocketClient client = new WebsocketClient(new Uri($"{GuildedWebsocketURL}/?{(string.IsNullOrWhiteSpace(additionalQuery) ? emptyTeam : additionalQuery)}&{WebsocketQuery}"), factory);
             // Reconnection
-            if(reconnection != null)
+            if (reconnection != null)
                 client.ReconnectTimeout = TimeSpan.FromSeconds(reconnection.Value);
             // Adds it to websocket dictionary
             Websockets.Add(additionalQuery ?? "", client);
@@ -326,17 +349,19 @@ namespace Guilded.NET.API {
         /// <summary>
         /// Disposes BaseGuildedClient.
         /// </summary>
-        public virtual void Dispose() {
+        public virtual void Dispose()
+        {
             HeartbeatToken?.Cancel();
             HeartbeatThread?.Join();
             // Disposes all websockets
-            foreach(WebsocketClient client in Websockets.Values) client.Dispose();
+            foreach (WebsocketClient client in Websockets.Values) client.Dispose();
         }
         /// <summary>
         /// Sets referer as a specific team channel.
         /// </summary>
         /// <param name="channel">Channel to refer to</param>
-        public async Task SetReferer(Channel channel) {
+        public async Task SetReferer(Channel channel)
+        {
             // Team that channel is in
             Team team = await channel.GetTeamAsync();
             // All groups of that team
@@ -348,7 +373,8 @@ namespace Guilded.NET.API {
         /// Sets referer as a specific team thread.
         /// </summary>
         /// <param name="channel">Thread to refer to</param>
-        public async Task SetReferer(ThreadChannel channel) {
+        public async Task SetReferer(ThreadChannel channel)
+        {
             // Team that channel is in
             Team team = await channel.GetTeamAsync();
             // All groups of that team

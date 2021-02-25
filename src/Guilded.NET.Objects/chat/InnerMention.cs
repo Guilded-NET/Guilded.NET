@@ -2,28 +2,33 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     using Teams;
     /// <summary>
     /// A data of mention node.
     /// </summary>
-    public class MentionData: BaseObject, IMention {
+    public class MentionData : BaseObject, IMention
+    {
         /// <summary>
         /// Type of the mention.
         /// </summary>
         /// <value>person, here, everyone, role</value>
         [JsonProperty("type")]
-        public string Type {
+        public string Type
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("matcher", Required = Required.Always)]
-        public string Matcher {
+        public string Matcher
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -31,7 +36,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("id")]
-        public string Id {
+        public string Id
+        {
             get; set;
         }
         /// <summary>
@@ -39,7 +45,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("description", NullValueHandling = NullValueHandling.Ignore)]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <summary>
@@ -47,7 +54,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("avatar", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri Avatar {
+        public Uri Avatar
+        {
             get; set;
         }
         /// <summary>
@@ -55,7 +63,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Hex colour</value>
         [JsonProperty("color", NullValueHandling = NullValueHandling.Ignore)]
-        public string Color {
+        public string Color
+        {
             get; set;
         }
         /// <summary>
@@ -63,7 +72,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Boolean</value>
         [JsonProperty("nickname", NullValueHandling = NullValueHandling.Ignore)]
-        public bool Nickname {
+        public bool Nickname
+        {
             get; set;
         }
         /// <summary>
@@ -72,7 +82,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="user">User to mention</param>
         /// <returns>Mention data</returns>
         public static MentionData Generate(BaseUser user) =>
-            new MentionData {
+            new MentionData
+            {
                 Type = "person",
                 Matcher = "@" + user.Username.ToLower(),
                 Color = null,
@@ -88,7 +99,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="colour">Colour of the mention</param>
         /// <returns>Mention data</returns>
         public static MentionData Generate(TeamMember member, string colour) =>
-            new MentionData {
+            new MentionData
+            {
                 Type = "person",
                 Matcher = "@" + member.Username.ToLower() + (member.Nickname != null ? $" @{member.Nickname}" : ""),
                 Name = member.Nickname ?? member.Username,
@@ -102,7 +114,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <returns>Mention data</returns>
         public static MentionData GenerateEveryone() =>
-            new MentionData {
+            new MentionData
+            {
                 Type = "everyone",
                 Matcher = "@everyone",
                 Color = "#ffffff",
@@ -115,7 +128,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <returns>Mention data</returns>
         public static MentionData GenerateHere() =>
-            new MentionData {
+            new MentionData
+            {
                 Type = "here",
                 Matcher = "@here",
                 Color = "#f5c400",
@@ -129,7 +143,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="role">Role to mention</param>
         /// <returns>Mention data</returns>
         public static MentionData Generate(TeamRole role) =>
-            new MentionData {
+            new MentionData
+            {
                 Type = "role",
                 Matcher = "@" + role.Name.ToLower(),
                 Name = role.Name,

@@ -2,10 +2,12 @@ using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     using Forms;
     using Teams;
-    public partial interface IGuildedClient {
+    public partial interface IGuildedClient
+    {
         //=======================//
         //   Overview
         //=======================//

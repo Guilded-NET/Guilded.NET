@@ -5,7 +5,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's paragraph node.
     /// </summary>
-    public class ParagraphNode: ContainerNode<IMessageObject> {
+    public class ParagraphNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents Guilded's paragraph node.
         /// </summary>
@@ -17,7 +18,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">List of text objects</param>
         /// <returns>Paragraph node</returns>
         public static ParagraphNode Generate(params IMessageObject[] objs) =>
-            new ParagraphNode {
+            new ParagraphNode
+            {
                 Nodes = objs
             };
         /// <summary>

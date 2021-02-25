@@ -3,17 +3,20 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// A status of the game user is playing.
     /// </summary>
-    public class GameStatus: ClientObject {
+    public class GameStatus : ClientObject
+    {
         /// <summary>
         /// ID of the status.
         /// </summary>
         /// <value>Status ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public uint Id {
+        public uint Id
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Game ID</value>
         [JsonProperty("gameId", Required = Required.Always)]
-        public uint GameId {
+        public uint GameId
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +33,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>"gamepresence"</value>
         [JsonProperty("type", Required = Required.Always)]
-        public string Type {
+        public string Type
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Game started at</value>
         [JsonProperty("startedAt", Required = Required.Always)]
-        public DateTime StartedAt {
+        public DateTime StartedAt
+        {
             get; set;
         }
         /// <summary>
@@ -45,7 +51,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Guilded client ID</value>
         [JsonProperty("guildedClientId", Required = Required.Always)]
-        public Guid GuildedClientId {
+        public Guid GuildedClientId
+        {
             get; set;
         }
     }

@@ -5,7 +5,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's bulleted/unordered list node.
     /// </summary>
-    public class UnorderedList: ContainerNode<Node> {
+    public class UnorderedList : ContainerNode<Node>
+    {
         /// <summary>
         /// Represents Guilded's bulleted/unordered list node.
         /// </summary>
@@ -22,7 +23,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="nodes">List of nodes</param>
         /// <returns>Unordered list node</returns>
         public static UnorderedList Generate(params Node[] nodes) =>
-            new UnorderedList {
+            new UnorderedList
+            {
                 // Sets its nodes
                 Nodes = nodes
             };

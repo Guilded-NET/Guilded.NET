@@ -18,7 +18,8 @@ namespace Guilded.NET
     /// <summary>
     /// Logged-in user in Guilded.
     /// </summary>
-    public abstract partial class BasicGuildedClient: IGuildedClient {
+    public abstract partial class BasicGuildedClient : IGuildedClient
+    {
         static readonly Dictionary<ChannelType, string> ContentTypes = new Dictionary<ChannelType, string> {
             {ChannelType.Doc, "doc"},
             {ChannelType.Media, "team_media"},
@@ -112,13 +113,16 @@ namespace Guilded.NET
         /// <param name="message">Message to respond to</param>
         /// <param name="response">Content of the response</param>
         /// <returns>Thread created</returns>
-        public async Task<ThreadChannel> CreateThreadAsync(ChannelType contentType, string name, Message message, MessageContent response) {
+        public async Task<ThreadChannel> CreateThreadAsync(ChannelType contentType, string name, Message message, MessageContent response)
+        {
             // Thread's ID
             Guid channelId = Guid.NewGuid();
             // Creates new thread info
-            var threadInit = new {
+            var threadInit = new
+            {
                 // A response message
-                message = new {
+                message = new
+                {
                     id = Guid.NewGuid(),
                     channelId,
                     content = response,
@@ -136,7 +140,8 @@ namespace Guilded.NET
                 // Name of the thread
                 name,
                 // A copy of a message thread
-                initialThreadMessage = new {
+                initialThreadMessage = new
+                {
                     id = Guid.NewGuid(),
                     channelId,
                     content = message.Content,
@@ -222,7 +227,8 @@ namespace Guilded.NET
         /// <param name="message">Content of the forum post</param>
         /// <returns>Async task</returns>
         public async Task CreateForumPostAsync(Guid channelId, string title, MessageContent message) =>
-            await ExecuteRequest(new Endpoint($"channels/{channelId}/forums", Method.POST), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/forums", Method.POST), new JsonBody(new
+            {
                 threadId = RandomId.Next(1000000000, int.MaxValue),
                 title,
                 message
@@ -257,7 +263,8 @@ namespace Guilded.NET
         /// <param name="title">New title of this post</param>
         /// <param name="message">New content of the post</param>
         public async Task EditForumPostAsync(Guid channelId, uint postId, string title, MessageContent message) =>
-            await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}", Method.PUT), new JsonBody(new
+            {
                 threadId = postId,
                 title,
                 message
@@ -279,7 +286,8 @@ namespace Guilded.NET
         /// <param name="message">Content of the forum post</param>
         /// <returns>Async task</returns>
         public async Task CreateForumReplyAsync(Guid channelId, uint postId, MessageContent message) =>
-            await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies", Method.POST), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies", Method.POST), new JsonBody(new
+            {
                 id = RandomId.Next(1000000000, int.MaxValue),
                 message
             }, Converters));
@@ -364,7 +372,7 @@ namespace Guilded.NET
         /// <returns>Document</returns>
         public GuildedDocument GetDocument(Guid channelId, uint docId) =>
             GetDocumentAsync(channelId, docId).GetAwaiter().GetResult();
-        
+
         //=======================//
         //   Media
         //=======================//
@@ -448,7 +456,8 @@ namespace Guilded.NET
         /// <param name="startDate">Start date of this availability</param>
         /// <param name="endDate">End date of this availability</param>
         public async Task<IList<Availability>> CreateScheduleAsync(Guid channelId, DateTime startDate, DateTime endDate) =>
-            await FromObject<IList<Availability>>(new Endpoint($"channels/{channelId}/availability", Method.POST), "availabilities", new JsonBody(new {
+            await FromObject<IList<Availability>>(new Endpoint($"channels/{channelId}/availability", Method.POST), "availabilities", new JsonBody(new
+            {
                 startDate,
                 endDate
             }));
@@ -468,7 +477,8 @@ namespace Guilded.NET
         /// <param name="startDate">Start date of this availability</param>
         /// <param name="endDate">End date of this availability</param>
         public async Task<IList<Availability>> EditScheduleAsync(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate) =>
-            await FromObject<IList<Availability>>(new Endpoint($"channels/{channelId}/availability/{availabilityId}", Method.PUT), new JsonBody(new {
+            await FromObject<IList<Availability>>(new Endpoint($"channels/{channelId}/availability/{availabilityId}", Method.PUT), new JsonBody(new
+            {
                 startDate,
                 endDate
             }));
@@ -495,7 +505,7 @@ namespace Guilded.NET
         /// <param name="availabilityId">ID of schedule availability to edit</param>
         public void DeleteSchedule(Guid channelId, uint availabilityId) =>
             DeleteScheduleAsync(channelId, availabilityId).GetAwaiter().GetResult();
-        
+
         //=======================//
         //   Announcements
         //=======================//
@@ -531,7 +541,7 @@ namespace Guilded.NET
         /// <param name="channelId">ID of the channel</param>
         /// <returns>List of announcements</returns>
         public IList<Announcement> GetPinnedAnnouncements(Guid channelId) =>
-            GetPinnedAnnouncementsAsync(channelId).GetAwaiter().GetResult();        
+            GetPinnedAnnouncementsAsync(channelId).GetAwaiter().GetResult();
         /// <summary>
         /// Deletes an announcement reply.
         /// </summary>
@@ -539,7 +549,8 @@ namespace Guilded.NET
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
         public async Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, ulong replyId) =>
-            await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new
+            {
                 teamId
             }));
         /// <summary>
@@ -557,7 +568,8 @@ namespace Guilded.NET
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="message">New message content to replace with</param>
         public async Task EditAnnouncementReplyAsync(GId contentId, ulong replyId, MessageContent message) =>
-            await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new
+            {
                 id = replyId,
                 contentId,
                 contentType = "announcement",
@@ -582,7 +594,8 @@ namespace Guilded.NET
         /// <param name="gameId">ID of the group's game</param>
         /// <returns>Created announcement</returns>
         public async Task<Announcement> PostAnnouncementAsync(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications = false, uint? gameId = null) =>
-            await FromObject<Announcement>(new Endpoint($"channels/{channelId}/announcements", Method.POST), "announcement", new JsonBody(new {
+            await FromObject<Announcement>(new Endpoint($"channels/{channelId}/announcements", Method.POST), "announcement", new JsonBody(new
+            {
                 title,
                 content,
                 teamId,
@@ -608,7 +621,8 @@ namespace Guilded.NET
         /// <param name="announcementId">ID of the announcement to (un)pin</param>
         /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
         public async Task PinAnnouncementAsync(Guid channelId, GId announcementId, bool isPinned = true) =>
-            await ExecuteRequest(new Endpoint($"channels/{channelId}/toggleannouncementpin/{announcementId}", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/toggleannouncementpin/{announcementId}", Method.PUT), new JsonBody(new
+            {
                 isPinned
             }));
         /// <summary>
@@ -629,7 +643,8 @@ namespace Guilded.NET
         /// <param name="content">New content</param>
         /// <returns>ID of edited/updated announcement</returns>
         public async Task<GId> UpdateAnnouncementAsync(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content) =>
-            await FromObject<GId>(new Endpoint($"channels/{channelId}/announcements/{announcementId}", Method.PUT), "announcementId", new JsonBody(new {
+            await FromObject<GId>(new Endpoint($"channels/{channelId}/announcements/{announcementId}", Method.PUT), "announcementId", new JsonBody(new
+            {
                 teamId,
                 title,
                 content
@@ -688,9 +703,11 @@ namespace Guilded.NET
         /// <param name="priority">Order of this list item</param>
         /// <param name="parentId">ID of the parent</param>
         /// <param name="note">Note of this list item</param>
-        public async Task CreateListItemAsync(Guid channelId, MessageContent title, long priority = 0, Guid? parentId = null, MessageContent note = null) {
+        public async Task CreateListItemAsync(Guid channelId, MessageContent title, long priority = 0, Guid? parentId = null, MessageContent note = null)
+        {
             // Creates a new object for creating list item
-            var obj = new {
+            var obj = new
+            {
                 id = Guid.NewGuid(),
                 message = title,
                 priority,
@@ -718,7 +735,8 @@ namespace Guilded.NET
         /// <param name="content">New list item content/message/title(null if you only need to edit a note)</param>
         /// <param name="note">New list item note(null if you only need to edit content)</param>
         public async Task EditListItemAsync(Guid channelId, Guid itemId, MessageContent content = null, MessageContent note = null) =>
-            await ExecuteRequest(new Endpoint($"channels/{channelId}/listitems/{itemId}/message", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"channels/{channelId}/listitems/{itemId}/message", Method.PUT), new JsonBody(new
+            {
                 message = content,
                 note
             }));
@@ -774,7 +792,8 @@ namespace Guilded.NET
         /// <param name="replyId">ID of the reply to delete</param>
         /// <param name="type">Channel's type</param>
         public async Task DeleteContentReplyAsync(GId teamId, uint contentId, ulong replyId, ChannelType type) =>
-            await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new
+            {
                 teamId
             }));
         /// <summary>
@@ -794,7 +813,8 @@ namespace Guilded.NET
         /// <param name="type">Type of the channel this reply is in</param>
         /// <param name="message">New message content to replace with</param>
         public async Task EditContentReplyAsync(uint contentId, ulong replyId, ChannelType type, MessageContent message) =>
-            await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new
+            {
                 id = replyId,
                 contentId,
                 contentType = ContentTypes[type],

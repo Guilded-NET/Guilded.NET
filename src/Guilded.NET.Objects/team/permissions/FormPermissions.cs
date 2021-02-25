@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Form and poll permissions.
     /// </summary>
     [Flags]
-    public enum FormPermissions {
+    public enum FormPermissions
+    {
         /// <summary>
         /// Allows you to view all form responses
         /// </summary>

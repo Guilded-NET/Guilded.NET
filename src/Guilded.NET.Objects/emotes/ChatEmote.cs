@@ -1,18 +1,22 @@
-using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 
-namespace Guilded.NET.Objects {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Emote in status or in a message.
     /// </summary>
-    public class ChatEmote: ClientObject {
+    public class ChatEmote : ClientObject
+    {
         /// <summary>
         /// ID of the emote.
         /// </summary>
         /// <value>Emote ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public uint Id {
+        public uint Id
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +25,8 @@ namespace Guilded.NET.Objects {
         /// <value>.PNG URL</value>
         [JsonProperty("png")]
         [DefaultValue(null)]
-        public Uri PNGUrl {
+        public Uri PNGUrl
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +35,8 @@ namespace Guilded.NET.Objects {
         /// <value>.APNG URL</value>
         [JsonProperty("apng")]
         [DefaultValue(null)]
-        public Uri APNGUrl {
+        public Uri APNGUrl
+        {
             get; set;
         }
         /// <summary>
@@ -39,7 +45,8 @@ namespace Guilded.NET.Objects {
         /// <value>.WEBP URL</value>
         [JsonProperty("webp")]
         [DefaultValue(null)]
-        public Uri WebPUrl {
+        public Uri WebPUrl
+        {
             get; set;
         }
         /// <summary>
@@ -47,7 +54,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>

@@ -3,18 +3,21 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     using Teams;
     /// <summary>
     /// Event when message gets updated.
     /// </summary>
-    public class MessageUpdatedEvent: CommonEvent {
+    public class MessageUpdatedEvent : CommonEvent
+    {
         /// <summary>
         /// Type of the content.
         /// </summary>
         /// <value>Content type</value>
         [JsonProperty("contentType")]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -22,7 +25,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Message updated</value>
         [JsonProperty("message", Required = Required.Always)]
-        public MessageUpdated Message {
+        public MessageUpdated Message
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +34,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("updatedBy", Required = Required.Always)]
-        public GId UpdatedBy {
+        public GId UpdatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -38,7 +43,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Message ID</value>
         [JsonProperty("contentId")]
-        public Guid ContentId {
+        public Guid ContentId
+        {
             get; set;
         }
 

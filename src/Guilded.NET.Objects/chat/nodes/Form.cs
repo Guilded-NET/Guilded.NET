@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// A form or a poll posted in the chat.
     /// </summary>
-    public class Form: ContainerNode<IMessageObject> {
+    public class Form : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// A form or a poll posted in the chat.
         /// </summary>
@@ -18,7 +20,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Form ID</value>
         [JsonIgnore]
-        public uint? FormId {
+        public uint? FormId
+        {
             get => GetDataProperty<uint>("customFormId");
         }
         /// <summary>
@@ -27,7 +30,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="customFormId">ID of the form</param>
         /// <returns>New form</returns>
         public static Form Generate(uint customFormId) =>
-            new Form {
+            new Form
+            {
                 Data = JObject.FromObject(new { customFormId }),
                 Nodes = new List<IMessageObject> {
                     TextObj.GenerateText("")

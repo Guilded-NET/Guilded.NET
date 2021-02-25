@@ -4,19 +4,22 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     using Content;
     using Teams;
     using Chat;
     /// <summary>
     /// Represents any Guilded client.
     /// </summary>
-    public partial interface IGuildedClient {
+    public partial interface IGuildedClient
+    {
         /// <summary>
         /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
         /// </summary>
         /// <value>Serializer</value>
-        JsonSerializer GuildedSerializer {
+        JsonSerializer GuildedSerializer
+        {
             get; set;
         }
 

@@ -3,12 +3,14 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Markdown mark type.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum MarkType {
+    public enum MarkType
+    {
         /// <summary>
         /// Produces a line which goes over whole text.
         /// </summary>

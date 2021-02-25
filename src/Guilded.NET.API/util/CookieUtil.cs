@@ -9,17 +9,19 @@ namespace Guilded.NET.API
     /// <summary>
     /// Utilities for Cookie related things.
     /// </summary>
-    public static class CookieUtil {
+    public static class CookieUtil
+    {
         /// <summary>
         /// Turns <see cref="GuildedCookie"/> to <see cref="CookieContainer"/>.
         /// </summary>
         /// <param name="cookies"></param>
         /// <returns></returns>
-        public static CookieContainer From(IEnumerable<GuildedCookie> cookies) {
+        public static CookieContainer From(IEnumerable<GuildedCookie> cookies)
+        {
             // Init container
             CookieContainer container = new CookieContainer();
             // Add all cookies
-            foreach(var cookie in cookies)
+            foreach (var cookie in cookies)
                 container.Add(
                     cookie.Domain != null
                     ? new Cookie(cookie.Key, cookie.Value, cookie.Path, cookie.Domain)
@@ -36,11 +38,12 @@ namespace Guilded.NET.API
         /// <param name="cookies">Cookies to turn to CookieContainer</param>
         /// <returns>CookieContainer grom given cookies</returns>
         [Obsolete("RestResponseCookie is obsolete.")]
-        public static CookieContainer From(IEnumerable<RestResponseCookie> cookies) {
+        public static CookieContainer From(IEnumerable<RestResponseCookie> cookies)
+        {
             // Init container
             CookieContainer container = new CookieContainer();
             // Add all cookies
-            foreach(var cookie in cookies)
+            foreach (var cookie in cookies)
                 container.Add(
                     cookie.Domain != null
                     ? new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain)
@@ -57,11 +60,12 @@ namespace Guilded.NET.API
         /// <param name="cookies">Cookies to turn to CookieContainer</param>
         /// <returns>CookieContainer from given cookies</returns>
         [Obsolete("HttpCookie is obsolete.")]
-        public static CookieContainer From(IEnumerable<HttpCookie> cookies) {
+        public static CookieContainer From(IEnumerable<HttpCookie> cookies)
+        {
             // Init container
             CookieContainer container = new CookieContainer();
             // Add all cookies
-            foreach(var cookie in cookies)
+            foreach (var cookie in cookies)
                 container.Add(
                     cookie.Domain != null
                     ? new Cookie(cookie.Name, cookie.Value, cookie.Path, cookie.Domain)

@@ -2,17 +2,20 @@ using System.ComponentModel;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// Event when this user joins, leaves, gets kicked or gets banned.
     /// </summary>
-    public class UserTeamsUpdated: Event {
+    public class UserTeamsUpdated : Event
+    {
         /// <summary>
         /// ID of the team which updated user teams.
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -21,7 +24,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Removed</value>
         [JsonProperty("isRemoved")]
         [DefaultValue(false)]
-        public bool IsRemoved {
+        public bool IsRemoved
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +34,8 @@ namespace Guilded.NET.Objects.Events {
         /// <value>Banned from team</value>
         [JsonProperty("isUserBannedFromTeam")]
         [DefaultValue(false)]
-        public bool IsBanned {
+        public bool IsBanned
+        {
             get; set;
         }
     }

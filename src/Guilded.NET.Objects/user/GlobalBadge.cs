@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// A global badge displayed everywhere.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum GlobalBadge {
+    public enum GlobalBadge
+    {
         /// <summary>
         /// A badge which makes Guilded staff and developers identifiable.
         /// </summary>

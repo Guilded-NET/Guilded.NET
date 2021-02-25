@@ -1,11 +1,14 @@
-using Newtonsoft.Json;
 using System;
 
-namespace Guilded.NET.Objects.Forms {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// A filled out form response.
     /// </summary>
-    public class FormResponse: BasicFormResponse {
+    public class FormResponse : BasicFormResponse
+    {
         /// <summary>
         /// ID of this response.
         /// </summary>

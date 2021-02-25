@@ -3,7 +3,8 @@ namespace Guilded.NET.Objects
     /// <summary>
     /// An info about the user who posted a post or a reply in other user's/their profile.
     /// </summary>
-    public class ProfileUserInfo: BaseUser {
+    public class ProfileUserInfo : BaseUser
+    {
         /// <summary>
         /// Gets user's hashcode.
         /// </summary>

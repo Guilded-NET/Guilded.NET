@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 
-namespace Guilded.NET {
-    using Objects;
+namespace Guilded.NET
+{
     using Objects.Events;
     /// <summary>
     /// Delegate for Guilded.NET commands.

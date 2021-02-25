@@ -2,17 +2,20 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// A list of requests.
     /// </summary>
-    public class FriendRequests: ClientObject {
+    public class FriendRequests : ClientObject
+    {
         /// <summary>
         /// A list of friend requests this user has sent.
         /// </summary>
         /// <value>Friend requests</value>
         [JsonProperty("requested", Required = Required.Always)]
-        public IList<FriendUser> Requested {
+        public IList<FriendUser> Requested
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Friend requests</value>
         [JsonProperty("pending", Required = Required.Always)]
-        public IList<FriendUser> Pending {
+        public IList<FriendUser> Pending
+        {
             get; set;
         }
     }

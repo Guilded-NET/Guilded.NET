@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Event/calendar channel permissions.
     /// </summary>
     [Flags]
-    public enum CalendarPermissions {
+    public enum CalendarPermissions
+    {
         /// <summary>
         /// Allows you to create events
         /// </summary>

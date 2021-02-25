@@ -1,16 +1,19 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Field of an embed.
     /// </summary>
-    public class EmbedField: BaseObject {
+    public class EmbedField : BaseObject
+    {
         /// <summary>
         /// Embed field title.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -18,7 +21,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("value", Required = Required.Always)]
-        public string Value {
+        public string Value
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +30,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Boolean</value>
         [JsonProperty("inline", NullValueHandling = NullValueHandling.Ignore)]
-        public bool Inline {
+        public bool Inline
+        {
             get; set;
         } = false;
         /// <summary>
@@ -37,7 +42,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="inline">If field should be inline</param>
         /// <returns>New field</returns>
         public static EmbedField Generate(string title, string description, bool inline = false) =>
-            new EmbedField {
+            new EmbedField
+            {
                 Name = title,
                 Value = description,
                 Inline = inline

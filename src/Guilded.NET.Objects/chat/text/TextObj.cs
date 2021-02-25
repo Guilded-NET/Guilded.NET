@@ -2,11 +2,13 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents text object which holds leaves.
     /// </summary>
-    public class TextObj: BaseObject, IMessageObject {
+    public class TextObj : BaseObject, IMessageObject
+    {
         /// <summary>
         /// Represents text object which holds leaves.
         /// </summary>
@@ -17,7 +19,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>MsgObject.Text</value>
         [JsonProperty("object", Required = Required.Always)]
-        public MsgObject Object {
+        public MsgObject Object
+        {
             get; set;
         }
         /// <summary>
@@ -25,7 +28,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>List of leaves</value>
         [JsonProperty("leaves", Required = Required.Always)]
-        public IList<Leaf> Leaves {
+        public IList<Leaf> Leaves
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +38,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="leaves">List of leaves</param>
         /// <returns>Text object</returns>
         public static TextObj GenerateText(params Leaf[] leaves) =>
-            new TextObj {
+            new TextObj
+            {
                 Leaves = leaves
             };
         /// <summary>

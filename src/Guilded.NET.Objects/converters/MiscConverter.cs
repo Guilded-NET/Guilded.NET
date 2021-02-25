@@ -12,7 +12,8 @@ namespace Guilded.NET.Objects.Converters
     /// <summary>
     /// Converts specific interface types.
     /// </summary>
-    public class MiscConverter: JsonConverter {
+    public class MiscConverter : JsonConverter
+    {
         static readonly Type channel = typeof(BaseChannel);
         static readonly Type teamChannel = typeof(TeamChatChannel);
         static readonly Type formResponseField = typeof(FormResponseField);
@@ -34,34 +35,42 @@ namespace Guilded.NET.Objects.Converters
         /// <param name="existingValue">Previous property value</param>
         /// <param name="serializer">Serializer</param>
         /// <returns></returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
             JToken tkn = JToken.Load(reader);
             // Get it as an object
             JObject obj = tkn as JObject;
             // If it's a channel type
-            if(objectType == channel || objectType == teamChannel) {
+            if (objectType == channel || objectType == teamChannel)
+            {
                 // If it has a property `type`
-                if(obj.ContainsKey("type")) {
+                if (obj.ContainsKey("type"))
+                {
                     // Gets the type
                     string type = obj["type"].Value<string>();
                     // If it's a DM channel
-                    if(type == "DM") return obj.ToObject<DMChannel>(serializer);
+                    if (type == "DM") return obj.ToObject<DMChannel>(serializer);
                     // If it has threadMessageId property, then it's temporal channel
-                    else if(obj.ContainsKey("threadMessageId")) return obj.ToObject<ThreadChannel>(serializer);
+                    else if (obj.ContainsKey("threadMessageId")) return obj.ToObject<ThreadChannel>(serializer);
                     // Else, it's a normal channel
                     else return obj.ToObject<Channel>(serializer);
-                // If it doesn't, then it is a category
-                } else return obj.ToObject<Category>(serializer);
-            // If it's a form response field
-            } else if(objectType == formResponseField) {
+                    // If it doesn't, then it is a category
+                }
+                else return obj.ToObject<Category>(serializer);
+                // If it's a form response field
+            }
+            else if (objectType == formResponseField)
+            {
                 return
                 tkn.Type == JTokenType.String ?
                     // If token is a string
-                    new FormResponseField {
+                    new FormResponseField
+                    {
                         TextValue = ((JValue)tkn).Value<string>()
                     } :
                     // Else, it's an object
-                    new FormResponseField {
+                    new FormResponseField
+                    {
                         OptionName = FormId.Parse(obj["optionName"].Value<string>())
                     };
             }

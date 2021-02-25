@@ -2,17 +2,20 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// A room in a voice channel.
     /// </summary>
-    public class VoiceRoom: ClientObject {
+    public class VoiceRoom : ClientObject
+    {
         /// <summary>
         /// ID of the voice room.
         /// </summary>
         /// <value>Voice room ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public uint Id {
+        public uint Id
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -28,7 +32,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Priority</value>
         [JsonProperty("priority", Required = Required.AllowNull)]
-        public long? Priority {
+        public long? Priority
+        {
             get; set;
         }
         /// <summary>
@@ -36,7 +41,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channelId", Required = Required.Always)]
-        public Guid ChannelId {
+        public Guid ChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -44,7 +50,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Voice room limit</value>
         [JsonProperty("userLimit", Required = Required.AllowNull)]
-        public uint? UserLimit {
+        public uint? UserLimit
+        {
             get; set;
         }
         /// <summary>
@@ -52,7 +59,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Created at</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -60,7 +68,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Voice room ID</value>
         [JsonProperty("parentGroupId", Required = Required.AllowNull)]
-        public uint? ParentRoomId {
+        public uint? ParentRoomId
+        {
             get; set;
         }
     }

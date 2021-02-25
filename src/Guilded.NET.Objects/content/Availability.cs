@@ -2,17 +2,20 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A schedule when a user is available. 
     /// </summary>
-    public class Availability: ChannelContent<uint> {
+    public class Availability : ChannelContent<uint>
+    {
         /// <summary>
         /// ID of the user which have set their availability.
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("userId", Required = Required.Always)]
-        public GId UserId {
+        public GId UserId
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Updated at</value>
         [JsonProperty("updatedAt", Required = Required.Always)]
-        public DateTime UpdatedAt {
+        public DateTime UpdatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -28,7 +32,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Schedule start</value>
         [JsonProperty("startDate", Required = Required.Always)]
-        public DateTime StartDate {
+        public DateTime StartDate
+        {
             get; set;
         }
         /// <summary>
@@ -36,7 +41,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Schedule end</value>
         [JsonProperty("endDate", Required = Required.Always)]
-        public DateTime EndDate {
+        public DateTime EndDate
+        {
             get; set;
         }
     }

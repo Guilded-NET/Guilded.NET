@@ -1,17 +1,20 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// Event when group gets deleted, archived or restored.
     /// </summary>
     /// <value>TeamGroupDeleted, TeamGroupArchived, TeamGroupRestored</value>
-    public class TeamGroupEvent: Event {
+    public class TeamGroupEvent : Event
+    {
         /// <summary>
         /// ID of the team group is in.
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -19,7 +22,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Group ID</value>
         [JsonProperty("groupId", Required = Required.Always)]
-        public GId GroupId {
+        public GId GroupId
+        {
             get; set;
         }
     }

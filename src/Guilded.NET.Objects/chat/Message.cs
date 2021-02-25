@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Message posted in chat.
     /// </summary>
-    public class Message: ClientObject, IMessage {
+    public class Message : ClientObject, IMessage
+    {
         /// <summary>
         /// Message posted in chat.
         /// </summary>
@@ -20,7 +22,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Message ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public Guid Id {
+        public Guid Id
+        {
             get; set;
         }
         /// <summary>
@@ -29,7 +32,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Channel ID</value>
         [JsonProperty("channelId", NullValueHandling = NullValueHandling.Ignore)]
         [DefaultValue(null)]
-        public Guid? ChannelId {
+        public Guid? ChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -37,7 +41,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Message ID</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId AuthorId {
+        public GId AuthorId
+        {
             get; set;
         }
         /// <summary>
@@ -46,7 +51,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Webhook ID</value>
         [JsonProperty("webhookId")]
         [DefaultValue(null)]
-        public Guid? WebhookId {
+        public Guid? WebhookId
+        {
             get; set;
         }
         /// <summary>
@@ -55,7 +61,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Bot ID</value>
         [JsonProperty("botId")]
         [DefaultValue(null)]
-        public Guid? BotId {
+        public Guid? BotId
+        {
             get; set;
         }
         /// <summary>
@@ -64,14 +71,16 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Message type</value>
         [JsonProperty("type")]
         [DefaultValue(MessageType.Default)]
-        public MessageType Type {
+        public MessageType Type
+        {
             get; set;
         }
         /// <summary>
         /// Date of when the message was posted.
         /// </summary>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -79,7 +88,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Message content</value>
         [JsonProperty("content", Required = Required.Always)]
-        public MessageContent Content {
+        public MessageContent Content
+        {
             get; set;
         }
         /// <summary>
@@ -88,7 +98,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <value></value>
         [JsonProperty("channelType")]
         [DefaultValue(ChatType.Team)]
-        public ChatType ChannelType {
+        public ChatType ChannelType
+        {
             get; set;
         }
         /// <summary>
@@ -97,7 +108,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>Pinned</value>
         [JsonProperty("isPinned")]
         [DefaultValue(false)]
-        public bool IsPinned {
+        public bool IsPinned
+        {
             get; set;
         }
         /// <summary>
@@ -106,7 +118,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <value>User ID</value>
         [JsonProperty("pinnedBy")]
         [DefaultValue(null)]
-        public GId PinnedBy {
+        public GId PinnedBy
+        {
             get; set;
         }
         /// <summary>
@@ -114,7 +127,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Reactions</value>
         [JsonProperty("reactions")]
-        public IList<Reaction> Reactions {
+        public IList<Reaction> Reactions
+        {
             get; set;
         }
         /// <summary>
@@ -122,7 +136,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>List of Nodes</value>
         [JsonIgnore]
-        public IList<Node> Nodes {
+        public IList<Node> Nodes
+        {
             get => Content.Nodes;
         }
         /// <summary>
@@ -155,7 +170,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="nodes">List of nodes</param>
         /// <returns>NewMessage</returns>
         public static NewMessage Generate(IList<Node> nodes) =>
-            new NewMessage {
+            new NewMessage
+            {
                 // Generate random ID and give it to the message
                 Id = Guid.NewGuid(),
                 // Create content for the message
@@ -178,6 +194,6 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <param name="embed">Embed to send</param>
         /// <returns>NewMessage</returns>
-        public static NewMessage Generate(Embed embed) => Generate(new List<Node> {EmbedNode.Generate(embed)});
+        public static NewMessage Generate(Embed embed) => Generate(new List<Node> { EmbedNode.Generate(embed) });
     }
 }

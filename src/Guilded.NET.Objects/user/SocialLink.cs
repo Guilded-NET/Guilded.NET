@@ -2,17 +2,20 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// A social media link.
     /// </summary>
-    public class SocialLink: BaseObject {
+    public class SocialLink : BaseObject
+    {
         /// <summary>
         /// Social media's name.
         /// </summary>
         /// <value>Social media name</value>
         [JsonProperty("type", Required = Required.Always)]
-        public string Type {
+        public string Type
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Social media handle</value>
         [JsonProperty("handle", Required = Required.Always)]
-        public string Handle {
+        public string Handle
+        {
             get; set;
         }
         /// <summary>
@@ -28,7 +32,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Additional information</value>
         [JsonProperty("additionalInfo", Required = Required.Always)]
-        public IDictionary<string, string> AdditionalInfo {
+        public IDictionary<string, string> AdditionalInfo
+        {
             get; set;
         }
     }

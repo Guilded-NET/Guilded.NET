@@ -2,11 +2,13 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A reply to a forum post, media, a document or an announcement.
     /// </summary>
-    public abstract class ChannelReply: Reply {
+    public abstract class ChannelReply : Reply
+    {
         /// <summary>
         /// A reply to a forum post, media, a document or an announcement.
         /// </summary>
@@ -17,7 +19,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Reactions</value>
         [JsonProperty("reactions", Required = Required.AllowNull)]
-        public IList<Reaction> Reactions {
+        public IList<Reaction> Reactions
+        {
             get; set;
         }
         /// <summary>
@@ -25,7 +28,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
     }

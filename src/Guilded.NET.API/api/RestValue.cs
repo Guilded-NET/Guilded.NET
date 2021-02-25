@@ -1,16 +1,19 @@
 using RestSharp;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     /// <summary>
     /// Value for RestRequests.
     /// </summary>
     /// <typeparam name="T">Value's type</typeparam>
-    public abstract class RestValue<T>: IReqAddable {
+    public abstract class RestValue<T> : IReqAddable
+    {
         /// <summary>
         /// Value of the request object.
         /// </summary>
         /// <value>Given value</value>
-        public T Value {
+        public T Value
+        {
             get; set;
         }
         /// <summary>

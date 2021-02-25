@@ -2,17 +2,20 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// A friend, friend request sent to user or friend request sent by user.
     /// </summary>
-    public class Friend: ClientObject {
+    public class Friend : ClientObject
+    {
         /// <summary>
         /// Friend's ID.
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("friendUserId", Required = Required.Always)]
-        public GId FriendId {
+        public GId FriendId
+        {
             get; set;
         }
         /// <summary>
@@ -20,7 +23,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Friendship status</value>
         [JsonProperty("friendStatus", Required = Required.Always)]
-        public FriendStatus Status {
+        public FriendStatus Status
+        {
             get; set;
         }
         /// <summary>
@@ -28,7 +32,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Request created at</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
     }

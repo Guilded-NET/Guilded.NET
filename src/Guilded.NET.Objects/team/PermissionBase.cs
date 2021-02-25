@@ -1,11 +1,13 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     using Permissions;
     /// <summary>
     /// Allowed and disallowed permissions.
     /// </summary>
-    public class PermissionBase: ClientObject {
+    public class PermissionBase : ClientObject
+    {
         /// <summary>
         /// Allowed and disallowed permissions.
         /// </summary>
@@ -16,7 +18,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("denyPermissions")]
-        public PermissionList DenyPermissions {
+        public PermissionList DenyPermissions
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +27,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("allowPermissions")]
-        public PermissionList AllowPermissions {
+        public PermissionList AllowPermissions
+        {
             get; set;
         }
     }

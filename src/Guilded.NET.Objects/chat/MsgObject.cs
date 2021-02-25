@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Type of the message object.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum MsgObject {
+    public enum MsgObject
+    {
         /// <summary>
         /// A block, which is the only thing in a line.
         /// </summary>

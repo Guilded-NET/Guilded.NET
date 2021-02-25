@@ -10,13 +10,15 @@ namespace Guilded.NET.Objects.Events
     /// <summary>
     /// Event when message is posted in the chat.
     /// </summary>
-    public class MessageCreatedEvent: CommonEvent {
+    public class MessageCreatedEvent : CommonEvent
+    {
         /// <summary>
         /// Type of the content.
         /// </summary>
         /// <value>Content type</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType ContentType {
+        public ChannelType ContentType
+        {
             get; set;
         }
         /// <summary>
@@ -24,7 +26,8 @@ namespace Guilded.NET.Objects.Events
         /// </summary>
         /// <value>Message</value>
         [JsonProperty("message", Required = Required.Always)]
-        public Message Message {
+        public Message Message
+        {
             get; set;
         }
         /// <summary>
@@ -32,10 +35,11 @@ namespace Guilded.NET.Objects.Events
         /// </summary>
         /// <value>User ID</value>
         [JsonIgnore]
-        public GId AuthorId {
+        public GId AuthorId
+        {
             get => Message.AuthorId;
         }
-        
+
         /// <summary>
         /// Adds a reaction on a message.
         /// </summary>

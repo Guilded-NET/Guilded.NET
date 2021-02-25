@@ -3,7 +3,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's small heading node.
     /// </summary>
-    public class SmallTitleNode: ContainerNode<IMessageObject> {
+    public class SmallTitleNode : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// Represents Guilded's small heading node.
         /// </summary>
@@ -15,7 +16,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="objs">List of text objects</param>
         /// <returns>Small heading node</returns>
         public static SmallTitleNode Generate(params IMessageObject[] objs) =>
-            new SmallTitleNode {
+            new SmallTitleNode
+            {
                 Nodes = objs
             };
         /// <summary>

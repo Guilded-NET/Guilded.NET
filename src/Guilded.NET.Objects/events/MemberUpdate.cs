@@ -1,10 +1,12 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Events {
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// How this member was updated.
     /// </summary>
-    public class MemberUpdated: BaseObject {
+    public class MemberUpdated : BaseObject
+    {
         /// <summary>
         /// How this member was updated.
         /// </summary>
@@ -15,7 +17,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name")]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -23,7 +26,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("nickname")]
-        public string Nickname {
+        public string Nickname
+        {
             get; set;
         }
         /// <summary>
@@ -31,7 +35,8 @@ namespace Guilded.NET.Objects.Events {
         /// </summary>
         /// <value>User status</value>
         [JsonProperty("userStatus")]
-        public UserStatus Status {
+        public UserStatus Status
+        {
             get; set;
         }
     }

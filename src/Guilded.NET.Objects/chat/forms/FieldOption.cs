@@ -1,10 +1,12 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Forms {
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// An option in radio, check list and dropdown fields.
     /// </summary>
-    public class FieldOption {
+    public class FieldOption
+    {
         /// <summary>
         /// An option in radio, check list and dropdown fields.
         /// </summary>
@@ -15,7 +17,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("label", Required = Required.Always)]
-        public string Label {
+        public string Label
+        {
             get; set;
         }
         /// <summary>
@@ -23,7 +26,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Default option</value>
         [JsonProperty("defaultValue")]
-        public string DefaultValue {
+        public string DefaultValue
+        {
             get; set;
         }
         /// <summary>
@@ -31,7 +35,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form name</value>
         [JsonProperty("value")]
-        public FormId Value {
+        public FormId Value
+        {
             get; set;
         }
         /// <summary>
@@ -39,7 +44,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form name</value>
         [JsonProperty("fieldName")]
-        public FormId FieldName {
+        public FormId FieldName
+        {
             get; set;
         }
         /// <summary>
@@ -47,7 +53,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form name</value>
         [JsonProperty("optionName")]
-        public FormId OptionName {
+        public FormId OptionName
+        {
             get; set;
         }
         /// <summary>
@@ -55,11 +62,13 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <param name="label">A name for this option</param>
         /// <returns>New option</returns>
-        public static FieldOption Generate(string label) {
+        public static FieldOption Generate(string label)
+        {
             // Creates a random form ID
             FormId rand = FormId.Random;
             // Creates an option
-            return new FieldOption {
+            return new FieldOption
+            {
                 FieldName = FormId.Random,
                 Label = label,
                 OptionName = rand,

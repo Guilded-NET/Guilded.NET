@@ -3,11 +3,13 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// Media which was posted in the profile or in a media channel.
     /// </summary>
-    public class GuildedMedia: ChannelPost<uint> {
+    public class GuildedMedia : ChannelPost<uint>
+    {
         /// <summary>
         /// Media which was posted in the profile or in a media channel.
         /// </summary>
@@ -15,27 +17,32 @@ namespace Guilded.NET.Objects.Content {
             (Description, Tags, UpdatedAt) = (null, null, null);
         /// <inheritdoc/>
         [JsonProperty("title", Required = Required.Always)]
-        public string Title {
+        public string Title
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("type", Required = Required.Always)]
-        public MediaType Type {
+        public MediaType Type
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("src", Required = Required.Always)]
-        public Uri MediaSource {
+        public Uri MediaSource
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("description")]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("tags")]
-        public IList<string> Tags {
+        public IList<string> Tags
+        {
             get; set;
         }
         /// <summary>
@@ -43,17 +50,20 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Updated at</value>
         [JsonProperty("updatedAt")]
-        public DateTime? UpdatedAt {
+        public DateTime? UpdatedAt
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("reactions", Required = Required.AllowNull)]
-        public IList<Reaction> Reactions {
+        public IList<Reaction> Reactions
+        {
             get; set;
         }
         /// <inheritdoc/>
         [JsonProperty("srcThumbnail", Required = Required.AllowNull)]
-        public Uri ThumbnailSource {
+        public Uri ThumbnailSource
+        {
             get; set;
         }
     }

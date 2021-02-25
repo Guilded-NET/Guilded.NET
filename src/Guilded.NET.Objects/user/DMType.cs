@@ -1,8 +1,10 @@
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// If the DM channel is a group or default.
     /// </summary>
-    public enum DMType {
+    public enum DMType
+    {
         /// <summary>
         /// A normal DM channel between 2 people.
         /// </summary>

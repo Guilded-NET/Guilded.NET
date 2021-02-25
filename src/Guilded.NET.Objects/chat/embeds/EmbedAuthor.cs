@@ -1,17 +1,21 @@
 using System;
+
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Author of the embed.
     /// </summary>
-    public class EmbedAuthor: BaseObject {
+    public class EmbedAuthor : BaseObject
+    {
         /// <summary>
         /// Author icon URL.
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("iconUrl", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri IconUrl {
+        public Uri IconUrl
+        {
             get; set;
         } = null;
         /// <summary>
@@ -19,7 +23,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Author</value>
         [JsonProperty("name", Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]
-        public string Name {
+        public string Name
+        {
             get; set;
         } = null;
         /// <summary>
@@ -27,7 +32,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>URL</value>
         [JsonProperty("url", NullValueHandling = NullValueHandling.Ignore)]
-        public Uri Url {
+        public Uri Url
+        {
             get; set;
         } = null;
         /// <summary>
@@ -36,7 +42,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="name">Name of the author</param>
         /// <returns>Author</returns>
         public static EmbedAuthor Generate(string name) =>
-            new EmbedAuthor {
+            new EmbedAuthor
+            {
                 Name = name
             };
         /// <summary>
@@ -46,7 +53,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="image">Image of the icon</param>
         /// <returns>Author</returns>
         public static EmbedAuthor Generate(string name, Uri image) =>
-            new EmbedAuthor {
+            new EmbedAuthor
+            {
                 Name = name,
                 IconUrl = image
             };
@@ -58,7 +66,8 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="url">URL of the author</param>
         /// <returns>Author</returns>
         public static EmbedAuthor Generate(string name, Uri image, Uri url) =>
-            new EmbedAuthor {
+            new EmbedAuthor
+            {
                 Name = name,
                 IconUrl = image,
                 Url = url

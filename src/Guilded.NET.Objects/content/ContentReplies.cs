@@ -2,27 +2,31 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     using Chat;
 
     using Teams;
     /// <summary>
     /// A reply to a Guilded document or media.
     /// </summary>
-    public class ContentReply<T>: ChannelReply {
+    public class ContentReply<T> : ChannelReply
+    {
         /// <summary>
         /// ID of the document/media this reply was posted under.
         /// </summary>
         /// <value>Document/media ID</value>
         [JsonProperty("contentId", Required = Required.Always)]
-        public T ContentId {
+        public T ContentId
+        {
             get; set;
         }
     }
     /// <summary>
     /// A reply to a Guilded document or media.
     /// </summary>
-    public class ContentReply: ContentReply<uint> {
+    public class ContentReply : ContentReply<uint>
+    {
         /// <summary>
         /// Deletes this reply.
         /// </summary>

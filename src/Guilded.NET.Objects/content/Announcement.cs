@@ -3,18 +3,21 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     using Chat;
     /// <summary>
     /// Announcement posted in the Overview or announcement channel.
     /// </summary>
-    public class Announcement: ChannelPost<GId> {
+    public class Announcement : ChannelPost<GId>
+    {
         /// <summary>
         /// Title of the announcement.
         /// </summary>
         /// <value>Title</value>
         [JsonProperty("title", Required = Required.Always)]
-        public string Title {
+        public string Title
+        {
             get; set;
         }
         /// <summary>
@@ -22,7 +25,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Message content</value>
         [JsonProperty("content", Required = Required.Always)]
-        public MessageContent Content {
+        public MessageContent Content
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +34,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>List of reactions</value>
         [JsonProperty("reactions", Required = Required.Always)]
-        public IList<Reaction> Reactions {
+        public IList<Reaction> Reactions
+        {
             get; set;
         }
         /// <summary>
@@ -38,7 +43,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Edited at</value>
         [JsonProperty("editedAt", Required = Required.AllowNull)]
-        public DateTime? EditedAt {
+        public DateTime? EditedAt
+        {
             get; set;
         }
         /// <summary>
@@ -46,7 +52,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt", Required = Required.AllowNull)]
-        public DateTime? DeletedAt {
+        public DateTime? DeletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -54,7 +61,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Pinned</value>
         [JsonProperty("isPinned", Required = Required.Always)]
-        public bool IsPinned {
+        public bool IsPinned
+        {
             get; set;
         }
         /// <summary>
@@ -62,7 +70,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Public</value>
         [JsonProperty("isPublic", Required = Required.Always)]
-        public bool IsPublic {
+        public bool IsPublic
+        {
             get; set;
         }
         /// <summary>
@@ -70,7 +79,8 @@ namespace Guilded.NET.Objects.Content {
         /// </summary>
         /// <value>Group ID</value>
         [JsonProperty("groupId", Required = Required.Always)]
-        public GId GroupId {
+        public GId GroupId
+        {
             get; set;
         }
     }

@@ -5,7 +5,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Represents Guilded's numbered/ordered list node.
     /// </summary>
-    public class OrderedList: ContainerNode<Node> {
+    public class OrderedList : ContainerNode<Node>
+    {
         /// <summary>
         /// Represents Guilded's numbered/ordered list node.
         /// </summary>
@@ -15,7 +16,8 @@ namespace Guilded.NET.Objects.Chat
         /// Turns list to string.
         /// </summary>
         /// <returns>List as a string</returns>
-        public override string ToString() => string.Join('\n', Nodes.Select((x, i) => {
+        public override string ToString() => string.Join('\n', Nodes.Select((x, i) =>
+        {
             // Start of list items
             string start = $"{i + 1}. ";
             string startspace = string.Concat(Enumerable.Repeat(" ", start.Length));
@@ -28,7 +30,8 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="nodes">List of nodes</param>
         /// <returns>Ordered list node</returns>
         public static OrderedList Generate(params Node[] nodes) =>
-            new OrderedList {
+            new OrderedList
+            {
                 // Sets its nodes
                 Nodes = nodes
             };

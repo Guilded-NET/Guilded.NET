@@ -12215,3 +12215,1496 @@ JsonRpc Verbose: 8 : Sent: {
   "result": null,
   "id": 283
 }
+JsonRpc Information: 7 : {"id":284,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/example/BasicPongBot/CommandList.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using Guilded.NET;\nusing Guilded.NET.Util;\nusing Guilded.NET.Objects.Chat;\nusing Guilded.NET.Objects.Events;\nusing System.Collections.Generic;\n\nnamespace BasicPongBot\n{\n    /// <summary>\n    /// List of user bot commands.\n    /// </summary>\n    public static class CommandList {\n        /// <summary>\n        /// Responds with `Pong!`\n        /// </summary>\n        /// <param name=\"client\">Client to post message with</param>\n        /// <param name=\"messageCreated\">Message creation event</param>\n        /// <param name=\"command\">Name of the command used</param>\n        /// <param name=\"arguments\">Command arguments</param>\n        [Command(\"ping\", \"pong\", Description = \"Responds with `Pong!`\")]\n        public static async void Ping(BasicGuildedClient client, MessageCreatedEvent messageCreated, string command, IList<string> arguments) {\n            // Sends a message to channel where `ping`/`pong` command was used\n            await messageCreated.RespondAsync(\n                // Generates a new message with content `Pong!`\n                Message.Generate(\"Pong!\")\n            );\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 284
+}
+JsonRpc Information: 6 : Received request "284" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":284}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 284
+}
+JsonRpc Information: 7 : {"id":285,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 285
+}
+JsonRpc Information: 6 : Received request "285" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":144,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\nusing Guilded.NET;\nusing Guilded.NET.Objects.Chat;\nusing Guilded.NET.Objects.Events;\nusing Guilded.NET.Util;\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 5
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 5
+            }
+          }
+        },
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 4
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/example/BasicPongBot/CommandList.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 144
+}
+JsonRpc Information: 7 : {"id":144}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 144
+}
+JsonRpc Information: 11 : Received result for request "144".
+JsonRpc Information: 8 : {"id":285}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 285
+}
+JsonRpc Information: 7 : {"id":286,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/Embed.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System;\nusing System.Collections.Generic;\n\nnamespace Guilded.NET.Objects.Chat\n{\n    /// <summary>\n    /// Message embed data.\n    /// </summary>\n    public class Embed: BaseObject {\n        /// <summary>\n        /// Title of the embed.\n        /// </summary>\n        /// <value>Name</value>\n        [JsonProperty(\"title\", NullValueHandling = NullValueHandling.Ignore)]\n        public string Title {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Description of the embed.\n        /// </summary>\n        /// <value></value>\n        [JsonProperty(\"description\", NullValueHandling = NullValueHandling.Ignore)]\n        public string Description {\n            get; set;\n        } = null;\n        /// <summary>\n        /// URL of the title.\n        /// </summary>\n        /// <value>URL</value>\n        [JsonProperty(\"url\", NullValueHandling = NullValueHandling.Ignore)]\n        public Uri Url {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Colour of the embed.\n        /// </summary>\n        /// <value>Colour</value>\n        [JsonProperty(\"color\", NullValueHandling = NullValueHandling.Ignore)]\n        public uint? Color {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Timestamp of the embed footer.\n        /// </summary>\n        /// <value>Date</value>\n        [JsonProperty(\"timestamp\", NullValueHandling = NullValueHandling.Ignore)]\n        public DateTime? Timestamp {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Thumbnail of the embed.\n        /// </summary>\n        /// <value>Image</value>\n        [JsonProperty(\"image\", NullValueHandling = NullValueHandling.Ignore)]\n        public EmbedImage Image {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Image of the embed.\n        /// </summary>\n        /// <value>Image</value>\n        [JsonProperty(\"thumbnail\", NullValueHandling = NullValueHandling.Ignore)]\n        public EmbedImage Thumbnail {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Embed's footer.\n        /// </summary>\n        /// <value>Footer</value>\n        [JsonProperty(\"footer\", NullValueHandling = NullValueHandling.Ignore)]\n        public EmbedFooter Footer {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Author of the embed.\n        /// </summary>\n        /// <value>Author</value>\n        [JsonProperty(\"author\", NullValueHandling = NullValueHandling.Ignore)]\n        public EmbedAuthor Author {\n            get; set;\n        } = null;\n        /// <summary>\n        /// List of fields in this embed.\n        /// </summary>\n        /// <value>List of fields</value>\n        [JsonProperty(\"fields\", NullValueHandling = NullValueHandling.Ignore)]\n        public IList<EmbedField> Fields {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Adds field to this embed.\n        /// </summary>\n        /// <param name=\"title\">Title of the field</param>\n        /// <param name=\"description\">Description of the field</param>\n        /// <param name=\"inline\">If this field should be inline</param>\n        /// <returns>This</returns>\n        public Embed AddField(string title, string description, bool inline = false) => AddField(EmbedField.Generate(title, description, inline));\n        /// <summary>\n        /// Adds field to this embed.\n        /// </summary>\n        /// <param name=\"field\">Field to be added</param>\n        /// <returns>This</returns>\n        public Embed AddField(EmbedField field) {\n            // If fields list is null\n            if(Fields == null) Fields = new List<EmbedField> {\n                field\n            };\n            else Fields.Add(field);\n            // Returns this embed\n            return this;\n        }\n        /// <summary>\n        /// Adds fields to this embed.\n        /// </summary>\n        /// <param name=\"fields\">Fields to be added</param>\n        /// <returns>This</returns>\n        public Embed AddFields(params EmbedField[] fields) {\n            // If fields list is null\n            if(Fields == null) Fields = fields;\n            // Because for some reason, IList has no AddRange, where as List has AddRange.\n            else foreach(EmbedField field in fields) Fields.Add(field);\n            // Returns this embed\n            return this;\n        }\n        /// <summary>\n        /// Sets author to this embed.\n        /// </summary>\n        /// <param name=\"author\">Author to be set to</param>\n        /// <returns>This</returns>\n        public Embed SetAuthor(EmbedAuthor author) {\n            Author = author;\n            return this;\n        }\n        /// <summary>\n        /// Sets author to this embed.\n        /// </summary>\n        /// <param name=\"name\">Name of the author</param>\n        /// <param name=\"iconUrl\">URL of the image</param>\n        /// <param name=\"url\">URL of the author's name</param>\n        /// <returns>This</returns>\n        public Embed SetAuthor(string name, Uri iconUrl = null, Uri url = null) => SetAuthor(EmbedAuthor.Generate(name, iconUrl, url));\n        /// <summary>\n        /// Sets embed's title name and URL.\n        /// </summary>\n        /// <param name=\"name\">Name of the title</param>\n        /// <param name=\"url\">URL of the title</param>\n        /// <returns>This</returns>\n        public Embed SetTitle(string name, Uri url = null) {\n            Title = name;\n            Url = url;\n            return this;\n        }\n        /// <summary>\n        /// Sets description of the embed.\n        /// </summary>\n        /// <param name=\"description\">Embed's description</param>\n        /// <returns>This</returns>\n        public Embed SetDescription(string description) {\n            Description = description;\n            return this;\n        }\n        /// <summary>\n        /// Sets the image of the embed.\n        /// </summary>\n        /// <param name=\"url\">URL to the image</param>\n        /// <returns>This</returns>\n        public Embed SetImage(Uri url) {\n            Image = new EmbedImage {\n                Url = url\n            };\n            return this;\n        }\n        /// <summary>\n        /// Sets the thumbnail of the embed.\n        /// </summary>\n        /// <param name=\"url\">URL to the image</param>\n        /// <returns>This</returns>\n        public Embed SetThumbnail(Uri url) {\n            Thumbnail = new EmbedImage {\n                Url = url\n            };\n            return this;\n        }\n        /// <summary>\n        /// Sets timestamp of the embed.\n        /// </summary>\n        /// <param name=\"time\">Date to be set to</param>\n        /// <returns>This</returns>\n        public Embed SetTimestamp(DateTime time) {\n            Timestamp = time;\n            return this;\n        }\n        /// <summary>\n        /// Sets timestamp of the embed to current time.\n        /// </summary>\n        /// <returns>This</returns>\n        public Embed SetTimestamp() => SetTimestamp(DateTime.Now);\n        /// <summary>\n        /// Sets colour to given colour.\n        /// </summary>\n        /// <example>\n        /// <code>embed.SetColor(0xFFFFFF)</code>\n        /// </example>\n        /// <param name=\"color\">Colour</param>\n        /// <returns></returns>\n        public Embed SetColor(uint color) {\n            Color = color;\n            return this;\n        }\n        /// <summary>\n        /// Adds footer to this embed.\n        /// </summary>\n        /// <param name=\"footer\">Footer to add</param>\n        /// <returns>This</returns>\n        public Embed SetFooter(EmbedFooter footer) {\n            Footer = footer;\n            return this;\n        }\n        /// <summary>\n        /// Adds footer to this embed.\n        /// </summary>\n        /// <param name=\"text\">Footer text</param>\n        /// <param name=\"iconUrl\">Icon of the footer</param>\n        /// <returns>This</returns>\n        public Embed SetFooter(string text, Uri iconUrl = null) => SetFooter(EmbedFooter.Generate(text, iconUrl));\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 286
+}
+JsonRpc Information: 6 : Received request "286" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":286}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 286
+}
+JsonRpc Information: 7 : {"id":287,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 287
+}
+JsonRpc Information: 6 : Received request "287" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":145,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 3
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        },
+        {
+          "NewText": "System;\nusing System.Collections.Generic;\n\r\nusing ",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 0
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/Embed.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 145
+}
+JsonRpc Information: 7 : {"id":145}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 145
+}
+JsonRpc Information: 11 : Received result for request "145".
+JsonRpc Information: 8 : {"id":287}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 287
+}
+JsonRpc Information: 7 : {"id":288,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedNode.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System.Collections.Generic;\nusing Newtonsoft.Json.Linq;\n\nnamespace Guilded.NET.Objects.Chat\n{\n    /// <summary>\n    /// Node containing embeds. A.k.a. webhook message in Guilded.\n    /// </summary>\n    public class EmbedNode : ContainerNode<IMessageObject>\n    {\n        /// <summary>\n        /// Node containing embeds. A.k.a. webhook message in Guilded.\n        /// </summary>\n        public EmbedNode() =>\n            (Type, Object) = (NodeType.Embed, MsgObject.Block);\n        /// <summary>\n        /// List of embeds in this embed node.\n        /// </summary>\n        /// <value>List of embeds</value>\n        [JsonIgnore]\n        public IList<Embed> Embeds\n        {\n            get => GetDataProperty<IList<Embed>>(\"embeds\");\n        }\n        /// <summary>\n        /// Generates embed node from given embed data.\n        /// </summary>\n        /// <param name=\"embeds\">List of embed datas</param>\n        /// <returns>Embed node</returns>\n        public static EmbedNode Generate(params Embed[] embeds) =>\n            new EmbedNode\n            {\n                Data = JObject.FromObject(new { embeds })\n            };\n        /// <summary>\n        /// Turns embed to string.\n        /// </summary>\n        /// <returns>Embed as string</returns>\n        public override string ToString() => \"[Embeds: ToString not supported]\";\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 288
+}
+JsonRpc Information: 6 : Received request "288" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":288}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 288
+}
+JsonRpc Information: 7 : {"id":289,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 289
+}
+JsonRpc Information: 6 : Received request "289" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":146,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\nusing Newtonsoft.Json;\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 2
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 2
+            }
+          }
+        },
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedNode.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 146
+}
+JsonRpc Information: 7 : {"id":146}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 146
+}
+JsonRpc Information: 11 : Received result for request "146".
+JsonRpc Information: 8 : {"id":289}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 289
+}
+JsonRpc Information: 7 : {"id":290,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedImage.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System;\n\nnamespace Guilded.NET.Objects.Chat\n{\n    /// <summary>\n    /// Thumbnail or image of the embed.\n    /// </summary>\n    public class EmbedImage : BaseObject\n    {\n        /// <summary>\n        /// URL of the image.\n        /// </summary>\n        /// <value>URL</value>\n        [JsonProperty(\"url\")]\n        public Uri Url\n        {\n            get; set;\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 290
+}
+JsonRpc Information: 6 : Received request "290" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":290}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 290
+}
+JsonRpc Information: 7 : {"id":291,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 291
+}
+JsonRpc Information: 6 : Received request "291" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":147,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 2
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        },
+        {
+          "NewText": "System;\n\r\nusing ",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 0
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedImage.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 147
+}
+JsonRpc Information: 7 : {"id":147}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 147
+}
+JsonRpc Information: 11 : Received result for request "147".
+JsonRpc Information: 8 : {"id":291}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 291
+}
+JsonRpc Information: 7 : {"id":292,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedFooter.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using System;\nusing Newtonsoft.Json;\n\nnamespace Guilded.NET.Objects.Chat\n{\n    /// <summary>\n    /// Footer of the embed.\n    /// </summary>\n    public class EmbedFooter : BaseObject\n    {\n        /// <summary>\n        /// Footer icon URL.\n        /// </summary>\n        /// <value>URL</value>\n        [JsonProperty(\"iconUrl\", NullValueHandling = NullValueHandling.Ignore)]\n        public Uri IconUrl\n        {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Description of the embed footer.\n        /// </summary>\n        /// <value>Description</value>\n        [JsonProperty(\"text\", Required = Required.Always)]\n        public string Text\n        {\n            get; set;\n        }\n        /// <summary>\n        /// Generates embed footer.\n        /// </summary>\n        /// <param name=\"text\">Text of the footer</param>\n        /// <param name=\"iconUrl\">Icon of the footer</param>\n        /// <returns>Footer</returns>\n        public static EmbedFooter Generate(string text, Uri iconUrl = null) =>\n            new EmbedFooter\n            {\n                Text = text,\n                IconUrl = iconUrl\n            };\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 292
+}
+JsonRpc Information: 6 : Received request "292" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":292}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 292
+}
+JsonRpc Information: 7 : {"id":293,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 293
+}
+JsonRpc Information: 6 : Received request "293" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":148,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedFooter.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 148
+}
+JsonRpc Information: 7 : {"id":148}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 148
+}
+JsonRpc Information: 11 : Received result for request "148".
+JsonRpc Information: 8 : {"id":293}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 293
+}
+JsonRpc Information: 7 : {"id":294,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedAuthor.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using System;\nusing Newtonsoft.Json;\n\nnamespace Guilded.NET.Objects.Chat\n{\n    /// <summary>\n    /// Author of the embed.\n    /// </summary>\n    public class EmbedAuthor : BaseObject\n    {\n        /// <summary>\n        /// Author icon URL.\n        /// </summary>\n        /// <value>URL</value>\n        [JsonProperty(\"iconUrl\", NullValueHandling = NullValueHandling.Ignore)]\n        public Uri IconUrl\n        {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Title of the embed author.\n        /// </summary>\n        /// <value>Author</value>\n        [JsonProperty(\"name\", Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]\n        public string Name\n        {\n            get; set;\n        } = null;\n        /// <summary>\n        /// URL of the author.\n        /// </summary>\n        /// <value>URL</value>\n        [JsonProperty(\"url\", NullValueHandling = NullValueHandling.Ignore)]\n        public Uri Url\n        {\n            get; set;\n        } = null;\n        /// <summary>\n        /// Generates embed author.\n        /// </summary>\n        /// <param name=\"name\">Name of the author</param>\n        /// <returns>Author</returns>\n        public static EmbedAuthor Generate(string name) =>\n            new EmbedAuthor\n            {\n                Name = name\n            };\n        /// <summary>\n        /// Generates embed author.\n        /// </summary>\n        /// <param name=\"name\">Name of the author</param>\n        /// <param name=\"image\">Image of the icon</param>\n        /// <returns>Author</returns>\n        public static EmbedAuthor Generate(string name, Uri image) =>\n            new EmbedAuthor\n            {\n                Name = name,\n                IconUrl = image\n            };\n        /// <summary>\n        /// Generates embed author.\n        /// </summary>\n        /// <param name=\"name\">Name of the author</param>\n        /// <param name=\"image\">Image of the icon</param>\n        /// <param name=\"url\">URL of the author</param>\n        /// <returns>Author</returns>\n        public static EmbedAuthor Generate(string name, Uri image, Uri url) =>\n            new EmbedAuthor\n            {\n                Name = name,\n                IconUrl = image,\n                Url = url\n            };\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 294
+}
+JsonRpc Information: 6 : Received request "294" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":294}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 294
+}
+JsonRpc Information: 7 : {"id":295,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 295
+}
+JsonRpc Information: 6 : Received request "295" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":149,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/embeds/EmbedAuthor.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 149
+}
+JsonRpc Information: 7 : {"id":149}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 149
+}
+JsonRpc Information: 11 : Received result for request "149".
+JsonRpc Information: 8 : {"id":295}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 295
+}
+JsonRpc Information: 7 : {"id":296,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/BasicFormResponse.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System.Collections.Generic;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// A form response which can be submitted\n    /// </summary>\n    public class BasicFormResponse: BaseObject {\n        /// <summary>\n        /// Form fields filled out values.\n        /// </summary>\n        /// <value>Form field values</value>\n        [JsonProperty(\"values\", Required = Required.Always)]\n        public IDictionary<FormId, FormResponse> Values {\n            get; set;\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 296
+}
+JsonRpc Information: 6 : Received request "296" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":296}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 296
+}
+JsonRpc Information: 7 : {"id":297,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 297
+}
+JsonRpc Information: 6 : Received request "297" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":150,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\nusing Newtonsoft.Json;\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 2
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 2
+            }
+          }
+        },
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/BasicFormResponse.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 150
+}
+JsonRpc Information: 7 : {"id":150}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 150
+}
+JsonRpc Information: 11 : Received result for request "150".
+JsonRpc Information: 8 : {"id":297}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 297
+}
+JsonRpc Information: 7 : {"id":298,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/BasicGuildedForm.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// A poll or a form created in Guilded.\n    /// </summary>\n    public class BasicGuildedForm: ClientObject {\n        /// <summary>\n        /// A poll or a form created in Guilded.\n        /// </summary>\n        public BasicGuildedForm() =>\n            (TeamId, Title, Description, IsPublic, Type) = (null, \"Form title\", \"\", true, FormType.Form);\n        /// <summary>\n        /// A poll or a form created in Guilded.\n        /// </summary>\n        /// <param name=\"sections\">Sections to generate form spec and form from</param>\n        public BasicGuildedForm(params FormSection[] sections): this() =>\n            Specs = FormSpecs.Generate(sections);\n        /// <summary>\n        /// A poll or a form created in Guilded.\n        /// </summary>\n        /// <param name=\"fields\">Fields to generate form spec and form from</param>\n        public BasicGuildedForm(params FormField[] fields): this() =>\n            Specs = FormSpecs.Generate(fields);\n        /// <summary>\n        /// ID of the team where the form/poll is in.\n        /// </summary>\n        /// <value>Optional team ID</value>\n        [JsonProperty(\"teamId\", NullValueHandling = NullValueHandling.Ignore)]\n        public GId TeamId {\n            get; set;\n        }\n        /// <summary>\n        /// Title of the form/poll.\n        /// </summary>\n        /// <value>Title</value>\n        [JsonProperty(\"title\", Required = Required.Always)]\n        public string Title {\n            get; set;\n        }\n        /// <summary>\n        /// Description of the form/poll describing the form/poll.\n        /// </summary>\n        /// <value>Description</value>\n        [JsonProperty(\"description\", Required = Required.Always)]\n        public string Description {\n            get; set;\n        }\n        /// <summary>\n        /// If the form/poll is publicly available.\n        /// </summary>\n        /// <value>Public</value>\n        [JsonProperty(\"isPublic\")]\n        public bool IsPublic {\n            get; set;\n        }\n        /// <summary>\n        /// Type of the form(form, poll).\n        /// </summary>\n        /// <value>Form type</value>\n        [JsonProperty(\"type\", Required = Required.Always)]\n        public FormType Type {\n            get; set;\n        }\n        /// <summary>\n        /// A form content specification.\n        /// </summary>\n        /// <value>Form content</value>\n        [JsonProperty(\"formSpecs\", Required = Required.Always)]\n        public FormSpecs Specs {\n            get; set;\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 298
+}
+JsonRpc Information: 6 : Received request "298" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":298}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 298
+}
+JsonRpc Information: 7 : {"id":299,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 299
+}
+JsonRpc Information: 6 : Received request "299" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":151,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/BasicGuildedForm.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 151
+}
+JsonRpc Information: 7 : {"id":151}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 151
+}
+JsonRpc Information: 11 : Received result for request "151".
+JsonRpc Information: 8 : {"id":299}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 299
+}
+JsonRpc Information: 7 : {"id":300,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormField.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System.Collections.Generic;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// A field in a form or a poll.\n    /// </summary>\n    public class FormField {\n        /// <summary>\n        /// A field in a form or a poll.\n        /// </summary>\n        public FormField() =>\n            (Options, Header, DefaultValue) = (new List<FieldOption>(), \"\", null);\n        /// <summary>\n        /// \n        /// </summary>\n        /// <value></value>\n        [JsonProperty(\"grow\")]\n        public uint Grow {\n            get; set;\n        }\n        /// <summary>\n        /// What type of field it is(radio list, check list, dropdown, text area, etc.)\n        /// </summary>\n        /// <value>Form field type</value>\n        [JsonProperty(\"type\", Required = Required.Always)]\n        public FormFieldType Type {\n            get; set;\n        }\n        /// <summary>\n        /// If field is necessary or not.\n        /// </summary>\n        /// <value>Optional</value>\n        [JsonProperty(\"isOptional\", Required = Required.Always)]\n        public bool IsOptional {\n            get; set;\n        }\n        /// <summary>\n        /// A header of the field. Sometimes used as a name. Mostly empty.\n        /// </summary>\n        /// <value>Name</value>\n        [JsonProperty(\"header\")]\n        public string Header {\n            get; set;\n        }\n        /// <summary>\n        /// Label attached to the field. Mostly used as a name \n        /// </summary>\n        /// <value>Name</value>\n        [JsonProperty(\"label\", Required = Required.Always)]\n        public string Label {\n            get; set;\n        }\n        /// <summary>\n        /// All options in radio, check lists and dropdowns.\n        /// </summary>\n        /// <value>List of field options</value>\n        [JsonProperty(\"options\")]\n        public IList<FieldOption> Options {\n            get; set;\n        }\n        /// <summary>\n        /// An ID of a field.\n        /// </summary>\n        /// <value>Field ID</value>\n        [JsonProperty(\"fieldName\")]\n        public FormId FieldName {\n            get; set;\n        }\n        /// <summary>\n        /// A default option or a value in this field.\n        /// </summary>\n        /// <value>Null</value>\n        [JsonProperty(\"defaultValue\", Required = Required.AllowNull)]\n        public string DefaultValue {\n            get; set;\n        }\n        /// <summary>\n        /// Generates a form field.\n        /// </summary>\n        /// <param name=\"title\">Title of the form field</param>\n        /// <param name=\"type\">What type it is</param>\n        /// <param name=\"isOptional\">If it's optional</param>\n        /// <param name=\"options\">All of the field options(if it's a radio, checkmark or dropdown field)</param>\n        /// <returns>A new field</returns>\n        public static FormField Generate(string title, FormFieldType type, bool isOptional = false, params FieldOption[] options) {\n            // A field option number\n            uint i = 1;\n            // Assign a number to each field option\n            foreach(FieldOption option in options) {\n                option.DefaultValue = $\"Option {i}\";\n                i++;\n            }\n            // Returns a new field\n            return new FormField {\n                Type = type,\n                Label = type == FormFieldType.Text ? \"Answer\" : title,\n                Header = type == FormFieldType.Text ? title : \"\",\n                FieldName = FormId.Random,\n                Options = options,\n                IsOptional = isOptional,\n                Grow = 1,\n                DefaultValue = null\n            };\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 300
+}
+JsonRpc Information: 6 : Received request "300" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":300}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 300
+}
+JsonRpc Information: 7 : {"id":301,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 301
+}
+JsonRpc Information: 6 : Received request "301" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":152,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\nusing Newtonsoft.Json;\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 2
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 2
+            }
+          }
+        },
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormField.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 152
+}
+JsonRpc Information: 7 : {"id":152}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 152
+}
+JsonRpc Information: 11 : Received result for request "152".
+JsonRpc Information: 8 : {"id":301}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 301
+}
+JsonRpc Information: 7 : {"id":302,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormFieldType.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing Newtonsoft.Json.Converters;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// What type of form field it is.\n    /// </summary>\n    [JsonConverter(typeof(StringEnumConverter))]\n    public enum FormFieldType {\n        /// <summary>\n        /// A small text box/input which can be used for anything.\n        /// </summary>\n        Text,\n        /// <summary>\n        /// A big text box/input which can be used to create long paragraphs and descriptions.\n        /// </summary>\n        TextArea,\n        /// <summary>\n        /// A selectable list of items. One can be selected.\n        /// </summary>\n        Radios,\n        /// <summary>\n        /// A list of items with checkboxes. Multiple can be checked.\n        /// </summary>\n        Checkboxes,\n        /// <summary>\n        /// A dropdown of all items which can be selected. One can be selected. Similar to <see cref=\"Radios\"/>.\n        /// </summary>\n        Dropdown\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 302
+}
+JsonRpc Information: 6 : Received request "302" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":302}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 302
+}
+JsonRpc Information: 7 : {"id":303,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 303
+}
+JsonRpc Information: 6 : Received request "303" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":153,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormFieldType.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 153
+}
+JsonRpc Information: 7 : {"id":153}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 153
+}
+JsonRpc Information: 11 : Received result for request "153".
+JsonRpc Information: 8 : {"id":303}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 303
+}
+JsonRpc Information: 7 : {"id":304,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormResponse.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// A filled out form response.\n    /// </summary>\n    public class FormResponse: BasicFormResponse {\n        /// <summary>\n        /// ID of this response.\n        /// </summary>\n        /// <value>Response ID</value>\n        [JsonProperty(\"id\", Required = Required.Always)]\n        public uint Id { get; set; }\n        /// <summary>\n        /// ID of the form this response is filling out.\n        /// </summary>\n        /// <value>Form ID</value>\n        [JsonProperty(\"customFormId\", Required = Required.Always)]\n        public uint FormId { get; set; }\n        /// <summary>\n        /// Who is filling out this response.\n        /// </summary>\n        /// <value>Created by</value>\n        [JsonProperty(\"createdBy\", Required = Required.Always)]\n        public GId CreatedBy { get; set; }\n        /// <summary>\n        /// When this form response was created.\n        /// </summary>\n        /// <value>Created at</value>\n        [JsonProperty(\"createdAt\", Required = Required.Always)]\n        public DateTime CreatedAt { get; set; }\n        /// <summary>\n        /// When this form response was updated/edited.\n        /// </summary>\n        /// <value>Updated at</value>\n        [JsonProperty(\"updatedAt\", Required = Required.Always)]\n        public DateTime UpdatedAt { get; set; }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 304
+}
+JsonRpc Information: 6 : Received request "304" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":304}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 304
+}
+JsonRpc Information: 7 : {"id":305,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 305
+}
+JsonRpc Information: 6 : Received request "305" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":154,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 2
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        },
+        {
+          "NewText": "System;\n\r\nusing ",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 0
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormResponse.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 154
+}
+JsonRpc Information: 7 : {"id":154}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 154
+}
+JsonRpc Information: 11 : Received result for request "154".
+JsonRpc Information: 8 : {"id":305}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 305
+}
+JsonRpc Information: 7 : {"id":306,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormSections.cs",
+        "version": 2
+      },
+      "contentChanges": [
+        {
+          "text": "using System.Collections.Generic;\nusing Newtonsoft.Json;\nusing System.Linq;\n\nnamespace Guilded.NET.Objects.Forms\n{\n    /// <summary>\n    /// A section of a form field.\n    /// </summary>\n    public class FormSection : BaseObject\n    {\n        /// <summary>\n        /// Hides reordering handle and disallows reordering.\n        /// </summary>\n        /// <value>Hide handle</value>\n        [JsonProperty(\"hideReorderHandle\", Required = Required.Always)]\n        public bool HideReorderHandle\n        {\n            get; set;\n        }\n        /// <summary>\n        /// \n        /// </summary>\n        /// <value></value>\n        [JsonProperty(\"hideOptionalFieldToggle\", Required = Required.Always)]\n        public bool HideOptionalFieldToggle\n        {\n            get; set;\n        }\n        /// <summary>\n        /// Form field type options.\n        /// </summary>\n        /// <value>List of field types</value>\n        [JsonProperty(\"fieldTypeOptions\", Required = Required.Always)]\n        public IList<FormFieldType> FieldTypeOptions\n        {\n            get; set;\n        }\n        /// <summary>\n        /// All of the fields in this form section.\n        /// </summary>\n        /// <value>List of fields</value>\n        [JsonProperty(\"fieldSpecs\", Required = Required.Always)]\n        public IList<FormField> Fields\n        {\n            get; set;\n        }\n        /// <summary>\n        /// Generates a form section with fields.\n        /// </summary>\n        /// <param name=\"fields\">Fields to assign to a form section</param>\n        /// <returns>A new form section</returns>\n        public static FormSection Generate(params FormField[] fields) =>\n            new FormSection\n            {\n                Fields = fields,\n                HideReorderHandle = true,\n                HideOptionalFieldToggle = true,\n                FieldTypeOptions = fields.Select(x => x.Type).ToArray()\n            };\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 306
+}
+JsonRpc Information: 6 : Received request "306" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":306}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 306
+}
+JsonRpc Information: 7 : {"id":307,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 307
+}
+JsonRpc Information: 6 : Received request "307" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":155,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 3
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 2
+            }
+          }
+        },
+        {
+          "NewText": "System.Linq;\n\r\nusing ",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 1
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormSections.cs",
+        "Version": 2
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 155
+}
+JsonRpc Information: 7 : {"id":155}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 155
+}
+JsonRpc Information: 11 : Received result for request "155".
+JsonRpc Information: 8 : {"id":307}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 307
+}
+JsonRpc Information: 7 : {"id":308,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormSpecs.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System.Collections.Generic;\nusing System.Linq;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// Specifications of forms and polls. Contains fields.\n    /// </summary>\n    public class FormSpecs: BaseObject {\n        /// <summary>\n        /// Specifications of forms and polls. Contains fields.\n        /// </summary>\n        public FormSpecs() =>\n            IsValid = true;\n        /// <summary>\n        /// A list of all form sections.\n        /// </summary>\n        /// <value>List of sections</value>\n        [JsonProperty(\"sections\", Required = Required.Always)]\n        public IList<FormSection> Sections {\n            get; set;\n        }\n        /// <summary>\n        /// If all forum fields are valid.\n        /// </summary>\n        /// <value>Valid</value>\n        [JsonProperty(\"isValid\", Required = Required.Always)]\n        public bool IsValid {\n            get; set;\n        }\n        /// <summary>\n        /// Generates a form spec from form sections.\n        /// </summary>\n        /// <param name=\"sections\">Sections to include</param>\n        /// <returns>New form spec</returns>\n        public static FormSpecs Generate(params FormSection[] sections) =>\n            new FormSpecs {\n                Sections = sections\n            };\n        /// <summary>\n        /// Generates a form spec from form fields.\n        /// </summary>\n        /// <param name=\"fields\">Fields to create sections from</param>\n        /// <returns>New form spec</returns>\n        public static FormSpecs Generate(params FormField[] fields) => Generate(fields.Select(x => FormSection.Generate(x)).ToArray());\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 308
+}
+JsonRpc Information: 6 : Received request "308" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":308}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 308
+}
+JsonRpc Information: 7 : {"id":309,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 309
+}
+JsonRpc Information: 6 : Received request "309" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":156,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "\r\nusing Newtonsoft.Json;\n",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 3
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 3
+            }
+          }
+        },
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 1
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormSpecs.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 156
+}
+JsonRpc Information: 7 : {"id":156}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 156
+}
+JsonRpc Information: 11 : Received result for request "156".
+JsonRpc Information: 8 : {"id":309}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 309
+}
+JsonRpc Information: 7 : {"id":310,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormType.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing Newtonsoft.Json.Converters;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// Type of the form(form, poll)\n    /// </summary>\n    [JsonConverter(typeof(StringEnumConverter), true)]\n    public enum FormType {\n        /// <summary>\n        /// A form which can have multiple fields and optional fields. <br/>\n        /// Useful for making applications.\n        /// </summary>\n        Form,\n        /// <summary>\n        /// A form which can only have 1 field and they can't be optional. <br/>\n        /// Useful for making quick questions.\n        /// </summary>\n        Poll\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 310
+}
+JsonRpc Information: 6 : Received request "310" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":310}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 310
+}
+JsonRpc Information: 7 : {"id":311,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 311
+}
+JsonRpc Information: 6 : Received request "311" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":157,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/FormType.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 157
+}
+JsonRpc Information: 7 : {"id":157}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 157
+}
+JsonRpc Information: 11 : Received result for request "157".
+JsonRpc Information: 8 : {"id":311}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 311
+}
+JsonRpc Information: 7 : {"id":312,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/GuildedForm.cs",
+        "version": 1
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System;\n\nnamespace Guilded.NET.Objects.Forms {\n    /// <summary>\n    /// Data of a poll or a form created in Guilded.\n    /// </summary>\n    public class GuildedForm: BasicGuildedForm {\n        /// <summary>\n        /// Data of a poll or a form created in Guilded.\n        /// </summary>\n        public GuildedForm() =>\n            UpdatedAt = null;\n        /// <summary>\n        /// ID of this form/poll.\n        /// </summary>\n        /// <value>Form ID</value>\n        [JsonProperty(\"id\")]\n        public uint Id {\n            get; set;\n        }\n        /// <summary>\n        /// Author who created this form/poll.\n        /// </summary>\n        /// <value>Author</value>\n        [JsonProperty(\"createdBy\", Required = Required.Always)]\n        public GId CreatedBy {\n            get; set;\n        }\n        /// <summary>\n        /// When the form/poll was created.\n        /// </summary>\n        /// <value>Creation time</value>\n        [JsonProperty(\"createdAt\", Required = Required.Always)]\n        public DateTime CreatedAt {\n            get; set;\n        }\n        /// <summary>\n        /// When the form/poll was created.\n        /// </summary>\n        /// <value>Creation time</value>\n        [JsonProperty(\"updatedAt\", Required = Required.AllowNull)]\n        public DateTime? UpdatedAt {\n            get; set;\n        }\n        /// <summary>\n        /// How many people have responded to that form/poll.\n        /// </summary>\n        /// <value>Form/poll response count</value>\n        [JsonProperty(\"responceCount\", Required = Required.Always)]\n        public uint ResponseCount {\n            get; set;\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 312
+}
+JsonRpc Information: 6 : Received request "312" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":312}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 312
+}
+JsonRpc Information: 7 : {"id":313,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 313
+}
+JsonRpc Information: 6 : Received request "313" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":158,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 2
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        },
+        {
+          "NewText": "System;\n\r\nusing ",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 0
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/chat/forms/GuildedForm.cs",
+        "Version": 1
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 158
+}
+JsonRpc Information: 7 : {"id":158}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 158
+}
+JsonRpc Information: 11 : Received result for request "158".
+JsonRpc Information: 8 : {"id":313}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 313
+}
+JsonRpc Information: 7 : {"id":314,"method":"textDocument/didChange"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "textDocument/didChange",
+  "params": [
+    {
+      "textDocument": {
+        "uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/emotes/ChatEmote.cs",
+        "version": 357
+      },
+      "contentChanges": [
+        {
+          "text": "using Newtonsoft.Json;\nusing System;\nusing System.ComponentModel;\n\nnamespace Guilded.NET.Objects\n{\n    /// <summary>\n    /// Emote in status or in a message.\n    /// </summary>\n    public class ChatEmote : ClientObject\n    {\n        /// <summary>\n        /// ID of the emote.\n        /// </summary>\n        /// <value>Emote ID</value>\n        [JsonProperty(\"id\", Required = Required.Always)]\n        public uint Id\n        {\n            get; set;\n        }\n        /// <summary>\n        /// URL to emote's PNG file.\n        /// </summary>\n        /// <value>.PNG URL</value>\n        [JsonProperty(\"png\")]\n        [DefaultValue(null)]\n        public Uri PNGUrl\n        {\n            get; set;\n        }\n        /// <summary>\n        /// URL to emote's APNG(Animated PNG) file.\n        /// </summary>\n        /// <value>.APNG URL</value>\n        [JsonProperty(\"apng\")]\n        [DefaultValue(null)]\n        public Uri APNGUrl\n        {\n            get; set;\n        }\n        /// <summary>\n        /// URL to emote's WebP file.\n        /// </summary>\n        /// <value>.WEBP URL</value>\n        [JsonProperty(\"webp\")]\n        [DefaultValue(null)]\n        public Uri WebPUrl\n        {\n            get; set;\n        }\n        /// <summary>\n        /// Name of the emote.\n        /// </summary>\n        /// <value>Name</value>\n        [JsonProperty(\"name\", Required = Required.Always)]\n        public string Name\n        {\n            get; set;\n        }\n        /// <summary>\n        /// Checks if object is equal to this chat emote.\n        /// </summary>\n        /// <param name=\"obj\">Object to compare</param>\n        /// <returns>Equal</returns>\n        public override bool Equals(object obj) =>\n            obj is ChatEmote emote && emote.Id == Id;\n        /// <summary>\n        /// Gets a hashcode of this emote.\n        /// </summary>\n        /// <returns>Emote</returns>\n        public override int GetHashCode() =>\n            HashCode.Combine(Id, Name);\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "id": 314
+}
+JsonRpc Information: 6 : Received request "314" for method "textDocument/didChange".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.TextDocumentDidChange(DidChangeTextDocumentParams)
+JsonRpc Information: 8 : {"id":314}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 314
+}
+JsonRpc Information: 7 : {"id":315,"method":"workspace/executeCommand"}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "method": "workspace/executeCommand",
+  "params": [
+    {
+      "command": "CSharpSortUsingDirectives"
+    }
+  ],
+  "id": 315
+}
+JsonRpc Information: 6 : Received request "315" for method "workspace/executeCommand".
+JsonRpc Information: 9 : Invoking VSSharperServer.Server.VSSharperServer.ExecuteCommand(ExecuteCommandParams)
+JsonRpc Information: 8 : {"id":159,"method":"workspace/applyEdit"}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "method": "workspace/applyEdit",
+  "params": [
+    {
+      "Edits": [
+        {
+          "NewText": "",
+          "Range": {
+            "End": {
+              "Character": 0,
+              "Line": 3
+            },
+            "Start": {
+              "Character": 0,
+              "Line": 1
+            }
+          }
+        },
+        {
+          "NewText": "System;\nusing System.ComponentModel;\n\r\nusing ",
+          "Range": {
+            "End": {
+              "Character": 6,
+              "Line": 0
+            },
+            "Start": {
+              "Character": 6,
+              "Line": 0
+            }
+          }
+        }
+      ],
+      "TextDocument": {
+        "Uri": "file:///home/idkgoodname/Desktop/Projects/Guilded.NET/src/Guilded.NET.Objects/emotes/ChatEmote.cs",
+        "Version": 357
+      },
+      "Kind": null,
+      "Options": null,
+      "Uri": null,
+      "NewUri": null,
+      "OldUri": null
+    }
+  ],
+  "id": 159
+}
+JsonRpc Information: 7 : {"id":159}
+JsonRpc Verbose: 7 : Received: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 159
+}
+JsonRpc Information: 11 : Received result for request "159".
+JsonRpc Information: 8 : {"id":315}
+JsonRpc Verbose: 8 : Sent: {
+  "jsonrpc": "2.0",
+  "result": null,
+  "id": 315
+}

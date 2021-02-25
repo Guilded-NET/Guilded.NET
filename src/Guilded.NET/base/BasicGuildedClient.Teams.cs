@@ -7,7 +7,8 @@ using Newtonsoft.Json;
 
 using RestSharp;
 
-namespace Guilded.NET {
+namespace Guilded.NET
+{
     using API;
 
     using Objects;
@@ -18,7 +19,8 @@ namespace Guilded.NET {
     /// <summary>
     /// Logged-in user in Guilded.
     /// </summary>
-    public abstract partial class BasicGuildedClient: IGuildedClient {
+    public abstract partial class BasicGuildedClient : IGuildedClient
+    {
         /// <summary>
         /// Gets team with given ID.
         /// </summary>
@@ -94,7 +96,7 @@ namespace Guilded.NET {
         /// <returns>Group</returns>
         public Group GetGroup(GId teamId, GId groupId) =>
             GetGroupAsync(teamId, groupId).GetAwaiter().GetResult();
-        
+
 
         //=======================//
         //   Channels
@@ -144,7 +146,8 @@ namespace Guilded.NET {
         /// <param name="public">If channel should be public</param>
         /// <param name="name">Name which should be assigned to the channel</param>
         public async Task CreateChannelAsync(GId team, GId group, ChannelType type, bool @public, string name) =>
-            await ExecuteRequest(new Endpoint($"teams/{team}/groups/{group}/channels", Method.POST), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"teams/{team}/groups/{group}/channels", Method.POST), new JsonBody(new
+            {
                 name,
                 contentType = type,
                 isPublic = @public
@@ -194,14 +197,15 @@ namespace Guilded.NET {
         /// <param name="channelList">Channels to reorder</param>
         public void ReorderChannels(GId teamId, uint? categoryId = null, params Guid[] channelList) =>
             ReorderChannelsAsync(teamId, categoryId, channelList).GetAwaiter().GetResult();
-        
+
         /// <summary>
         /// Reorders categories by given category ID array.
         /// </summary>
         /// <param name="teamId">ID of the team categirues are in</param>
         /// <param name="categoryList">Categories to reorder</param>
         public async Task ReorderCategoriesAsync(GId teamId, params uint[] categoryList) =>
-            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/categorypriorities", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/categorypriorities", Method.PUT), new JsonBody(new
+            {
                 orderedChannelCategoryIds = categoryList
             }));
         /// <summary>
@@ -221,7 +225,8 @@ namespace Guilded.NET {
         /// <param name="channelId">ID of the channel to move</param>
         /// <param name="shouldRoleSync">If role permissions should be synced with category</param>
         public async Task AssignToCategoryAsync(GId teamId, uint categoryId, Guid channelId, bool shouldRoleSync = false) =>
-            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/channels/{channelId}", Method.PUT), new JsonBody(new {
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/groups/undefined/channelcategories/{categoryId}/channels/{channelId}", Method.PUT), new JsonBody(new
+            {
                 shouldRoleSync
             }));
         /// <summary>
@@ -321,7 +326,7 @@ namespace Guilded.NET {
         /// <returns>Updated channel</returns>
         public Channel RemoveChannelUser(GId teamId, Guid channelId, GId userId) =>
             RemoveChannelUserAsync(teamId, channelId, userId).GetAwaiter().GetResult();
-        
+
         /// <summary>
         /// Adds a role to a category.
         /// </summary>
@@ -358,7 +363,7 @@ namespace Guilded.NET {
         /// <returns>Updated category</returns>
         public Category RemoveCategoryRole(GId teamId, uint categoryId, uint roleId) =>
             RemoveCategoryRoleAsync(teamId, categoryId, roleId).GetAwaiter().GetResult();
-        
+
         /// <summary>
         /// Adds a user permission to a category.
         /// </summary>
@@ -395,7 +400,7 @@ namespace Guilded.NET {
         /// <returns>Updated category</returns>
         public Category RemoveCategoryUser(GId teamId, uint categoryId, GId userId) =>
             RemoveCategoryUserAsync(teamId, categoryId, userId).GetAwaiter().GetResult();
-        
+
         //=======================//
         //   Members
         //=======================//
@@ -499,7 +504,7 @@ namespace Guilded.NET {
         /// <returns>List of content replies</returns>
         public IList<AnnouncementReply> GetAnnouncementReplies(GId announcementId) =>
             GetAnnouncementRepliesAsync(announcementId).GetAwaiter().GetResult();
-                /// <summary>
+        /// <summary>
         /// Gets a list of pinned announcements in a team.
         /// </summary>
         /// <param name="teamId">ID of the team</param>
@@ -615,7 +620,8 @@ namespace Guilded.NET {
         /// <param name="deleteHistoryOption">Either 7(for 1 week) or 24(for 1 day)</param>
         public async Task BanMemberAsync(GId teamId, GId memberId, string reason, uint deleteHistoryOption) =>
             await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}/ban", Method.DELETE), new JsonBody(JsonConvert.SerializeObject(
-                new {
+                new
+                {
                     deleteHistoryOption,
                     teamId,
                     memberId,
@@ -639,7 +645,8 @@ namespace Guilded.NET {
         /// <param name="memberId">ID of the member to unban</param>
         public async Task UnbanMemberAsync(GId teamId, GId memberId) =>
             await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}/ban", Method.PUT), new JsonBody(JsonConvert.SerializeObject(
-                new {
+                new
+                {
                     teamId,
                     memberId
                 }

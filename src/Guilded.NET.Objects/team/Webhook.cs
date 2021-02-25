@@ -2,11 +2,13 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// A webhook in a specific channel which automates various things.
     /// </summary>
-    public class Webhook: ClientObject {
+    public class Webhook : ClientObject
+    {
         /// <summary>
         /// A webhook in a specific channel which automates various things.
         /// </summary>
@@ -17,7 +19,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Webhook ID</value>
         [JsonProperty("id", Required = Required.Always)]
-        public Guid Id {
+        public Guid Id
+        {
             get; set;
         }
         /// <summary>
@@ -25,7 +28,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Name</value>
         [JsonProperty("name", Required = Required.Always)]
-        public string Name {
+        public string Name
+        {
             get; set;
         }
         /// <summary>
@@ -33,7 +37,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Webhook token</value>
         [JsonProperty("token")]
-        public string Token {
+        public string Token
+        {
             get; set;
         }
         /// <summary>
@@ -41,7 +46,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Channel ID</value>
         [JsonProperty("channelId", Required = Required.Always)]
-        public Guid ChannelId {
+        public Guid ChannelId
+        {
             get; set;
         }
         /// <summary>
@@ -49,7 +55,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Team ID</value>
         [JsonProperty("teamId", Required = Required.Always)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -57,7 +64,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Nullable URL</value>
         [JsonProperty("iconUrl", Required = Required.AllowNull)]
-        public Uri Avatar {
+        public Uri Avatar
+        {
             get; set;
         }
         /// <summary>
@@ -65,7 +73,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -73,7 +82,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Created at</value>
         [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt {
+        public DateTime CreatedAt
+        {
             get; set;
         }
         /// <summary>
@@ -81,7 +91,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt", Required = Required.AllowNull)]
-        public DateTime? DeletedAt {
+        public DateTime? DeletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -89,7 +100,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Deleted</value>
         [JsonIgnore]
-        public bool IsDeleted {
+        public bool IsDeleted
+        {
             get => DeletedAt != null;
         }
         /// <summary>
@@ -97,7 +109,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Webhook link</value>
         [JsonIgnore]
-        public string Link {
+        public string Link
+        {
             get => $"https://media.guilded.gg/webhooks/{Id}/{Token}";
         }
     }

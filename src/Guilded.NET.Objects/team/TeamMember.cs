@@ -4,17 +4,20 @@ using System.ComponentModel;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// Represents member, or user of the team.
     /// </summary>
-    public class TeamMember: BaseUser {
+    public class TeamMember : BaseUser
+    {
         /// <summary>
         /// Nickname of the user. Can be null.
         /// </summary>
         /// <value>Username</value>
         [JsonProperty("nickname", Required = Required.AllowNull)]
-        public string Nickname {
+        public string Nickname
+        {
             get; set;
         }
         /// <summary>
@@ -22,7 +25,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>List of badges</value>
         [JsonProperty("badges", Required = Required.AllowNull)]
-        public IList<GlobalBadge> Badges {
+        public IList<GlobalBadge> Badges
+        {
             get; set;
         }
         /// <summary>
@@ -30,7 +34,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("joinDate", Required = Required.Always)]
-        public DateTime JoinDate {
+        public DateTime JoinDate
+        {
             get; set;
         }
         /// <summary>
@@ -38,7 +43,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Date</value>
         [JsonProperty("lastOnline", Required = Required.Always)]
-        public DateTime LastOnline {
+        public DateTime LastOnline
+        {
             get; set;
         }
         /// <summary>
@@ -46,7 +52,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>User status</value>
         [JsonProperty("userStatus", Required = Required.AllowNull)]
-        public UserStatus Status {
+        public UserStatus Status
+        {
             get; set;
         }
         /// <summary>
@@ -54,7 +61,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Social links</value>
         [JsonProperty("socialLinks", Required = Required.AllowNull)]
-        public IList<SocialLink> SocialLinks {
+        public IList<SocialLink> SocialLinks
+        {
             get; set;
         }
         /// <summary>
@@ -62,8 +70,9 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Role IDs</value>
         [JsonProperty("roleIds", Required = Required.AllowNull, NullValueHandling = NullValueHandling.Ignore)]
-        [DefaultValue(new uint[] {})]
-        public IList<uint> RoleIds {
+        [DefaultValue(new uint[] { })]
+        public IList<uint> RoleIds
+        {
             get; set;
         }
         /// <summary>
@@ -71,7 +80,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>List of game aliases</value>
         [JsonProperty("aliases", Required = Required.AllowNull)]
-        public IList<GameAlias> Aliases {
+        public IList<GameAlias> Aliases
+        {
             get; set;
         }
         /// <summary>
@@ -79,7 +89,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Presence</value>
         [JsonProperty("userPresenceStatus", Required = Required.Always)]
-        public Presence Presence {
+        public Presence Presence
+        {
             get; set;
         }
         /// <summary>
@@ -87,7 +98,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>XP</value>
         [JsonProperty("teamXp", Required = Required.Always)]
-        public long Xp {
+        public long Xp
+        {
             get; set;
         }
 
@@ -99,7 +111,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Nickname or username</value>
         [JsonIgnore]
-        public string DisplayName {
+        public string DisplayName
+        {
             get => Nickname ?? Username;
         }
 

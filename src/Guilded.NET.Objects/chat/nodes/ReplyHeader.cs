@@ -1,11 +1,13 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// A header which tells to what forum/document/media reply is replying to.
     /// </summary>
-    public class ReplyHeader: ContainerNode<IMessageObject> {
+    public class ReplyHeader : ContainerNode<IMessageObject>
+    {
         /// <summary>
         /// A header which tells to what forum/document/media reply is replying to.
         /// </summary>
@@ -16,7 +18,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>User ID</value>
         [JsonIgnore]
-        public GId ReplyingTo {
+        public GId ReplyingTo
+        {
             get => GetDataProperty<GId>("createdBy");
         }
         /// <summary>
@@ -24,7 +27,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Post ID</value>
         [JsonIgnore]
-        public ulong? PostId {
+        public ulong? PostId
+        {
             get => GetDataProperty<ulong>("postId");
         }
         /// <summary>
@@ -32,7 +36,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Reply header type</value>
         [JsonIgnore]
-        public ReplyHeaderType ReplyType {
+        public ReplyHeaderType ReplyType
+        {
             get => GetDataProperty<string>("type") == "block-quote" ? ReplyHeaderType.BlockQuote : ReplyHeaderType.Reply;
         }
         /// <summary>
@@ -49,8 +54,10 @@ namespace Guilded.NET.Objects.Chat {
         /// <param name="type">Type of te reply header</param>
         /// <returns>Reply header</returns>
         public static ReplyHeader Generate(ulong postId, GId author, ReplyHeaderType type) =>
-            new ReplyHeader {
-                Data = JObject.FromObject(new {
+            new ReplyHeader
+            {
+                Data = JObject.FromObject(new
+                {
                     postId,
                     createdBy = author.ToString(),
                     type = type == ReplyHeaderType.BlockQuote ? "block-quote" : "reply"

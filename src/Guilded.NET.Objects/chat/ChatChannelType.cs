@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Where it was found(Teams or DMs).
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-    public enum ChatType {
+    public enum ChatType
+    {
         /// <summary>
         /// In a Guilded team/server.
         /// </summary>

@@ -1,12 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// Represents types of Guilded channels.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter), true)]
-    public enum ChannelType {
+    public enum ChannelType
+    {
         // Chat & voice
         /// <summary>
         /// A channel where you can send messages and talk.

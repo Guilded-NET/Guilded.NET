@@ -7,18 +7,21 @@ using Guilded.NET.Objects.Chat;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     using Teams;
     /// <summary>
     /// Represents DMs and DM groups.
     /// </summary>
-    public class DMChannel: BaseChannel<Guid> {
+    public class DMChannel : BaseChannel<Guid>
+    {
         /// <summary>
         /// Who created this channel.
         /// </summary>
         /// <value>Created by</value>
         [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy {
+        public GId CreatedBy
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +29,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Created by</value>
         [JsonProperty("ownerId", Required = Required.Always)]
-        public GId OwnerId {
+        public GId OwnerId
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +38,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Deleted at</value>
         [JsonProperty("deletedAt", Required = Required.AllowNull)]
-        public DateTime? DeletedAt {
+        public DateTime? DeletedAt
+        {
             get; set;
         }
         /// <summary>
@@ -42,7 +47,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>DM channel users</value>
         [JsonProperty("users", Required = Required.Always)]
-        public IList<DMUser> Users {
+        public IList<DMUser> Users
+        {
             get; set;
         }
         /// <summary>
@@ -50,7 +56,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Type</value>
         [JsonProperty("dmType", Required = Required.Always)]
-        public DMType DMType {
+        public DMType DMType
+        {
             get; set;
         }
         /// <summary>
@@ -58,7 +65,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Last message</value>
         [JsonProperty("lastMessage", Required = Required.AllowNull)]
-        public Message LastMessage {
+        public Message LastMessage
+        {
             get; set;
         }
         /// <summary>
@@ -66,7 +74,8 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>Content Type</value>
         [JsonProperty("contentType", Required = Required.Always)]
-        public ChannelType Type {
+        public ChannelType Type
+        {
             get; set;
         }
 

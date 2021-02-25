@@ -1,16 +1,19 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// Count of various things in a team.
     /// </summary>
-    public class TeamMeasurements: BaseObject {
+    public class TeamMeasurements : BaseObject
+    {
         /// <summary>
         /// How many members are in this server.
         /// </summary>
         /// <value>Member count</value>
         [JsonProperty("numMembers", Required = Required.Always)]
-        public uint MemberCount {
+        public uint MemberCount
+        {
             get; set;
         }
         /// <summary>
@@ -18,7 +21,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Follower count</value>
         [JsonProperty("numFollowers", Required = Required.Always)]
-        public uint FollowerCount {
+        public uint FollowerCount
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +30,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Recent matches</value>
         [JsonProperty("numRecentMatches", Required = Required.Always)]
-        public uint RecentMatchCount {
+        public uint RecentMatchCount
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +39,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Recent match wins</value>
         [JsonProperty("numRecentMatchWins", Required = Required.Always)]
-        public uint RecentWinCount {
+        public uint RecentWinCount
+        {
             get; set;
         }
         /// <summary>
@@ -42,7 +48,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value></value>
         [JsonProperty("numFollowersAndMembers", Required = Required.Always)]
-        public uint FollowerAndMembers {
+        public uint FollowerAndMembers
+        {
             get; set;
         }
         /// <summary>
@@ -50,7 +57,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Members per day</value>
         [JsonProperty("numMembersAddedInLastDay", Required = Required.Always)]
-        public uint MembersAddedYesterday {
+        public uint MembersAddedYesterday
+        {
             get; set;
         }
         /// <summary>
@@ -58,7 +66,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Members per week</value>
         [JsonProperty("numMembersAddedInLastWeek", Required = Required.Always)]
-        public uint MembersAddedLastWeek {
+        public uint MembersAddedLastWeek
+        {
             get; set;
         }
         /// <summary>
@@ -66,7 +75,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>Members per month</value>
         [JsonProperty("numMembersAddedInLastMonth", Required = Required.Always)]
-        public uint MembersAddedLastMonth {
+        public uint MembersAddedLastMonth
+        {
             get; set;
         }
     }

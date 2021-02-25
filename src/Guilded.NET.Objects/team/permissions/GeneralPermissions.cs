@@ -1,11 +1,13 @@
 using System;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// General server/team management permissions.
     /// </summary>
     [Flags]
-    public enum GeneralPermissions {
+    public enum GeneralPermissions
+    {
         /// <summary>
         /// Allows you to update server's settings
         /// </summary>

@@ -2,11 +2,13 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Converters {
+namespace Guilded.NET.Objects.Converters
+{
     /// <summary>
     /// Converts ID to string or vice versa in a JSON.
     /// </summary>
-    public class IdConverter: JsonConverter {
+    public class IdConverter : JsonConverter
+    {
         static readonly Type id = typeof(GId);
         static readonly Type formid = typeof(FormId);
         /// <summary>
@@ -24,10 +26,11 @@ namespace Guilded.NET.Objects.Converters {
         /// <param name="existingValue">Previous property value</param>
         /// <param name="serializer">Serializer</param>
         /// <returns>GId</returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) {
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
             string str = (string)reader.Value;
-            if(objectType == id) return GId.Parse(str);
-            else if(objectType == formid) return FormId.Parse(str);
+            if (objectType == id) return GId.Parse(str);
+            else if (objectType == formid) return FormId.Parse(str);
             else return reader.Value;
         }
         /// <summary>

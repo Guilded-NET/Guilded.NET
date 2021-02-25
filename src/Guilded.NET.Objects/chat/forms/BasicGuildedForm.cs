@@ -1,10 +1,12 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Forms {
+namespace Guilded.NET.Objects.Forms
+{
     /// <summary>
     /// A poll or a form created in Guilded.
     /// </summary>
-    public class BasicGuildedForm: ClientObject {
+    public class BasicGuildedForm : ClientObject
+    {
         /// <summary>
         /// A poll or a form created in Guilded.
         /// </summary>
@@ -14,20 +16,21 @@ namespace Guilded.NET.Objects.Forms {
         /// A poll or a form created in Guilded.
         /// </summary>
         /// <param name="sections">Sections to generate form spec and form from</param>
-        public BasicGuildedForm(params FormSection[] sections): this() =>
+        public BasicGuildedForm(params FormSection[] sections) : this() =>
             Specs = FormSpecs.Generate(sections);
         /// <summary>
         /// A poll or a form created in Guilded.
         /// </summary>
         /// <param name="fields">Fields to generate form spec and form from</param>
-        public BasicGuildedForm(params FormField[] fields): this() =>
+        public BasicGuildedForm(params FormField[] fields) : this() =>
             Specs = FormSpecs.Generate(fields);
         /// <summary>
         /// ID of the team where the form/poll is in.
         /// </summary>
         /// <value>Optional team ID</value>
         [JsonProperty("teamId", NullValueHandling = NullValueHandling.Ignore)]
-        public GId TeamId {
+        public GId TeamId
+        {
             get; set;
         }
         /// <summary>
@@ -35,7 +38,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Title</value>
         [JsonProperty("title", Required = Required.Always)]
-        public string Title {
+        public string Title
+        {
             get; set;
         }
         /// <summary>
@@ -43,7 +47,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Description</value>
         [JsonProperty("description", Required = Required.Always)]
-        public string Description {
+        public string Description
+        {
             get; set;
         }
         /// <summary>
@@ -51,7 +56,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Public</value>
         [JsonProperty("isPublic")]
-        public bool IsPublic {
+        public bool IsPublic
+        {
             get; set;
         }
         /// <summary>
@@ -59,7 +65,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form type</value>
         [JsonProperty("type", Required = Required.Always)]
-        public FormType Type {
+        public FormType Type
+        {
             get; set;
         }
         /// <summary>
@@ -67,7 +74,8 @@ namespace Guilded.NET.Objects.Forms {
         /// </summary>
         /// <value>Form content</value>
         [JsonProperty("formSpecs", Required = Required.Always)]
-        public FormSpecs Specs {
+        public FormSpecs Specs
+        {
             get; set;
         }
     }

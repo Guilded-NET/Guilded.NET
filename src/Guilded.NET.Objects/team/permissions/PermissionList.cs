@@ -1,19 +1,21 @@
 using System;
-using System.Linq;
-using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Permissions {
+namespace Guilded.NET.Objects.Permissions
+{
     /// <summary>
     /// Represents role permissions.
     /// </summary>
-    public class PermissionList: BaseObject {
+    public class PermissionList : BaseObject
+    {
         /// <summary>
         /// Represents chat/text channel permissions.
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("chat", NullValueHandling = NullValueHandling.Ignore)]
-        public ChatPermissions? Chat {
+        public ChatPermissions? Chat
+        {
             get; set;
         } = null;
         /// <summary>
@@ -21,7 +23,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("voice", NullValueHandling = NullValueHandling.Ignore)]
-        public VoicePermissions? Voice {
+        public VoicePermissions? Voice
+        {
             get; set;
         } = null;
         /// <summary>
@@ -29,7 +32,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("docs", NullValueHandling = NullValueHandling.Ignore)]
-        public DocPermissions? Docs {
+        public DocPermissions? Docs
+        {
             get; set;
         } = null;
         /// <summary>
@@ -37,7 +41,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("forms", NullValueHandling = NullValueHandling.Ignore)]
-        public FormPermissions? Forms {
+        public FormPermissions? Forms
+        {
             get; set;
         } = null;
         /// <summary>
@@ -45,7 +50,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("lists", NullValueHandling = NullValueHandling.Ignore)]
-        public ListPermissions? Lists {
+        public ListPermissions? Lists
+        {
             get; set;
         } = null;
         /// <summary>
@@ -53,7 +59,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("media", NullValueHandling = NullValueHandling.Ignore)]
-        public MediaPermissions? Media {
+        public MediaPermissions? Media
+        {
             get; set;
         } = null;
         /// <summary>
@@ -61,7 +68,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("forums", NullValueHandling = NullValueHandling.Ignore)]
-        public ForumPermissions? Forums {
+        public ForumPermissions? Forums
+        {
             get; set;
         } = null;
         /// <summary>
@@ -69,7 +77,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("general", NullValueHandling = NullValueHandling.Ignore)]
-        public GeneralPermissions? General {
+        public GeneralPermissions? General
+        {
             get; set;
         } = null;
         /// <summary>
@@ -77,7 +86,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("streams", NullValueHandling = NullValueHandling.Ignore)]
-        public StreamPermissions? Streams {
+        public StreamPermissions? Streams
+        {
             get; set;
         } = null;
         /// <summary>
@@ -85,7 +95,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("calendar", NullValueHandling = NullValueHandling.Ignore)]
-        public CalendarPermissions? Calendar {
+        public CalendarPermissions? Calendar
+        {
             get; set;
         } = null;
         /// <summary>
@@ -93,7 +104,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("scheduling", NullValueHandling = NullValueHandling.Ignore)]
-        public SchedulingPermissions? Scheduling {
+        public SchedulingPermissions? Scheduling
+        {
             get; set;
         } = null;
         /// <summary>
@@ -101,7 +113,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("matchmaking", NullValueHandling = NullValueHandling.Ignore)]
-        public MatchmakingPermissions? Matchmaking {
+        public MatchmakingPermissions? Matchmaking
+        {
             get; set;
         } = null;
         /// <summary>
@@ -109,7 +122,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("recruitment", NullValueHandling = NullValueHandling.Ignore)]
-        public RecruitmentPermissions? Recruitment {
+        public RecruitmentPermissions? Recruitment
+        {
             get; set;
         } = null;
         /// <summary>
@@ -117,7 +131,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("announcements", NullValueHandling = NullValueHandling.Ignore)]
-        public AnnounPermissions? Announcements {
+        public AnnounPermissions? Announcements
+        {
             get; set;
         } = null;
         /// <summary>
@@ -125,7 +140,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("customization", NullValueHandling = NullValueHandling.Ignore)]
-        public CustomPermissions? Customization {
+        public CustomPermissions? Customization
+        {
             get; set;
         } = null;
         /// <summary>
@@ -133,7 +149,8 @@ namespace Guilded.NET.Objects.Permissions {
         /// </summary>
         /// <value>Permissions</value>
         [JsonProperty("xp", NullValueHandling = NullValueHandling.Ignore)]
-        public XPPermissions? XP {
+        public XPPermissions? XP
+        {
             get; set;
         } = null;
         /// <summary>
@@ -142,8 +159,9 @@ namespace Guilded.NET.Objects.Permissions {
         /// <param name="first">First permission list</param>
         /// <param name="second">Second permission list</param>
         /// <returns>Added up permission list</returns>
-        public static PermissionList operator+(PermissionList first, PermissionList second) =>
-            new PermissionList {
+        public static PermissionList operator +(PermissionList first, PermissionList second) =>
+            new PermissionList
+            {
                 Chat = Concat(first?.Chat, second?.Chat),
                 General = Concat(first?.General, second?.General),
                 Voice = Concat(first?.Voice, second?.Voice),
@@ -167,8 +185,9 @@ namespace Guilded.NET.Objects.Permissions {
         /// <param name="first">To remove from</param>
         /// <param name="second">To remove with</param>
         /// <returns>New permission list instance</returns>
-        public static PermissionList operator-(PermissionList first, PermissionList second) =>
-            new PermissionList {
+        public static PermissionList operator -(PermissionList first, PermissionList second) =>
+            new PermissionList
+            {
                 Chat = Substract(first?.Chat, second?.Chat),
                 General = Substract(first?.General, second?.General),
                 Voice = Substract(first?.Voice, second?.Voice),
@@ -192,9 +211,10 @@ namespace Guilded.NET.Objects.Permissions {
         /// <param name="first">First to concat</param>
         /// <param name="second">Second to concat</param>
         /// <returns>OR-ed enum value</returns>
-        static uint? Concat(uint? first, uint? second) {
+        static uint? Concat(uint? first, uint? second)
+        {
             // If one of them is null, return the other
-            if(first == null || second == null) return first ?? second;
+            if (first == null || second == null) return first ?? second;
             // Else, return both OR-ed
             else return first | second;
         }
@@ -204,19 +224,20 @@ namespace Guilded.NET.Objects.Permissions {
         /// <param name="first">First to concat</param>
         /// <param name="second">Second to concat</param>
         /// <returns>OR-ed enum value</returns>
-        #nullable enable
-        static T? Concat<T>(T? first, T? second) where T: struct, Enum =>
+#nullable enable
+        static T? Concat<T>(T? first, T? second) where T : struct, Enum =>
             (T?)Enum.ToObject(typeof(T), Concat(Convert.ToUInt32(first), Convert.ToUInt32(second)));
-        #nullable restore
+#nullable restore
         /// <summary>
         /// Substracts second enum value from first.
         /// </summary>
         /// <param name="first">To substract from</param>
         /// <param name="second">To substract with</param>
         /// <returns>New enum value</returns>
-        static uint? Substract(uint? first, uint? second) {
+        static uint? Substract(uint? first, uint? second)
+        {
             // If first one is null, then we can't substract
-            if(first == null) return null;
+            if (first == null) return null;
             // Substract second from first. If second is null, then we will substract nothing
             else return first & (~second ?? 0);
         }
@@ -226,9 +247,9 @@ namespace Guilded.NET.Objects.Permissions {
         /// <param name="first">To substract from</param>
         /// <param name="second">To substract with</param>
         /// <returns>New enum value</returns>
-        #nullable enable
-        static T? Substract<T>(T? first, T? second) where T: struct, Enum =>
+#nullable enable
+        static T? Substract<T>(T? first, T? second) where T : struct, Enum =>
             (T?)Enum.ToObject(typeof(T), Substract(Convert.ToUInt32(first), Convert.ToUInt32(second)));
-        #nullable restore
+#nullable restore
     }
 }

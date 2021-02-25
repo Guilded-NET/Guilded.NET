@@ -1,16 +1,19 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Teams {
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// A group membership.
     /// </summary>
-    public class Membership: BaseObject {
+    public class Membership : BaseObject
+    {
         /// <summary>
         /// Type of the membership.
         /// </summary>
         /// <value>Membership type</value>
         [JsonProperty("type", Required = Required.Always)]
-        public MembershipType Type {
+        public MembershipType Type
+        {
             get; set;
         }
         /// <summary>
@@ -18,7 +21,8 @@ namespace Guilded.NET.Objects.Teams {
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty("userId", Required = Required.Always)]
-        public GId UserID {
+        public GId UserID
+        {
             get; set;
         }
     }

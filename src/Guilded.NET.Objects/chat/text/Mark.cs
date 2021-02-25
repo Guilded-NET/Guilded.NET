@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents markdown marks.
     /// </summary>
-    public class Mark: BaseObject, IMessageObject {
+    public class Mark : BaseObject, IMessageObject
+    {
         internal static IDictionary<MarkType, string> MarkSymbols = new Dictionary<MarkType, string> {
             { MarkType.Bold, "**" },
             { MarkType.InlineCode, "`" },
@@ -26,7 +28,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>MsgObject.Mark</value>
         [JsonProperty("object", Required = Required.Always)]
-        public MsgObject Object {
+        public MsgObject Object
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +37,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Markdown type</value>
         [JsonProperty("type", Required = Required.Always)]
-        public MarkType Type {
+        public MarkType Type
+        {
             get; set;
         }
         /// <summary>
@@ -42,7 +46,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Mark data</value>
         [JsonProperty("data")]
-        public JObject Data {
+        public JObject Data
+        {
             get; set;
         }
     }

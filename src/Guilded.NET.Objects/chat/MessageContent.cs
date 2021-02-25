@@ -7,7 +7,8 @@ namespace Guilded.NET.Objects.Chat
     /// <summary>
     /// Content of the message.
     /// </summary>
-    public class MessageContent: BaseObject, IMessageObject {
+    public class MessageContent : BaseObject, IMessageObject
+    {
         /// <summary>
         /// Content of the message.
         /// </summary>
@@ -18,7 +19,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Content object</value>
         [JsonProperty("object", Required = Required.Always)]
-        public MsgObject Object {
+        public MsgObject Object
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +28,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Message document</value>
         [JsonProperty("document", Required = Required.Always)]
-        public MessageDocument Document {
+        public MessageDocument Document
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +37,8 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>List of Nodes</value>
         [JsonIgnore]
-        public IList<Node> Nodes {
+        public IList<Node> Nodes
+        {
             get => Document.Nodes;
         }
         /// <summary>
@@ -48,9 +52,11 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="nodes">List of nodes</param>
         /// <returns>Message content</returns>
         public static MessageContent Generate(IList<Node> nodes) =>
-            new MessageContent {
+            new MessageContent
+            {
                 // Create document for message content and then assign given nodes
-                Document = new MessageDocument {
+                Document = new MessageDocument
+                {
                     Nodes = nodes
                 }
             };
@@ -71,6 +77,6 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <param name="embed">Embed to generate message content from</param>
         /// <returns>Message content</returns>
-        public static MessageContent Generate(Embed embed) => Generate(new List<Node> {EmbedNode.Generate(embed)});
+        public static MessageContent Generate(Embed embed) => Generate(new List<Node> { EmbedNode.Generate(embed) });
     }
 }

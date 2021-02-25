@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     using Content;
-    public partial interface IGuildedClient {
+    public partial interface IGuildedClient
+    {
         /// <summary>
         /// Gets user this client is using.
         /// </summary>

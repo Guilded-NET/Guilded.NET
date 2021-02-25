@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Document of the message content.
     /// </summary>
-    public class MessageDocument: BaseObject, IMessageObject {
+    public class MessageDocument : BaseObject, IMessageObject
+    {
         /// <summary>
         /// Document of the message content.
         /// </summary>
@@ -18,7 +20,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Document nodes</value>
         [JsonProperty("nodes", Required = Required.Always)]
-        public IList<Node> Nodes {
+        public IList<Node> Nodes
+        {
             get; set;
         }
         /// <summary>
@@ -26,7 +29,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Content object</value>
         [JsonProperty("object", Required = Required.Always)]
-        public MsgObject Object {
+        public MsgObject Object
+        {
             get; set;
         }
         /// <summary>
@@ -34,7 +38,8 @@ namespace Guilded.NET.Objects.Chat {
         /// </summary>
         /// <value>Message document data</value>
         [JsonProperty("data", Required = Required.Always)]
-        public JObject Data {
+        public JObject Data
+        {
             get; set;
         }
         /// <summary>
