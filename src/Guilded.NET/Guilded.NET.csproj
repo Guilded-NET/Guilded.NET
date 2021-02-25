@@ -1,24 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <Version>0.0.11.2</Version>
+    <!-- Library -->
     <Product>Guilded.NET</Product>
-    <id>Guilded.NET</id>
-    <PackageId>Guilded.NET</PackageId>
+    <Version>0.0.12</Version>
+    <Description>API wrapper for Guilded</Description>
+    <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <!-- Authors -->
     <Authors>IdkGoodName</Authors>
     <Author>IdkGoodName</Author>
-    <Description>API wrapper for Guilded</Description>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
-
+    <!-- Package -->
     <PackageId>Guilded.NET</PackageId>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageTags>wrapper,api,chat,guilded</PackageTags>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
     <PackageProjectUrl>https://guilded-net.github.io/index</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

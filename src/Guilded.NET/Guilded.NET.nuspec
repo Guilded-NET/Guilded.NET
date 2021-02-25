@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
     <metadata>
+        <!-- Library -->
         <id>Guilded.NET</id>
-        <version>0.0.11.2</version>
+        <version>0.0.12</version>
         <title>Guilded.NET</title>
+        <description>API wrapper for Guilded</description>
+        <tags>wrapper,api,chat,guilded</tags>
+        <!-- Authors -->
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <license type="expression">MIT</license>
-        <icon>Icon.png</icon>
-        <description>API wrapper for Guilded</description>
+        <!-- Links -->
         <projectUrl>https://guilded-net.github.io/index</projectUrl>
         <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git"/>
+        <!-- License -->
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <license type="expression">MIT</license>
+        <copyright>Copyright 2020</copyright>
+        <!-- Release -->
+        <icon>Icon.png</icon>
         <releaseNotes>
 Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/main/CHANGELOG.md).
         </releaseNotes>
-        <copyright>Copyright 2020</copyright>
-        <tags>wrapper,api,chat,guilded</tags>
+        <!-- Dependencies -->
         <dependencies>
+            <!-- For Guilded API -->
             <dependency id="RestSharp" version="106.11.7" />
             <dependency id="Websocket.Client" version="4.3.21" />
-            <dependency id="Newtonsoft.Json" version="12.0.3" />
             <dependency id="System.Reactive" version="4.4.1" />
+            <!-- For JSON stuff -->
+            <dependency id="Newtonsoft.Json" version="12.0.3" />
+            <!-- Guilded.NET helpers -->
             <dependency id="Guilded.NET.API" version="0.0.11.2" />
             <dependency id="Guilded.NET.Objects" version="0.0.11.2" />
         </dependencies>

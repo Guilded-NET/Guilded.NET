@@ -11,7 +11,7 @@
         <icon>Icon.png</icon>
         <description>Guilded objects for Guilded.NET</description>
         <projectUrl>https://guilded-net.github.io/index</projectUrl>
-        <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git"/>
+        <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git" />
         <releaseNotes>
 Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/main/CHANGELOG.md).
         </releaseNotes>

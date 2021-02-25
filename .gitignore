@@ -5,3 +5,4 @@ src/Guilded*/obj/*
 src/Guilded*/Icon.png
 *.vscode
 *.nupkg
+*.log

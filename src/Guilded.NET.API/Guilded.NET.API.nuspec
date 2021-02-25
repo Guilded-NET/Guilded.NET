@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
     <metadata>
+        <!-- Library -->
         <id>Guilded.NET.API</id>
         <version>0.0.11.2</version>
         <title>Guilded.NET.API</title>
+        <description>API helpers for Guilded.NET.</description>
+        <tags>wrapper,api,chat,guilded</tags>
+        <!-- Authors -->
         <authors>IdkGoodName</authors>
         <owners>IdkGoodName</owners>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <license type="expression">MIT</license>
-        <icon>Icon.png</icon>
-        <description>API helpers for Guilded.NET.</description>
+        <!-- Links -->
         <projectUrl>https://guilded-net.github.io/index</projectUrl>
         <repository type="git" url="https://github.com/Guilded-NET/Guilded.NET.git"/>
+        <!-- License -->
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <license type="expression">MIT</license>
+        <copyright>Copyright 2020</copyright>
+        <!-- Release -->
+        <icon>Icon.png</icon>
         <releaseNotes>
 Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/main/CHANGELOG.md).
         </releaseNotes>
-        <copyright>Copyright 2020</copyright>
-        <tags>wrapper,api,chat,guilded</tags>
+        <!-- Dependencies -->
         <dependencies>
             <dependency id="Newtonsoft.Json" version="12.0.3" />
             <dependency id="RestSharp" version="106.11.7" />
