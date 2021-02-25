@@ -1,7 +1,5 @@
-using Newtonsoft.Json;
-using System;
-
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// An info about the user who posted a post or a reply in other user's/their profile.
     /// </summary>

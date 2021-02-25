@@ -1,6 +1,7 @@
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Chat {
     using Teams;

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using RestSharp;
 
-namespace Guilded.NET.API {
+namespace Guilded.NET.API
+{
     /// <summary>
     /// KeyValuePair for RestRequests.
     /// </summary>

@@ -1,12 +1,14 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
+
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.NET.Objects {
     using Converters;
+
     using Teams;
     /// <summary>
     /// Information about this user.

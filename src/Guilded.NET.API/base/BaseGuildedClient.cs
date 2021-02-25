@@ -1,12 +1,15 @@
-﻿using System.Threading.Tasks;
-using RestSharp;
-using System;
-using System.Net.WebSockets;
-using Websocket.Client;
-using Newtonsoft.Json.Linq;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net.WebSockets;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json.Linq;
+
+using RestSharp;
+
+using Websocket.Client;
 
 namespace Guilded.NET.API {
     using Objects;

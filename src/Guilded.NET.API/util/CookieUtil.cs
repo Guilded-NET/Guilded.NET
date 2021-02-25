@@ -1,10 +1,11 @@
-using RestSharp;
-using System.Net;
-using System.Collections.Generic;
 using System;
-using System.IO;
+using System.Collections.Generic;
+using System.Net;
 
-namespace Guilded.NET.API {
+using RestSharp;
+
+namespace Guilded.NET.API
+{
     /// <summary>
     /// Utilities for Cookie related things.
     /// </summary>

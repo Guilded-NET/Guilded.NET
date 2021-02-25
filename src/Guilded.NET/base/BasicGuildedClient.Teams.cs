@@ -1,18 +1,19 @@
 using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
-using RestSharp;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json;
+
+using RestSharp;
 
 namespace Guilded.NET {
     using API;
+
     using Objects;
-    using Objects.Chat;
-    using Objects.Teams;
-    using Objects.Forms;
     using Objects.Content;
+    using Objects.Forms;
+    using Objects.Teams;
 
     /// <summary>
     /// Logged-in user in Guilded.
@@ -32,7 +33,7 @@ namespace Guilded.NET {
         /// <returns>Team</returns>
         public Team GetTeam(GId id) =>
             GetTeamAsync(id).GetAwaiter().GetResult();
-                /// <summary>
+        /// <summary>
         /// Joins a specific team.
         /// </summary>
         /// <param name="team">Team to join</param>
@@ -58,6 +59,11 @@ namespace Guilded.NET {
         /// <param name="team">Team to leave</param>
         public void LeaveTeam(GId team) =>
             LeaveTeamAsync(team).GetAwaiter().GetResult();
+
+        //=======================//
+        //   Groups
+        //=======================//
+
         /// <summary>
         /// List of groups in given team.
         /// </summary>
@@ -88,6 +94,7 @@ namespace Guilded.NET {
         /// <returns>Group</returns>
         public Group GetGroup(GId teamId, GId groupId) =>
             GetGroupAsync(teamId, groupId).GetAwaiter().GetResult();
+        
 
         //=======================//
         //   Channels
@@ -569,6 +576,22 @@ namespace Guilded.NET {
         /// <param name="nickname">A new nickname to set</param>
         public void SetNickname(GId teamId, GId memberId, string nickname) =>
             SetNicknameAsync(teamId, memberId, nickname).GetAwaiter().GetResult();
+        /// <summary>
+        /// Sets new XP count of a specific user.
+        /// </summary>
+        /// <param name="teamId">ID of the team member is in</param>
+        /// <param name="memberId">ID of the member to set XP of</param>
+        /// <param name="amount">Amount of XP to set</param>
+        public async Task SetXpAsync(GId teamId, GId memberId, long amount) =>
+            await ExecuteRequest(new Endpoint($"teams/{teamId}/members/{memberId}/xp", Method.PUT), new JsonBody(new { amount }));
+        /// <summary>
+        /// Sets new XP count of a specific user.
+        /// </summary>
+        /// <param name="teamId">ID of the team member is in</param>
+        /// <param name="memberId">ID of the member to set XP of</param>
+        /// <param name="amount">Amount of XP to set</param>
+        public void SetXp(GId teamId, GId memberId, long amount) =>
+            SetXpAsync(teamId, memberId, amount).GetAwaiter().GetResult();
         /// <summary>
         /// Kicks a member from a server.
         /// </summary>

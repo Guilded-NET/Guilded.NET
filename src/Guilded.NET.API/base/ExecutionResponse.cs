@@ -1,8 +1,10 @@
-using RestSharp;
-using System.Linq;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+
 using Guilded.NET.Objects;
+
+using RestSharp;
 
 namespace Guilded.NET.API {
     /// <summary>

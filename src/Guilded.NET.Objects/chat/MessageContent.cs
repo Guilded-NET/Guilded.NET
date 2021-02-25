@@ -1,8 +1,9 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Content of the message.
     /// </summary>

@@ -1,5 +1,6 @@
 namespace Guilded.NET.Objects.Events {
     using Newtonsoft.Json;
+
     using Teams;
     /// <summary>
     /// Event when thread gets created. Also known as temporal channel created event.

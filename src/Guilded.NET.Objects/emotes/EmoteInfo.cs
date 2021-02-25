@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
@@ -40,5 +41,18 @@ namespace Guilded.NET.Objects {
                 CustomEmoteId = emote.Id,
                 CustomEmote = emote
             };
+        /// <summary>
+        /// Checks if object is equal to this emote info.
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>Equal</returns>
+        public override bool Equals(object obj) =>
+            obj is EmoteInfo emote && Id == emote.Id;
+        /// <summary>
+        /// Gets hashcode of this object.
+        /// </summary>
+        /// <returns>Hashcode</returns>
+        public override int GetHashCode() =>
+            HashCode.Combine(Id);
     }
 }

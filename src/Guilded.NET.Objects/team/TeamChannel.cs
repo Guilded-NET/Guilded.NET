@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using Newtonsoft.Json;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Teams {
     using Permissions;

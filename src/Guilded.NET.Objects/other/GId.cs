@@ -1,6 +1,5 @@
-using System;
-
-namespace Guilded.NET.Objects {
+namespace Guilded.NET.Objects
+{
     /// <summary>
     /// Represents team, group and user IDs.
     /// </summary>

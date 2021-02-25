@@ -1,23 +1,24 @@
-using System.Threading.Tasks;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Net.WebSockets;
-using Websocket.Client;
-using System.Text.RegularExpressions;
-using System.Threading;
 
 namespace Guilded.NET {
     using API;
-    using Objects.Converters;
+
     using Objects;
-    using Objects.Teams;
+    using Objects.Converters;
     /// <summary>
     /// A base for user bot clients and normal bot clients.
     /// </summary>
     public abstract partial class BasicGuildedClient: BaseGuildedClient {
+        /// <summary>
+        /// A random for generating IDs.
+        /// </summary>
+        protected Random RandomId;
         /// <summary>
         /// An event when client is connected and it is fully ready to be used.
         /// </summary>
@@ -50,10 +51,6 @@ namespace Guilded.NET {
         public GuildedClientConfig ClientConfig {
             get; set;
         }
-        /// <summary>
-        /// A random for generating IDs.
-        /// </summary>
-        protected Random RandomId;
         /// <summary>
         /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
         /// </summary>

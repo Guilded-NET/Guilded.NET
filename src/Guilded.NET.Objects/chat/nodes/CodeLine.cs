@@ -1,8 +1,5 @@
-using Newtonsoft.Json;
-using System.Linq;
-using System.Collections.Generic;
-
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Line of code block in Guilded.
     /// </summary>

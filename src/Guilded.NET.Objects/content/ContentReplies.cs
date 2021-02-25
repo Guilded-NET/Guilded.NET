@@ -1,9 +1,11 @@
 using System.Threading.Tasks;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Content {
-    using Teams;
     using Chat;
+
+    using Teams;
     /// <summary>
     /// A reply to a Guilded document or media.
     /// </summary>

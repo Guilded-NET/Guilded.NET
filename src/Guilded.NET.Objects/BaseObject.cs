@@ -1,5 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Linq;
+﻿using System.Linq;
+
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     /// <summary>

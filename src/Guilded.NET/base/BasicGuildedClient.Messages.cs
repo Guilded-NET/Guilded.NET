@@ -1,12 +1,14 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System;
+
 using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET {
-    using Objects.Events;
     using API;
+
+    using Objects.Events;
     /// <summary>
     /// A base for user bot clients and normal bot clients.
     /// </summary>

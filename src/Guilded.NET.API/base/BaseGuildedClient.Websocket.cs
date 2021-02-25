@@ -1,10 +1,12 @@
-using System.Threading.Tasks;
 using System;
 using System.Net.WebSockets;
-using Websocket.Client;
-using System.Threading;
-using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Newtonsoft.Json.Linq;
+
+using Websocket.Client;
 
 namespace Guilded.NET.API {
     using Objects;

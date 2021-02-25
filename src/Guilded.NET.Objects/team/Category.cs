@@ -1,9 +1,9 @@
-using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Guilded.NET.Objects.Teams {
-    using Guilded.NET.Objects.Permissions;
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Teams
+{
     /// <summary>
     /// A Guilded channel category.
     /// </summary>

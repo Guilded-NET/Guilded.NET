@@ -3,6 +3,7 @@
 - Now client.Me team list gets updated
 - Username, email and subdomain get updated in client.Me.
 - Friend related stuff
+- XP permissions added
 - Some fixes
 
 ## `ALPHA` 0.0.11.2

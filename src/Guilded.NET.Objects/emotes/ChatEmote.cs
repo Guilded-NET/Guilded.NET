@@ -1,16 +1,12 @@
 using Newtonsoft.Json;
 using System;
+using System.ComponentModel;
 
 namespace Guilded.NET.Objects {
     /// <summary>
     /// Emote in status or in a message.
     /// </summary>
-    public class ChatEmote {
-        /// <summary>
-        /// Emote in status or in a message.
-        /// </summary>
-        public ChatEmote() =>
-            (PNGUrl, APNGUrl, WebPUrl) = (null, null, null);
+    public class ChatEmote: ClientObject {
         /// <summary>
         /// ID of the emote.
         /// </summary>
@@ -24,6 +20,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>.PNG URL</value>
         [JsonProperty("png")]
+        [DefaultValue(null)]
         public Uri PNGUrl {
             get; set;
         }
@@ -32,6 +29,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>.APNG URL</value>
         [JsonProperty("apng")]
+        [DefaultValue(null)]
         public Uri APNGUrl {
             get; set;
         }
@@ -40,6 +38,7 @@ namespace Guilded.NET.Objects {
         /// </summary>
         /// <value>.WEBP URL</value>
         [JsonProperty("webp")]
+        [DefaultValue(null)]
         public Uri WebPUrl {
             get; set;
         }
@@ -52,16 +51,17 @@ namespace Guilded.NET.Objects {
             get; set;
         }
         /// <summary>
-        /// Converts emote to chat emote.
+        /// Checks if object is equal to this chat emote.
         /// </summary>
-        /// <param name="emote">Emote to convert</param>
-        /// <returns>Chat emote</returns>
-        public static ChatEmote From(Emote emote) =>
-            new ChatEmote {
-                Id = emote.Id,
-                APNGUrl = emote.APNGUrl,
-                PNGUrl = emote.PNGUrl,
-                WebPUrl = emote.WebPUrl
-            };
+        /// <param name="obj">Object to compare</param>
+        /// <returns>Equal</returns>
+        public override bool Equals(object obj) =>
+            obj is ChatEmote emote && emote.Id == Id;
+        /// <summary>
+        /// Gets a hashcode of this emote.
+        /// </summary>
+        /// <returns>Emote</returns>
+        public override int GetHashCode() =>
+            HashCode.Combine(Id, Name);
     }
 }

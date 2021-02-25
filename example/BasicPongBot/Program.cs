@@ -1,8 +1,10 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
-using Guilded.NET;
 using System.IO;
 using System.Threading.Tasks;
+
+using Guilded.NET;
+
+using Newtonsoft.Json.Linq;
 
 namespace BasicPongBot {
     /// <summary>
@@ -12,8 +14,7 @@ namespace BasicPongBot {
         /// <summary>
         /// Creates a new user bot client.
         /// </summary>
-        /// <param name="args">Program arguments</param>
-        static void Main(string[] args) {
+        static void Main() {
             // Read JSON "config/config.json"
             JObject config = JObject.Parse(File.ReadAllText("./config/config.json"));
             // Get login info

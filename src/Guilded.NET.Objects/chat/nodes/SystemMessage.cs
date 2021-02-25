@@ -1,9 +1,9 @@
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 
-namespace Guilded.NET.Objects.Chat {
-    using Converters;
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Chat
+{
     using Teams;
     /// <summary>
     /// A message sent by the system.

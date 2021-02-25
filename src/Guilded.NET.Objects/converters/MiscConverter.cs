@@ -1,12 +1,14 @@
 using System;
 using System.Linq;
-using System.Drawing;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Converters {
-    using Teams;
+namespace Guilded.NET.Objects.Converters
+{
     using Forms;
+
+    using Teams;
     /// <summary>
     /// Converts specific interface types.
     /// </summary>

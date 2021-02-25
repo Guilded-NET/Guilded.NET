@@ -1,9 +1,11 @@
-using Newtonsoft.Json;
-using System;
 using System.Threading.Tasks;
 
-namespace Guilded.NET.Objects.Events {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Events
+{
     using Chat;
+
     using Teams;
     /// <summary>
     /// Event when message is posted in the chat.

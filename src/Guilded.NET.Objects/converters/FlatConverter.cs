@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Guilded.NET.Objects.Permissions;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Objects.Converters {
+namespace Guilded.NET.Objects.Converters
+{
     /// <summary>
     /// Flattens a list.
     /// </summary>

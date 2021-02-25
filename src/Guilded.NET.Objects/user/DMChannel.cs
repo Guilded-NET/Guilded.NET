@@ -1,8 +1,10 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+
 using Guilded.NET.Objects.Chat;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {

@@ -1,12 +1,13 @@
 using System;
-using Guilded.NET.Objects.Chat;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     using Content;
     using Teams;
+    using Chat;
     /// <summary>
     /// Represents any Guilded client.
     /// </summary>

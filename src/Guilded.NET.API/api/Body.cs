@@ -1,6 +1,8 @@
 using System.Linq;
-using RestSharp;
+
 using Newtonsoft.Json;
+
+using RestSharp;
 
 namespace Guilded.NET.API {
     /// <summary>

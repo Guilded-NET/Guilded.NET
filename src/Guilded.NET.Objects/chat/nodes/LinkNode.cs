@@ -1,9 +1,9 @@
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json.Linq;
 using System;
 
-namespace Guilded.NET.Objects.Chat {
+using Newtonsoft.Json.Linq;
+
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents Guilded's link node.
     /// </summary>

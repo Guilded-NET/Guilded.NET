@@ -1,9 +1,9 @@
 using System;
-using System.Collections.Generic;
-using Guilded.NET.Objects.Chat;
+
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A reply to a forum post.
     /// </summary>

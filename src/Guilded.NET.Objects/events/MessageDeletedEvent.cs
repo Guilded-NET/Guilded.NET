@@ -1,9 +1,9 @@
-using Guilded.NET.Objects.Chat;
 using Guilded.NET.Objects.Teams;
-using Newtonsoft.Json;
-using System;
 
-namespace Guilded.NET.Objects.Events {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Events
+{
     /// <summary>
     /// Event when message gets deleted.
     /// </summary>

@@ -81,6 +81,20 @@ namespace Guilded.NET.Objects {
         /// <param name="nickname">A new nickname to set</param>
         void SetNickname(GId teamId, GId memberId, string nickname);
         /// <summary>
+        /// Sets new XP count of a specific user.
+        /// </summary>
+        /// <param name="teamId">ID of the team member is in</param>
+        /// <param name="memberId">ID of the member to set XP of</param>
+        /// <param name="amount">Amount of XP to set</param>
+        Task SetXpAsync(GId teamId, GId memberId, long amount);
+        /// <summary>
+        /// Sets new XP count of a specific user.
+        /// </summary>
+        /// <param name="teamId">ID of the team member is in</param>
+        /// <param name="memberId">ID of the member to set XP of</param>
+        /// <param name="amount">Amount of XP to set</param>
+        void SetXp(GId teamId, GId memberId, long amount);
+        /// <summary>
         /// Kicks a member from a server.
         /// </summary>
         /// <param name="teamId">ID of the team to kick from</param>

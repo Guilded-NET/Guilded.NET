@@ -1,10 +1,11 @@
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Guilded.NET.Objects.Converters {
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace Guilded.NET.Objects.Converters
+{
     using Chat;
     /// <summary>
     /// Converts JSON objects to nodes.

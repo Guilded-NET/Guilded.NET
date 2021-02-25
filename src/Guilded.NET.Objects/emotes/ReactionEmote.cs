@@ -1,5 +1,7 @@
-using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     /// <summary>
@@ -38,5 +40,18 @@ namespace Guilded.NET.Objects {
         public ChatEmote Emote {
             get; set;
         }
+        /// <summary>
+        /// Checks if object is equal to this reaction.
+        /// </summary>
+        /// <param name="obj">Object to compare</param>
+        /// <returns>Equal</returns>
+        public override bool Equals(object obj) =>
+            obj is Reaction reaction && EmoteId == reaction.EmoteId && reaction.ReactedUsers == ReactedUsers;
+        /// <summary>
+        /// Gets a hashcode of this reaction.
+        /// </summary>
+        /// <returns>Hashcode</returns>
+        public override int GetHashCode() =>
+            HashCode.Combine(EmoteId);
     }
 }

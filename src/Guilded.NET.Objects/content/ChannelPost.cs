@@ -1,8 +1,9 @@
 using System;
-using Guilded.NET.Objects.Content;
+
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A base for forum posts, announcements and documents.
     /// </summary>

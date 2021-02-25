@@ -1,9 +1,11 @@
-using Guilded.NET.Objects.Chat;
-using Newtonsoft.Json;
 using System;
-using System.Linq;
 using System.ComponentModel;
+using System.Linq;
 using System.Threading.Tasks;
+
+using Guilded.NET.Objects.Chat;
+
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
     using Teams;

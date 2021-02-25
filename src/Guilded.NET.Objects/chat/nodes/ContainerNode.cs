@@ -1,8 +1,9 @@
-using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+using Newtonsoft.Json;
+
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Node which contains other nodes or <see cref="IMessageObject"/>.
     /// </summary>

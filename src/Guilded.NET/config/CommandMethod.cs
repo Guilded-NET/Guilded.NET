@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 
 namespace Guilded.NET {
-    using Objects.Events;
     using Objects;
+    using Objects.Events;
     /// <summary>
     /// Delegate for Guilded.NET commands.
     /// </summary>

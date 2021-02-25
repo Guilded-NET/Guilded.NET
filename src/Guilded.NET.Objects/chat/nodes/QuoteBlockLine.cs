@@ -1,7 +1,7 @@
-using Newtonsoft.Json;
 using System.Linq;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Line of quote block in Guilded.
     /// </summary>

@@ -1,5 +1,7 @@
 using System;
+
 using Guilded.NET.Objects.Teams;
+
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

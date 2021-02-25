@@ -1,8 +1,9 @@
 using System;
-using System.Collections.Generic;
+
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Content {
+namespace Guilded.NET.Objects.Content
+{
     /// <summary>
     /// A reply to a profile post.
     /// </summary>

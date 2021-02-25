@@ -1,17 +1,18 @@
 using System;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using System.Linq;
-using RestSharp;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Guilded.NET {
+using Newtonsoft.Json;
+
+using RestSharp;
+
+namespace Guilded.NET
+{
     using API;
+
     using Objects;
     using Objects.Chat;
-    using Objects.Teams;
-    using Objects.Forms;
     using Objects.Content;
 
     /// <summary>

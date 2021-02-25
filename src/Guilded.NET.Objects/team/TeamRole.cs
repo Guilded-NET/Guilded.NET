@@ -1,10 +1,12 @@
 using System;
 using System.Drawing;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Teams {
-    using Permissions;
     using Chat;
+
+    using Permissions;
     /// <summary>
     /// Represents role in teams.
     /// </summary>

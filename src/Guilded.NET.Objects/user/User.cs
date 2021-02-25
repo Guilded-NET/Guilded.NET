@@ -1,10 +1,11 @@
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 
-namespace Guilded.NET.Objects {
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace Guilded.NET.Objects
+{
     using Chat;
     /// <summary>
     /// Guilded user. This is NOT Guild member.

@@ -1,7 +1,6 @@
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
-    using Teams;
     /// <summary>
     /// When channel gets updated in a specific team.
     /// </summary>

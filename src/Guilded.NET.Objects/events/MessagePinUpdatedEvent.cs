@@ -1,9 +1,11 @@
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 namespace Guilded.NET.Objects.Events {
-    using Teams;
     using Chat;
+
+    using Teams;
     /// <summary>
     /// When message gets pinned or unpinned.
     /// </summary>

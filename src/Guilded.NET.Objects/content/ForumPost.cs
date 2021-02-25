@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Guilded.NET.Objects.Chat;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Content {

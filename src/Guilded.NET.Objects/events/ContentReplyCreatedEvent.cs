@@ -1,9 +1,11 @@
 using System;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {
-    using Teams;
     using Chat;
+
+    using Teams;
     /// <summary>
     /// When a reply to a forum post, document, media or announcement appears.
     /// </summary>

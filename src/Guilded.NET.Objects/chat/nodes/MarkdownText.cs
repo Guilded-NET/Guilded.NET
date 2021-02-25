@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects.Chat {
+namespace Guilded.NET.Objects.Chat
+{
     /// <summary>
     /// Represents Guilded's paragraph node.
     /// </summary>

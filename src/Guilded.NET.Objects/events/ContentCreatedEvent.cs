@@ -1,6 +1,8 @@
 using System;
+
 using Guilded.NET.Objects.Content;
 using Guilded.NET.Objects.Teams;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events {

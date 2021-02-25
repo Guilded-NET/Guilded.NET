@@ -1,6 +1,7 @@
-using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects {
     /// <summary>
