@@ -129,6 +129,14 @@ namespace Guilded.NET.Objects.Permissions {
             get; set;
         } = null;
         /// <summary>
+        /// Permissions related to member XP and levels.
+        /// </summary>
+        /// <value>Permissions</value>
+        [JsonProperty("xp", NullValueHandling = NullValueHandling.Ignore)]
+        public XPPermissions? XP {
+            get; set;
+        } = null;
+        /// <summary>
         /// Adds up 2 permissions together.
         /// </summary>
         /// <param name="first">First permission list</param>
@@ -150,7 +158,8 @@ namespace Guilded.NET.Objects.Permissions {
                 Matchmaking = Concat(first?.Matchmaking, second?.Matchmaking),
                 Recruitment = Concat(first?.Recruitment, second?.Recruitment),
                 Announcements = Concat(first?.Announcements, second?.Announcements),
-                Customization = Concat(first?.Customization, second?.Customization)
+                Customization = Concat(first?.Customization, second?.Customization),
+                XP = Concat(first?.XP, second?.XP)
             };
         /// <summary>
         /// Removes second PermissionList instance from first.
@@ -174,7 +183,8 @@ namespace Guilded.NET.Objects.Permissions {
                 Matchmaking = Substract(first?.Matchmaking, second?.Matchmaking),
                 Recruitment = Substract(first?.Recruitment, second?.Recruitment),
                 Announcements = Substract(first?.Announcements, second?.Announcements),
-                Customization = Substract(first?.Customization, second?.Customization)
+                Customization = Substract(first?.Customization, second?.Customization),
+                XP = Substract(first?.XP, second?.XP)
             };
         /// <summary>
         /// Used to concat and check 2 enum values.

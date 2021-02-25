@@ -1,3 +1,10 @@
+## `ALPHA` 0.0.12
+
+- Now client.Me team list gets updated
+- Username, email and subdomain get updated in client.Me.
+- Friend related stuff
+- Some fixes
+
 ## `ALPHA` 0.0.11.2
 
 - Node generation fixes
