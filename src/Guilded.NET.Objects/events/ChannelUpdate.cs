@@ -16,38 +16,38 @@ namespace Guilded.NET.Objects.Events
         /// ID of this channel.
         /// </summary>
         /// <value>Channel ID</value>
-        [JsonProperty("id", Required = Required.Always)]
-        public Guid Id
+        [JsonProperty("id")]
+        public Guid? Id
         {
             get; set;
-        }
+        } = null;
         /// <summary>
         /// Name of this channel.
         /// </summary>
         /// <value>Name</value>
-        [JsonProperty("name", Required = Required.Always)]
+        [JsonProperty("name")]
         public string Name
         {
             get; set;
-        }
+        } = null;
         /// <summary>
         /// A description/topic of this channel.
         /// </summary>
         /// <value>Description</value>
-        [JsonProperty("description", Required = Required.AllowNull)]
+        [JsonProperty("description")]
         public string Description
         {
             get; set;
-        }
+        } = null;
         /// <summary>
         /// Whether or not this channel is public.
         /// </summary>
         /// <value>Boolean</value>
-        [JsonProperty("isPublic", Required = Required.Always)]
-        public bool IsPublic
+        [JsonProperty("isPublic")]
+        public bool? IsPublic
         {
             get; set;
-        }
+        } = null;
         /// <summary>
         /// ID of the category this channel is in.
         /// </summary>

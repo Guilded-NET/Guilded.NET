@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events
 {
+    using Teams;
     /// <summary>
     /// When member's role list gets updated.
     /// </summary>
@@ -23,10 +24,19 @@ namespace Guilded.NET.Objects.Events
         /// A list of member role updates.
         /// </summary>
         /// <value>List of member role updates</value>
-        [JsonProperty("memberRoleIds", Required = Required.Always)]
+        [JsonProperty("memberRoleIds")]
         public IList<MemberRoleUpdate> MemberRoleIds
         {
             get; set;
-        }
+        } = null;
+        /// <summary>
+        /// A new info of roles.
+        /// </summary>
+        /// <value>Roles by ID</value>
+        [JsonProperty("rolesById")]
+        public IDictionary<string, TeamRole> RolesById
+        {
+            get; set;
+        } = null;
     }
 }
