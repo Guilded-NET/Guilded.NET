@@ -7,7 +7,7 @@ using Guilded.NET.Objects.Chat;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     using Teams;
     /// <summary>

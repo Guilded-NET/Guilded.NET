@@ -147,6 +147,15 @@ namespace Guilded.NET
                     case "TEAM_CHANNEL_CONTENT_UPDATED":
                         InvokeEvent<ContentUpdatedEvent>(ContentUpdatedEvent, xeobj);
                         break;
+                    case "TEAM_CHANNEL_CONTENT_REPLY_CREATED":
+                        InvokeEvent<ContentReplyCreatedEvent>(ContentReplyCreatedEvent, xeobj);
+                        break;
+                    case "TEAM_CHANNEL_CONTENT_REPLY_UPDATED":
+                        InvokeEvent<ContentReplyUpdatedEvent>(ContentReplyUpdatedEvent, xeobj);
+                        break;
+                    case "TEAM_CHANNEL_CONTENT_REPLY_DELETED":
+                        InvokeEvent<ContentReplyDeletedEvent>(ContentReplyDeletedEvent, xeobj);
+                        break;
                     // Channel events
                     case "TeamChannelCreated":
                         InvokeEvent<ChannelCreatedEvent>(ChannelCreatedEvent, xeobj);

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// A list of friends and friend requests.

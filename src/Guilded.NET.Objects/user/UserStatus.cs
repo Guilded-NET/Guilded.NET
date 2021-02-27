@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     using Chat;
     /// <summary>

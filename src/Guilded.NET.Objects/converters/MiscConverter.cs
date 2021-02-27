@@ -8,6 +8,8 @@ namespace Guilded.NET.Objects.Converters
 {
     using Forms;
 
+    using Users;
+
     using Teams;
     /// <summary>
     /// Converts specific interface types.

@@ -13,6 +13,7 @@ namespace Guilded.NET
 
     using Objects;
     using Objects.Chat;
+    using Objects.Users;
     using Objects.Content;
 
     /// <summary>

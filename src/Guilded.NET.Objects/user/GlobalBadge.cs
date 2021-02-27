@@ -1,7 +1,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// A global badge displayed everywhere.

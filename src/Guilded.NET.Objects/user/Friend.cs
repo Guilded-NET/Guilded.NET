@@ -2,7 +2,7 @@ using System;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// A friend, friend request sent to user or friend request sent by user.

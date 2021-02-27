@@ -11,6 +11,7 @@ namespace Guilded.NET
     using API;
 
     using Objects;
+    using Objects.Users;
     using Objects.Converters;
     /// <summary>
     /// A base for user bot clients and normal bot clients.

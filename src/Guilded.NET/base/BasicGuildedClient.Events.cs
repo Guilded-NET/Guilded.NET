@@ -169,6 +169,42 @@ namespace Guilded.NET
             add => ContentUpdatedEvent += value;
             remove => ContentUpdatedEvent -= value;
         }
+        /// <summary>
+        /// When someone creates a forum post, media, document, etc. reply.
+        /// </summary>
+        protected EventHandler<ContentReplyCreatedEvent> ContentReplyCreatedEvent;
+        /// <summary>
+        /// When someone creates a forum post, media, document, etc. reply.
+        /// </summary>
+        public event EventHandler<ContentReplyCreatedEvent> ContentReplyCreated
+        {
+            add => ContentReplyCreatedEvent += value;
+            remove => ContentReplyCreatedEvent -= value;
+        }
+        /// <summary>
+        /// When someone updates a forum post, media, document, etc. reply.
+        /// </summary>
+        protected EventHandler<ContentReplyUpdatedEvent> ContentReplyUpdatedEvent;
+        /// <summary>
+        /// When someone updates a forum post, media, document, etc. reply.
+        /// </summary>
+        public event EventHandler<ContentReplyUpdatedEvent> ContentReplyUpdated
+        {
+            add => ContentReplyUpdatedEvent += value;
+            remove => ContentReplyUpdatedEvent -= value;
+        }
+        /// <summary>
+        /// When someone deletes a forum post, media, document, etc. reply.
+        /// </summary>
+        protected EventHandler<ContentReplyDeletedEvent> ContentReplyDeletedEvent;
+        /// <summary>
+        /// When someone deletes a forum post, media, document, etc. reply.
+        /// </summary>
+        public event EventHandler<ContentReplyDeletedEvent> ContentReplyDeleted
+        {
+            add => ContentReplyDeletedEvent += value;
+            remove => ContentReplyDeletedEvent -= value;
+        }
 
         /// <summary>
         /// When channel gets created.

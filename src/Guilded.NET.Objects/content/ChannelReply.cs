@@ -7,7 +7,7 @@ namespace Guilded.NET.Objects.Content
     /// <summary>
     /// A reply to a forum post, media, a document or an announcement.
     /// </summary>
-    public abstract class ChannelReply : Reply
+    public class ChannelReply : Reply
     {
         /// <summary>
         /// A reply to a forum post, media, a document or an announcement.

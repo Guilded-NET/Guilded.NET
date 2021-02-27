@@ -3,10 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     using Converters;
 
@@ -39,7 +38,7 @@ namespace Guilded.NET.Objects
         /// </summary>
         /// <value>Message content</value>
         [JsonProperty("updateMessage", Required = Required.AllowNull)]
-        public JObject UpdateMessage
+        public UpdateMessage UpdateMessage
         {
             get; set;
         }

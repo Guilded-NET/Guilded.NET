@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events
 {
+    using Users;
     /// <summary>
     /// When user gets updated.
     /// </summary>

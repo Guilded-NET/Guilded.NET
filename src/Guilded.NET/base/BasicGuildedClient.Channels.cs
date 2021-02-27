@@ -1,19 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Newtonsoft.Json;
-
 using RestSharp;
 
 namespace Guilded.NET
 {
     using API;
-
     using Objects;
     using Objects.Chat;
     using Objects.Content;
     using Objects.Teams;
+    using Objects.Users;
 
     /// <summary>
     /// Logged-in user in Guilded.
@@ -305,7 +303,7 @@ namespace Guilded.NET
         /// <param name="channelId">ID of the channel where the post is in</param>
         /// <param name="postId">A forum post where reply should be deleted</param>
         /// <param name="replyId">A reply of a forum post which should be deleted</param>
-        public async Task DeleteForumReplyAsync(Guid channelId, uint postId, ulong replyId) =>
+        public async Task DeleteForumReplyAsync(Guid channelId, uint postId, uint replyId) =>
             await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies/{replyId}", Method.DELETE));
         /// <summary>
         /// Deletes a forum reply/comment.
@@ -313,7 +311,7 @@ namespace Guilded.NET
         /// <param name="channelId">ID of the channel where the post is in</param>
         /// <param name="postId">A forum post where reply should be deleted</param>
         /// <param name="replyId">A reply of a forum post which should be deleted</param>
-        public void DeleteForumReply(Guid channelId, uint postId, ulong replyId) =>
+        public void DeleteForumReply(Guid channelId, uint postId, uint replyId) =>
             DeleteForumReplyAsync(channelId, postId, replyId).GetAwaiter().GetResult();
         /// <summary>
         /// Edits a forum reply.
@@ -322,7 +320,7 @@ namespace Guilded.NET
         /// <param name="postId">ID of the post to edit reply in</param>
         /// <param name="replyId">Reply to edit contents of</param>
         /// <param name="content">New content which will replace the old content</param>
-        public async Task EditForumReplyAsync(Guid channelId, uint postId, ulong replyId, MessageContent content) =>
+        public async Task EditForumReplyAsync(Guid channelId, uint postId, uint replyId, MessageContent content) =>
             await ExecuteRequest(new Endpoint($"channels/{channelId}/forums/{postId}/replies/{replyId}", Method.PUT), new JsonBody($"{{\"message\": {content.Serialize(GuildedSerializer)}}}"));
         /// <summary>
         /// Edits a forum reply.
@@ -331,7 +329,7 @@ namespace Guilded.NET
         /// <param name="postId">ID of the post to edit reply in</param>
         /// <param name="replyId">Reply to edit contents of</param>
         /// <param name="content">New content which will replace the old content</param>
-        public void EditForumReply(Guid channelId, uint postId, ulong replyId, MessageContent content) =>
+        public void EditForumReply(Guid channelId, uint postId, uint replyId, MessageContent content) =>
             EditForumReplyAsync(channelId, postId, replyId, content).GetAwaiter().GetResult();
 
         //=======================//
@@ -548,7 +546,7 @@ namespace Guilded.NET
         /// <param name="teamId">ID of the team</param>
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
-        public async Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, ulong replyId) =>
+        public async Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, uint replyId) =>
             await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new
             {
                 teamId
@@ -559,7 +557,7 @@ namespace Guilded.NET
         /// <param name="teamId">ID of the team</param>
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
-        public void DeleteAnnouncementReply(GId teamId, GId contentId, ulong replyId) =>
+        public void DeleteAnnouncementReply(GId teamId, GId contentId, uint replyId) =>
             DeleteAnnouncementReplyAsync(teamId, contentId, replyId).GetAwaiter().GetResult();
         /// <summary>
         /// Edits announcement reply's message.
@@ -567,7 +565,7 @@ namespace Guilded.NET
         /// <param name="contentId">ID of the content reply is in</param>
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="message">New message content to replace with</param>
-        public async Task EditAnnouncementReplyAsync(GId contentId, ulong replyId, MessageContent message) =>
+        public async Task EditAnnouncementReplyAsync(GId contentId, uint replyId, MessageContent message) =>
             await ExecuteRequest(new Endpoint($"content/announcement/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new
             {
                 id = replyId,
@@ -581,7 +579,7 @@ namespace Guilded.NET
         /// <param name="contentId">ID of the content reply is in</param>
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="message">New message content to replace with</param>
-        public void EditAnnouncementReply(GId contentId, ulong replyId, MessageContent message) =>
+        public void EditAnnouncementReply(GId contentId, uint replyId, MessageContent message) =>
             EditAnnouncementReplyAsync(contentId, replyId, message).GetAwaiter().GetResult();
         /// <summary>
         /// Creates and posts a new announcement.
@@ -791,7 +789,7 @@ namespace Guilded.NET
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
         /// <param name="type">Channel's type</param>
-        public async Task DeleteContentReplyAsync(GId teamId, uint contentId, ulong replyId, ChannelType type) =>
+        public async Task DeleteContentReplyAsync(GId teamId, uint contentId, uint replyId, ChannelType type) =>
             await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.DELETE), new JsonBody(new
             {
                 teamId
@@ -803,7 +801,7 @@ namespace Guilded.NET
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
         /// <param name="type">Channel's type</param>
-        public void DeleteContentReply(GId teamId, uint contentId, ulong replyId, ChannelType type) =>
+        public void DeleteContentReply(GId teamId, uint contentId, uint replyId, ChannelType type) =>
             DeleteContentReplyAsync(teamId, contentId, replyId, type).GetAwaiter().GetResult();
         /// <summary>
         /// Edits content reply's message.
@@ -812,7 +810,7 @@ namespace Guilded.NET
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="type">Type of the channel this reply is in</param>
         /// <param name="message">New message content to replace with</param>
-        public async Task EditContentReplyAsync(uint contentId, ulong replyId, ChannelType type, MessageContent message) =>
+        public async Task EditContentReplyAsync(uint contentId, uint replyId, ChannelType type, MessageContent message) =>
             await ExecuteRequest(new Endpoint($"content/{ContentTypes[type]}/{contentId}/replies/{replyId}", Method.PUT), new JsonBody(new
             {
                 id = replyId,
@@ -827,7 +825,7 @@ namespace Guilded.NET
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="type">Type of the channel this reply is in</param>
         /// <param name="message">New message content to replace with</param>
-        public void EditContentReply(uint contentId, ulong replyId, ChannelType type, MessageContent message) =>
+        public void EditContentReply(uint contentId, uint replyId, ChannelType type, MessageContent message) =>
             EditContentReplyAsync(contentId, replyId, type, message).GetAwaiter().GetResult();
     }
 }

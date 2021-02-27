@@ -1,4 +1,4 @@
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// If the DM channel is a group or default.

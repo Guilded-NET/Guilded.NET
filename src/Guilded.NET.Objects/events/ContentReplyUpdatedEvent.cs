@@ -1,16 +1,13 @@
-using System;
-
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events
 {
     using Teams;
-    using Content;
     /// <summary>
-    /// When a reply to a forum post, document, media or announcement appears.
+    /// When a reply to a forum post, document, media or announcement gets updated.
     /// </summary>
-    /// <value>TEAM_CHANNEL_CONTENT_REPLY_CREATED</value>
-    public class ContentReplyCreatedEvent : TeamEvent
+    /// <value>TEAM_CHANNEL_CONTENT_REPLY_UPDATED</value>
+    public class ContentReplyUpdatedEvent : TeamEvent
     {
         /// <summary>
         /// A type of the channel where the reply appeared.
@@ -22,34 +19,25 @@ namespace Guilded.NET.Objects.Events
             get; set;
         }
         /// <summary>
-        /// When the content appeared.
-        /// </summary>
-        /// <value>Created at</value>
-        [JsonProperty("createdAt", Required = Required.Always)]
-        public DateTime CreatedAt
-        {
-            get; set;
-        }
-        /// <summary>
-        /// Who created this content reply.
+        /// Who updated this content reply.
         /// </summary>
         /// <value>User ID</value>
-        [JsonProperty("createdBy", Required = Required.Always)]
-        public GId CreatedBy
+        [JsonProperty("updatedBy", Required = Required.Always)]
+        public GId UpdatedBy
         {
             get; set;
         }
         /// <summary>
-        /// A reply which was created.
+        /// A reply which was updated.
         /// </summary>
         /// <value>Reply</value>
         [JsonProperty("reply", Required = Required.Always)]
-        public ChannelReply Reply
+        public ReplyUpdated Reply
         {
             get; set;
         }
         /// <summary>
-        /// ID of the content, where reply was created in.
+        /// ID of the content, where reply was updated in.
         /// </summary>
         /// <value>GId/uint</value>
         [JsonProperty("contentId", Required = Required.Always)]

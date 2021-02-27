@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// Current user account being controlled by this client.

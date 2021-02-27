@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     using Chat;
     /// <summary>

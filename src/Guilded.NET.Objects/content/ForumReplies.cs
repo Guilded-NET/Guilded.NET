@@ -14,7 +14,7 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value>Post/Reply ID</value>
         [JsonProperty("repliesTo", Required = Required.Always)]
-        public ulong RepliesTo
+        public uint RepliesTo
         {
             get; set;
         }

@@ -5,6 +5,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Objects.Chat
 {
+    using Users;
+
     using Teams;
     /// <summary>
     /// Role, user, @everyone or @here mention.

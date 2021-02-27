@@ -6,6 +6,8 @@ namespace Guilded.NET.Objects.Events
 {
     using Chat;
 
+    using Users;
+
     using Teams;
     /// <summary>
     /// Event when message is posted in the chat.

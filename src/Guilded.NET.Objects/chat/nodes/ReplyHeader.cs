@@ -27,9 +27,9 @@ namespace Guilded.NET.Objects.Chat
         /// </summary>
         /// <value>Post ID</value>
         [JsonIgnore]
-        public ulong? PostId
+        public uint? PostId
         {
-            get => GetDataProperty<ulong>("postId");
+            get => GetDataProperty<uint>("postId");
         }
         /// <summary>
         /// Type of the reply header.
@@ -53,7 +53,7 @@ namespace Guilded.NET.Objects.Chat
         /// <param name="author">ID of the post author it is replying to</param>
         /// <param name="type">Type of te reply header</param>
         /// <returns>Reply header</returns>
-        public static ReplyHeader Generate(ulong postId, GId author, ReplyHeaderType type) =>
+        public static ReplyHeader Generate(uint postId, GId author, ReplyHeaderType type) =>
             new ReplyHeader
             {
                 Data = JObject.FromObject(new

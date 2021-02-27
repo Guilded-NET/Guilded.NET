@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events
 {
+    using Users;
     /// <summary>
     /// How this member was updated.
     /// </summary>

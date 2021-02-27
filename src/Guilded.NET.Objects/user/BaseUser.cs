@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// A base for all users.

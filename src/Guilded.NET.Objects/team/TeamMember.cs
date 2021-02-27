@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Teams
 {
+    using Users;
     /// <summary>
     /// Represents member, or user of the team.
     /// </summary>

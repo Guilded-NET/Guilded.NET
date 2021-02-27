@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Objects.Events
 {
     using Teams;
+
+    using Users;
     /// <summary>
     /// Event when message gets updated.
     /// </summary>

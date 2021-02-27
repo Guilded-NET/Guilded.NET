@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Objects.Content
 {
     using Chat;
+    using Users;
     /// <summary>
     /// A post which was posted in the profile.
     /// </summary>

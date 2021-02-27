@@ -1,10 +1,22 @@
 ## `ALPHA` 0.0.12
 
-- Now client.Me team list gets updated
-- Username, email and subdomain get updated in client.Me.
 - Friend related stuff
 - XP permissions added
-- Some fixes
+- Moved users, profiles, etc. to `Guilded.NET.Objects.Users` namespace.
+- Now `client.Me` gets updated
+    - Team list gets updated
+    - Username, email and subdomain get updated
+- New events:
+    - Group created
+    - Group updated
+    - Group deleted
+    - Group archived
+    - Group restored
+    - Content reply created
+    - Content reply updated
+    - Content reply deleted
+- Some fixes:
+    - Fixed update message error
 
 ## `ALPHA` 0.0.11.2
 

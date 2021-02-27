@@ -231,14 +231,14 @@ namespace Guilded.NET.Objects
         /// <param name="channelId">ID of the channel where the post is in</param>
         /// <param name="postId">A forum post where reply should be deleted</param>
         /// <param name="replyId">A reply of a forum post which should be deleted</param>
-        Task DeleteForumReplyAsync(Guid channelId, uint postId, ulong replyId);
+        Task DeleteForumReplyAsync(Guid channelId, uint postId, uint replyId);
         /// <summary>
         /// Deletes a forum reply/comment.
         /// </summary>
         /// <param name="channelId">ID of the channel where the post is in</param>
         /// <param name="postId">A forum post where reply should be deleted</param>
         /// <param name="replyId">A reply of a forum post which should be deleted</param>
-        void DeleteForumReply(Guid channelId, uint postId, ulong replyId);
+        void DeleteForumReply(Guid channelId, uint postId, uint replyId);
         /// <summary>
         /// Edits a forum reply.
         /// </summary>
@@ -246,7 +246,7 @@ namespace Guilded.NET.Objects
         /// <param name="postId">ID of the post to edit reply in</param>
         /// <param name="replyId">Reply to edit contents of</param>
         /// <param name="content">New content which will replace the old content</param>
-        Task EditForumReplyAsync(Guid channelId, uint postId, ulong replyId, MessageContent content);
+        Task EditForumReplyAsync(Guid channelId, uint postId, uint replyId, MessageContent content);
         /// <summary>
         /// Edits a forum reply.
         /// </summary>
@@ -254,7 +254,7 @@ namespace Guilded.NET.Objects
         /// <param name="postId">ID of the post to edit reply in</param>
         /// <param name="replyId">Reply to edit contents of</param>
         /// <param name="content">New content which will replace the old content</param>
-        void EditForumReply(Guid channelId, uint postId, ulong replyId, MessageContent content);
+        void EditForumReply(Guid channelId, uint postId, uint replyId, MessageContent content);
 
         //=======================//
         //   Documents
@@ -484,28 +484,28 @@ namespace Guilded.NET.Objects
         /// <param name="teamId">ID of the team</param>
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
-        Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, ulong replyId);
+        Task DeleteAnnouncementReplyAsync(GId teamId, GId contentId, uint replyId);
         /// <summary>
         /// Deletes an announcement reply.
         /// </summary>
         /// <param name="teamId">ID of the team</param>
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
-        void DeleteAnnouncementReply(GId teamId, GId contentId, ulong replyId);
+        void DeleteAnnouncementReply(GId teamId, GId contentId, uint replyId);
         /// <summary>
         /// Edits announcement reply's message.
         /// </summary>
         /// <param name="contentId">ID of the content reply is in</param>
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="message">New message content to replace with</param>
-        Task EditAnnouncementReplyAsync(GId contentId, ulong replyId, MessageContent message);
+        Task EditAnnouncementReplyAsync(GId contentId, uint replyId, MessageContent message);
         /// <summary>
         /// Edits announcement reply's message.
         /// </summary>
         /// <param name="contentId">ID of the content reply is in</param>
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="message">New message content to replace with</param>
-        void EditAnnouncementReply(GId contentId, ulong replyId, MessageContent message);
+        void EditAnnouncementReply(GId contentId, uint replyId, MessageContent message);
         /// <summary>
         /// Creates and posts a new announcement.
         /// </summary>
@@ -665,7 +665,7 @@ namespace Guilded.NET.Objects
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
         /// <param name="type">Channel's type</param>
-        Task DeleteContentReplyAsync(GId teamId, uint contentId, ulong replyId, ChannelType type);
+        Task DeleteContentReplyAsync(GId teamId, uint contentId, uint replyId, ChannelType type);
         /// <summary>
         /// Deletes a document or a media reply.
         /// </summary>
@@ -673,7 +673,7 @@ namespace Guilded.NET.Objects
         /// <param name="contentId">ID of the content</param>
         /// <param name="replyId">ID of the reply to delete</param>
         /// <param name="type">Channel's type</param>
-        void DeleteContentReply(GId teamId, uint contentId, ulong replyId, ChannelType type);
+        void DeleteContentReply(GId teamId, uint contentId, uint replyId, ChannelType type);
         /// <summary>
         /// Edits content reply's message.
         /// </summary>
@@ -681,7 +681,7 @@ namespace Guilded.NET.Objects
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="type">Type of the channel this reply is in</param>
         /// <param name="message">New message content to replace with</param>
-        Task EditContentReplyAsync(uint contentId, ulong replyId, ChannelType type, MessageContent message);
+        Task EditContentReplyAsync(uint contentId, uint replyId, ChannelType type, MessageContent message);
         /// <summary>
         /// Edits content reply's message.
         /// </summary>
@@ -689,6 +689,6 @@ namespace Guilded.NET.Objects
         /// <param name="replyId">ID of the reply to edit</param>
         /// <param name="type">Type of the channel this reply is in</param>
         /// <param name="message">New message content to replace with</param>
-        void EditContentReply(uint contentId, ulong replyId, ChannelType type, MessageContent message);
+        void EditContentReply(uint contentId, uint replyId, ChannelType type, MessageContent message);
     }
 }

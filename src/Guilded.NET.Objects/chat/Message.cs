@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Chat
 {
+    using Users;
     /// <summary>
     /// Message posted in chat.
     /// </summary>

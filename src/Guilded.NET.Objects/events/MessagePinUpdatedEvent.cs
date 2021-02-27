@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Objects.Events
 {
+    using Users;
+
     using Teams;
     /// <summary>
     /// When message gets pinned or unpinned.

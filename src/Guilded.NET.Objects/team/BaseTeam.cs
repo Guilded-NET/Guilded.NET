@@ -9,6 +9,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace Guilded.NET.Objects.Teams
 {
+    using Users;
     using Permissions;
     /// <summary>
     /// Guilded team/guild/server.

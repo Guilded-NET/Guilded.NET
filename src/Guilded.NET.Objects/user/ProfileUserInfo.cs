@@ -1,4 +1,4 @@
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// An info about the user who posted a post or a reply in other user's/their profile.

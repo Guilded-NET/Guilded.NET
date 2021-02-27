@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Guilded.NET.Objects
 {
+    using Users;
     using Content;
     public partial interface IGuildedClient
     {

@@ -5,7 +5,7 @@ using System.ComponentModel;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     using Content;
     /// <summary>

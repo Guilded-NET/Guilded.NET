@@ -14,6 +14,7 @@ using Websocket.Client;
 namespace Guilded.NET.API
 {
     using Objects;
+    using Objects.Users;
     using Objects.Teams;
     /// <summary>
     /// A base for Guilded client.

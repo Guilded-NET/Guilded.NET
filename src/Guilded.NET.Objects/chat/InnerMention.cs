@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Objects.Chat
 {
     using Teams;
+    using Users;
     /// <summary>
     /// A data of mention node.
     /// </summary>

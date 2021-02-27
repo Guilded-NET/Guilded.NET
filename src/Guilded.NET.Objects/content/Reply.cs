@@ -15,7 +15,7 @@ namespace Guilded.NET.Objects.Content
         /// </summary>
         /// <value></value>
         [JsonProperty("id", Required = Required.Always)]
-        public ulong Id
+        public uint Id
         {
             get; set;
         }

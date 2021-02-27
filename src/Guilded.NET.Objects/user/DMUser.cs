@@ -3,7 +3,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// Guilded user. This is NOT Guild member.

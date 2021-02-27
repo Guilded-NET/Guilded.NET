@@ -3,7 +3,7 @@ using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Guilded.NET.Objects
+namespace Guilded.NET.Objects.Users
 {
     /// <summary>
     /// A status of the game user is playing.
