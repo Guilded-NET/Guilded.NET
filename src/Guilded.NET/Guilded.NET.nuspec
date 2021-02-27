@@ -31,8 +31,8 @@ Changelog can be view [here](https://github.com/Guilded-NET/Guilded.NET/blob/mai
             <!-- For JSON stuff -->
             <dependency id="Newtonsoft.Json" version="12.0.3" />
             <!-- Guilded.NET helpers -->
-            <dependency id="Guilded.NET.API" version="0.0.11.2" />
-            <dependency id="Guilded.NET.Objects" version="0.0.11.2" />
+            <dependency id="Guilded.NET.API" version="0.0.12.2" />
+            <dependency id="Guilded.NET.Objects" version="0.0.12" />
         </dependencies>
     </metadata>
     <files>

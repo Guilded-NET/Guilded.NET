@@ -23,8 +23,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- <PackageReference Include="Guilded.NET.API" Version="0.0.11.2" />
-    <PackageReference Include="Guilded.NET.Objects" Version="0.0.11.2" /> -->
+    <PackageReference Include="Guilded.NET.API" Version="0.0.12" />
+    <PackageReference Include="Guilded.NET.Objects" Version="0.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="RestSharp" Version="106.11.7" />
     <PackageReference Include="Websocket.Client" Version="4.3.21" />
@@ -35,13 +35,13 @@
     <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <ItemGroup>
+  <!-- <ItemGroup>
     <Reference Include="Guilded.NET.Objects">
       <HintPath>../Guilded.NET.Objects/bin/Release/netstandard2.1/Guilded.NET.Objects.dll</HintPath>
     </Reference>
     <Reference Include="Guilded.NET.API">
       <HintPath>../Guilded.NET.API/bin/Release/netstandard2.1/Guilded.NET.API.dll</HintPath>
     </Reference>
-  </ItemGroup>
+  </ItemGroup> -->
 
 </Project>
