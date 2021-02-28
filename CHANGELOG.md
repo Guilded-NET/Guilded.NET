@@ -2,6 +2,7 @@
 
 - Friend related stuff
 - XP permissions added
+- Ability to start typing
 - Moved users, profiles, etc. to `Guilded.NET.Objects.Users` namespace.
 - Now `client.Me` gets updated
     - Team list gets updated
