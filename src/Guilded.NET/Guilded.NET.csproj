@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Library -->
+    <Product>Guilded.NET</Product>
+    <Version>0.3.0</Version>
+    <Description>API wrapper for Guilded</Description>
+    <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <!-- Authors -->
+    <Authors>IdkGoodName</Authors>
+    <Author>IdkGoodName</Author>
+    <!-- Package -->
+    <PackageId>Guilded.NET</PackageId>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageTags>wrapper,api,chat,guilded,bot,bots</PackageTags>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageProjectUrl>https://guilded-net.github.io/index</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- JSON related dependencies-->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    
+    <!-- Libraries for logging and events -->
+    <PackageReference Include="Serilog" Version="2.10.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
+
+    <!-- API-related stuff -->
+    <PackageReference Include="RestSharp" Version="106.12.0" />
+    <PackageReference Include="Websocket.Client" Version="4.3.35" />
+  </ItemGroup>
+
+  <!-- For NuGet package -->
+  <ItemGroup Condition=" '$(Configuration)' != 'Debug' ">
+    <PackageReference Include="Guilded.NET.Base" Version="0.2.3" />
+  </ItemGroup>
+
+  <!-- For testing purposes -->
+  <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <Reference Include="Guilded.NET.Base">
+      <HintPath>../Guilded.NET.Base/bin/Debug/netstandard2.1/Guilded.NET.Base.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <!-- Files to include to Guilded.NET -->
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+    <None Include="Readme.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>
