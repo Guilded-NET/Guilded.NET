@@ -1,9 +1,5 @@
-using Newtonsoft.Json;
-
 namespace Guilded.NET.Base.Events
 {
-    using Users;
-    using Chat;
     using System;
 
     /// <summary>

@@ -106,20 +106,20 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <param name="title">New title of this post</param>
         /// <param name="message">New content of the post</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task EditAsync(string title, MessageContent message) =>
             await ParentClient.EditForumPostAsync(ChannelId, Id, title, message);
         /// <summary>
         /// Deletes a forum post in a specific channel.
         /// </summary>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task DeleteAsync() =>
             await ParentClient.DeleteForumPostAsync(ChannelId, Id);
         /// <summary>
         /// Replies to a forum post.
         /// </summary>
         /// <param name="content">Content to reply with</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task ReplyAsync(MessageContent content) =>
             await ParentClient.CreateForumReplyAsync(ChannelId, Id, content);
         /// <summary>
@@ -127,7 +127,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <param name="maxItems">Max amount of replies it should get</param>
         /// <param name="afterDate">After which date should it get replies</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>List of replies</returns>
         public async Task<IList<ForumReply>> GetRepliesAsync(uint maxItems = 250, DateTime? afterDate = null) =>
             await ParentClient.GetForumRepliesAsync(ChannelId, Id, maxItems, afterDate);*/

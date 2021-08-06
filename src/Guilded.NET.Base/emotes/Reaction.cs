@@ -58,6 +58,15 @@ namespace Guilded.NET.Base
         }
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Gets whether the reaction was created by a bot or webhook.
+        /// </summary>
+        /// <returns>Created by bot</returns>
+        [JsonIgnore]
+        public bool ByBot => !(CreatedByBot is null) && !(CreatedByWebhook is null);
+        #endregion
+
         #region Overrides
         /// <summary>
         /// Checks if object is equal to this reaction.

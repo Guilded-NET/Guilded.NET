@@ -1,6 +1,5 @@
 using System;
-using System.Threading.Tasks;
-using Guilded.NET.Base.Chat;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
@@ -11,8 +10,9 @@ namespace Guilded.NET.Base.Events
     public class MessageUpdatedEvent : MessageEvent
     {
         /// <summary>
-        /// The date of when the message was updated/edited.
+        /// The date of when the message was edited.
         /// </summary>
+        /// <value>Occurred at</value>
         [JsonIgnore]
         public DateTime OccurredAt => (DateTime)Message.UpdatedAt;
     }

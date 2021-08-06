@@ -101,8 +101,8 @@ namespace Guilded.NET.Base.Teams
         /// Sends a message to the specific channel.
         /// </summary>
         /// <param name="message">Message to send to the channel</param>
-        public async Task SendMessageAsync(string message) =>
-            await ParentClient.SendMessageAsync(Id, message);
+        public async Task CreateMessageAsync(string message) =>
+            await ParentClient.CreateMessageAsync(Id, message);
         /// <summary>
         /// Gets a message in this channel.
         /// </summary>
@@ -111,20 +111,20 @@ namespace Guilded.NET.Base.Teams
         public async Task<Message> GetMessageAsync(Guid messageId) =>
             await ParentClient.GetMessageAsync(Id, messageId);
         /// <summary>
-        /// Deletes a message posted in the chat.
+        /// Deletes a specified message.
         /// </summary>
         /// <param name="messageId">ID of the message to delete</param>
         /// <returns>Response</returns>
         public async Task DeleteMessageAsync(Guid messageId) =>
             await ParentClient.DeleteMessageAsync(Id, messageId);
         /// <summary>
-        /// Edits message of the bot posted in the chat.
+        /// Updates the contents of the message.
         /// </summary>
         /// <param name="messageId">ID of the message to edit</param>
         /// <param name="content">New content of the message to replace old content with</param>
         /// <returns>Response</returns>
-        public async Task EditMessageAsync(Guid messageId, string content) =>
-            await ParentClient.EditMessageAsync(Id, messageId, content);
+        public async Task UpdateMessageAsync(Guid messageId, string content) =>
+            await ParentClient.UpdateMessageAsync(Id, messageId, content);
         #endregion
     }
 }

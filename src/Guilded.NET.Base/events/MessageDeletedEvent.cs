@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events

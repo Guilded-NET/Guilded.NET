@@ -14,30 +14,30 @@ namespace Guilded.NET
     {
         #region Members
         /// <summary>
-        /// Adds a role to the user.
+        /// Adds a role to the given user.
         /// </summary>
-        /// <param name="memberId">ID of the member to give role to</param>
-        /// <param name="roleId">ID of the role to give to the member</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
-        public override async Task GiveRoleAsync(GId memberId, uint roleId) =>
+        /// <param name="memberId">The identifier of the receiving user</param>
+        /// <param name="roleId">The identifier of the role to add</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        public override async Task AddRoleAsync(GId memberId, uint roleId) =>
             await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.PUT);
         /// <summary>
-        /// Removes a role from the user.
+        /// Removes a role from the given user.
         /// </summary>
-        /// <param name="memberId">ID of the member to give role to</param>
-        /// <param name="roleId">ID of the role to give to the member</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <param name="memberId">The identifier of the losing user</param>
+        /// <param name="roleId">The identifier of the role to remove</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public override async Task RemoveRoleAsync(GId memberId, uint roleId) =>
             await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.DELETE);
         /// <summary>
-        /// Gives amount of XP to a user.
+        /// Adds XP to the given user.
         /// </summary>
-        /// <param name="userId">ID of the user to give XP to</param>
-        /// <param name="xpAmount">Amount of XP to give (-1000 to 1000)</param>
-        /// <exception cref="ArgumentException">When xpAmount is too big or too small</exception>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <param name="userId">The identifier of the receiving user</param>
+        /// <param name="xpAmount">The amount of XP received from -1000 to 1000</param>
+        /// <exception cref="ArgumentException">When the amount of XP given exceeds the limit</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Total XP</returns>
-        public override async Task<long> GiveXpAsync(GId userId, short xpAmount)
+        public override async Task<long> AddXpAsync(GId userId, short xpAmount)
         {
             // Checks if it's not too much or too little
             if (xpAmount > 1000 || xpAmount < -1000)
@@ -55,9 +55,9 @@ namespace Guilded.NET
         /// <summary>
         /// Attaches amount of XP required to a role.
         /// </summary>
-        /// <param name="roleId">ID of the role to attach level to</param>
-        /// <param name="amount">Amount of XP required for the role</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <param name="roleId">The identifier of the editing role</param>
+        /// <param name="amount">The amount XP added</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public override async Task AttachRoleLevelAsync(uint roleId, long amount) =>
             await ExecuteRequest($"roles/{roleId}/xp", Method.POST, new
             {
@@ -70,17 +70,17 @@ namespace Guilded.NET
         /// <summary>
         /// Adds a member to the group.
         /// </summary>
-        /// <param name="groupId">ID of the group to add member to</param>
-        /// <param name="memberId">ID of the member to add</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <param name="groupId">The identifier of the parent group</param>
+        /// <param name="memberId">The identifier of the member to add</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public override async Task AddMembershipAsync(GId groupId, GId memberId) =>
             await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.PUT);
         /// <summary>
         /// Removes a member from the group.
         /// </summary>
-        /// <param name="groupId">ID of the group to remove member from</param>
-        /// <param name="memberId">ID of the member to remove</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <param name="groupId">The identifier of the parent group</param>
+        /// <param name="memberId">The identifier of the member to remove</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public override async Task RemoveMembershipAsync(GId groupId, GId memberId) =>
             await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.DELETE);
         #endregion

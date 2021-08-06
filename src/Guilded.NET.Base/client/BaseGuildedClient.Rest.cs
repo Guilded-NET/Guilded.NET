@@ -83,7 +83,7 @@ namespace Guilded.NET.Base
         /// <param name="encodeQuery">Whether to encode all given queries</param>
         /// <param name="query">The dictionary of queries and their values</param>
         /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Request response</returns>
         public async Task<ExecutionResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await SendRequest<object>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers));
@@ -96,7 +96,7 @@ namespace Guilded.NET.Base
         /// <param name="encodeQuery">Whether to encode all given queries</param>
         /// <param name="query">The dictionary of queries and their values</param>
         /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Request response</returns>
         public async Task<ExecutionResponse<object>> ExecuteRequest(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await SendRequest<object>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers));
@@ -108,7 +108,7 @@ namespace Guilded.NET.Base
         /// <param name="encodeQuery">Whether to encode all given queries</param>
         /// <param name="query">The dictionary of queries and their values</param>
         /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Given request</returns>
         private IRestRequest BuildRequest(IRestRequest request, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null)
         {
@@ -132,7 +132,7 @@ namespace Guilded.NET.Base
         /// <param name="filedata">Content of the file</param>
         /// <param name="contentType">Content type for multipart form data</param>
         /// <exception cref="ArgumentException">If argument filename is empty or null</exception>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata, string contentType)
         {
@@ -159,7 +159,7 @@ namespace Guilded.NET.Base
         /// <param name="filename">Path to the file</param>
         /// <param name="filedata">Content of the file</param>
         /// <exception cref="ArgumentException">If argument filename is empty or null</exception>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata)
         {
@@ -174,7 +174,7 @@ namespace Guilded.NET.Base
         /// Uploads an image or a file to Guilded.
         /// </summary>
         /// <param name="url">Link to the image</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(Uri url)
         {

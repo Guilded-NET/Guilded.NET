@@ -31,53 +31,51 @@ namespace Guilded.NET.Base.Chat
         }
         #endregion
 
-
         #region Additional
         /// <summary>
-        /// Responds to this message by sending another message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="content">The contents of the message in rich text markup</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(MessageContent content) =>
-            await ParentClient.SendMessageAsync(ChannelId, content);
+            await ParentClient.CreateMessageAsync(ChannelId, content);
         /// <summary>
-        /// Responds to this message by sending another message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string content) =>
-            await ParentClient.SendMessageAsync(ChannelId, content);
+            await ParentClient.CreateMessageAsync(ChannelId, content);
         /// <summary>
-        /// Responds to this message by sending another message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string format, params object[] args) =>
             await RespondAsync(string.Format(format, args));
         /// <summary>
-        /// Responds to this message by sending another message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IFormatProvider provider, string format, params object[] args) =>
             await RespondAsync(string.Format(provider, format, args));
         /// <summary>
-        /// Responds to this message by sending another message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(object content) =>
             await RespondAsync(content.ToString());
         #endregion
-
 
         #region Overrides
         /// <summary>

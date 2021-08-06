@@ -1,14 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using System.Runtime.Serialization;
-
-using Guilded.NET.Base.Chat;
-using Guilded.NET.Base.Users;
 
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
 {
+    using Chat;
+    using Users;
     /// <summary>
     /// The base for message-related events.
     /// </summary>
@@ -26,53 +24,56 @@ namespace Guilded.NET.Base.Events
         }
         #endregion
         
-        #region Additional
+        #region Properties
         /// <summary>
         /// The identifier of the channel where the message was posted.
         /// </summary>
         /// <value>Channel ID</value>
         [JsonIgnore]
         public Guid ChannelId => Message.ChannelId;
+        #endregion
+
+        #region Additional
         /// <summary>
-        /// Sends a new message in the same channel as a response to this message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="content">The contents of the message in rich text markup</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(MessageContent content) =>
             await Message.RespondAsync(content);
         /// <summary>
-        /// Sends a new message in the same channel as a response to this message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string content) =>
             await Message.RespondAsync(content);
         /// <summary>
-        /// Sends a new message in the same channel as a response to this message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string format, params object[] args) =>
             await RespondAsync(string.Format(format, args));
         /// <summary>
-        /// Sends a new message in the same channel as a response to this message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IFormatProvider provider, string format, params object[] args) =>
             await RespondAsync(string.Format(provider, format, args));
         /// <summary>
-        /// Sends a new message in the same channel as a response to this message.
+        /// Creates a new message in same channel as a response.
         /// </summary>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(object content) =>
             await RespondAsync(content.ToString());
@@ -83,7 +84,19 @@ namespace Guilded.NET.Base.Events
     /// </summary>
     public class MessageEvent : MessageEvent<Message>
     {
-        #region Additional
+        #region Properties
+        /// <summary>
+        /// Gets whether the message was posted by a bot or webhook.
+        /// </summary>
+        /// <returns>Created by bot</returns>
+        [JsonIgnore]
+        public bool ByBot => Message.ByBot;
+        /// <summary>
+        /// The contents of this message as a Markdown string.
+        /// </summary>
+        /// <value>Content</value>
+        [JsonIgnore]
+        public string Content => Message.Content;
         /// <summary>
         /// The identifier of the author of this message.
         /// </summary>
@@ -102,67 +115,70 @@ namespace Guilded.NET.Base.Events
         /// <value>Bot ID?</value>
         [JsonIgnore]
         public Guid? CreatedByBot => Message.CreatedByBot;
+        #endregion
+
+        #region Additional
         /// <summary>
         /// Gets whether this message was posted by the given user.
         /// </summary>
-        /// <param name="user">User to check</param>
-        /// <returns>Message by that user</returns>
+        /// <param name="user">The potential author of the message</param>
+        /// <returns>Message by user</returns>
         public bool Of(BaseUser user) =>
             Message.Of(user);
         /// <summary>
-        /// Edits the content of this message.
+        /// Updates the contents of the message.
         /// </summary>
         /// <param name="content">The new content of the message in rich text markup</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message edited</returns>
-        public async Task<Message> EditMessageAsync(MessageContent content) =>
-            await Message.EditMessageAsync(content);
+        public async Task<Message> UpdateMessageAsync(MessageContent content) =>
+            await Message.UpdateMessageAsync(content);
         /// <summary>
-        /// Edits the content of this message.
+        /// Updates the contents of the message.
         /// </summary>
         /// <param name="content">The new content of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message edited</returns>
-        public async Task<Message> EditMessageAsync(string content) =>
-            await Message.EditMessageAsync(content);
+        public async Task<Message> UpdateMessageAsync(string content) =>
+            await Message.UpdateMessageAsync(content);
         /// <summary>
-        /// Edits the content of this message.
+        /// Updates the contents of the message.
         /// </summary>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message edited</returns>
-        public async Task<Message> EditMessageAsync(string format, params object[] args) =>
-            await EditMessageAsync(string.Format(format, args));
+        public async Task<Message> UpdateMessageAsync(string format, params object[] args) =>
+            await UpdateMessageAsync(string.Format(format, args));
         /// <summary>
-        /// Edits the content of this message.
+        /// Updates the contents of the message.
         /// </summary>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message edited</returns>
-        public async Task<Message> EditMessageAsync(IFormatProvider provider, string format, params object[] args) =>
-            await EditMessageAsync(string.Format(provider, format, args));
+        public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, params object[] args) =>
+            await UpdateMessageAsync(string.Format(provider, format, args));
         /// <summary>
-        /// Edits the content of this message.
+        /// Updates the contents of the message.
         /// </summary>
         /// <param name="content">The new content of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message edited</returns>
-        public async Task<Message> EditMessageAsync(object content) =>
-            await EditMessageAsync(content.ToString());
+        public async Task<Message> UpdateMessageAsync(object content) =>
+            await UpdateMessageAsync(content.ToString());
         /// <summary>
         /// Deletes this message.
         /// </summary>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task DeleteMessageAsync() =>
             await Message.DeleteMessageAsync();
         /// <summary>
         /// Adds a reaction to this message.
         /// </summary>
         /// <param name="emoteId">ID of the emote to add</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Reaction added</returns>
         public async Task<Reaction> AddReactionAsync(uint emoteId) =>
             await Message.AddReactionAsync(emoteId);
@@ -170,7 +186,7 @@ namespace Guilded.NET.Base.Events
         /// Removes a reaction from this message.
         /// </summary>
         /// <param name="emoteId">ID of the emote to remove</param>
-        /// <exception cref="GuildedException">Exception thrown by Guilded API</exception>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task RemoveReactionAsync(uint emoteId) =>
             await Message.RemoveReactionAsync(emoteId);
         #endregion
