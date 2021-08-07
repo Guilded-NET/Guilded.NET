@@ -12,15 +12,16 @@ namespace Guilded.NET.Base
     {
         internal static readonly Type colour = typeof(Color);
         /// <summary>
-        /// Writes a <see cref="GId"/> value to JSON object.
+        /// Writes a <see cref="Color"/> value to JSON object.
         /// </summary>
         /// <param name="writer">The writer to write to</param>
         /// <param name="value">The value</param>
         /// <param name="serializer">The calling serializer</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
-            writer.WriteValue(((Color)value).ToArgb());
+            // Converts it to ARGB and filters out Alpha channel, to leave out RGB only
+            writer.WriteValue(((Color)value).ToArgb() & 0xFFFFFF);
         /// <summary>
-        /// Reads the given value as <see cref="GId"/>.
+        /// Reads the given value as <see cref="Color"/>.
         /// </summary>
         /// <param name="reader">Reader</param>
         /// <param name="objectType">Type of the object</param>
