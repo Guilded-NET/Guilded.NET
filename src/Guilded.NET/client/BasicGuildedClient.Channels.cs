@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using RestSharp;
 
 namespace Guilded.NET
@@ -16,6 +15,8 @@ namespace Guilded.NET
     /// </summary>
     public abstract partial class BasicGuildedClient
     {
+        private const int messageLimit = 4000;
+
         #region Webhook
         /// <summary>
         /// Creates a webhook in a given channel.
@@ -112,9 +113,18 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message created</returns>
-        public override async Task<Message> CreateMessageAsync(Guid channelId, string content) =>
-            await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content });
+        public override async Task<Message> CreateMessageAsync(Guid channelId, string content)
+        {
+            // Don't allow to send empty messages
+            if(string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
+            // Make sure it is on the limit
+            else if(content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            // Creates a new message
+            return await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content });
+        }
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -132,9 +142,18 @@ namespace Guilded.NET
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The new content of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message edited</returns>
-        public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content) =>
-            await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content });
+        public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content)
+        {
+            // Don't allow to send empty messages
+            if(string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
+            // Make sure it is on the limit
+            else if(content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            // Update the message
+            return await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content });
+        }
         /// <summary>
         /// Deletes a specified message.
         /// </summary>

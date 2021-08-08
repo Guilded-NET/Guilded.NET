@@ -8,13 +8,14 @@ namespace Guilded.NET.Converters
 {
     using Base.Chat;
     /// <summary>
-    /// Converts JSON objects to nodes.
+    /// Converts JSON to rich text markup objects.
     /// </summary>
-    public class NodeConverter : JsonConverter
+    public class RichTextConverter : JsonConverter
     {
         static readonly Type node = typeof(Node);
-        static readonly Type msgobj = typeof(ChatElement);
-        static readonly IDictionary<string, Type> types = new Dictionary<string, Type> {
+        static readonly Type element = typeof(ChatElement);
+        static readonly IDictionary<string, Type> types = new Dictionary<string, Type>
+        {
             {"paragraph", typeof(Paragraph)},
             {"link", typeof(Hyperlink)},
             {"block-quote-container", typeof(BlockQuote)},
@@ -34,7 +35,8 @@ namespace Guilded.NET.Converters
             {"channel", typeof(ChannelMention)},
             {"image", typeof(Image)}
         };
-        static readonly IDictionary<string, Type> objs = new Dictionary<string, Type> {
+        static readonly IDictionary<string, Type> objs = new Dictionary<string, Type>
+        {
             {"text", typeof(TextContainer)},
             {"mark", typeof(Mark)},
             {"leaf", typeof(Leaf)}
@@ -45,20 +47,20 @@ namespace Guilded.NET.Converters
         /// <value>False</value>
         public override bool CanWrite => false;
         /// <summary>
-        /// Writes node to the JSON.
+        /// Writes given object as JSON.
         /// </summary>
-        /// <param name="writer">JsonWriter</param>
-        /// <param name="value">ID</param>
-        /// <param name="serializer">Serializer</param>
+        /// <param name="writer">The writer to use to write to JSON</param>
+        /// <param name="value">The object to write to JSON</param>
+        /// <param name="serializer">The serializer that is serializing the object</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => writer.WriteValue(JObject.FromObject(value));
         /// <summary>
-        /// Converts object to node.
+        /// Reads the given JSON object as <see cref="ChatElement"/>.
         /// </summary>
-        /// <param name="reader">Reader</param>
-        /// <param name="objectType">Type of the object</param>
-        /// <param name="existingValue">Previous property value</param>
-        /// <param name="serializer">Serializer</param>
-        /// <returns>GId</returns>
+        /// <param name="reader">The reader that was used to read JSON</param>
+        /// <param name="objectType">The type of the object to convert</param>
+        /// <param name="existingValue">The previous value of the property being converted</param>
+        /// <param name="serializer">The serializer that is deserializing the object</param>
+        /// <returns><see cref="ChatElement"/></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject obj = JObject.Load(reader);
@@ -78,10 +80,10 @@ namespace Guilded.NET.Converters
             else return obj.ToObject(objs[objparam], serializer);
         }
         /// <summary>
-        /// Whether this converter can convert given type.
+        /// Returns whether the converter supports converting the given type.
         /// </summary>
-        /// <param name="objectType">Type of the object</param>
-        /// <returns>Can convert the type</returns>
-        public override bool CanConvert(Type objectType) => objectType == node || objectType == msgobj;
+        /// <param name="objectType">The type of object that potentially can be converted</param>
+        /// <returns>Type can be converted</returns>
+        public override bool CanConvert(Type objectType) => objectType == node || objectType == element;
     }
 }

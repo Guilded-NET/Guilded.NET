@@ -188,22 +188,22 @@ namespace Guilded.NET.Base.Permissions
         public static PermissionList operator -(PermissionList first, PermissionList second) =>
             new PermissionList
             {
+                Xp = Substract(first?.Xp, second?.Xp),
                 Chat = Substract(first?.Chat, second?.Chat),
-                General = Substract(first?.General, second?.General),
-                Voice = Substract(first?.Voice, second?.Voice),
                 Docs = Substract(first?.Docs, second?.Docs),
+                Voice = Substract(first?.Voice, second?.Voice),
                 Forms = Substract(first?.Forms, second?.Forms),
                 Lists = Substract(first?.Lists, second?.Lists),
                 Media = Substract(first?.Media, second?.Media),
                 Forums = Substract(first?.Forums, second?.Forums),
+                General = Substract(first?.General, second?.General),
                 Streams = Substract(first?.Streams, second?.Streams),
                 Calendar = Substract(first?.Calendar, second?.Calendar),
                 Scheduling = Substract(first?.Scheduling, second?.Scheduling),
                 Matchmaking = Substract(first?.Matchmaking, second?.Matchmaking),
                 Recruitment = Substract(first?.Recruitment, second?.Recruitment),
                 Announcements = Substract(first?.Announcements, second?.Announcements),
-                Customization = Substract(first?.Customization, second?.Customization),
-                Xp = Substract(first?.Xp, second?.Xp)
+                Customization = Substract(first?.Customization, second?.Customization)
             };
         /// <summary>
         /// Used to concat and check 2 enum values.

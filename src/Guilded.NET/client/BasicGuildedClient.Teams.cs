@@ -34,22 +34,21 @@ namespace Guilded.NET
         /// </summary>
         /// <param name="userId">The identifier of the receiving user</param>
         /// <param name="xpAmount">The amount of XP received from -1000 to 1000</param>
-        /// <exception cref="ArgumentException">When the amount of XP given exceeds the limit</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Total XP</returns>
         public override async Task<long> AddXpAsync(GId userId, short xpAmount)
         {
             // Checks if it's not too much or too little
             if (xpAmount > 1000 || xpAmount < -1000)
-                throw new ArgumentException($"Expected {nameof(xpAmount)} to be between 1000 and -1000, but got {xpAmount} instead");
+                throw new ArgumentOutOfRangeException($"Expected {nameof(xpAmount)} to be between 1000 and -1000, but got {xpAmount} instead");
             // Gives XP to the user
-            return await GetObject<long>($"members/{userId}/xp", Method.POST, key: "total", new
+            return await GetObject<long>($"members/{userId}/xp", Method.POST, "total", new
             {
                 amount = xpAmount
             });
         }
         #endregion
-
 
         #region Roles
         /// <summary>
@@ -64,7 +63,6 @@ namespace Guilded.NET
                 amount
             });
         #endregion
-
 
         #region Groups
         /// <summary>

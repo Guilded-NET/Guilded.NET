@@ -45,6 +45,8 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string content) =>
             await ParentClient.CreateMessageAsync(ChannelId, content);
@@ -54,6 +56,8 @@ namespace Guilded.NET.Base.Chat
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string format, params object[] args) =>
             await RespondAsync(string.Format(format, args));
@@ -64,6 +68,8 @@ namespace Guilded.NET.Base.Chat
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IFormatProvider provider, string format, params object[] args) =>
             await RespondAsync(string.Format(provider, format, args));
@@ -72,6 +78,8 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(object content) =>
             await RespondAsync(content.ToString());

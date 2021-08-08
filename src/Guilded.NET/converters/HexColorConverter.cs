@@ -18,11 +18,11 @@ namespace Guilded.NET.Converters
         /// <value>False</value>
         public override bool CanRead => false;
         /// <summary>
-        /// Writes colour as RGB colour(hex) or as "transparent".
+        /// Writes given object as JSON.
         /// </summary>
-        /// <param name="writer">JsonWriter</param>
-        /// <param name="value">Colour to convert</param>
-        /// <param name="serializer">Serializer</param>
+        /// <param name="writer">The writer to use to write to JSON</param>
+        /// <param name="value">The object to write to JSON</param>
+        /// <param name="serializer">The serializer that is serializing the object</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             Color col = (Color)value;
@@ -33,20 +33,20 @@ namespace Guilded.NET.Converters
             ));
         }
         /// <summary>
-        /// 
+        /// Reads the given JSON object as <see cref="Color"/>.
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="objectType"></param>
-        /// <param name="existingValue"></param>
-        /// <param name="serializer"></param>
+        /// <param name="reader">The reader that was used to read JSON</param>
+        /// <param name="objectType">The type of the object to convert</param>
+        /// <param name="existingValue">The previous value of the property being converted</param>
+        /// <param name="serializer">The serializer that is deserializing the object</param>
         /// <returns></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) =>
-            throw new InvalidOperationException("This converter does not support reading.");
+            throw new NotSupportedException("This converter does not support reading.");
         /// <summary>
-        /// Checks if objectType can be written.
+        /// Returns whether the converter supports converting the given type.
         /// </summary>
-        /// <param name="objectType">Type of the object to check</param>
-        /// <returns>Can convert type</returns>
+        /// <param name="objectType">The type of object that potentially can be converted</param>
+        /// <returns>Type can be converted</returns>
         public override bool CanConvert(Type objectType) =>
             objectType == colour;
     }

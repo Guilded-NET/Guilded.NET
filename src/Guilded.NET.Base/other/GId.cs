@@ -14,17 +14,17 @@ namespace Guilded.NET.Base
     {
         internal readonly string _;
         private const int idLength = 8;
-        private static readonly string availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        internal static readonly InvalidIdException IdParseException = new InvalidIdException("Could not parse the given ID string.");
+        private const string availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        internal static readonly FormatException FormatError = new FormatException("The given ID string is in incorrect format.");
         /// <summary>
         /// The identifier for Guilded teams, users, etc.
         /// </summary>
-        /// <param name="id">String which represents Guilded identifier</param>
-        /// <exception cref="InvalidIdException">String couldn't be parsed</exception>
+        /// <param name="id">The raw string in the format of Guilded ID</param>
+        /// <exception cref="FormatException">When the given ID string is in incorrect format</exception>
         public GId(string id)
         {
             // Makes sure that given string is in correct format
-            if (id?.Length != idLength || !IsCorrect(id)) throw IdParseException;
+            if (id?.Length != idLength || !Check(id)) throw FormatError;
             // Assigns base string
             _ = id;
         }
@@ -76,14 +76,14 @@ namespace Guilded.NET.Base
 
         #region Static methods
         /// <summary>
-        /// Checks if all characters in the string are in AvailableChars string.
+        /// Checks if given string is in correct format.
         /// </summary>
-        /// <param name="str">String to check</param>
-        /// <returns>Correct</returns>
-        private static bool IsCorrect(string str)
+        /// <param name="str">The raw string to check</param>
+        /// <returns>Correct formatting</returns>
+        public static bool Check(string str)
         {
-            // If string is empty, return false
-            if (string.IsNullOrWhiteSpace(str)) return false;
+            // If string is empty or isn't in 8 characters, return false
+            if (string.IsNullOrWhiteSpace(str) || str.Length != 8) return false;
             // Get every character in the string
             foreach (char c in str)
                 // If AvailableChars doesn't have this character, return false

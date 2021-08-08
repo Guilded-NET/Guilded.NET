@@ -9,7 +9,7 @@ namespace Guilded.NET.Util
     /// </summary>
     public static class MediaUtil
     {
-        private static readonly string serverChars = "abcdefghijklmnopqrstuvwxyz0123456789";
+        private const string serverChars = "abcdefghijklmnopqrstuvwxyz0123456789";
         /// <summary>
         /// All default avatar URLs.
         /// </summary>

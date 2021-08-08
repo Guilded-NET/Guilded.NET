@@ -10,27 +10,27 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The identifier for forms and media uploads.
     /// </summary>
-    [TypeConverter(typeof(GIdConverter))]
+    [TypeConverter(typeof(FormIdConverter))]
     [JsonConverter(typeof(IdConverter))]
     public struct FormId : IEquatable<FormId>
     {
         internal readonly string _;
-        private static readonly int partLength = 7;
+        private const int partLength = 7;
         private static readonly Random random = new Random();
         /// <summary>
-        /// Creates a random form ID.
+        /// Creates a random value of <see cref="FormId"/>.
         /// </summary>
         /// <value>New form ID</value>
         public static FormId Random => new FormId($"r-{random.Next(1000000, 9999999)}-{random.Next(1000000, 9999999)}");
         /// <summary>
-        /// Represents form and media upload identifierss.
+        /// The identifier for forms and media uploads.
         /// </summary>
-        /// <param name="id">String which represents form identifier</param>
-        /// <exception cref="InvalidIdException">String couldn't be parsed</exception>
+        /// <param name="id">The raw string in the format of Form/Media ID</param>
+        /// <exception cref="FormatException">When the given ID string is in incorrect format</exception>
         public FormId(string id)
         {
             // Makes sure that given string is in correct format
-            if (!IsCorrect(id)) throw GId.IdParseException;
+            if (!Check(id)) throw GId.FormatError;
             // Assigns base string
             _ = id;
         }
@@ -82,11 +82,11 @@ namespace Guilded.NET.Base
 
         #region Static methods
         /// <summary>
-        /// Checks if all characters in the string are in AvailableChars string.
+        /// Checks if given string is in correct format.
         /// </summary>
-        /// <param name="str">String to check</param>
-        /// <returns>Correct</returns>
-        private static bool IsCorrect(string str)
+        /// <param name="str">The raw string to check</param>
+        /// <returns>Correct formatting</returns>
+        public static bool Check(string str)
         {
             // If string is empty, return false
             if (string.IsNullOrWhiteSpace(str)) return false;

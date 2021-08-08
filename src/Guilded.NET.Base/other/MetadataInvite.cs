@@ -13,7 +13,7 @@ namespace Guilded.NET.Base
         /// Who created the invite.
         /// </summary>
         /// <value>Invited by user ID</value>
-        [JsonProperty( Required = Required.Always)]
+        [JsonProperty(Required = Required.Always)]
         public GId CreatedBy
         {
             get; set;

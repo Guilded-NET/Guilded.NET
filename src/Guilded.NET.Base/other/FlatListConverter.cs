@@ -13,11 +13,11 @@ namespace Guilded.NET.Base
     public class FlatListConverter : JsonConverter
     {
         /// <summary>
-        /// Writes specific object to the JSON.
+        /// Writes given object as JSON.
         /// </summary>
-        /// <param name="writer">JsonWriter</param>
-        /// <param name="value">A list or an array</param>
-        /// <param name="serializer">Serializer</param>
+        /// <param name="writer">The writer to use to write to JSON</param>
+        /// <param name="value">The object to write to JSON</param>
+        /// <param name="serializer">The serializer that is serializing the object</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) {
             // Converts object to the list
             IList<object> objList = (IList<object>)value;
@@ -33,13 +33,13 @@ namespace Guilded.NET.Base
             }
         }
         /// <summary>
-        /// Converts json to an object of a specific type.
+        /// Reads the given JSON value or array as <see cref="Array"/>.
         /// </summary>
-        /// <param name="reader">Reader</param>
-        /// <param name="objectType">Type of the object</param>
-        /// <param name="existingValue">Previous property value</param>
-        /// <param name="serializer">Serializer</param>
-        /// <returns>Read object</returns>
+        /// <param name="reader">The reader that was used to read JSON</param>
+        /// <param name="objectType">The type of the object to convert</param>
+        /// <param name="existingValue">The previous value of the property being converted</param>
+        /// <param name="serializer">The serializer that is deserializing the object</param>
+        /// <returns><see cref="Array"/></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             // Gets it as a token
@@ -55,10 +55,10 @@ namespace Guilded.NET.Base
             }
         }
         /// <summary>
-        /// Whether this converter can convert given type.
+        /// Returns whether the converter supports converting the given type.
         /// </summary>
-        /// <param name="objectType">Type of the object</param>
-        /// <returns>Can convert the type</returns>
+        /// <param name="objectType">The type of object that potentially can be converted</param>
+        /// <returns>Type can be converted</returns>
         public override bool CanConvert(Type objectType) =>
             false;
     }

@@ -69,8 +69,8 @@ namespace Guilded.NET
                 .WriteTo.Console()
                 .CreateLogger();
             Converters = new JsonConverter[] {
-                new NodeConverter(),
-                new MiscConverter(),
+                new RichTextConverter(),
+                new ContentConverter(),
                 new HexColorConverter()
             };
             // Adds default converters

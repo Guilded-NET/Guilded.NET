@@ -12,52 +12,75 @@ namespace Guilded.NET.Base
     {
         internal static readonly Type gid = typeof(GId), formId = typeof(FormId);
         /// <summary>
-        /// Writes a <see cref="GId"/> value to JSON object.
+        /// Writes given object as JSON.
         /// </summary>
-        /// <param name="writer">The writer to write to</param>
-        /// <param name="value">The value</param>
-        /// <param name="serializer">The calling serializer</param>
+        /// <param name="writer">The writer to use to write to JSON</param>
+        /// <param name="value">The object to write to JSON</param>
+        /// <param name="serializer">The serializer that is serializing the object</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
             writer.WriteValue(value.ToString());
         /// <summary>
-        /// Reads the given value as <see cref="GId"/>.
+        /// Reads the given JSON object as <see cref="GId"/> or <see cref="FormId"/>.
         /// </summary>
-        /// <param name="reader">Reader</param>
-        /// <param name="objectType">Type of the object</param>
-        /// <param name="existingValue">Previous property value</param>
-        /// <param name="serializer">Serializer</param>
-        /// <returns><see cref="GId"/> from JSON</returns>
+        /// <param name="reader">The reader that was used to read JSON</param>
+        /// <param name="objectType">The type of the object to convert</param>
+        /// <param name="existingValue">The previous value of the property being converted</param>
+        /// <param name="serializer">The serializer that is deserializing the object</param>
+        /// <returns><see cref="GId"/> | <see cref="FormId"/></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) =>
-            new GId((string)reader.Value);
+            objectType == gid ? (object)new GId((string)reader.Value) : new FormId((string)reader.Value);
         /// <summary>
-        /// Whether this converter can convert given type.
+        /// Returns whether the converter supports converting the given type.
         /// </summary>
-        /// <param name="objectType">Type of the object</param>
-        /// <returns>Can convert the type</returns>
+        /// <param name="objectType">The type of object that potentially can be converted</param>
+        /// <returns>Type can be converted</returns>
         public override bool CanConvert(Type objectType) =>
             objectType == gid;
     }
     /// <summary>
-    /// Converts string to ID for property names.
+    /// Converts a value to <see cref="GId"/> where it is expected.
     /// </summary>
     public class GIdConverter : TypeConverter
     {
         /// <summary>
-        /// Whether it can convert to ID based on context and type.
+        /// Whether the type can be converted to <see cref="GId"/>.
         /// </summary>
-        /// <param name="context">Descriptor context for converter</param>
-        /// <param name="sourceType">Type found in the source</param>
+        /// <param name="context">The descriptor context for converter</param>
+        /// <param name="sourceType">The type found in the source</param>
         /// <returns>Can convert</returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) =>
             sourceType == typeof(string);
         /// <summary>
-        /// Converts string to ID.
+        /// Converts string to <see cref="GId"/>.
         /// </summary>
-        /// <param name="context">Descriptor context for converter</param>
-        /// <param name="culture">Date localization culture</param>
-        /// <param name="value">Value to convert to ID</param>
-        /// <returns>Guilded ID</returns>
+        /// <param name="context">The descriptor context for converter</param>
+        /// <param name="culture">The current date localization culture</param>
+        /// <param name="value">The string to convert</param>
+        /// <returns><see cref="GId"/> from string</returns>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) =>
             new GId((string)value);
+    }
+    /// <summary>
+    /// Converts a value to <see cref="FormId"/> where it is expected.
+    /// </summary>
+    public class FormIdConverter : TypeConverter
+    {
+        /// <summary>
+        /// Whether the type can be converted to <see cref="FormId"/>.
+        /// </summary>
+        /// <param name="context">The descriptor context for converter</param>
+        /// <param name="sourceType">The type found in the source</param>
+        /// <returns>Can convert</returns>
+        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) =>
+            sourceType == typeof(string);
+        /// <summary>
+        /// Converts string to <see cref="FormId"/>.
+        /// </summary>
+        /// <param name="context">The descriptor context for converter</param>
+        /// <param name="culture">The current date localization culture</param>
+        /// <param name="value">The string to convert</param>
+        /// <returns><see cref="FormId"/> from string</returns>
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) =>
+            new FormId((string)value);
     }
 }

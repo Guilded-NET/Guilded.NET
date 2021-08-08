@@ -67,32 +67,32 @@ namespace Guilded.NET.Base.Chat
         {
             get; set;
         }
-        /// <summary>
-        /// Whether this message is pinned or not.
-        /// </summary>
-        /// <value>Pinned</value>
-        [DefaultValue(false)]
-        public bool IsPinned
-        {
-            get; set;
-        }
-        /// <summary>
-        /// The identifier of the user who pinned this message.
-        /// </summary>
-        /// <value>User ID?</value>
-        public GId? PinnedBy
-        {
-            get; set;
-        }
-        /// <summary>
-        /// A list of all reactions on this message.
-        /// </summary>
-        /// <value>Reactions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public IList<Reaction> Reactions
-        {
-            get; set;
-        } = new List<Reaction>();
+        // /// <summary>
+        // /// Whether this message is pinned or not.
+        // /// </summary>
+        // /// <value>Pinned</value>
+        // [DefaultValue(false)]
+        // public bool IsPinned
+        // {
+        //     get; set;
+        // }
+        // /// <summary>
+        // /// The identifier of the user who pinned this message.
+        // /// </summary>
+        // /// <value>User ID?</value>
+        // public GId? PinnedBy
+        // {
+        //     get; set;
+        // }
+        // /// <summary>
+        // /// A list of all reactions on this message.
+        // /// </summary>
+        // /// <value>Reactions</value>
+        // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        // public IList<Reaction> Reactions
+        // {
+        //     get; set;
+        // } = new List<Reaction>();
         #endregion
 
         #region Properties
@@ -118,6 +118,8 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="content">The new content of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(string content) =>
             await ParentClient.UpdateMessageAsync(ChannelId, Id, content);
@@ -127,6 +129,8 @@ namespace Guilded.NET.Base.Chat
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(string format, params object[] args) =>
             await UpdateMessageAsync(string.Format(format, args));
@@ -137,6 +141,8 @@ namespace Guilded.NET.Base.Chat
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, params object[] args) =>
             await UpdateMessageAsync(string.Format(provider, format, args));
@@ -145,6 +151,8 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="content">The new content of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(object content) =>
             await UpdateMessageAsync(content);

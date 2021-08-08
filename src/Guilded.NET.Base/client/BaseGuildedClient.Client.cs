@@ -100,8 +100,11 @@ namespace Guilded.NET.Base
         protected BaseGuildedClient(Uri apiUrl)
         {
             // Enables errors and warnings
-            EnabledLogLevels = new HashSet<LogEventLevel>() {
-                LogEventLevel.Fatal, LogEventLevel.Error, LogEventLevel.Warning
+            EnabledLogLevels = new HashSet<LogEventLevel>()
+            {
+                LogEventLevel.Fatal,
+                LogEventLevel.Error,
+                LogEventLevel.Warning
             };
             // Creates loggers
             WebsocketLogger = new LoggerConfiguration()

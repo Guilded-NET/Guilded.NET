@@ -11,7 +11,6 @@ namespace Guilded.NET.Base.Chat
     /// </summary>
     public abstract class Node : ChatElement
     {
-        internal static readonly JObject EmptyData = JObject.Parse("{}");
         /// <summary>
         /// Type of the node.
         /// </summary>

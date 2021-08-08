@@ -14,35 +14,30 @@ namespace Guilded.NET.Converters
     /// <summary>
     /// Converts specific interface types.
     /// </summary>
-    public class MiscConverter : JsonConverter
+    public class ContentConverter : JsonConverter
     {
-        private static readonly Type channel = typeof(BaseChannel);
-        private static readonly Type teamChannel = typeof(TeamChannel);
-        private static readonly Type formResponseField = typeof(FormResponseField);
-        private static readonly Type reply = typeof(Reply);
-        // All of the allowed types
-        private static readonly Type[] allowed = new Type[] { channel, teamChannel, formResponseField, reply };
+        private static readonly Type channel = typeof(BaseChannel), teamChannel = typeof(TeamChannel), formResponseField = typeof(FormResponseField), reply = typeof(Reply);
         /// <summary>
-        /// Writes specific object to the JSON.
+        /// Writes given object as JSON.
         /// </summary>
-        /// <param name="writer">JsonWriter</param>
-        /// <param name="value">Object to convert</param>
-        /// <param name="serializer">Serializer</param>
+        /// <param name="writer">The writer to use to write to JSON</param>
+        /// <param name="value">The object to write to JSON</param>
+        /// <param name="serializer">The serializer that is serializing the object</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
             writer.WriteValue(value is FormResponseField field && !(field.TextValue is null) ? JToken.FromObject(field.TextValue) : JObject.FromObject(value));
         /// <summary>
-        /// Converts string to a specific type.
+        /// Reads the given JSON object as <see cref="Reply"/>, <see cref="FormField"/> or <see cref="BaseChannel"/>.
         /// </summary>
-        /// <param name="reader">Reader</param>
-        /// <param name="objectType">Type of the object</param>
-        /// <param name="existingValue">Previous property value</param>
-        /// <param name="serializer">Serializer</param>
-        /// <returns></returns>
+        /// <param name="reader">The reader that was used to read JSON</param>
+        /// <param name="objectType">The type of the object to convert</param>
+        /// <param name="existingValue">The previous value of the property being converted</param>
+        /// <param name="serializer">The serializer that is deserializing the object</param>
+        /// <returns><see cref="Reply"/> | <see cref="FormField"/> | <see cref="BaseChannel"/></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JToken tkn = JToken.Load(reader);
+            JToken token = JToken.Load(reader);
             // Get it as an object
-            JObject obj = tkn as JObject;
+            JObject obj = token as JObject;
             // If it's a channel type
             if (objectType == channel || objectType == teamChannel)
             {
@@ -62,19 +57,19 @@ namespace Guilded.NET.Converters
                 else return obj.ToObject<Category>(serializer);
                 // If it's a form response field
             }
-            // else if (objectType == formResponseField)
-            //     return
-            //     tkn.Type == JTokenType.String ?
-            //         // If token is a string
-            //         new FormResponseField
-            //         {
-            //             TextValue = ((JValue)tkn).Value<string>()
-            //         } :
-            //         // Else, it's an object
-            //         new FormResponseField
-            //         {
-            //             OptionName = FormId.Parse(obj["optionName"].Value<string>())
-            //         };
+            else if (objectType == formResponseField)
+                return
+                token.Type == JTokenType.String ?
+                    // If token is a string
+                    new FormResponseField
+                    {
+                        TextValue = ((JValue)token).Value<string>()
+                    } :
+                    // Else, it's an object
+                    new FormResponseField
+                    {
+                        OptionName = new FormId(obj["optionName"].Value<string>())
+                    };
             else if (objectType == reply)
                 // If it contains `repliesTo`, it's a forum reply
                 if (obj.ContainsKey("repliesTo")) return obj.ToObject<ForumReply>(serializer);
@@ -86,11 +81,11 @@ namespace Guilded.NET.Converters
             else return null;
         }
         /// <summary>
-        /// Whether this converter can convert given type.
+        /// Returns whether the converter supports converting the given type.
         /// </summary>
-        /// <param name="objectType">Type of the object</param>
-        /// <returns>Can convert the type</returns>
+        /// <param name="objectType">The type of object that potentially can be converted</param>
+        /// <returns>Type can be converted</returns>
         public override bool CanConvert(Type objectType) =>
-            allowed.Contains(objectType);
+            objectType == channel || objectType == teamChannel || objectType == formResponseField || objectType == reply;
     }
 }

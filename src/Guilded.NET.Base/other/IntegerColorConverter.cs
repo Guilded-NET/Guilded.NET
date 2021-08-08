@@ -12,22 +12,22 @@ namespace Guilded.NET.Base
     {
         internal static readonly Type colour = typeof(Color);
         /// <summary>
-        /// Writes a <see cref="Color"/> value to JSON object.
+        /// Writes given object as JSON.
         /// </summary>
-        /// <param name="writer">The writer to write to</param>
-        /// <param name="value">The value</param>
-        /// <param name="serializer">The calling serializer</param>
+        /// <param name="writer">The writer to use to write to JSON</param>
+        /// <param name="value">The object to write to JSON</param>
+        /// <param name="serializer">The serializer that is serializing the object</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
             // Converts it to ARGB and filters out Alpha channel, to leave out RGB only
             writer.WriteValue(((Color)value).ToArgb() & 0xFFFFFF);
         /// <summary>
-        /// Reads the given value as <see cref="Color"/>.
+        /// Reads the given JSON object as <see cref="Color"/>.
         /// </summary>
-        /// <param name="reader">Reader</param>
-        /// <param name="objectType">Type of the object</param>
-        /// <param name="existingValue">Previous property value</param>
-        /// <param name="serializer">Serializer</param>
-        /// <returns><see cref="Color"/> from JSON</returns>
+        /// <param name="reader">The reader that was used to read JSON</param>
+        /// <param name="objectType">The type of the object to convert</param>
+        /// <param name="existingValue">The previous value of the property being converted</param>
+        /// <param name="serializer">The serializer that is deserializing the object</param>
+        /// <returns><see cref="Color"/></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JToken token = JToken.Load(reader);
@@ -38,10 +38,10 @@ namespace Guilded.NET.Base
             else return default(Color);
         }
         /// <summary>
-        /// Whether this converter can convert given type.
+        /// Returns whether the converter supports converting the given type.
         /// </summary>
-        /// <param name="objectType">Type of the object</param>
-        /// <returns>Can convert the type</returns>
+        /// <param name="objectType">The type of object that potentially can be converted</param>
+        /// <returns>Type can be converted</returns>
         public override bool CanConvert(Type objectType) =>
             objectType == colour;
     }
