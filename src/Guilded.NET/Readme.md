@@ -1,4 +1,4 @@
-[![Banner](https://raw.githubusercontent.com/Guilded-NET/Guilded.NET/main/assets/BannerGithub.png)](https://github.com/Guilded-NET/Guilded.NET)
+[![Banner](https://raw.githubusercontent.com/Guilded-NET/Guilded.NET/early-access/assets/BannerGithub.png)](https://github.com/Guilded-NET/Guilded.NET)
 
 # Guilded.NET
 
