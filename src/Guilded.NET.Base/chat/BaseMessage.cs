@@ -35,6 +35,14 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Creates a new message in same channel as a response.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.RespondAsync(new MessageContent(
+        ///     new BlockQuote(message.ToString()),
+        ///     new Paragraph("Done!")    
+        /// ));
+        /// </code>
+        /// </example>
         /// <param name="content">The contents of the message in rich text markup</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message posted</returns>
@@ -43,6 +51,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Creates a new message in same channel as a response.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.RespondAsync("Hello!");
+        /// </code>
+        /// </example>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
@@ -53,6 +66,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Creates a new message in same channel as a response.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.RespondAsync("Result: {0}", result);
+        /// </code>
+        /// </example>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -64,6 +82,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Creates a new message in same channel as a response.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.RespondAsync(cultureInfo, "Current date: {0}", DateTime.Now);
+        /// </code>
+        /// </example>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
@@ -76,6 +99,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Creates a new message in same channel as a response.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.RespondAsync(DateTime.Now);
+        /// </code>
+        /// </example>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>

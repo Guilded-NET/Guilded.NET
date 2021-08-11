@@ -13,6 +13,34 @@ namespace Guilded.NET.Base.Events
         /// <summary>
         /// An operation code that tells about the event, which was received.
         /// </summary>
+        /// <remarks>
+        /// <list type="table">
+        ///     <listheader>
+        ///         <term>Opcode</term>
+        ///         <description>Description</description>
+        ///     </listheader>
+        ///     <item>
+        ///         <term><c>0</c></term>
+        ///         <description>An event with data associated.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>1</c></term>
+        ///         <description>An event that occurs once WebSocket connection is established.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>2</c></term>
+        ///         <description>An event that occurs once connection is re-established with passed last event.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>8</c></term>
+        ///         <description>Unknown</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><c>9</c></term>
+        ///         <description>Unknown</description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         /// <value>Opcode</value>
         [JsonProperty("op", Required = Required.Always)]
         public uint Opcode

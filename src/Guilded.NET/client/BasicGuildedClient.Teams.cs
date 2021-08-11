@@ -16,6 +16,11 @@ namespace Guilded.NET
         /// <summary>
         /// Adds a role to the given user.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.AddRoleAsync(message.CreatedBy, 100000000);
+        /// </code>
+        /// </example>
         /// <param name="memberId">The identifier of the receiving user</param>
         /// <param name="roleId">The identifier of the role to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -24,6 +29,11 @@ namespace Guilded.NET
         /// <summary>
         /// Removes a role from the given user.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.RemoveRoleAsync(message.CreatedBy, 100000000);
+        /// </code>
+        /// </example>
         /// <param name="memberId">The identifier of the losing user</param>
         /// <param name="roleId">The identifier of the role to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -32,6 +42,11 @@ namespace Guilded.NET
         /// <summary>
         /// Adds XP to the given user.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.AddXpAsync(message.CreatedBy, 10);
+        /// </code>
+        /// </example>
         /// <param name="userId">The identifier of the receiving user</param>
         /// <param name="xpAmount">The amount of XP received from -1000 to 1000</param>
         /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
@@ -54,6 +69,11 @@ namespace Guilded.NET
         /// <summary>
         /// Attaches amount of XP required to a role.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.AttachRoleLevelAsync(1000000000, 2048);
+        /// </code>
+        /// </example>
         /// <param name="roleId">The identifier of the editing role</param>
         /// <param name="amount">The amount XP added</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -68,6 +88,11 @@ namespace Guilded.NET
         /// <summary>
         /// Adds a member to the group.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.AddMembershipAsync(group.Id, message.CreatedBy);
+        /// </code>
+        /// </example>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -76,6 +101,11 @@ namespace Guilded.NET
         /// <summary>
         /// Removes a member from the group.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.RemoveMembershipAsync(group.Id, message.CreatedBy);
+        /// </code>
+        /// </example>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>

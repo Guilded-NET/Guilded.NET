@@ -9,7 +9,7 @@ namespace Guilded.NET.Base.Events
     public class XpAddedEvent : BaseObject
     {
         /// <summary>
-        /// IDs of all users that received that amount of XP.
+        /// The identifiers of all users that received that amount of XP.
         /// </summary>
         /// <value>List of user IDs</value>
         [JsonProperty("userIds", Required = Required.Always)]
@@ -18,7 +18,7 @@ namespace Guilded.NET.Base.Events
             get; set;
         }
         /// <summary>
-        /// Amount of XP given to the users.
+        /// The amount of XP given to the users.
         /// </summary>
         /// <value>XP</value>
         [JsonProperty(Required = Required.Always)]

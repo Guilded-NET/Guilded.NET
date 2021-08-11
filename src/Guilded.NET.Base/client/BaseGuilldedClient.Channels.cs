@@ -56,6 +56,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Gets messages with a specific limit.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// IList&lt;Message&gt; msg = await client.GetMessagesAsync(message.ChannelId);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="limit">How many messages it should get</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -64,6 +69,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Gets a message in a specific channel.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// Message msg = await client.GetMessageAsync(channelId, arg);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of message it should get</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -72,6 +82,16 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, new MessageContent
+        /// (
+        ///     new Leaf("Welcome to "),
+        ///     new Leaf(team.Name, MarkType.Bold),
+        ///     new Leaf("!")
+        /// );
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in rich text markup</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -80,6 +100,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, "Hello!");
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -90,6 +115,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, "Results: {0}", result);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
@@ -102,6 +132,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, cultureInfo, "Current time: {0}", DateTime.Now);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
@@ -115,6 +150,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, result);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -126,6 +166,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, new MessageContent("Edited message"));
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The new content of the message in rich text markup</param>
@@ -135,6 +180,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, "Edited message");
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
@@ -146,6 +196,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, "Result: {0}", result);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="format">The composite format string</param>
@@ -159,6 +214,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, cultureInfo, "Current time: {0}", DateTime.Now);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
@@ -173,6 +233,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, result);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
@@ -185,6 +250,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Deletes a specified message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.DeleteMessageAsync(channelId, messageId);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to delete</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -192,6 +262,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Adds a reaction to a message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.AddReactionAsync(channelId, messageId, 90002569);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to add a reaction on</param>
         /// <param name="emoteId">The identifier of the emote to add</param>
@@ -201,6 +276,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Removes a reaction from a message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.RemoveReactionAsync(channelId, messageId, 90002569);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to remove a reaction from</param>
         /// <param name="emoteId">The identifier of the emote to remove</param>
@@ -232,15 +312,15 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="title">The title of the forum post</param>
-        /// <param name="content">The content of the forum post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <returns>Forum post created</returns>
-        public abstract Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string content);
-        /// <summary>
-        /// Creates a forum post in a forum channel.
-        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateForumThreadAsync(channelId, "Daily post #1", new MessageContent
+        /// (
+        ///     new BlockQuote("..."),
+        ///     new Paragraph("...")
+        /// );
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
@@ -250,6 +330,25 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateForumThreadAsync(channelId, "Daily post #1", "The first daily post ever!");
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="content">The content of the forum post</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <returns>Forum post created</returns>
+        public abstract Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string content);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateForumThreadAsync(channelId, $"Daily post #{index}", "The current index of the post: {0}.", index);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="format">The composite format string</param>
@@ -261,6 +360,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateForumThreadAsync(channelId, "Daily post #1", cultureInfo, "The current date: {0}.", DateTime.Now);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
@@ -273,6 +377,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateForumThreadAsync(channelId, "Results", result);
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
@@ -566,21 +675,44 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a new list item in a list channel.
         /// </summary>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="message">The title content of this list item</param>
-        /// <param name="note">The note of this list item</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <returns>List item created</returns>
-        public abstract Task<ListItem> CreateListItemAsync(Guid channelId, string message, string note = null);
-        /// <summary>
-        /// Creates a new list item in a list channel.
-        /// </summary>
+        /// <example>
+        /// <para>Without a note:</para>
+        /// <code>
+        /// await client.CreateListItemAsync(channelId, new MessageContent("Reach {0} servers", count));
+        /// </code>
+        /// <para>With a note:</para>
+        /// <code>
+        /// await client.CreateListItemAsync(channelId,
+        ///     new MessageContent("Reach {0} servers", count),
+        ///     new MessageContent("Reach {0} servers with a bot", count)
+        /// );
+        /// </code>
+        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="message">The title content of this list item</param>
         /// <param name="note">The note of this list item</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>List item created</returns>
         public abstract Task<ListItem> CreateListItemAsync(Guid channelId, MessageContent message, MessageContent note = null);
+        /// <summary>
+        /// Creates a new list item in a list channel.
+        /// </summary>
+        /// <example>
+        /// <para>Without a note:</para>
+        /// <code>
+        /// await client.CreateListItemAsync(channelId, "Reach 100 servers");
+        /// </code>
+        /// <para>With a note:</para>
+        /// <code>
+        /// await client.CreateListItemAsync(channelId, "Reach 100 servers", "Reach 100 or more servers with a bot.");
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="message">The title content of this list item</param>
+        /// <param name="note">The note of this list item</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <returns>List item created</returns>
+        public abstract Task<ListItem> CreateListItemAsync(Guid channelId, string message, string note = null);
         #endregion
 
         /*

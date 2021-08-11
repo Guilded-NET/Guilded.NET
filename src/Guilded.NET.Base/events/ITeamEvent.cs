@@ -3,12 +3,12 @@ namespace Guilded.NET.Base.Events
     using System;
 
     /// <summary>
-    /// A base for events that may occur in a channel.
+    /// A base for all events that may occur in teams.
     /// </summary>
-    public interface IChannelEvent
+    public interface ITeamEvent
     {
         /// <summary>
-        /// ID of the channel where the event occurred.
+        /// The identifier of the parent channel.
         /// </summary>
         /// <value>Channel ID</value>
         Guid ChannelId { get; }

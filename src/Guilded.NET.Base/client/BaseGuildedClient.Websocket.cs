@@ -50,8 +50,9 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Initializes websocket for Guilded API.
         /// </summary>
+        /// <param name="lastMessageId">The identifier of the last event before WebSocket disconnection</param>
         /// <returns>Created websocket</returns>
-        public virtual WebsocketClient InitWebsocket()
+        public virtual WebsocketClient InitWebsocket(string lastMessageId = null)
         {
             WebsocketLogger.Debug("Creating a new websocket");
             // Initialize Websocket client
@@ -67,6 +68,8 @@ namespace Guilded.NET.Base
                 // Adds additional headers to this WebSocket, such as authentication header
                 foreach(KeyValuePair<string, string> header in AdditionalHeaders)
                     socket.Options.SetRequestHeader(header.Key, header.Value);
+                // If last event ID is passed, add it as header
+                if(!string.IsNullOrWhiteSpace(lastMessageId)) socket.Options.SetRequestHeader("guilded-last-message-id", lastMessageId);
                 // Returns the made websocket
                 return socket;
             });
@@ -85,6 +88,13 @@ namespace Guilded.NET.Base
             // Returns that websocket
             return client;
         }
+        /// <summary>
+        /// Initializes websocket for Guilded API.
+        /// </summary>
+        /// <param name="event">The last event before WebSocket disconnection</param>
+        /// <returns>Created websocket</returns>
+        public virtual WebsocketClient InitWebsocket(GuildedEvent @event) =>
+            InitWebsocket(@event.MessageId);
         /// <summary>
         /// Used for when Websocket receives a message.
         /// </summary>

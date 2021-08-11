@@ -108,6 +108,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.UpdateMessageAsync(new MessageContent("Edited message"));
+        /// </code>
+        /// </example>
         /// <param name="content">The new content of the message in rich text markup</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Message edited</returns>
@@ -116,6 +121,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.UpdateMessageAsync("Edited message");
+        /// </code>
+        /// </example>
         /// <param name="content">The new content of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
@@ -126,6 +136,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.UpdateMessageAsync("Results: {0}", result);
+        /// </code>
+        /// </example>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -137,6 +152,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.UpdateMessageAsync(cultureInfo, "Current date: {0}", DateTime.Now);
+        /// </code>
+        /// </example>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
@@ -149,6 +169,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.UpdateMessageAsync(result);
+        /// </code>
+        /// </example>
         /// <param name="content">The new content of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
@@ -159,12 +184,22 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Deletes this message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.DeleteMessageAsync();
+        /// </code>
+        /// </example>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task DeleteMessageAsync() =>
             await ParentClient.DeleteMessageAsync(ChannelId, Id);
         /// <summary>
         /// Add a reaction to this message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.AddReactionAsync(90002569);
+        /// </code>
+        /// </example>
         /// <param name="emoteId">ID of the emote to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Reaction added</returns>
@@ -173,6 +208,11 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Removes a reaction from this message.
         /// </summary>
+        /// <example>
+        /// <code>
+        /// await message.RemoveReactionAsync(90002569);
+        /// </code>
+        /// </example>
         /// <param name="emoteId">ID of the emote to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         public async Task RemoveReactionAsync(uint emoteId) =>

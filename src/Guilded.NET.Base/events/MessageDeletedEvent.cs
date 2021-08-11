@@ -13,6 +13,7 @@ namespace Guilded.NET.Base.Events
         /// <summary>
         /// The date of when the message was deleted.
         /// </summary>
+        /// <value>Occurred at</value>
         [JsonIgnore]
         public DateTime OccurredAt => Message.DeletedAt;
     }
