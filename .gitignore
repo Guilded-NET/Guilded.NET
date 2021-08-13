@@ -6,3 +6,4 @@ src/Guilded*/Icon.png
 *.vscode
 *.nupkg
 *.log
+src/Documentation

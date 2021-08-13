@@ -22,8 +22,12 @@
 
   <ItemGroup>
     <!-- JSON related dependencies-->
+    <PackageReference Include="DefaultDocumentation" Version="0.7.6-beta1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-
+    
     <!-- Libraries for logging -->
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
@@ -32,6 +36,22 @@
     <PackageReference Include="RestSharp" Version="106.12.0" />
     <PackageReference Include="Websocket.Client" Version="4.3.35" />
   </ItemGroup>
+  
+  <!-- Documentation -->
+  <ItemGroup Condition=" '$(Configuration)' == 'Docs' ">
+    <PackageReference Include="DefaultDocumentation" Version="0.7.5">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Docs' ">
+    <DefaultDocumentationFolder>../Documentation/Guilded.NET.Base</DefaultDocumentationFolder>
+    <DefaultDocumentationAssemblyPageName>Guilded.NET.Base</DefaultDocumentationAssemblyPageName>
+    <DefaultDocumentationFileNameMode>Name</DefaultDocumentationFileNameMode>
+    <DefaultDocumentationGeneratedPages>Types,Members</DefaultDocumentationGeneratedPages>
+    <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>
+  </PropertyGroup>
+    
 
   <!-- Files to include to Guilded.NET.Base -->
   <ItemGroup>
