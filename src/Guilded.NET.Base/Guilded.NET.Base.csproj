@@ -22,10 +22,6 @@
 
   <ItemGroup>
     <!-- JSON related dependencies-->
-    <PackageReference Include="DefaultDocumentation" Version="0.7.6-beta1">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     
     <!-- Libraries for logging -->
