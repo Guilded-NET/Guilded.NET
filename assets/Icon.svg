@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<svg xmlns="http://www.w3.org/2000/svg"
+    width="271.115mm" height="271.115mm"
+    viewBox="0 0 1024 1024">
+    <defs>
+        <mask id="gnet-mask">
+            <circle id="gnet-mask-base" cx="512" cy="512" r="440" fill="white" />
+            <circle id="gnet-dot-mask" cx="192" cy="512" r="192" fill="black" />
+        </mask>
+    </defs>
+    <g id="gnet-main">
+        <circle id="gnet-base" cx="512" cy="512" r="440" fill="#0F0F0F" mask="url(#gnet-mask)" />
+        <circle id="gnet-dot" cx="192" cy="512" r="132" fill="#F5C400" />
+        <path id="gnet-guilded" fill="#F5C400" d="M 644.27,704.52
+            C 600.00,688.00 424.00,622.39 424.00,320.00
+            424.00,320.00 864.00,320.00 864.00,320.00
+            864.00,320.00 864.00,376.00 857.26,407.01
+            857.26,407.01 522.00,408.00 522.00,408.00
+            522.01,424.05 536.00,560.00 644.00,609.84
+            664.00,608.00 712.00,568.00 724.00,543.00
+            724.00,543.00 637.00,542.40 637.00,542.40
+            608.00,520.00 596.08,483.25 591.00,455.00
+            591.00,455.00 852.00,455.00 852.00,455.00
+            824.00,584.00 744.00,672.00 645.00,704.79
+            644.76,704.71 644.52,704.62 644.27,704.52 Z" />
+    </g>
+</svg>
