@@ -29,15 +29,15 @@
     <!-- Libraries for logging and events -->
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="4.0.0" />
-
+    
     <!-- API-related stuff -->
     <PackageReference Include="RestSharp" Version="106.12.0" />
     <PackageReference Include="Websocket.Client" Version="4.3.35" />
   </ItemGroup>
-
+  
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.NET.Base" Version="0.2.3" />
+    <PackageReference Include="Guilded.NET.Base" Version="0.3.2" />
   </ItemGroup>
 
   <!-- For testing purposes -->

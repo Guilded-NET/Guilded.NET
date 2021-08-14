@@ -1,3 +1,7 @@
+[![Banner](https://raw.githubusercontent.com/Guilded-NET/Guilded.NET/early-access/assets/Banner.png)](https://github.com/Guilded-NET/Guilded.NET)
+
 # Guilded.NET.Base
 
-A base for Guilded.NET things. Contains models and API-related things.
+This contains models, objects, converters and other things for Guilded.NET to function. Head over to Guilded.NET NuGet or FuGet page for more information:
+> - [Guilded.NET NuGet](https://www.nuget.org/packages/Guilded.NET/)
+> - [Guilded.NET FuGet](https://www.fuget.org/packages/Guilded.NET/)
