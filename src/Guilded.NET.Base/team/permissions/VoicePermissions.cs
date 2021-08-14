@@ -51,6 +51,22 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to send chat messages in the voice channel
         /// </summary>
-        SendMessages = 4096
+        SendMessages = 4096,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = AddVoice | HearVoice | MoveMembers | PrioritySpeaker | VoiceActivity |
+              MuteMembers | DeafenMembers | ManageVoiceRooms | Broadcast | Whisper | SendMessages,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = MoveMembers | MuteMembers | DeafenMembers | ManageVoiceRooms,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = AddVoice | HearVoice | VoiceActivity | Whisper | SendMessages
+        #endregion
     }
 }

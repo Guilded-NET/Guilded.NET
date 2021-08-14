@@ -15,6 +15,8 @@ namespace Guilded.NET.Base.Chat
     /// ContentEmbed embed = new CodeContainer("https://guilded.gg/");
     /// </code>
     /// </example>
+    /// <seealso cref="ChatEmbed"/>
+    /// <seealso cref="Embeds.Embed"/>
     public class ContentEmbed : ContainerNode<TextContainer, ContentEmbed>
     {
         #region Properties

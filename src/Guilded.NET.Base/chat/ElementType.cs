@@ -6,6 +6,11 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// Type of the message object.
     /// </summary>
+    /// <seealso cref="ChatElement"/>
+    /// <seealso cref="Leaf"/>
+    /// <seealso cref="TextContainer"/>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="Paragraph"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum ElementType
     {

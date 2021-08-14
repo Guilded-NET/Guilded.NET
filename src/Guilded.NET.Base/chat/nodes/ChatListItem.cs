@@ -10,6 +10,7 @@ namespace Guilded.NET.Base.Chat
     /// <remarks>
     /// An item for <see cref="ChatList"/> node.
     /// </remarks>
+    /// <seealso cref="ChatList"/>
     public class ChatListItem : ContainerNode<ChatListItem>
     {
         const string linebreak_indent = "  ";

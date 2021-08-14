@@ -5,6 +5,7 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// An event that is received once WebSocket is initiated.
     /// </summary>
+    /// <seealso cref="XpAddedEvent"/>
     public class WelcomeEvent : BaseObject
     {
         #region JSON properties

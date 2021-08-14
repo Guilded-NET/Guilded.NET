@@ -8,6 +8,9 @@ namespace Guilded.NET.Base
     /// <summary>
     /// Emote used in a reaction.
     /// </summary>
+    /// <seealso cref="Emote"/>
+    /// <seealso cref="Chat.Message"/>
+    /// <seealso cref="Chat.ChatEmote"/>
     public class Reaction : ClientObject
     {
         #region JSON properties

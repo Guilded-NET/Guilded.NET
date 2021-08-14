@@ -3,7 +3,7 @@ using System;
 namespace Guilded.NET
 {
     /// <summary>
-    /// Information about Guilded.NET event.
+    /// An information about a Guilded.NET event handler.
     /// </summary>
     public class EventInfo
     {
@@ -16,7 +16,7 @@ namespace Guilded.NET
             get; set;
         } = null;
         /// <summary>
-        /// Type of the argument that should be given.
+        /// The type of the arguments that should be used.
         /// </summary>
         /// <value>Type</value>
         public Type ArgumentType
@@ -24,9 +24,9 @@ namespace Guilded.NET
             get; set;
         }
         /// <summary>
-        /// Information about Guilded.NET event.
+        /// An information about a Guilded.NET event.
         /// </summary>
-        /// <param name="argumentType">Type of the argument that should be given</param>
+        /// <param name="argumentType">The type of the arguments that should be used</param>
         public EventInfo(Type argumentType) =>
             ArgumentType = argumentType;
     }

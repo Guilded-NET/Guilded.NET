@@ -6,6 +6,8 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The information about an emote in emote node.
     /// </summary>
+    /// <seealso cref="Emote"/>
+    /// <seealso cref="Chat.ChatEmote"/>
     public class EmoteInfo : ClientObject
     {
         #region JSON properties
@@ -46,7 +48,7 @@ namespace Guilded.NET.Base
         public EmoteInfo(BaseEmote emote) =>
             (Id, CustomEmoteId, CustomEmote) = (emote.Id, emote.Id, emote);
         #endregion
-        
+
         #region Overrides
         /// <summary>
         /// Checks if object is equal to this emote info.

@@ -19,6 +19,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to remove availabilities created by others
         /// </summary>
-        DeleteSchedule = 8
+        DeleteSchedule = 8,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateSchedule | ViewSchedules | DeleteSchedule,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = DeleteSchedule,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions/
+        /// </summary>
+        Basic = CreateSchedule | ViewSchedules
+        #endregion
     }
 }

@@ -13,6 +13,9 @@ namespace Guilded.NET.Base.Chat
     /// </summary>
     /// <typeparam name="T">The type of children of <see cref="Nodes"/> property</typeparam>
     /// <typeparam name="R">The child-type of container node</typeparam>
+    /// <seealso cref="ContainerNode{T}"/>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="ChatElement"/>
     public abstract class ContainerNode<T, R> : Node where R : ContainerNode<T, R> where T : ChatElement
     {
         #region JSON properties
@@ -163,6 +166,8 @@ namespace Guilded.NET.Base.Chat
     /// Node that holds other nodes and message objects.
     /// </summary>
     /// <typeparam name="T">The child-type of container node</typeparam>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="ChatElement"/>
     public class ContainerNode<T> : ContainerNode<ChatElement, T> where T : ContainerNode<T>
     {
         #region Constructors

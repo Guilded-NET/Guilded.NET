@@ -7,6 +7,9 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// Message that was deleted.
     /// </summary>
+    /// <seealso cref="BaseMessage"/>
+    /// <seealso cref="Message"/>
+    /// <seealso cref="Events.MessageDeletedEvent"/>
     public class MessageDeleted : BaseMessage
     {
         #region JSON properties

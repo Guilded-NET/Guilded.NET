@@ -6,8 +6,9 @@ namespace Guilded.NET.Base.Chat
 {
     using Teams;
     /// <summary>
-    /// Information about the channel mentioned.
+    /// The information about <see cref="ChannelMention"/>.
     /// </summary>
+    /// <seealso cref="MemberMentionData"/>
     public class ChannelMentionData : BaseMention
     {
         /// <summary>

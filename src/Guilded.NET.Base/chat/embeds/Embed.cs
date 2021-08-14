@@ -39,6 +39,8 @@ namespace Guilded.NET.Base.Embeds
     ///     .WithFooter("Footer text here");
     /// </code>
     /// </example>
+    /// <seealso cref="Chat.ChatEmbed"/>
+    /// <seealso cref="Chat.ContentEmbed"/>
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
     public class Embed : BaseObject
     {

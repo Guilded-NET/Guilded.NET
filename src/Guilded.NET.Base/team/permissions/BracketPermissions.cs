@@ -15,6 +15,13 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to view tournament brackets
         /// </summary>
-        ViewBrackets = 2
+        ViewBrackets = 2,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = ReportScores | ViewBrackets
+        #endregion
     }
 }

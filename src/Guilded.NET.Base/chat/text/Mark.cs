@@ -7,8 +7,11 @@ using Newtonsoft.Json.Linq;
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// The formatting of a leaf.
+    /// A formatting of a leaf.
     /// </summary>
+    /// <seealso cref="TextContainer"/>
+    /// <seealso cref="Leaf"/>
+    /// <seealso cref="MarkType"/>
     public class Mark : ChatElement, ICloneable
     {
         internal static IDictionary<MarkType, string> MarkSymbols = new Dictionary<MarkType, string> {
@@ -37,14 +40,14 @@ namespace Guilded.NET.Base.Chat
             get; set;
         }
         /// <summary>
-        /// The formatting of a leaf.
+        /// Creates a new formatting <see cref="Mark"/> based on given <see cref="MarkType"/>.
         /// </summary>
         /// <param name="type">The type of the formatting</param>
         /// <param name="data">The information about the formatting</param>
         public Mark(MarkType type, Dictionary<string, object> data) : base(ElementType.Mark) =>
             (Type, Data) = (type, data);
         /// <summary>
-        /// The formatting of a leaf.
+        /// Creates a new formatting <see cref="Mark"/> based on given <see cref="MarkType"/>.
         /// </summary>
         /// <param name="type">The type of the formatting</param>
         public Mark(MarkType type) : this(type, new Dictionary<string, object>()) { }

@@ -19,6 +19,13 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Members with this permission can change the nickname of others.
         /// </summary>
-        ManageNicknames = 32
+        ManageNicknames = 32,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = ManageEmoji | ChangeNickname | ManageNicknames
+        #endregion
     }
 }

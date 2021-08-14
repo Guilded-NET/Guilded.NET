@@ -5,15 +5,16 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Represents role permissions.
+    /// A list of role or user permissions.
     /// </summary>
+    [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore)]
     public class PermissionList : BaseObject
     {
+        #region JSON properties
         /// <summary>
         /// Represents chat/text channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ChatPermissions? Chat
         {
             get; set;
@@ -22,7 +23,6 @@ namespace Guilded.NET.Base.Permissions
         /// Represents voice channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public VoicePermissions? Voice
         {
             get; set;
@@ -31,7 +31,6 @@ namespace Guilded.NET.Base.Permissions
         /// Represents document channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public DocPermissions? Docs
         {
             get; set;
@@ -40,7 +39,6 @@ namespace Guilded.NET.Base.Permissions
         /// Represents permissions for forms and polls.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public FormPermissions? Forms
         {
             get; set;
@@ -49,7 +47,6 @@ namespace Guilded.NET.Base.Permissions
         /// List channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ListPermissions? Lists
         {
             get; set;
@@ -58,7 +55,6 @@ namespace Guilded.NET.Base.Permissions
         /// Media channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public MediaPermissions? Media
         {
             get; set;
@@ -67,7 +63,6 @@ namespace Guilded.NET.Base.Permissions
         /// Forum channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public ForumPermissions? Forums
         {
             get; set;
@@ -76,7 +71,6 @@ namespace Guilded.NET.Base.Permissions
         /// General permissions for managing the server.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public GeneralPermissions? General
         {
             get; set;
@@ -85,7 +79,6 @@ namespace Guilded.NET.Base.Permissions
         /// Permissions related to streaming channel.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public StreamPermissions? Streams
         {
             get; set;
@@ -94,7 +87,6 @@ namespace Guilded.NET.Base.Permissions
         /// Calendar/event channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public CalendarPermissions? Calendar
         {
             get; set;
@@ -103,7 +95,6 @@ namespace Guilded.NET.Base.Permissions
         /// Scheduling channel permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public SchedulingPermissions? Scheduling
         {
             get; set;
@@ -112,7 +103,6 @@ namespace Guilded.NET.Base.Permissions
         /// Competitive permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public MatchmakingPermissions? Matchmaking
         {
             get; set;
@@ -121,7 +111,6 @@ namespace Guilded.NET.Base.Permissions
         /// Permissions for recruitment and applications.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public RecruitmentPermissions? Recruitment
         {
             get; set;
@@ -130,7 +119,6 @@ namespace Guilded.NET.Base.Permissions
         /// Announcement channel and overview announcement permissions.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public AnnounPermissions? Announcements
         {
             get; set;
@@ -139,7 +127,6 @@ namespace Guilded.NET.Base.Permissions
         /// Permissions related to name and emote customization.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public CustomPermissions? Customization
         {
             get; set;
@@ -148,11 +135,12 @@ namespace Guilded.NET.Base.Permissions
         /// Permissions related to member XP and levels.
         /// </summary>
         /// <value>Permissions</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public XPPermissions? Xp
         {
             get; set;
         }
+        #endregion
+
         /// <summary>
         /// Adds up 2 permissions together.
         /// </summary>
@@ -239,7 +227,7 @@ namespace Guilded.NET.Base.Permissions
             // If first one is null, then we can't substract
             if (first is null) return null;
             // Substract second from first. If second is null, then we will substract nothing
-            else return first & (~second ?? 0);
+            else return first & ~(second ?? 0);
         }
         /// <summary>
         /// Substracts second enum value from first.

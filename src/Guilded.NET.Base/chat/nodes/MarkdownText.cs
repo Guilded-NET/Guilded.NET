@@ -20,6 +20,8 @@ namespace Guilded.NET.Base.Chat
     /// MarkdownText markdown = new MarkdownText("> Quote Block\n\nParagraph here");
     /// </code>
     /// </example>
+    /// <seealso cref="Paragraph"/>
+    /// <seealso cref="MessageContent"/>
     public class MarkdownText : ContainerNode<TextContainer, MarkdownText>
     {
         #region JSON properties

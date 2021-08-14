@@ -1,4 +1,3 @@
-using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -7,6 +6,11 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// Event that was received from the websocket.
     /// </summary>
+    /// <seealso cref="MessageCreatedEvent"/>
+    /// <seealso cref="MessageUpdatedEvent"/>
+    /// <seealso cref="MessageDeletedEvent"/>
+    /// <seealso cref="XpAddedEvent"/>
+    /// <seealso cref="WelcomeEvent"/>
     public class GuildedEvent : ClientObject
     {
         #region JSON properties

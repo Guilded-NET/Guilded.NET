@@ -1,8 +1,7 @@
 using System;
-using System.Linq;
-using System.ComponentModel;
 using System.Collections.Generic;
-
+using System.ComponentModel;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base
@@ -10,6 +9,8 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The identifier for forms and media uploads.
     /// </summary>
+    /// <seealso cref="Guid"/>
+    /// <seealso cref="GId"/>
     [TypeConverter(typeof(FormIdConverter))]
     [JsonConverter(typeof(IdConverter))]
     public struct FormId : IEquatable<FormId>

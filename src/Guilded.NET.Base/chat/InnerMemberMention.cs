@@ -9,8 +9,9 @@ namespace Guilded.NET.Base.Chat
     using Teams;
     using Users;
     /// <summary>
-    /// Information about the member(s) mentioned.
+    /// The information about <see cref="MemberMention"/>.
     /// </summary>
+    /// <seealso cref="ChannelMentionData"/>
     public class MemberMentionData : BaseMention
     {
         private static readonly Color hereColour = Color.FromArgb(0xF5C400);
@@ -120,80 +121,5 @@ namespace Guilded.NET.Base.Chat
         {
             get; set;
         }
-        /// <summary>
-        /// Generates user mention for DMs.
-        /// </summary>
-        /// <param name="user">User to mention</param>
-        /// <returns>Mention data</returns>
-        public static MemberMentionData Generate(BaseUser user) =>
-            new MemberMentionData
-            {
-                Type = "person",
-                Matcher = "@" + user.Username.ToLower(),
-                MentionColor = null,
-                Name = user.Username,
-                Id = user.Id.ToString(),
-                Avatar = user.ProfilePicture,
-                Nickname = false
-            };
-        /// <summary>
-        /// Generates member mention.
-        /// </summary>
-        /// <param name="member">User to mention</param>
-        /// <param name="color">Colour of the mention</param>
-        /// <returns>Mention data</returns>
-        public static MemberMentionData Generate(TeamMember member, Color? color = null) =>
-            new MemberMentionData
-            {
-                Type = "person",
-                Matcher = $"@{member.Username.ToLower()} {(member.Nickname is null ? "" : "@")}{member.Nickname}",
-                Name = member.Nickname ?? member.Username,
-                MentionColor = color ?? Color.White,
-                Id = member.Id.ToString(),
-                Avatar = member.ProfilePicture,
-                Nickname = !(member.Nickname is null)
-            };
-        /// <summary>
-        /// Generates @everyone mention.
-        /// </summary>
-        /// <returns>Mention data</returns>
-        public static MemberMentionData GenerateEveryone() =>
-            new MemberMentionData
-            {
-                Type = "everyone",
-                Matcher = "@everyone",
-                MentionColor = Color.White,
-                Name = "everyone",
-                Id = "everyone",
-                Description = "Notify everyone in the channel"
-            };
-        /// <summary>
-        /// Generates @here mention.
-        /// </summary>
-        /// <returns>Mention data</returns>
-        public static MemberMentionData GenerateHere() =>
-            new MemberMentionData
-            {
-                Type = "here",
-                Matcher = "@here",
-                MentionColor = hereColour,
-                Name = "here",
-                Id = "here",
-                Description = "Notify everyone in this channel that is online and not idle"
-            };
-        /// <summary>
-        /// Generates role mention.
-        /// </summary>
-        /// <param name="role">Role to mention</param>
-        /// <returns>Mention data</returns>
-        public static MemberMentionData Generate(TeamRole role) =>
-            new MemberMentionData
-            {
-                Type = "role",
-                Matcher = "@" + role.Name.ToLower(),
-                Name = role.Name,
-                MentionColor = role.Color,
-                Id = role.Id.ToString()
-            };
     }
 }

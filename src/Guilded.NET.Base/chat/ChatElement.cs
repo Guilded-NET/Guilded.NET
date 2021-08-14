@@ -4,8 +4,12 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// Base for message nodes, text containers and leaves.
+    /// The base type for message element, such as <see cref="Node"/>s.
     /// </summary>
+    /// <seealso cref="Leaf"/>
+    /// <seealso cref="Mark"/>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="ContainerNode{T}"/>
     public abstract class ChatElement : BaseObject
     {
         /// <summary>

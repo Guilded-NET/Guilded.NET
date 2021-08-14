@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -29,15 +28,6 @@ namespace Guilded.NET.Base.Users
         /// <value>User</value>
         [JsonProperty(Required = Required.Always)]
         public ThisUser User
-        {
-            get; set;
-        }
-        /// <summary>
-        /// Message of the latest update on Guilded.
-        /// </summary>
-        /// <value>Message content</value>
-        [JsonProperty(Required = Required.AllowNull)]
-        public UpdateMessage UpdateMessage
         {
             get; set;
         }
@@ -76,16 +66,19 @@ namespace Guilded.NET.Base.Users
         /// Username of this user.
         /// </summary>
         /// <value>Name</value>
+        [JsonIgnore]
         public string Username => User.Username;
         /// <summary>
         /// ID of this user.
         /// </summary>
         /// <value>User ID</value>
+        [JsonIgnore]
         public GId Id => User.Id;
         /// <summary>
         /// Count of how many teams this client is in.
         /// </summary>
         /// <value>Count</value>
+        [JsonIgnore]
         public int TeamCount => Teams.Count;
         
         /*/// <summary>

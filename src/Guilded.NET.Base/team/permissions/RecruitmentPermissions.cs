@@ -27,6 +27,17 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to modify the Find Player status for server listing card
         /// </summary>
-        ModifyStatus = 32
+        ModifyStatus = 32,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = ApproveApplications | ViewApplications | EditApplications | IndicateInterest | ModifyStatus,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ApproveApplications | EditApplications | ModifyStatus
+        #endregion
     }
 }

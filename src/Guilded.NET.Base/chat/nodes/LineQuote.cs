@@ -15,6 +15,7 @@ namespace Guilded.NET.Base.Chat
     /// BlockQuote quote = new BlockQuote(line);
     /// </code>
     /// </example>
+    /// <seealso cref="BlockQuote"/>
     public class LineQuote : ContainerNode<LineQuote>
     {
         #region Constructors

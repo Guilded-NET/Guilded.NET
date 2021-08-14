@@ -31,6 +31,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to reorder list items
         /// </summary>
-        ReorderListItems = 32
+        ReorderListItems = 32,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateListItem | ViewListItems | ManageListItems | RemoveListItems | CompleteListItems | ReorderListItems,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ManageListItems | RemoveListItems | ReorderListItems,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = CreateListItem | ViewListItems | CompleteListItems
+        #endregion
     }
 }

@@ -1,8 +1,10 @@
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// A data of a channel or user mention.
+    /// The information about <see cref="ChannelMention"/> or <see cref="MemberMention"/>.
     /// </summary>
+    /// <seealso cref="ChannelMentionData"/>
+    /// <seealso cref="MemberMentionData"/>
     public abstract class BaseMention : ClientObject
     {
         /// <summary>

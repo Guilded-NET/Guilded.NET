@@ -20,6 +20,8 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// </example>
+    /// <seealso cref="LineQuote"/>
+    /// <seealso cref="Paragraph"/>
     public class BlockQuote : ContainerNode<LineQuote, BlockQuote>
     {
         #region Constructors

@@ -10,6 +10,12 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// The document of the content containing all of the nodes and information.
     /// </summary>
+    /// <seealso cref="BlockQuote"/>
+    /// <seealso cref="Paragraph"/>
+    /// <seealso cref="MarkdownText"/>
+    /// <seealso cref="MessageContent"/>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="ContainerNode{T}"/>
     public class MessageDocument : MessageRoot<MessageDocument>
     {
         #region JSON properties

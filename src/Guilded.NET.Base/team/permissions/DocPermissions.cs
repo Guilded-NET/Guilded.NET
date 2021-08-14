@@ -23,6 +23,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to remove docs created by others
         /// </summary>
-        RemoveDocs = 8
+        RemoveDocs = 8,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateDocs | ViewDocs | ManageDocs | RemoveDocs,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ManageDocs | RemoveDocs,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = CreateDocs | ViewDocs
+        #endregion
     }
 }

@@ -1,7 +1,7 @@
+using System;
+
 namespace Guilded.NET.Base.Events
 {
-    using System;
-
     /// <summary>
     /// A base for all events that may occur in teams.
     /// </summary>

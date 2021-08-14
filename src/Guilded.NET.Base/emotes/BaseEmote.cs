@@ -5,8 +5,10 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// Emote in status or in a message.
+    /// An emote in status or in a message.
     /// </summary>
+    /// <seealso cref="Emote"/>
+    /// <seealso cref="Chat.ChatEmote"/>
     public class BaseEmote : ClientObject
     {
         /// <summary>

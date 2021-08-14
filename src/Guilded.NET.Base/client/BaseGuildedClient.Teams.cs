@@ -2,6 +2,13 @@ using System.Threading.Tasks;
 
 namespace Guilded.NET.Base
 {
+    using Permissions;
+    /// <summary>
+    /// A base for Guilded client.
+    /// </summary>
+    /// <remarks>
+    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
+    /// </remarks>
     public abstract partial class BaseGuildedClient
     {
         #region Members
@@ -16,6 +23,7 @@ namespace Guilded.NET.Base
         /// <param name="memberId">The identifier of the receiving user</param>
         /// <param name="roleId">The identifier of the role to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public abstract Task AddRoleAsync(GId memberId, uint roleId);
         /// <summary>
         /// Removes a role from the given user.
@@ -28,6 +36,7 @@ namespace Guilded.NET.Base
         /// <param name="memberId">The identifier of the losing user</param>
         /// <param name="roleId">The identifier of the role to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public abstract Task RemoveRoleAsync(GId memberId, uint roleId);
         /// <summary>
         /// Adds XP to the given user.
@@ -40,6 +49,7 @@ namespace Guilded.NET.Base
         /// <param name="userId">The identifier of the receiving user</param>
         /// <param name="xpAmount">The amount of XP received from -1000 to 1000</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="XPPermissions.ManageServerXP">Required for managing member's XP</permission>
         /// <returns>Total XP</returns>
         public abstract Task<long> AddXpAsync(GId userId, short xpAmount);
         #endregion
@@ -56,6 +66,7 @@ namespace Guilded.NET.Base
         /// <param name="roleId">The identifier of the editing role</param>
         /// <param name="xpAmount">The amount XP added</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageRoles">Required for managing roles</permission>
         public abstract Task AttachRoleLevelAsync(uint roleId, long xpAmount);
         #endregion
 
@@ -71,6 +82,7 @@ namespace Guilded.NET.Base
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public abstract Task AddMembershipAsync(GId groupId, GId memberId);
         /// <summary>
         /// Removes a member from the group.
@@ -83,6 +95,7 @@ namespace Guilded.NET.Base
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public abstract Task RemoveMembershipAsync(GId groupId, GId memberId);
         #endregion
 

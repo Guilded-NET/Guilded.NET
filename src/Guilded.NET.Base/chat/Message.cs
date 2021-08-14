@@ -1,7 +1,5 @@
 using System;
-using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
@@ -11,6 +9,12 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// A message posted in the chat.
     /// </summary>
+    /// <seealso cref="MessageContent"/>
+    /// <seealso cref="Paragraph"/>
+    /// <seealso cref="ContainerNode{T}"/>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="Events.MessageCreatedEvent"/>
+    /// <seealso cref="Events.MessageUpdatedEvent"/>
     public class Message : BaseMessage
     {
         #region JSON properties

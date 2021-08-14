@@ -31,6 +31,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to create forum topic replies
         /// </summary>
-        CreateTopicReplies = 64
+        CreateTopicReplies = 64,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateTopics | ReadForums | ManageTopics | StickyTopics | LockTopics | CreateTopicReplies,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ManageTopics | StickyTopics | LockTopics,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = CreateTopics | ReadForums | CreateTopicReplies
+        #endregion
     }
 }

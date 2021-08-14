@@ -6,6 +6,8 @@ namespace Guilded.NET.Base
     /// <summary>
     /// Used emote information.
     /// </summary>
+    /// <seealso cref="Emote"/>
+    /// <seealso cref="Chat.ChatEmote"/>
     public class EmoteUse : BaseObject
     {
         /// <summary>

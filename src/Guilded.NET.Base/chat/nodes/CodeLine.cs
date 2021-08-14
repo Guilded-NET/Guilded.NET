@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// A line of code in code block node.
+    /// A line of code in <see cref="CodeContainer"/>.
     /// </summary>
     /// <remarks>
     /// A line in a code container.
@@ -21,6 +21,7 @@ namespace Guilded.NET.Base.Chat
     /// CodeContainer code = new CodeContainer("csharp", lines);
     /// </code>
     /// </example>
+    /// <seealso cref="CodeContainer"/>
     public class CodeLine : ContainerNode<TextContainer, CodeLine>
     {
         #region Constructors

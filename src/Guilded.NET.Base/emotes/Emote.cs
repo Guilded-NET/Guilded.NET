@@ -9,6 +9,7 @@ namespace Guilded.NET.Base
     /// <summary>
     /// Guilded emote object.
     /// </summary>
+    /// <seealso cref="Chat.ChatEmote"/>
     public class Emote : BaseEmote
     {
         /// <summary>

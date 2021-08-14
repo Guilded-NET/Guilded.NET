@@ -6,6 +6,8 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// What kind of mention it is.
     /// </summary>
+    /// <seealso cref="MemberMention"/>
+    /// <seealso cref="MemberMentionData"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum MentionType
     {

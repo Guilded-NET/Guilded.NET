@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Content
 {
-    using Chat;
     /// <summary>
     /// A list item in a list channel.
     /// </summary>
+    /// <seealso cref="ForumThread"/>
     public class ListItem : ChannelContent<Guid>
     {
         /// <summary>

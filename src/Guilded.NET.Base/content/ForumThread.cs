@@ -1,8 +1,9 @@
 namespace Guilded.NET.Base.Content
 {
     /// <summary>
-    /// Forum post posted in a forum channel.
+    /// A forum post in a forum channel.
     /// </summary>
+    /// <seealso cref="ListItem"/>
     public class ForumThread : ChannelContent<uint>
     {
         // /// <summary>

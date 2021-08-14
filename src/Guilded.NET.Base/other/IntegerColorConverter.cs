@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// Converts <see cref="Color"/> to integer.
+    /// Converts <see cref="Color"/> to an integer in RGB format.
     /// </summary>
     public class DecimalColorConverter : JsonConverter
     {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -13,24 +14,32 @@ namespace Guilded.NET.Base
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
+    /// <remarks>
+    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
+    /// </remarks>
     public abstract partial class BaseGuildedClient : IDisposable
     {
-        /// <summary>
-        /// Content types for each format.
-        /// </summary>
-        /// <returns>Content type dictionary</returns>
-        public static readonly Dictionary<string, string> ContentType = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> ContentType = new Dictionary<string, string>()
         {
-            {"txt", "plain/text"},
+            // Text/Document
+            {"txt", MediaTypeNames.Text.Plain},
+            {"rtf", MediaTypeNames.Text.RichText},
+            {"html", MediaTypeNames.Text.Html},
+            {"xml", MediaTypeNames.Text.Xml},
+            // Images
             {"png", "image/png"},
             {"svg", "image/svg+xml"},
-            {"jpeg", "image/jpeg"},
-            {"jpg", "image/jpeg"},
-            {"webp", "image/webp"}
+            {"jpeg", MediaTypeNames.Image.Jpeg},
+            {"jpg", MediaTypeNames.Image.Jpeg},
+            {"webp", "image/webp"},
+            {"tiff", MediaTypeNames.Image.Tiff}
         };
         /// <summary>
-        /// Rest client for Guilded.
+        /// The REST client for Guilded.
         /// </summary>
+        /// <remarks>
+        /// The REST client that is used for all Guilded requests by Guilded.NET.
+        /// </remarks>
         /// <seealso cref="Websocket"/>
         /// <value>Rest client</value>
         protected internal IRestClient Rest
@@ -40,6 +49,9 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Cookies received from client log-in.
         /// </summary>
+        /// <remarks>
+        /// The cookie container used for Guilded user clients.
+        /// </remarks>
         /// <value>Guilded cookies</value>
         public CookieContainer GuildedCookies
         {
@@ -48,6 +60,10 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Serializes object with client's Guilded serializer.
         /// </summary>
+        /// <remarks>
+        /// <para>Serializes given object to JSON using <see cref="GuildedSerializer"/>.</para>
+        /// <para>Use this if you want to send REST request or WebSocket message.</para>
+        /// </remarks>
         /// <param name="obj">Object to serialize</param>
         /// <returns>Serialized object</returns>
         public string Serialize(object obj)
@@ -61,7 +77,11 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Deserializes JSON with client's Guilded serializer.
         /// </summary>
-        /// <param name="json">JSON to deserialize</param>
+        /// <remarks>
+        /// <para>Deserializes given JSON file/text using <see cref="GuildedSerializer"/>.</para>
+        /// <para>Use this if you want to deserialize Guilded response or WebSocket message.</para>
+        /// </remarks>
+        /// <param name="json">Raw JSON to deserialize</param>
         /// <typeparam name="T">Returning type</typeparam>
         /// <returns>Deserialized object</returns>
         public T Deserialize<T>(string json)
@@ -75,8 +95,11 @@ namespace Guilded.NET.Base
             return (T)deserialized;
         }
         /// <summary>
-        /// Sends a request to Guilded's API with given arguments.
+        /// Sends a request to Guilded.
         /// </summary>
+        /// <remarks>
+        /// Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. This automatically picks up on any errors received.
+        /// </remarks>
         /// <param name="resource">The full URL of the endpoint</param>
         /// <param name="method">The action method of the endpoint</param>
         /// <param name="body">The object to be used as request's body</param>
@@ -85,11 +108,14 @@ namespace Guilded.NET.Base
         /// <param name="headers">The dictionary of headers and their values</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Request response</returns>
-        public async Task<ExecutionResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
+        public async Task<IRestResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await SendRequest<object>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers));
         /// <summary>
-        /// Sends a request to Guilded's API with given arguments.
+        /// Sends a request to Guilded.
         /// </summary>
+        /// <remarks>
+        /// Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. This automatically picks up on any errors received.
+        /// </remarks>
         /// <param name="resource">The path of the endpoint</param>
         /// <param name="method">The action method of the endpoint</param>
         /// <param name="body">The object to be used as request's body</param>
@@ -98,7 +124,7 @@ namespace Guilded.NET.Base
         /// <param name="headers">The dictionary of headers and their values</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>Request response</returns>
-        public async Task<ExecutionResponse<object>> ExecuteRequest(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
+        public async Task<IRestResponse<object>> ExecuteRequest(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await SendRequest<object>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers));
         /// <summary>
         /// Builds upon given REST request.
@@ -126,17 +152,21 @@ namespace Guilded.NET.Base
             return request;
         }
         /// <summary>
-        /// Uploads an image or a file to Guilded.
+        /// Uploads a file to Guilded.
         /// </summary>
-        /// <param name="filename">Path to the file</param>
-        /// <param name="filedata">Content of the file</param>
+        /// <remarks>
+        /// Uploads any image, text or document file to Guilded with content type as <paramref name="contentType"/>.
+        /// </remarks>
+        /// <param name="filename">The name of the file being uploaded</param>
+        /// <param name="filedata">The contents of the file being uploaded</param>
         /// <param name="contentType">Content type for multipart form data</param>
-        /// <exception cref="ArgumentException">If argument filename is empty or null</exception>
+        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or null</exception>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata, string contentType)
         {
-            if (string.IsNullOrWhiteSpace(filename)) throw new ArgumentException($"{nameof(filename)} can not be empty.");
+            if (string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentException($"{nameof(filename)} can not be empty.");
             ApiLogger.Verbose("Creating an image request");
             // Create new request
             IRestRequest req = new RestRequest($"{GuildedUrl.Media}/media/upload?dynamicMediaTypeId=ContentMedia", Method.POST, DataFormat.Json)
@@ -145,7 +175,7 @@ namespace Guilded.NET.Base
                 .AddParameter("uploadTrackingId", FormId.Random.ToString(), "multipart/form-data", ParameterType.GetOrPost)
                 .AddParameter("Content-Type", "multipart/form-data");
             // Sends that request and gets response
-            string content = (await SendRequest<object>(req)).Response.Content;
+            string content = (await SendRequest<object>(req)).Content;
             // Gets object with url from the response
             JObject obj = JObject.Parse(content);
             // Checks if obj contains the property
@@ -154,11 +184,14 @@ namespace Guilded.NET.Base
             return obj["url"].ToObject<Uri>();
         }
         /// <summary>
-        /// Uploads an image or a file to Guilded.
+        /// Uploads a file to Guilded.
         /// </summary>
-        /// <param name="filename">Path to the file</param>
-        /// <param name="filedata">Content of the file</param>
-        /// <exception cref="ArgumentException">If argument filename is empty or null</exception>
+        /// <remarks>
+        /// Uploads any image, text or document file to Guilded with content type automatically assigned.
+        /// </remarks>
+        /// <param name="filename">The name of the file being uploaded</param>
+        /// <param name="filedata">The contents of the file being uploaded</param>
+        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or null</exception>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata)
@@ -171,9 +204,12 @@ namespace Guilded.NET.Base
             return await UploadFileAsync(filename, filedata, contentType);
         }
         /// <summary>
-        /// Uploads an image or a file to Guilded.
+        /// Uploads a file to Guilded.
         /// </summary>
-        /// <param name="url">Link to the image</param>
+        /// <remarks>
+        /// Uploads a file from link <paramref name="url"/> to Guilded.
+        /// </remarks>
+        /// <param name="url">A URL link to an image to uplod</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(Uri url)
@@ -190,7 +226,7 @@ namespace Guilded.NET.Base
              */
             req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"{FormId.Random}\" }}");
             // Sends that request and gets response
-            string content = (await SendRequest<object>(req)).Response.Content;
+            string content = (await SendRequest<object>(req)).Content;
             // Gets object with url from the response
             JObject obj = JObject.Parse(content);
             // Checks if obj contains the property
@@ -204,13 +240,13 @@ namespace Guilded.NET.Base
         /// <param name="request">The request to send to execute</param>
         /// <typeparam name="T">Type of the response to get</typeparam>
         /// <returns>Request response</returns>
-        private async Task<ExecutionResponse<T>> SendRequest<T>(IRestRequest request)
+        private async Task<IRestResponse<T>> SendRequest<T>(IRestRequest request)
         {
             ApiLogger.Debug("Sending a request [{@Method}] {@Path}", request.Method, request.Resource);
             // Executes given request and gets response
             IRestResponse<T> response = await Rest.ExecuteAsync<T>(request);
             // Check if content isn't null 
-            if (string.IsNullOrEmpty(response.Content)) return new ExecutionResponse<T>(response);
+            if (string.IsNullOrEmpty(response.Content)) return response;
             // Checks if the request was successful
             ApiLogger.Verbose("Request was successful: {@Success}", response.IsSuccessful);
             if (!response.IsSuccessful)
@@ -242,7 +278,7 @@ namespace Guilded.NET.Base
                 };
             }
             // Returns it
-            return new ExecutionResponse<T>(response);
+            return response;
         }
     }
 }

@@ -19,6 +19,13 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to register the server for tournaments
         /// </summary>
-        CreateTournaments = 16
+        CreateTournaments = 16,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateScrims | RegisterForTournaments | CreateTournaments
+        #endregion
     }
 }

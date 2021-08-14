@@ -8,6 +8,9 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// An event that occurs once someone deletes a message.
     /// </summary>
+    /// <seealso cref="MessageCreatedEvent"/>
+    /// <seealso cref="MessageUpdatedEvent"/>
+    /// <seealso cref="MessageDeleted"/>
     public class MessageDeletedEvent : MessageEvent<MessageDeleted>
     {
         /// <summary>

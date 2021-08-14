@@ -7,6 +7,8 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// An event that occurs once someone edits a message.
     /// </summary>
+    /// <seealso cref="MessageCreatedEvent"/>
+    /// <seealso cref="MessageDeletedEvent"/>
     public class MessageUpdatedEvent : MessageEvent
     {
         /// <summary>

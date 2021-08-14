@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// A base for message-related information.
+    /// The base type for <see cref="Message"/> and <see cref="MessageDeleted"/>.
     /// </summary>
     public class BaseMessage : ClientObject
     {

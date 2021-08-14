@@ -6,6 +6,8 @@ namespace Guilded.NET.Base.Teams
     /// <summary>
     /// A type of a team(clan, community, guild, etc.).
     /// </summary>
+    /// <seealso cref="ChannelType"/>
+    /// <seealso cref="SectionType"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum TeamType
     {

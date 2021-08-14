@@ -32,6 +32,12 @@ namespace Guilded.NET.Base.Chat
     ///     .WithParagraph("...");
     /// </code>
     /// </example>
+    /// <seealso cref="BlockQuote"/>
+    /// <seealso cref="Paragraph"/>
+    /// <seealso cref="MarkdownText"/>
+    /// <seealso cref="MessageDocument"/>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="ContainerNode{T}"/>
     public class MessageContent : MessageRoot<MessageContent>
     {
         #region Properties

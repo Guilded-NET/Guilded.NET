@@ -6,6 +6,7 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// An event that occurs once XP is given to a set of users.
     /// </summary>
+    /// <seealso cref="WelcomeEvent"/>
     public class XpAddedEvent : BaseObject
     {
         /// <summary>

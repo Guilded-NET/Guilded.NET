@@ -24,6 +24,8 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// </example>
+    /// <seealso cref="Embed"/>
+    /// <seealso cref="ContentEmbed"/>
     public class ChatEmbed : ContainerNode<ChatEmbed>
     {
         #region Properties

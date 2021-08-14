@@ -8,6 +8,9 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// A type of the system message.
     /// </summary>
+    /// <seealso cref="BaseMessage"/>
+    /// <seealso cref="Message"/>
+    /// <seealso cref="MessageType"/>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum SystemMessageType
     {

@@ -39,6 +39,17 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to update the server's roles
         /// </summary>
-        ManageRoles = 16384
+        ManageRoles = 16384,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = UpdateServer | KickBanMembers | ManageChannels | ManageWebhooks | ManageGroups | MentionEveryoneHere | ManageRoles,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = UpdateServer | KickBanMembers | ManageChannels | ManageWebhooks | ManageGroups | ManageRoles
+        #endregion
     }
 }

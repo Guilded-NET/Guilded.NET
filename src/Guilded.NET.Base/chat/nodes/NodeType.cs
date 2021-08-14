@@ -8,6 +8,8 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// Type of the node.
     /// </summary>
+    /// <seealso cref="Node"/>
+    /// <seealso cref="ContainerNode{T}"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum NodeType
     {

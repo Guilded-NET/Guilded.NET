@@ -10,6 +10,10 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// The base for message-related events.
     /// </summary>
+    /// <seealso cref="Message"/>
+    /// <seealso cref="MessageCreatedEvent"/>
+    /// <seealso cref="MessageUpdatedEvent"/>
+    /// <seealso cref="MessageDeletedEvent"/>
     public class MessageEvent<T> : BaseObject, ITeamEvent where T : BaseMessage
     {
         #region JSON properties
@@ -23,7 +27,7 @@ namespace Guilded.NET.Base.Events
             get; set;
         }
         #endregion
-        
+
         #region Properties
         /// <summary>
         /// The identifier of the channel where the message was posted.
@@ -118,6 +122,10 @@ namespace Guilded.NET.Base.Events
     /// <summary>
     /// The base for message-related events.
     /// </summary>
+    /// <seealso cref="Message"/>
+    /// <seealso cref="MessageCreatedEvent"/>
+    /// <seealso cref="MessageUpdatedEvent"/>
+    /// <seealso cref="MessageDeletedEvent"/>
     public class MessageEvent : MessageEvent<Message>
     {
         #region Properties

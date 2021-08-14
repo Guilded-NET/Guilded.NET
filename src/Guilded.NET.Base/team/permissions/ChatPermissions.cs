@@ -31,6 +31,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to archive and restore threads
         /// </summary>
-        ManageThreads = 64
+        ManageThreads = 64,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = SendMessages | ReadMessages | ManageMessages | CreateThreads | SendThreadMessages | ManageThreads,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ManageMessages | CreateThreads | ManageThreads,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = SendMessages | ReadMessages | SendThreadMessages
+        #endregion
     }
 }

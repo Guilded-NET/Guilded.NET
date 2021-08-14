@@ -8,7 +8,7 @@ namespace Guilded.NET.Base.Chat
 {
     using Embeds;
     /// <summary>
-    /// An additional data of the node.
+    /// An additional data of a <see cref="ChatElement"/>.
     /// </summary>
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
     public class ElementData : BaseObject

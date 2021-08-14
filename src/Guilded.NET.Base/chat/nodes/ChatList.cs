@@ -29,6 +29,7 @@ namespace Guilded.NET.Base.Chat
     /// ChatList list = new ChatList(new List&lt;string&gt; { "List item #1", "List item #2" }, true);
     /// </code>
     /// </example>
+    /// <seealso cref="ChatListItem"/>
     public class ChatList : ContainerNode<Node, ChatList>
     {
         const string sublist_indent = "    ";

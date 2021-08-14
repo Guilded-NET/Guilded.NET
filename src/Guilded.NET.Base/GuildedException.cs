@@ -2,7 +2,7 @@ using System;
 using System.Net;
 using System.Runtime.Serialization;
 
-namespace Guilded.NET
+namespace Guilded.NET.Base
 {
     /// <summary>
     /// Exception thrown by Guilded.

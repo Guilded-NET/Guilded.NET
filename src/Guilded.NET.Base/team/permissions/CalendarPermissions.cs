@@ -27,6 +27,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to edit RSVP status for members in an event
         /// </summary>
-        EditRSVPs = 16
+        EditRSVPs = 16,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateEvents | ViewEvents | ManageEvents | RemoveEvents | EditRSVPs,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ManageEvents | RemoveEvents | EditRSVPs,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = CreateEvents | ViewEvents
+        #endregion
     }
 }

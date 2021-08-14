@@ -1,19 +1,22 @@
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using RestSharp;
 
 namespace Guilded.NET
 {
     using Base;
     using Base.Chat;
-    using Base.Teams;
-    using Base.Embeds;
     using Base.Content;
+    using Base.Embeds;
+    using Base.Permissions;
+    using Base.Teams;
     /// <summary>
-    /// Logged-in user in Guilded.
+    /// A base for all Guilded clients.
     /// </summary>
-    public abstract partial class BasicGuildedClient
+    /// <seealso cref="GuildedBotClient"/>
+    /// <seealso cref="BaseGuildedClient"/>
+    public abstract partial class GuildedClient
     {
         private const int messageLimit = 4000;
 
@@ -24,6 +27,7 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="name">The name of the webhook</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
         /// <returns>Created webhook</returns>
         public override async Task<Webhook> CreateWebhookAsync(Guid channelId, string name) =>
             await GetObject<Webhook>("webhooks", Method.POST, body: new
@@ -39,6 +43,7 @@ namespace Guilded.NET
         /// <param name="name">The new name of the webhook</param>
         /// <param name="avatar">The new profile picture/icon of the webhook</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
         /// <returns>Updated webhook</returns>
         public override async Task<Webhook> UpdateWebhookAsync(Guid channelId, Guid webhookId, string name = null, Uri avatar = null)
         {
@@ -59,6 +64,7 @@ namespace Guilded.NET
         /// </summary>
         /// <param name="webhookId">The identifier of the webhook to delete</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
         /// <returns>Deleted webhook</returns>
         public override async Task<Webhook> DeleteWebhookAsync(Guid webhookId) =>
             await GetObject<Webhook>($"webhooks/{webhookId}", Method.DELETE);
@@ -90,6 +96,7 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="limit">How many messages it should get</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>List of messages</returns>
         public override async Task<IList<Message>> GetMessagesAsync(Guid channelId, uint limit = 50) =>
             // TODO: Add limit query
@@ -105,6 +112,7 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of message it should get</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>Message</returns>
         public override async Task<Message> GetMessageAsync(Guid channelId, Guid messageId) =>
             await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.GET, key: "message");
@@ -124,6 +132,9 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in rich text markup</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a channel</permission>
         /// <returns>Message created</returns>
         public override async Task<Message> CreateMessageAsync(Guid channelId, MessageContent content) =>
             await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content });
@@ -138,20 +149,23 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a channel</permission>
         /// <returns>Message created</returns>
         public override async Task<Message> CreateMessageAsync(Guid channelId, string content)
         {
             // Don't allow to send empty messages
-            if(string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
+            if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
             // Make sure it is on the limit
-            else if(content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            else if (content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             // Creates a new message
             return await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content });
         }
         /// <summary>
-        /// Updates the contents of the message.
+        /// Updates the contents of a message.
         /// </summary>
         /// <example>
         /// <code>
@@ -162,12 +176,18 @@ namespace Guilded.NET
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The new content of the message in rich text markup</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageContent content) =>
             await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content });
         /// <summary>
-        /// Updates the contents of the message.
+        /// Updates the contents of a message.
         /// </summary>
+        /// <remarks>
+        /// <para>Updates the contents of a message based on Markdown, if the permissions are met.</para>
+        /// </remarks>
         /// <example>
         /// <code>
         /// await client.UpdateMessageAsync(channelId, messageId, "Edited message");
@@ -177,15 +197,18 @@ namespace Guilded.NET
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The new content of the message in Markdown plain text</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="ArgumentNullException">When the given content only consists of whitespace or is null</exception>
-        /// <exception cref="ArgumentOutOfRangeException">When the contents of the message are above the message limit of 4000 characters</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content)
         {
             // Don't allow to send empty messages
-            if(string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
+            if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
             // Make sure it is on the limit
-            else if(content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            else if (content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             // Update the message
             return await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content });
         }
@@ -200,6 +223,8 @@ namespace Guilded.NET
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to delete</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.ManageMessages">Required for deleting messages made by others</permission>
         public override async Task DeleteMessageAsync(Guid channelId, Guid messageId) =>
             await ExecuteRequest($"channels/{channelId}/messages/{messageId}", Method.DELETE);
         /// <summary>
@@ -214,6 +239,7 @@ namespace Guilded.NET
         /// <param name="messageId">The identifier of the message to add a reaction on</param>
         /// <param name="emoteId">The identifier of the emote to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for adding a reaction to a message you see</permission>
         /// <returns>Reaction added</returns>
         public override async Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
             await GetObject<Reaction>($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.PUT, key: "emote");
@@ -229,6 +255,7 @@ namespace Guilded.NET
         /// <param name="messageId">The identifier of the message to remove a reaction from</param>
         /// <param name="emoteId">The identifier of the emote to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
             await ExecuteRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE);
         // /// <summary>
@@ -262,6 +289,8 @@ namespace Guilded.NET
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
         public override async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, MessageContent content) =>
             await GetObject<ForumThread>($"channels/{channelId}/forum", Method.POST, "forumThread", new
@@ -281,6 +310,8 @@ namespace Guilded.NET
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
         public override async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string content) =>
             await GetObject<ForumThread>($"channels/{channelId}/forum", Method.POST, "forumThread", new
@@ -311,6 +342,8 @@ namespace Guilded.NET
         /// <param name="message">The title content of this list item</param>
         /// <param name="note">The note of this list item</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
+        /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
         /// <returns>List item created</returns>
         public override async Task<ListItem> CreateListItemAsync(Guid channelId, MessageContent message, MessageContent note = null) =>
             await GetObject<ListItem>($"channels/{channelId}/list", Method.POST, "listItem", new
@@ -335,6 +368,8 @@ namespace Guilded.NET
         /// <param name="message">The title content of this list item</param>
         /// <param name="note">The note of this list item</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
+        /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
         /// <returns>List item created</returns>
         public override async Task<ListItem> CreateListItemAsync(Guid channelId, string message, string note = null) =>
             await GetObject<ListItem>($"channels/{channelId}/list", Method.POST, "listItem", new

@@ -8,6 +8,8 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The identifier for Guilded teams, users, etc.
     /// </summary>
+    /// <seealso cref="Guid"/>
+    /// <seealso cref="FormId"/>
     [TypeConverter(typeof(GIdConverter))]
     [JsonConverter(typeof(IdConverter))]
     public struct GId : IEquatable<GId>

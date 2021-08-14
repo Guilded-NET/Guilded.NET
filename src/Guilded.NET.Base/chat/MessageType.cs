@@ -6,6 +6,8 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// If the message is a normal message or a system message.
     /// </summary>
+    /// <seealso cref="BaseMessage"/>
+    /// <seealso cref="Message"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum MessageType
     {
@@ -14,7 +16,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         Default,
         /// <summary>
-        /// A message written by system(when channel gets renamed).
+        /// A message written by the system(e.g., when channel gets renamed).
         /// </summary>
         System
     }

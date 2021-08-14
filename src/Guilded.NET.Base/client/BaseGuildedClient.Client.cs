@@ -1,19 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
+using System.Net.WebSockets;
 using System.Runtime.Serialization;
-
+using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-
 using RestSharp;
-
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
-
-using Newtonsoft.Json;
-
 using Websocket.Client;
 
 namespace Guilded.NET.Base
@@ -21,6 +17,9 @@ namespace Guilded.NET.Base
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
+    /// <remarks>
+    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
+    /// </remarks>
     public abstract partial class BaseGuildedClient : IDisposable
     {
         /// <summary>
@@ -155,23 +154,35 @@ namespace Guilded.NET.Base
             return container;
         }
         /// <summary>
-        /// Connects to Guilded client/user.
+        /// Connects this client to Guilded.
         /// </summary>
+        /// <remarks>
+        /// Creates a new connection to Guilded with this client.
+        /// </remarks>
         public abstract Task ConnectAsync();
         /// <summary>
-        /// Disconnects from Guilded client/user.
+        /// Disconnects this client from Guilded.
         /// </summary>
+        /// <remarks>
+        /// Stop any connections this client has with Guilded.
+        /// </remarks>
         public abstract Task DisconnectAsync();
         /// <summary>
-        /// Disposes BaseGuildedClient.
+        /// Disposes <see cref="BaseGuildedClient"/> instance.
         /// </summary>
+        /// <remarks>
+        /// Disposes <see cref="BaseGuildedClient"/>, its heartbeat and its WebSockets.
+        /// </remarks>
         public virtual void Dispose()
         {
+            // Disconnect the client completely
+            DisconnectAsync();
             // Stops timer
             HeartbeatTimer?.Stop();
             HeartbeatTimer?.Dispose();
             // Disposes all websockets
-            foreach (WebsocketClient client in Websockets.Values) client.Dispose();
+            foreach (WebsocketClient client in Websockets.Values)
+                client.Dispose();
         }
     }
 }

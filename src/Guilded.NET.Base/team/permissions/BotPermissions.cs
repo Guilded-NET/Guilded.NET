@@ -13,6 +13,13 @@ namespace Guilded.NET.Base.Permissions
         /// NOTE: For now, bots do not enforce permissions. Anyone with this permission 
         /// can create bots to work around their role's existing permissions.
         /// </summary>
-        ManageBots = 1
+        ManageBots = 1,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = ManageBots
+        #endregion
     }
 }

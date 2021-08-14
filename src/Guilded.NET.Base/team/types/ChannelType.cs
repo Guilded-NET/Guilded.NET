@@ -6,6 +6,8 @@ namespace Guilded.NET.Base.Teams
     /// <summary>
     /// Represents types of Guilded channels.
     /// </summary>
+    /// <seealso cref="SectionType"/>
+    /// <seealso cref="TeamType"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum ChannelType
     {

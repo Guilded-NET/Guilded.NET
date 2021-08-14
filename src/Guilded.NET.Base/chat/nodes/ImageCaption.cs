@@ -7,6 +7,7 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// A message explaining an image.
     /// </summary>
+    /// <seealso cref="Image"/>
     public class ImageCaption : ContainerNode<ImageCaption>
     {
         #region Constructors

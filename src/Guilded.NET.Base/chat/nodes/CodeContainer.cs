@@ -41,6 +41,7 @@ namespace Guilded.NET.Base.Chat
     /// });
     /// </code>
     /// </example>
+    /// <seealso cref="CodeLine"/>
     public class CodeContainer : ContainerNode<CodeLine, CodeContainer>
     {
         #region Properties

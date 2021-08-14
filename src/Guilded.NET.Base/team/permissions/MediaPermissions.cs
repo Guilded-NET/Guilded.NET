@@ -23,6 +23,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to remove media created by others
         /// </summary>
-        RemoveMedia = 8
+        RemoveMedia = 8,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = CreateMedia | SeeMedia | ManageMedia | RemoveMedia,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = ManageMedia | RemoveMedia,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = CreateMedia | SeeMedia
+        #endregion
     }
 }

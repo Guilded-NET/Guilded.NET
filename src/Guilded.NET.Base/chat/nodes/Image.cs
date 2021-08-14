@@ -8,6 +8,8 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// An image file in a message.
     /// </summary>
+    /// <seealso cref="ChatEmote"/>
+    /// <seealso cref="Image"/>
     public class Image : ContainerNode<ChatElement, Image>
     {
         #region Properties

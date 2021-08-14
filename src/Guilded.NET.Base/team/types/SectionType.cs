@@ -1,8 +1,16 @@
-namespace Guilded.NET.Base {
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Guilded.NET.Base.Teams
+{
     /// <summary>
-    /// Types of team sections.
+    /// The type of a team section.
     /// </summary>
-    public enum SectionType {
+    /// <seealso cref="ChannelType"/>
+    /// <seealso cref="TeamType"/>
+    [JsonConverter(typeof(StringEnumConverter), true)]
+    public enum SectionType
+    {
         /// <summary>
         /// Home page of the team, where global announcements, forum topics and upcoming events are shown.
         /// </summary>

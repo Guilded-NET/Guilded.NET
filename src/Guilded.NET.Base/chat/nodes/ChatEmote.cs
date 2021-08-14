@@ -11,6 +11,7 @@ namespace Guilded.NET.Base.Chat
     /// <remarks>
     /// Any global emote/emoji, even the ones you don't have in emote list.
     /// </remarks>
+    /// <seealso cref="Image"/>
     public class ChatEmote : ContainerNode<TextContainer, ChatEmote>
     {
         #region Properties

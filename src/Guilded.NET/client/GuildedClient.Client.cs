@@ -1,34 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.Timers;
 using System.Threading.Tasks;
+using System.Timers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using Serilog;
 using Serilog.Core;
 using Websocket.Client;
+using System.Net.WebSockets;
 
 namespace Guilded.NET
 {
     using Base;
-    using Base.Users;
     using Base.Events;
-
+    using Base.Users;
     using Converters;
 
     /// <summary>
-    /// A base for user bot clients and normal bot clients.
+    /// A base for all Guilded clients.
     /// </summary>
-    public abstract partial class BasicGuildedClient : BaseGuildedClient
+    /// <seealso cref="GuildedBotClient"/>
+    /// <seealso cref="BaseGuildedClient"/>
+    public abstract partial class GuildedClient : BaseGuildedClient
     {
         /// <summary>
-        /// An event when client is connected and it is fully ready to be used.
+        /// An event when the client is prepared.
         /// </summary>
+        /// <remarks>
+        /// An event when the client has added all of the finishing touches, such as getting <see cref="Me"/> data.
+        /// </remarks>
         protected EventHandler PreparedEvent;
         /// <summary>
-        /// An event when client is connected and it is fully ready to be used.
+        /// An event when the client is prepared.
         /// </summary>
+        /// <remarks>
+        /// An event when the client has added all of the finishing touches, such as getting <see cref="Me"/> data.
+        /// </remarks>
         public event EventHandler Prepared
         {
             add => PreparedEvent += value;
@@ -43,8 +51,11 @@ namespace Guilded.NET
             get; protected set;
         }
         /// <summary>
-        /// JSON converters used to (de)serialize Guilded responses and websocket events.
+        /// A list of JSON converters used to (de)serialize Guilded responses and WebSocket events.
         /// </summary>
+        /// <remarks>
+        /// <para>Use these converters to pass anything to Guilded REST client or Guilded WebSocket client.</para>
+        /// </remarks>
         /// <value>List of JSON converters</value>
         public JsonConverter[] Converters
         {
@@ -61,7 +72,7 @@ namespace Guilded.NET
         /// <summary>
         /// A base for user bot clients and normal bot clients.
         /// </summary>
-        protected BasicGuildedClient() : base()
+        protected GuildedClient() : base()
         {
             GuildedLogger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
@@ -96,14 +107,17 @@ namespace Guilded.NET
             #endregion
         }
         /// <summary>
-        /// Base for connecting to Guilded.
+        /// Connects this client to Guilded.
         /// </summary>
-        protected void BasicConnectAsync()
+        /// <remarks>
+        /// Creates a new connection to Guilded with this client.
+        /// </remarks>
+        public override async Task ConnectAsync()
         {
             GuildedLogger.Information("Connecting to Guilded");
             // Inits websocket
             GuildedLogger.Verbose("Creating a websocket for the client");
-            InitWebsocket();
+            await InitWebsocket();
             // Thread for ping and heartbeat
             HeartbeatTimer = new Timer(HeartbeatInterval)
             {
@@ -116,14 +130,20 @@ namespace Guilded.NET
             HeartbeatTimer.Start();
         }
         /// <summary>
-        /// Disconnects the client from Guilded.
+        /// Disconnects this client from Guilded.
         /// </summary>
-        public void BasicDisconnect()
+        /// <remarks>
+        /// Stop any connections this client has with Guilded.
+        /// </remarks>
+        public override async Task DisconnectAsync()
         {
             GuildedLogger.Information("Disconnecting from Guilded");
             // Disconnects its websockets
             foreach (WebsocketClient ws in Websockets.Values)
-                ws.Dispose();
+                // If it can be stopped, stop it
+                if(ws.IsRunning)
+                    await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual");
+            // Invoke disconnection event
             DisconnectedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>

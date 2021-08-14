@@ -44,6 +44,7 @@ namespace Guilded.NET.Base.Chat
     ///     .WithText("!");
     /// </code>
     /// </example>
+    /// <seealso cref="BlockQuote"/>
     public class Paragraph : ContainerNode<Paragraph>
     {
         #region Constructors

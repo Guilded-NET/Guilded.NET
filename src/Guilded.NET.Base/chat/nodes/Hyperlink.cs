@@ -16,6 +16,7 @@ namespace Guilded.NET.Base.Chat
     /// Hyperlink link = new Hyperlink("https://guilded.gg/", "Guilded's website");
     /// </code>
     /// </example>
+    /// <seealso cref="Uri"/>
     public class Hyperlink : ContainerNode<Hyperlink>
     {
         #region Properties

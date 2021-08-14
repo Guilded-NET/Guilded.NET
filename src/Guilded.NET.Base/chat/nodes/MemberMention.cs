@@ -8,6 +8,7 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// A mention of a member/the members.
     /// </summary>
+    /// <seealso cref="ChannelMention"/>
     public class MemberMention : ContainerNode<TextContainer, MemberMention>
     {
         #region Properties

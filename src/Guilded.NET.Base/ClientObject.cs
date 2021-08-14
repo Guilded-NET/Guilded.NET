@@ -5,12 +5,14 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// An object that has parent client given.
+    /// An object that has a parent client.
     /// </summary>
+    /// <seealso cref="BaseGuildedClient"/>
+    /// <seealso cref="BaseObject"/>
     public abstract class ClientObject : BaseObject
     {
         /// <summary>
-        /// Client this object was created by.
+        /// The parent client that adopts this object.
         /// </summary>
         /// <value>Client</value>
         [JsonIgnore]
@@ -19,9 +21,9 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// Adds a parent client if given context has a Guilded client
+        /// Adds a parent client if context contains it.
         /// </summary>
-        /// <param name="context">JsonSerializer's given context</param>
+        /// <param name="context">The context given by the serializer</param>
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {

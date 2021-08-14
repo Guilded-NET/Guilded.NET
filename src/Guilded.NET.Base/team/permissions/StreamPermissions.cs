@@ -23,6 +23,21 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to send message in stream channel
         /// </summary>
-        SendMessages = 32
+        SendMessages = 32,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = AddStream | ViewStreams | JoinVoice | SendMessages,
+        /// <summary>
+        /// All of the manage permissions combined.
+        /// </summary>
+        Manage = 0,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = ViewStreams | JoinVoice | SendMessages
+        #endregion
     }
 }

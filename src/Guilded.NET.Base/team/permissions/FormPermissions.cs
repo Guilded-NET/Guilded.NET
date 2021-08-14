@@ -15,6 +15,17 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to view all poll results
         /// </summary>
-        PollResults = 16
+        PollResults = 16,
+
+        #region Additional
+        /// <summary>
+        /// All of the permissions combined.
+        /// </summary>
+        All = FormResponses | PollResults,
+        /// <summary>
+        /// A simple permission combination allowing writing permissions and reading permissions.
+        /// </summary>
+        Basic = PollResults
+        #endregion
     }
 }
