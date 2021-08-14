@@ -11,6 +11,7 @@
         </mask>
     </defs>
     <g id="gnet-main">
+        <circle id="gnet-outline" cx="512" cy="512" r="512" fill="white"/>
         <circle id="gnet-base" cx="512" cy="512" r="440" fill="#0F0F0F" mask="url(#gnet-mask)" />
         <circle id="gnet-dot" cx="192" cy="512" r="132" fill="#F5C400" />
         <path id="gnet-guilded" fill="#F5C400" d="M 644.27,704.52
