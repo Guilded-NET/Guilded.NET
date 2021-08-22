@@ -23,6 +23,8 @@ namespace Guilded.NET.Base
         /// <param name="memberId">The identifier of the receiving user</param>
         /// <param name="roleId">The identifier of the role to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public abstract Task AddRoleAsync(GId memberId, uint roleId);
         /// <summary>
@@ -36,6 +38,8 @@ namespace Guilded.NET.Base
         /// <param name="memberId">The identifier of the losing user</param>
         /// <param name="roleId">The identifier of the role to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public abstract Task RemoveRoleAsync(GId memberId, uint roleId);
         /// <summary>
@@ -46,12 +50,15 @@ namespace Guilded.NET.Base
         /// await client.AddXpAsync(message.CreatedBy, 10);
         /// </code>
         /// </example>
-        /// <param name="userId">The identifier of the receiving user</param>
+        /// <param name="memberId">The identifier of the receiving member</param>
         /// <param name="xpAmount">The amount of XP received from -1000 to 1000</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
         /// <permission cref="XPPermissions.ManageServerXP">Required for managing member's XP</permission>
         /// <returns>Total XP</returns>
-        public abstract Task<long> AddXpAsync(GId userId, short xpAmount);
+        public abstract Task<long> AddXpAsync(GId memberId, short xpAmount);
         #endregion
 
         #region Roles
@@ -66,6 +73,7 @@ namespace Guilded.NET.Base
         /// <param name="roleId">The identifier of the editing role</param>
         /// <param name="xpAmount">The amount XP added</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedResourceException">When the role of identifier <paramref name="roleId"/> has not been found</exception>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing roles</permission>
         public abstract Task AttachRoleLevelAsync(uint roleId, long xpAmount);
         #endregion
@@ -82,6 +90,8 @@ namespace Guilded.NET.Base
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the group <paramref name="groupId"/>, the member <paramref name="memberId"/> or both have not been found</exception>
         /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public abstract Task AddMembershipAsync(GId groupId, GId memberId);
         /// <summary>
@@ -95,6 +105,8 @@ namespace Guilded.NET.Base
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the group <paramref name="groupId"/>, the member <paramref name="memberId"/> or both have not been found</exception>
         /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public abstract Task RemoveMembershipAsync(GId groupId, GId memberId);
         #endregion

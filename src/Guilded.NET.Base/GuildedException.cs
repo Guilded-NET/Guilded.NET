@@ -1,62 +1,78 @@
 using System;
 using System.Net;
 using System.Runtime.Serialization;
+using RestSharp;
 
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// Exception thrown by Guilded.
+    /// An exception thrown by Guilded API.
     /// </summary>
     [Serializable]
     public class GuildedException : Exception
     {
         /// <summary>
-        /// Code of Guilded error.
+        /// The code name of Guilded error.
         /// </summary>
-        /// <value>Error code</value>
+        /// <value>Code name</value>
         public string Code
         {
             get; set;
         }
         /// <summary>
-        /// Message of the Guilded error.
+        /// The response that was received from Guilded API.
         /// </summary>
-        /// <value>Error message</value>
-        public string ErrorMessage
+        /// <value>REST Response</value>
+        public IRestResponse Response
         {
             get; set;
         }
         /// <summary>
-        /// HTTP status code of the request.
+        /// The HTTP status that was found in the response.
         /// </summary>
-        /// <value>Status code</value>
-        public HttpStatusCode StatusCode
-        {
-            get; set;
-        }
+        /// <value>HTTP status</value>
+        public HttpStatusCode StatusCode => Response.StatusCode;
         /// <summary>
-        /// Exception thrown by Guilded.
+        /// Creates a new instance of <see cref="GuildedException"/>.
         /// </summary>
-        public GuildedException() : base("Guilded exception was thrown.") { }
+        /// <param name="message">The message explaining the error</param>
+        public GuildedException(string message) : base(message) { }
         /// <summary>
-        /// Exception thrown by Guilded.
+        /// Creates a new instance of <see cref="GuildedException"/> with information from given parameters.
         /// </summary>
-        /// <param name="inner">Inner exception of the Guilded exception</param>
-        public GuildedException(Exception inner) : base("Guilded exception was thrown.", inner) { }
+        /// <param name="code">The name of the error from Guilded API</param>
+        /// <param name="message">The description of the error from Guilded API</param>
+        /// <param name="response">The response that was received from Guilded API</param>
+        public GuildedException(string code, string message, IRestResponse response) : this(message) =>
+            (Code, Response) = (code, response);
         /// <summary>
-        /// Exception thrown by Guilded.
+        /// Creates a new instance of <see cref="GuildedException"/> with default message.
         /// </summary>
-        /// <param name="info">Error serialization info</param>
-        /// <param name="context">Streaming context</param>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="GuildedException"/> with default message:</para>
+        /// <para>"Guilded exception was thrown."</para>
+        /// </remarks>
+        public GuildedException() : this("Guilded exception was thrown.") { }
+        /// <summary>
+        /// Creates a new instance of <see cref="GuildedException"/> with inner exception explaining more.
+        /// </summary>
+        /// <param name="message">The description of the error from Guilded API</param>
+        /// <param name="inner">Inner exception explaining more</param>
+        public GuildedException(string message, Exception inner) : base(message, inner) { }
+        /// <summary>
+        /// Creates a new instance of <see cref="GuildedException"/> with serialization information.
+        /// </summary>
+        /// <param name="info">The information about serialization that errored</param>
+        /// <param name="context">The streaming context of the serialization</param>
         protected GuildedException(
             SerializationInfo info,
             StreamingContext context) : base(info, context) { }
 
         /// <summary>
-        /// Turns exception to string.
+        /// Returns string representation of the exception thrown.
         /// </summary>
-        /// <returns>GuildedException as string</returns>
+        /// <returns><see cref="GuildedException"/> as string</returns>
         public override string ToString() =>
-            $"{Message}\n[{Code}:{StatusCode}]: {ErrorMessage}\n{StackTrace}";
+            $"Guilded API has thrown an error:\n[{Code}:{StatusCode}]: {Message}\n{StackTrace}";
     }
 }

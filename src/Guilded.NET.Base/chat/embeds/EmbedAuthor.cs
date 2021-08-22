@@ -5,13 +5,17 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Embeds
 {
     /// <summary>
-    /// The author of the embed.
+    /// The author information of an embed.
     /// </summary>
+    /// <seealso cref="EmbedFooter"/>
+    /// <seealso cref="EmbedProvider"/>
+    /// <seealso cref="EmbedField"/>
+    /// <seealso cref="EmbedMedia"/>
     public class EmbedAuthor : BaseObject
     {
         #region JSON properties
         /// <summary>
-        /// The name of the embed author.
+        /// The name of an embed author.
         /// </summary>
         /// <value>Title?</value>
         [JsonProperty(Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]

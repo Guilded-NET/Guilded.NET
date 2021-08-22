@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
 {
+    using System.ComponentModel;
     using Users;
     /// <summary>
     /// A message posted in the chat.
@@ -71,11 +72,19 @@ namespace Guilded.NET.Base.Chat
         {
             get; set;
         }
+        /// <summary>
+        /// The type of the message it is.
+        /// </summary>
+        /// <value>Message type</value>
+        [DefaultValue(MessageType.Default)]
+        public MessageType Type
+        {
+            get; set;
+        }
         // /// <summary>
         // /// Whether this message is pinned or not.
         // /// </summary>
         // /// <value>Pinned</value>
-        // [DefaultValue(false)]
         // public bool IsPinned
         // {
         //     get; set;
@@ -222,10 +231,10 @@ namespace Guilded.NET.Base.Chat
         public async Task RemoveReactionAsync(uint emoteId) =>
             await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId);
         /// <summary>
-        /// Gets whether this message was posted by the given user.
+        /// Gets whether this message was posted by <paramref name="user"/>.
         /// </summary>
-        /// <param name="user">User to check</param>
-        /// <returns>Message by that user</returns>
+        /// <param name="user">The potential author of this message</param>
+        /// <returns>Message by <paramref name="user"/></returns>
         public bool Of(BaseUser user) =>
             CreatedBy == user?.Id;
         #endregion

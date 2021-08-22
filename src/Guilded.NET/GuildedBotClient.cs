@@ -9,13 +9,14 @@ namespace Guilded.NET
     /// </summary>
     /// <remarks>
     /// <para>Use this to initiate and log into Guilded bot.</para>
-    /// <para>If you want to connect, set <see cref="AuthToken"/> and then use <see cref="ConnectAsync()"/>. You can also use <see cref="ConnectAsync(string)"/></para>
+    /// <para>If you want to connect, set <see cref="AuthToken"/> and then use <see cref="ConnectAsync()"/>.</para>
+    /// <para>You can also use <see cref="ConnectAsync(string)"/>, which doesn't require <see cref="AuthToken"/> set.</para>
     /// </remarks>
-    /// <seealso cref="GuildedClient"/>
+    /// <seealso cref="AbstractGuildedClient"/>
     /// <seealso cref="Base.BaseGuildedClient"/>
     /// <seealso cref="ConnectAsync()"/>
     /// <seealso cref="ConnectAsync(string)"/>
-    public partial class GuildedBotClient : GuildedClient
+    public partial class GuildedBotClient : AbstractGuildedClient
     {
         /// <summary>
         /// An authentication token used to log into a bot in Guilded.
@@ -30,7 +31,7 @@ namespace Guilded.NET
         /// </summary>
         /// <remarks>
         /// <para>This creates a new client and only initiates it. It does not connect to Guilded.</para>
-        /// <para>If you want to connect to Guilded, use <see cref="ConnectAsync()"/>.</para>
+        /// <para>If you want to connect to Guilded, use <see cref="ConnectAsync(string)"/> with bot's authentication token.</para>
         /// </remarks>
         public GuildedBotClient() { }
         /// <summary>

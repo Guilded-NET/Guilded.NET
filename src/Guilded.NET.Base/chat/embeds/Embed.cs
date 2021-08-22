@@ -8,10 +8,10 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Embeds
 {
     /// <summary>
-    /// The data of the message embed.
+    /// An embed that is part of embed container.
     /// </summary>
     /// <remarks>
-    /// One of the embeds for <see cref="Guilded.NET.Base.Chat.ChatEmbed"/>.
+    /// A custom/rich embed in <see cref="Chat.ChatEmbed"/> container node.
     /// </remarks>
     /// <example>
     /// <code>

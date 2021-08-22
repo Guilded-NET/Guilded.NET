@@ -4,7 +4,7 @@ using Newtonsoft.Json.Converters;
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// If the message is a normal message or a system message.
+    /// The type of the message created or updated.
     /// </summary>
     /// <seealso cref="BaseMessage"/>
     /// <seealso cref="Message"/>

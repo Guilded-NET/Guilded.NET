@@ -21,8 +21,7 @@ namespace Guilded.NET
     /// A base for all Guilded clients.
     /// </summary>
     /// <seealso cref="GuildedBotClient"/>
-    /// <seealso cref="BaseGuildedClient"/>
-    public abstract partial class GuildedClient : BaseGuildedClient
+    public abstract partial class AbstractGuildedClient : BaseGuildedClient
     {
         /// <summary>
         /// An event when the client is prepared.
@@ -72,7 +71,7 @@ namespace Guilded.NET
         /// <summary>
         /// A base for user bot clients and normal bot clients.
         /// </summary>
-        protected GuildedClient() : base()
+        protected AbstractGuildedClient() : base()
         {
             GuildedLogger = new LoggerConfiguration()
                 .MinimumLevel.Verbose()
@@ -93,16 +92,17 @@ namespace Guilded.NET
             Console.CancelKeyPress += (o, e) => Dispose();
             // Events
             #region Event list
-            // A list of all events
-            GuildedEvents = new Dictionary<string, EventInfo> {
+            // The list of all events that are supported
+            GuildedEvents = new Dictionary<string, IEventInfo<object>>
+            {
                 // Utils
-                { "",                       new EventInfo(typeof(WelcomeEvent)) },
+                { "",                       new EventInfo<WelcomeEvent>(typeof(WelcomeEvent)) },
                 // Team events
-                { "TeamXpAdded",            new EventInfo(typeof(XpAddedEvent)) },
+                { "TeamXpAdded",            new EventInfo<XpAddedEvent>(typeof(XpAddedEvent)) },
                 // Chat messages
-                { "ChatMessageCreated",     new EventInfo(typeof(MessageCreatedEvent)) },
-                { "ChatMessageUpdated",     new EventInfo(typeof(MessageUpdatedEvent)) },
-                { "ChatMessageDeleted",     new EventInfo(typeof(MessageDeletedEvent)) }
+                { "ChatMessageCreated",     new EventInfo<MessageCreatedEvent>(typeof(MessageCreatedEvent)) },
+                { "ChatMessageUpdated",     new EventInfo<MessageUpdatedEvent>(typeof(MessageUpdatedEvent)) },
+                { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>(typeof(MessageDeletedEvent)) }
             };
             #endregion
         }

@@ -7,6 +7,10 @@ namespace Guilded.NET.Base.Embeds
     /// <summary>
     /// The footer/bottom area of the embed.
     /// </summary>
+    /// <seealso cref="EmbedProvider"/>
+    /// <seealso cref="EmbedAuthor"/>
+    /// <seealso cref="EmbedField"/>
+    /// <seealso cref="EmbedMedia"/>
     public class EmbedFooter : BaseObject
     {
         #region JSON properties

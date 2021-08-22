@@ -255,27 +255,27 @@ namespace Guilded.NET.Base
                 JToken token = JToken.Parse(response.Content);
                 ApiLogger.Error("Error while executing a request: {@StatusCode}", response.StatusCode);
                 ApiLogger.Debug("Error caused by [{@Method}] {@Resource}", request.Method, request.Resource);
-                // Checks if it's an object
-                if (token.Type == JTokenType.Object)
-                {
-                    // Gets the object
-                    JObject obj = (JObject)token;
-                    // If it does, treat it as an error
-                    GuildedException exc = new GuildedException()
+                // Gets the object
+                JObject obj = (JObject)token;
+                // The code and message of the error thrown for exceptions
+                string code = obj.Value<string>("code"),
+                       errorMessage = obj.Value<string>("message");
+                // If it does, treat it as an error
+                GuildedException exc =
+                    response.StatusCode switch
                     {
-                        Code = obj["code"].Value<string>(),
-                        ErrorMessage = obj["message"].Value<string>(),
-                        StatusCode = response.StatusCode
+                        // Missing permissions from the bot
+                        HttpStatusCode.Forbidden =>
+                            new GuildedPermissionException(code, errorMessage, response),
+                        // Given path has not been found
+                        HttpStatusCode.NotFound =>
+                            new GuildedResourceException(code, errorMessage, response),
+                        // Any other error, such as internal server error, invalid token, unacceptable request
+                        _ =>
+                            new GuildedException(code, errorMessage, response)
                     };
-                    // Throws it
-                    throw exc;
-                }
-                else throw new GuildedException()
-                {
-                    Code = "Unknown",
-                    ErrorMessage = response.Content,
-                    StatusCode = response.StatusCode
-                };
+                // Throws it
+                throw exc;
             }
             // Returns it
             return response;

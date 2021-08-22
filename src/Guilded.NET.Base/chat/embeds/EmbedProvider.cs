@@ -5,12 +5,19 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Embeds
 {
     /// <summary>
-    /// The provider of the embed.
+    /// The provider/domain of an embed.
     /// </summary>
+    /// <remarks>
+    /// The domain name and URL in an embed. Currently unavailable to be customized.
+    /// </remarks>
+    /// <seealso cref="EmbedFooter"/>
+    /// <seealso cref="EmbedAuthor"/>
+    /// <seealso cref="EmbedField"/>
+    /// <seealso cref="EmbedMedia"/>
     public class EmbedProvider : BaseObject
     {
         /// <summary>
-        /// The name of the provider.
+        /// The name of a provider.
         /// </summary>
         /// <value>Title</value>
         [JsonProperty(Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]
@@ -19,7 +26,7 @@ namespace Guilded.NET.Base.Embeds
             get; set;
         }
         /// <summary>
-        /// The URL of the provider
+        /// The URL of a provider
         /// </summary>
         /// <value>URL?</value>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -27,14 +34,5 @@ namespace Guilded.NET.Base.Embeds
         {
             get; set;
         }
-        #region Constructors
-        /// <summary>
-        /// The author of the embed.
-        /// </summary>
-        /// <param name="name">The name of the embed author</param>=
-        /// <param name="url">The URL that author links</param>
-        public EmbedProvider(string name, Uri url = null) =>
-            (Name, Url) = (name, url);
-        #endregion
     }
 }

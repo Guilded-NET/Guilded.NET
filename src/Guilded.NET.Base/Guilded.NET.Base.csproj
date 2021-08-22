@@ -42,7 +42,6 @@
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Docs' ">
     <DefaultDocumentationFolder>../Documentation/Guilded.NET.Base</DefaultDocumentationFolder>
-    <DefaultDocumentationAssemblyPageName>Guilded.NET.Base</DefaultDocumentationAssemblyPageName>
     <DefaultDocumentationFileNameMode>Name</DefaultDocumentationFileNameMode>
     <DefaultDocumentationGeneratedPages>Types,Members</DefaultDocumentationGeneratedPages>
     <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>

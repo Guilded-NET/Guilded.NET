@@ -42,7 +42,7 @@ namespace Guilded.NET.Base.Forms
         public bool IsPublic
         {
             get; set;
-        } = false;
+        }
         /// <summary>
         /// Type of the form(form, poll).
         /// </summary>

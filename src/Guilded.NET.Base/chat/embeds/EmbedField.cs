@@ -6,6 +6,10 @@ namespace Guilded.NET.Base.Embeds
     /// <summary>
     /// A field in an embed.
     /// </summary>
+    /// <seealso cref="EmbedFooter"/>
+    /// <seealso cref="EmbedProvider"/>
+    /// <seealso cref="EmbedAuthor"/>
+    /// <seealso cref="EmbedMedia"/>
     public class EmbedField : BaseObject
     {
         #region JSON properties
@@ -34,7 +38,7 @@ namespace Guilded.NET.Base.Embeds
         public bool Inline
         {
             get; set;
-        } = false;
+        }
         #endregion
 
         #region Constructors

@@ -5,6 +5,10 @@ namespace Guilded.NET.Base.Embeds
     /// <summary>
     /// The image or the thumbnail image in an embed.
     /// </summary>
+    /// <seealso cref="EmbedFooter"/>
+    /// <seealso cref="EmbedProvider"/>
+    /// <seealso cref="EmbedAuthor"/>
+    /// <seealso cref="EmbedField"/>
     public class EmbedMedia : BaseObject
     {
         #region JSON properties
