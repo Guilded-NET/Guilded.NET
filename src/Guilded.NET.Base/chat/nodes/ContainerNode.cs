@@ -22,7 +22,7 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// The list of message objects this node holds.
         /// </summary>
-        /// <value>List of ChatElement</value>
+        /// <value>List of <see cref="ChatElement"/></value>
         [JsonProperty(Required = Required.Always)]
         public IList<T> Nodes
         {

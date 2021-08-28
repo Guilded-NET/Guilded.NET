@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Timers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using Serilog;
-using Serilog.Core;
 using Websocket.Client;
-using System.Net.WebSockets;
 
 namespace Guilded.NET
 {
@@ -61,35 +59,19 @@ namespace Guilded.NET
             get; set;
         }
         /// <summary>
-        /// Logs all of the Guilded.NET related things.
-        /// </summary>
-        /// <value>Guilded.NET logger</value>
-        internal Logger GuildedLogger
-        {
-            get; set;
-        }
-        /// <summary>
         /// A base for user bot clients and normal bot clients.
         /// </summary>
         protected AbstractGuildedClient() : base()
         {
-            GuildedLogger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Filter.ByIncludingOnly(l => EnabledLogLevels.Contains(l.Level))
-                .WriteTo.Console()
-                .CreateLogger();
-            Converters = new JsonConverter[] {
+            // Adds converters to serializers
+            SerializerSettings.Converters = new JsonConverter[]
+            {
                 new RichTextConverter(),
                 new ContentConverter(),
                 new HexColorConverter()
             };
-            // Adds default converters
-            foreach (JsonConverter converter in Converters)
-                GuildedSerializer.Converters.Add(converter);
-            /*(ClientConfig, MessageCommands, CommentCommands) = (config, new Dictionary<CommandAttribute, CommandMethod<MessageCreatedEvent>>(), new Dictionary<CommandAttribute, CommandMethod<ContentReplyCreatedEvent>>());*/
+            GuildedSerializer = JsonSerializer.Create(SerializerSettings);
             WebsocketMessage += HandleSocketMessages;
-            // If the client should be disposed on CTRL + C, then add method to CancelKeyPress
-            Console.CancelKeyPress += (o, e) => Dispose();
             // Events
             #region Event list
             // The list of all events that are supported
@@ -114,53 +96,52 @@ namespace Guilded.NET
         /// </remarks>
         public override async Task ConnectAsync()
         {
-            GuildedLogger.Information("Connecting to Guilded");
             // Inits websocket
-            GuildedLogger.Verbose("Creating a websocket for the client");
-            await InitWebsocket();
+            Websockets.Add("", await InitWebsocket());
             // Thread for ping and heartbeat
-            HeartbeatTimer = new Timer(HeartbeatInterval)
+            HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
             {
                 AutoReset = true,
                 Enabled = true
             };
             HeartbeatTimer.Elapsed += SendHeartbeat;
-            // Starts heartbeat thread
-            GuildedLogger.Verbose("Starting heartbeat thread");
+            // Starts heartbeat timer
             HeartbeatTimer.Start();
         }
         /// <summary>
         /// Disconnects this client from Guilded.
         /// </summary>
         /// <remarks>
-        /// Stop any connections this client has with Guilded.
+        /// Stops any connections this client has with Guilded.
         /// </remarks>
         public override async Task DisconnectAsync()
         {
-            GuildedLogger.Information("Disconnecting from Guilded");
             // Disconnects its websockets
-            foreach (WebsocketClient ws in Websockets.Values)
+            foreach (string wsKey in Websockets.Keys)
+            {
+                WebsocketClient ws = Websockets[wsKey];
                 // If it can be stopped, stop it
-                if(ws.IsRunning)
+                if (ws.IsRunning)
                     await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual");
+                // Dispose and remove it
+                ws.Dispose();
+                Websockets.Remove(wsKey);
+            }
+            // Stops the timer
+            HeartbeatTimer?.Stop();
+            HeartbeatTimer?.Dispose();
             // Invoke disconnection event
             DisconnectedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>
-        /// Disposes the bot.
+        /// Disposes <see cref="AbstractGuildedClient"/> instance.
         /// </summary>
-        public override void Dispose()
-        {
-            // Disconnects itself
+        /// <remarks>
+        /// Disposes <see cref="AbstractGuildedClient"/>, its heartbeat and its WebSockets.
+        /// </remarks>
+        public override void Dispose() =>
             DisconnectAsync().GetAwaiter().GetResult();
-            // Disposes the base
-            base.Dispose();
-        }
-        private async Task<JContainer> GetObject(string resource, Method method, object body = null) =>
-            JObject.Parse((await ExecuteRequest(resource, method, body)).Content ?? "{}");
-        private async Task<T> GetObject<T>(string resource, Method method, object body = null) =>
-            (await GetObject(resource, method, body)).ToObject<T>(GuildedSerializer);
         private async Task<T> GetObject<T>(string resource, Method method, object key, object body = null) =>
-            (await GetObject(resource, method, body))[key].ToObject<T>(GuildedSerializer);
+            (await ExecuteRequest<JContainer>(resource, method, body)).Data[key].ToObject<T>(GuildedSerializer);
     }
 }

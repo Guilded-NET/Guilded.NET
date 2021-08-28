@@ -6,9 +6,7 @@ namespace Guilded.NET.Base
 {
     using Chat;
     using Content;
-    using Embeds;
     using Permissions;
-    using Teams;
     /// <summary>
     /// A base for Guilded client.
     /// </summary>
@@ -100,7 +98,7 @@ namespace Guilded.NET.Base
         ///     new Leaf("Welcome to "),
         ///     new Leaf(team.Name, MarkType.Bold),
         ///     new Leaf("!")
-        /// );
+        /// ));
         /// </code>
         /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
@@ -113,6 +111,72 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent content);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, new MessageDocument
+        /// (
+        ///     new Leaf("Welcome to "),
+        ///     new Leaf(team.Name, MarkType.Bold),
+        ///     new Leaf("!")
+        /// ));
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="document">The rich text markup document that will be used as content</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message posted</returns>
+        public async Task<Message> CreateMessageAsync(Guid channelId, MessageDocument document) =>
+            await CreateMessageAsync(channelId, new MessageContent(document));
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, new List&lt;Node&gt;
+        /// {
+        ///     new BlockQuote("Hello"),
+        ///     new Paragraph("Hey there!")
+        /// });
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="nodes">The list of rich text markup nodes that will be used to create message content</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message posted</returns>
+        public async Task<Message> CreateMessageAsync(Guid channelId, IList<Node> nodes) =>
+            await CreateMessageAsync(channelId, new MessageContent(nodes));
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.CreateMessageAsync(channelId, new BlockQuote("Hello"), new Paragraph("Hey there!"));
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="nodes">The array of rich text markup nodes that will be used to create message content</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message posted</returns>
+        public async Task<Message> CreateMessageAsync(Guid channelId, params Node[] nodes) =>
+            await CreateMessageAsync(channelId, new MessageContent(nodes));
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -218,6 +282,66 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public abstract Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageContent content);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, new MessageDocument("Edited message"));
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="document">The rich text markup document that will be used as content</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageDocument document) =>
+            await UpdateMessageAsync(channelId, messageId, new MessageContent(document));
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, new List&lt;Node&gt; { new Paragraph("Edited message") });
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="nodes">The list of rich text markup nodes that will be used to create message content</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IList<Node> nodes) =>
+            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes));
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.UpdateMessageAsync(channelId, messageId, new Paragraph("Edited message"));
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="nodes">The array of rich text markup nodes that will be used to create message content</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, params Node[] nodes) =>
+            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes));
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>

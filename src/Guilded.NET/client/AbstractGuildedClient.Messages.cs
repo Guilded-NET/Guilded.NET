@@ -1,11 +1,11 @@
 using System;
+using System.Reactive.Linq;
 using System.Collections.Generic;
 
 namespace Guilded.NET
 {
-    using System.Reactive;
-    using System.Reactive.Linq;
     using Base.Events;
+
     /// <summary>
     /// A base for all Guilded clients.
     /// </summary>
@@ -156,7 +156,6 @@ namespace Guilded.NET
         {
             // Makes sure that the event received is not null
             if (message is null) return;
-            GuildedLogger.Debug("Received socket event [{Opcode}] {EventName}", message?.Opcode, message?.EventName);
 
             string eventName = message?.EventName ?? "";
 
@@ -172,8 +171,6 @@ namespace Guilded.NET
                 if (ev != default)
                     ev.OnNext(data);
             }
-
-            GuildedLogger.Debug("Socket event '{EventName}' handled", message.EventName);
         }
         #endregion
     }

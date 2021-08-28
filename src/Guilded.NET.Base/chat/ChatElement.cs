@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Chat
 {
     /// <summary>
-    /// The base type for message element, such as <see cref="Node"/>s.
+    /// The base type for message elements, such as <see cref="Node"/> type.
     /// </summary>
     /// <seealso cref="Leaf"/>
     /// <seealso cref="Mark"/>

@@ -46,7 +46,7 @@ namespace Guilded.NET.Base.Chat
         /// <param name="obj">The type of the chat element</param>
         /// <param name="data">The data containing information about the element</param>
         protected Node(NodeType type, ElementType obj, ElementData data) : base(obj) =>
-            (Type, Object, Data) = (type, obj, data);
+            (Type, Data) = (type, data);
         /// <summary>
         /// Represents a node part of message content tree.
         /// </summary>

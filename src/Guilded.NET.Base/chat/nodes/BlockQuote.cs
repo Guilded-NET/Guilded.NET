@@ -62,6 +62,5 @@ namespace Guilded.NET.Base.Chat
         /// <param name="content">The array of objects that should be converted to quote lines</param>
         public BlockQuote(params object[] content) : this(content.Select(x => new LineQuote(x)).ToList()) { }
         #endregion
-        
     }
 }

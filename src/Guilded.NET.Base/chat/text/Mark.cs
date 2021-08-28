@@ -14,7 +14,8 @@ namespace Guilded.NET.Base.Chat
     /// <seealso cref="MarkType"/>
     public class Mark : ChatElement, ICloneable
     {
-        internal static IDictionary<MarkType, string> MarkSymbols = new Dictionary<MarkType, string> {
+        internal static IDictionary<MarkType, string> MarkSymbols = new Dictionary<MarkType, string>
+        {
             { MarkType.Bold, "**" },
             { MarkType.InlineCode, "`" },
             { MarkType.Italic, "*" },

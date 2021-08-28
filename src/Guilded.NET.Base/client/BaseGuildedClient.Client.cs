@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using RestSharp;
-using Serilog;
-using Serilog.Core;
-using Serilog.Events;
-using Websocket.Client;
+using RestSharp.Serializers.NewtonsoftJson;
 
 namespace Guilded.NET.Base
 {
@@ -21,30 +18,6 @@ namespace Guilded.NET.Base
     /// </remarks>
     public abstract partial class BaseGuildedClient : IDisposable
     {
-        /// <summary>
-        /// Logs all of the websocket events.
-        /// </summary>
-        /// <value>Logger</value>
-        private Logger WebsocketLogger
-        {
-            get; set;
-        }
-        /// <summary>
-        /// Logs all of the API related stuff it is doing.
-        /// </summary>
-        /// <value>Logger</value>
-        private Logger ApiLogger
-        {
-            get; set;
-        }
-        /// <summary>
-        /// Enabled logging levels. You can use this to make Guilded.NET show debug messages and other information.
-        /// </summary>
-        /// <value>Enabled log levels</value>
-        public HashSet<LogEventLevel> EnabledLogLevels
-        {
-            get; set;
-        }
         /// <summary>
         /// Events when client gets Connected/Disconnected.
         /// </summary>
@@ -74,9 +47,17 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// Serializer used to (de)serialize JSON given by Guilded or made for Guilded.
+        /// Settings for <see cref="Rest"/> client's JSON (de)serialization.
         /// </summary>
-        /// <value>Serializer</value>
+        /// <value>Serializer Settings</value>
+        public JsonSerializerSettings SerializerSettings
+        {
+            get; set;
+        }
+        /// <summary>
+        /// A serializer to (de)serialize for JSON from Guilded API.
+        /// </summary>
+        /// <value>Serializer from <see cref="SerializerSettings"/></value>
         public JsonSerializer GuildedSerializer
         {
             get; set;
@@ -97,26 +78,8 @@ namespace Guilded.NET.Base
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
         protected BaseGuildedClient(Uri apiUrl)
         {
-            // Enables errors and warnings
-            EnabledLogLevels = new HashSet<LogEventLevel>()
-            {
-                LogEventLevel.Fatal,
-                LogEventLevel.Error,
-                LogEventLevel.Warning
-            };
-            // Creates loggers
-            WebsocketLogger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Filter.ByIncludingOnly(l => EnabledLogLevels.Contains(l.Level))
-                .WriteTo.Console()
-                .CreateLogger();
-            ApiLogger = new LoggerConfiguration()
-                .MinimumLevel.Verbose()
-                .Filter.ByIncludingOnly(l => EnabledLogLevels.Contains(l.Level))
-                .WriteTo.Console()
-                .CreateLogger();
-            // Create new serializer
-            GuildedSerializer = new JsonSerializer
+            // Creates new serializer
+            SerializerSettings = new JsonSerializerSettings
             {
                 // Gives this client as a context to [OnDeserialized] and other stuff
                 Context = new StreamingContext(StreamingContextStates.Persistence, this),
@@ -128,7 +91,8 @@ namespace Guilded.NET.Base
             };
             // Initialize Rest client
             Rest = new RestClient(apiUrl ?? throw new ArgumentNullException($"{nameof(apiUrl)} can not be empty."))
-                .AddDefaultHeader("Origin", "https://www.guilded.gg/");
+                .AddDefaultHeader("Origin", "https://www.guilded.gg/")
+                .UseNewtonsoftJson(SerializerSettings);
         }
         /// <summary>
         /// A base for Guilded client.
@@ -169,19 +133,6 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Disposes <see cref="BaseGuildedClient"/> instance.
         /// </summary>
-        /// <remarks>
-        /// Disposes <see cref="BaseGuildedClient"/>, its heartbeat and its WebSockets.
-        /// </remarks>
-        public virtual void Dispose()
-        {
-            // Disconnect the client completely
-            DisconnectAsync();
-            // Stops timer
-            HeartbeatTimer?.Stop();
-            HeartbeatTimer?.Dispose();
-            // Disposes all websockets
-            foreach (WebsocketClient client in Websockets.Values)
-                client.Dispose();
-        }
+        public abstract void Dispose();
     }
 }

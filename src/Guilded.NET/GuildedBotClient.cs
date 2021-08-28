@@ -63,7 +63,6 @@ namespace Guilded.NET
         {
             if (string.IsNullOrWhiteSpace(authToken))
                 throw new ArgumentException($"{nameof(authToken)} cannot be null, full of whitespace or empty.");
-            GuildedLogger.Information("Logging in");
             // Adds authentication token as a header
             AdditionalHeaders.Add("Authorization", $"Bearer {authToken}");
             Rest.AddDefaultHeaders(AdditionalHeaders);
@@ -71,7 +70,6 @@ namespace Guilded.NET
             await base.ConnectAsync();
             // Invokes login event
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
-            //GuildedLogger.Verbose("Getting /me");
             // Gets this user and sets as .Me
             //Me = await GetThisUserAsync();
             // Tells that the client is prepared

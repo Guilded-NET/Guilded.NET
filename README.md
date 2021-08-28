@@ -13,6 +13,7 @@ Guilded.NET is [Guilded](https://guilded.gg/) API wrapper/library for .NET platf
 > - **RestSharp**: used for Guilded.NET's REST client
 > - **Serilog**: for logging events and such
 > - **Websocket.Client**: for Guilded.NET's WebSocket clients
+> - **DefaultDocumentation**: for Guilded.NET's reference site
 
 > ## Maintainers
 > - **IdkGoodName**

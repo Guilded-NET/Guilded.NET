@@ -4,11 +4,11 @@ using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Timers;
 using Websocket.Client;
+using Websocket.Client.Exceptions;
 
 namespace Guilded.NET.Base
 {
     using Events;
-    using Websocket.Client.Exceptions;
 
     /// <summary>
     /// A base for Guilded client.
@@ -20,6 +20,10 @@ namespace Guilded.NET.Base
     {
         internal const int welcome_opc = 1, resume_opc = 2;
         /// <summary>
+        /// The default timespan between each interval in milliseconds.
+        /// </summary>
+        public const double DefaultHeartbeatInterval = 22500;
+        /// <summary>
         /// A dictionary of all websocket clients.
         /// </summary>
         /// <seealso cref="Rest"/>
@@ -28,18 +32,6 @@ namespace Guilded.NET.Base
         {
             get; set;
         } = new Dictionary<string, WebsocketClient>();
-        /// <summary>
-        /// A span of time between each heartbeat.
-        /// </summary>
-        /// <remarks>
-        /// <para>A span of time in milliseconds between each heartbeat.</para>
-        /// <para>This automatically gets set once WebSocket gets initiated and receives interval from Welcome message.</para>
-        /// </remarks>
-        /// <value>Milliseconds</value>
-        public int HeartbeatInterval
-        {
-            get; set;
-        } = 22500;
         /// <summary>
         /// A timer for heartbeats.
         /// </summary>
@@ -81,7 +73,6 @@ namespace Guilded.NET.Base
         /// <returns>Created websocket</returns>
         protected virtual async Task<WebsocketClient> InitWebsocket(string lastMessageId = null)
         {
-            WebsocketLogger.Debug("Creating a new websocket");
             // Initialize WebSocket factory and WebSocket sub-client
             Func<ClientWebSocket> factory = new Func<ClientWebSocket>(() =>
             {
@@ -102,16 +93,14 @@ namespace Guilded.NET.Base
                 return socket;
             });
             // Creates a new WebSocket based on factory we made
-            WebsocketClient client = new WebsocketClient(
+            WebsocketClient client = new WebsocketClient
+            (
                 GuildedUrl.Websocket,
                 factory
             );
-            // Add it to the WebSocket dictionary
-            Websockets.Add("", client);
             // Subscribe to WebSocket messages
             client.MessageReceived.Subscribe(WebsocketMessageReceived);
             // Starts it
-            WebsocketLogger.Verbose("Starting a websocket");
             await client.StartOrFail();
             // Returns this WebSocket
             return client;
@@ -138,18 +127,14 @@ namespace Guilded.NET.Base
         /// <param name="msg">Websocket message</param>
         protected virtual void WebsocketMessageReceived(ResponseMessage msg)
         {
-            WebsocketLogger.Debug("Received websocket event with type {Type}", msg.MessageType);
             if (msg.MessageType == WebSocketMessageType.Text)
             {
                 // Deserializes it
                 GuildedEvent @event = Deserialize<GuildedEvent>(msg.Text);
                 // Checks if it's welcome event
                 if (@event is { EventName: null, Opcode: welcome_opc })
-                    HeartbeatInterval = @event.RawData.Value<int>("heartbeatIntervalMs");
+                    HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
                 // Only send received data in debug version
-#if DEBUG
-                WebsocketLogger.Verbose("Received websocket data:\n{Data}", msg.Text);
-#endif
                 WebsocketMessageEvent?.Invoke(this, @event);
             }
         }
@@ -163,7 +148,6 @@ namespace Guilded.NET.Base
         /// <param name="args">Arguments of the timer's elapsed event</param>
         protected virtual void SendHeartbeat(object sender, ElapsedEventArgs args)
         {
-            ApiLogger.Verbose("Sending a heartbeat");
             // Websocket sends ping
             foreach (WebsocketClient client in Websockets.Values)
                 client.Send("2");
