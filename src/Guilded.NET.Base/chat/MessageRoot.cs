@@ -24,13 +24,13 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The list of nodes to add</param>
         /// <returns>This</returns>
-        public abstract T With(IList<Node> nodes);
+        public abstract T Add(IList<Node> nodes);
         /// <summary>
         /// Adds a node to the message document.
         /// </summary>
         /// <param name="node">The node to add</param>
         /// <returns>This</returns>
-        public abstract T With(Node node);
+        public abstract T Add(Node node);
         #endregion
 
         #region Paragraph
@@ -39,38 +39,38 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The array of elements to use in paragraph</param>
         /// <returns>This</returns>
-        public T WithParagraph(params ChatElement[] nodes) =>
-            With(new Paragraph(nodes));
+        public T AddParagraph(params ChatElement[] nodes) =>
+            Add(new Paragraph(nodes));
         /// <summary>
         /// Adds a paragraph to the message document.
         /// </summary>
         /// <param name="leaves">The array of leaves to use in paragraph</param>
         /// <returns>This</returns>
-        public T WithParagraph(params Leaf[] leaves) =>
-            WithParagraph(new TextContainer(leaves));
+        public T AddParagraph(params Leaf[] leaves) =>
+            AddParagraph(new TextContainer(leaves));
         /// <summary>
         /// Adds a paragraph to the message document.
         /// </summary>
         /// <param name="content">The contents of the paragraph</param>
         /// <returns>This</returns>
-        public T WithParagraph(string content) =>
-            WithParagraph(new TextContainer(content));
-        /// <summary>
-        /// Adds a paragraph to the message document.
-        /// </summary>
-        /// <param name="content">The contents of the paragraph</param>
-        /// <param name="formatting">The formatting of the text</param>
-        /// <returns>This</returns>
-        public T WithParagraph(string content, params Mark[] formatting) =>
-            WithParagraph(new TextContainer(content, formatting));
+        public T AddParagraph(string content) =>
+            AddParagraph(new TextContainer(content));
         /// <summary>
         /// Adds a paragraph to the message document.
         /// </summary>
         /// <param name="content">The contents of the paragraph</param>
         /// <param name="formatting">The formatting of the text</param>
         /// <returns>This</returns>
-        public T WithParagraph(string content, params MarkType[] formatting) =>
-            WithParagraph(new TextContainer(content, formatting));
+        public T AddParagraph(string content, params Mark[] formatting) =>
+            AddParagraph(new TextContainer(content, formatting));
+        /// <summary>
+        /// Adds a paragraph to the message document.
+        /// </summary>
+        /// <param name="content">The contents of the paragraph</param>
+        /// <param name="formatting">The formatting of the text</param>
+        /// <returns>This</returns>
+        public T AddParagraph(string content, params MarkType[] formatting) =>
+            AddParagraph(new TextContainer(content, formatting));
         #endregion
 
         #region Quote
@@ -79,31 +79,31 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The array of quote lines to use</param>
         /// <returns>This</returns>
-        public T WithQuote(params LineQuote[] nodes) =>
-            With(new BlockQuote(nodes));
+        public T AddQuote(params LineQuote[] nodes) =>
+            Add(new BlockQuote(nodes));
         /// <summary>
         /// Adds a block quote to the message document.
         /// </summary>
         /// <param name="content">The text that should be converted to quote lines</param>
         /// <returns>This</returns>
-        public T WithQuote(params string[] content) =>
-            With(new BlockQuote(content));
+        public T AddQuote(params string[] content) =>
+            Add(new BlockQuote(content));
         /// <summary>
         /// Adds a block quote to the message document.
         /// </summary>
         /// <param name="content">The contents of the quote line</param>
         /// <param name="formatting">The formatting of the text</param>
         /// <returns>This</returns>
-        public T WithQuote(string content, params Mark[] formatting) =>
-            WithQuote(new LineQuote(content, formatting));
+        public T AddQuote(string content, params Mark[] formatting) =>
+            AddQuote(new LineQuote(content, formatting));
         /// <summary>
         /// Adds a block quote to the message document.
         /// </summary>
         /// <param name="content">The contents of the quote line</param>
         /// <param name="formatting">The formatting of the text</param>
         /// <returns>This</returns>
-        public T WithQuote(string content, params MarkType[] formatting) =>
-            WithQuote(new LineQuote(content, formatting));
+        public T AddQuote(string content, params MarkType[] formatting) =>
+            AddQuote(new LineQuote(content, formatting));
         #endregion
 
         #region Images
@@ -112,15 +112,15 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="url">The URL to image's source</param>
         /// <returns>This</returns>
-        public T WithImage(Uri url) =>
-            With(new Image(url));
+        public T AddImage(Uri url) =>
+            Add(new Image(url));
         /// <summary>
         /// Adds an image to the messsage document.
         /// </summary>
         /// <param name="url">The URL to image's source</param>
         /// <returns>This</returns>
-        public T WithImage(string url) =>
-            WithImage(new Uri(url));
+        public T AddImage(string url) =>
+            AddImage(new Uri(url));
         #endregion
 
         #region Markdown
@@ -129,22 +129,22 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The list of message objects Markdown plain text holds</param>
         /// <returns>This</returns>
-        public T WithMarkdown(params TextContainer[] nodes) =>
-            With(new MarkdownText(nodes));
+        public T AddMarkdown(params TextContainer[] nodes) =>
+            Add(new MarkdownText(nodes));
         /// <summary>
         /// Adds a Markdown plain text to the message document.
         /// </summary>
         /// <param name="leaves">The array of leaves to use in Markdown plain text</param>
         /// <returns>This</returns>
-        public T WithMarkdown(params Leaf[] leaves) =>
-            WithMarkdown(new TextContainer(leaves));
+        public T AddMarkdown(params Leaf[] leaves) =>
+            AddMarkdown(new TextContainer(leaves));
         /// <summary>
         /// Adds a Markdown plain text to the message document.
         /// </summary>
         /// <param name="text">The text document that will be used in Markdown node</param>
         /// <returns>This</returns>
-        public T WithMarkdown(string text) =>
-            WithMarkdown(new TextContainer(text));
+        public T AddMarkdown(string text) =>
+            AddMarkdown(new TextContainer(text));
         #endregion
         
         #endregion

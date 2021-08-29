@@ -12,7 +12,7 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <code>
-    /// ContentEmbed embed = new CodeContainer("https://guilded.gg/");
+    /// ContentEmbed embed = new ContentEmbed("https://guilded.gg/");
     /// </code>
     /// </example>
     /// <seealso cref="ChatEmbed"/>

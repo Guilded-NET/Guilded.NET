@@ -71,15 +71,15 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="leaves">The array of leaves to add</param>
         /// <returns>This</returns>
-        public MarkdownText WithText(params Leaf[] leaves) =>
-            With(new TextContainer(leaves));
+        public MarkdownText AddText(params Leaf[] leaves) =>
+            Add(new TextContainer(leaves));
         /// <summary>
         /// Adds a text container based on given string.
         /// </summary>
         /// <param name="content">The text that text container holds</param>
         /// <returns>This</returns>
-        public MarkdownText WithText(string content) =>
-            With(new TextContainer(content));
+        public MarkdownText AddText(string content) =>
+            Add(new TextContainer(content));
         #endregion
     }
 }

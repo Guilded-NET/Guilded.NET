@@ -96,36 +96,36 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="text">The text container to use in code line</param>
         /// <returns>This</returns>
-        public CodeContainer WithLine(TextContainer text) =>
-            With(new CodeLine(text));
+        public CodeContainer AddLine(TextContainer text) =>
+            Add(new CodeLine(text));
         /// <summary>
         /// Adds a line to the code container based on given leaves.
         /// </summary>
         /// <param name="leaves">The array of leaves to use in the code line</param>
         /// <returns>This</returns>
-        public CodeContainer WithLine(params Leaf[] leaves) =>
-            WithLine(new TextContainer(leaves));
+        public CodeContainer AddLine(params Leaf[] leaves) =>
+            AddLine(new TextContainer(leaves));
         /// <summary>
         /// Adds a line to the code container.
         /// </summary>
         /// <param name="content">The content of the code line</param>
         /// <returns>This</returns>
-        public CodeContainer WithLine(string content) =>
-            WithLine(new TextContainer(content));
+        public CodeContainer AddLine(string content) =>
+            AddLine(new TextContainer(content));
         /// <summary>
         /// Adds an array of lines to the code container.
         /// </summary>
         /// <param name="content">The array of code lines</param>
         /// <returns>This</returns>
-        public CodeContainer WithLines(params string[] content) =>
-            With(content.Select(x => new CodeLine(x)));
+        public CodeContainer AddLines(params string[] content) =>
+            Add(content.Select(x => new CodeLine(x)));
         /// <summary>
         /// Adds an array of lines to the code container.
         /// </summary>
         /// <param name="content">The content to add to the code container</param>
         /// <returns>This</returns>
-        public CodeContainer WithLines(string content) =>
-            WithLines(content.Split('\n'));
+        public CodeContainer AddLines(string content) =>
+            AddLines(content.Split('\n'));
         #endregion
 
         #region Overrides

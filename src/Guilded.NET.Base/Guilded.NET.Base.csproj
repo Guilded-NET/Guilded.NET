@@ -25,9 +25,6 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
     
-    <!-- Libraries for logging -->
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    
     <!-- API-related stuff -->
     <PackageReference Include="RestSharp" Version="106.12.0" />
     <PackageReference Include="Websocket.Client" Version="4.3.35" />

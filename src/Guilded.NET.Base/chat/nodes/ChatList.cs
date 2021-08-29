@@ -96,53 +96,53 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The array of chat elements the list item has</param>
         /// <returns>This</returns>
-        public ChatList WithItem(params ChatElement[] nodes) =>
-            With(new ChatListItem(nodes));
+        public ChatList AddItem(params ChatElement[] nodes) =>
+            Add(new ChatListItem(nodes));
         /// <summary>
         /// Adds a list item to the <see cref="Node"/> list.
         /// </summary>
         /// <param name="leaves">The array of leaves the list item has</param>
         /// <returns>This</returns>
-        public ChatList WithItem(params Leaf[] leaves) =>
-            WithItem(new TextContainer(leaves));
+        public ChatList AddItem(params Leaf[] leaves) =>
+            AddItem(new TextContainer(leaves));
         /// <summary>
         /// Adds a list item to the <see cref="Node"/> list.
         /// </summary>
         /// <param name="content">The contents of the list item</param>
         /// <returns>This</returns>
-        public ChatList WithItem(string content) =>
-            WithItem(new TextContainer(content));
-        /// <summary>
-        /// Adds a list item to the <see cref="Node"/> list.
-        /// </summary>
-        /// <param name="content">The contents of the list item</param>
-        /// <param name="formatting">The formatting of the text</param>
-        /// <returns>This</returns>
-        public ChatList WithItem(string content, params Mark[] formatting) =>
-            WithItem(new TextContainer(content, formatting));
+        public ChatList AddItem(string content) =>
+            AddItem(new TextContainer(content));
         /// <summary>
         /// Adds a list item to the <see cref="Node"/> list.
         /// </summary>
         /// <param name="content">The contents of the list item</param>
         /// <param name="formatting">The formatting of the text</param>
         /// <returns>This</returns>
-        public ChatList WithItem(string content, params MarkType[] formatting) =>
-            WithItem(new TextContainer(content, formatting));
+        public ChatList AddItem(string content, params Mark[] formatting) =>
+            AddItem(new TextContainer(content, formatting));
+        /// <summary>
+        /// Adds a list item to the <see cref="Node"/> list.
+        /// </summary>
+        /// <param name="content">The contents of the list item</param>
+        /// <param name="formatting">The formatting of the text</param>
+        /// <returns>This</returns>
+        public ChatList AddItem(string content, params MarkType[] formatting) =>
+            AddItem(new TextContainer(content, formatting));
         /// <summary>
         /// Adds a sub-list to the <see cref="Node"/> list.
         /// </summary>
         /// <param name="nodes">The array of nodes that will be part of sub-list</param>
         /// <param name="isOrdered">Whether the list is with numbers or with bullets. </param>
         /// <returns>This</returns>
-        public ChatList WithList(IList<Node> nodes, bool isOrdered) =>
-            With(new ChatList(nodes, isOrdered));
+        public ChatList AddList(IList<Node> nodes, bool isOrdered) =>
+            Add(new ChatList(nodes, isOrdered));
         /// <summary>
         /// Adds a sub-list to the <see cref="Node"/> list.
         /// </summary>
         /// <param name="nodes">The array of nodes that will be part of sub-list</param>
         /// <returns>This</returns>
-        public ChatList WithList(params Node[] nodes) =>
-            WithList(nodes, false);
+        public ChatList AddList(params Node[] nodes) =>
+            AddList(nodes, false);
         #endregion
 
         #region Overrides

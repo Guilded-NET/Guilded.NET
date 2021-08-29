@@ -187,7 +187,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="mark">The mark to add</param>
         /// <returns>This</returns>
-        public Leaf With(Mark mark)
+        public Leaf Add(Mark mark)
         {
             Marks.Add(mark);
             return this;
@@ -197,8 +197,8 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="mark">The mark to add</param>
         /// <returns>This</returns>
-        public Leaf With(MarkType mark) =>
-            With(new Mark(mark));
+        public Leaf Add(MarkType mark) =>
+            Add(new Mark(mark));
 
         #region Contains
         /// <summary>

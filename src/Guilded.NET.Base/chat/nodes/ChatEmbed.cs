@@ -19,8 +19,8 @@ namespace Guilded.NET.Base.Chat
     /// (
     ///     new Embed("Title", "Description", "Footer"),
     ///     new Embed()
-    ///         .WithTitle("Title")
-    ///         .WithColor(0xFF0000)
+    ///         .AddTitle("Title")
+    ///         .AddColor(0xFF0000)
     /// );
     /// </code>
     /// </example>
@@ -61,7 +61,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="embed">An embed to add to the list</param>
         /// <returns>This</returns>
-        public ChatEmbed WithEmbed(Embed embed)
+        public ChatEmbed AddEmbed(Embed embed)
         {
             Embeds.Add(embed);
             return this;

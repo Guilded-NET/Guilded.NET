@@ -39,9 +39,9 @@ namespace Guilded.NET.Base.Chat
     /// <para>Building paragraph:</para>
     /// <code>
     /// Paragraph para = new Paragraph()
-    ///     .WithText("Hello there, ")
-    ///     .WithMention(user)
-    ///     .WithText("!");
+    ///     .AddText("Hello there, ")
+    ///     .AddMention(user)
+    ///     .AddText("!");
     /// </code>
     /// </example>
     /// <seealso cref="BlockQuote"/>

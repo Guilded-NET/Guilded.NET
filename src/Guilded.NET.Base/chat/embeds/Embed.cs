@@ -34,9 +34,9 @@ namespace Guilded.NET.Base.Embeds
     /// </code>
     /// <code>
     /// Embed embed = new Embed()
-    ///     .WithTitle("Title here")
-    ///     .WithDescription("Description here")
-    ///     .WithFooter("Footer text here");
+    ///     .SetTitle("Title here")
+    ///     .SetDescription("Description here")
+    ///     .SetFooter("Footer text here");
     /// </code>
     /// </example>
     /// <seealso cref="Chat.ChatEmbed"/>
@@ -361,7 +361,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <param name="title">The text of the title</param>
         /// <returns>This</returns>
-        public Embed WithTitle(string title)
+        public Embed SetTitle(string title)
         {
             // If you try to set null title
             if (string.IsNullOrWhiteSpace(title)) throw new NullReferenceException($"Argument {nameof(title)} cannot be null, empty or whitespace.");
@@ -373,7 +373,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <param name="url">The URL that title will link</param>
         /// <returns>This</returns>
-        public Embed WithUrl(Uri url)
+        public Embed SetUrl(Uri url)
         {
             Url = url;
             return this;
@@ -383,7 +383,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <param name="description">Embed's description</param>
         /// <returns>This</returns>
-        public Embed WithDescription(string description)
+        public Embed SetDescription(string description)
         {
             // If you try to set null title
             if (string.IsNullOrWhiteSpace(description)) throw new NullReferenceException($"Argument {nameof(description)} cannot be null, empty or whitespace.");
@@ -396,8 +396,8 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <returns>This</returns>
-        public Embed WithDescription(string format, params object[] args) =>
-            WithDescription(string.Format(format, args));
+        public Embed SetDescription(string format, params object[] args) =>
+            SetDescription(string.Format(format, args));
         /// <summary>
         /// Sets the description of the embed.
         /// </summary>
@@ -405,21 +405,21 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <returns>This</returns>
-        public Embed WithDescription(IFormatProvider provider, string format, params object[] args) =>
-            WithDescription(string.Format(provider, format, args));
+        public Embed SetDescription(IFormatProvider provider, string format, params object[] args) =>
+            SetDescription(string.Format(provider, format, args));
         /// <summary>
         /// Sets the description of the embed.
         /// </summary>
         /// <param name="description">Embed's description</param>
         /// <returns>This</returns>
-        public Embed WithDescription(object description) =>
-            WithDescription(description.ToString());
+        public Embed SetDescription(object description) =>
+            SetDescription(description.ToString());
         /// <summary>
         /// Sets author to this embed.
         /// </summary>
         /// <param name="author">Author to be set to</param>
         /// <returns>This</returns>
-        public Embed WithAuthor(EmbedAuthor author)
+        public Embed SetAuthor(EmbedAuthor author)
         {
             Author = author;
             return this;
@@ -431,15 +431,15 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="iconUrl">URL of the image</param>
         /// <param name="url">URL of the author's name</param>
         /// <returns>This</returns>
-        public Embed WithAuthor(string name, Uri iconUrl = null, Uri url = null) =>
-            WithAuthor(new EmbedAuthor(name, iconUrl, url));
+        public Embed SetAuthor(string name, Uri iconUrl = null, Uri url = null) =>
+            SetAuthor(new EmbedAuthor(name, iconUrl, url));
         /// <summary>
         /// Adds fields to this embed.
         /// </summary>
         /// <param name="fields">The list of fields to be added</param>
         /// <exception cref="OverflowException">Attempt at trying to add more than 25 fields</exception>
         /// <returns>This</returns>
-        public Embed WithFields(IList<EmbedField> fields)
+        public Embed AddFields(IList<EmbedField> fields)
         {
             // If fields list is null, set it
             if (Fields is null) Fields = fields;
@@ -456,14 +456,14 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="fields">Fields to be added</param>
         /// <exception cref="OverflowException">Attempt at trying to add more than 25 fields</exception>
         /// <returns>This</returns>
-        public Embed WithFields(params EmbedField[] fields) =>
-            WithFields((IList<EmbedField>)fields);
+        public Embed AddFields(params EmbedField[] fields) =>
+            AddFields((IList<EmbedField>)fields);
         /// <summary>
         /// Adds a field to this embed.
         /// </summary>
         /// <param name="field">A field to be added</param>
         /// <returns>This</returns>
-        public Embed WithField(EmbedField field) => WithFields(field);
+        public Embed AddField(EmbedField field) => AddFields(field);
         /// <summary>
         /// Adds a field to this embed.
         /// </summary>
@@ -471,8 +471,8 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="description">The description of the field</param>
         /// <param name="inline">If this field should be inline</param>
         /// <returns>This</returns>
-        public Embed WithField(string title, string description, bool inline = false) =>
-            WithField(new EmbedField(title, description, inline));
+        public Embed AddField(string title, string description, bool inline = false) =>
+            AddField(new EmbedField(title, description, inline));
         /// <summary>
         /// Adds a field to this embed.
         /// </summary>
@@ -480,14 +480,14 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="description">The description of the field</param>
         /// <param name="inline">If this field should be inline</param>
         /// <returns>This</returns>
-        public Embed WithField(string title, object description, bool inline = false) =>
-            WithField(title, description.ToString(), inline);
+        public Embed AddField(string title, object description, bool inline = false) =>
+            AddField(title, description.ToString(), inline);
         /// <summary>
         /// Sets the image of the embed.
         /// </summary>
         /// <param name="image">The media to use as an image</param>
         /// <returns>This</returns>
-        public Embed WithImage(EmbedMedia image)
+        public Embed SetImage(EmbedMedia image)
         {
             Image = image;
             return this;
@@ -499,14 +499,14 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="width">The width of the image</param>
         /// <param name="height">The height of the image</param>
         /// <returns>This</returns>
-        public Embed WithImage(Uri url, uint? width = null, uint? height = null) =>
-            WithImage(new EmbedMedia(url, width, height));
+        public Embed SetImage(Uri url, uint? width = null, uint? height = null) =>
+            SetImage(new EmbedMedia(url, width, height));
         /// <summary>
         /// Adds the footer to this embed.
         /// </summary>
         /// <param name="footer">The footer to set</param>
         /// <returns>This</returns>
-        public Embed WithFooter(EmbedFooter footer)
+        public Embed SetFooter(EmbedFooter footer)
         {
             Footer = footer;
             return this;
@@ -517,22 +517,22 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="text">The text of the footer</param>
         /// <param name="iconUrl">The icon of the footer</param>
         /// <returns>This</returns>
-        public Embed WithFooter(string text, Uri iconUrl = null) =>
-            WithFooter(new EmbedFooter(text, iconUrl));
+        public Embed SetFooter(string text, Uri iconUrl = null) =>
+            SetFooter(new EmbedFooter(text, iconUrl));
         /// <summary>
         /// Adds the footer to this embed.
         /// </summary>
         /// <param name="text">The text of the footer</param>
         /// <param name="iconUrl">The icon of the footer</param>
         /// <returns>This</returns>
-        public Embed WithFooter(object text, Uri iconUrl = null) =>
-            WithFooter(text.ToString(), iconUrl);
+        public Embed SetFooter(object text, Uri iconUrl = null) =>
+            SetFooter(text.ToString(), iconUrl);
         /// <summary>
         /// Sets the thumbnail of the embed.
         /// </summary>
         /// <param name="media">The media to use as a thumbnail</param>
         /// <returns>This</returns>
-        public Embed WithThumbnail(EmbedMedia media)
+        public Embed SetThumbnail(EmbedMedia media)
         {
             Thumbnail = media;
             return this;
@@ -544,7 +544,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="width">The width of the image</param>
         /// <param name="height">The height of the image</param>
         /// <returns>This</returns>
-        public Embed WithThumbnail(Uri url, uint? width = null, uint? height = null)
+        public Embed SetThumbnail(Uri url, uint? width = null, uint? height = null)
         {
             Thumbnail = new EmbedMedia(url, height, width);
             return this;
@@ -554,7 +554,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <param name="time">The date to be set to</param>
         /// <returns>This</returns>
-        public Embed WithTimestamp(DateTime time)
+        public Embed SetTimestamp(DateTime time)
         {
             Timestamp = time;
             return this;
@@ -563,17 +563,17 @@ namespace Guilded.NET.Base.Embeds
         /// Sets the timestamp of the embed to current time.
         /// </summary>
         /// <returns>This</returns>
-        public Embed WithTimestamp() =>
-            WithTimestamp(DateTime.Now);
+        public Embed SetTimestamp() =>
+            SetTimestamp(DateTime.Now);
         /// <summary>
         /// Sets the colour of the embed.
         /// </summary>
         /// <example>
-        /// <code>embed.WithColor(Color.Red)</code>
+        /// <code>embed.SetColor(Color.Red)</code>
         /// </example>
         /// <param name="color">The decimal value of the colour</param>
         /// <returns>This</returns>
-        public Embed WithColor(Color color)
+        public Embed SetColor(Color color)
         {
             Color = color;
             return this;
@@ -582,12 +582,12 @@ namespace Guilded.NET.Base.Embeds
         /// Sets the colour of the embed.
         /// </summary>
         /// <example>
-        /// <code>embed.WithColor(0xFFFFFF)</code>
+        /// <code>embed.SetColor(0xFFFFFF)</code>
         /// </example>
         /// <param name="rgba">The value of the colour</param>
         /// <returns>This</returns>
-        public Embed WithColor(int rgba) =>
-            WithColor(System.Drawing.Color.FromArgb(rgba));
+        public Embed SetColor(int rgba) =>
+            SetColor(System.Drawing.Color.FromArgb(rgba));
         /// <summary>
         /// Sets the colour of the embed.
         /// </summary>
@@ -595,8 +595,8 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="green">The green channel value</param>
         /// <param name="blue">The blue channel value</param>
         /// <returns>This</returns>
-        public Embed WithColor(int red, int green, int blue) =>
-            WithColor(System.Drawing.Color.FromArgb(red, green, blue));
+        public Embed SetColor(int red, int green, int blue) =>
+            SetColor(System.Drawing.Color.FromArgb(red, green, blue));
         #endregion
     }
 }

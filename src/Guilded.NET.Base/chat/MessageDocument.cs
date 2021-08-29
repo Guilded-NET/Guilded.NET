@@ -150,11 +150,11 @@ namespace Guilded.NET.Base.Chat
 
         #region Additional
         /// <summary>
-        /// Adds the list of URLs in the message share list.
+        /// Adds a list of shared URLs from <paramref name="urls"/>.
         /// </summary>
         /// <param name="urls">The list of URLs that will be shared</param>
         /// <returns>This</returns>
-        public MessageDocument Share(IList<Uri> urls)
+        public MessageDocument AddShare(IList<Uri> urls)
         {
             // Sets the list, if the property is null
             if(Data.ShareUrls is null) Data.ShareUrls = urls;
@@ -163,25 +163,25 @@ namespace Guilded.NET.Base.Chat
             return this;
         }
         /// <summary>
-        /// Adds an URL in the message share list.
+        /// Adds <paramref name="url"/> to shared URL list.
         /// </summary>
         /// <param name="url">A URL that will be shared</param>
         /// <returns>This</returns>
-        public MessageDocument Share(Uri url) =>
-            Share(new List<Uri> { url });
+        public MessageDocument AddShare(Uri url) =>
+            AddShare(new List<Uri> { url });
         /// <summary>
-        /// Adds an URL in the message share list.
+        /// Adds <paramref name="url"/> as an <see cref="Uri"/> to shared URL list.
         /// </summary>
         /// <param name="url">A URL that will be shared</param>
         /// <returns>This</returns>
-        public MessageDocument Share(string url) =>
-            Share(new Uri(url));
+        public MessageDocument AddShare(string url) =>
+            AddShare(new Uri(url));
         /// <summary>
         /// Adds a list of nodes to the message document.
         /// </summary>
         /// <param name="nodes">The list of nodes to add</param>
         /// <returns>This</returns>
-        public override MessageDocument With(IList<Node> nodes)
+        public override MessageDocument Add(IList<Node> nodes)
         {
             Nodes = Nodes.Concat(nodes).ToList();
             return this;
@@ -191,7 +191,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="node">The node to add</param>
         /// <returns>This</returns>
-        public override MessageDocument With(Node node)
+        public override MessageDocument Add(Node node)
         {
             Nodes.Add(node);
             return this;

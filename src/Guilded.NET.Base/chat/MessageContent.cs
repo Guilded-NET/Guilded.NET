@@ -28,8 +28,8 @@ namespace Guilded.NET.Base.Chat
     /// <para>Building message content:</para>
     /// <code>
     /// MessageContent content = new MessageContent()
-    ///     .WithParagraph("Hello there.")
-    ///     .WithParagraph("...");
+    ///     .AddParagraph("Hello there.")
+    ///     .AddParagraph("...");
     /// </code>
     /// </example>
     /// <seealso cref="BlockQuote"/>
@@ -125,9 +125,9 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The list of nodes to add</param>
         /// <returns>This</returns>
-        public override MessageContent With(IList<Node> nodes)
+        public override MessageContent Add(IList<Node> nodes)
         {
-            Document.With(nodes);
+            Document.Add(nodes);
             return this;
         }
         /// <summary>
@@ -135,9 +135,9 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="node">The node to add</param>
         /// <returns>This</returns>
-        public override MessageContent With(Node node)
+        public override MessageContent Add(Node node)
         {
-            Document.With(node);
+            Document.Add(node);
             return this;
         }
         #endregion

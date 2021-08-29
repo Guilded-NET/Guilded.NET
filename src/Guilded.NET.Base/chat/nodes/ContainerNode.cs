@@ -84,7 +84,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="node">The node to add</param>
         /// <returns>This</returns>
-        public R With(T node)
+        public R Add(T node)
         {
             Nodes.Add(node);
             return (R)this;
@@ -94,7 +94,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The enumerable of nodes to add</param>
         /// <returns>This</returns>
-        public R With(IEnumerable<T> nodes)
+        public R Add(IEnumerable<T> nodes)
         {
             Nodes = Nodes.Concat(nodes).ToList();
             return (R)this;
@@ -104,7 +104,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="node">The node to remove</param>
         /// <returns>This</returns>
-        public R Without(T node)
+        public R Remove(T node)
         {
             Nodes.Remove(node);
             return (R)this;
@@ -114,7 +114,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="index">The index of the node to remove</param>
         /// <returns>This</returns>
-        public R Without(int index)
+        public R Remove(int index)
         {
             Nodes.RemoveAt(index);
             return (R)this;
@@ -124,15 +124,15 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="index">The index of the node to remove</param>
         /// <returns>This</returns>
-        public R Without(Index index) =>
-            Without(index.GetOffset(Nodes.Count));
+        public R Remove(Index index) =>
+            Remove(index.GetOffset(Nodes.Count));
         /// <summary>
         /// Removes a list of nodes from <see cref="Nodes"/> list based on index.
         /// </summary>
         /// <param name="start">The starting index of the nodes to remove</param>
         /// <param name="end">The ending index of the nodes to remove</param>
         /// <returns>This</returns>
-        public R Without(int start, int end)
+        public R Remove(int start, int end)
         {
             Nodes = Nodes.SkipWhile((x, i) => i >= start && i <= end).ToList();
             return (R)this;
@@ -143,15 +143,15 @@ namespace Guilded.NET.Base.Chat
         /// <param name="start">The starting index of the nodes to remove</param>
         /// <param name="end">The ending index of the nodes to remove</param>
         /// <returns>This</returns>
-        public R Without(Index start, Index end) =>
-            Without(start.GetOffset(Nodes.Count), end.GetOffset(Nodes.Count));
+        public R Remove(Index start, Index end) =>
+            Remove(start.GetOffset(Nodes.Count), end.GetOffset(Nodes.Count));
         /// <summary>
         /// Removes a list of nodes from <see cref="Nodes"/> list based on range.
         /// </summary>
         /// <param name="range">The range of nodes to remove</param>
         /// <returns>This</returns>
-        public R Without(Range range) =>
-            Without(range.Start, range.End);
+        public R Remove(Range range) =>
+            Remove(range.Start, range.End);
         #endregion
 
         #region Overrides
@@ -222,103 +222,103 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="leaves">The array of leaves to add</param>
         /// <returns>This</returns>
-        public T WithText(params Leaf[] leaves) =>
-            With(new TextContainer(leaves));
+        public T AddText(params Leaf[] leaves) =>
+            Add(new TextContainer(leaves));
         /// <summary>
         /// Adds a text container based on given string.
         /// </summary>
         /// <param name="content">The text that text container holds</param>
         /// <returns>This</returns>
-        public T WithText(string content) =>
-            With(new TextContainer(content));
-        /// <summary>
-        /// Adds a text container based on given string.
-        /// </summary>
-        /// <param name="content">The text that text container holds</param>
-        /// <param name="formatting">The formatting of the text</param>
-        /// <returns>This</returns>
-        public T WithText(string content, params Mark[] formatting) =>
-            With(new TextContainer(content, formatting));
+        public T AddText(string content) =>
+            Add(new TextContainer(content));
         /// <summary>
         /// Adds a text container based on given string.
         /// </summary>
         /// <param name="content">The text that text container holds</param>
         /// <param name="formatting">The formatting of the text</param>
         /// <returns>This</returns>
-        public T WithText(string content, params MarkType[] formatting) =>
-            With(new TextContainer(content, formatting));
+        public T AddText(string content, params Mark[] formatting) =>
+            Add(new TextContainer(content, formatting));
+        /// <summary>
+        /// Adds a text container based on given string.
+        /// </summary>
+        /// <param name="content">The text that text container holds</param>
+        /// <param name="formatting">The formatting of the text</param>
+        /// <returns>This</returns>
+        public T AddText(string content, params MarkType[] formatting) =>
+            Add(new TextContainer(content, formatting));
         /// <summary>
         /// Adds an emote to the node list.
         /// </summary>
         /// <param name="emote">The info of the emote to use</param>
         /// <returns>This</returns>
-        public T WithEmote(EmoteInfo emote) =>
-            With(new ChatEmote(emote));
+        public T AddEmote(EmoteInfo emote) =>
+            Add(new ChatEmote(emote));
         /// <summary>
         /// Adds an emote to the node list.
         /// </summary>
         /// <param name="emote">The emote to use</param>
         /// <returns>This</returns>
-        public T WithEmote(BaseEmote emote) =>
-            With(new ChatEmote(emote));
+        public T AddEmote(BaseEmote emote) =>
+            Add(new ChatEmote(emote));
         /// <summary>
         /// Adds a channel mention based on given data.
         /// </summary>
         /// <param name="data">The data of the channel mention</param>
         /// <returns>This</returns>
-        public T WithMention(ChannelMentionData data) =>
-            With(new ChannelMention(data));
+        public T AddMention(ChannelMentionData data) =>
+            Add(new ChannelMention(data));
         /// <summary>
         /// Adds a channel mention based on given name and identifier.
         /// </summary>
         /// <param name="name">The name of the channel</param>
         /// <param name="channelId">The identifier of the channel</param>
         /// <returns>This</returns>
-        public T WithMention(string name, Guid channelId) =>
-            WithMention(new ChannelMentionData(name, channelId));
+        public T AddMention(string name, Guid channelId) =>
+            AddMention(new ChannelMentionData(name, channelId));
         /// <summary>
         /// Adds a channel mention for the given channel.
         /// </summary>
         /// <param name="channel">The channel to mention</param>
         /// <returns>This</returns>
-        public T WithMention(TeamChannel channel) =>
-            WithMention(new ChannelMentionData(channel));
+        public T AddMention(TeamChannel channel) =>
+            AddMention(new ChannelMentionData(channel));
         /// <summary>
         /// Adds a member mention based on given data.
         /// </summary>
         /// <param name="data">The data of the member mention</param>
         /// <returns>This</returns>
-        public T WithMention(MemberMentionData data) =>
-            With(new MemberMention(data));
+        public T AddMention(MemberMentionData data) =>
+            Add(new MemberMention(data));
         /// <summary>
         /// Adds an @everyone or @here mention.
         /// </summary>
         /// <param name="isHere">Whether it's @here mention or @everyone</param>
         /// <returns>This</returns>
-        public T WithMention(bool isHere = false) =>
-            WithMention(isHere);
+        public T AddMention(bool isHere = false) =>
+            AddMention(isHere);
         /// <summary>
         /// Adds a user mention based on given user.
         /// </summary>
         /// <param name="user">The user to mention</param>
         /// <returns>This</returns>
-        public T WithMention(BaseUser user) =>
-            WithMention(new MemberMentionData(user));
+        public T AddMention(BaseUser user) =>
+            AddMention(new MemberMentionData(user));
         /// <summary>
         /// Adds a role mention based on given role.
         /// </summary>
         /// <param name="role">The role to mention</param>
         /// <returns>This</returns>
-        public T WithMention(TeamRole role) =>
-            WithMention(new MemberMentionData(role));
+        public T AddMention(TeamRole role) =>
+            AddMention(new MemberMentionData(role));
         /// <summary>
         /// Adds a member mention based on given member and their colour.
         /// </summary>
         /// <param name="member">The member to mention</param>
         /// <param name="color">The colour of the member's role</param>
         /// <returns>This</returns>
-        public T WithMention(Member member, Color? color = null) =>
-            WithMention(new MemberMentionData(member, color));
+        public T AddMention(Member member, Color? color = null) =>
+            AddMention(new MemberMentionData(member, color));
         #endregion
     }
 }
