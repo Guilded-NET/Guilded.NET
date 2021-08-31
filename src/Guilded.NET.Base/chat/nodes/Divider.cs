@@ -10,7 +10,7 @@ namespace Guilded.NET.Base.Chat
     /// MessageContent content = new MessageContent
     /// (
     ///     new Paragraph("Text here"),
-    ///     new Divider(),    
+    ///     new Divider(),
     ///     new Paragraph("Something else")
     /// );
     /// </code>

@@ -94,34 +94,5 @@ namespace Guilded.NET.Base.Teams
         /// <value>Member is owner</value>
         [JsonIgnore]
         public bool IsAdmin => MembershipRole == "admin";
-        
-        /*/// <summary>
-        /// Bans the member from the team.
-        /// </summary>
-        /// <param name="teamId">ID of the team to ban member from</param>
-        /// <param name="reason">Reason why the member got banned</param>
-        /// <param name="deleteHistoryOption">How much of history should be deleted</param>
-        public async Task BanAsync(GId teamId, string reason, uint deleteHistoryOption) =>
-            await ParentClient.BanMemberAsync(teamId, Id, reason, deleteHistoryOption);
-        /// <summary>
-        /// Kicks the member from the team.
-        /// </summary>
-        /// <param name="teamId">ID of the team to kick member from</param>
-        public async Task KickAsync(GId teamId) =>
-            await ParentClient.KickMemberAsync(teamId, Id);
-        /// <summary>
-        /// Changes member's team-wide nickname.
-        /// </summary>
-        /// <param name="teamId">ID of the team to change nickname in</param>
-        /// <param name="nickname">A new nickname of the member</param>
-        public async Task SetNicknameAsync(GId teamId, string nickname) =>
-            await ParentClient.SetNicknameAsync(teamId, Id, nickname);
-        /// <summary>
-        /// Gets the details of this member.
-        /// </summary>
-        /// <param name="teamId">ID of the team to get details from</param>
-        /// <returns>Details</returns>
-        public async Task<MemberDetails> GetDetailsAsync(GId teamId) =>
-            (await ParentClient.GetMemberDetailsAsync(teamId, new GId[] { Id }))[Id];*/
     }
 }

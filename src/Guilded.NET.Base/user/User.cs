@@ -37,7 +37,7 @@ namespace Guilded.NET.Base.Users
         /// Publicly available email.
         /// </summary>
         /// <remarks>
-        /// An email to your login/regular email that is available for public use. This is for contacting you. 
+        /// An email to your login/regular email that is available for public use. This is for contacting you.
         /// </remarks>
         /// <value>Email?</value>
         public string ServiceEmail
@@ -160,7 +160,6 @@ namespace Guilded.NET.Base.Users
             get; set;
         } = new List<GlobalBadge>();
         #endregion
-        
 
         #region Additional
         /// <summary>

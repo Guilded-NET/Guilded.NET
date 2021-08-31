@@ -10,14 +10,6 @@ namespace Guilded.NET.Base.Forms
     public class FormField
     {
         /// <summary>
-        /// 
-        /// </summary>
-        /// <value></value>
-        public uint Grow
-        {
-            get; set;
-        }
-        /// <summary>
         /// What type of field it is(radio list, check list, dropdown, text area, etc.)
         /// </summary>
         /// <value>Form field type</value>
@@ -44,7 +36,7 @@ namespace Guilded.NET.Base.Forms
             get; set;
         }
         /// <summary>
-        /// Label attached to the field. Mostly used as a name 
+        /// Label attached to the field. Mostly used as a name.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty(Required = Required.Always)]
@@ -91,14 +83,13 @@ namespace Guilded.NET.Base.Forms
             // Assign a number to each field option
             foreach (FieldOption option in options)
                 option.DefaultValue = $"Option {i++}";
-            (Type, Label, Header, FieldName, Options, IsOptional, Grow, DefaultValue) = (
+            (Type, Label, Header, FieldName, Options, IsOptional, DefaultValue) = (
                 type,
                 type == FormFieldType.Text ? "Answer" : title,
                 type == FormFieldType.Text ? title : "",
                 FormId.Random,
                 options,
                 isOptional,
-                1,
                 null
             );
         }

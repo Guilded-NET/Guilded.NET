@@ -28,7 +28,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <returns>Caption?</returns>
         [JsonIgnore]
-        public ImageCaption Caption => (ImageCaption)Nodes.FirstOrDefault(x => x is ImageCaption);
+        public ImageCaption Caption => Nodes.FirstOrDefault(x => x is ImageCaption) as ImageCaption;
         #endregion
 
         #region Constructors

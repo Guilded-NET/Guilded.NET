@@ -103,7 +103,7 @@ namespace Guilded.NET
         /// <returns>List of messages</returns>
         public override async Task<IList<Message>> GetMessagesAsync(Guid channelId, uint limit = 50) =>
             // TODO: Add limit query
-            await GetObject<IList<Message>>($"channels/{channelId}/messages", Method.GET, key: "messages");
+            await GetObject<IList<Message>>($"channels/{channelId}/messages", Method.GET, key: "messages").ConfigureAwait(false);
         /// <summary>
         /// Gets a message in a specific channel.
         /// </summary>
@@ -120,7 +120,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>Message</returns>
         public override async Task<Message> GetMessageAsync(Guid channelId, Guid messageId) =>
-            await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.GET, key: "message");
+            await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.GET, key: "message").ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -144,7 +144,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message created</returns>
         public override async Task<Message> CreateMessageAsync(Guid channelId, MessageContent content) =>
-            await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content });
+            await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content }).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -171,7 +171,7 @@ namespace Guilded.NET
             // Make sure it is on the limit
             else if (content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             // Creates a new message
-            return await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content });
+            return await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content }).ConfigureAwait(false);
         }
         /// <summary>
         /// Updates the contents of a message.
@@ -192,7 +192,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageContent content) =>
-            await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content });
+            await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content }).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of a message.
         /// </summary>
@@ -223,7 +223,7 @@ namespace Guilded.NET
             // Make sure it is on the limit
             else if (content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             // Update the message
-            return await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content });
+            return await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content }).ConfigureAwait(false);
         }
         /// <summary>
         /// Deletes a specified message.
@@ -241,7 +241,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.ManageMessages">Required for deleting messages made by others</permission>
         public override async Task DeleteMessageAsync(Guid channelId, Guid messageId) =>
-            await ExecuteRequest($"channels/{channelId}/messages/{messageId}", Method.DELETE);
+            await ExecuteRequest($"channels/{channelId}/messages/{messageId}", Method.DELETE).ConfigureAwait(false);
         /// <summary>
         /// Adds a reaction to a message.
         /// </summary>
@@ -259,7 +259,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.ReadMessages">Required for adding a reaction to a message you see</permission>
         /// <returns>Reaction added</returns>
         public override async Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
-            await GetObject<Reaction>($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.PUT, key: "emote");
+            await GetObject<Reaction>($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.PUT, key: "emote").ConfigureAwait(false);
         /// <summary>
         /// Removes a reaction from a message.
         /// </summary>
@@ -276,7 +276,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
-            await ExecuteRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE);
+            await ExecuteRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
         // /// <summary>
         // /// Starts typing in a specific channel.
         // /// </summary>
@@ -318,7 +318,7 @@ namespace Guilded.NET
             {
                 title,
                 content
-            });
+            }).ConfigureAwait(false);
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
@@ -341,7 +341,7 @@ namespace Guilded.NET
             {
                 title,
                 content
-            });
+            }).ConfigureAwait(false);
         #endregion
 
         #region List channels
@@ -375,7 +375,7 @@ namespace Guilded.NET
             {
                 message,
                 note
-            });
+            }).ConfigureAwait(false);
         /// <summary>
         /// Creates a new list item in a list channel.
         /// </summary>
@@ -403,7 +403,7 @@ namespace Guilded.NET
             {
                 message,
                 note
-            });
+            }).ConfigureAwait(false);
         #endregion
     }
 }

@@ -20,9 +20,9 @@ namespace Guilded.NET.Base.Forms
             get; set;
         } = true;
         /// <summary>
-        /// 
+        /// Hides toggle that makes the field optional.
         /// </summary>
-        /// <value></value>
+        /// <value>Hide optional button</value>
         [JsonProperty(Required = Required.Always)]
         public bool HideOptionalFieldToggle
         {

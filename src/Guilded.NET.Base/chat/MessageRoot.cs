@@ -13,7 +13,7 @@ namespace Guilded.NET.Base.Chat
         /// The contents of messages, list items, etc. based on rich text markup.
         /// </summary>
         /// <param name="type">The type of the element it is</param>
-        public MessageRoot(ElementType type) : base(type) { }
+        protected MessageRoot(ElementType type) : base(type) { }
         #endregion
 
         #region Additional
@@ -146,7 +146,7 @@ namespace Guilded.NET.Base.Chat
         public T AddMarkdown(string text) =>
             AddMarkdown(new TextContainer(text));
         #endregion
-        
+
         #endregion
     }
 }

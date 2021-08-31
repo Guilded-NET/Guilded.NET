@@ -101,7 +101,7 @@ namespace Guilded.NET.Base
             // Subscribe to WebSocket messages
             client.MessageReceived.Subscribe(WebsocketMessageReceived);
             // Starts it
-            await client.StartOrFail();
+            await client.StartOrFail().ConfigureAwait(false);
             // Returns this WebSocket
             return client;
         }
@@ -116,7 +116,7 @@ namespace Guilded.NET.Base
         /// <exception cref="WebsocketException">Either <paramref name="event"/>'s identifier or <see cref="AdditionalHeaders"/> has a bad formatting</exception>
         /// <returns>Created websocket</returns>
         protected virtual async Task<WebsocketClient> InitWebsocket(GuildedEvent @event) =>
-            await InitWebsocket(@event.MessageId);
+            await InitWebsocket(@event.MessageId).ConfigureAwait(false);
         /// <summary>
         /// Used for when any WebSocket receives a message.
         /// </summary>
@@ -142,7 +142,7 @@ namespace Guilded.NET.Base
         /// Sends a heartbeat.
         /// </summary>
         /// <remarks>
-        /// Sends a heartbeat through all WebSocket clients in <see cref="Websockets"/> dictionary. 
+        /// Sends a heartbeat through all WebSocket clients in <see cref="Websockets"/> dictionary.
         /// </remarks>
         /// <param name="sender">Who invoked the event</param>
         /// <param name="args">Arguments of the timer's elapsed event</param>

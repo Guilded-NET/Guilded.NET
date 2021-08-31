@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum BracketPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to report match scores on behalf of your server
         /// </summary>
         ReportScores = 1,

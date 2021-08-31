@@ -60,7 +60,6 @@ namespace Guilded.NET.Base.Users
         }
         #endregion
 
-
         #region Additional
         /// <summary>
         /// Username of this user.
@@ -80,7 +79,7 @@ namespace Guilded.NET.Base.Users
         /// <value>Count</value>
         [JsonIgnore]
         public int TeamCount => Teams.Count;
-        
+
         /*/// <summary>
         /// Changes the name of the user.
         /// </summary>
@@ -93,7 +92,7 @@ namespace Guilded.NET.Base.Users
         /// <param name="teamId">ID of the team</param>
         /// <returns>Is in a team with given ID</returns>
         public bool InTeam(GId teamId) =>
-            !(Teams.FirstOrDefault(x => x.Id == teamId) is null);
+            Teams.Any(x => x.Id == teamId);
         #endregion
     }
 }

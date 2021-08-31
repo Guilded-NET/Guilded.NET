@@ -54,31 +54,41 @@ namespace Guilded.NET.Converters
                     else return obj.ToObject<Channel>(serializer);
                     // If it doesn't, then it is a category
                 }
-                else return obj.ToObject<Category>(serializer);
                 // If it's a form response field
+                else
+                {
+                    return obj.ToObject<Category>(serializer);
+                }
             }
             else if (objectType == formResponseField)
+            {
                 return
-                token.Type == JTokenType.String ?
-                    // If token is a string
-                    new FormResponseField
-                    {
-                        TextValue = ((JValue)token).Value<string>()
-                    } :
-                    // Else, it's an object
-                    new FormResponseField
-                    {
-                        OptionName = new FormId(obj["optionName"].Value<string>())
-                    };
+               token.Type == JTokenType.String ?
+                   // If token is a string
+                   new FormResponseField
+                   {
+                       TextValue = ((JValue)token).Value<string>()
+                   } :
+                   // Else, it's an object
+                   new FormResponseField
+                   {
+                       OptionName = new FormId(obj["optionName"].Value<string>())
+                   };
+            }
             else if (objectType == reply)
+            {
                 // If it contains `repliesTo`, it's a forum reply
                 if (obj.ContainsKey("repliesTo")) return obj.ToObject<ForumReply>(serializer);
                 // If it has postId that is string
                 else if (obj.ContainsKey("postId") && obj["postId"].Type == JTokenType.String) return obj.ToObject<AnnouncementReply>(serializer);
                 // If it doesn't, it's a normal reply
                 else return obj.ToObject<ContentReply>(serializer);
+            }
             // If it doesn't know the type
-            else return null;
+            else
+            {
+                return null;
+            }
         }
         /// <summary>
         /// Returns whether the converter supports converting the given type.

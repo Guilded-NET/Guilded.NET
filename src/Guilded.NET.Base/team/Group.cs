@@ -239,7 +239,6 @@ namespace Guilded.NET.Base.Teams
 
         #endregion
 
-        
         #region Additional
         /// <summary>
         /// If this group is deleted.
@@ -260,7 +259,6 @@ namespace Guilded.NET.Base.Teams
         [JsonIgnore]
         public bool WasUpdated => !(UpdatedAt is null);
         #endregion
-
 
         #region Overrides
         /// <summary>

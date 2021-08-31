@@ -97,7 +97,7 @@ namespace Guilded.NET
         public override async Task ConnectAsync()
         {
             // Inits websocket
-            Websockets.Add("", await InitWebsocket());
+            Websockets.Add("", await InitWebsocket().ConfigureAwait(false));
             // Thread for ping and heartbeat
             HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
             {
@@ -122,7 +122,7 @@ namespace Guilded.NET
                 WebsocketClient ws = Websockets[wsKey];
                 // If it can be stopped, stop it
                 if (ws.IsRunning)
-                    await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual");
+                    await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
                 // Dispose and remove it
                 ws.Dispose();
                 Websockets.Remove(wsKey);
@@ -142,6 +142,6 @@ namespace Guilded.NET
         public override void Dispose() =>
             DisconnectAsync().GetAwaiter().GetResult();
         private async Task<T> GetObject<T>(string resource, Method method, object key, object body = null) =>
-            (await ExecuteRequest<JContainer>(resource, method, body)).Data[key].ToObject<T>(GuildedSerializer);
+            (await ExecuteRequest<JContainer>(resource, method, body).ConfigureAwait(false)).Data[key].ToObject<T>(GuildedSerializer);
     }
 }

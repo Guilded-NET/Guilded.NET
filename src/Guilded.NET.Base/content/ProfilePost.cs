@@ -67,7 +67,7 @@ namespace Guilded.NET.Base.Content
             get; set;
         }
         /// <summary>
-        /// 
+        /// Unknown.
         /// </summary>
         /// <value>Is Share</value>
         [JsonProperty(Required = Required.Always)]

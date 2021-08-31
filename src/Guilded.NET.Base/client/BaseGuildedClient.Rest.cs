@@ -120,7 +120,7 @@ namespace Guilded.NET.Base
         /// <typeparam name="T">The type of the response's content</typeparam>
         /// <returns>Request response</returns>
         public async Task<IRestResponse<T>> ExecuteRequest<T>(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers));
+            await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
         /// <summary>
         /// Sends a request to Guilded.
         /// </summary>
@@ -138,7 +138,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
         public async Task<IRestResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers);
+            await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
         /// <summary>
         /// Sends a request to Guilded.
         /// </summary>
@@ -157,7 +157,7 @@ namespace Guilded.NET.Base
         /// <typeparam name="T">The type of the response's content</typeparam>
         /// <returns>Request response</returns>
         public async Task<IRestResponse<T>> ExecuteRequest<T>(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers));
+            await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
         /// <summary>
         /// Sends a request to Guilded.
         /// </summary>
@@ -175,7 +175,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
         public async Task<IRestResponse<object>> ExecuteRequest(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers);
+            await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
         /// <summary>
         /// Builds upon given REST request.
         /// </summary>
@@ -193,8 +193,10 @@ namespace Guilded.NET.Base
                 request.AddJsonBody(body);
             // Add dictionary as query parameter list
             if (!(query is null))
+            {
                 foreach (KeyValuePair<string, string> q in query)
                     request.AddQueryParameter(q.Key, q.Value, encodeQuery);
+            }
             // Add dictionary as header list
             if (!(headers is null))
                 request.AddHeaders(headers);
@@ -224,7 +226,7 @@ namespace Guilded.NET.Base
                 .AddParameter("uploadTrackingId", FormId.Random.ToString(), "multipart/form-data", ParameterType.GetOrPost)
                 .AddParameter("Content-Type", "multipart/form-data");
             // Sends a request and gets JSON object from response
-            JObject obj = (await SendRequest<JObject>(req)).Data;
+            JObject obj = (await SendRequest<JObject>(req).ConfigureAwait(false)).Data;
             // Checks if obj contains the URL property
             if (!obj.ContainsKey("url")) return null;
             // Returns the url property
@@ -248,7 +250,7 @@ namespace Guilded.NET.Base
             // Either gets content type or plain/text
             string contentType = ContentType.ContainsKey(ext) ? ContentType[ext] : ContentType.Values.FirstOrDefault();
             // Uploads a file with created content type
-            return await UploadFileAsync(filename, filedata, contentType);
+            return await UploadFileAsync(filename, filedata, contentType).ConfigureAwait(false);
         }
         /// <summary>
         /// Uploads a file to Guilded.
@@ -273,7 +275,7 @@ namespace Guilded.NET.Base
              */
             req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"{FormId.Random}\" }}");
             // Sends a request and gets JSON object from response
-            JObject obj = (await SendRequest<JObject>(req)).Data;
+            JObject obj = (await SendRequest<JObject>(req).ConfigureAwait(false)).Data;
             // Checks if obj contains the URL property
             if (!obj.ContainsKey("url")) return null;
             // Returns the url property
@@ -288,10 +290,12 @@ namespace Guilded.NET.Base
         private async Task<IRestResponse<T>> SendRequest<T>(IRestRequest request)
         {
             // Executes given request and gets response
-            IRestResponse<T> response = await Rest.ExecuteAsync<T>(request);
+            IRestResponse<T> response = await Rest.ExecuteAsync<T>(request).ConfigureAwait(false);
             // Check if content isn't null 
-            if (string.IsNullOrEmpty(response.Content)) return response;
-
+            if (string.IsNullOrEmpty(response.Content))
+            {
+                return response;
+            }
             else if (!response.IsSuccessful)
             {
                 // Parses it

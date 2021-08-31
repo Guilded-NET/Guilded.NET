@@ -150,9 +150,9 @@ namespace Guilded.NET
         /// <summary>
         /// When the socket message event is invoked.
         /// </summary>
-        /// <param name="o">The object that invoked the event</param>
+        /// <param name="_">The object that invoked the event</param>
         /// <param name="message">A message received from a WebSocket</param>
-        protected void HandleSocketMessages(object o, GuildedEvent message)
+        protected void HandleSocketMessages(object _, GuildedEvent message)
         {
             // Makes sure that the event received is not null
             if (message is null) return;

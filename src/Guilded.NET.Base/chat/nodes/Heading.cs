@@ -24,7 +24,7 @@ namespace Guilded.NET.Base.Chat
     public class Heading : ContainerNode<Heading>
     {
         private const string large = "heading-large";
-        
+
         #region Properties
         /// <summary>
         /// Gets whether the header is large and not small

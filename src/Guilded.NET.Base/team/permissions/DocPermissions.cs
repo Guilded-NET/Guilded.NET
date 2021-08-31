@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum DocPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to create docs
         /// </summary>
         CreateDocs = 1,

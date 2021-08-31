@@ -42,7 +42,7 @@ namespace Guilded.NET.Base
         /// Gets identifier's hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => _.GetHashCode() * 2 - 1000;
+        public override int GetHashCode() => (_.GetHashCode() * 2) - 1000;
         /// <summary>
         /// Checks if given ID is equal to this ID.
         /// </summary>
@@ -88,8 +88,11 @@ namespace Guilded.NET.Base
             if (string.IsNullOrWhiteSpace(str) || str.Length != 8) return false;
             // Get every character in the string
             foreach (char c in str)
+            {
                 // If AvailableChars doesn't have this character, return false
-                if (!availableChars.Contains(c.ToString())) return false;
+                if (!availableChars.Contains(c.ToString()))
+                    return false;
+            }
             // If any of the chars in the string didn't return false, return true
             return true;
         }

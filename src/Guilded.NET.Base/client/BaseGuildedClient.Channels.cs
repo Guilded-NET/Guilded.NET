@@ -134,7 +134,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, MessageDocument document) =>
-            await CreateMessageAsync(channelId, new MessageContent(document));
+            await CreateMessageAsync(channelId, new MessageContent(document)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -157,7 +157,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, IList<Node> nodes) =>
-            await CreateMessageAsync(channelId, new MessageContent(nodes));
+            await CreateMessageAsync(channelId, new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -176,7 +176,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, params Node[] nodes) =>
-            await CreateMessageAsync(channelId, new MessageContent(nodes));
+            await CreateMessageAsync(channelId, new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -218,7 +218,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, string format, params object[] args) =>
-            await CreateMessageAsync(channelId, string.Format(format, args));
+            await CreateMessageAsync(channelId, string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -241,7 +241,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, IFormatProvider provider, string format, params object[] args) =>
-            await CreateMessageAsync(channelId, string.Format(provider, format, args));
+            await CreateMessageAsync(channelId, string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -262,7 +262,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, object content) =>
-            await CreateMessageAsync(channelId, content.ToString());
+            await CreateMessageAsync(channelId, content.ToString()).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -301,7 +301,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageDocument document) =>
-            await UpdateMessageAsync(channelId, messageId, new MessageContent(document));
+            await UpdateMessageAsync(channelId, messageId, new MessageContent(document)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -321,7 +321,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IList<Node> nodes) =>
-            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes));
+            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -341,7 +341,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, params Node[] nodes) =>
-            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes));
+            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -385,7 +385,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string format, params object[] args) =>
-            await UpdateMessageAsync(channelId, messageId, string.Format(format, args));
+            await UpdateMessageAsync(channelId, messageId, string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -409,7 +409,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IFormatProvider provider, string format, params object[] args) =>
-            await UpdateMessageAsync(channelId, messageId, string.Format(provider, format, args));
+            await UpdateMessageAsync(channelId, messageId, string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -431,7 +431,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, object content) =>
-            await UpdateMessageAsync(channelId, messageId, content.ToString());
+            await UpdateMessageAsync(channelId, messageId, content.ToString()).ConfigureAwait(false);
         /// <summary>
         /// Deletes a specified message.
         /// </summary>
@@ -563,7 +563,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
         public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string format, params object[] args) =>
-            await CreateForumThreadAsync(channelId, title, string.Format(format, args));
+            await CreateForumThreadAsync(channelId, title, string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
@@ -584,7 +584,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
         public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, IFormatProvider provider, string format, params object[] args) =>
-            await CreateForumThreadAsync(channelId, title, string.Format(provider, format, args));
+            await CreateForumThreadAsync(channelId, title, string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
@@ -603,7 +603,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
         public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, object content) =>
-            await CreateForumThreadAsync(channelId, title, content.ToString());
+            await CreateForumThreadAsync(channelId, title, content.ToString()).ConfigureAwait(false);
         #endregion        
 
         /*

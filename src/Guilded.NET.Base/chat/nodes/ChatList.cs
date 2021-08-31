@@ -32,12 +32,12 @@ namespace Guilded.NET.Base.Chat
     /// <seealso cref="ChatListItem"/>
     public class ChatList : ContainerNode<Node, ChatList>
     {
-        const string sublist_indent = "    ";
+        private const string sublist_indent = "    ";
         private const string Ordered = "ordered-list";
 
         #region Properties
         /// <summary>
-        /// Whether the list is with numbers or with bullets. 
+        /// Whether the list is with numbers or with bullets.
         /// </summary>
         [JsonIgnore]
         public bool IsOrdered => Type == NodeType.OrderedList;

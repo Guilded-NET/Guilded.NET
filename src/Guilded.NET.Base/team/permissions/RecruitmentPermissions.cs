@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum RecruitmentPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to approve server and game applications
         /// </summary>
         ApproveApplications = 1,

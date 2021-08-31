@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum MatchmakingPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to create matchmaking scrims
         /// </summary>
         CreateScrims = 1,

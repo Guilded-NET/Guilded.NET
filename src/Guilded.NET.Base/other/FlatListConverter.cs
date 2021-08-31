@@ -22,12 +22,16 @@ namespace Guilded.NET.Base
             // Converts object to the list
             IList<object> objList = (IList<object>)value;
             // If there is 1 or no items, write the first value or default
-            if(objList.Count < 2) writer.WriteValue(objList.FirstOrDefault());
-            else {
+            if (objList.Count < 2)
+            {
+                writer.WriteValue(objList.FirstOrDefault());
+            }
+            else
+            {
                 // Starts the array
                 writer.WriteStartArray();
                 // Writes all values
-                foreach(var item in objList) writer.WriteValue(item);
+                foreach (var item in objList) writer.WriteValue(item);
                 // Ends the array
                 writer.WriteEndArray();
             }
@@ -45,9 +49,13 @@ namespace Guilded.NET.Base
             // Gets it as a token
             JToken token = JToken.ReadFrom(reader);
             // If it's an array, then convert it normally
-            if(token.Type == JTokenType.Array) return token.ToObject(objectType, serializer);
+            if (token.Type == JTokenType.Array)
+            {
+                return token.ToObject(objectType, serializer);
+            }
             // If it's a value, make it an array and convert it normally
-            else {
+            else
+            {
                 // Turns it into an array
                 JArray array = new JArray(token);
                 // Converts it properly and returns it

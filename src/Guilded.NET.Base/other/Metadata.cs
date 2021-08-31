@@ -36,7 +36,6 @@ namespace Guilded.NET.Base
         }
         #endregion
 
-
         #region Route References
         /// <summary>
         /// Rest of the unused route parameters.
@@ -92,7 +91,6 @@ namespace Guilded.NET.Base
         }
         #endregion
 
-        
         #region Content
         /// <summary>
         /// Message referenced in the route.
@@ -164,7 +162,6 @@ namespace Guilded.NET.Base
 
         #endregion
 
-        
         #region Misc
         /// <summary>
         /// ID of users who are part of the metadata.

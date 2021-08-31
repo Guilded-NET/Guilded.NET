@@ -30,6 +30,7 @@ namespace Guilded.NET
     /// <summary>
     /// An information about a Guilded.NET event.
     /// </summary>
+    /// <typeparam name="T">The type of the observer argument</typeparam>
     public class EventInfo<T> : IEventInfo<T>
     {
         /// <summary>

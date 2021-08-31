@@ -28,7 +28,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public override async Task AddRoleAsync(GId memberId, uint roleId) =>
-            await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.PUT);
+            await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.PUT).ConfigureAwait(false);
         /// <summary>
         /// Removes a role from the given user.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public override async Task RemoveRoleAsync(GId memberId, uint roleId) =>
-            await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.DELETE);
+            await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.DELETE).ConfigureAwait(false);
         /// <summary>
         /// Adds XP to the given user.
         /// </summary>
@@ -70,7 +70,7 @@ namespace Guilded.NET
             return await GetObject<long>($"members/{memberId}/xp", Method.POST, "total", new
             {
                 amount = xpAmount
-            });
+            }).ConfigureAwait(false);
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace Guilded.NET
             await ExecuteRequest($"roles/{roleId}/xp", Method.POST, new
             {
                 amount
-            });
+            }).ConfigureAwait(false);
         #endregion
 
         #region Groups
@@ -112,7 +112,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException">When the group <paramref name="groupId"/>, the member <paramref name="memberId"/> or both have not been found</exception>
         /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public override async Task AddMembershipAsync(GId groupId, GId memberId) =>
-            await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.PUT);
+            await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.PUT).ConfigureAwait(false);
         /// <summary>
         /// Removes a member from the group.
         /// </summary>
@@ -128,7 +128,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException">When the group <paramref name="groupId"/>, the member <paramref name="memberId"/> or both have not been found</exception>
         /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public override async Task RemoveMembershipAsync(GId groupId, GId memberId) =>
-            await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.DELETE);
+            await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.DELETE).ConfigureAwait(false);
         #endregion
     }
 }

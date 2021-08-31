@@ -16,7 +16,7 @@ namespace Guilded.NET.Base.Chat
     /// <seealso cref="ContainerNode{T}"/>
     /// <seealso cref="Node"/>
     /// <seealso cref="ChatElement"/>
-    public abstract class ContainerNode<T, R> : Node where R : ContainerNode<T, R> where T : ChatElement
+    public abstract class ContainerNode<T, R> : Node where T : ChatElement where R : ContainerNode<T, R>
     {
         #region JSON properties
         /// <summary>
@@ -134,7 +134,7 @@ namespace Guilded.NET.Base.Chat
         /// <returns>This</returns>
         public R Remove(int start, int end)
         {
-            Nodes = Nodes.SkipWhile((x, i) => i >= start && i <= end).ToList();
+            Nodes = Nodes.SkipWhile((_, i) => i >= start && i <= end).ToList();
             return (R)this;
         }
         /// <summary>

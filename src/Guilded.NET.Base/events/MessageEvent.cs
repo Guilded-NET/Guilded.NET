@@ -61,7 +61,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(MessageContent content) =>
-            await Message.RespondAsync(content);
+            await Message.RespondAsync(content).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -84,7 +84,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(MessageDocument document) =>
-            await RespondAsync(new MessageContent(document));
+            await RespondAsync(new MessageContent(document)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -106,7 +106,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IList<Node> nodes) =>
-            await RespondAsync(new MessageContent(nodes));
+            await RespondAsync(new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -124,7 +124,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(params Node[] nodes) =>
-            await RespondAsync(new MessageContent(nodes));
+            await RespondAsync(new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -144,7 +144,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string content) =>
-            await Message.RespondAsync(content);
+            await Message.RespondAsync(content).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -165,7 +165,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string format, params object[] args) =>
-            await RespondAsync(string.Format(format, args));
+            await RespondAsync(string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -187,7 +187,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IFormatProvider provider, string format, params object[] args) =>
-            await RespondAsync(string.Format(provider, format, args));
+            await RespondAsync(string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -207,7 +207,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(object content) =>
-            await RespondAsync(content.ToString());
+            await RespondAsync(content.ToString()).ConfigureAwait(false);
         #endregion
     }
     /// <summary>
@@ -277,7 +277,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(MessageContent content) =>
-            await Message.UpdateMessageAsync(content);
+            await Message.UpdateMessageAsync(content).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -295,7 +295,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(MessageDocument document) =>
-            await UpdateMessageAsync(new MessageContent(document));
+            await UpdateMessageAsync(new MessageContent(document)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -313,7 +313,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(IList<Node> nodes) =>
-            await UpdateMessageAsync(new MessageContent(nodes));
+            await UpdateMessageAsync(new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -331,7 +331,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(params Node[] nodes) =>
-            await UpdateMessageAsync(new MessageContent(nodes));
+            await UpdateMessageAsync(new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -351,7 +351,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(string content) =>
-            await Message.UpdateMessageAsync(content);
+            await Message.UpdateMessageAsync(content).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -372,7 +372,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(string format, params object[] args) =>
-            await UpdateMessageAsync(string.Format(format, args));
+            await UpdateMessageAsync(string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -394,7 +394,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, params object[] args) =>
-            await UpdateMessageAsync(string.Format(provider, format, args));
+            await UpdateMessageAsync(string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
@@ -414,7 +414,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
         /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(object content) =>
-            await UpdateMessageAsync(content);
+            await UpdateMessageAsync(content).ConfigureAwait(false);
         /// <summary>
         /// Deletes a specified message.
         /// </summary>
@@ -429,7 +429,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.ManageMessages">Required for deleting messages made by others</permission>
         public async Task DeleteMessageAsync() =>
-            await Message.DeleteMessageAsync();
+            await Message.DeleteMessageAsync().ConfigureAwait(false);
         /// <summary>
         /// Adds a reaction to a message.
         /// </summary>
@@ -445,7 +445,7 @@ namespace Guilded.NET.Base.Events
         /// <permission cref="ChatPermissions.ReadMessages">Required for adding a reaction to a message you see</permission>
         /// <returns>Reaction added</returns>
         public async Task<Reaction> AddReactionAsync(uint emoteId) =>
-            await Message.AddReactionAsync(emoteId);
+            await Message.AddReactionAsync(emoteId).ConfigureAwait(false);
         /// <summary>
         /// Removes a reaction from a message.
         /// </summary>
@@ -460,7 +460,7 @@ namespace Guilded.NET.Base.Events
         /// <exception cref="GuildedResourceException">When the channel <see cref="BaseMessage.ChannelId"/> and/or this message no longer exist(s)</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public async Task RemoveReactionAsync(uint emoteId) =>
-            await Message.RemoveReactionAsync(emoteId);
+            await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
         #endregion
     }
 }

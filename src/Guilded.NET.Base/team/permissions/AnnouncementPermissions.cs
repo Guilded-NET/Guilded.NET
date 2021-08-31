@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum AnnounPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to create and remove announcements
         /// </summary>
         CreateAnnouncements = 1,

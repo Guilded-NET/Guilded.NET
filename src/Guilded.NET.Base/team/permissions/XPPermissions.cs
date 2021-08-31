@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum XPPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to manage XP on server members
         /// </summary>
         ManageServerXP = 1,

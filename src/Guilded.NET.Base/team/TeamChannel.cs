@@ -80,7 +80,6 @@ namespace Guilded.NET.Base.Teams
         }
         #endregion
 
-        
         /*#region Additional
         /// <summary>
         /// Gets the team of a channel.
@@ -135,7 +134,6 @@ namespace Guilded.NET.Base.Teams
             GetFullPermissionsOf(await GetTeamAsync(), member);
         #endregion*/
 
-
         #region Utilities
         // /// <summary>
         // /// Optionally aggregates permission list
@@ -146,7 +144,6 @@ namespace Guilded.NET.Base.Teams
         //    perms.Count() > 1 ? perms.Aggregate((x, y) => x + y) : perms.FirstOrDefault();
         #endregion
 
-        
         #region Overrides
         /// <summary>
         /// Whether objects are equal.

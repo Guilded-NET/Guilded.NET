@@ -27,7 +27,8 @@ namespace Guilded.NET.Util
         /// <summary>
         /// Generate a URL for server icon from given character.
         /// </summary>
-        /// <param name="startingLetter">Starting letter of the server</param>
+        /// <param name="startingLetter">The starting letter of the server</param>
+        /// <exception cref="ArgumentException"><paramref name="startingLetter"/> is not an English letter or a number</exception>
         /// <returns>Server's icon</returns>
         public static Uri FetchServerIcon(char startingLetter)
         {

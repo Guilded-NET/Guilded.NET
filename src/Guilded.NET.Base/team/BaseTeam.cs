@@ -18,7 +18,7 @@ namespace Guilded.NET.Base.Teams
     public class BaseTeam : ClientObject
     {
         #region JSON properties
-        
+
         #region Basic Info
         /// <summary>
         /// ID of the team.
@@ -143,7 +143,7 @@ namespace Guilded.NET.Base.Teams
             get; set;
         }
         #endregion
-        
+
         #region Discord
         /// <summary>
         /// If it should sync Discord roles.
@@ -229,91 +229,6 @@ namespace Guilded.NET.Base.Teams
 
         #endregion
 
-        
-        /*#region Additional
-        /// <summary>
-        /// Gets team channels.
-        /// </summary>
-        /// <returns>Channel, category and thread list</returns>
-        public async Task<ChannelList> GetChannelsAsync() =>
-            await ParentClient.GetChannelsAsync(Id);
-        /// <summary>
-        /// Gets team groups.
-        /// </summary>
-        /// <returns>Group list</returns>
-        public async Task<IList<Group>> GetGroupsAsync() =>
-            await ParentClient.GetGroupsAsync(Id);
-        /// <summary>
-        /// Gets owner of this team as an user.
-        /// </summary>
-        /// <returns>Team owner</returns>
-        public async Task<User> GetOwnerAsync() =>
-            await ParentClient.GetUserAsync(OwnerId);
-        /// <summary>
-        /// Kicks a member from this team.
-        /// </summary>
-        /// <param name="memberId">ID of the member to kick</param>
-        public async Task KickMemberAsync(GId memberId) =>
-            await ParentClient.KickMemberAsync(Id, memberId);
-        /// <summary>
-        /// Kicks a member from this team.
-        /// </summary>
-        /// <param name="member">Member to kick</param>
-        public async Task KickMemberAsync(TeamMember member) =>
-            await ParentClient.KickMemberAsync(Id, member.Id);
-        /// <summary>
-        /// Kicks a member from this team.
-        /// </summary>
-        /// <param name="memberId">ID of the member to kick</param>
-        /// <param name="reason">Why user got banned</param>
-        /// <param name="deleteHistoryOption">How much of the history should be deleted</param>
-        public async Task BanMemberAsync(GId memberId, string reason, uint deleteHistoryOption) =>
-            await ParentClient.BanMemberAsync(Id, memberId, reason, deleteHistoryOption);
-        /// <summary>
-        /// Kicks a member from this team.
-        /// </summary>
-        /// <param name="member">Member to ban</param>
-        /// <param name="reason">Why user got banned</param>
-        /// <param name="deleteHistoryOption">How much of the history should be deleted</param>
-        public async Task BanMemberAsync(TeamMember member, string reason, uint deleteHistoryOption) =>
-            await ParentClient.BanMemberAsync(Id, member.Id, reason, deleteHistoryOption);
-        /// <summary>
-        /// Gets all permissions(server-wide) of a specific member.
-        /// </summary>
-        /// <param name="member">Member to get permissions of</param>
-        /// <returns>Allowed permissions</returns>
-        public PermissionList GetPermissionsOf(TeamMember member) =>
-            RolesById["baseRole"].Permissions + member.RoleIds?.Select(x => RolesById[x.ToString()].Permissions)?.Aggregate((a, b) => a + b);
-        /// <summary>
-        /// Gets a colour of a specific member.
-        /// </summary>
-        /// <param name="member">Member's colour</param>
-        /// <returns>Colour</returns>
-        public Color GetColorOf(TeamMember member)
-        {
-            // Gets a colour from roles
-            Color roleColour = member.RoleIds
-                .Select(x => RolesById[x.ToString()].Color)
-                .FirstOrDefault(x => x.A != 0);
-            // If role colour is empty, then return base role colour. Else, return role colour.
-            return roleColour != default ? roleColour : RolesById["baseRole"].Color;
-        }
-        /// <summary>
-        /// Get a channel with given ID in this team.
-        /// </summary>
-        /// <param name="channelId">ID of the channel to get</param>
-        /// <returns>Channel</returns>
-        public async Task<Channel> GetChannelAsync(Guid channelId) =>
-            await ParentClient.GetChannelAsync(Id, channelId);
-        /// <summary>
-        /// Gets this user team as a normal team.
-        /// </summary>
-        /// <returns>Team</returns>
-        public async Task<Team> AsTeamAsync() =>
-            await ParentClient.GetTeamAsync(Id);
-        #endregion*/
-
-        
         #region Overrides
         /// <summary>
         /// Turns team to string.

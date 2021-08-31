@@ -13,14 +13,14 @@ namespace Guilded.NET.Base.Chat
     /// <seealso cref="ChatList"/>
     public class ChatListItem : ContainerNode<ChatListItem>
     {
-        const string linebreak_indent = "  ";
-        
+        private const string linebreak_indent = "  ";
+
         #region Constructors
         /// <summary>
         /// An item of an ordered or unordered list.
         /// </summary>
         /// <param name="nodes">The list of message objects this node holds</param>
-        public ChatListItem(IList<ChatElement> nodes) : base(NodeType.ListItem, ElementType.Block, nodes) { } 
+        public ChatListItem(IList<ChatElement> nodes) : base(NodeType.ListItem, ElementType.Block, nodes) { }
         /// <summary>
         /// An item of an ordered or unordered list.
         /// </summary>
@@ -92,7 +92,7 @@ namespace Guilded.NET.Base.Chat
             // Start of the list item
             string start = isOrdered ? $"{index + 1}. " : "- ";
             // Join it all together
-            return $"{indent}{start}{str.ToString().Replace("\n", '\n' + indent + linebreak_indent)}\n";
+            return $"{indent}{start}{str.Replace("\n", '\n' + indent + linebreak_indent)}\n";
         }
         #endregion
     }

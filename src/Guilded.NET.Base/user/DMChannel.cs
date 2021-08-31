@@ -79,31 +79,6 @@ namespace Guilded.NET.Base.Users
             get; set;
         }
 
-        #region Additional
-        /// <summary>
-        /// Sends a message to the specific channel.
-        /// </summary>
-        /// <param name="message">Message to send to the channel</param>
-        public async Task CreateMessageAsync(string message) =>
-            await ParentClient.CreateMessageAsync(Id, message);
-        /// <summary>
-        /// Deletes a specified message.
-        /// </summary>
-        /// <param name="messageId">ID of the message to delete</param>
-        /// <returns>Response</returns>
-        public async Task DeleteMessageAsync(Guid messageId) =>
-            await ParentClient.DeleteMessageAsync(Id, messageId);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <param name="messageId">ID of the message to edit</param>
-        /// <param name="content">New content of the message</param>
-        /// <returns>Response</returns>
-        public async Task UpdateMessageAsync(Guid messageId, string content) =>
-            await ParentClient.UpdateMessageAsync(Id, messageId, content);
-        #endregion
-
-        
         #region Overrides
         /// <summary>
         /// Turns channel to string.

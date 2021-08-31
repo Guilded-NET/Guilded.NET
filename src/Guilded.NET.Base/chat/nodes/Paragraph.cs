@@ -32,7 +32,7 @@ namespace Guilded.NET.Base.Chat
     ///     new Leaf("Invalid argument "),
     ///     // We do not need to escape \, *, ~, _ or | in this case,
     ///     // because this is not Markdown plain text
-    ///     new Leaf(arg, MarkType.InlineCode),  
+    ///     new Leaf(arg, MarkType.InlineCode),
     ///     new Leaf(".")
     /// );
     /// </code>
@@ -97,7 +97,7 @@ namespace Guilded.NET.Base.Chat
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        public Paragraph(IFormatProvider provider, string format, params object[] args) : this(string.Format(provider, format, args)) { } 
+        public Paragraph(IFormatProvider provider, string format, params object[] args) : this(string.Format(provider, format, args)) { }
         /// <summary>
         /// A line of text in a message.
         /// </summary>

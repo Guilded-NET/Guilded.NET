@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum SchedulingPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to let server know your available schedule
         /// </summary>
         CreateSchedule = 1,

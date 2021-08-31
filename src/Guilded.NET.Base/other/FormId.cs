@@ -47,7 +47,7 @@ namespace Guilded.NET.Base
         /// Gets identifier's hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => _.GetHashCode() * 2 - 1000;
+        public override int GetHashCode() => (_.GetHashCode() * 2) - 1000;
         /// <summary>
         /// Checks if given ID is equal to this ID.
         /// </summary>
@@ -96,7 +96,7 @@ namespace Guilded.NET.Base
             // Splits the string by divider('-') and skips first item(because it's starting character)
             List<string> split = str.Split('-').Skip(1).ToList();
             // If everything is correct, then return new instance of it
-            if (split.Count == 2 && split.FirstOrDefault(x => x.Length != partLength) is null) return true;
+            if (split.Count == 2 && split.Find(x => x.Length != partLength) is null) return true;
             // If length in both strings is wrong
             else return false;
         }

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Content
 {
     /// <summary>
-    /// A schedule when a user is available. 
+    /// A schedule when a user is available.
     /// </summary>
     public class Availability : ChannelContent<uint>
     {

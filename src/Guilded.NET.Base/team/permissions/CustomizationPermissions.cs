@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum CustomPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows the creation and management of server emoji
         /// </summary>
         ManageEmoji = 1,

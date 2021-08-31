@@ -141,7 +141,7 @@ namespace Guilded.NET.Base.Chat
             return this;
         }
         #endregion
-        
+
         #region Overrides
         /// <summary>
         /// Returns the string equivalent of the message document.

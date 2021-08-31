@@ -12,9 +12,9 @@ namespace Guilded.NET.Converters
     /// </summary>
     public class RichTextConverter : JsonConverter
     {
-        static readonly Type node = typeof(Node);
-        static readonly Type element = typeof(ChatElement);
-        static readonly IDictionary<string, Type> types = new Dictionary<string, Type>
+        private static readonly Type node = typeof(Node);
+        private static readonly Type element = typeof(ChatElement);
+        private static readonly IDictionary<string, Type> types = new Dictionary<string, Type>
         {
             {"paragraph", typeof(Paragraph)},
             {"link", typeof(Hyperlink)},
@@ -35,7 +35,7 @@ namespace Guilded.NET.Converters
             {"channel", typeof(ChannelMention)},
             {"image", typeof(Image)}
         };
-        static readonly IDictionary<string, Type> objs = new Dictionary<string, Type>
+        private static readonly IDictionary<string, Type> objs = new Dictionary<string, Type>
         {
             {"text", typeof(TextContainer)},
             {"mark", typeof(Mark)},
@@ -77,7 +77,10 @@ namespace Guilded.NET.Converters
                 else return null;
             }
             // Else, parse it as leaf/text/mark.
-            else return obj.ToObject(objs[objparam], serializer);
+            else
+            {
+                return obj.ToObject(objs[objparam], serializer);
+            }
         }
         /// <summary>
         /// Returns whether the converter supports converting the given type.

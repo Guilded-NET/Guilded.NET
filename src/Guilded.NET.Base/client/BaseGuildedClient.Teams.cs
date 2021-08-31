@@ -111,7 +111,6 @@ namespace Guilded.NET.Base
         public abstract Task RemoveMembershipAsync(GId groupId, GId memberId);
         #endregion
 
-
         /*/// <summary>
         /// Gets metadata of given route.
         /// </summary>

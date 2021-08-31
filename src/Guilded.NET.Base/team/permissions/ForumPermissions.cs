@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum ForumPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to create forum topics
         /// </summary>
         CreateTopics = 1,

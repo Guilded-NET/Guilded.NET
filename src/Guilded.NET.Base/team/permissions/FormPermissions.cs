@@ -9,6 +9,10 @@ namespace Guilded.NET.Base.Permissions
     public enum FormPermissions
     {
         /// <summary>
+        /// No given permissions.
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// Allows you to view all form responses
         /// </summary>
         FormResponses = 2,

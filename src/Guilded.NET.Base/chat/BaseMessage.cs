@@ -56,7 +56,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(MessageContent content) =>
-            await ParentClient.CreateMessageAsync(ChannelId, content);
+            await ParentClient.CreateMessageAsync(ChannelId, content).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -79,7 +79,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(MessageDocument document) =>
-            await RespondAsync(new MessageContent(document));
+            await RespondAsync(new MessageContent(document)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -101,7 +101,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IList<Node> nodes) =>
-            await RespondAsync(new MessageContent(nodes));
+            await RespondAsync(new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -119,7 +119,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(params Node[] nodes) =>
-            await RespondAsync(new MessageContent(nodes));
+            await RespondAsync(new MessageContent(nodes)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -139,7 +139,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string content) =>
-            await ParentClient.CreateMessageAsync(ChannelId, content);
+            await ParentClient.CreateMessageAsync(ChannelId, content).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -160,7 +160,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(string format, params object[] args) =>
-            await RespondAsync(string.Format(format, args));
+            await RespondAsync(string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -182,7 +182,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(IFormatProvider provider, string format, params object[] args) =>
-            await RespondAsync(string.Format(provider, format, args));
+            await RespondAsync(string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
@@ -202,7 +202,7 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message posted</returns>
         public async Task<Message> RespondAsync(object content) =>
-            await RespondAsync(content.ToString());
+            await RespondAsync(content.ToString()).ConfigureAwait(false);
         #endregion
 
         #region Overrides

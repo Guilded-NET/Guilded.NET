@@ -67,7 +67,7 @@ namespace Guilded.NET
             AdditionalHeaders.Add("Authorization", $"Bearer {authToken}");
             Rest.AddDefaultHeaders(AdditionalHeaders);
             // Executes base
-            await base.ConnectAsync();
+            await base.ConnectAsync().ConfigureAwait(false);
             // Invokes login event
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
             // Gets this user and sets as .Me

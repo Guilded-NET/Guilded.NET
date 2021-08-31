@@ -5,7 +5,7 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The list of URLs for Guilded services.
     /// </summary>
-    public class GuildedUrl
+    public static class GuildedUrl
     {
         /// <summary>
         /// The URL for performing REST-related things on Guilded.
