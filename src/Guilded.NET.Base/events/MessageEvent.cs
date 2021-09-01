@@ -7,7 +7,6 @@ namespace Guilded.NET.Base.Events
 {
     using Chat;
     using Permissions;
-    using Users;
     /// <summary>
     /// The base for message-related events.
     /// </summary>
@@ -253,13 +252,13 @@ namespace Guilded.NET.Base.Events
         #endregion
 
         #region Additional
-        /// <summary>
-        /// Gets whether this message was posted by the given user.
-        /// </summary>
-        /// <param name="user">The potential author of the message</param>
-        /// <returns>Message by user</returns>
-        public bool Of(BaseUser user) =>
-            Message.Of(user);
+        // /// <summary>
+        // /// Gets whether this message was posted by the given user.
+        // /// </summary>
+        // /// <param name="user">The potential author of the message</param>
+        // /// <returns>Message by user</returns>
+        // public bool Of(BaseUser user) =>
+        //     Message.Of(user);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>

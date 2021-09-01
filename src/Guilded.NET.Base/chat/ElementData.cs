@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Guilded.NET.Base.Teams;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -127,14 +126,14 @@ namespace Guilded.NET.Base.Chat
         {
             get; set;
         }
-        /// <summary>
-        /// The type of the first ancestor channel of the thread.
-        /// </summary>
-        /// <value>Channel type?</value>
-        public ChannelType? OriginatingContentType
-        {
-            get; set;
-        }
+        // /// <summary>
+        // /// The type of the first ancestor channel of the thread.
+        // /// </summary>
+        // /// <value>Channel type?</value>
+        // public ChannelType? OriginatingContentType
+        // {
+        //     get; set;
+        // }
         /// <summary>
         /// The link of the message thread originates from.
         /// </summary>

@@ -39,25 +39,25 @@ namespace Guilded.NET.Base
         public override string ToString() =>
             _;
         /// <summary>
-        /// Gets identifier's hashcode.
+        /// Gets a hashcode of this object.
         /// </summary>
         /// <returns>HashCode</returns>
         public override int GetHashCode() =>
-            (_.GetHashCode() * 2) - 1000;
+            HashCode.Combine(_, 2);
         /// <summary>
-        /// Checks if given ID is equal to this ID.
+        /// Returns whether this and <paramref name="other"/> are equal to each other.
         /// </summary>
-        /// <param name="id">ID to compare</param>
+        /// <param name="other">Another identifier to compare</param>
         /// <returns>Are equal</returns>
-        public bool Equals(GId id) =>
-            id._ == _;
+        public bool Equals(GId other) =>
+            other._ == _;
         /// <summary>
-        /// Checks if given object is equal to this ID.
+        /// Returns whether this and <paramref name="obj"/> are equal to each other.
         /// </summary>
-        /// <param name="obj">Object to compare</param>
+        /// <param name="obj">Another object to compare</param>
         /// <returns>Are equal</returns>
         public override bool Equals(object obj) =>
-            obj is GId id && id._ == _;
+            obj is GId id && Equals(id);
         #endregion
 
         #region Operators

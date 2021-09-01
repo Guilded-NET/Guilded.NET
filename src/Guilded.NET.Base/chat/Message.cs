@@ -7,7 +7,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
 {
-    using Users;
     using Permissions;
     /// <summary>
     /// A message posted in the chat.
@@ -321,13 +320,13 @@ namespace Guilded.NET.Base.Chat
         /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public async Task RemoveReactionAsync(uint emoteId) =>
             await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
-        /// <summary>
-        /// Gets whether this message was posted by <paramref name="user"/>.
-        /// </summary>
-        /// <param name="user">The potential author of this message</param>
-        /// <returns>Message by <paramref name="user"/></returns>
-        public bool Of(BaseUser user) =>
-            CreatedBy == user?.Id;
+        // /// <summary>
+        // /// Gets whether this message was posted by <paramref name="user"/>.
+        // /// </summary>
+        // /// <param name="user">The potential author of this message</param>
+        // /// <returns>Message by <paramref name="user"/></returns>
+        // public bool Of(BaseUser user) =>
+        //     CreatedBy == user?.Id;
         #endregion
 
         #region Overrides

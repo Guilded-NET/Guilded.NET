@@ -10,7 +10,7 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// The base type for <see cref="Message"/> and <see cref="MessageDeleted"/>.
     /// </summary>
-    public class BaseMessage : ClientObject
+    public abstract class BaseMessage : ClientObject
     {
         #region JSON properties
         /// <summary>
@@ -212,6 +212,19 @@ namespace Guilded.NET.Base.Chat
         /// <returns>Message as string</returns>
         public override string ToString() =>
             $"Message {Id}";
+        /// <summary>
+        /// Returns whether this and <paramref name="obj"/> are equal to each other.
+        /// </summary>
+        /// <param name="obj">Another object to compare</param>
+        /// <returns>Are equal</returns>
+        public override bool Equals(object obj) =>
+            obj is BaseMessage message && message.Id == Id;
+        /// <summary>
+        /// Gets a hashcode of this object.
+        /// </summary>
+        /// <returns>HashCode</returns>
+        public override int GetHashCode() =>
+            HashCode.Combine(ChannelId, Id);
         #endregion
     }
 }

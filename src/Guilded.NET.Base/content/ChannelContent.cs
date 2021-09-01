@@ -55,23 +55,22 @@ namespace Guilded.NET.Base.Content
         {
             get; set;
         }
-        // /// <summary>
-        // /// ID of the team this content was posted in.
-        // /// </summary>
-        // /// <value>Team ID</value>
-        // [JsonProperty(Required = Required.Always)]
-        // public GId TeamId
-        // {
-        //     get; set;
-        // }
-        // /// <summary>
-        // /// ID of the team this content was posted in.
-        // /// </summary>
-        // /// <value>Channel ID</value>
-        // [JsonProperty(Required = Required.Always)]
-        // public Guid ChannelId
-        // {
-        //     get; set;
-        // }
+
+        #region Overrides
+        /// <summary>
+        /// Returns whether this and <paramref name="obj"/> are equal to each other.
+        /// </summary>
+        /// <param name="obj">Another object to compare</param>
+        /// <returns>Are equal</returns>
+        public override bool Equals(object obj) =>
+            obj is ChannelContent<T> content && content.Id.Equals(Id);
+        /// <summary>
+        /// Gets a hashcode of this object.
+        /// </summary>
+        /// <returns>HashCode</returns>
+        public override int GetHashCode() =>
+            // TODO: Replace CreatedBy with ChannelId
+            HashCode.Combine(Id, (object)CreatedBy ?? CreatedByBot ?? CreatedByWebhook);
+        #endregion
     }
 }

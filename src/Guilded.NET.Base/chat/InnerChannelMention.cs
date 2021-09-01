@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
 {
-    using Teams;
     /// <summary>
     /// The information about <see cref="ChannelMention"/>.
     /// </summary>
@@ -18,11 +17,11 @@ namespace Guilded.NET.Base.Chat
         /// <param name="channelId">The ID of the channel to mention</param>
         public ChannelMentionData(string name, Guid channelId) =>
             (Name, Matcher, ChannelId) = (name, $"#{name.ToLower()}", channelId);
-        /// <summary>
-        /// Information about the channel mentioned.
-        /// </summary>
-        /// <param name="channel">Channel to mention</param>
-        public ChannelMentionData(TeamChannel channel) : this(channel.Name, channel.Id) { }
+        // /// <summary>
+        // /// Information about the channel mentioned.
+        // /// </summary>
+        // /// <param name="channel">Channel to mention</param>
+        // public ChannelMentionData(TeamChannel channel) : this(channel.Name, channel.Id) { }
         /// <summary>
         /// ID of the channel mentioned.
         /// </summary>

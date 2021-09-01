@@ -3,8 +3,6 @@ using System.Threading.Tasks;
 
 namespace Guilded.NET.Base
 {
-    using Content;
-    using Users;
     /// <summary>
     /// A base for Guilded client.
     /// </summary>

@@ -56,18 +56,21 @@ namespace Guilded.NET.Base
         {
             get; set;
         }
+
+        #region Overrides
         /// <summary>
-        /// Checks if object is equal to this chat emote.
+        /// Returns whether this and <paramref name="obj"/> are equal to each other.
         /// </summary>
-        /// <param name="obj">Object to compare</param>
-        /// <returns>Equal</returns>
+        /// <param name="obj">Another object to compare</param>
+        /// <returns>Are equal</returns>
         public override bool Equals(object obj) =>
             obj is BaseEmote emote && emote.Id == Id;
         /// <summary>
-        /// Gets a hashcode of this emote.
+        /// Gets a hashcode of this object.
         /// </summary>
-        /// <returns>Emote</returns>
+        /// <returns>HashCode</returns>
         public override int GetHashCode() =>
             HashCode.Combine(Id, Name);
+        #endregion
     }
 }

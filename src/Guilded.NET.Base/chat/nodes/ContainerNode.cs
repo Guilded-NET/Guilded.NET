@@ -6,8 +6,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
 {
-    using Teams;
-    using Users;
     /// <summary>
     /// Node that holds other nodes and message objects.
     /// </summary>
@@ -277,13 +275,13 @@ namespace Guilded.NET.Base.Chat
         /// <returns>This</returns>
         public T AddMention(string name, Guid channelId) =>
             AddMention(new ChannelMentionData(name, channelId));
-        /// <summary>
-        /// Adds a channel mention for the given channel.
-        /// </summary>
-        /// <param name="channel">The channel to mention</param>
-        /// <returns>This</returns>
-        public T AddMention(TeamChannel channel) =>
-            AddMention(new ChannelMentionData(channel));
+        // /// <summary>
+        // /// Adds a channel mention for the given channel.
+        // /// </summary>
+        // /// <param name="channel">The channel to mention</param>
+        // /// <returns>This</returns>
+        // public T AddMention(TeamChannel channel) =>
+        //     AddMention(new ChannelMentionData(channel));
         /// <summary>
         /// Adds a member mention based on given data.
         /// </summary>
@@ -298,28 +296,28 @@ namespace Guilded.NET.Base.Chat
         /// <returns>This</returns>
         public T AddMention(bool isHere = false) =>
             AddMention(isHere);
-        /// <summary>
-        /// Adds a user mention based on given user.
-        /// </summary>
-        /// <param name="user">The user to mention</param>
-        /// <returns>This</returns>
-        public T AddMention(BaseUser user) =>
-            AddMention(new MemberMentionData(user));
-        /// <summary>
-        /// Adds a role mention based on given role.
-        /// </summary>
-        /// <param name="role">The role to mention</param>
-        /// <returns>This</returns>
-        public T AddMention(TeamRole role) =>
-            AddMention(new MemberMentionData(role));
-        /// <summary>
-        /// Adds a member mention based on given member and their colour.
-        /// </summary>
-        /// <param name="member">The member to mention</param>
-        /// <param name="color">The colour of the member's role</param>
-        /// <returns>This</returns>
-        public T AddMention(Member member, Color? color = null) =>
-            AddMention(new MemberMentionData(member, color));
+        // /// <summary>
+        // /// Adds a user mention based on given user.
+        // /// </summary>
+        // /// <param name="user">The user to mention</param>
+        // /// <returns>This</returns>
+        // public T AddMention(BaseUser user) =>
+        //     AddMention(new MemberMentionData(user));
+        // /// <summary>
+        // /// Adds a role mention based on given role.
+        // /// </summary>
+        // /// <param name="role">The role to mention</param>
+        // /// <returns>This</returns>
+        // public T AddMention(TeamRole role) =>
+        //     AddMention(new MemberMentionData(role));
+        // /// <summary>
+        // /// Adds a member mention based on given member and their colour.
+        // /// </summary>
+        // /// <param name="member">The member to mention</param>
+        // /// <param name="color">The colour of the member's role</param>
+        // /// <returns>This</returns>
+        // public T AddMention(Member member, Color? color = null) =>
+        //     AddMention(new MemberMentionData(member, color));
         #endregion
     }
 }

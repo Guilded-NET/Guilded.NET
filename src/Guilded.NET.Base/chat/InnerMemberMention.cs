@@ -6,8 +6,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
 {
-    using Teams;
-    using Users;
     /// <summary>
     /// The information about <see cref="MemberMention"/>.
     /// </summary>
@@ -27,47 +25,47 @@ namespace Guilded.NET.Base.Chat
                 isHere ? hereColour : Color.White,
                 "Notify everyone in the channel" + (isHere ? " that is online and not idle" : "")
             );
-        /// <summary>
-        /// Information about the member(s) mentioned.
-        /// </summary>
-        /// <param name="user">The user to mention</param>
-        public MemberMentionData(BaseUser user) =>
-            (Type, Name, Avatar, Matcher, Id, MentionColor, Nickname) = (
-                "person",
-                user.Username,
-                user.ProfilePicture,
-                "@" + user.Username.ToLower(),
-                user.Id.ToString(),
-                null,
-                false
-            );
-        /// <summary>
-        /// Information about the member(s) mentioned.
-        /// </summary>
-        /// <param name="role">The role to mention</param>
-        public MemberMentionData(TeamRole role) =>
-            (Type, Name, Matcher, Id, MentionColor) = (
-                "role",
-                role.Name,
-                "@" + role.Name.ToLower(),
-                role.Id.ToString(),
-                role.Color
-            );
-        /// <summary>
-        /// Information about the member(s) mentioned.
-        /// </summary>
-        /// <param name="member">The member to mention</param>
-        /// <param name="color">The display colour of this member</param>
-        public MemberMentionData(Member member, Color? color = null) =>
-            (Type, Name, Nickname, Avatar, Matcher, Id, MentionColor) = (
-                "person",
-                member.Nickname ?? member.Name,
-                !(member.Nickname is null),
-                member.ProfilePicture,
-                $"@{member.Name.ToLower()} {(member.Nickname is null ? "" : "@")}{member.Nickname}",
-                member.Id.ToString(),
-                color ?? Color.White
-            );
+        // /// <summary>
+        // /// Information about the member(s) mentioned.
+        // /// </summary>
+        // /// <param name="user">The user to mention</param>
+        // public MemberMentionData(BaseUser user) =>
+        //     (Type, Name, Avatar, Matcher, Id, MentionColor, Nickname) = (
+        //         "person",
+        //         user.Username,
+        //         user.ProfilePicture,
+        //         "@" + user.Username.ToLower(),
+        //         user.Id.ToString(),
+        //         null,
+        //         false
+        //     );
+        // /// <summary>
+        // /// Information about the member(s) mentioned.
+        // /// </summary>
+        // /// <param name="role">The role to mention</param>
+        // public MemberMentionData(TeamRole role) =>
+        //     (Type, Name, Matcher, Id, MentionColor) = (
+        //         "role",
+        //         role.Name,
+        //         "@" + role.Name.ToLower(),
+        //         role.Id.ToString(),
+        //         role.Color
+        //     );
+        // /// <summary>
+        // /// Information about the member(s) mentioned.
+        // /// </summary>
+        // /// <param name="member">The member to mention</param>
+        // /// <param name="color">The display colour of this member</param>
+        // public MemberMentionData(Member member, Color? color = null) =>
+        //     (Type, Name, Nickname, Avatar, Matcher, Id, MentionColor) = (
+        //         "person",
+        //         member.Nickname ?? member.Name,
+        //         !(member.Nickname is null),
+        //         member.ProfilePicture,
+        //         $"@{member.Name.ToLower()} {(member.Nickname is null ? "" : "@")}{member.Nickname}",
+        //         member.Id.ToString(),
+        //         color ?? Color.White
+        //     );
         /// <summary>
         /// Type of the mention.
         /// </summary>

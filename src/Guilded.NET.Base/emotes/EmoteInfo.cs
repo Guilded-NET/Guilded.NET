@@ -51,18 +51,18 @@ namespace Guilded.NET.Base
 
         #region Overrides
         /// <summary>
-        /// Checks if object is equal to this emote info.
+        /// Returns whether this and <paramref name="obj"/> are equal to each other.
         /// </summary>
-        /// <param name="obj">Object to compare</param>
-        /// <returns>Equal</returns>
+        /// <param name="obj">Another object to compare</param>
+        /// <returns>Are equal</returns>
         public override bool Equals(object obj) =>
             obj is EmoteInfo emote && Id == emote.Id;
         /// <summary>
-        /// Gets hashcode of this object.
+        /// Gets a hashcode of this object.
         /// </summary>
-        /// <returns>Hashcode</returns>
+        /// <returns>HashCode</returns>
         public override int GetHashCode() =>
-            HashCode.Combine(Id);
+            HashCode.Combine(Id, CustomEmote);
         #endregion
     }
 }

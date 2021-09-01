@@ -1,6 +1,4 @@
 using System.Drawing;
-using Guilded.NET.Base.Teams;
-using Guilded.NET.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
@@ -36,22 +34,22 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="isHere">Whether the mention is @here or @everyone</param>
         public MemberMention(bool isHere = false) : this(new MemberMentionData(isHere)) { }
-        /// <summary>
-        /// A mention of a member/the members.
-        /// </summary>
-        /// <param name="user">User to create mention of</param>
-        public MemberMention(BaseUser user) : this(new MemberMentionData(user)) { }
-        /// <summary>
-        /// A mention of a member/the members.
-        /// </summary>
-        /// <param name="role">Role to create mention of</param>
-        public MemberMention(TeamRole role) : this(new MemberMentionData(role)) { }
-        /// <summary>
-        /// A mention of a member/the members.
-        /// </summary>
-        /// <param name="member">The member to mention</param>
-        /// <param name="color">The display colour of this member</param>
-        public MemberMention(Member member, Color? color = null) : this(new MemberMentionData(member, color)) { }
+        // /// <summary>
+        // /// A mention of a member/the members.
+        // /// </summary>
+        // /// <param name="user">User to create mention of</param>
+        // public MemberMention(BaseUser user) : this(new MemberMentionData(user)) { }
+        // /// <summary>
+        // /// A mention of a member/the members.
+        // /// </summary>
+        // /// <param name="role">Role to create mention of</param>
+        // public MemberMention(TeamRole role) : this(new MemberMentionData(role)) { }
+        // /// <summary>
+        // /// A mention of a member/the members.
+        // /// </summary>
+        // /// <param name="member">The member to mention</param>
+        // /// <param name="color">The display colour of this member</param>
+        // public MemberMention(Member member, Color? color = null) : this(new MemberMentionData(member, color)) { }
         #endregion
 
         #region Additional
