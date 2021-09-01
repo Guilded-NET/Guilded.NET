@@ -73,7 +73,8 @@ namespace Guilded.NET.Base.Chat
         /// Returns the count of all embeds in this node.
         /// </summary>
         /// <returns>Embed as string</returns>
-        public override string ToString() => $"[Embed count: {Embeds.Count}]\n";
+        public override string ToString() =>
+            $"[Embed count: {Embeds.Count}]\n";
         #endregion
     }
 }

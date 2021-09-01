@@ -25,6 +25,7 @@ namespace Guilded.NET.Base.Chat
         /// Converts divider to its Markdown equivalent.
         /// </summary>
         /// <returns>Divider as string</returns>
-        public override string ToString() => "---\n";
+        public override string ToString() =>
+            "---\n";
     }
 }

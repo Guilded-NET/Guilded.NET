@@ -28,11 +28,13 @@ namespace Guilded.NET.Base.Teams
         /// Turns channel to string.
         /// </summary>
         /// <returns>Channel as a string</returns>
-        public override string ToString() => $"Category {Id}: {Name}";
+        public override string ToString() =>
+            $"Category {Id}: {Name}";
         /// <summary>
         /// Gets category's hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => base.GetHashCode() - 35;
+        public override int GetHashCode() =>
+            base.GetHashCode() - 35;
     }
 }

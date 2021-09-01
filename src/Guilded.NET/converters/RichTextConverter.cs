@@ -52,7 +52,8 @@ namespace Guilded.NET.Converters
         /// <param name="writer">The writer to use to write to JSON</param>
         /// <param name="value">The object to write to JSON</param>
         /// <param name="serializer">The serializer that is serializing the object</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) => writer.WriteValue(JObject.FromObject(value));
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+            writer.WriteValue(JObject.FromObject(value));
         /// <summary>
         /// Reads the given JSON object as <see cref="ChatElement"/>.
         /// </summary>
@@ -87,6 +88,7 @@ namespace Guilded.NET.Converters
         /// </summary>
         /// <param name="objectType">The type of object that potentially can be converted</param>
         /// <returns>Type can be converted</returns>
-        public override bool CanConvert(Type objectType) => objectType == node || objectType == element;
+        public override bool CanConvert(Type objectType) =>
+            objectType == node || objectType == element;
     }
 }

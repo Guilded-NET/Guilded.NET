@@ -7,7 +7,7 @@ namespace Guilded.NET.Base
     /// <summary>
     /// Represents information about the invite in metadata.
     /// </summary>
-    public class MetadataInvite: ClientObject
+    public class MetadataInvite : ClientObject
     {
         /// <summary>
         /// Who created the invite.

@@ -40,7 +40,7 @@ namespace Guilded.NET.Base.Embeds
 
         #region Constructors
         /// <summary>
-        /// The image or the thumbnail image in an embed.
+        /// Creates a new instance of <see cref="EmbedMedia"/> with optional size parameters.
         /// </summary>
         /// <param name="url">The source URL to the image</param>
         /// <param name="width">The width of the image</param>

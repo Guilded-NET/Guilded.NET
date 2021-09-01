@@ -28,7 +28,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <returns>Caption?</returns>
         [JsonIgnore]
-        public ImageCaption Caption => Nodes.FirstOrDefault(x => x is ImageCaption) as ImageCaption;
+        public ImageCaption Caption => Nodes.FirstOrDefault(node => node is ImageCaption) as ImageCaption;
         #endregion
 
         #region Constructors
@@ -138,7 +138,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts the image to its Markdown equivalent.
         /// </summary>
         /// <returns>Image as string</returns>
-        public override string ToString() => $"![{base.ToString()}]({Source})\n";
+        public override string ToString() =>
+            $"![{base.ToString()}]({Source})\n";
         #endregion
     }
 }

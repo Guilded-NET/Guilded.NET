@@ -69,9 +69,10 @@ namespace Guilded.NET.Base
         /// <para>If <paramref name="lastMessageId"/> is passed, it gets all of the events that occurred after that message.</para>
         /// </remarks>
         /// <param name="lastMessageId">The identifier of the last event before WebSocket disconnection</param>
+        /// <param name="websocketUrl">The URL to which WebSocket will connect</param>
         /// <exception cref="WebsocketException">Either <paramref name="lastMessageId"/> or <see cref="AdditionalHeaders"/> has a bad formatting</exception>
         /// <returns>Created websocket</returns>
-        protected virtual async Task<WebsocketClient> InitWebsocket(string lastMessageId = null)
+        protected virtual async Task<WebsocketClient> InitWebsocket(string lastMessageId = null, Uri websocketUrl = null)
         {
             // Initialize WebSocket factory and WebSocket sub-client
             Func<ClientWebSocket> factory = new Func<ClientWebSocket>(() =>
@@ -95,7 +96,7 @@ namespace Guilded.NET.Base
             // Creates a new WebSocket based on factory we made
             WebsocketClient client = new WebsocketClient
             (
-                GuildedUrl.Websocket,
+                websocketUrl ?? GuildedUrl.Websocket,
                 factory
             );
             // Subscribe to WebSocket messages

@@ -43,7 +43,7 @@ namespace Guilded.NET.Base.Embeds
 
         #region Constructors
         /// <summary>
-        /// A field in an embed.
+        /// Creates a new instance of <see cref="EmbedField"/>, which is optionally inline.
         /// </summary>
         /// <param name="name">The title of the embed</param>
         /// <param name="value">The description text of the field</param>

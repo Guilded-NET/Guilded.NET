@@ -103,14 +103,6 @@ namespace Guilded.NET.Base.Users
             get; set;
         }
         /// <summary>
-        /// User's profile <strong>about</strong> section.
-        /// </summary>
-        [JsonProperty("aboutInfo", Required = Required.AllowNull)]
-        public About About
-        {
-            get; set;
-        }
-        /// <summary>
         /// User's steam ID.
         /// </summary>
         [JsonProperty(Required = Required.AllowNull)]

@@ -42,7 +42,7 @@ namespace Guilded.NET.Base.Forms
         /// Specifications of forms and polls. Contains fields.
         /// </summary>
         /// <param name="fields">The array of fields of the sections</param>
-        public FormSpecs(params FormField[] fields) : this(fields.Select(x => new FormSection(x)).ToArray()) { }
+        public FormSpecs(params FormField[] fields) : this(fields.Select(field => new FormSection(field)).ToArray()) { }
         #endregion
     }
 }

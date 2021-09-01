@@ -203,7 +203,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts all nodes to string and joins them together.
         /// </summary>
         /// <returns>List of nodes as string</returns>
-        public override string ToString() => string.Concat(Nodes);
+        public override string ToString() =>
+            string.Concat(Nodes);
         #endregion
     }
 }

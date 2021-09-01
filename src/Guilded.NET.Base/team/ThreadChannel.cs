@@ -40,11 +40,13 @@ namespace Guilded.NET.Base.Teams
         /// Turns a thread into string.
         /// </summary>
         /// <returns>Thread as a string</returns>
-        public override string ToString() => $"Thread {Id}: {Name}";
+        public override string ToString() =>
+            $"Thread {Id}: {Name}";
         /// <summary>
         /// Gets thread's hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => base.GetHashCode() + 10;
+        public override int GetHashCode() =>
+            base.GetHashCode() + 10;
     }
 }

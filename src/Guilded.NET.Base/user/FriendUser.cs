@@ -56,6 +56,7 @@ namespace Guilded.NET.Base.Users
         /// Gets user hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => base.GetHashCode() + 19;
+        public override int GetHashCode() =>
+            base.GetHashCode() + 19;
     }
 }

@@ -49,7 +49,7 @@ namespace Guilded.NET.Base.Chat
         /// <param name="formatting">The formatting that this leaf may hold</param>
         /// <returns>Contains formatting</returns>
         public bool Contains(params MarkType[] formatting) =>
-            Marks.FirstOrDefault(x => formatting.Contains(x.Type)) != default;
+            Marks.Any(mark => formatting.Contains(mark.Type));
         /// <summary>
         /// Returns whether leaf's text has specificed part of the string.
         /// </summary>
@@ -228,14 +228,14 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <returns>Cloned object</returns>
         public object Clone() =>
-            new Leaf(Text, Marks.Select(x => (Mark)x.Clone()).ToArray());
+            new Leaf(Text, Marks.Select(mark => (Mark)mark.Clone()).ToArray());
         /// <summary>
         /// Creates a new leaf with similar properties.
         /// </summary>
         /// <param name="text">The text of the leaf</param>
         /// <returns>Cloned leaf</returns>
         public Leaf Clone(string text) =>
-            new Leaf(text, Marks.Select(x => (Mark)x.Clone()).ToArray());
+            new Leaf(text, Marks.Select(mark => (Mark)mark.Clone()).ToArray());
         /// <summary>
         /// Returns the text of the leaf with the string equivalent to leaf's formatting.
         /// </summary>
@@ -243,19 +243,20 @@ namespace Guilded.NET.Base.Chat
         public override string ToString()
         {
             // Gets all marks and turns them to their symbol representations
-            IEnumerable<string> marks = Marks.Select(x => Mark.MarkSymbols[x.Type]);
+            IEnumerable<string> marks = Marks.Select(mark => Mark.MarkSymbols[mark.Type]);
             // Returns content with mark symbols
             return string.Concat(marks)
                 + GetEscaped(Text)
                 + string.Concat(marks.Reverse());
         }
-        private string GetEscaped(string text) => text
-            .Replace("\\", "\\\\")
-            .Replace("*", "\\*")
-            .Replace("_", "\\_")
-            .Replace("~", "\\~")
-            .Replace("`", "\\`")
-            .Replace("||", "\\|\\|");
+        private string GetEscaped(string text) =>
+            text
+                .Replace("\\", "\\\\")
+                .Replace("*", "\\*")
+                .Replace("_", "\\_")
+                .Replace("~", "\\~")
+                .Replace("`", "\\`")
+                .Replace("||", "\\|\\|");
         #endregion
 
         #region Static methods

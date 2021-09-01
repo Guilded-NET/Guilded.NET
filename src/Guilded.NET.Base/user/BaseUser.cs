@@ -108,7 +108,8 @@ namespace Guilded.NET.Base.Users
         /// Turns user to string.
         /// </summary>
         /// <returns>User as a string</returns>
-        public override string ToString() => $"[{Id}] {Username}";
+        public override string ToString() =>
+            $"[{Id}] {Username}";
         /// <summary>
         /// Whether objects are equal.
         /// </summary>
@@ -122,18 +123,21 @@ namespace Guilded.NET.Base.Users
         /// <param name="us0">First user to be compared</param>
         /// <param name="us1">Second user to be compared</param>
         /// <returns>If it's equal to other object</returns>
-        public static bool operator ==(BaseUser us0, BaseUser us1) => us0.Id == us1.Id;
+        public static bool operator ==(BaseUser us0, BaseUser us1) =>
+            us0.Id == us1.Id;
         /// <summary>
         /// Whether users are not equal.
         /// </summary>
         /// <param name="us0">First user to be compared</param>
         /// <param name="us1">Second user to be compared</param>
         /// <returns>If it's not equal to other object</returns>
-        public static bool operator !=(BaseUser us0, BaseUser us1) => !(us0 == us1);
+        public static bool operator !=(BaseUser us0, BaseUser us1) =>
+            !(us0 == us1);
         /// <summary>
         /// Gets user hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => Id.GetHashCode() + 12;
+        public override int GetHashCode() =>
+            Id.GetHashCode() + 12;
     }
 }

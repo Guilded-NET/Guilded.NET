@@ -77,7 +77,8 @@ namespace Guilded.NET.Base.Chat
         /// Returns caption's content as string.
         /// </summary>
         /// <returns>Caption as string</returns>
-        public override string ToString() => $"| {string.Concat(Nodes)} |";
+        public override string ToString() =>
+            $"| {string.Concat(Nodes)} |";
         #endregion
     }
 }

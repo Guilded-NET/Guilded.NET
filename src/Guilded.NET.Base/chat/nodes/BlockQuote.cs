@@ -43,7 +43,7 @@ namespace Guilded.NET.Base.Chat
         /// A quote of someone's text.
         /// </summary>
         /// <param name="content">The text that should be converted to quote lines</param>
-        public BlockQuote(params string[] content) : this(content.Select(x => new LineQuote(x)).ToList()) { }
+        public BlockQuote(params string[] content) : this(content.Select(line => new LineQuote(line)).ToList()) { }
         /// <summary>
         /// A quote of someone's text.
         /// </summary>
@@ -60,7 +60,7 @@ namespace Guilded.NET.Base.Chat
         /// A quote of someone's text.
         /// </summary>
         /// <param name="content">The array of objects that should be converted to quote lines</param>
-        public BlockQuote(params object[] content) : this(content.Select(x => new LineQuote(x)).ToList()) { }
+        public BlockQuote(params object[] content) : this(content.Select(line => new LineQuote(line)).ToList()) { }
         #endregion
     }
 }

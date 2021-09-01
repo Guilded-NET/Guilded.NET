@@ -51,7 +51,7 @@ namespace Guilded.NET.Base.Forms
         /// </summary>
         /// <param name="fields">The list of fields in this form section</param>
         public FormSection(IList<FormField> fields) =>
-            (Fields, FieldTypeOptions) = (fields, fields.Select(x => x.Type).ToArray());
+            (Fields, FieldTypeOptions) = (fields, fields.Select(field => field.Type).ToArray());
         /// <summary>
         /// A section of a form field.
         /// </summary>

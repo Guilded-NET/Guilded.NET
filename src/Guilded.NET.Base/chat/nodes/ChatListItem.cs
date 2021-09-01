@@ -77,7 +77,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts <see cref="ChatListItem"/> to its string equivalent with bullet prefix.
         /// </summary>
         /// <returns><see cref="ChatListItem"/> as string</returns>
-        public override string ToString() => ToString(false, "");
+        public override string ToString() =>
+            ToString(false, "");
         /// <summary>
         /// Converts <see cref="ChatListItem"/> to its string equivalent with bullet prefix.
         /// </summary>

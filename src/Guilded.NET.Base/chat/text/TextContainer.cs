@@ -59,7 +59,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="content">The contents of the leaf</param>
         /// <param name="formatting">The formatting of the leaf</param>
-        public TextContainer(string content, IList<MarkType> formatting) : this(content, formatting.Select(x => new Mark(x)).ToArray()) { }
+        public TextContainer(string content, IList<MarkType> formatting) : this(content, formatting.Select(mark => new Mark(mark)).ToArray()) { }
         /// <summary>
         /// Creates a new <see cref="TextContainer"/> based on <paramref name="content"/> and formatting <paramref name="formatting"/> that will be converted to a singular leaf.
         /// </summary>
@@ -175,7 +175,8 @@ namespace Guilded.NET.Base.Chat
         /// Gets string equivalents of all leaves and joins them together.
         /// </summary>
         /// <returns>List of leaves as string</returns>
-        public override string ToString() => string.Concat(Leaves);
+        public override string ToString() =>
+            string.Concat(Leaves);
         #endregion
     }
 }

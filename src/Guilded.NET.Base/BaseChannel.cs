@@ -47,6 +47,7 @@ namespace Guilded.NET.Base
         /// Gets channel hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => Id.GetHashCode() - 21;
+        public override int GetHashCode() =>
+            Id.GetHashCode() - 21;
     }
 }

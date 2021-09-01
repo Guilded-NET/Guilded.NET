@@ -45,15 +45,17 @@ namespace Guilded.NET.Base.Embeds
 
         #region Constructors
         /// <summary>
-        /// The author of the embed.
+        /// Creates a new instance of <see cref="EmbedAuthor"/> with optional URL <paramref name="url"/>.
         /// </summary>
         /// <param name="name">The name of the embed author</param>
         /// <param name="iconUrl">The URL to author's icon</param>
         /// <param name="url">The URL that author links</param>
+        /// <exception cref="NullReferenceException"><paramref name="name"/> is null, empty or whitespace</exception>
         public EmbedAuthor(string name, Uri iconUrl = null, Uri url = null)
         {
             // If you try to set null title
-            if(string.IsNullOrWhiteSpace(name)) throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
+            if(string.IsNullOrWhiteSpace(name))
+                throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
             (Name, IconUrl, Url) = (name, iconUrl, url);
         }
         #endregion

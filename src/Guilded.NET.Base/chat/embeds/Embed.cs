@@ -466,7 +466,8 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <param name="field">A field to be added</param>
         /// <returns>This</returns>
-        public Embed AddField(EmbedField field) => AddFields(field);
+        public Embed AddField(EmbedField field) =>
+            AddFields(field);
         /// <summary>
         /// Adds a field to this embed.
         /// </summary>

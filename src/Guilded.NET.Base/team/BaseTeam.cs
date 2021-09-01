@@ -234,36 +234,37 @@ namespace Guilded.NET.Base.Teams
         /// Turns team to string.
         /// </summary>
         /// <returns>Team as a string</returns>
-        public override string ToString() => $"Team[{Id}] {Name}";
+        public override string ToString() =>
+            $"Team[{Id}] {Name}";
         /// <summary>
         /// Whether objects are equal.
         /// </summary>
         /// <param name="obj">Equals to</param>
         /// <returns>If it's equal to other object</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is BaseTeam team) return team.Id == Id;
-            else return false;
-        }
+        public override bool Equals(object obj) =>
+            obj is BaseTeam team && team.Id == Id;
         /// <summary>
         /// Whether teams are equal.
         /// </summary>
         /// <param name="tm0">First team to be compared</param>
         /// <param name="tm1">Second team to be compared</param>
         /// <returns>If it's equal to other object</returns>
-        public static bool operator ==(BaseTeam tm0, BaseTeam tm1) => tm0.Id == tm1.Id;
+        public static bool operator ==(BaseTeam tm0, BaseTeam tm1) =>
+            tm0.Id == tm1.Id;
         /// <summary>
         /// Whether teams are not equal.
         /// </summary>
         /// <param name="tm0">First team to be compared</param>
         /// <param name="tm1">Second team to be compared</param>
         /// <returns>If it's not equal to other object</returns>
-        public static bool operator !=(BaseTeam tm0, BaseTeam tm1) => !(tm0 == tm1);
+        public static bool operator !=(BaseTeam tm0, BaseTeam tm1) =>
+            !(tm0 == tm1);
         /// <summary>
         /// Gets team hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => Id.GetHashCode() + 300;
+        public override int GetHashCode() =>
+            Id.GetHashCode() + 300;
         #endregion
     }
 }

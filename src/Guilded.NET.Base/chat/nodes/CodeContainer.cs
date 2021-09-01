@@ -71,7 +71,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="language">The language this codeblock is highlighted as.</param>
         /// <param name="lines">The enumerable of string code lines</param>
-        public CodeContainer(string language, IEnumerable<string> lines) : this(language, lines.Select(x => new CodeLine(x)).ToList()) { }
+        public CodeContainer(string language, IEnumerable<string> lines) : this(language, lines.Select(line => new CodeLine(line)).ToList()) { }
         /// <summary>
         /// A block with code syntax highlighting.
         /// </summary>
@@ -118,7 +118,7 @@ namespace Guilded.NET.Base.Chat
         /// <param name="content">The array of code lines</param>
         /// <returns>This</returns>
         public CodeContainer AddLines(params string[] content) =>
-            Add(content.Select(x => new CodeLine(x)));
+            Add(content.Select(line => new CodeLine(line)));
         /// <summary>
         /// Adds an array of lines to the code container.
         /// </summary>
@@ -133,7 +133,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts <see cref="CodeContainer"/> to its Markdown equivalent.
         /// </summary>
         /// <returns><see cref="CodeContainer"/> as string</returns>
-        public override string ToString() => $"```{(Language != "unformatted" ? Language : "")}\n{base.ToString()}```";
+        public override string ToString() =>
+            $"```{(Language != "unformatted" ? Language : "")}\n{base.ToString()}```";
         #endregion
     }
 }

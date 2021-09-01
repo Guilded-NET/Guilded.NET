@@ -36,7 +36,7 @@ namespace Guilded.NET.Base.Embeds
 
         #region Constructors
         /// <summary>
-        /// The footer/bottom area of the embed.
+        /// Creates a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>.
         /// </summary>
         /// <param name="text">The description of the footer</param>
         /// <param name="iconUrl">The URL to footer's icon</param>

@@ -15,7 +15,8 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="serializer">Serializer to serialize object with</param>
         /// <returns>Serialized object</returns>
-        public string Serialize(JsonSerializer serializer) => Serialize(serializer.Converters.ToArray());
+        public string Serialize(JsonSerializer serializer) =>
+            Serialize(serializer.Converters.ToArray());
         /// <summary>
         /// Returns serialized version of this object with the given <paramref name="converters"/>.
         /// </summary>

@@ -7,7 +7,6 @@ using Newtonsoft.Json.Serialization;
 namespace Guilded.NET.Base.Users
 {
     using Content;
-    using RestSharp.Validation;
 
     /// <summary>
     /// Guilded user. This is NOT Guild member.

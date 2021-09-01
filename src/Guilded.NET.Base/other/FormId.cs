@@ -47,7 +47,8 @@ namespace Guilded.NET.Base
         /// Gets identifier's hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => (_.GetHashCode() * 2) - 1000;
+        public override int GetHashCode() =>
+            (_.GetHashCode() * 2) - 1000;
         /// <summary>
         /// Checks if given ID is equal to this ID.
         /// </summary>
@@ -71,14 +72,16 @@ namespace Guilded.NET.Base
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
         /// <returns>Are equal</returns>
-        public static bool operator ==(FormId id0, FormId id1) => id0._ == id1._;
+        public static bool operator ==(FormId id0, FormId id1) =>
+            id0._ == id1._;
         /// <summary>
         /// Checks if given <see cref="FormId"/>s are the same.
         /// </summary>
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
         /// <returns>Aren't equal</returns>
-        public static bool operator !=(FormId id0, FormId id1) => !(id0 == id1);
+        public static bool operator !=(FormId id0, FormId id1) =>
+            !(id0 == id1);
         #endregion
 
         #region Static methods
@@ -96,7 +99,7 @@ namespace Guilded.NET.Base
             // Splits the string by divider('-') and skips first item(because it's starting character)
             List<string> split = str.Split('-').Skip(1).ToList();
             // If everything is correct, then return new instance of it
-            if (split.Count == 2 && split.Find(x => x.Length != partLength) is null) return true;
+            if (split.Count == 2 && !split.Any(part => part.Length != partLength)) return true;
             // If length in both strings is wrong
             else return false;
         }

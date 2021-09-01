@@ -147,7 +147,8 @@ namespace Guilded.NET.Base.Chat
         /// Returns the string equivalent of the message document.
         /// </summary>
         /// <returns>Message document as string</returns>
-        public override string ToString() => Document?.ToString();
+        public override string ToString() =>
+            Document?.ToString();
         #endregion
     }
 }

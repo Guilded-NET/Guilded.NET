@@ -77,7 +77,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts a content embed to its string representation
         /// </summary>
         /// <returns>Content embed as string</returns>
-        public override string ToString() => $"![{base.ToString()}]({Data.Url})";
+        public override string ToString() =>
+            $"![{base.ToString()}]({Data.Url})";
         #endregion
     }
 }

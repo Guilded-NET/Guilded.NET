@@ -56,7 +56,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="text">The piece of text this leaf holds</param>
         /// <param name="formatting">The formatting of the text in this leaf</param>
-        public Leaf(string text, IList<MarkType> formatting) : this(text, formatting.Select(x => new Mark(x)).ToList()) { }
+        public Leaf(string text, IList<MarkType> formatting) : this(text, formatting.Select(mark => new Mark(mark)).ToList()) { }
         /// <summary>
         /// Creates a new <see cref="Leaf"/> instance with content as <paramref name="text"/> and formatting based on <paramref name="formatting"/>.
         /// </summary>

@@ -60,7 +60,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="nodes">The list of text containers that will be used in list items</param>
         /// <param name="isOrdered">Whether the list is with numbers or with bullets</param>
-        public ChatList(IEnumerable<TextContainer> nodes, bool isOrdered = false) : this(nodes.Select(x => new ChatListItem(x)).ToList<Node>(), isOrdered) { }
+        public ChatList(IEnumerable<TextContainer> nodes, bool isOrdered = false) : this(nodes.Select(item => new ChatListItem(item)).ToList<Node>(), isOrdered) { }
         /// <summary>
         /// A list with numbers or bullets.
         /// </summary>
@@ -71,7 +71,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="content">The list of texts that the list should hold</param>
         /// <param name="isOrdered">Whether the list is with numbers or with bullets</param>
-        public ChatList(IEnumerable<string> content, bool isOrdered = false) : this(content.Select(x => new ChatListItem(x)).ToList<Node>(), isOrdered) { }
+        public ChatList(IEnumerable<string> content, bool isOrdered = false) : this(content.Select(item => new ChatListItem(item)).ToList<Node>(), isOrdered) { }
         /// <summary>
         /// A list with numbers or bullets.
         /// </summary>
@@ -152,7 +152,7 @@ namespace Guilded.NET.Base.Chat
         /// <param name="indent">The indent of the list items</param>
         /// <returns><see cref="ChatList"/> as string</returns>
         public string ToString(string indent) =>
-            string.Concat(Nodes.Select((x, i) => x is ChatListItem item ? item.ToString(IsOrdered, indent, i) : ((ChatList)x).ToString(indent + sublist_indent)));
+            string.Concat(Nodes.Select((node, i) => node is ChatListItem item ? item.ToString(IsOrdered, indent, i) : ((ChatList)node).ToString(indent + sublist_indent)));
         /// <summary>
         /// Converts <see cref="ChatList"/> to its Markdown equivalent.
         /// </summary>

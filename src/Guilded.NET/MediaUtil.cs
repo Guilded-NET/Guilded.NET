@@ -45,7 +45,7 @@ namespace Guilded.NET.Util
         /// <param name="name">The name of the server</param>
         /// <returns>First letter/digit or default(0)</returns>
         public static Uri FetchServerIcon(string name) =>
-            FetchServerIcon(name.ToLower().FirstOrDefault(c => serverChars.Contains(c)));
+            FetchServerIcon(name.ToLower().FirstOrDefault(chr => serverChars.Contains(chr)));
         /// <summary>
         /// Gets the URL to a global emote of given name.
         /// </summary>

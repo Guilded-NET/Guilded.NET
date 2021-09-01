@@ -84,7 +84,8 @@ namespace Guilded.NET.Base.Users
         /// Turns channel to string.
         /// </summary>
         /// <returns>Channel as a string</returns>
-        public override string ToString() => $"DMs {Id}: [{string.Join(", ", Users.Select(x => x.Id))}]";
+        public override string ToString() =>
+            $"DMs {Id}: [{string.Join(", ", Users.Select(user => user.Id))}]";
         /// <summary>
         /// Whether objects are equal.
         /// </summary>
@@ -98,19 +99,22 @@ namespace Guilded.NET.Base.Users
         /// <param name="ch0">First channel to be compared</param>
         /// <param name="ch1">Second channel to be compared</param>
         /// <returns>If it's equal to other object</returns>
-        public static bool operator ==(DMChannel ch0, DMChannel ch1) => ch0.Id == ch1.Id;
+        public static bool operator ==(DMChannel ch0, DMChannel ch1) =>
+            ch0.Id == ch1.Id;
         /// <summary>
         /// Whether channels are not equal.
         /// </summary>
         /// <param name="ch0">First channel to be compared</param>
         /// <param name="ch1">Second channel to be compared</param>
         /// <returns>If it's not equal to other object</returns>
-        public static bool operator !=(DMChannel ch0, DMChannel ch1) => !(ch0 == ch1);
+        public static bool operator !=(DMChannel ch0, DMChannel ch1) =>
+            !(ch0 == ch1);
         /// <summary>
         /// Gets channel hashcode.
         /// </summary>
         /// <returns>HashCode</returns>
-        public override int GetHashCode() => (Id.GetHashCode() + 2000) / 2;
+        public override int GetHashCode() =>
+            (Id.GetHashCode() + 2000) / 2;
         #endregion
     }
 }

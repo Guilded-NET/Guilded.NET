@@ -181,7 +181,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts hyperlink to its Markdown equivalent.
         /// </summary>
         /// <returns>Hyperlink as string</returns>
-        public override string ToString() => $"[{base.ToString()}]({Data.Href})";
+        public override string ToString() =>
+            $"[{base.ToString()}]({Data.Href})";
         #endregion
     }
 }

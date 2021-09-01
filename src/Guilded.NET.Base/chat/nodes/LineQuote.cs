@@ -80,7 +80,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts quote block line to its Markdown equivalent.
         /// </summary>
         /// <returns>Quoteblock line as string</returns>
-        public override string ToString() => $"> {base.ToString().Replace("\n", "\n>")}";
+        public override string ToString() =>
+            $"> {base.ToString().Replace("\n", "\n>")}";
         #endregion
     }
 }

@@ -159,7 +159,8 @@ namespace Guilded.NET.Base.Chat
         /// Gets string equivalent of node's children and joins them.
         /// </summary>
         /// <returns>List of nodes as string</returns>
-        public override string ToString() => string.Concat(Nodes) + "\n";
+        public override string ToString() =>
+            string.Concat(Nodes) + "\n";
         #endregion
     }
     /// <summary>
