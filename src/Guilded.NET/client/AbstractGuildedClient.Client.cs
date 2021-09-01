@@ -12,7 +12,6 @@ namespace Guilded.NET
 {
     using Base;
     using Base.Events;
-    using Base.Users;
     using Converters;
 
     /// <summary>
@@ -25,27 +24,19 @@ namespace Guilded.NET
         /// An event when the client is prepared.
         /// </summary>
         /// <remarks>
-        /// An event when the client has added all of the finishing touches, such as getting <see cref="Me"/> data.
+        /// An event when the client has added all of the finishing touches.
         /// </remarks>
         protected EventHandler PreparedEvent;
         /// <summary>
         /// An event when the client is prepared.
         /// </summary>
         /// <remarks>
-        /// An event when the client has added all of the finishing touches, such as getting <see cref="Me"/> data.
+        /// An event when the client has added all of the finishing touches.
         /// </remarks>
         public event EventHandler Prepared
         {
             add => PreparedEvent += value;
             remove => PreparedEvent -= value;
-        }
-        /// <summary>
-        /// User account this client is using.
-        /// </summary>
-        /// <value>Me</value>
-        public Me Me
-        {
-            get; protected set;
         }
         /// <summary>
         /// A list of JSON converters used to (de)serialize Guilded responses and WebSocket events.
@@ -61,7 +52,7 @@ namespace Guilded.NET
         /// <summary>
         /// A base for user bot clients and normal bot clients.
         /// </summary>
-        protected AbstractGuildedClient() : base()
+        protected AbstractGuildedClient()
         {
             // Adds converters to serializers
             SerializerSettings.Converters = new JsonConverter[]

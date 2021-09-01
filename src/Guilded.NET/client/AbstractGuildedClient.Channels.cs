@@ -8,9 +8,7 @@ namespace Guilded.NET
     using Base;
     using Base.Chat;
     using Base.Content;
-    using Base.Embeds;
     using Base.Permissions;
-    using Base.Teams;
     /// <summary>
     /// A base for all Guilded clients.
     /// </summary>
