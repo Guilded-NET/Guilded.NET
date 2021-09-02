@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <!-- Library -->
-    <Product>Guilded.NET</Product>
+    <Product>Guilded.NET.Commands</Product>
     <Version>0.4.0</Version>
-    <Description>API wrapper for Guilded</Description>
+    <Description>Command extensions for Guilded.NET</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
 
@@ -43,6 +43,9 @@
     <Reference Include="Guilded.NET.Base">
       <HintPath>../Guilded.NET.Base/bin/Debug/netstandard2.1/Guilded.NET.Base.dll</HintPath>
     </Reference>
+    <Reference Include="Guilded.NET">
+      <HintPath>../Guilded.NET/bin/Debug/netstandard2.1/Guilded.NET.dll</HintPath>
+    </Reference>
   </ItemGroup>
   
   <!-- Documentation -->
@@ -53,14 +56,14 @@
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Docs' ">
-    <DefaultDocumentationFolder>../Documentation/Guilded.NET</DefaultDocumentationFolder>
+    <DefaultDocumentationFolder>../Documentation/Guilded.NET/Commands</DefaultDocumentationFolder>
     <DefaultDocumentationFileNameMode>Name</DefaultDocumentationFileNameMode>
-    <DefaultDocumentationAssemblyPageName>Guilded_NET</DefaultDocumentationAssemblyPageName>
+    <DefaultDocumentationAssemblyPageName>Guilded_NET_Commands</DefaultDocumentationAssemblyPageName>
     <!-- For which items to generate documentation for -->
     <DefaultDocumentationGeneratedPages>Assembly,Types,Members</DefaultDocumentationGeneratedPages>
     <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>
     <!-- Make sure Guilded.NET.Base assembly types won't be thought as Microsoft's types -->
-    <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.link</DefaultDocumentationLinksOutputFile>
+    <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.Commands.link</DefaultDocumentationLinksOutputFile>
     <DefaultDocumentationExternLinksFiles>../Documentation/*.link</DefaultDocumentationExternLinksFiles>
     <!-- Don't add .md -->
     <DefaultDocumentationRemoveFileExtensionFromLinks>true</DefaultDocumentationRemoveFileExtensionFromLinks>
