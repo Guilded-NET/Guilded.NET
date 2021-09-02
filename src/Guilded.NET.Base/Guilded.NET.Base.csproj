@@ -32,7 +32,7 @@
   
   <!-- Documentation -->
   <ItemGroup Condition=" '$(Configuration)' == 'Docs' ">
-    <PackageReference Include="DefaultDocumentation" Version="0.7.5">
+    <PackageReference Include="DefaultDocumentation" Version="0.7.6-beta2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -45,8 +45,8 @@
     <DefaultDocumentationGeneratedPages>Assembly,Types,Members</DefaultDocumentationGeneratedPages>
     <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>
     <!-- Make sure Guilded.NET.Base assembly types won't be thought as Microsoft's types -->
-    <DefaultDocumentationLinksBaseUrl>https://guilded-net.github.io/references</DefaultDocumentationLinksBaseUrl>
     <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.Base.link</DefaultDocumentationLinksOutputFile>
+    <DefaultDocumentationExternLinksFiles>../Documentation/*.link</DefaultDocumentationExternLinksFiles>
     <!-- Don't add .md -->
     <DefaultDocumentationRemoveFileExtensionFromLinks>true</DefaultDocumentationRemoveFileExtensionFromLinks>
   </PropertyGroup>
@@ -54,7 +54,7 @@
 
   <!-- Files to include to Guilded.NET.Base -->
   <ItemGroup>
-    <None Include="Icon.png" Pack="true" PackagePath="" />
+    <None Include="../../assets/Icon.png" Pack="true" PackagePath="" />
     <None Include="Readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 </Project>

@@ -37,17 +37,17 @@
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
     <PackageReference Include="Guilded.NET.Base" Version="0.3.2" />
   </ItemGroup>
-
+  
   <!-- For testing purposes -->
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">
     <Reference Include="Guilded.NET.Base">
       <HintPath>../Guilded.NET.Base/bin/Debug/netstandard2.1/Guilded.NET.Base.dll</HintPath>
     </Reference>
   </ItemGroup>
-
+  
   <!-- Documentation -->
   <ItemGroup Condition=" '$(Configuration)' == 'Docs' ">
-    <PackageReference Include="DefaultDocumentation" Version="0.7.5">
+    <PackageReference Include="DefaultDocumentation" Version="0.7.6-beta2">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -60,8 +60,7 @@
     <DefaultDocumentationGeneratedPages>Assembly,Types,Members</DefaultDocumentationGeneratedPages>
     <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>
     <!-- Make sure Guilded.NET.Base assembly types won't be thought as Microsoft's types -->
-    <DefaultDocumentationLinksBaseUrl>https://guilded-net.github.io/references</DefaultDocumentationLinksBaseUrl>
-    <!-- <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.link</DefaultDocumentationLinksOutputFile> -->
+    <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.link</DefaultDocumentationLinksOutputFile>
     <DefaultDocumentationExternLinksFiles>../Documentation/*.link</DefaultDocumentationExternLinksFiles>
     <!-- Don't add .md -->
     <DefaultDocumentationRemoveFileExtensionFromLinks>true</DefaultDocumentationRemoveFileExtensionFromLinks>
@@ -69,7 +68,7 @@
 
   <!-- Files to include to Guilded.NET -->
   <ItemGroup>
-    <None Include="Icon.png" Pack="true" PackagePath="" />
+    <None Include="../../assets/Icon.png" Pack="true" PackagePath="" />
     <None Include="Readme.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
