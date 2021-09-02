@@ -975,10 +975,10 @@ namespace Guilded.NET.Base
         /// <param name="itemId">The identifier of the item</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         Task DeleteListItemAsync(Guid channelId, Guid itemId);
-        #endregion
+        #endregion*/
 
         #region Content channels
-        /// <summary>
+        /*/// <summary>
         /// Gets all comments in a given document or media.
         /// </summary>
         /// <param name="contentId">The identifier of content</param>
@@ -1013,29 +1013,46 @@ namespace Guilded.NET.Base
         /// <param name="type">Type of the channel this reply is in</param>
         /// <param name="message">New message content to replace with</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        Task EditContentReplyAsync(string contentId, uint replyId, ChannelType type, MessageContent message);
+        Task EditContentReplyAsync(string contentId, uint replyId, ChannelType type, MessageContent message);*/
         /// <summary>
-        /// Adds a reaction to a reply or a post.
+        /// Adds a reaction to a content post.
         /// </summary>
-        /// <param name="teamId">The identifier of the team where the post is</param>
-        /// <param name="type">Type of the channel where the post is</param>
-        /// <param name="postId">The identifier of content or reply to react on</param>
-        /// <param name="emoteId">The identifier of the emote to react with</param>
-        /// <param name="isContentReply">Is it a reaction on a reply</param>
-        /// <exception cref="ArgumentException">When channel type isn't type of a post channel</exception>
+        /// <example>
+        /// <code>
+        /// await client.AddReactionAsync(channelId, docId, 90002569);
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="contentId">The identifier of the content to add a reaction on</param>
+        /// <param name="emoteId">The identifier of the emote to add</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        Task AddReactionAsync(GId teamId, ChannelType type, string postId, uint emoteId, bool isContentReply = false);
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the content <paramref name="contentId"/> or both have not been found</exception>
+        /// <permission cref="DocPermissions.ViewDocs">Required for adding a reaction to a document you see</permission>
+        /// <permission cref="MediaPermissions.SeeMedia">Required for adding a reaction to a media post you see</permission>
+        /// <permission cref="ForumPermissions.ReadForums">Required for adding a reaction to a forum thread you see</permission>
+        /// <permission cref="CalendarPermissions.ViewEvents">Required for adding a reaction to a calendar event you see</permission>
+        /// <returns>Reaction added</returns>
+        public abstract Task<Reaction> AddReactionAsync(Guid channelId, uint contentId, uint emoteId);
         /// <summary>
-        /// Removes a reaction from a reply or a post.
+        /// Removes a reaction from a content post.
         /// </summary>
-        /// <param name="teamId">The identifier of the team where the post is</param>
-        /// <param name="type">Type of the channel where the post is</param>
-        /// <param name="postId">The identifier of content or reply to react on</param>
-        /// <param name="emoteId">The identifier of the emote to react with</param>
-        /// <param name="isContentReply">Is it a reaction on a reply</param>
-        /// <exception cref="ArgumentException">When channel type isn't type of a post channel</exception>
+        /// <example>
+        /// <code>
+        /// await client.RemoveReactionAsync(channelId, docId, 90002569);
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="contentId">The identifier of the content to remove a reaction from</param>
+        /// <param name="emoteId">The identifier of the emote to remove</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        Task RemoveReactionAsync(GId teamId, ChannelType type, string postId, uint emoteId, bool isContentReply = false);
-        #endregion*/
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the content <paramref name="contentId"/> or both have not been found</exception>
+        /// <permission cref="DocPermissions.ViewDocs">Required for removing a reaction from a document you see</permission>
+        /// <permission cref="MediaPermissions.SeeMedia">Required for removing a reaction from a media post you see</permission>
+        /// <permission cref="ForumPermissions.ReadForums">Required for removing a reaction from a forum thread you see</permission>
+        /// <permission cref="CalendarPermissions.ViewEvents">Required for removing a reaction from a calendar event you see</permission>
+        public abstract Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId);
+        #endregion
     }
 }
