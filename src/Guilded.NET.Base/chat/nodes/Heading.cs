@@ -120,7 +120,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <returns>Heading as string</returns>
         public override string ToString() {
-            // Either adds 1 # or 2
+            // # or ##
             string prefix = "#" + (IsLarge ? "" : "#");
 
             return $"{prefix} {base.ToString()}";

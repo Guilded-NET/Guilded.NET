@@ -202,9 +202,11 @@ namespace Guilded.NET.Base.Permissions
         private static uint? Concat(uint? first, uint? second)
         {
             // If one of them is null, return the other
-            if (first is null || second is null) return first ?? second;
+            if (first is null || second is null)
+                return first ?? second;
             // Else, return both OR-ed
-            else return first | second;
+            else
+                return first | second;
         }
         /// <summary>
         /// Used to concat and check 2 enum values.
@@ -225,9 +227,11 @@ namespace Guilded.NET.Base.Permissions
         private static uint? Substract(uint? first, uint? second)
         {
             // If first one is null, then we can't substract
-            if (first is null) return null;
+            if (first is null)
+                return null;
             // Substract second from first. If second is null, then we will substract nothing
-            else return first & ~(second ?? 0);
+            else
+                return first & ~(second ?? 0);
         }
         /// <summary>
         /// Substracts second enum value from first.

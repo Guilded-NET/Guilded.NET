@@ -53,9 +53,9 @@ namespace Guilded.NET.Base.Embeds
         /// <exception cref="NullReferenceException"><paramref name="name"/> is null, empty or whitespace</exception>
         public EmbedAuthor(string name, Uri iconUrl = null, Uri url = null)
         {
-            // If you try to set null title
             if(string.IsNullOrWhiteSpace(name))
                 throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
+
             (Name, IconUrl, Url) = (name, iconUrl, url);
         }
         #endregion

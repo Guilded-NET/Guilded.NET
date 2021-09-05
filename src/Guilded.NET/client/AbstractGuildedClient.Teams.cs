@@ -63,10 +63,9 @@ namespace Guilded.NET
         /// <returns>Total XP</returns>
         public override async Task<long> AddXpAsync(GId memberId, short xpAmount)
         {
-            // Checks if it's not too much or too little
             if (xpAmount > 1000 || xpAmount < -1000)
                 throw new ArgumentOutOfRangeException($"Expected {nameof(xpAmount)} to be between 1000 and -1000, but got {xpAmount} instead");
-            // Gives XP to the user
+            
             return await GetObject<long>($"members/{memberId}/xp", Method.POST, "total", new
             {
                 amount = xpAmount

@@ -20,7 +20,6 @@ namespace Guilded.NET.Util
         /// </summary>
         static MediaUtil()
         {
-            // Adds all avatars(1st to 5th)
             for (int i = 1; i < 6; i++)
                 DefaultAvatars.Add(new Uri($"https://img.guildedcdn.com/asset/DefaultUserAvatars/profile_{i}.png"));
         }
@@ -32,11 +31,11 @@ namespace Guilded.NET.Util
         /// <returns>Server's icon</returns>
         public static Uri FetchServerIcon(char startingLetter)
         {
-            // Turn it to lowercase character
-            string lower = startingLetter != default ? startingLetter.ToString().ToLower() : "0";
-            // If given character is not in the range of allowed characters
-            if (!serverChars.Contains(lower)) throw new ArgumentException($"{nameof(startingLetter)} can only be a letter or a digit.");
-            // Return the URL for it
+            string lower = startingLetter.ToString().ToLower();
+            // Error if someone passes unsupported character
+            if (!serverChars.Contains(lower))
+                throw new ArgumentException($"{nameof(startingLetter)} can only be a letter or a digit.");
+            
             return new Uri($"https://img.guildedcdn.com/asset/TeamPage/Avatars/default-team-avatar-{lower}@2x.png");
         }
         /// <summary>

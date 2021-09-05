@@ -56,11 +56,11 @@ namespace Guilded.NET.Base.Forms
         /// <summary>
         /// An option in radio, check list and dropdown fields.
         /// </summary>
+        /// <param name="label">The name of the field option</param>
         public FieldOption(string label)
         {
-            // Random identifier for the name and value
             FormId rand = FormId.Random;
-            // Assign properties
+
             (FieldName, Label, OptionName, DefaultValue, Value) = (FormId.Random, label, rand, "Option 1", rand);
         }
         #endregion

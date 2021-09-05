@@ -81,6 +81,5 @@
 //         /// <returns>Reply header node</returns>
 //         public ReplyHeader GenerateReplyHeader(ReplyHeaderType type = ReplyHeaderType.Reply) =>
 //             ReplyHeader.Generate(Id, CreatedBy, type);*/
-//         // TODO: Generate quote
 //     }
 // }

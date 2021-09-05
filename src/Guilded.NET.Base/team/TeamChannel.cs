@@ -105,16 +105,15 @@
 //         /// <returns>Allowed permissions</returns>
 //         public PermissionList GetFullPermissionsOf(BaseTeam team, TeamMember member)
 //         {
-//             // All of the permissions this user has in a team
 //             PermissionList teamPerms = team.GetPermissionsOf(member);
-//             // Gets all role permissions this user has
+// 
 //             IEnumerable<ChannelPermission> rolePerms =
 //                 RolePermissions
 //                     .Where(perm => (uint.TryParse(perm.Key, out uint y) && member.RoleIds.Contains(y)) || perm.Key == "baseRole")
 //                     .Select(perm => perm.Value);
-//             // Gets user permissions
+// 
 //             UserPermission userPerms = UserPermissions?.FirstOrDefault(perm => perm.UserId == member?.Id);
-//             // Adds up all user permissions and role permissions
+// 
 //             return teamPerms
 //                 - OptionalAddition(rolePerms.Select(permList => permList.DenyPermissions))
 //                 - userPerms?.DenyPermissions

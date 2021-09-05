@@ -43,12 +43,12 @@ namespace Guilded.NET
         /// </remarks>
         /// <param name="authToken">Authentication token used to log into the bot in Guilded</param>
         /// <exception cref="ArgumentException">When passed argument <paramref name="authToken"/> is null, empty or whitespace</exception>
-        public GuildedBotClient(string authToken) : base()
+        public GuildedBotClient(string authToken)
         {
-            // Checks if token isn't empty
+            // Make sure correct token is passed
             if (string.IsNullOrWhiteSpace(authToken))
                 throw new ArgumentException($"{nameof(authToken)} cannot be null, full of whitespace or empty.");
-            // Assign the property
+            
             AuthToken = authToken;
         }
         /// <summary>
@@ -63,16 +63,16 @@ namespace Guilded.NET
         {
             if (string.IsNullOrWhiteSpace(authToken))
                 throw new ArgumentException($"{nameof(authToken)} cannot be null, full of whitespace or empty.");
-            // Adds authentication token as a header
+            // Give authentication token to Guilded
             AdditionalHeaders.Add("Authorization", $"Bearer {authToken}");
             Rest.AddDefaultHeaders(AdditionalHeaders);
-            // Executes base
+            
             await base.ConnectAsync().ConfigureAwait(false);
-            // Invokes login event
+            
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
-            // Gets this user and sets as .Me
+
+            // Gets all of the required info
             //Me = await GetThisUserAsync();
-            // Tells that the client is prepared
             PreparedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>

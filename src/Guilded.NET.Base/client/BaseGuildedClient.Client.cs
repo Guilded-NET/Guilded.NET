@@ -78,18 +78,17 @@ namespace Guilded.NET.Base
         /// <exception cref="UriFormatException">When apiurl or socketurl are invalid</exception>
         protected BaseGuildedClient(Uri apiUrl)
         {
-            // Creates new serializer
+            // Sets serialization settings for REST client
             SerializerSettings = new JsonSerializerSettings
             {
-                // Gives this client as a context to [OnDeserialized] and other stuff
+                // For CientObject to receive this client
                 Context = new StreamingContext(StreamingContextStates.Persistence, this),
-                // Makes all properties by default camel-case, unless it is specified
                 ContractResolver = new DefaultContractResolver
                 {
                     NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
                 }
             };
-            // Initialize Rest client
+
             Rest = new RestClient(apiUrl ?? throw new ArgumentNullException($"{nameof(apiUrl)} can not be empty."))
                 .AddDefaultHeader("Origin", "https://www.guilded.gg/")
                 .UseNewtonsoftJson(SerializerSettings);
@@ -104,16 +103,15 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Sets cookies that were fetched from login.
         /// </summary>
-        /// <param name="container"></param>
-        /// <returns></returns>
+        /// <param name="container">The cookie container that will be used in the requests</param>
+        /// <returns><paramref name="container"/></returns>
         protected CookieContainer SetCookies(CookieContainer container)
         {
-            // Sets Guilded cookies
+            // Guilded cookies for user clients
             GuildedCookies = container;
-            // If REST client isn't null, set cookies for REST client
+
             if (!(Rest is null))
                 Rest.CookieContainer = container;
-            // Returns the given container
             return container;
         }
         /// <summary>

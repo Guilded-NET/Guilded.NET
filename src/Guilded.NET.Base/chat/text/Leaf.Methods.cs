@@ -244,7 +244,7 @@ namespace Guilded.NET.Base.Chat
         {
             // Gets all marks and turns them to their symbol representations
             IEnumerable<string> marks = Marks.Select(mark => Mark.MarkSymbols[mark.Type]);
-            // Returns content with mark symbols
+
             return string.Concat(marks)
                 + GetEscaped(Text)
                 + string.Concat(marks.Reverse());

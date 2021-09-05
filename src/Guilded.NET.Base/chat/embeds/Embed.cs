@@ -362,7 +362,6 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>This</returns>
         public Embed SetTitle(string title)
         {
-            // If you try to set null title
             if (string.IsNullOrWhiteSpace(title))
                 throw new NullReferenceException($"Argument {nameof(title)} cannot be null, empty or whitespace.");
             Title = title;
@@ -386,7 +385,6 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>This</returns>
         public Embed SetDescription(string description)
         {
-            // If you try to set null title
             if (string.IsNullOrWhiteSpace(description))
                 throw new NullReferenceException($"Argument {nameof(description)} cannot be null, empty or whitespace.");
             Description = description;
@@ -443,14 +441,13 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>This</returns>
         public Embed AddFields(IList<EmbedField> fields)
         {
-            // Throw an error if you try to add more than 25 fields
-            if ((Fields.Count + fields.Count) > fieldLimit || Fields.Count > 25)
+            // Don't allow >25 fields
+            if ((Fields?.Count + fields?.Count) > fieldLimit || Fields?.Count > 25)
                 throw new OverflowException("Cannot add more than 25 fields to the embed");
-            // If fields list is null, set it
-            else if (Fields is null) Fields = fields;
-            // Add all fiels to IList
-            else Fields = Fields.Concat(fields).ToList();
-            // Returns this embed
+            else if (Fields is null)
+                Fields = fields;
+            else
+                Fields = Fields.Concat(fields).ToList();
             return this;
         }
         /// <summary>

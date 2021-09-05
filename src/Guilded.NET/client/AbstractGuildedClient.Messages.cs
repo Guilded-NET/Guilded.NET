@@ -154,22 +154,20 @@ namespace Guilded.NET
         /// <param name="message">A message received from a WebSocket</param>
         protected void HandleSocketMessages(object _, GuildedEvent message)
         {
-            // Makes sure that the event received is not null
             if (message is null) return;
 
             string eventName = message?.EventName ?? "";
-
             // Checks if this event is supported by Guilded.NET
             if (GuildedEvents.ContainsKey(eventName))
             {
-                // Gets event based on its name
                 IEventInfo<object> ev = GuildedEvents?[eventName];
-                // Deserialized data from the event
-                object data = message.RawData.ToObject(ev.ArgumentType, GuildedSerializer);
 
-                // Makes sure it exists and then invokes the observable
                 if (ev != default)
+                {
+                    object data = message.RawData.ToObject(ev?.ArgumentType, GuildedSerializer);
+                    
                     ev.OnNext(data);
+                }
             }
         }
         #endregion

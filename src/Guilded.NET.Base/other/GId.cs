@@ -1,6 +1,6 @@
 using System;
 using System.ComponentModel;
-
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base
@@ -16,7 +16,7 @@ namespace Guilded.NET.Base
     {
         internal readonly string _;
         private const int idLength = 8;
-        private const string availableChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         internal static readonly FormatException FormatError = new FormatException("The given ID string is in incorrect format.");
         /// <summary>
         /// The identifier for Guilded teams, users, etc.
@@ -25,9 +25,10 @@ namespace Guilded.NET.Base
         /// <exception cref="FormatException">When the given ID string is in incorrect format</exception>
         public GId(string id)
         {
-            // Makes sure that given string is in correct format
-            if (id?.Length != idLength || !Check(id)) throw FormatError;
-            // Assigns base string
+            // Make sure it's in correct format
+            if (id?.Length != idLength || !Check(id))
+                throw FormatError;
+
             _ = id;
         }
 
@@ -85,20 +86,8 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="str">The raw string to check</param>
         /// <returns>Correct formatting</returns>
-        public static bool Check(string str)
-        {
-            // If string is empty or isn't in 8 characters, return false
-            if (string.IsNullOrWhiteSpace(str) || str.Length != 8) return false;
-            // Get every character in the string
-            foreach (char c in str)
-            {
-                // If AvailableChars doesn't have this character, return false
-                if (!availableChars.Contains(c.ToString()))
-                    return false;
-            }
-            // If any of the chars in the string didn't return false, return true
-            return true;
-        }
+        public static bool Check(string str) =>
+            str?.Length == 8 && str.All(ch => allowedChars.Contains(ch));
         #endregion
     }
 }

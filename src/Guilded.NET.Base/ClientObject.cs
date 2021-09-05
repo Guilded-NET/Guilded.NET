@@ -27,8 +27,7 @@ namespace Guilded.NET.Base
         [OnDeserialized]
         internal void OnDeserialized(StreamingContext context)
         {
-            // If given object from context isn't null and its type is BaseGuildedClient, set ParentClient
-            if (!(context.Context is null) && context.Context is BaseGuildedClient client)
+            if (context.Context is BaseGuildedClient client)
                 ParentClient = client;
         }
     }

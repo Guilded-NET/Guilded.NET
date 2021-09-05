@@ -45,16 +45,19 @@ namespace Guilded.NET
         // /// <returns>Updated webhook</returns>
         // public override async Task<Webhook> UpdateWebhookAsync(Guid channelId, Guid webhookId, string name = null, Uri avatar = null)
         // {
-        //     // If both arguments are null
-        //     if (name is null && avatar is null) throw new ArgumentException($"Both {nameof(name)} and {nameof(avatar)} cannot be null");
-        //     // Creates a dictionary for the Webhook update
+        //     // Expect both arguments
+        //     if (name is null && avatar is null)
+        //         throw new ArgumentException($"Both {nameof(name)} and {nameof(avatar)} cannot be null");
+        //     
         //     Dictionary<string, object> change = new Dictionary<string, object>()
         //     {
         //         {"channelId", channelId}
         //     };
-        //     if (!(name is null)) change.Add("name", name);
-        //     if (!(avatar is null)) change.Add("iconUrl", avatar);
-        //     // Sets a new name, avatar or both
+        //     if (!(name is null))
+        //         change.Add("name", name);
+        //     if (!(avatar is null))
+        //         change.Add("iconUrl", avatar);
+        //     
         //     return await GetObject<Webhook>($"webhooks/{webhookId}", Method.PUT, body: change);
         // }
         // /// <summary>
@@ -164,12 +167,12 @@ namespace Guilded.NET
         /// <returns>Message created</returns>
         public override async Task<Message> CreateMessageAsync(Guid channelId, string content)
         {
-            // Don't allow to send empty messages
-            if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
-            // Make sure it is on the limit
-            else if (content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
-            // Creates a new message
-            return await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content }).ConfigureAwait(false);
+            if (string.IsNullOrWhiteSpace(content))
+                throw new ArgumentNullException(nameof(content));
+            else if (content.Length > messageLimit)
+                throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            else
+                return await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", new { content }).ConfigureAwait(false);
         }
         /// <summary>
         /// Updates the contents of a message.
@@ -216,12 +219,12 @@ namespace Guilded.NET
         /// <returns>Message edited</returns>
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content)
         {
-            // Don't allow to send empty messages
-            if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
-            // Make sure it is on the limit
-            else if (content.Length > messageLimit) throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
-            // Update the message
-            return await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content }).ConfigureAwait(false);
+            if (string.IsNullOrWhiteSpace(content))
+                throw new ArgumentNullException(nameof(content));
+            else if (content.Length > messageLimit)
+                throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            else
+                return await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.PUT, "message", new { content }).ConfigureAwait(false);
         }
         /// <summary>
         /// Deletes a specified message.
@@ -281,10 +284,9 @@ namespace Guilded.NET
         // /// <param name="channelId">The identifier of the channel to type</param>
         // public void StartTyping(Guid channelId)
         // {
-        //     // Makes sure that the main/default WebSocket exists
+        //     // To make sure default WebSocket exists
         //     if (!Websockets.ContainsKey(""))
         //         throw new KeyNotFoundException("Could not find default WebSocket");
-        //     // Sends typing data to the WebSocket
         //     Websockets[""].Send($"42[\"ChatChannelTyping\",{{\"channelId\":\"{channelId}\"}}]");
         // }
         #endregion
@@ -402,6 +404,50 @@ namespace Guilded.NET
                 message,
                 note
             }).ConfigureAwait(false);
+        #endregion
+
+        #region Content
+        /// <summary>
+        /// Adds a reaction to a content post.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.AddReactionAsync(channelId, docId, 90002569);
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="contentId">The identifier of the content to add a reaction on</param>
+        /// <param name="emoteId">The identifier of the emote to add</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the content <paramref name="contentId"/> or both have not been found</exception>
+        /// <permission cref="DocPermissions.ViewDocs">Required for adding a reaction to a document you see</permission>
+        /// <permission cref="MediaPermissions.SeeMedia">Required for adding a reaction to a media post you see</permission>
+        /// <permission cref="ForumPermissions.ReadForums">Required for adding a reaction to a forum thread you see</permission>
+        /// <permission cref="CalendarPermissions.ViewEvents">Required for adding a reaction to a calendar event you see</permission>
+        /// <returns>Reaction added</returns>
+        public override async Task<Reaction> AddReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
+            await GetObject<Reaction>($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.PUT, key: "emote").ConfigureAwait(false);
+        /// <summary>
+        /// Removes a reaction from a content post.
+        /// </summary>
+        /// <example>
+        /// <code>
+        /// await client.RemoveReactionAsync(channelId, docId, 90002569);
+        /// </code>
+        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="contentId">The identifier of the content to remove a reaction from</param>
+        /// <param name="emoteId">The identifier of the emote to remove</param>
+        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the content <paramref name="contentId"/> or both have not been found</exception>
+        /// <permission cref="DocPermissions.ViewDocs">Required for removing a reaction from a document you see</permission>
+        /// <permission cref="MediaPermissions.SeeMedia">Required for removing a reaction from a media post you see</permission>
+        /// <permission cref="ForumPermissions.ReadForums">Required for removing a reaction from a forum thread you see</permission>
+        /// <permission cref="CalendarPermissions.ViewEvents">Required for removing a reaction from a calendar event you see</permission>
+        public override async Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
+            await ExecuteRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
         #endregion
     }
 }

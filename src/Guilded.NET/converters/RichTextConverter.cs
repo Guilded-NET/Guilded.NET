@@ -65,19 +65,17 @@ namespace Guilded.NET.Converters
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject obj = JObject.Load(reader);
-            // Convert JSON to Node
             string objparam = obj["object"].Value<string>();
-            // If it's neither text, nor mark, nor leaf
+
+            // If it's a node
             if (!objs.ContainsKey(objparam))
             {
-                // Gets object type
                 string objtype = obj["type"].Value<string>();
-                // If it has objtype property(e.g., if types has key paragraph, code-line, etc.)
-                if (types.ContainsKey(objtype)) return obj.ToObject(types[objtype], serializer);
-                // If it doesn't, return null
+                // To check if it's a supported node type
+                if (types.ContainsKey(objtype))
+                    return obj.ToObject(types[objtype], serializer);
                 else return null;
             }
-            // Else, parse it as leaf/text/mark.
             else
             {
                 return obj.ToObject(objs[objparam], serializer);

@@ -80,9 +80,10 @@ namespace Guilded.NET.Base.Forms
         {
             // A field option number
             uint i = 1;
-            // Assign a number to each field option
+            // Assign a number to each field option, because client API needs it
             foreach (FieldOption option in options)
                 option.DefaultValue = $"Option {i++}";
+
             (Type, Label, Header, FieldName, Options, IsOptional, DefaultValue) = (
                 type,
                 type == FormFieldType.Text ? "Answer" : title,

@@ -74,36 +74,32 @@ namespace Guilded.NET.Base
         /// <returns>Created websocket</returns>
         protected virtual async Task<WebsocketClient> InitWebsocket(string lastMessageId = null, Uri websocketUrl = null)
         {
-            // Initialize WebSocket factory and WebSocket sub-client
             Func<ClientWebSocket> factory = new Func<ClientWebSocket>(() =>
             {
-                // Create a sub-client
                 ClientWebSocket socket = new ClientWebSocket
                 {
                     Options = {
                         Cookies = GuildedCookies
                     }
                 };
-                // Adds additional headers to this WebSocket, such as authentication header
+                // Add additional headers for authentication tokens and such
                 foreach (KeyValuePair<string, string> header in AdditionalHeaders)
                     socket.Options.SetRequestHeader(header.Key, header.Value);
-                // If last event ID is passed, add it as a header
+                // If event identifier is passed, get every event after the given identifier
                 if (!string.IsNullOrWhiteSpace(lastMessageId))
                     socket.Options.SetRequestHeader("guilded-last-message-id", lastMessageId);
-                // Returns the made WebSocket sub-client
+
                 return socket;
             });
-            // Creates a new WebSocket based on factory we made
             WebsocketClient client = new WebsocketClient
             (
                 websocketUrl ?? GuildedUrl.Websocket,
                 factory
             );
-            // Subscribe to WebSocket messages
+
             client.MessageReceived.Subscribe(WebsocketMessageReceived);
-            // Starts it
             await client.StartOrFail().ConfigureAwait(false);
-            // Returns this WebSocket
+
             return client;
         }
         /// <summary>
@@ -130,12 +126,11 @@ namespace Guilded.NET.Base
         {
             if (msg.MessageType == WebSocketMessageType.Text)
             {
-                // Deserializes it
                 GuildedEvent @event = Deserialize<GuildedEvent>(msg.Text);
-                // Checks if it's welcome event
+                // Check for a welcome message to change hearbeat interval
                 if (@event is { EventName: null, Opcode: welcome_opc })
                     HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
-                // Only send received data in debug version
+
                 WebsocketMessageEvent?.Invoke(this, @event);
             }
         }
@@ -149,7 +144,7 @@ namespace Guilded.NET.Base
         /// <param name="args">Arguments of the timer's elapsed event</param>
         protected virtual void SendHeartbeat(object sender, ElapsedEventArgs args)
         {
-            // Websocket sends ping
+            // Send ping through each WebSocket to show that it's not dead
             foreach (WebsocketClient client in Websockets.Values)
                 client.Send("2");
         }

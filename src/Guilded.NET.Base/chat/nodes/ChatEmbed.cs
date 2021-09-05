@@ -19,8 +19,8 @@ namespace Guilded.NET.Base.Chat
     /// (
     ///     new Embed("Title", "Description", "Footer"),
     ///     new Embed()
-    ///         .AddTitle("Title")
-    ///         .AddColor(0xFF0000)
+    ///         .SetTitle("Title")
+    ///         .SetColor(0xFF0000)
     /// );
     /// </code>
     /// </example>

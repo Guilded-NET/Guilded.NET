@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 namespace Guilded.NET.Converters
 {
     /// <summary>
-    /// Converts colour to hex.
+    /// Converts colour to hex for roles.
     /// </summary>
     public class HexColorConverter : JsonConverter
     {

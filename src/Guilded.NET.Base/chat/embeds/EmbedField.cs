@@ -50,11 +50,12 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="inline">Whether the field should be inline with other fields</param>
         public EmbedField(string name, string value, bool inline = false)
         {
+            if(string.IsNullOrWhiteSpace(name))
+                throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
+            else if(string.IsNullOrWhiteSpace(value))
+                throw new NullReferenceException($"Argument {nameof(value)} cannot be null, empty or whitespace.");
+
             (Name, Value, Inline) = (name, value, inline);
-            // If you try to set null title
-            if(string.IsNullOrWhiteSpace(name)) throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
-            // If you try to set null description
-            else if(string.IsNullOrWhiteSpace(value)) throw new NullReferenceException($"Argument {nameof(value)} cannot be null, empty or whitespace.");
         }
         #endregion
     }

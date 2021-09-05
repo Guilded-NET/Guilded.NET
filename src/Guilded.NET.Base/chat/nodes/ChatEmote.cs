@@ -43,7 +43,6 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <returns>Emote as string</returns>
         public override string ToString() =>
-            // Return the string representation of the emote. If it's null, it returns <:null:0>
             $":{Emote?.Id ?? 0}:";
         #endregion
     }

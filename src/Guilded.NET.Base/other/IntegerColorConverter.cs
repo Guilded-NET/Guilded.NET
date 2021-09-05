@@ -31,10 +31,9 @@ namespace Guilded.NET.Base
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JToken token = JToken.Load(reader);
-            // Makes sure it's an integer
+            // Make sure some object isn't passed instead of integer
             if(token.Type == JTokenType.Integer)
                 return Color.FromArgb(token.ToObject<int>());
-            // Otherwise return nothing
             else return default(Color);
         }
         /// <summary>

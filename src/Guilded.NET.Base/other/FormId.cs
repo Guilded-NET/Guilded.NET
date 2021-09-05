@@ -17,6 +17,7 @@ namespace Guilded.NET.Base
     {
         internal readonly string _;
         private const int partLength = 7;
+        private const string partChars = "0123456789";
         private static readonly Random random = new Random();
         /// <summary>
         /// Creates a random value of <see cref="FormId"/>.
@@ -30,9 +31,10 @@ namespace Guilded.NET.Base
         /// <exception cref="FormatException">When the given ID string is in incorrect format</exception>
         public FormId(string id)
         {
-            // Makes sure that given string is in correct format
-            if (!Check(id)) throw GId.FormatError;
-            // Assigns base string
+            // Make sure it's in correct format
+            if (!Check(id))
+                throw GId.FormatError;
+
             _ = id;
         }
 
@@ -86,23 +88,30 @@ namespace Guilded.NET.Base
 
         #region Static methods
         /// <summary>
-        /// Checks if given string is in correct format.
+        /// Checks if given string is in the correct <see cref="FormId"/> format.
         /// </summary>
-        /// <param name="str">The raw string to check</param>
+        /// <param name="str">A raw string to check</param>
         /// <returns>Correct formatting</returns>
         public static bool Check(string str)
         {
-            // If string is empty, return false
-            if (string.IsNullOrWhiteSpace(str)) return false;
-            // If it does not starts with a specific character('r'), it's not correct
-            else if (!str.StartsWith('r')) return false;
-            // Splits the string by divider('-') and skips first item(because it's starting character)
+            // Make sure it's in the format of r-1000000-1000000
+
+            // (r)-1000000-1000000
+            if (!str.StartsWith('r') || string.IsNullOrWhiteSpace(str))
+                return false;
+            // Split by - and leave out 'r'
+            // r-(1000000-1000000)
             List<string> split = str.Split('-').Skip(1).ToList();
-            // If everything is correct, then return new instance of it
-            if (split.Count == 2 && !split.Any(part => part.Length != partLength)) return true;
-            // If length in both strings is wrong
-            else return false;
+            // r-(1000000)-(1000000)
+            return split.Count == 2 && !split.Any(IsFormIdPart);
         }
+        /// <summary>
+        /// Checks if <paramref name="part"/> is in 7 digits.
+        /// </summary>
+        /// <param name="part">The part of the <see cref="FormId"/> to check</param>
+        /// <returns>Is <see cref="FormId"/> part</returns>
+        private static bool IsFormIdPart(string part) =>
+            part.Length == partLength && part.All(ch => partChars.Contains(ch));
         #endregion
     }
 }

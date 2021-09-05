@@ -32,8 +32,8 @@ namespace Guilded.NET.Base.Chat
     /// <seealso cref="ChatListItem"/>
     public class ChatList : ContainerNode<Node, ChatList>
     {
-        private const string sublist_indent = "    ";
-        private const string Ordered = "ordered-list";
+        private const string sublistIndent = "    ";
+        private const string ordered = "ordered-list";
 
         #region Properties
         /// <summary>
@@ -87,7 +87,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <param name="type">The type of the node used</param>
         [JsonConstructor]
-        public ChatList([JsonProperty(Required = Required.Always)] string type) : this(type == Ordered) { }
+        public ChatList([JsonProperty(Required = Required.Always)] string type) : this(type == ordered) { }
         #endregion
 
         #region Additional
@@ -152,7 +152,7 @@ namespace Guilded.NET.Base.Chat
         /// <param name="indent">The indent of the list items</param>
         /// <returns><see cref="ChatList"/> as string</returns>
         public string ToString(string indent) =>
-            string.Concat(Nodes.Select((node, i) => node is ChatListItem item ? item.ToString(IsOrdered, indent, i) : ((ChatList)node).ToString(indent + sublist_indent)));
+            string.Concat(Nodes.Select((node, i) => node is ChatListItem item ? item.ToString(IsOrdered, indent, i) : ((ChatList)node).ToString(indent + sublistIndent)));
         /// <summary>
         /// Converts <see cref="ChatList"/> to its Markdown equivalent.
         /// </summary>

@@ -13,7 +13,7 @@ namespace Guilded.NET.Base.Chat
     /// <seealso cref="ChatList"/>
     public class ChatListItem : ContainerNode<ChatListItem>
     {
-        private const string linebreak_indent = "  ";
+        private const string linebreakIndent = "  ";
 
         #region Constructors
         /// <summary>
@@ -88,12 +88,9 @@ namespace Guilded.NET.Base.Chat
         /// <returns><see cref="ChatListItem"/> as string</returns>
         public string ToString(bool isOrdered, string indent, int index = 0)
         {
-            // Turns itself to a string
-            string str = string.Concat(Nodes);
-            // Start of the list item
-            string start = isOrdered ? $"{index + 1}. " : "- ";
-            // Join it all together
-            return $"{indent}{start}{str.Replace("\n", '\n' + indent + linebreak_indent)}\n";
+            string str = string.Concat(Nodes),
+                   start = isOrdered ? $"{index + 1}. " : "- ";
+            return $"{indent}{start}{str.Replace("\n", '\n' + indent + linebreakIndent)}\n";
         }
         #endregion
     }

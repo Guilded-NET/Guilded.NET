@@ -54,7 +54,7 @@ namespace Guilded.NET
         /// </summary>
         protected AbstractGuildedClient()
         {
-            // Adds converters to serializers
+            // Serializer converters for REST
             SerializerSettings.Converters = new JsonConverter[]
             {
                 new RichTextConverter(),
@@ -63,9 +63,8 @@ namespace Guilded.NET
             };
             GuildedSerializer = JsonSerializer.Create(SerializerSettings);
             WebsocketMessage += HandleSocketMessages;
-            // Events
             #region Event list
-            // The list of all events that are supported
+            // Dictionary of supported events, so we wouldn't need to manually do it
             GuildedEvents = new Dictionary<string, IEventInfo<object>>
             {
                 // Utils
@@ -87,16 +86,15 @@ namespace Guilded.NET
         /// </remarks>
         public override async Task ConnectAsync()
         {
-            // Inits websocket
-            Websockets.Add("", await InitWebsocket().ConfigureAwait(false));
-            // Thread for ping and heartbeat
             HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
             {
                 AutoReset = true,
                 Enabled = true
             };
+
             HeartbeatTimer.Elapsed += SendHeartbeat;
-            // Starts heartbeat timer
+            Websockets.Add("", await InitWebsocket().ConfigureAwait(false));
+
             HeartbeatTimer.Start();
         }
         /// <summary>
@@ -107,21 +105,20 @@ namespace Guilded.NET
         /// </remarks>
         public override async Task DisconnectAsync()
         {
-            // Disconnects its websockets
             foreach (string wsKey in Websockets.Keys)
             {
                 WebsocketClient ws = Websockets[wsKey];
-                // If it can be stopped, stop it
+                
                 if (ws.IsRunning)
                     await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
-                // Dispose and remove it
+
                 ws.Dispose();
                 Websockets.Remove(wsKey);
             }
-            // Stops the timer
+            // Stop the heartbeats
             HeartbeatTimer?.Stop();
             HeartbeatTimer?.Dispose();
-            // Invoke disconnection event
+            
             DisconnectedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>

@@ -156,10 +156,10 @@ namespace Guilded.NET.Base.Chat
         /// <returns>This</returns>
         public MessageDocument AddShare(IList<Uri> urls)
         {
-            // Sets the list, if the property is null
-            if(Data.ShareUrls is null) Data.ShareUrls = urls;
-            // Otherwise, it combines the lists
-            else Data.ShareUrls = Data.ShareUrls.Concat(urls).ToList();
+            if(Data.ShareUrls is null)
+                Data.ShareUrls = urls;
+            else
+                Data.ShareUrls = Data.ShareUrls.Concat(urls).ToList();
             return this;
         }
         /// <summary>
