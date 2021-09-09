@@ -115,7 +115,7 @@ namespace Guilded.NET.Base.Chat
         /// </summary>
         /// <returns>Created by bot</returns>
         [JsonIgnore]
-        public bool ByBot => !(CreatedByBot is null) && !(CreatedByWebhook is null);
+        public bool ByBot => !(CreatedByBot is null) || !(CreatedByWebhook is null);
         #endregion
 
         #region Additional
