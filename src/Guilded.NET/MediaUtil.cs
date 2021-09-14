@@ -35,7 +35,7 @@ namespace Guilded.NET.Util
             // Error if someone passes unsupported character
             if (!serverChars.Contains(lower))
                 throw new ArgumentException($"{nameof(startingLetter)} can only be a letter or a digit.");
-            
+
             return new Uri($"https://img.guildedcdn.com/asset/TeamPage/Avatars/default-team-avatar-{lower}@2x.png");
         }
         /// <summary>

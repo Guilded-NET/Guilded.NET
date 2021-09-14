@@ -108,7 +108,7 @@ namespace Guilded.NET
             foreach (string wsKey in Websockets.Keys)
             {
                 WebsocketClient ws = Websockets[wsKey];
-                
+
                 if (ws.IsRunning)
                     await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
 
@@ -118,7 +118,7 @@ namespace Guilded.NET
             // Stop the heartbeats
             HeartbeatTimer?.Stop();
             HeartbeatTimer?.Dispose();
-            
+
             DisconnectedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>

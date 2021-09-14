@@ -1,6 +1,6 @@
 using System;
-using System.Reactive.Linq;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 
 namespace Guilded.NET
 {
@@ -165,7 +165,7 @@ namespace Guilded.NET
                 if (ev != default)
                 {
                     object data = message.RawData.ToObject(ev?.ArgumentType, GuildedSerializer);
-                    
+
                     ev.OnNext(data);
                 }
             }

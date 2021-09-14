@@ -48,7 +48,7 @@ namespace Guilded.NET
             // Make sure correct token is passed
             if (string.IsNullOrWhiteSpace(authToken))
                 throw new ArgumentException($"{nameof(authToken)} cannot be null, full of whitespace or empty.");
-            
+
             AuthToken = authToken;
         }
         /// <summary>
@@ -66,9 +66,9 @@ namespace Guilded.NET
             // Give authentication token to Guilded
             AdditionalHeaders.Add("Authorization", $"Bearer {authToken}");
             Rest.AddDefaultHeaders(AdditionalHeaders);
-            
+
             await base.ConnectAsync().ConfigureAwait(false);
-            
+
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
 
             // Gets all of the required info

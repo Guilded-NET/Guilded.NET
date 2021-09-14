@@ -65,7 +65,7 @@ namespace Guilded.NET
         {
             if (xpAmount > 1000 || xpAmount < -1000)
                 throw new ArgumentOutOfRangeException($"Expected {nameof(xpAmount)} to be between 1000 and -1000, but got {xpAmount} instead");
-            
+
             return await GetObject<long>($"members/{memberId}/xp", Method.POST, "total", new
             {
                 amount = xpAmount
