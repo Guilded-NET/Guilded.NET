@@ -9,6 +9,20 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The identifier for forms and media uploads.
     /// </summary>
+    /// <remarks>
+    /// <para>The form identifier.</para>
+    /// <para>This can only be found in forms and media upload progress tracking.</para>
+    /// <para>This identifier is in form of <c>r-xxxxxxx-xxxxxxx</c> where <c>x</c> is any digit.</para>
+    /// </remarks>
+    /// <example>
+    /// <para>The list of different form identifiers:</para>
+    /// <code lang="none">
+    /// r-1000000-1000000
+    /// r-2849201-1832734
+    /// r-7289920-2930323
+    /// r-4598392-4859302
+    /// </code>
+    /// </example>
     /// <seealso cref="Guid"/>
     /// <seealso cref="GId"/>
     [TypeConverter(typeof(FormIdConverter))]

@@ -7,7 +7,7 @@ using Newtonsoft.Json.Serialization;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// Guilded emote object.
+    /// The information about provided emote.
     /// </summary>
     /// <seealso cref="Chat.ChatEmote"/>
     public class Emote : BaseEmote

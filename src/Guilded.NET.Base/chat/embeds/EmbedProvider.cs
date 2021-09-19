@@ -5,10 +5,11 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Embeds
 {
     /// <summary>
-    /// The provider/domain of an embed.
+    /// The provider/domain of the content.
     /// </summary>
     /// <remarks>
-    /// The domain name and URL in an embed. Currently unavailable to be customized.
+    /// <para>Provides details about domain/provider the content comes from.</para>
+    /// <para>This can't be customized. It can only be found while fetching link metadata.</para>
     /// </remarks>
     /// <seealso cref="EmbedFooter"/>
     /// <seealso cref="EmbedAuthor"/>
@@ -19,7 +20,7 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// The name of a provider.
         /// </summary>
-        /// <value>Title</value>
+        /// <value>Name</value>
         [JsonProperty(Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]
         public string Name
         {

@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
@@ -14,11 +14,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Markdown text:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// MesssageContent content = new MessageContent("> Quote\n\nParagraph");
     /// </code>
     /// <para>Simple nodes:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// MessageContent content = new MessageContent
     /// (
     ///     new BlockQuote(msg),
@@ -26,7 +26,7 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// <para>Building message content:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// MessageContent content = new MessageContent()
     ///     .AddParagraph("Hello there.")
     ///     .AddParagraph("...");

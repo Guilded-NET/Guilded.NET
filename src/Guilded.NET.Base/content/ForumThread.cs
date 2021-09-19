@@ -6,6 +6,5 @@ namespace Guilded.NET.Base.Content
     /// <seealso cref="ListItem"/>
     public class ForumThread : ChannelContent<uint>
     {
-
     }
 }

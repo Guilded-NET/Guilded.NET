@@ -38,7 +38,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new MessageContent
         /// (
         ///     new Leaf("Hello, "),
@@ -61,7 +61,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new MessageDocument
         /// (
         ///     new Leaf("Welcome to "),
@@ -84,7 +84,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new List&lt;Node&gt;
         /// {
         ///     new BlockQuote("Hello"),
@@ -106,7 +106,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new BlockQuote("Hello"), new Paragraph("Hey there!"));
         /// </code>
         /// </example>
@@ -124,7 +124,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync("Hello!");
         /// </code>
         /// </example>
@@ -144,7 +144,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync("Results: {0}", result);
         /// </code>
         /// </example>
@@ -165,7 +165,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -187,7 +187,7 @@ namespace Guilded.NET.Base.Chat
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(result);
         /// </code>
         /// </example>

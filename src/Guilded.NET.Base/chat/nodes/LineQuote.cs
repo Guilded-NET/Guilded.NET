@@ -10,7 +10,7 @@ namespace Guilded.NET.Base.Chat
     /// A line in a quote block.
     /// </remarks>
     /// <example>
-    /// <code>
+    /// <code lang="csharp">
     /// LineQuote line = new LineQuote("Quoted text");
     /// BlockQuote quote = new BlockQuote(line);
     /// </code>

@@ -13,11 +13,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Basic code container:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// CodeContainer code = new CodeContainer("csharp", "using System;\nusing System.Linq;");
     /// </code>
     /// <para>Code container with strings as lines:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// CodeContainer code = new CodeContainer("csharp", new string[]
     /// {
     ///     "using System;",
@@ -25,7 +25,7 @@ namespace Guilded.NET.Base.Chat
     /// });
     /// </code>
     /// <para>Code container with code lines:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// CodeContainer code = new CodeContainer("csharp", new List&lt;CodeLine&gt;
     /// {
     ///     new CodeLine("using System;"),
@@ -33,7 +33,7 @@ namespace Guilded.NET.Base.Chat
     /// });
     /// </code>
     /// <para>Unformatted code container:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// CodeContainer code = new CodeContainer(new string[]
     /// {
     ///     "This is unformatted code container.",

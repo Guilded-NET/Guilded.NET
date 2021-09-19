@@ -8,6 +8,40 @@ namespace Guilded.NET.Base
     /// <summary>
     /// The identifier for Guilded teams, users, etc.
     /// </summary>
+    /// <remarks>
+    /// <para>The identifier of various Guilded objects.</para>
+    /// <para>This can be found in:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <description>Users, members, friends</description>
+    ///     </item>
+    ///     <item>
+    ///         <description>Servers/teams</description>
+    ///     </item>
+    ///     <item>
+    ///         <description>Groups, tournaments</description>
+    ///     </item>
+    ///     <item>
+    ///         <description>Invites, invite links</description>
+    ///     </item>
+    ///     <item>
+    ///         <description>Announcements</description>
+    ///     </item>
+    /// </list>
+    /// </remarks>
+    /// <example>
+    /// <para>The list of random Guilded identifiers:</para>
+    /// <code lang="none">
+    /// R40Mp0Wd
+    /// Ann6LewA
+    /// Abcdefg7
+    /// UasJs5I
+    /// QiW0kBN
+    /// aaaaaaa
+    /// 0000000
+    /// Ga9aSd3
+    /// </code>
+    /// </example>
     /// <seealso cref="Guid"/>
     /// <seealso cref="FormId"/>
     [TypeConverter(typeof(GIdConverter))]

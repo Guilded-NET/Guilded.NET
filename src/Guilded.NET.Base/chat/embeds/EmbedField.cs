@@ -6,6 +6,10 @@ namespace Guilded.NET.Base.Embeds
     /// <summary>
     /// A field in an embed.
     /// </summary>
+    /// <remarks>
+    /// <para>Displays a field with its own description/value and title/name.</para>
+    /// <para>Fields can be both inline and blocks.</para>
+    /// </remarks>
     /// <seealso cref="EmbedFooter"/>
     /// <seealso cref="EmbedProvider"/>
     /// <seealso cref="EmbedAuthor"/>
@@ -16,6 +20,10 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// The title of the embed.
         /// </summary>
+        /// <remarks>
+        /// <para>The name or the title of the field that is displayed above <see cref="Value"/>.</para>
+        /// <para>The Markdown is usually ignored by clients like Guilded official app, but may be displayed by others.</para>
+        /// </remarks>
         /// <value>Title</value>
         [JsonProperty(Required = Required.Always)]
         public string Name
@@ -25,6 +33,10 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// The description text of the field.
         /// </summary>
+        /// <remarks>
+        /// <para>The description or the value of the field.</para>
+        /// <para>This allows any given Markdown.</para>
+        /// </remarks>
         /// <value>Description</value>
         [JsonProperty(Required = Required.Always)]
         public string Value
@@ -34,6 +46,10 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// Whether the field should be inline with other fields.
         /// </summary>
+        /// <remarks>
+        /// <para>Determines whether the field will be next to other fields or below/above them.</para>
+        /// <para>If the value is <see langword="true"/>, the field will be displayed next to other fields</para>
+        /// </remarks>
         /// <value>Boolean</value>
         public bool Inline
         {
@@ -50,9 +66,9 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="inline">Whether the field should be inline with other fields</param>
         public EmbedField(string name, string value, bool inline = false)
         {
-            if(string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
                 throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
-            else if(string.IsNullOrWhiteSpace(value))
+            else if (string.IsNullOrWhiteSpace(value))
                 throw new NullReferenceException($"Argument {nameof(value)} cannot be null, empty or whitespace.");
 
             (Name, Value, Inline) = (name, value, inline);

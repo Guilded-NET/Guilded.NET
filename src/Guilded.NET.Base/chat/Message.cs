@@ -1,28 +1,46 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
 {
+    using Events;
     using Permissions;
     /// <summary>
     /// A message posted in the chat.
     /// </summary>
+    /// <remarks>
+    /// <para>An existing/a cached message that can be found in a chat.</para>
+    /// <para>This message type can be found in:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <description><see cref="MessageCreatedEvent"/></description>
+    ///     </item>
+    ///     <item>
+    ///         <description><see cref="MessageUpdatedEvent"/></description>
+    ///     </item>
+    ///     <item>
+    ///         <description>A return value from message creation and updating methods.</description>
+    ///     </item>
+    /// </list>
+    /// </remarks>
     /// <seealso cref="MessageContent"/>
     /// <seealso cref="Paragraph"/>
     /// <seealso cref="ContainerNode{T}"/>
     /// <seealso cref="Node"/>
-    /// <seealso cref="Events.MessageCreatedEvent"/>
-    /// <seealso cref="Events.MessageUpdatedEvent"/>
+    /// <seealso cref="MessageCreatedEvent"/>
+    /// <seealso cref="MessageUpdatedEvent"/>
     public class Message : BaseMessage
     {
         #region JSON properties
         /// <summary>
-        /// The contents of this message as a Markdown string.
+        /// The contents of the message.
         /// </summary>
+        /// <remarks>
+        /// <para>The contents of the message in Markdown format.</para>
+        /// </remarks>
         /// <value>Content</value>
         [JsonProperty(Required = Required.Always)]
         public string Content
@@ -30,8 +48,11 @@ namespace Guilded.NET.Base.Chat
             get; set;
         }
         /// <summary>
-        /// The identifier of the author of this message.
+        /// The identifier of the author of the message.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the user that posted this message.</para>
+        /// </remarks>
         /// <value>User ID</value>
         [JsonProperty(Required = Required.Always)]
         public GId CreatedBy
@@ -39,8 +60,11 @@ namespace Guilded.NET.Base.Chat
             get; set;
         }
         /// <summary>
-        /// The identifier of the webhook that posted this message.
+        /// The identifier of the webhook author of this message.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the webhook that posted this message.</para>
+        /// </remarks>
         /// <value>Webhook ID?</value>
         [JsonProperty("createdByWebhookId")]
         public Guid? CreatedByWebhook
@@ -48,8 +72,11 @@ namespace Guilded.NET.Base.Chat
             get; set;
         }
         /// <summary>
-        /// The identifier of the bot that posted this message.
+        /// The identifier of the bot author of this message.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the flow bot that posted this message.</para>
+        /// </remarks>
         /// <value>Bot ID?</value>
         [JsonProperty("createdByBotId")]
         public Guid? CreatedByBot
@@ -57,8 +84,13 @@ namespace Guilded.NET.Base.Chat
             get; set;
         }
         /// <summary>
-        /// The date of when this message was posted.
+        /// The date of when the message was created.
         /// </summary>
+        /// <remarks>
+        /// <para>The <see cref="DateTime"/> of when the message was posted in the chat.</para>
+        /// <para>This is recorded by the server and all the delays that were
+        /// created by the client will be added as well.</para>
+        /// </remarks>
         /// <value>Created at</value>
         [JsonProperty(Required = Required.Always)]
         public DateTime CreatedAt
@@ -66,18 +98,26 @@ namespace Guilded.NET.Base.Chat
             get; set;
         }
         /// <summary>
-        /// The date of when this message was edited.
+        /// The date of when the message was updated.
         /// </summary>
+        /// <remarks>
+        /// <para>The <see cref="DateTime"/> of when the message was edited.</para>
+        /// <para>This is recorded by the server and all the delays that were
+        /// created by the client will be added as well.</para>
+        /// </remarks>
         /// <value>Updated at?</value>
         public DateTime? UpdatedAt
         {
             get; set;
         }
         /// <summary>
-        /// The type of the message it is.
+        /// The type of the message.
         /// </summary>
+        /// <remarks>
+        /// Allows message to be determined as a <see cref="MessageType.Default"/> or <see cref="MessageType.System"/>.
+        /// </remarks>
         /// <value>Message type</value>
-        [DefaultValue(MessageType.Default)]
+        [JsonProperty(Required = Required.Always)]
         public MessageType Type
         {
             get; set;
@@ -113,7 +153,13 @@ namespace Guilded.NET.Base.Chat
         /// <summary>
         /// Gets whether the message was created by a bot or webhook.
         /// </summary>
-        /// <returns>Created by bot</returns>
+        /// <remarks>
+        /// <para>Whether the message was automatically posted by a bot or a webhook.</para>
+        /// <para>This relies on <see cref="CreatedByBot"/> and <see cref="CreatedByWebhook"/> properties.
+        /// If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise,
+        /// <see langword="false"/> will be returned.</para>
+        /// </remarks>
+        /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]
         public bool ByBot => !(CreatedByBot is null) || !(CreatedByWebhook is null);
         #endregion
@@ -123,7 +169,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new MessageContent("Edited message"));
         /// </code>
         /// </example>
@@ -141,7 +187,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new MessageDocument("Edited message"));
         /// </code>
         /// </example>
@@ -159,7 +205,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new List&lt;Node&gt; { new Paragraph("Edited message") });
         /// </code>
         /// </example>
@@ -177,7 +223,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new Paragraph("Edited message"));
         /// </code>
         /// </example>
@@ -195,7 +241,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync("Edited message");
         /// </code>
         /// </example>
@@ -215,7 +261,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync("Result: {0}", result);
         /// </code>
         /// </example>
@@ -236,7 +282,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -258,7 +304,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(result);
         /// </code>
         /// </example>
@@ -278,7 +324,7 @@ namespace Guilded.NET.Base.Chat
         /// Deletes a specified message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.DeleteMessageAsync();
         /// </code>
         /// </example>
@@ -293,7 +339,7 @@ namespace Guilded.NET.Base.Chat
         /// Adds a reaction to a message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.AddReactionAsync(90002569);
         /// </code>
         /// </example>
@@ -309,7 +355,7 @@ namespace Guilded.NET.Base.Chat
         /// Removes a reaction from a message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RemoveReactionAsync(90002569);
         /// </code>
         /// </example>

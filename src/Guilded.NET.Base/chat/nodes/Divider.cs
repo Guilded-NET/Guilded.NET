@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Chat
     /// Seperator that divides document into sections.
     /// </summary>
     /// <example>
-    /// <code>
+    /// <code lang="csharp">
     /// MessageContent content = new MessageContent
     /// (
     ///     new Paragraph("Text here"),

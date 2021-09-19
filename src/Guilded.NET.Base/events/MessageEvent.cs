@@ -42,7 +42,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new MessageContent
         /// (
         ///     new Leaf("Hello, "),
@@ -65,7 +65,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new MessageDocument
         /// (
         ///     new Leaf("Welcome to "),
@@ -88,7 +88,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new List&lt;Node&gt;
         /// {
         ///     new BlockQuote("Hello"),
@@ -110,7 +110,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(new BlockQuote("Hello"), new Paragraph("Hey there!"));
         /// </code>
         /// </example>
@@ -128,7 +128,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync("Hello!");
         /// </code>
         /// </example>
@@ -148,7 +148,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync("Results: {0}", result);
         /// </code>
         /// </example>
@@ -169,7 +169,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -191,7 +191,7 @@ namespace Guilded.NET.Base.Events
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RespondAsync(result);
         /// </code>
         /// </example>
@@ -220,50 +220,70 @@ namespace Guilded.NET.Base.Events
     {
         #region Properties
         /// <summary>
-        /// Gets whether the message was posted by a bot or webhook.
+        /// Gets whether the message was created by a bot or webhook.
         /// </summary>
-        /// <returns>Created by bot</returns>
+        /// <remarks>
+        /// <para>Whether the message was automatically posted by a bot or a webhook.</para>
+        /// <para>This relies on <see cref="CreatedByBot"/> and <see cref="CreatedByWebhook"/> properties.
+        /// If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise,
+        /// <see langword="false"/> will be returned.</para>
+        /// </remarks>
+        /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]
         public bool ByBot => Message.ByBot;
         /// <summary>
-        /// The contents of this message as a Markdown string.
+        /// The contents of the message.
         /// </summary>
+        /// <remarks>
+        /// <para>The contents of the message in Markdown format.</para>
+        /// </remarks>
         /// <value>Content</value>
         [JsonIgnore]
         public string Content => Message.Content;
         /// <summary>
-        /// The identifier of the author of this message.
+        /// The identifier of the author of the message.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the user that posted this message.</para>
+        /// </remarks>
         /// <value>User ID</value>
         [JsonIgnore]
         public GId CreatedBy => Message.CreatedBy;
         /// <summary>
-        /// The identifier of the webhook that posted this message.
+        /// The identifier of the webhook author of this message.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the webhook that posted this message.</para>
+        /// </remarks>
         /// <value>Webhook ID?</value>
         [JsonIgnore]
         public Guid? CreatedByWebhook => Message.CreatedByWebhook;
         /// <summary>
-        /// The identifier of the bot that posted this message.
+        /// The identifier of the bot author of this message.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the flow bot that posted this message.</para>
+        /// </remarks>
         /// <value>Bot ID?</value>
         [JsonIgnore]
         public Guid? CreatedByBot => Message.CreatedByBot;
+        /// <summary>
+        /// The type of the message.
+        /// </summary>
+        /// <remarks>
+        /// Allows message to be determined as a <see cref="MessageType.Default"/> or <see cref="MessageType.System"/>.
+        /// </remarks>
+        /// <value>Message type</value>
+        [JsonIgnore]
+        public MessageType Type => Message.Type;
         #endregion
 
         #region Additional
-        // /// <summary>
-        // /// Gets whether this message was posted by the given user.
-        // /// </summary>
-        // /// <param name="user">The potential author of the message</param>
-        // /// <returns>Message by user</returns>
-        // public bool Of(BaseUser user) =>
-        //     Message.Of(user);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new MessageContent("Edited message"));
         /// </code>
         /// </example>
@@ -281,7 +301,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new MessageDocument("Edited message"));
         /// </code>
         /// </example>
@@ -299,7 +319,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new List&lt;Node&gt; { new Paragraph("Edited message") });
         /// </code>
         /// </example>
@@ -317,7 +337,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(new Paragraph("Edited message"));
         /// </code>
         /// </example>
@@ -335,7 +355,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync("Edited message");
         /// </code>
         /// </example>
@@ -355,7 +375,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync("Result: {0}", result);
         /// </code>
         /// </example>
@@ -376,7 +396,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -398,7 +418,7 @@ namespace Guilded.NET.Base.Events
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.UpdateMessageAsync(result);
         /// </code>
         /// </example>
@@ -418,7 +438,7 @@ namespace Guilded.NET.Base.Events
         /// Deletes a specified message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.DeleteMessageAsync();
         /// </code>
         /// </example>
@@ -433,7 +453,7 @@ namespace Guilded.NET.Base.Events
         /// Adds a reaction to a message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.AddReactionAsync(90002569);
         /// </code>
         /// </example>
@@ -449,7 +469,7 @@ namespace Guilded.NET.Base.Events
         /// Removes a reaction from a message.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// await message.RemoveReactionAsync(90002569);
         /// </code>
         /// </example>

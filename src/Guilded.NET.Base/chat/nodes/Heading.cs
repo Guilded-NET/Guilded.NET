@@ -1,6 +1,6 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
@@ -13,11 +13,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Big heading</para>
-    /// <code>
+    /// <code lang="csharp">
     /// Heading heading = new Heading("Title here");
     /// </code>
     /// <para>Small heading</para>
-    /// <code>
+    /// <code lang="csharp">
     /// Heading heading = new Heading("Sub-title here", false);
     /// </code>
     /// </example>
@@ -119,7 +119,8 @@ namespace Guilded.NET.Base.Chat
         /// Converts header/title to its Markdown equivalent.
         /// </summary>
         /// <returns>Heading as string</returns>
-        public override string ToString() {
+        public override string ToString()
+        {
             // # or ##
             string prefix = "#" + (IsLarge ? "" : "#");
 

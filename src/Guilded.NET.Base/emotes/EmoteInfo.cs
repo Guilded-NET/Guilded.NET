@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// The information about an emote in emote node.
+    /// The information about an emote in <see cref="Chat.ChatEmote"/>.
     /// </summary>
     /// <seealso cref="Emote"/>
     /// <seealso cref="Chat.ChatEmote"/>

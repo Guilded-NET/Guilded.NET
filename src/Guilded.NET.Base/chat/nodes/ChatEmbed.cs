@@ -1,6 +1,5 @@
-using System.Linq;
 using System.Collections.Generic;
-
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Chat
@@ -14,7 +13,7 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Chat embed with 2 embeds:</para>
-    /// <code>
+    /// <code lang="csharp">
     /// ChatEmbed embed = new ChatEmbed
     /// (
     ///     new Embed("Title", "Description", "Footer"),

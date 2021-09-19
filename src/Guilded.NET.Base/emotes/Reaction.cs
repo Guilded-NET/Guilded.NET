@@ -63,9 +63,15 @@ namespace Guilded.NET.Base
 
         #region Properties
         /// <summary>
-        /// Gets whether the reaction was created by a bot or webhook.
+        /// Gets whether the message was created by a bot or webhook.
         /// </summary>
-        /// <returns>Created by bot</returns>
+        /// <remarks>
+        /// <para>Whether the message was automatically posted by a bot or a webhook.</para>
+        /// <para>This relies on <see cref="CreatedByBot"/> and <see cref="CreatedByWebhook"/> properties.
+        /// If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise,
+        /// <see langword="false"/> will be returned.</para>
+        /// </remarks>
+        /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]
         public bool ByBot => !(CreatedByBot is null) || !(CreatedByWebhook is null);
         #endregion

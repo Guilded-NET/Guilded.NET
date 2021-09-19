@@ -5,8 +5,13 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Embeds
 {
     /// <summary>
-    /// The footer/bottom area of the embed.
+    /// The footer of an embed.
     /// </summary>
+    /// <remarks>
+    /// <para>The bottom area of an embed that provides further information about anything.</para>
+    /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Embed.Timestamp"/> property. Timestamps are
+    /// not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
+    /// </remarks>
     /// <seealso cref="EmbedProvider"/>
     /// <seealso cref="EmbedAuthor"/>
     /// <seealso cref="EmbedField"/>
@@ -17,6 +22,11 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// The description of the footer.
         /// </summary>
+        /// <remarks>
+        /// <para>The piece of text that will be displayed in the footer.</para>
+        /// <para>The footer text usually ignores any provided Markdown by clients like
+        /// Guilded official app, but may be displayed by other clients.</para>
+        /// </remarks>
         /// <value>Description</value>
         [JsonProperty(Required = Required.Always)]
         public string Text
@@ -26,6 +36,9 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// The URL to footer's icon.
         /// </summary>
+        /// <remarks>
+        /// <para>The icon of the footer that will be displayed at the left side of the footer.</para>
+        /// </remarks>
         /// <value>URL?</value>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Uri IconUrl

@@ -1,38 +1,54 @@
 using System;
-using System.Linq;
-using System.Drawing;
 using System.Collections.Generic;
-
+using System.Drawing;
+using System.Linq;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Embeds
 {
     /// <summary>
-    /// An embed that is part of embed container.
+    /// A custom content embed that represents any kind of information.
     /// </summary>
     /// <remarks>
-    /// A custom/rich embed in <see cref="Chat.ChatEmbed"/> container node.
+    /// <para>Represents a custom/rich embed that represents some kind of information.</para>
+    /// <para><see cref="Chat.Message"/> instance can hold more than 1 embed.</para>
+    /// <para>This is usually used in Webhooks to provide an information about
+    /// a new post or any event that occurred. It can also be used for displaying
+    /// results from a bot or used as a content instead of plain Markdown.</para>
+    /// <para>All properties can be set in custom embed apart from <see cref="Provider"/>,
+    /// which can only be received when fetching information about a link.</para>
+    /// <para>Embeds may look something like quote blocks, but more customizable with fields, footers, etc.</para>
     /// </remarks>
     /// <example>
-    /// <code>
-    /// Embed embed = new Embed
-    /// {
-    ///     Title = "Title here",
-    ///     Description = "Description here",
-    ///     Footer = new EmbedFooter("Footer text")
-    /// };
-    /// </code>
-    /// <code>
+    /// <para>Embeds can be created in multiple ways:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>Constructors</term>
+    ///         <description>You can use constructors to pass the <see cref="Uri"/> of a thumbnail, compared to making a new instance of <see cref="EmbedMedia"/></description>
+    ///     </item>
+    ///     <item>
+    ///         <term>Object initializer</term>
+    ///         <description>
+    ///             <para>You can use object initializer or property setting when creating a new instance of <see cref="Embed"/>.</para>
+    ///             <para>This doesn't allow passing <see cref="Uri"/> instead of using <see cref="EmbedMedia"/></para>
+    ///             <para>In that case, use constructor parameters.</para>
+    ///         </description>
+    ///     </item>
+    ///     <item>
+    ///         <term>Fluent interface</term>
+    ///         <description>Methods, such as <see cref="Embed.SetImage(Uri, uint?, uint?)"/>, can be used to set properties of an embed.</description>
+    ///     </item>
+    /// </list>
+    /// <para>This example showcases mixing object initializer along with constructor parameters:</para>
+    /// <code lang="csharp">
     /// Embed embed = new Embed(thumbnail: imageUrl)
     /// {
     ///     Title = "Title here",
     ///     Description = "Description here"
     /// };
     /// </code>
-    /// <code>
-    /// Embed embed = new Embed("Title here", "Description here", "Footer text here");
-    /// </code>
-    /// <code>
+    /// <para>The example below showcases using fluent interface methods:</para>
+    /// <code lang="csharp">
     /// Embed embed = new Embed()
     ///     .SetTitle("Title here")
     ///     .SetDescription("Description here")
@@ -51,7 +67,10 @@ namespace Guilded.NET.Base.Embeds
         /// The title of the embed.
         /// </summary>
         /// <remarks>
-        /// A short text that appears above description.
+        /// <para>A short text that appears above description.</para>
+        /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>.</para>
+        /// <para>This usually ignores any Markdown that is given for the clients, like Guilded official app.
+        /// Other clients may display it in correct formatting.</para>
         /// </remarks>
         /// <value>Title?</value>
         public string Title
@@ -62,7 +81,9 @@ namespace Guilded.NET.Base.Embeds
         /// The URL of the embed.
         /// </summary>
         /// <remarks>
-        /// Makes the embed's title as a hyperlink that links this URL.
+        /// <para>Defines the URL to the content this embed displays.</para>
+        /// <para>This is displayed as <see cref="Title"/> but as a hyperlink
+        /// that links this URL by the Guilded official app.</para>
         /// </remarks>
         /// <value>URL?</value>
         public Uri Url
@@ -73,7 +94,8 @@ namespace Guilded.NET.Base.Embeds
         /// The description text of the embed.
         /// </summary>
         /// <remarks>
-        /// A text that appears in the middle of the embed.
+        /// <para>A piece of text that appears in the middle of the embed.</para>
+        /// <para>This can have formatting using Markdown.</para>
         /// </remarks>
         /// <value>Description?</value>
         public string Description
@@ -84,7 +106,7 @@ namespace Guilded.NET.Base.Embeds
         /// The author of the embed.
         /// </summary>
         /// <remarks>
-        /// Represents user and appears at the top of the embed. Can hold name, URL and an icon.
+        /// <para>Defines an author of the quoting message or anything else.</para>
         /// </remarks>
         /// <value>Author?</value>
         public EmbedAuthor Author
@@ -95,7 +117,9 @@ namespace Guilded.NET.Base.Embeds
         /// The colour of the embed.
         /// </summary>
         /// <remarks>
-        /// The colour of the left side of the embed.
+        /// <para>The display colour of the embed.</para>
+        /// <para>This is displayed as left-side border in the official Guilded client,
+        /// but may be displayed differently in other clients.</para>
         /// </remarks>
         /// <value>Colour?</value>
         [JsonConverter(typeof(DecimalColorConverter))]
@@ -140,7 +164,8 @@ namespace Guilded.NET.Base.Embeds
         /// The list of fields in this embed.
         /// </summary>
         /// <remarks>
-        /// The list of fields that contain their own titles and descriptions.
+        /// <para>Displays the list of fields with their own descriptions/values and titles/names.</para>
+        /// <para>Fields can be both inline and blocks.</para>
         /// </remarks>
         /// <value>List of fields?</value>
         public IList<EmbedField> Fields
@@ -151,7 +176,9 @@ namespace Guilded.NET.Base.Embeds
         /// The footer of the embed.
         /// </summary>
         /// <remarks>
-        /// An area that appears at the bottom of the embed.
+        /// <para>The bottom area of an embed that provides further information about anything.</para>
+        /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Embed.Timestamp"/> property. Timestamps are
+        /// not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
         /// </remarks>
         /// <value>Footer?</value>
         public EmbedFooter Footer
@@ -159,10 +186,12 @@ namespace Guilded.NET.Base.Embeds
             get; set;
         }
         /// <summary>
-        /// The timestamp of the embed footer.
+        /// The timestamp of the embed.
         /// </summary>
         /// <remarks>
-        /// The time and date that appear after the footer's text in the footer.
+        /// <para>The <see cref="DateTime"/> that will be shown in the embed.</para>
+        /// <para>This is usually displayed in the <see cref="EmbedFooter"/> by clients
+        /// like Guilded official client, but may be displayed elsewhere in other clients.</para>
         /// </remarks>
         /// <value>Date?</value>
         public DateTime? Timestamp
@@ -173,7 +202,8 @@ namespace Guilded.NET.Base.Embeds
         /// The provider of the embed.
         /// </summary>
         /// <remarks>
-        /// The name of the domain that appears above the title.
+        /// <para>The information about the domain/provider of the content/post.</para>
+        /// <para>Usually displayed above the title of the embed.</para>
         /// </remarks>
         /// <value>Provider?</value>
         public EmbedProvider Provider
@@ -184,7 +214,7 @@ namespace Guilded.NET.Base.Embeds
 
         #region Constructors
         /// <summary>
-        /// The data of the message embed.
+        /// Creates a new empty instance of <see cref="Embed"/>.
         /// </summary>
         public Embed() { }
         /// <summary>
@@ -195,6 +225,31 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="thumbnail">The thumbnail image of the embed</param>
         public Embed(Uri image = null, Uri video = null, Uri thumbnail = null) =>
             (Image, Video, Thumbnail) = (EmbedMedia.CreateOrNull(image), EmbedMedia.CreateOrNull(video), EmbedMedia.CreateOrNull(thumbnail));
+        /// <summary>
+        /// Creates a new instance of <see cref="Embed"/> with URL <paramref name="url"/>.
+        /// </summary>
+        /// <param name="url">The URL of the embed</param>
+        public Embed(Uri url) =>
+            Url = url;
+        /// <summary>
+        /// Creates a new instance of <see cref="Embed"/> with colour <paramref name="color"/>.
+        /// </summary>
+        /// <param name="color">The colour of the embed</param>
+        public Embed(Color color) =>
+            Color = color;
+        /// <summary>
+        /// Creates a new instance of <see cref="Embed"/> with colour <paramref name="argb"/>.
+        /// </summary>
+        /// <param name="argb">The colour of the embed in RGB format</param>
+        public Embed(int argb) : this(System.Drawing.Color.FromArgb(argb)) { }
+        /// <summary>
+        /// Creates a new instance of <see cref="Embed"/> with channels
+        /// <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> of <see cref="Color"/> property.
+        /// </summary>
+        /// <param name="red">The red channel of the <see cref="Color"/></param>
+        /// <param name="green">The green channel of <see cref="Color"/></param>
+        /// <param name="blue">The blue channel of <see cref="Color"/></param>
+        public Embed(int red, int green, int blue) : this(System.Drawing.Color.FromArgb(red, green, blue)) { }
         /// <summary>
         /// Creates a new instance of <see cref="Embed"/> with description <paramref name="description"/>.
         /// </summary>
@@ -355,7 +410,7 @@ namespace Guilded.NET.Base.Embeds
 
         #region Additional
         /// <summary>
-        /// Sets embed's title name and URL.
+        /// Sets <see cref="Title"/> as <paramref name="title"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="title">The text of the title</param>
         /// <exception cref="NullReferenceException"><paramref name="title"/> is null, empty or whitespace</exception>
@@ -368,7 +423,7 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets the URL of the title in the embed.
+        /// Sets <see cref="Url"/> as <paramref name="url"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="url">The URL that title will link</param>
         /// <returns>This</returns>
@@ -378,29 +433,41 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets the description of the embed.
+        /// Sets <see cref="Description"/> as <paramref name="description"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="description">Embed's description</param>
         /// <exception cref="NullReferenceException"><paramref name="description"/> is null, empty or whitespace</exception>
+        /// <exception cref="OverflowException"><paramref name="description"/> exceeds 4000 character limit</exception>
         /// <returns>This</returns>
         public Embed SetDescription(string description)
         {
             if (string.IsNullOrWhiteSpace(description))
                 throw new NullReferenceException($"Argument {nameof(description)} cannot be null, empty or whitespace.");
+            else if (description.Length > 4000)
+                throw new OverflowException($"Argument {nameof(description)} cannot be more than 4'000 characters.");
             Description = description;
             return this;
         }
         /// <summary>
-        /// Sets the description of the embed.
+        /// Sets <see cref="Description"/> as <paramref name="format"/> of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Formats <paramref name="format"/> with arguments <paramref name="args"/> using <see cref="string.Format(string, object[])"/>
+        /// and sets the formatted string to <see cref="Description"/></para>
+        /// </remarks>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
         /// <returns>This</returns>
         public Embed SetDescription(string format, params object[] args) =>
             SetDescription(string.Format(format, args));
         /// <summary>
-        /// Sets the description of the embed.
+        /// Sets <see cref="Description"/> as <paramref name="format"/> of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Formats <paramref name="format"/> with arguments <paramref name="args"/>
+        /// and culture <paramref name="provider"/> using <see cref="string.Format(IFormatProvider, string, object[])"/>
+        /// and sets the formatted string to <see cref="Description"/>.</para>
+        /// </remarks>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
@@ -408,14 +475,17 @@ namespace Guilded.NET.Base.Embeds
         public Embed SetDescription(IFormatProvider provider, string format, params object[] args) =>
             SetDescription(string.Format(provider, format, args));
         /// <summary>
-        /// Sets the description of the embed.
+        /// Sets <see cref="Description"/> as <paramref name="description"/> of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Converts parameter <paramref name="description"/> to string and sets it to <see cref="Description"/>.</para>
+        /// </remarks>
         /// <param name="description">Embed's description</param>
         /// <returns>This</returns>
         public Embed SetDescription(object description) =>
             SetDescription(description.ToString());
         /// <summary>
-        /// Sets author to this embed.
+        /// Sets <see cref="Author"/> as <paramref name="author"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="author">Author to be set to</param>
         /// <returns>This</returns>
@@ -425,8 +495,13 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets author to this embed.
+        /// Sets <see cref="Author"/> as given parameters of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedAuthor"/> with name
+        /// <paramref name="name"/>, icon <paramref name="iconUrl"/> and
+        /// URL <paramref name="url"/> and sets it to <see cref="Author"/>.</para>
+        /// </remarks>
         /// <param name="name">Name of the author</param>
         /// <param name="iconUrl">URL of the image</param>
         /// <param name="url">URL of the author's name</param>
@@ -434,8 +509,14 @@ namespace Guilded.NET.Base.Embeds
         public Embed SetAuthor(string name, Uri iconUrl = null, Uri url = null) =>
             SetAuthor(new EmbedAuthor(name, iconUrl, url));
         /// <summary>
-        /// Adds fields to this embed.
+        /// Adds <paramref name="fields"/> to <see cref="Fields"/> property of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>If <see cref="Fields"/> property is <see langword="null"/>, <see cref="Fields"/> will be set as <paramref name="fields"/>.</para>
+        /// <para>If <see cref="Fields"/> property has a value, <paramref name="fields"/> will be added to <see cref="Fields"/>.</para>
+        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded,
+        /// <see cref="OverflowException"/> will be thrown.</para>
+        /// </remarks>
         /// <param name="fields">The list of fields to be added</param>
         /// <exception cref="OverflowException">Attempt at trying to add more than 25 fields</exception>
         /// <returns>This</returns>
@@ -451,51 +532,87 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Adds fields to this embed.
+        /// Adds <paramref name="fields"/> to <see cref="Fields"/> property of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>If <see cref="Fields"/> property is <see langword="null"/>, <see cref="Fields"/> will be set as <paramref name="fields"/>.</para>
+        /// <para>If <see cref="Fields"/> property has a value, <paramref name="fields"/> will be added to <see cref="Fields"/>.</para>
+        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded,
+        /// <see cref="OverflowException"/> will be thrown.</para>
+        /// </remarks>
         /// <param name="fields">Fields to be added</param>
         /// <exception cref="OverflowException">Attempt at trying to add more than 25 fields</exception>
         /// <returns>This</returns>
         public Embed AddFields(params EmbedField[] fields) =>
             AddFields((IList<EmbedField>)fields);
         /// <summary>
-        /// Adds a field to this embed.
+        /// Adds one <paramref name="field"/> to <see cref="Fields"/> property of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>If <see cref="Fields"/> property is <see langword="null"/>, <see cref="Fields"/> will be set as a list with one field <paramref name="field"/>.</para>
+        /// <para>If <see cref="Fields"/> property has a value, <paramref name="field"/> will be added to <see cref="Fields"/>.</para>
+        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded,
+        /// <see cref="OverflowException"/> will be thrown.</para>
+        /// </remarks>
         /// <param name="field">A field to be added</param>
         /// <returns>This</returns>
         public Embed AddField(EmbedField field) =>
             AddFields(field);
         /// <summary>
-        /// Adds a field to this embed.
+        /// Adds a new <see cref="EmbedField"/> instance to <see cref="Fields"/> property of <see cref="Embed"/> instance.
         /// </summary>
-        /// <param name="title">The title of the field</param>
-        /// <param name="description">The description of the field</param>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedField"/>
+        /// with name/title <paramref name="name"/>
+        /// and value/description <paramref name="value"/>.</para>
+        /// <para>If <see cref="Fields"/> property is <see langword="null"/>, <see cref="Fields"/> will be set as a list with one field <see cref="EmbedField"/> instance.</para>
+        /// <para>If <see cref="Fields"/> property has a value, <see cref="EmbedField"/> instance will be added to <see cref="Fields"/>.</para>
+        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded,
+        /// <see cref="OverflowException"/> will be thrown.</para>
+        /// </remarks>
+        /// <param name="name">The title of the field</param>
+        /// <param name="value">The description of the field</param>
         /// <param name="inline">If this field should be inline</param>
         /// <returns>This</returns>
-        public Embed AddField(string title, string description, bool inline = false) =>
-            AddField(new EmbedField(title, description, inline));
+        public Embed AddField(string name, string value, bool inline = false) =>
+            AddField(new EmbedField(name, value, inline));
         /// <summary>
-        /// Adds a field to this embed.
+        /// Adds a new <see cref="EmbedField"/> instance to <see cref="Fields"/> property of <see cref="Embed"/> instance.
         /// </summary>
-        /// <param name="title">The title of the field</param>
-        /// <param name="description">The description of the field</param>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedField"/>
+        /// with name/title <paramref name="name"/>
+        /// and value/description <paramref name="value"/>.</para>
+        /// <para><paramref name="value"/> will be converted to string.</para>
+        /// <para>If <see cref="Fields"/> property is <see langword="null"/>, <see cref="Fields"/> will be set as a list with one field <see cref="EmbedField"/> instance.</para>
+        /// <para>If <see cref="Fields"/> property has a value, <see cref="EmbedField"/> instance will be added to <see cref="Fields"/>.</para>
+        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded,
+        /// <see cref="OverflowException"/> will be thrown.</para>
+        /// </remarks>
+        /// <param name="name">The title of the field</param>
+        /// <param name="value">The description of the field</param>
         /// <param name="inline">If this field should be inline</param>
         /// <returns>This</returns>
-        public Embed AddField(string title, object description, bool inline = false) =>
-            AddField(title, description.ToString(), inline);
+        public Embed AddField(string name, object value, bool inline = false) =>
+            AddField(name, value.ToString(), inline);
         /// <summary>
-        /// Sets the image of the embed.
+        /// Sets <see cref="Image"/> as <paramref name="media"/> of <see cref="Embed"/> instance.
         /// </summary>
-        /// <param name="image">The media to use as an image</param>
+        /// <param name="media">The media to use as an image</param>
         /// <returns>This</returns>
-        public Embed SetImage(EmbedMedia image)
+        public Embed SetImage(EmbedMedia media)
         {
-            Image = image;
+            Image = media;
             return this;
         }
         /// <summary>
-        /// Sets the image of the embed.
+        /// Sets <see cref="Image"/> as a new <see cref="EmbedMedia"/> instance of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedMedia"/> with source URL <paramref name="url"/>,
+        /// height <paramref name="height"/> and width <paramref name="width"/>
+        /// and sets it to <see cref="Image"/></para>
+        /// </remarks>
         /// <param name="url">The source URL of the image</param>
         /// <param name="width">The width of the image</param>
         /// <param name="height">The height of the image</param>
@@ -503,7 +620,7 @@ namespace Guilded.NET.Base.Embeds
         public Embed SetImage(Uri url, uint? width = null, uint? height = null) =>
             SetImage(new EmbedMedia(url, width, height));
         /// <summary>
-        /// Adds the footer to this embed.
+        /// Sets <see cref="Footer"/> as <paramref name="footer"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="footer">The footer to set</param>
         /// <returns>This</returns>
@@ -513,23 +630,31 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Adds the footer to this embed.
+        /// Sets <see cref="Footer"/> as new <see cref="EmbedFooter"/> instance of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>
+        /// and icon <paramref name="iconUrl"/> and sets it to <see cref="Footer"/>.</para>
+        /// </remarks>
         /// <param name="text">The text of the footer</param>
         /// <param name="iconUrl">The icon of the footer</param>
         /// <returns>This</returns>
         public Embed SetFooter(string text, Uri iconUrl = null) =>
             SetFooter(new EmbedFooter(text, iconUrl));
         /// <summary>
-        /// Adds the footer to this embed.
+        /// Sets <see cref="Footer"/> as new <see cref="EmbedFooter"/> instance of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>
+        /// and icon <paramref name="iconUrl"/> and sets it to <see cref="Footer"/>.</para>
+        /// </remarks>
         /// <param name="text">The text of the footer</param>
         /// <param name="iconUrl">The icon of the footer</param>
         /// <returns>This</returns>
         public Embed SetFooter(object text, Uri iconUrl = null) =>
             SetFooter(text.ToString(), iconUrl);
         /// <summary>
-        /// Sets the thumbnail of the embed.
+        /// Sets <see cref="Thumbnail"/> as <paramref name="media"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="media">The media to use as a thumbnail</param>
         /// <returns>This</returns>
@@ -539,8 +664,13 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets the thumbnail of the embed.
+        /// Sets <see cref="Thumbnail"/> as a new <see cref="EmbedMedia"/> instance of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="EmbedMedia"/> with source URL <paramref name="url"/>,
+        /// height <paramref name="height"/> and width <paramref name="width"/>
+        /// and sets it to <see cref="Thumbnail"/></para>
+        /// </remarks>
         /// <param name="url">The source URL of the thumbnail image</param>
         /// <param name="width">The width of the image</param>
         /// <param name="height">The height of the image</param>
@@ -551,7 +681,7 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets the timestamp of the embed.
+        /// Sets <see cref="Timestamp"/> as <paramref name="time"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="time">The date to be set to</param>
         /// <returns>This</returns>
@@ -561,16 +691,16 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets the timestamp of the embed to current time.
+        /// Sets <see cref="Timestamp"/> as <see cref="DateTime.Now"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <returns>This</returns>
         public Embed SetTimestamp() =>
             SetTimestamp(DateTime.Now);
         /// <summary>
-        /// Sets the colour of the embed.
+        /// Sets <see cref="Color"/> as <paramref name="color"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// embed.SetColor(Color.Red);
         /// </code>
         /// </example>
@@ -582,20 +712,29 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
-        /// Sets the colour of the embed.
+        /// Sets <see cref="Color"/> as a new <see cref="System.Drawing.Color"/> instance of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="System.Drawing.Color"/>
+        /// with argument <paramref name="argb"/> and sets it to <see cref="Color"/>.</para>
+        /// </remarks>
         /// <example>
-        /// <code>
+        /// <code lang="csharp">
         /// embed.SetColor(0xFFFFFF);
         /// </code>
         /// </example>
-        /// <param name="rgba">The value of the colour</param>
+        /// <param name="argb">The value of the colour</param>
         /// <returns>This</returns>
-        public Embed SetColor(int rgba) =>
-            SetColor(System.Drawing.Color.FromArgb(rgba));
+        public Embed SetColor(int argb) =>
+            SetColor(System.Drawing.Color.FromArgb(argb));
         /// <summary>
-        /// Sets the colour of the embed.
+        /// Sets <see cref="Color"/> as a new <see cref="System.Drawing.Color"/> instance of <see cref="Embed"/> instance.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new instance of <see cref="System.Drawing.Color"/> with channels
+        /// <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/>
+        /// and sets it to <see cref="Color"/>.</para>
+        /// </remarks>
         /// <param name="red">The red channel value</param>
         /// <param name="green">The green channel value</param>
         /// <param name="blue">The blue channel value</param>
