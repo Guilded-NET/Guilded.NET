@@ -11,13 +11,6 @@ namespace Guilded.NET.Base
     using System.Reactive.Linq;
     using System.Reactive.Subjects;
     using Events;
-
-    /// <summary>
-    /// A base for Guilded client.
-    /// </summary>
-    /// <remarks>
-    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
-    /// </remarks>
     public abstract partial class BaseGuildedClient
     {
         internal const int welcome_opcode = 1, error_opcode = 8;
@@ -38,26 +31,23 @@ namespace Guilded.NET.Base
         /// A timer for heartbeats.
         /// </summary>
         /// <remarks>
-        /// A timer used for sending WebSocket heartbeats to Guilded.
+        /// <para>A timer that sends a heartbeat through WebSockets to Guilded.</para>
+        /// <para>This ensures that WebSockets are still connected to Guilded.</para>
         /// </remarks>
         /// <value>Timer</value>
         protected Timer HeartbeatTimer
         {
             get; set;
         }
+        private readonly Subject<GuildedEvent> OnWebsocketMessage = new Subject<GuildedEvent>();
         /// <summary>
         /// An event when WebSocket receives a message.
         /// </summary>
         /// <remarks>
-        /// An event when WebSocket receives any kind of message from Guilded.
+        /// <para>An event when WebSocket receives any kind of message from Guilded.</para>
+        /// <para>If event with opcode <c>8</c> is received, it is given as an exception instead.</para>
         /// </remarks>
-        private readonly Subject<GuildedEvent> OnWebsocketMessage;
-        /// <summary>
-        /// An event when WebSocket receives a message.
-        /// </summary>
-        /// <remarks>
-        /// An event when WebSocket receives any kind of message from Guilded.
-        /// </remarks>
+        /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{GuildedEvent}.OnError(Exception)"/>.</exception>
         protected IObservable<GuildedEvent> WebsocketMessage => OnWebsocketMessage.AsObservable();
         /// <summary>
         /// Initializes a new WebSocket client.
@@ -78,9 +68,9 @@ namespace Guilded.NET.Base
             {
                 ClientWebSocket socket = new ClientWebSocket
                 {
-                    Options = {
-                        Cookies = GuildedCookies
-                    }
+                    // Options = {
+                    //     Cookies = GuildedCookies
+                    // }
                 };
                 // Add additional headers for authentication tokens and such
                 foreach (KeyValuePair<string, string> header in AdditionalHeaders)
@@ -97,7 +87,7 @@ namespace Guilded.NET.Base
                 factory
             );
 
-            client.MessageReceived.Subscribe(WebsocketMessageReceived);
+            client.MessageReceived.Subscribe(OnWebsocketResponse);
             await client.StartOrFail().ConfigureAwait(false);
 
             return client;
@@ -123,21 +113,22 @@ namespace Guilded.NET.Base
         /// <para>An event handler method that gets called once any message is received from a WebSocket.</para>
         /// <para>Override this if you don't like how Guilded.NET handles events or need any additional changes/features to it.</para>
         /// </remarks>
-        /// <param name="msg">Websocket message</param>
-        protected virtual void WebsocketMessageReceived(ResponseMessage msg)
+        /// <param name="response">The response received from Guilded WebSocket</param>
+        protected virtual void OnWebsocketResponse(ResponseMessage response)
         {
-            if (msg.MessageType == WebSocketMessageType.Text)
+            if (response.MessageType == WebSocketMessageType.Text)
             {
-                GuildedEvent @event = Deserialize<GuildedEvent>(msg.Text);
+                GuildedEvent @event = Deserialize<GuildedEvent>(response.Text);
                 // Check for a welcome message to change hearbeat interval
                 if (@event.Opcode == welcome_opcode)
                 {
                     HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
                 }
+                // If it's an error, just send it through OnWebsocketMessage as an error
                 else if(@event.Opcode == error_opcode)
                 {
                     OnWebsocketMessage.OnError(
-                        new GuildedWebsocketException(msg, @event.RawData.Value<string>("message"))
+                        new GuildedWebsocketException(response, @event.RawData.Value<string>("message"))
                     );
                     return;
                 }

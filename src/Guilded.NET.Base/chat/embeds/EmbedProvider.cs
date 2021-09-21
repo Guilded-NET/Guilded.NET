@@ -18,7 +18,7 @@ namespace Guilded.NET.Base.Embeds
     public class EmbedProvider : BaseObject
     {
         /// <summary>
-        /// The name of a provider.
+        /// The name of the provider.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty(Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]
@@ -27,7 +27,7 @@ namespace Guilded.NET.Base.Embeds
             get; set;
         }
         /// <summary>
-        /// The URL of a provider
+        /// The URL of the provider
         /// </summary>
         /// <value>URL?</value>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

@@ -114,7 +114,7 @@ namespace Guilded.NET.Base.Chat
         /// The type of the message.
         /// </summary>
         /// <remarks>
-        /// Allows message to be determined as a <see cref="MessageType.Default"/> or <see cref="MessageType.System"/>.
+        /// <para>Allows message to be determined as a <see cref="MessageType.Default"/> or <see cref="MessageType.System"/>.</para>
         /// </remarks>
         /// <value>Message type</value>
         [JsonProperty(Required = Required.Always)]
@@ -122,31 +122,6 @@ namespace Guilded.NET.Base.Chat
         {
             get; set;
         }
-        // /// <summary>
-        // /// Whether this message is pinned or not.
-        // /// </summary>
-        // /// <value>Pinned</value>
-        // public bool IsPinned
-        // {
-        //     get; set;
-        // }
-        // /// <summary>
-        // /// The identifier of the user who pinned this message.
-        // /// </summary>
-        // /// <value>User ID?</value>
-        // public GId? PinnedBy
-        // {
-        //     get; set;
-        // }
-        // /// <summary>
-        // /// A list of all reactions on this message.
-        // /// </summary>
-        // /// <value>Reactions</value>
-        // [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        // public IList<Reaction> Reactions
-        // {
-        //     get; set;
-        // } = new List<Reaction>();
         #endregion
 
         #region Properties
@@ -249,7 +224,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <see cref="BaseMessage.ChannelId"/> and/or this message no longer exist(s)</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -270,7 +245,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <see cref="BaseMessage.ChannelId"/> and/or this message no longer exist(s)</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -292,7 +267,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <see cref="BaseMessage.ChannelId"/> and/or this message no longer exist(s)</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -312,7 +287,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <see cref="BaseMessage.ChannelId"/> and/or this message no longer exist(s)</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>

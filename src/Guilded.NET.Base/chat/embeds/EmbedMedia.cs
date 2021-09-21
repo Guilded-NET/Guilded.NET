@@ -59,10 +59,11 @@ namespace Guilded.NET.Base.Embeds
 
         #region Internal
         /// <summary>
-        /// Creates <see cref="EmbedMedia"/> if <paramref name="url"/> isn't null.
+        /// Creates <see cref="EmbedMedia"/> if <paramref name="url"/> isn't <see langword="null"/>.
         /// </summary>
         /// <remarks>
-        /// Checks if <paramref name="url"/> is not null and then creates <see cref="EmbedMedia"/> instance. Used for Embed constructor.
+        /// <para>Checks if <paramref name="url"/> is not <see langword="null"/> and then creates <see cref="EmbedMedia"/> instance.</para>
+        /// <para>Only used in <see cref="Embed(Uri, Uri, Uri)"/></para>
         /// </remarks>
         /// <param name="url">The source URL to the image</param>
         /// <returns><see cref="EmbedMedia"/>?</returns>

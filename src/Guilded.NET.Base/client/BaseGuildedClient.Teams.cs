@@ -3,12 +3,6 @@ using System.Threading.Tasks;
 namespace Guilded.NET.Base
 {
     using Permissions;
-    /// <summary>
-    /// A base for Guilded client.
-    /// </summary>
-    /// <remarks>
-    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
-    /// </remarks>
     public abstract partial class BaseGuildedClient
     {
         #region Members

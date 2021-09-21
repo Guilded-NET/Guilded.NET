@@ -69,7 +69,7 @@ namespace Guilded.NET
         /// <para>This relies on <see cref="GuildedEvents"/> dictionary.</para>
         /// </remarks>
         /// <param name="message">A message received from a WebSocket</param>
-        protected void HandleSocketMessages(GuildedEvent message)
+        protected void OnSocketMessage(GuildedEvent message)
         {
             if (message is null) return;
 

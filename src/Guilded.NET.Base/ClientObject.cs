@@ -5,8 +5,13 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// An object that has a parent client.
+    /// A base that with a parent client.
     /// </summary>
+    /// <remarks>
+    /// <para>A base object that also contains definining parent client.</para>
+    /// <para>The parent client that defined this method is referenced in <see cref="ParentClient"/>,
+    /// that is initiated with internal OnDeserialized method.</para>
+    /// </remarks>
     /// <seealso cref="BaseGuildedClient"/>
     /// <seealso cref="BaseObject"/>
     public abstract class ClientObject : BaseObject
@@ -14,6 +19,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// The parent client that adopts this object.
         /// </summary>
+        /// <remarks>
+        /// <para>The parent client that deserialized this object.</para>
+        /// <para>This is initiated via internal OnDeserialized method and only available
+        /// after deserialization, but not during it.</para>
+        /// <para><see cref="ClientObject"/> is used to provide methods to objects, such as
+        /// <see cref="Chat.BaseMessage.RespondAsync(string)"/>, which rely on built-in client methods.</para>
+        /// </remarks>
         /// <value>Client</value>
         [JsonIgnore]
         public BaseGuildedClient ParentClient
@@ -21,7 +33,7 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// Adds a parent client if context contains it.
+        /// Adds a parent client if the context contains it.
         /// </summary>
         /// <param name="context">The context given by the serializer</param>
         [OnDeserialized]

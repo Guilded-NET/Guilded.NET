@@ -22,13 +22,6 @@
 //         {
 //             get; set;
 //         }
-//         /// <summary>
-//         /// Email address for logging in.
-//         /// </summary>
-//         /// <remarks>
-//         /// Email that is used for logging in and is not publicly available. If you're not this user, this field is null.
-//         /// </remarks>
-//         /// <value>Email?</value>
 //         public string Email
 //         {
 //             get; set;

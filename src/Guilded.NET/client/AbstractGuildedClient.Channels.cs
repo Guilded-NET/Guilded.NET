@@ -159,7 +159,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -211,7 +211,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -278,17 +278,6 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
             await ExecuteRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
-        // /// <summary>
-        // /// Starts typing in a specific channel.
-        // /// </summary>
-        // /// <param name="channelId">The identifier of the channel to type</param>
-        // public void StartTyping(Guid channelId)
-        // {
-        //     // To make sure default WebSocket exists
-        //     if (!Websockets.ContainsKey(""))
-        //         throw new KeyNotFoundException("Could not find default WebSocket");
-        //     Websockets[""].Send($"42[\"ChatChannelTyping\",{{\"channelId\":\"{channelId}\"}}]");
-        // }
         #endregion
 
         #region Forum channels

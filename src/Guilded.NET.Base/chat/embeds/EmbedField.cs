@@ -9,6 +9,7 @@ namespace Guilded.NET.Base.Embeds
     /// <remarks>
     /// <para>Displays a field with its own description/value and title/name.</para>
     /// <para>Fields can be both inline and blocks.</para>
+    /// <para>They are only inline if <see cref="Inline"/> parameter is <see langword="true"/>.</para>
     /// </remarks>
     /// <seealso cref="EmbedFooter"/>
     /// <seealso cref="EmbedProvider"/>
@@ -61,6 +62,13 @@ namespace Guilded.NET.Base.Embeds
         /// <summary>
         /// Creates a new instance of <see cref="EmbedField"/>, which is optionally inline.
         /// </summary>
+        /// <remarks>
+        /// <para>Creates a new field with the name <paramref name="name"/> and a value <paramref name="value"/>.
+        /// The name acts like a title of the field and the value acts like a description.</para>
+        /// <para>Fields can be optionally inline(with <paramref name="inline"/> parameter being <see langword="true"/>),
+        /// which stacks up to 3 fields in one line. If field is not inline and there are
+        /// surrounding inline fields, it will still not stack with other fields.</para>
+        /// </remarks>
         /// <param name="name">The title of the embed</param>
         /// <param name="value">The description text of the field</param>
         /// <param name="inline">Whether the field should be inline with other fields</param>

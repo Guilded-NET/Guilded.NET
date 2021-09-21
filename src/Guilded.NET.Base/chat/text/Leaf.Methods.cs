@@ -261,17 +261,17 @@ namespace Guilded.NET.Base.Chat
 
         #region Static methods
         /// <summary>
-        /// Gets whether the leaf itself, the text is null or is empty.
+        /// Gets whether the leaf itself, the text is <see langword="null"/> or is empty.
         /// </summary>
         /// <param name="leaf">Leaf to check</param>
-        /// <returns>Leaf is null or ""</returns>
+        /// <returns>Leaf is <see langword="null"/> or ""</returns>
         public static bool IsNullOrEmpty(Leaf leaf) =>
             string.IsNullOrEmpty(leaf?.Text);
         /// <summary>
-        /// Gets whether the leaf itself, the text is null, is empty or only has whitespace characters.
+        /// Gets whether the leaf itself, the text is <see langword="null"/>, is empty or only has whitespace characters.
         /// </summary>
         /// <param name="leaf">Leaf to check</param>
-        /// <returns>Leaf is null, "" or whitespaces only</returns>
+        /// <returns>Leaf is <see langword="null"/> or whitespaces only</returns>
         public static bool IsNullOrWhiteSpace(Leaf leaf) =>
             string.IsNullOrWhiteSpace(leaf?.Text);
         #endregion

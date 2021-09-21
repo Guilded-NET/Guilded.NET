@@ -131,7 +131,9 @@ namespace Guilded.NET.Base.Embeds
         /// The thumbnail image of the embed.
         /// </summary>
         /// <remarks>
-        /// An image in the embed that appears at the right side of the embed.
+        /// <para>An image that represents a thumbnail.</para>
+        /// <para>This is displayed as image at the right of the embed
+        /// and as square in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
         public EmbedMedia Thumbnail
@@ -142,7 +144,9 @@ namespace Guilded.NET.Base.Embeds
         /// The image of the embed.
         /// </summary>
         /// <remarks>
-        /// An image that will appear in the embed.
+        /// <para>An image that will appear in the embed.</para>
+        /// <para>This is displayed as an image that appears at the bottom of the embed and
+        /// above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
         public EmbedMedia Image
@@ -413,7 +417,7 @@ namespace Guilded.NET.Base.Embeds
         /// Sets <see cref="Title"/> as <paramref name="title"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="title">The text of the title</param>
-        /// <exception cref="NullReferenceException"><paramref name="title"/> is null, empty or whitespace</exception>
+        /// <exception cref="NullReferenceException"><paramref name="title"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <returns>This</returns>
         public Embed SetTitle(string title)
         {
@@ -436,7 +440,7 @@ namespace Guilded.NET.Base.Embeds
         /// Sets <see cref="Description"/> as <paramref name="description"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <param name="description">Embed's description</param>
-        /// <exception cref="NullReferenceException"><paramref name="description"/> is null, empty or whitespace</exception>
+        /// <exception cref="NullReferenceException"><paramref name="description"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <exception cref="OverflowException"><paramref name="description"/> exceeds 4000 character limit</exception>
         /// <returns>This</returns>
         public Embed SetDescription(string description)

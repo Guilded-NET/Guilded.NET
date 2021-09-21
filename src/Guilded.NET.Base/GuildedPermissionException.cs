@@ -8,6 +8,12 @@ namespace Guilded.NET.Base
     /// <summary>
     /// An exception thrown by Guilded API.
     /// </summary>
+    /// <remarks>
+    /// <para>An exception thrown by Guilded API when request is invalid.</para>
+    /// <para>This is caused if you are trying to access or do an action that requires permissions,
+    /// but you don't have them. This can only be fixed by getting said permissions by a server staff
+    /// and is usually not controlled by you.</para>
+    /// </remarks>
     [Serializable]
     public sealed class GuildedPermissionException : GuildedException
     {

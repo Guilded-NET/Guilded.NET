@@ -132,7 +132,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <see cref="ChannelId"/> no longer exists</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -153,7 +153,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <see cref="ChannelId"/> no longer exists</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -175,7 +175,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <see cref="ChannelId"/> no longer exists</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -195,7 +195,7 @@ namespace Guilded.NET.Base.Chat
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <see cref="ChannelId"/> no longer exists</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>

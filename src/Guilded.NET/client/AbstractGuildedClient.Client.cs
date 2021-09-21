@@ -17,6 +17,10 @@ namespace Guilded.NET
     /// <summary>
     /// A base for all Guilded clients.
     /// </summary>
+    /// <remarks>
+    /// <para>A base class for <see cref="GuildedBotClient"/> and soon other clients.</para>
+    /// <para>There is not much to be used here. It is recommended to use <see cref="GuildedBotClient"/>.</para>
+    /// </remarks>
     /// <seealso cref="GuildedBotClient"/>
     public abstract partial class AbstractGuildedClient : BaseGuildedClient
     {
@@ -26,13 +30,13 @@ namespace Guilded.NET
         /// <remarks>
         /// <para>An event that occurs once Guilded client has added finishing touches.</para>
         /// <para>These things need to be completed in order for it to occur:</para>
-        /// <list type="bullet">
+        /// <list type="number">
         ///     <item>
         ///         <term>Connected</term>
         ///         <description>Guilded client must be connected.</description>
         ///     </item>
         /// </list>
-        /// <para>You can use this as a signal that ensures all client functions are properly
+        /// <para>You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly
         /// working and can be used.</para>
         /// </remarks>
         protected EventHandler PreparedEvent;
@@ -43,19 +47,10 @@ namespace Guilded.NET
             remove => PreparedEvent -= value;
         }
         /// <summary>
-        /// A list of JSON converters used to (de)serialize Guilded responses and WebSocket events.
+        /// A base constructor for creating Guilded clients.
         /// </summary>
-        /// <remarks>
-        /// <para>Use these converters to pass anything to Guilded REST client or Guilded WebSocket client.</para>
-        /// </remarks>
-        /// <value>List of JSON converters</value>
-        public JsonConverter[] Converters
-        {
-            get; set;
-        }
-        /// <summary>
-        /// A base for user bot clients and normal bot clients.
-        /// </summary>
+        /// <seealso cref="GuildedBotClient()"/>
+        /// <seealso cref="GuildedBotClient(string)"/>
         protected AbstractGuildedClient()
         {
             // Serializer converters for REST
@@ -66,21 +61,26 @@ namespace Guilded.NET
                 new HexColorConverter()
             };
             GuildedSerializer = JsonSerializer.Create(SerializerSettings);
-            WebsocketMessage.Subscribe(HandleSocketMessages);
+            WebsocketMessage.Subscribe(OnSocketMessage);
+
             #region Event list
-            // Dictionary of supported events, so we wouldn't need to manually do it
+            // Dictionary of supported events, so we wouldn't need to manually do it.
+            // The only manual work to be done is in AbstractGuildedClient.Messages.cs file,
+            // which only allows us to subscribe to events and it is literally +1 member
+            // to be added and copy pasting for the most part.
+            // No idea if this can put back a bit of performance.
             GuildedEvents = new Dictionary<object, IEventInfo<object>>
             {
                 // Utils
-                { 1,                        new EventInfo<WelcomeEvent>(typeof(WelcomeEvent)) },
-                { 2,                        new EventInfo<ResumeEvent>(typeof(ResumeEvent)) },
+                { 1,                        new EventInfo<WelcomeEvent>() },
+                { 2,                        new EventInfo<ResumeEvent>() },
                 // Team events
-                { "TeamXpAdded",            new EventInfo<XpAddedEvent>(typeof(XpAddedEvent)) },
-                { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>(typeof(RolesUpdatedEvent)) },
+                { "TeamXpAdded",            new EventInfo<XpAddedEvent>() },
+                { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>() },
                 // Chat messages
-                { "ChatMessageCreated",     new EventInfo<MessageCreatedEvent>(typeof(MessageCreatedEvent)) },
-                { "ChatMessageUpdated",     new EventInfo<MessageUpdatedEvent>(typeof(MessageUpdatedEvent)) },
-                { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>(typeof(MessageDeletedEvent)) }
+                { "ChatMessageCreated",     new EventInfo<MessageCreatedEvent>() },
+                { "ChatMessageUpdated",     new EventInfo<MessageUpdatedEvent>() },
+                { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>() }
             };
             #endregion
         }
@@ -88,8 +88,19 @@ namespace Guilded.NET
         /// Connects this client to Guilded.
         /// </summary>
         /// <remarks>
-        /// Creates a new connection to Guilded with this client.
+        /// <para>Connects to Guilded and starts these functions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description>Guilded WebSocket</description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="BaseGuildedClient.HeartbeatTimer"/> used for WebSocket heartbeats</description>
+        ///     </item>
+        /// </list>
         /// </remarks>
+        /// <seealso cref="DisconnectAsync"/>
+        /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
+        /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task ConnectAsync()
         {
             HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
@@ -107,8 +118,20 @@ namespace Guilded.NET
         /// Disconnects this client from Guilded.
         /// </summary>
         /// <remarks>
-        /// Stops any connections this client has with Guilded.
+        /// <para>This method stops:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description>All Websockets in <see cref="BaseGuildedClient.Websockets"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="BaseGuildedClient.HeartbeatTimer"/> used for WebSocket heartbeats</description>
+        ///     </item>
+        /// </list>
         /// </remarks>
+        /// <seealso cref="ConnectAsync"/>
+        /// <seealso cref="Dispose"/>
+        /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
+        /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task DisconnectAsync()
         {
             foreach (string wsKey in Websockets.Keys)
@@ -131,8 +154,17 @@ namespace Guilded.NET
         /// Disposes <see cref="AbstractGuildedClient"/> instance.
         /// </summary>
         /// <remarks>
-        /// Disposes <see cref="AbstractGuildedClient"/>, its heartbeat and its WebSockets.
+        /// <para>Disposes <see cref="AbstractGuildedClient"/> and its connections:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description>All Websockets in <see cref="BaseGuildedClient.Websockets"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="BaseGuildedClient.HeartbeatTimer"/> used for WebSocket heartbeats</description>
+        ///     </item>
+        /// </list>
         /// </remarks>
+        /// <seealso cref="DisconnectAsync"/>
         public override void Dispose() =>
             DisconnectAsync().GetAwaiter().GetResult();
         private async Task<T> GetObject<T>(string resource, Method method, object key, object body = null) =>

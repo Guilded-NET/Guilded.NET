@@ -8,6 +8,21 @@ namespace Guilded.NET.Base
     /// <summary>
     /// An exception thrown by Guilded API.
     /// </summary>
+    /// <remarks>
+    /// <para>An exception thrown by Guilded API when request has invalid path.</para>
+    /// <para>This has these leading causes:</para>
+    /// <list type="bullet">
+    ///     <item>
+    ///         <term>Invalid/bad parameters</term>
+    ///         <description>The parameters of given method were invalid or expired</description>
+    ///     </item>
+    ///     <item>
+    ///         <term>Guilded.NET related issue</term>
+    ///         <description>This could be related to Guilded.NET itself, especially if new breaking
+    ///         update came and Guilded.NET hasn't updated endpoints.</description>
+    ///     </item>
+    /// </list>
+    /// </remarks>
     [Serializable]
     public sealed class GuildedResourceException : GuildedException
     {

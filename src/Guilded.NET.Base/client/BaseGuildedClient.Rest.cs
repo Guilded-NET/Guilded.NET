@@ -11,12 +11,6 @@ using RestSharp;
 
 namespace Guilded.NET.Base
 {
-    /// <summary>
-    /// A base for Guilded client.
-    /// </summary>
-    /// <remarks>
-    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
-    /// </remarks>
     public abstract partial class BaseGuildedClient : IDisposable
     {
         private static readonly Dictionary<string, string> contentType = new Dictionary<string, string>()
@@ -45,17 +39,6 @@ namespace Guilded.NET.Base
         /// <seealso cref="Websocket"/>
         /// <value>Rest client</value>
         protected internal IRestClient Rest
-        {
-            get; set;
-        }
-        /// <summary>
-        /// Cookies received from client log-in.
-        /// </summary>
-        /// <remarks>
-        /// The cookie container used for Guilded user clients.
-        /// </remarks>
-        /// <value>Guilded cookies</value>
-        public CookieContainer GuildedCookies
         {
             get; set;
         }
@@ -103,7 +86,8 @@ namespace Guilded.NET.Base
         /// Sends a request to Guilded.
         /// </summary>
         /// <remarks>
-        /// Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. This automatically picks up on any errors received.
+        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type.</para>
+        /// <para>Any errors received will be thrown.</para>
         /// </remarks>
         /// <param name="resource">The full URL of the endpoint</param>
         /// <param name="method">The action method of the endpoint</param>
@@ -122,7 +106,8 @@ namespace Guilded.NET.Base
         /// Sends a request to Guilded.
         /// </summary>
         /// <remarks>
-        /// Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. This automatically picks up on any errors received.
+        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type.</para>
+        /// <para>Any errors received will be thrown.</para>
         /// </remarks>
         /// <param name="resource">The full URL of the endpoint</param>
         /// <param name="method">The action method of the endpoint</param>
@@ -136,41 +121,10 @@ namespace Guilded.NET.Base
         /// <returns>Request response</returns>
         public async Task<IRestResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
-        /// <summary>
-        /// Sends a request to Guilded.
-        /// </summary>
-        /// <remarks>
-        /// Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. This automatically picks up on any errors received.
-        /// </remarks>
-        /// <param name="resource">The path of the endpoint</param>
-        /// <param name="method">The action method of the endpoint</param>
-        /// <param name="body">The object to be used as request's body</param>
-        /// <param name="encodeQuery">Whether to encode all given queries</param>
-        /// <param name="query">The dictionary of queries and their values</param>
-        /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
-        /// <typeparam name="T">The type of the response's content</typeparam>
-        /// <returns>Request response</returns>
+        /// <inheritdoc cref="ExecuteRequest{T}(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
         public async Task<IRestResponse<T>> ExecuteRequest<T>(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
-        /// <summary>
-        /// Sends a request to Guilded.
-        /// </summary>
-        /// <remarks>
-        /// Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. This automatically picks up on any errors received.
-        /// </remarks>
-        /// <param name="resource">The path of the endpoint</param>
-        /// <param name="method">The action method of the endpoint</param>
-        /// <param name="body">The object to be used as request's body</param>
-        /// <param name="encodeQuery">Whether to encode all given queries</param>
-        /// <param name="query">The dictionary of queries and their values</param>
-        /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
-        /// <returns>Request response</returns>
+        /// <inheritdoc cref="ExecuteRequest(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
         public async Task<IRestResponse<object>> ExecuteRequest(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
             await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
         // Builds requests for ExecuteRequest methods
@@ -194,12 +148,13 @@ namespace Guilded.NET.Base
         /// Uploads a file to Guilded.
         /// </summary>
         /// <remarks>
-        /// Uploads any image, text or document file to Guilded with content type as <paramref name="contentType"/>.
+        /// <para>Uploads any image, text or document file to Guilded with content type as <paramref name="contentType"/>.</para>
+        /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
         /// </remarks>
         /// <param name="filename">The name of the file being uploaded</param>
         /// <param name="filedata">The contents of the file being uploaded</param>
         /// <param name="contentType">Content type for multipart form data</param>
-        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or null</exception>
+        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata, string contentType)
@@ -224,11 +179,13 @@ namespace Guilded.NET.Base
         /// Uploads a file to Guilded.
         /// </summary>
         /// <remarks>
-        /// Uploads any image, text or document file to Guilded with content type automatically assigned.
+        /// <para>Uploads any image, text or document file to Guilded with content
+        /// type automatically assigned.</para>
+        /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
         /// </remarks>
         /// <param name="filename">The name of the file being uploaded</param>
         /// <param name="filedata">The contents of the file being uploaded</param>
-        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or null</exception>
+        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata)
@@ -243,7 +200,8 @@ namespace Guilded.NET.Base
         /// Uploads a file to Guilded.
         /// </summary>
         /// <remarks>
-        /// Uploads a file from link <paramref name="url"/> to Guilded.
+        /// <para>Uploads an image from link <paramref name="url"/> to Guilded.</para>
+        /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
         /// </remarks>
         /// <param name="url">A URL link to an image to uplod</param>
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
@@ -300,7 +258,13 @@ namespace Guilded.NET.Base
                         // Given path has not been found
                         HttpStatusCode.NotFound =>
                             new GuildedResourceException(code, errorMessage, response),
-                        // Any other error, such as internal server error, invalid token, unacceptable request
+                        // Bad token
+                        HttpStatusCode.Unauthorized =>
+                            new GuildedAuthenticationException(code, errorMessage, response),
+                        // Bad request parameters/something else related to the request
+                        HttpStatusCode.BadRequest =>
+                            new GuildedRequestException(code, errorMessage, response),
+                        // Any other error, such as internal server error
                         _ =>
                             new GuildedException(code, errorMessage, response)
                     };

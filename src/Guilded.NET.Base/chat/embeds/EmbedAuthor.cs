@@ -82,7 +82,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="name">The name of the embed author</param>
         /// <param name="iconUrl">The URL to author's icon</param>
         /// <param name="url">The URL that author links</param>
-        /// <exception cref="NullReferenceException"><paramref name="name"/> is null, empty or whitespace</exception>
+        /// <exception cref="NullReferenceException"><paramref name="name"/> is <see langword="null"/>, empty or whitespace</exception>
         public EmbedAuthor(string name, Uri iconUrl = null, Uri url = null)
         {
             if (string.IsNullOrWhiteSpace(name))

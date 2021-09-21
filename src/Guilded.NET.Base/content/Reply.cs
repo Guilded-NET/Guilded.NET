@@ -22,13 +22,6 @@
 //         {
 //             get; set;
 //         }
-//         /// <summary>
-//         /// The content of the reply.
-//         /// </summary>
-//         /// <remarks>
-//         /// Whole message content of this reply. This is only null if it's a profile post reply.
-//         /// </remarks>
-//         /// <value>Reply message?</value>
 //         public MessageContent Message
 //         {
 //             get; set;

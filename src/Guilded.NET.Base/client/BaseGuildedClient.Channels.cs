@@ -7,12 +7,6 @@ namespace Guilded.NET.Base
     using Chat;
     using Content;
     using Permissions;
-    /// <summary>
-    /// A base for Guilded client.
-    /// </summary>
-    /// <remarks>
-    /// A base type for all Guilded.NET client containing WebSocket and REST things, as well as abstract methods to be overriden.
-    /// </remarks>
     public abstract partial class BaseGuildedClient
     {
         // #region Webhook
@@ -190,7 +184,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -211,7 +205,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -234,7 +228,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -255,7 +249,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
@@ -356,7 +350,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -378,7 +372,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -402,7 +396,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -424,7 +418,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
         /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is null</exception>
+        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
@@ -939,80 +933,16 @@ namespace Guilded.NET.Base
         #endregion
 
         /*
-        /// <summary>
-        /// Gets list items in a given channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel to get list items from</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <returns>List of list items</returns>
         Task<IList<ListItem>> GetListItemsAsync(Guid channelId);
-        /// <summary>
-        /// Edits a list item.
-        /// </summary>
-        /// <remarks>
-        /// Changes the content or the note of the given list. To only edit content, keep note null. To only edit note, keep content null.
-        /// </remarks>
-        /// <example>
-        /// Example of editing note:
-        /// <code language="csharp">
-        /// EditListItemAsync(channelId, itemId, note: MessageContent.Generate("We will have to either use library X or library Y."));
-        /// </code>
-        /// Example of editing content:
-        /// <code language="csharp">
-        /// EditListItemAsync(channelId, itemId, content: MessageContent.Generate("Create X in Y"));
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the channel where list item is</param>
-        /// <param name="itemId">List item to edit</param>
-        /// <param name="content">New list item content/message/title(null if you only need to edit a note)</param>
-        /// <param name="note">New list item note(null if you only need to edit content)</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         Task EditListItemAsync(Guid channelId, Guid itemId, MessageContent content, MessageContent note);
-        /// <summary>
-        /// Deletes a list item.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <param name="itemId">The identifier of the item</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         Task DeleteListItemAsync(Guid channelId, Guid itemId);
         #endregion*/
 
         #region Content channels
-        /*/// <summary>
-        /// Gets all comments in a given document or media.
-        /// </summary>
-        /// <param name="contentId">The identifier of content</param>
-        /// <param name="type">Type of the channel</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <returns>List of content replies</returns>
+        /*
         Task<IList<ContentReply>> GetContentRepliesAsync(string contentId, ChannelType type);
-        /// <summary>
-        /// Creates a reply to a document, media, event or announcement.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team where the content is</param>
-        /// <param name="channelId">The identifier of the channel where the content is</param>
-        /// <param name="contentId">The identifier of the content reply is in</param>
-        /// <param name="type">Type of the channel this reply is in</param>
-        /// <param name="message">New message content to replace with</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         Task CreateContentReplyAsync(GId teamId, Guid channelId, string contentId, ChannelType type, MessageContent message);
-        /// <summary>
-        /// Deletes a document or a media reply.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team</param>
-        /// <param name="contentId">The identifier of the content</param>
-        /// <param name="replyId">The identifier of the reply to delete</param>
-        /// <param name="type">Channel's type</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         Task DeleteContentReplyAsync(GId teamId, string contentId, uint replyId, ChannelType type);
-        /// <summary>
-        /// Edits content reply's message.
-        /// </summary>
-        /// <param name="contentId">The identifier of the content reply is in</param>
-        /// <param name="replyId">The identifier of the reply to edit</param>
-        /// <param name="type">Type of the channel this reply is in</param>
-        /// <param name="message">New message content to replace with</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
         Task EditContentReplyAsync(string contentId, uint replyId, ChannelType type, MessageContent message);*/
         /// <summary>
         /// Adds a reaction to a content post.

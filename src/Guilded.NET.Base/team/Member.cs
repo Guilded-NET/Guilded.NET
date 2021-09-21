@@ -73,10 +73,6 @@
 //         {
 //             get; set;
 //         }
-//         /// <summary>
-//         /// A membership of this member. NOTE: If this value isn't null or admin, please contact Guilded.NET developer about this.
-//         /// </summary>
-//         /// <value>["admin", ???]?</value>
 //         [JsonProperty("membershipRole")]
 //         public string MembershipRole
 //         {
