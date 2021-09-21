@@ -14,11 +14,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Markdown text:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// MesssageContent content = new MessageContent("> Quote\n\nParagraph");
     /// </code>
     /// <para>Simple nodes:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// MessageContent content = new MessageContent
     /// (
     ///     new BlockQuote(msg),
@@ -26,7 +26,7 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// <para>Building message content:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// MessageContent content = new MessageContent()
     ///     .AddParagraph("Hello there.")
     ///     .AddParagraph("...");

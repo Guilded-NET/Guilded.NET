@@ -10,6 +10,8 @@ namespace Guilded.NET.Base
     /// </summary>
     /// <remarks>
     /// <para>The identifier of various Guilded objects.</para>
+    /// <para>Guilded identifier is 8 characters in length and
+    /// consists of digits, uppercase letters and lowercase letters.</para>
     /// <para>This can be found in:</para>
     /// <list type="bullet">
     ///     <item>
@@ -31,14 +33,12 @@ namespace Guilded.NET.Base
     /// </remarks>
     /// <example>
     /// <para>The list of random Guilded identifiers:</para>
-    /// <code lang="none">
+    /// <code language="none">
     /// R40Mp0Wd
     /// Ann6LewA
     /// Abcdefg7
     /// UasJs5I
     /// QiW0kBN
-    /// aaaaaaa
-    /// 0000000
     /// Ga9aSd3
     /// </code>
     /// </example>
@@ -68,7 +68,7 @@ namespace Guilded.NET.Base
 
         #region Overrides
         /// <summary>
-        /// Returns string representation of <see cref="GId"/> instance.
+        /// Returns the string representation of this <see cref="GId"/> instance.
         /// </summary>
         /// <returns><see cref="GId"/> as string</returns>
         public override string ToString() =>
@@ -80,45 +80,45 @@ namespace Guilded.NET.Base
         public override int GetHashCode() =>
             HashCode.Combine(_, 2);
         /// <summary>
-        /// Returns whether this and <paramref name="other"/> are equal to each other.
+        /// Returns whether this <see cref="GId"/> instance and <paramref name="other"/> are equal.
         /// </summary>
         /// <param name="other">Another identifier to compare</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Both are equal</returns>
         public bool Equals(GId other) =>
             other._ == _;
         /// <summary>
-        /// Returns whether this and <paramref name="obj"/> are equal to each other.
+        /// Returns whether this <see cref="GId"/> instance and <paramref name="obj"/> are equal.
         /// </summary>
         /// <param name="obj">Another object to compare</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Both are equal</returns>
         public override bool Equals(object obj) =>
             obj is GId id && Equals(id);
         #endregion
 
         #region Operators
         /// <summary>
-        /// Checks if given <see cref="GId"/>s are the same.
+        /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are equal.
         /// </summary>
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Both are equal</returns>
         public static bool operator ==(GId id0, GId id1) =>
             id0._ == id1._;
         /// <summary>
-        /// Checks if given <see cref="GId"/>s are the same.
+        /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are not equal.
         /// </summary>
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
-        /// <returns>Aren't equal</returns>
+        /// <returns>Both aren't equal</returns>
         public static bool operator !=(GId id0, GId id1) =>
             !(id0 == id1);
         #endregion
 
         #region Static methods
         /// <summary>
-        /// Checks if given string is in correct format.
+        /// Checks if <paramref name="str"/> is in the correct <see cref="FormId"/> format.
         /// </summary>
-        /// <param name="str">The raw string to check</param>
+        /// <param name="str">A raw string to check</param>
         /// <returns>Correct formatting</returns>
         public static bool Check(string str) =>
             str?.Length == 8 && str.All(ch => allowedChars.Contains(ch));

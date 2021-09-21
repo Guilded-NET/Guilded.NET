@@ -13,7 +13,7 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Chat embed with 2 embeds:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// ChatEmbed embed = new ChatEmbed
     /// (
     ///     new Embed("Title", "Description", "Footer"),

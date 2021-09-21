@@ -24,15 +24,19 @@ namespace Guilded.NET
         /// An event when the client is prepared.
         /// </summary>
         /// <remarks>
-        /// An event when the client has added all of the finishing touches.
+        /// <para>An event that occurs once Guilded client has added finishing touches.</para>
+        /// <para>These things need to be completed in order for it to occur:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term>Connected</term>
+        ///         <description>Guilded client must be connected.</description>
+        ///     </item>
+        /// </list>
+        /// <para>You can use this as a signal that ensures all client functions are properly
+        /// working and can be used.</para>
         /// </remarks>
         protected EventHandler PreparedEvent;
-        /// <summary>
-        /// An event when the client is prepared.
-        /// </summary>
-        /// <remarks>
-        /// An event when the client has added all of the finishing touches.
-        /// </remarks>
+        /// <inheritdoc cref="PreparedEvent"/>
         public event EventHandler Prepared
         {
             add => PreparedEvent += value;
@@ -62,15 +66,17 @@ namespace Guilded.NET
                 new HexColorConverter()
             };
             GuildedSerializer = JsonSerializer.Create(SerializerSettings);
-            WebsocketMessage += HandleSocketMessages;
+            WebsocketMessage.Subscribe(HandleSocketMessages);
             #region Event list
             // Dictionary of supported events, so we wouldn't need to manually do it
-            GuildedEvents = new Dictionary<string, IEventInfo<object>>
+            GuildedEvents = new Dictionary<object, IEventInfo<object>>
             {
                 // Utils
-                { "",                       new EventInfo<WelcomeEvent>(typeof(WelcomeEvent)) },
+                { 1,                        new EventInfo<WelcomeEvent>(typeof(WelcomeEvent)) },
+                { 2,                        new EventInfo<ResumeEvent>(typeof(ResumeEvent)) },
                 // Team events
                 { "TeamXpAdded",            new EventInfo<XpAddedEvent>(typeof(XpAddedEvent)) },
+                { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>(typeof(RolesUpdatedEvent)) },
                 // Chat messages
                 { "ChatMessageCreated",     new EventInfo<MessageCreatedEvent>(typeof(MessageCreatedEvent)) },
                 { "ChatMessageUpdated",     new EventInfo<MessageUpdatedEvent>(typeof(MessageUpdatedEvent)) },

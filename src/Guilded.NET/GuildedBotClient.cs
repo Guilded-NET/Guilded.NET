@@ -16,7 +16,7 @@ namespace Guilded.NET
     /// <seealso cref="Base.BaseGuildedClient"/>
     /// <seealso cref="ConnectAsync()"/>
     /// <seealso cref="ConnectAsync(string)"/>
-    public partial class GuildedBotClient : AbstractGuildedClient
+    public class GuildedBotClient : AbstractGuildedClient
     {
         /// <summary>
         /// An authentication token used to log into a bot in Guilded.
@@ -24,7 +24,7 @@ namespace Guilded.NET
         /// <value>Token</value>
         protected string AuthToken
         {
-            get; private set;
+            get;
         }
         /// <summary>
         /// Creates a new <see cref="GuildedBotClient"/> instance without authentication token.
@@ -39,7 +39,8 @@ namespace Guilded.NET
         /// </summary>
         /// <remarks>
         /// <para>This creates a new client and only initiates it. It does not connect to Guilded.</para>
-        /// <para>If you want to connect to Guilded, use <see cref="ConnectAsync()"/>.</para>
+        /// <para>If you want to connect, set <see cref="AuthToken"/> and then use <see cref="ConnectAsync()"/>.</para>
+        /// <para>You can also use <see cref="ConnectAsync(string)"/>, which doesn't require <see cref="AuthToken"/> set.</para>
         /// </remarks>
         /// <param name="authToken">Authentication token used to log into the bot in Guilded</param>
         /// <exception cref="ArgumentException">When passed argument <paramref name="authToken"/> is null, empty or whitespace</exception>
@@ -55,7 +56,8 @@ namespace Guilded.NET
         /// Connects to Guilded bot using <paramref name="authToken"/>.
         /// </summary>
         /// <remarks>
-        /// Creates a new connection to Guilded using argument <paramref name="authToken"/>. This does not use <see cref="AuthToken"/>/
+        /// <para>Creates a new connection to Guilded using argument <paramref name="authToken"/>. This does not use <see cref="AuthToken"/>.</para>
+        /// <para>To disconnect from Guilded, use <see cref="AbstractGuildedClient.DisconnectAsync"/></para>
         /// </remarks>
         /// <param name="authToken">Token to be used for authorization</param>
         /// <exception cref="ArgumentException">When passed argument <paramref name="authToken"/> is null, empty or whitespace</exception>
@@ -79,7 +81,8 @@ namespace Guilded.NET
         /// Connects to Guilded using <see cref="AuthToken"/>.
         /// </summary>
         /// <remarks>
-        /// Creates a new connection to Guilded using set property <see cref="AuthToken"/>.
+        /// <para>Creates a new connection to Guilded using set property <see cref="AuthToken"/>.</para>
+        /// <para>To disconnect from Guilded, use <see cref="AbstractGuildedClient.DisconnectAsync"/></para>
         /// </remarks>
         public override Task ConnectAsync() =>
             ConnectAsync(AuthToken);

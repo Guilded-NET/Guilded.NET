@@ -11,12 +11,13 @@ namespace Guilded.NET.Base
     /// </summary>
     /// <remarks>
     /// <para>The form identifier.</para>
-    /// <para>This can only be found in forms and media upload progress tracking.</para>
-    /// <para>This identifier is in form of <c>r-xxxxxxx-xxxxxxx</c> where <c>x</c> is any digit.</para>
+    /// <para>This can only be found in forms(form fields specifically) and media upload progress tracking.</para>
+    /// <para>This identifier is in form of <c>r-xxxxxxx-xxxxxxx</c> where <var>x</var> is any digit.
+    /// It's split into 2 parts, which are 7 characters in length.</para>
     /// </remarks>
     /// <example>
     /// <para>The list of different form identifiers:</para>
-    /// <code lang="none">
+    /// <code language="none">
     /// r-1000000-1000000
     /// r-2849201-1832734
     /// r-7289920-2930323
@@ -54,7 +55,7 @@ namespace Guilded.NET.Base
 
         #region Overrides
         /// <summary>
-        /// Returns string representation of <see cref="FormId"/> instance.
+        /// Returns the string representation of this <see cref="FormId"/> instance.
         /// </summary>
         /// <returns><see cref="FormId"/> as string</returns>
         public override string ToString() =>
@@ -66,43 +67,43 @@ namespace Guilded.NET.Base
         public override int GetHashCode() =>
             HashCode.Combine(_, 1);
         /// <summary>
-        /// Returns whether this and <paramref name="other"/> are equal to each other.
+        /// Returns whether this <see cref="FormId"/> instance and <paramref name="other"/> are equal.
         /// </summary>
         /// <param name="other">Another identifier to compare</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Both are equal</returns>
         public bool Equals(FormId other) =>
             other == this;
         /// <summary>
-        /// Returns whether this and <paramref name="obj"/> are equal to each other.
+        /// Returns whether this <see cref="FormId"/> instance and <paramref name="obj"/> are equal.
         /// </summary>
         /// <param name="obj">Another object to compare</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Both are equal</returns>
         public override bool Equals(object obj) =>
             obj is FormId id && Equals(id);
         #endregion
 
         #region Operators
         /// <summary>
-        /// Checks if given <see cref="FormId"/>s are the same.
+        /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are equal.
         /// </summary>
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Both are equal</returns>
         public static bool operator ==(FormId id0, FormId id1) =>
             id0._ == id1._;
         /// <summary>
-        /// Checks if given <see cref="FormId"/>s are the same.
+        /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are not equal.
         /// </summary>
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
-        /// <returns>Aren't equal</returns>
+        /// <returns>Both aren't equal</returns>
         public static bool operator !=(FormId id0, FormId id1) =>
             !(id0 == id1);
         #endregion
 
         #region Static methods
         /// <summary>
-        /// Checks if given string is in the correct <see cref="FormId"/> format.
+        /// Checks if <paramref name="str"/> is in the correct <see cref="FormId"/> format.
         /// </summary>
         /// <param name="str">A raw string to check</param>
         /// <returns>Correct formatting</returns>
@@ -111,7 +112,7 @@ namespace Guilded.NET.Base
             // Make sure it's in the format of r-1000000-1000000
 
             // (r)-1000000-1000000
-            if (!str.StartsWith('r') || string.IsNullOrWhiteSpace(str))
+            if (!str.StartsWith("r-") || string.IsNullOrWhiteSpace(str))
                 return false;
             // Split by - and leave out 'r'
             // r-(1000000-1000000)
@@ -123,7 +124,7 @@ namespace Guilded.NET.Base
         /// Checks if <paramref name="part"/> is in 7 digits.
         /// </summary>
         /// <param name="part">The part of the <see cref="FormId"/> to check</param>
-        /// <returns>Is <see cref="FormId"/> part</returns>
+        /// <returns><paramref name="part"/> is in correct format</returns>
         private static bool IsFormIdPart(string part) =>
             part.Length == partLength && part.All(ch => partChars.Contains(ch));
         #endregion

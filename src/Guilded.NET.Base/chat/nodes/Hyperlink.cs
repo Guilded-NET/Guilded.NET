@@ -12,7 +12,7 @@ namespace Guilded.NET.Base.Chat
     /// Holds a text and hyperlinks URL in the text.
     /// </remarks>
     /// <example>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Hyperlink link = new Hyperlink("https://guilded.gg/", "Guilded's website");
     /// </code>
     /// </example>

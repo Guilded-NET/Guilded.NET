@@ -8,6 +8,8 @@ using Websocket.Client.Exceptions;
 
 namespace Guilded.NET.Base
 {
+    using System.Reactive.Linq;
+    using System.Reactive.Subjects;
     using Events;
 
     /// <summary>
@@ -18,7 +20,7 @@ namespace Guilded.NET.Base
     /// </remarks>
     public abstract partial class BaseGuildedClient
     {
-        internal const int welcome_opc = 1, resume_opc = 2;
+        internal const int welcome_opcode = 1, error_opcode = 8;
         /// <summary>
         /// The default timespan between each interval in milliseconds.
         /// </summary>
@@ -49,18 +51,14 @@ namespace Guilded.NET.Base
         /// <remarks>
         /// An event when WebSocket receives any kind of message from Guilded.
         /// </remarks>
-        private event EventHandler<GuildedEvent> WebsocketMessageEvent;
+        private readonly Subject<GuildedEvent> OnWebsocketMessage;
         /// <summary>
         /// An event when WebSocket receives a message.
         /// </summary>
         /// <remarks>
         /// An event when WebSocket receives any kind of message from Guilded.
         /// </remarks>
-        protected event EventHandler<GuildedEvent> WebsocketMessage
-        {
-            add => WebsocketMessageEvent += value;
-            remove => WebsocketMessageEvent -= value;
-        }
+        protected IObservable<GuildedEvent> WebsocketMessage => OnWebsocketMessage.AsObservable();
         /// <summary>
         /// Initializes a new WebSocket client.
         /// </summary>
@@ -72,6 +70,8 @@ namespace Guilded.NET.Base
         /// <param name="websocketUrl">The URL to which WebSocket will connect</param>
         /// <exception cref="WebsocketException">Either <paramref name="lastMessageId"/> or <see cref="AdditionalHeaders"/> has a bad formatting</exception>
         /// <returns>Created websocket</returns>
+        /// <seealso cref="ResumeEvent"/>
+        /// <seealso cref="InitWebsocket(GuildedEvent)"/>
         protected virtual async Task<WebsocketClient> InitWebsocket(string lastMessageId = null, Uri websocketUrl = null)
         {
             Func<ClientWebSocket> factory = new Func<ClientWebSocket>(() =>
@@ -112,6 +112,8 @@ namespace Guilded.NET.Base
         /// <param name="event">The last event before WebSocket disconnection</param>
         /// <exception cref="WebsocketException">Either <paramref name="event"/>'s identifier or <see cref="AdditionalHeaders"/> has a bad formatting</exception>
         /// <returns>Created websocket</returns>
+        /// <seealso cref="ResumeEvent"/>
+        /// <seealso cref="InitWebsocket(string, Uri)"/>
         protected virtual async Task<WebsocketClient> InitWebsocket(GuildedEvent @event) =>
             await InitWebsocket(@event.MessageId).ConfigureAwait(false);
         /// <summary>
@@ -119,7 +121,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>An event handler method that gets called once any message is received from a WebSocket.</para>
-        /// <para>You can override it if you don't like how Guilded.NET handles events or need any additional changes/features to it.</para>
+        /// <para>Override this if you don't like how Guilded.NET handles events or need any additional changes/features to it.</para>
         /// </remarks>
         /// <param name="msg">Websocket message</param>
         protected virtual void WebsocketMessageReceived(ResponseMessage msg)
@@ -128,17 +130,25 @@ namespace Guilded.NET.Base
             {
                 GuildedEvent @event = Deserialize<GuildedEvent>(msg.Text);
                 // Check for a welcome message to change hearbeat interval
-                if (@event is { EventName: null, Opcode: welcome_opc })
+                if (@event.Opcode == welcome_opcode)
+                {
                     HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
-
-                WebsocketMessageEvent?.Invoke(this, @event);
+                }
+                else if(@event.Opcode == error_opcode)
+                {
+                    OnWebsocketMessage.OnError(
+                        new GuildedWebsocketException(msg, @event.RawData.Value<string>("message"))
+                    );
+                    return;
+                }
+                OnWebsocketMessage.OnNext(@event);
             }
         }
         /// <summary>
         /// Sends a heartbeat.
         /// </summary>
         /// <remarks>
-        /// Sends a heartbeat through all WebSocket clients in <see cref="Websockets"/> dictionary.
+        /// <para>Sends a heartbeat through all WebSocket clients in <see cref="Websockets"/> dictionary.</para>
         /// </remarks>
         /// <param name="sender">Who invoked the event</param>
         /// <param name="args">Arguments of the timer's elapsed event</param>

@@ -11,7 +11,7 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Using code line in code container:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// CodeLine[] lines = new CodeLine[]
     /// {
     ///     new CodeLine("using System;"),

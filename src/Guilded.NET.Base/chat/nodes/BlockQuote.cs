@@ -8,11 +8,11 @@ namespace Guilded.NET.Base.Chat
     /// </summary>
     /// <example>
     /// <para>Quote block with strings:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// BlockQuote quote = new BlockQuote("Quote line #1", "Quote line #2");
     /// </code>
     /// <para>Quote block with quote lines:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// BlockQuote quote = new BlockQuote
     /// (
     ///     new LineQuote("Quote line #1"),

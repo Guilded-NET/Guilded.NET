@@ -17,7 +17,7 @@ namespace Guilded.NET
         /// Adds a role to the given user.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.AddRoleAsync(message.CreatedBy, 100000000);
         /// </code>
         /// </example>
@@ -33,7 +33,7 @@ namespace Guilded.NET
         /// Removes a role from the given user.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.RemoveRoleAsync(message.CreatedBy, 100000000);
         /// </code>
         /// </example>
@@ -49,7 +49,7 @@ namespace Guilded.NET
         /// Adds XP to the given user.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.AddXpAsync(message.CreatedBy, 10);
         /// </code>
         /// </example>
@@ -78,7 +78,7 @@ namespace Guilded.NET
         /// Attaches amount of XP required to a role.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.AttachRoleLevelAsync(1000000000, 2048);
         /// </code>
         /// </example>
@@ -100,7 +100,7 @@ namespace Guilded.NET
         /// Adds a member to the group.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.AddMembershipAsync(group.Id, message.CreatedBy);
         /// </code>
         /// </example>
@@ -116,7 +116,7 @@ namespace Guilded.NET
         /// Removes a member from the group.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.RemoveMembershipAsync(group.Id, message.CreatedBy);
         /// </code>
         /// </example>

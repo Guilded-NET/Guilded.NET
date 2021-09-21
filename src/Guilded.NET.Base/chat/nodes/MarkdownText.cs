@@ -12,11 +12,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>With lines(requires at least 2 strings):</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// MarkdownText markdown = new MarkdownText("> Quote block", "", "Paragraph here");
     /// </code>
     /// <para>Without lines:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// MarkdownText markdown = new MarkdownText("> Quote Block\n\nParagraph here");
     /// </code>
     /// </example>

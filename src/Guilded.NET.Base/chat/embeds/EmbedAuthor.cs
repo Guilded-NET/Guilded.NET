@@ -13,7 +13,7 @@ namespace Guilded.NET.Base.Embeds
     /// </remarks>
     /// <example>
     /// <para>An example of using <see cref="EmbedAuthor"/> to display content owner:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// // ... Getting information about a new post...
     /// EmbedAuthor author = new EmbedAuthor(post.Author.Username, post.Author.Avatar, post.Url);
     /// Embed embed = new Embed

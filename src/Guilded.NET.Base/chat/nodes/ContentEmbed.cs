@@ -11,7 +11,7 @@ namespace Guilded.NET.Base.Chat
     /// A normal embed for links.
     /// </remarks>
     /// <example>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// ContentEmbed embed = new ContentEmbed("https://guilded.gg/");
     /// </code>
     /// </example>

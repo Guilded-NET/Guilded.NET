@@ -21,6 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
     <!-- JSON related dependencies-->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
@@ -47,8 +48,9 @@
     <!-- Make sure Guilded.NET.Base assembly types won't be thought as Microsoft's types -->
     <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.Base.link</DefaultDocumentationLinksOutputFile>
     <DefaultDocumentationExternLinksFiles>../Documentation/*.link</DefaultDocumentationExternLinksFiles>
-    <!-- Don't add .md -->
+    <!-- Text -->
     <DefaultDocumentationRemoveFileExtensionFromLinks>true</DefaultDocumentationRemoveFileExtensionFromLinks>
+    <DefaultDocumentationIgnoreLineBreak>true</DefaultDocumentationIgnoreLineBreak>
   </PropertyGroup>
     
 

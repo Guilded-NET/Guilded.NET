@@ -13,11 +13,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>Big heading</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Heading heading = new Heading("Title here");
     /// </code>
     /// <para>Small heading</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Heading heading = new Heading("Sub-title here", false);
     /// </code>
     /// </example>

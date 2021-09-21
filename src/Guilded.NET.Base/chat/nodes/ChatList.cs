@@ -12,11 +12,11 @@ namespace Guilded.NET.Base.Chat
     /// </remarks>
     /// <example>
     /// <para>List from strings:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// ChatList list = new ChatList("List item #1", "List item #2", "List item #3");
     /// </code>
     /// <para>List with other lists and list items:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// ChatList list = new ChatList
     /// (
     ///     new ChatListItem("List item #1"),
@@ -25,7 +25,7 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// <para>Numerated list:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// ChatList list = new ChatList(new List&lt;string&gt; { "List item #1", "List item #2" }, true);
     /// </code>
     /// </example>

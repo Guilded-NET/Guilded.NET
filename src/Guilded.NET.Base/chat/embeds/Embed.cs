@@ -40,7 +40,7 @@ namespace Guilded.NET.Base.Embeds
     ///     </item>
     /// </list>
     /// <para>This example showcases mixing object initializer along with constructor parameters:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Embed embed = new Embed(thumbnail: imageUrl)
     /// {
     ///     Title = "Title here",
@@ -48,7 +48,7 @@ namespace Guilded.NET.Base.Embeds
     /// };
     /// </code>
     /// <para>The example below showcases using fluent interface methods:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Embed embed = new Embed()
     ///     .SetTitle("Title here")
     ///     .SetDescription("Description here")
@@ -700,7 +700,7 @@ namespace Guilded.NET.Base.Embeds
         /// Sets <see cref="Color"/> as <paramref name="color"/> of <see cref="Embed"/> instance.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// embed.SetColor(Color.Red);
         /// </code>
         /// </example>
@@ -719,7 +719,7 @@ namespace Guilded.NET.Base.Embeds
         /// with argument <paramref name="argb"/> and sets it to <see cref="Color"/>.</para>
         /// </remarks>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// embed.SetColor(0xFFFFFF);
         /// </code>
         /// </example>

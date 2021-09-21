@@ -19,144 +19,61 @@ namespace Guilded.NET
         /// <para>Use this if you need to support events that Guilded.NET does not.</para>
         /// </remarks>
         /// <value>Dictionary of events</value>
-        protected Dictionary<string, IEventInfo<object>> GuildedEvents
+        protected Dictionary<object, IEventInfo<object>> GuildedEvents
         {
             get; set;
         }
-        private Dictionary<int, IDisposable> Disposables
-        {
-            get; set;
-        } = new Dictionary<int, IDisposable>();
 
-        /// <summary>
-        /// An event when WebSocket receives a welcome.
-        /// </summary>
-        /// <remarks>
-        /// This event is received once WebSocket is initiated and is confirmed on Guilded's side.
-        /// </remarks>
-        public IObservable<WelcomeEvent> OnWelcome => ((IEventInfo<WelcomeEvent>)GuildedEvents[""]).Observable;
-        /// <summary>
-        /// An event when WebSocket receives a welcome.
-        /// </summary>
-        /// <remarks>
-        /// This event is received once WebSocket is initiated and is confirmed on Guilded's side.
-        /// </remarks>
-        public event Action<WelcomeEvent> Welcome
-        {
-            add => Disposables.Add(value.GetHashCode(), OnWelcome.Subscribe(value));
-            remove
-            {
-                Disposables[value.GetHashCode()].Dispose();
-                Disposables.Remove(value.GetHashCode());
-            }
-        }
+        #region WebSocket
+        /// <inheritdoc cref="WelcomeEvent"/>
+        /// <seealso cref="Resume"/>
+        public IObservable<WelcomeEvent> Welcome => ((IEventInfo<WelcomeEvent>)GuildedEvents[1]).Observable;
+
+        /// <inheritdoc cref="ResumeEvent"/>
+        /// <seealso cref="Welcome"/>
+        public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[2]).Observable;
+        #endregion
 
         #region Teams
-        /// <summary>
-        /// When a list of users get certain amount of XP.
-        /// </summary>
-        /// <remarks>
-        /// This event is received once a given list of users get certain amount of XP(between -1000 and 1000).
-        /// </remarks>
-        public IObservable<XpAddedEvent> OnXpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["TeamXpAdded"]).Observable;
-        /// <summary>
-        /// When a list of users get certain amount of XP.
-        /// </summary>
-        /// <remarks>
-        /// This event is received once a given list of users get certain amount of XP(between -1000 and 1000).
-        /// </remarks>
-        public event Action<XpAddedEvent> XpAdded
-        {
-            add => Disposables.Add(value.GetHashCode(), OnXpAdded.Subscribe(value));
-            remove
-            {
-                Disposables[value.GetHashCode()].Dispose();
-                Disposables.Remove(value.GetHashCode());
-            }
-        }
+        /// <inheritdoc cref="XpAddedEvent"/>
+        /// <seealso cref="RolesUpdated"/>
+        public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["TeamXpAdded"]).Observable;
+
+        /// <inheritdoc cref="RolesUpdatedEvent"/>
+        /// <seealso cref="XpAdded"/>
+        public IObservable<RolesUpdatedEvent> RolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["teamRolesUpdated"]).Observable;
         #endregion
 
         #region Chat channels
-        /// <summary>
-        /// When a message gets posted in the chat.
-        /// </summary>
-        /// <remarks>
-        /// This event is received when any type of message gets sent/created, including system messages.
-        /// </remarks>
-        public IObservable<MessageCreatedEvent> OnMessageCreated => ((IEventInfo<MessageCreatedEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
-        /// <summary>
-        /// When a message gets posted in the chat.
-        /// </summary>
-        /// <remarks>
-        /// This event is received when any type of message gets sent/created, including system messages.
-        /// </remarks>
-        public event Action<MessageCreatedEvent> MessageCreated
-        {
-            add => Disposables.Add(value.GetHashCode(), OnMessageCreated.Subscribe(value));
-            remove
-            {
-                Disposables[value.GetHashCode()].Dispose();
-                Disposables.Remove(value.GetHashCode());
-            }
-        }
+        /// <inheritdoc cref="MessageCreatedEvent"/>
+        /// <seealso cref="MessageUpdated"/>
+        /// <seealso cref="MessageDeleted"/>
+        public IObservable<MessageCreatedEvent> MessageCreated => ((IEventInfo<MessageCreatedEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
 
-        /// <summary>
-        /// When a message gets updated/edited in the chat.
-        /// </summary>
-        /// <remarks>
-        /// This event is received when a text message gets updated/edited.
-        /// </remarks>
-        public IObservable<MessageUpdatedEvent> OnMessageUpdated => ((IEventInfo<MessageUpdatedEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
-        /// <summary>
-        /// When a message gets updated/edited in the chat.
-        /// </summary>
-        /// <remarks>
-        /// This event is received when a text message gets updated/edited.
-        /// </remarks>
-        public event Action<MessageUpdatedEvent> MessageUpdated
-        {
-            add => Disposables.Add(value.GetHashCode(), OnMessageUpdated.Subscribe(value));
-            remove
-            {
-                Disposables[value.GetHashCode()].Dispose();
-                Disposables.Remove(value.GetHashCode());
-            }
-        }
-        /// <summary>
-        /// When a message gets removed/deleted in the chat.
-        /// </summary>
-        /// <remarks>
-        /// This event is received when any type of message gets deleted, including system messages.
-        /// </remarks>
-        public IObservable<MessageDeletedEvent> OnMessageDeleted => ((IEventInfo<MessageDeletedEvent>)GuildedEvents["ChatMessageDeleted"]).Observable;
-        /// <summary>
-        /// When a message gets removed/deleted in the chat.
-        /// </summary>
-        /// <remarks>
-        /// This event is received when any type of message gets deleted, including system messages.
-        /// </remarks>
-        public event Action<MessageDeletedEvent> MessageDeleted
-        {
-            add => Disposables.Add(value.GetHashCode(), OnMessageDeleted.Subscribe(value));
-            remove
-            {
-                Disposables[value.GetHashCode()].Dispose();
-                Disposables.Remove(value.GetHashCode());
-            }
-        }
+        /// <inheritdoc cref="MessageUpdatedEvent"/>
+        /// <seealso cref="MessageCreated"/>
+        /// <seealso cref="MessageDeleted"/>
+        public IObservable<MessageUpdatedEvent> MessageUpdated => ((IEventInfo<MessageUpdatedEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
+        /// <inheritdoc cref="MessageDeletedEvent"/>
+        /// <seealso cref="MessageUpdated"/>
+        /// <seealso cref="MessageUpdated"/>
+        public IObservable<MessageDeletedEvent> MessageDeleted => ((IEventInfo<MessageDeletedEvent>)GuildedEvents["ChatMessageDeleted"]).Observable;
         #endregion
 
         #region Handling
         /// <summary>
         /// When the socket message event is invoked.
         /// </summary>
-        /// <param name="_">The object that invoked the event</param>
+        /// <remarks>
+        /// <para>Receives and handles received <see cref="GuildedEvent"/> messages.</para>
+        /// <para>This relies on <see cref="GuildedEvents"/> dictionary.</para>
+        /// </remarks>
         /// <param name="message">A message received from a WebSocket</param>
-        protected void HandleSocketMessages(object _, GuildedEvent message)
+        protected void HandleSocketMessages(GuildedEvent message)
         {
             if (message is null) return;
 
-            string eventName = message?.EventName ?? "";
+            object eventName = message.EventName ?? (object)message.Opcode;
             // Checks if this event is supported by Guilded.NET
             if (GuildedEvents.ContainsKey(eventName))
             {

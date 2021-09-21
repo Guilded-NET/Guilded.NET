@@ -169,7 +169,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync(new MessageContent("Edited message"));
         /// </code>
         /// </example>
@@ -187,7 +187,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync(new MessageDocument("Edited message"));
         /// </code>
         /// </example>
@@ -205,7 +205,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync(new List&lt;Node&gt; { new Paragraph("Edited message") });
         /// </code>
         /// </example>
@@ -223,7 +223,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync(new Paragraph("Edited message"));
         /// </code>
         /// </example>
@@ -241,7 +241,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync("Edited message");
         /// </code>
         /// </example>
@@ -261,7 +261,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync("Result: {0}", result);
         /// </code>
         /// </example>
@@ -282,7 +282,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync(cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -304,7 +304,7 @@ namespace Guilded.NET.Base.Chat
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.UpdateMessageAsync(result);
         /// </code>
         /// </example>
@@ -324,7 +324,7 @@ namespace Guilded.NET.Base.Chat
         /// Deletes a specified message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.DeleteMessageAsync();
         /// </code>
         /// </example>
@@ -339,7 +339,7 @@ namespace Guilded.NET.Base.Chat
         /// Adds a reaction to a message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.AddReactionAsync(90002569);
         /// </code>
         /// </example>
@@ -355,7 +355,7 @@ namespace Guilded.NET.Base.Chat
         /// Removes a reaction from a message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await message.RemoveReactionAsync(90002569);
         /// </code>
         /// </example>

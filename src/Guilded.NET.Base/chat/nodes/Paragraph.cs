@@ -9,11 +9,11 @@ namespace Guilded.NET.Base.Chat
     /// </summary>
     /// <example>
     /// <para>Fully text-based paragraph:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Paragraph para = new Paragraph("Hello!");
     /// </code>
     /// <para>Paragraph with mentions:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Paragraph para = new Paragraph
     /// (
     ///     new TextContainer("Hello, "),
@@ -22,11 +22,11 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// <para>Simple text with formatting:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Paragraph para = new Paragraph("DO NOT BREAK RULES", MarkType.Bold, MarkType.Underline);
     /// </code>
     /// <para>Escaping given arguments:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Paragraph para = new Paragraph
     /// (
     ///     new Leaf("Invalid argument "),
@@ -37,7 +37,7 @@ namespace Guilded.NET.Base.Chat
     /// );
     /// </code>
     /// <para>Building paragraph:</para>
-    /// <code lang="csharp">
+    /// <code language="csharp">
     /// Paragraph para = new Paragraph()
     ///     .AddText("Hello there, ")
     ///     .AddMention(user)

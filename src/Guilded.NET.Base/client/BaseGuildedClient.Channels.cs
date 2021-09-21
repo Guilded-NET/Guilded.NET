@@ -60,7 +60,7 @@ namespace Guilded.NET.Base
         /// Gets messages with a specific limit.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// IList&lt;Message&gt; msg = await client.GetMessagesAsync(message.ChannelId);
         /// </code>
         /// </example>
@@ -76,7 +76,7 @@ namespace Guilded.NET.Base
         /// Gets a message in a specific channel.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// Message msg = await client.GetMessageAsync(channelId, arg);
         /// </code>
         /// </example>
@@ -92,7 +92,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, new MessageContent
         /// (
         ///     new Leaf("Welcome to "),
@@ -115,7 +115,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, new MessageDocument
         /// (
         ///     new Leaf("Welcome to "),
@@ -139,7 +139,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, new List&lt;Node&gt;
         /// {
         ///     new BlockQuote("Hello"),
@@ -162,7 +162,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, new BlockQuote("Hello"), new Paragraph("Hey there!"));
         /// </code>
         /// </example>
@@ -181,7 +181,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, "Hello!");
         /// </code>
         /// </example>
@@ -201,7 +201,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, "Results: {0}", result);
         /// </code>
         /// </example>
@@ -223,7 +223,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -246,7 +246,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateMessageAsync(channelId, result);
         /// </code>
         /// </example>
@@ -267,7 +267,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, new MessageContent("Edited message"));
         /// </code>
         /// </example>
@@ -286,7 +286,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, new MessageDocument("Edited message"));
         /// </code>
         /// </example>
@@ -306,7 +306,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, new List&lt;Node&gt; { new Paragraph("Edited message") });
         /// </code>
         /// </example>
@@ -326,7 +326,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, new Paragraph("Edited message"));
         /// </code>
         /// </example>
@@ -346,7 +346,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, "Edited message");
         /// </code>
         /// </example>
@@ -367,7 +367,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, "Result: {0}", result);
         /// </code>
         /// </example>
@@ -390,7 +390,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, cultureInfo, "Current time: {0}", DateTime.Now);
         /// </code>
         /// </example>
@@ -414,7 +414,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.UpdateMessageAsync(channelId, messageId, result);
         /// </code>
         /// </example>
@@ -436,7 +436,7 @@ namespace Guilded.NET.Base
         /// Deletes a specified message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.DeleteMessageAsync(channelId, messageId);
         /// </code>
         /// </example>
@@ -452,7 +452,7 @@ namespace Guilded.NET.Base
         /// Adds a reaction to a message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.AddReactionAsync(channelId, messageId, 90002569);
         /// </code>
         /// </example>
@@ -469,7 +469,7 @@ namespace Guilded.NET.Base
         /// Removes a reaction from a message.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.RemoveReactionAsync(channelId, messageId, 90002569);
         /// </code>
         /// </example>
@@ -508,7 +508,7 @@ namespace Guilded.NET.Base
         /// Creates a forum post in a forum channel.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateForumThreadAsync(channelId, "Daily post #1", new MessageContent
         /// (
         ///     new BlockQuote("..."),
@@ -530,7 +530,7 @@ namespace Guilded.NET.Base
         /// Creates a forum post in a forum channel.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateForumThreadAsync(channelId, "Daily post #1", "The first daily post ever!");
         /// </code>
         /// </example>
@@ -548,7 +548,7 @@ namespace Guilded.NET.Base
         /// Creates a forum post in a forum channel.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateForumThreadAsync(channelId, $"Daily post #{index}", "The current index of the post: {0}.", index);
         /// </code>
         /// </example>
@@ -568,7 +568,7 @@ namespace Guilded.NET.Base
         /// Creates a forum post in a forum channel.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateForumThreadAsync(channelId, "Daily post #1", cultureInfo, "The current date: {0}.", DateTime.Now);
         /// </code>
         /// </example>
@@ -589,7 +589,7 @@ namespace Guilded.NET.Base
         /// Creates a forum post in a forum channel.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateForumThreadAsync(channelId, "Results", result);
         /// </code>
         /// </example>
@@ -892,11 +892,11 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <example>
         /// <para>Without a note:</para>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateListItemAsync(channelId, new MessageContent("Reach {0} servers", count));
         /// </code>
         /// <para>With a note:</para>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateListItemAsync(channelId,
         ///     new MessageContent("Reach {0} servers", count),
         ///     new MessageContent("Reach {0} servers with a bot", count)
@@ -918,11 +918,11 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <example>
         /// <para>Without a note:</para>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateListItemAsync(channelId, "Reach 100 servers");
         /// </code>
         /// <para>With a note:</para>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.CreateListItemAsync(channelId, "Reach 100 servers", "Reach 100 or more servers with a bot.");
         /// </code>
         /// </example>
@@ -954,11 +954,11 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <example>
         /// Example of editing note:
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// EditListItemAsync(channelId, itemId, note: MessageContent.Generate("We will have to either use library X or library Y."));
         /// </code>
         /// Example of editing content:
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// EditListItemAsync(channelId, itemId, content: MessageContent.Generate("Create X in Y"));
         /// </code>
         /// </example>
@@ -1018,7 +1018,7 @@ namespace Guilded.NET.Base
         /// Adds a reaction to a content post.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.AddReactionAsync(channelId, docId, 90002569);
         /// </code>
         /// </example>
@@ -1038,7 +1038,7 @@ namespace Guilded.NET.Base
         /// Removes a reaction from a content post.
         /// </summary>
         /// <example>
-        /// <code lang="csharp">
+        /// <code language="csharp">
         /// await client.RemoveReactionAsync(channelId, docId, 90002569);
         /// </code>
         /// </example>
