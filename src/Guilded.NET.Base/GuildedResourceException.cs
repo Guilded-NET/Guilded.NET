@@ -6,10 +6,10 @@ using RestSharp;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// An exception thrown by Guilded API.
+    /// A resource exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
-    /// <para>An exception thrown by Guilded API when request has invalid path.</para>
+    /// <para>An exception thrown by Guilded API when the request has invalid path.</para>
     /// <para>This has these leading causes:</para>
     /// <list type="bullet">
     ///     <item>
@@ -23,6 +23,11 @@ namespace Guilded.NET.Base
     ///     </item>
     /// </list>
     /// </remarks>
+    /// <seealso cref="GuildedException"/>
+    /// <seealso cref="GuildedAuthorizationException"/>
+    /// <seealso cref="GuildedPermissionException"/>
+    /// <seealso cref="GuildedRequestException"/>
+    /// <seealso cref="GuildedWebsocketException"/>
     [Serializable]
     public sealed class GuildedResourceException : GuildedException
     {

@@ -15,10 +15,15 @@ namespace Guilded.NET.Base
     ///         <description>When the passed <c>guilded-last-message-id</c> is expired or invalid.</description>
     ///     </item>
     /// </list>
-    /// <para>In API, this is a WebSocket event with opcode of <c>8</c> and no name.</para>
+    /// <para>In API, this is a WebSocket event with an opcode of <c>8</c> and no name.</para>
     /// </remarks>
     /// <seealso cref="Events.WelcomeEvent"/>
     /// <seealso cref="Events.ResumeEvent"/>
+    /// <seealso cref="GuildedException"/>
+    /// <seealso cref="GuildedAuthorizationException"/>
+    /// <seealso cref="GuildedPermissionException"/>
+    /// <seealso cref="GuildedRequestException"/>
+    /// <seealso cref="GuildedResourceException"/>
     [Serializable]
     public class GuildedWebsocketException : Exception
     {

@@ -23,9 +23,10 @@ namespace Guilded.NET
         /// </example>
         /// <param name="memberId">The identifier of the receiving user</param>
         /// <param name="roleId">The identifier of the role to add</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public override async Task AddRoleAsync(GId memberId, uint roleId) =>
             await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.PUT).ConfigureAwait(false);
@@ -39,9 +40,10 @@ namespace Guilded.NET
         /// </example>
         /// <param name="memberId">The identifier of the losing user</param>
         /// <param name="roleId">The identifier of the role to remove</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public override async Task RemoveRoleAsync(GId memberId, uint roleId) =>
             await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.DELETE).ConfigureAwait(false);
@@ -55,9 +57,10 @@ namespace Guilded.NET
         /// </example>
         /// <param name="memberId">The identifier of the receiving member</param>
         /// <param name="xpAmount">The amount of XP received from -1000 to 1000</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the member of identifier <paramref name="memberId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
         /// <permission cref="XPPermissions.ManageServerXP">Required for managing member's XP</permission>
         /// <returns>Total XP</returns>
@@ -84,9 +87,10 @@ namespace Guilded.NET
         /// </example>
         /// <param name="roleId">The identifier of the editing role</param>
         /// <param name="amount">The amount XP added</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the role of identifier <paramref name="roleId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing roles</permission>
         public override async Task AttachRoleLevelAsync(uint roleId, long amount) =>
             await ExecuteRequest($"roles/{roleId}/xp", Method.POST, new
@@ -106,9 +110,10 @@ namespace Guilded.NET
         /// </example>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to add</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the group <paramref name="groupId"/>, the member <paramref name="memberId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public override async Task AddMembershipAsync(GId groupId, GId memberId) =>
             await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.PUT).ConfigureAwait(false);
@@ -122,9 +127,10 @@ namespace Guilded.NET
         /// </example>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to remove</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the group <paramref name="groupId"/>, the member <paramref name="memberId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
         public override async Task RemoveMembershipAsync(GId groupId, GId memberId) =>
             await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.DELETE).ConfigureAwait(false);

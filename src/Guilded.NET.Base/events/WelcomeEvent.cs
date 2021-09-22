@@ -17,8 +17,13 @@ namespace Guilded.NET.Base.Events
     {
         #region JSON properties
         /// <summary>
-        /// The duration of time between each heartbeat.
+        /// The duration between heartbeats.
         /// </summary>
+        /// <remarks>
+        /// <para>The duration between each heartbeat in milliseconds.</para>
+        /// <para>This may not mutate in any way, but if sudden API change comes, it will allow
+        /// clients to automatically pick up the change without any effort from developers.</para>
+        /// </remarks>
         /// <value>Milliseconds</value>
         [JsonProperty("heartbeatIntervalMs", Required = Required.Always)]
         public int HeartbeatInterval
@@ -28,6 +33,9 @@ namespace Guilded.NET.Base.Events
         /// <summary>
         /// The identifier of the last event sent.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the last message that was received before this event.</para>
+        /// </remarks>
         /// <value>Event ID?</value>
         public string LastMessageId
         {

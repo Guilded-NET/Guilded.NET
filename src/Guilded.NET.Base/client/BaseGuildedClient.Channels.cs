@@ -15,7 +15,7 @@ namespace Guilded.NET.Base
         // /// </summary>
         // /// <param name="channelId">The identifier of the parent channel</param>
         // /// <param name="name">The name of the webhook</param>
-        // /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        // /// <exception cref="GuildedException"/>
         // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
         // /// <returns>Created webhook</returns>
         // public abstract Task<Webhook> CreateWebhookAsync(Guid channelId, string name);
@@ -26,7 +26,7 @@ namespace Guilded.NET.Base
         // /// <param name="webhookId">The identifier of the webhook to update</param>
         // /// <param name="name">A new name of the webhook</param>
         // /// <param name="avatar">Profile picture/icon of the webhook</param>
-        // /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        // /// <exception cref="GuildedException"/>
         // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
         // /// <returns>Updated webhook</returns>
         // public abstract Task<Webhook> UpdateWebhookAsync(Guid channelId, Guid webhookId, string name, Uri avatar);
@@ -34,7 +34,7 @@ namespace Guilded.NET.Base
         // /// Deletes a webhook.
         // /// </summary>
         // /// <param name="webhookId">The identifier of the webhook to delete</param>
-        // /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        // /// <exception cref="GuildedException"/>
         // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
         // /// <returns>Deleted webhook</returns>
         // public abstract Task<Webhook> DeleteWebhookAsync(Guid webhookId);
@@ -45,7 +45,7 @@ namespace Guilded.NET.Base
         // /// <param name="token">Token of this webhook</param>
         // /// <param name="content">Message to send using the webhook</param>
         // /// <param name="embeds">An array of embeds to send</param>
-        // /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        // /// <exception cref="GuildedException"/>
         // public abstract Task ExecuteWebhookAsync(Guid webhookId, string token, string content = null, params Embed[] embeds);
         // #endregion
 
@@ -53,224 +53,235 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Gets messages with a specific limit.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// IList&lt;Message&gt; msg = await client.GetMessagesAsync(message.ChannelId);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="limit">How many messages it should get</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>List of messages</returns>
         public abstract Task<IList<Message>> GetMessagesAsync(Guid channelId, uint limit = 50);
         /// <summary>
         /// Gets a message in a specific channel.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// Message msg = await client.GetMessageAsync(channelId, arg);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of message it should get</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>Message</returns>
         public abstract Task<Message> GetMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, new MessageContent
-        /// (
-        ///     new Leaf("Welcome to "),
-        ///     new Leaf(team.Name, MarkType.Bold),
-        ///     new Leaf("!")
-        /// ));
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in rich text markup</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
+        /// <returns>Message created</returns>
         public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent content);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, new MessageDocument
-        /// (
-        ///     new Leaf("Welcome to "),
-        ///     new Leaf(team.Name, MarkType.Bold),
-        ///     new Leaf("!")
-        /// ));
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="document">The rich text markup document that will be used as content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
-        public async Task<Message> CreateMessageAsync(Guid channelId, MessageDocument document) =>
-            await CreateMessageAsync(channelId, new MessageContent(document)).ConfigureAwait(false);
-        /// <summary>
-        /// Creates a message in a chat.
-        /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, new List&lt;Node&gt;
-        /// {
-        ///     new BlockQuote("Hello"),
-        ///     new Paragraph("Hey there!")
-        /// });
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="nodes">The list of rich text markup nodes that will be used to create message content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
-        public async Task<Message> CreateMessageAsync(Guid channelId, IList<Node> nodes) =>
-            await CreateMessageAsync(channelId, new MessageContent(nodes)).ConfigureAwait(false);
-        /// <summary>
-        /// Creates a message in a chat.
-        /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, new BlockQuote("Hello"), new Paragraph("Hey there!"));
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="nodes">The array of rich text markup nodes that will be used to create message content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
-        public async Task<Message> CreateMessageAsync(Guid channelId, params Node[] nodes) =>
-            await CreateMessageAsync(channelId, new MessageContent(nodes)).ConfigureAwait(false);
-        /// <summary>
-        /// Creates a message in a chat.
-        /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, "Hello!");
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
+        /// <returns>Message created</returns>
         public abstract Task<Message> CreateMessageAsync(Guid channelId, string content);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, "Results: {0}", result);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="format">The composite format string</param>
-        /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
+        /// <returns>Message created</returns>
+        public abstract Task<Message> CreateMessageAsync(Guid channelId, string format, object arg0);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
+        public abstract Task<Message> CreateMessageAsync(Guid channelId, string format, object arg0, object arg1);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <param name="arg2">The third argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
+        public abstract Task<Message> CreateMessageAsync(Guid channelId, string format, object arg0, object arg1, object arg2);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="args">The arguments of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, string format, params object[] args) =>
             await CreateMessageAsync(channelId, string.Format(format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, cultureInfo, "Current time: {0}", DateTime.Now);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
-        /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
+        /// <returns>Message created</returns>
+        public async Task<Message> CreateMessageAsync(Guid channelId, IFormatProvider provider, string format, object arg0) =>
+            await CreateMessageAsync(channelId, string.Format(provider, format, arg0)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
+        public async Task<Message> CreateMessageAsync(Guid channelId, IFormatProvider provider, string format, object arg0, object arg1) =>
+            await CreateMessageAsync(channelId, string.Format(provider, format, arg0, arg1)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <param name="arg2">The third argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
+        public async Task<Message> CreateMessageAsync(Guid channelId, IFormatProvider provider, string format, object arg0, object arg1, object arg2) =>
+            await CreateMessageAsync(channelId, string.Format(provider, format, arg0, arg1, arg2)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="args">The arguments of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, IFormatProvider provider, string format, params object[] args) =>
             await CreateMessageAsync(channelId, string.Format(provider, format, args)).ConfigureAwait(false);
         /// <summary>
         /// Creates a message in a chat.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateMessageAsync(channelId, result);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message posted</returns>
+        /// <returns>Message created</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, object content) =>
             await CreateMessageAsync(channelId, content.ToString()).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, new MessageContent("Edited message"));
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The new content of the message in rich text markup</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
@@ -279,77 +290,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, new MessageDocument("Edited message"));
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="messageId">The identifier of the message to edit</param>
-        /// <param name="document">The rich text markup document that will be used as content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message edited</returns>
-        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageDocument document) =>
-            await UpdateMessageAsync(channelId, messageId, new MessageContent(document)).ConfigureAwait(false);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, new List&lt;Node&gt; { new Paragraph("Edited message") });
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="messageId">The identifier of the message to edit</param>
-        /// <param name="nodes">The list of rich text markup nodes that will be used to create message content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message edited</returns>
-        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IList<Node> nodes) =>
-            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes)).ConfigureAwait(false);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, new Paragraph("Edited message"));
-        /// </code>
-        /// </example>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="messageId">The identifier of the message to edit</param>
-        /// <param name="nodes">The array of rich text markup nodes that will be used to create message content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message edited</returns>
-        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, params Node[] nodes) =>
-            await UpdateMessageAsync(channelId, messageId, new MessageContent(nodes)).ConfigureAwait(false);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, "Edited message");
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
@@ -360,18 +307,74 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, "Result: {0}", result);
-        /// </code>
-        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string format, object arg0) =>
+            await UpdateMessageAsync(channelId, messageId, string.Format(format, arg0)).ConfigureAwait(false);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string format, object arg0, object arg1) =>
+            await UpdateMessageAsync(channelId, messageId, string.Format(format, arg0, arg1)).ConfigureAwait(false);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <param name="arg2">The third argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string format, object arg0, object arg1, object arg2) =>
+            await UpdateMessageAsync(channelId, messageId, string.Format(format, arg0, arg1, arg2)).ConfigureAwait(false);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
@@ -383,19 +386,78 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, cultureInfo, "Current time: {0}", DateTime.Now);
-        /// </code>
-        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IFormatProvider provider, string format, object arg0) =>
+            await UpdateMessageAsync(channelId, messageId, string.Format(provider, format, arg0)).ConfigureAwait(false);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IFormatProvider provider, string format, object arg0, object arg1) =>
+            await UpdateMessageAsync(channelId, messageId, string.Format(provider, format, arg0, arg1)).ConfigureAwait(false);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="messageId">The identifier of the message to edit</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <param name="arg2">The third argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
+        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
+        /// <returns>Message edited</returns>
+        public async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, IFormatProvider provider, string format, object arg0, object arg1, object arg2) =>
+            await UpdateMessageAsync(channelId, messageId, string.Format(provider, format, arg0, arg1, arg2)).ConfigureAwait(false);
+        /// <summary>
+        /// Updates the contents of the message.
+        /// </summary>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="format"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="format"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
@@ -407,17 +469,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.UpdateMessageAsync(channelId, messageId, result);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to edit</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
         /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
@@ -429,50 +487,38 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Deletes a specified message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.DeleteMessageAsync(channelId, messageId);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to delete</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.ManageMessages">Required for deleting messages made by others</permission>
         public abstract Task DeleteMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
         /// Adds a reaction to a message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.AddReactionAsync(channelId, messageId, 90002569);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to add a reaction on</param>
         /// <param name="emoteId">The identifier of the emote to add</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for adding a reaction to a message you see</permission>
         /// <returns>Reaction added</returns>
         public abstract Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId);
         /// <summary>
         /// Removes a reaction from a message.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.RemoveReactionAsync(channelId, messageId, 90002569);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to remove a reaction from</param>
         /// <param name="emoteId">The identifier of the emote to remove</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the message <paramref name="messageId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public abstract Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId);
         #endregion
@@ -486,14 +532,14 @@ namespace Guilded.NET.Base
         /// <param name="message">Message to respond to</param>
         /// <param name="response">Content of the response</param>
         /// <param name="contentType">Type of the channel where thread should be created in</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Thread created</returns>
         Task<ThreadChannel> CreateThreadAsync(Guid channelId, string name, Message message, MessageContent response, ChannelType contentType = ChannelType.Chat);
         /// <summary>
         /// Leaves a thread and no longer receives notifications from it.
         /// </summary>
         /// <param name="threadId">The identifier of the thread to leave</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task LeaveThreadAsync(Guid threadId);
         #endregion*/
 
@@ -501,21 +547,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateForumThreadAsync(channelId, "Daily post #1", new MessageContent
-        /// (
-        ///     new BlockQuote("..."),
-        ///     new Paragraph("...")
-        /// );
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
@@ -523,17 +561,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateForumThreadAsync(channelId, "Daily post #1", "The first daily post ever!");
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
@@ -541,18 +575,65 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateForumThreadAsync(channelId, $"Daily post #{index}", "The current index of the post: {0}.", index);
-        /// </code>
-        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
+        /// <returns>Forum post created</returns>
+        public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string format, object arg0) =>
+            await CreateForumThreadAsync(channelId, title, string.Format(format, arg0)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
+        /// <returns>Forum post created</returns>
+        public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string format, object arg0, object arg1) =>
+            await CreateForumThreadAsync(channelId, title, string.Format(format, arg0, arg1)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <param name="arg2">The third argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
+        /// <returns>Forum post created</returns>
+        public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string format, object arg0, object arg1, object arg2) =>
+            await CreateForumThreadAsync(channelId, title, string.Format(format, arg0, arg1, arg2)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
@@ -561,19 +642,69 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateForumThreadAsync(channelId, "Daily post #1", cultureInfo, "The current date: {0}.", DateTime.Now);
-        /// </code>
-        /// </example>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
+        /// <returns>Forum post created</returns>
+        public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, IFormatProvider provider, string format, object arg0) =>
+            await CreateForumThreadAsync(channelId, title, string.Format(provider, format, arg0)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
+        /// <returns>Forum post created</returns>
+        public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, IFormatProvider provider, string format, object arg0, object arg1) =>
+            await CreateForumThreadAsync(channelId, title, string.Format(provider, format, arg0, arg1)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of the forum post</param>
+        /// <param name="provider">The provider that gives the format string information about the culture</param>
+        /// <param name="format">The composite format string</param>
+        /// <param name="arg0">The first argument of the format string</param>
+        /// <param name="arg1">The second argument of the format string</param>
+        /// <param name="arg2">The third argument of the format string</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
+        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
+        /// <returns>Forum post created</returns>
+        public async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, IFormatProvider provider, string format, object arg0, object arg1, object arg2) =>
+            await CreateForumThreadAsync(channelId, title, string.Format(provider, format, arg0, arg1, arg2)).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a forum post in a forum channel.
+        /// </summary>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="provider">The provider that gives the format string information about the culture</param>
         /// <param name="format">The composite format string</param>
         /// <param name="args">The arguments of the format string</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
@@ -582,17 +713,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a forum post in a forum channel.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.CreateForumThreadAsync(channelId, "Results", result);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="title">The title of the forum post</param>
         /// <param name="content">The content of the forum post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum post created</returns>
@@ -607,7 +734,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of the channel</param>
         /// <param name="beforeDate">Before what date it should get posts</param>
         /// <param name="maxItems">How many forum posts it should get</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Forum post list</returns>
         Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint maxItems = 1000, DateTime? beforeDate = null);
         /// <summary>
@@ -617,14 +744,14 @@ namespace Guilded.NET.Base
         /// <param name="postId">The identifier of the post</param>
         /// <param name="title">New title of this post</param>
         /// <param name="message">New content of the post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task EditForumPostAsync(Guid channelId, uint postId, string title, MessageContent message);
         /// <summary>
         /// Deletes a forum post in a specific channel.
         /// </summary>
         /// <param name="channelId">The identifier of the channel where the post is in</param>
         /// <param name="postId">The identifier of the post to delete</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task DeleteForumPostAsync(Guid channelId, uint postId);
         /// <summary>
         /// Gets replies from a forum post.
@@ -633,7 +760,7 @@ namespace Guilded.NET.Base
         /// <param name="postId">The identifier of the post it should get replies of</param>
         /// <param name="maxItems">How many forum posts it should get</param>
         /// <param name="afterDate">After what date it should get posts</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Forum reply list</returns>
         Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint maxItems = 10, DateTime? afterDate = null);
         /// <summary>
@@ -642,7 +769,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of the forum channel</param>
         /// <param name="postId">The identifier of the post it should reply to</param>
         /// <param name="message">Content of the forum post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task CreateForumReplyAsync(Guid channelId, uint postId, MessageContent message);
         /// <summary>
         /// Deletes a forum reply/comment.
@@ -650,7 +777,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of the channel where the post is in</param>
         /// <param name="postId">A forum post where reply should be deleted</param>
         /// <param name="replyId">A reply of a forum post that should be deleted</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task DeleteForumReplyAsync(Guid channelId, uint postId, uint replyId);
         /// <summary>
         /// Edits a forum reply.
@@ -659,7 +786,7 @@ namespace Guilded.NET.Base
         /// <param name="postId">The identifier of the post to edit reply in</param>
         /// <param name="replyId">Reply to edit contents of</param>
         /// <param name="content">New content which will replace the old content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task EditForumReplyAsync(Guid channelId, uint postId, uint replyId, MessageContent content);
         /// <summary>
         /// Adds a reaction to a forum reply or a forum post.
@@ -668,7 +795,7 @@ namespace Guilded.NET.Base
         /// <param name="postId">The identifier of forum post or reply to react on</param>
         /// <param name="emoteId">The identifier of the emote to react with</param>
         /// <param name="isContentReply">Is it a reaction on a reply</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task AddForumReactionAsync(GId teamId, uint postId, uint emoteId, bool isContentReply = false);
         /// <summary>
         /// Removes a reaction from a forum reply or a forum post.
@@ -677,7 +804,7 @@ namespace Guilded.NET.Base
         /// <param name="postId">The identifier of content or reply to react on</param>
         /// <param name="emoteId">The identifier of the emote to react with</param>
         /// <param name="isContentReply">Is it a reaction on a reply</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task RemoveForumReactionAsync(GId teamId, uint postId, uint emoteId, bool isContentReply = false)
         #endregion
 
@@ -688,7 +815,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of channel to fetch documents from</param>
         /// <param name="maxItems">Amount of documents to get</param>
         /// <param name="beforeDate">Date before which it should get documents</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of documents</returns>
         Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint maxItems = 50, DateTime? beforeDate = null);
         /// <summary>
@@ -696,7 +823,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="channelId">The identifier of channel to fetch documents from</param>
         /// <param name="docId">The identifier of the document</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Document</returns>
         Task<GuildedDocument> GetDocumentAsync(Guid channelId, uint docId);
         /// <summary>
@@ -723,14 +850,14 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="channelId">The identifier of channel to fetch media from</param>
         /// <param name="pageSize">Limit of media to get</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of media posts</returns>
         Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId, uint pageSize = 40);
         /// <summary>
         /// Gets all comments in a given media post.
         /// </summary>
         /// <param name="mediaId">The identifier of the media post</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of content replies</returns>
         Task<IList<ContentReply>> GetMediaRepliesAsync(uint mediaId);
         /// <summary>
@@ -744,7 +871,7 @@ namespace Guilded.NET.Base
         /// <param name="type">Type of the media: image or video</param>
         /// <param name="gameId">The identifier of the game of the group</param>
         /// <param name="tags">Tags associated with the media</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Media posted</returns>
         Task<GuildedMedia> PostMediaAsync(GId teamId, Guid channelId, Uri src, string title, string description = "", MediaType type = MediaType.Image, uint? gameId = null, params string[] tags);
         /// <summary>
@@ -752,7 +879,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="channelId">The identifier of the channel where the media is</param>
         /// <param name="mediaId">The identifier of the media to delete</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task DeleteMediaAsync(Guid channelId, uint mediaId);
         #endregion
 
@@ -765,7 +892,7 @@ namespace Guilded.NET.Base
         /// <param name="startDate">At which date it should start</param>
         /// <param name="endDate">At which date it should end</param>
         /// <param name="maxItems">How many events it should get</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of calendar events</returns>
         Task<IList<CalendarEvent>> GetEventsAsync(Guid channelId, DateTime startDate, DateTime endDate, uint maxItems = 250);
         #endregion
@@ -776,7 +903,7 @@ namespace Guilded.NET.Base
         /// Get availabilities in a schedule channel.
         /// </summary>
         /// <param name="channelId">The identifier of the channel</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of availabilities</returns>
         Task<IList<Availability>> GetSchedulesAsync(Guid channelId);
         /// <summary>
@@ -785,7 +912,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of the channel where to create a schedule</param>
         /// <param name="startDate">Start date of this availability</param>
         /// <param name="endDate">End date of this availability</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Created schedule availability</returns>
         Task<IList<Availability>> CreateScheduleAsync(Guid channelId, DateTime startDate, DateTime endDate);
         /// <summary>
@@ -795,7 +922,7 @@ namespace Guilded.NET.Base
         /// <param name="availabilityId">The identifier of schedule availability to edit</param>
         /// <param name="startDate">Start date of this availability</param>
         /// <param name="endDate">End date of this availability</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Edited schedule availability</returns>
         Task<IList<Availability>> EditScheduleAsync(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate);
         /// <summary>
@@ -803,7 +930,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="channelId">The identifier of the channel where an availability is</param>
         /// <param name="availabilityId">The identifier of schedule availability to edit</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task DeleteScheduleAsync(Guid channelId, uint availabilityId);
         #endregion
 
@@ -814,7 +941,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of the channel</param>
         /// <param name="maxItems">How many announcements it should get</param>
         /// <param name="beforeDate">Before which date it should get announcements</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of announcements</returns>
         Task<IList<Announcement>> GetAnnouncementsAsync(Guid channelId, uint maxItems = 10, DateTime? beforeDate = null);
         /// <summary>
@@ -823,7 +950,7 @@ namespace Guilded.NET.Base
         /// <param name="teamId">The identifier of the team</param>
         /// <param name="maxItems">How many announcements it should get</param>
         /// <param name="beforeDate">Before which date it should get announcements</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of announcements</returns>
         Task<IList<Announcement>> GetAnnouncementsAsync(GId teamId, uint maxItems, DateTime? beforeDate);
         /// <summary>
@@ -836,7 +963,7 @@ namespace Guilded.NET.Base
         /// Gets a list of pinned announcements in a team.
         /// </summary>
         /// <param name="teamId">The identifier of the team</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>List of announcements</returns>
         Task<IList<Announcement>> GetPinnedAnnouncementsAsync(GId teamId);
         /// <summary>
@@ -848,7 +975,7 @@ namespace Guilded.NET.Base
         /// <param name="content">Content of the announcement</param>
         /// <param name="dontSendNotifications">If it should not send a notification to everyone</param>
         /// <param name="gameId">The identifier of the group's game</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Created announcement</returns>
         Task<Announcement> PostAnnouncementAsync(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications = true, uint? gameId = null);
         /// <summary>
@@ -857,7 +984,7 @@ namespace Guilded.NET.Base
         /// <param name="channelId">The identifier of the channel where announcement is in</param>
         /// <param name="announcementId">The identifier of the announcement to (un)pin</param>
         /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         Task PinAnnouncementAsync(Guid channelId, GId announcementId, bool isPinned = true);
         /// <summary>
         /// Updates/edits an announcement.
@@ -867,7 +994,7 @@ namespace Guilded.NET.Base
         /// <param name="announcementId">The identifier of the announcement to edit</param>
         /// <param name="title">New title</param>
         /// <param name="content">New content</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>The identifier of edited/updated announcement</returns>
         Task<GId> UpdateAnnouncementAsync(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content);
         /// <summary>
@@ -875,7 +1002,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="channelId">The identifier of the channel where announcement is</param>
         /// <param name="announcementId">The identifier of the announcement to delete</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>Deleted announcement</returns>
         Task<Announcement> DeleteAnnouncementAsync(Guid channelId, GId announcementId);
         #endregion*/
@@ -884,25 +1011,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a new list item in a list channel.
         /// </summary>
-        /// <example>
-        /// <para>Without a note:</para>
-        /// <code language="csharp">
-        /// await client.CreateListItemAsync(channelId, new MessageContent("Reach {0} servers", count));
-        /// </code>
-        /// <para>With a note:</para>
-        /// <code language="csharp">
-        /// await client.CreateListItemAsync(channelId,
-        ///     new MessageContent("Reach {0} servers", count),
-        ///     new MessageContent("Reach {0} servers with a bot", count)
-        /// );
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="message">The title content of this list item</param>
         /// <param name="note">The note of this list item</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
         /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
         /// <returns>List item created</returns>
@@ -910,22 +1025,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Creates a new list item in a list channel.
         /// </summary>
-        /// <example>
-        /// <para>Without a note:</para>
-        /// <code language="csharp">
-        /// await client.CreateListItemAsync(channelId, "Reach 100 servers");
-        /// </code>
-        /// <para>With a note:</para>
-        /// <code language="csharp">
-        /// await client.CreateListItemAsync(channelId, "Reach 100 servers", "Reach 100 or more servers with a bot.");
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="message">The title content of this list item</param>
         /// <param name="note">The note of this list item</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel of identifier <paramref name="channelId"/> has not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
         /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
         /// <returns>List item created</returns>
@@ -947,17 +1053,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Adds a reaction to a content post.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.AddReactionAsync(channelId, docId, 90002569);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="contentId">The identifier of the content to add a reaction on</param>
         /// <param name="emoteId">The identifier of the emote to add</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the content <paramref name="contentId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="DocPermissions.ViewDocs">Required for adding a reaction to a document you see</permission>
         /// <permission cref="MediaPermissions.SeeMedia">Required for adding a reaction to a media post you see</permission>
         /// <permission cref="ForumPermissions.ReadForums">Required for adding a reaction to a forum thread you see</permission>
@@ -967,17 +1069,13 @@ namespace Guilded.NET.Base
         /// <summary>
         /// Removes a reaction from a content post.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// await client.RemoveReactionAsync(channelId, docId, 90002569);
-        /// </code>
-        /// </example>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="contentId">The identifier of the content to remove a reaction from</param>
         /// <param name="emoteId">The identifier of the emote to remove</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
-        /// <exception cref="GuildedResourceException">When the channel <paramref name="channelId"/>, the content <paramref name="contentId"/> or both have not been found</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="DocPermissions.ViewDocs">Required for removing a reaction from a document you see</permission>
         /// <permission cref="MediaPermissions.SeeMedia">Required for removing a reaction from a media post you see</permission>
         /// <permission cref="ForumPermissions.ReadForums">Required for removing a reaction from a forum thread you see</permission>

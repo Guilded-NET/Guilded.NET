@@ -6,7 +6,7 @@ using RestSharp;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// An exception thrown by Guilded API.
+    /// A permission exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
     /// <para>An exception thrown by Guilded API when request is invalid.</para>
@@ -14,6 +14,11 @@ namespace Guilded.NET.Base
     /// but you don't have them. This can only be fixed by getting said permissions by a server staff
     /// and is usually not controlled by you.</para>
     /// </remarks>
+    /// <seealso cref="GuildedException"/>
+    /// <seealso cref="GuildedAuthorizationException"/>
+    /// <seealso cref="GuildedRequestException"/>
+    /// <seealso cref="GuildedResourceException"/>
+    /// <seealso cref="GuildedWebsocketException"/>
     [Serializable]
     public sealed class GuildedPermissionException : GuildedException
     {

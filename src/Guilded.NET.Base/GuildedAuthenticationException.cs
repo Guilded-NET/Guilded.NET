@@ -6,41 +6,47 @@ using RestSharp;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// An exception thrown by Guilded API.
+    /// An authorization exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
-    /// <para>An exception thrown by Guilded API when request is invalid.</para>
+    /// <para>An exception thrown by Guilded API when the request is invalid.</para>
     /// <para>This is caused if you are trying to connect to Guilded or do an action with invalid
-    /// or expired authentication token.</para>
+    /// or expired authentication token. The only solution is to create a new authentication
+    /// token and use it instead.</para>
     /// </remarks>
+    /// <seealso cref="GuildedException"/>
+    /// <seealso cref="GuildedPermissionException"/>
+    /// <seealso cref="GuildedRequestException"/>
+    /// <seealso cref="GuildedResourceException"/>
+    /// <seealso cref="GuildedWebsocketException"/>
     [Serializable]
-    public sealed class GuildedAuthenticationException : GuildedException
+    public sealed class GuildedAuthorizationException : GuildedException
     {
         /// <summary>
-        /// Creates a new instance of <see cref="GuildedAuthenticationException"/>.
+        /// Creates a new instance of <see cref="GuildedAuthorizationException"/>.
         /// </summary>
         /// <param name="message">The message explaining the error</param>
-        public GuildedAuthenticationException(string message) : base(message) { }
+        public GuildedAuthorizationException(string message) : base(message) { }
         /// <summary>
-        /// Creates a new instance of <see cref="GuildedAuthenticationException"/> with information from given parameters.
+        /// Creates a new instance of <see cref="GuildedAuthorizationException"/> with information from given parameters.
         /// </summary>
         /// <param name="code">The name of the error from Guilded API</param>
         /// <param name="message">The description of the error from Guilded API</param>
         /// <param name="response">The response that was received from Guilded API</param>
-        public GuildedAuthenticationException(string code, string message, IRestResponse response) : base(code, message, response) { }
+        public GuildedAuthorizationException(string code, string message, IRestResponse response) : base(code, message, response) { }
         /// <summary>
-        /// Creates a new instance of <see cref="GuildedAuthenticationException"/> with default message.
+        /// Creates a new instance of <see cref="GuildedAuthorizationException"/> with default message.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new instance of <see cref="GuildedAuthenticationException"/> with default message:</para>
+        /// <para>Creates a new instance of <see cref="GuildedAuthorizationException"/> with default message:</para>
         /// <para>"Invalid. Provided authentication token is invalid or expired."</para>
         /// </remarks>
-        public GuildedAuthenticationException() : this("Invalid. Provided authentication token is invalid or expired.") { }
+        public GuildedAuthorizationException() : this("Invalid. Provided authentication token is invalid or expired.") { }
         /// <summary>
-        /// Creates a new instance of <see cref="GuildedAuthenticationException"/> with inner exception explaining more.
+        /// Creates a new instance of <see cref="GuildedAuthorizationException"/> with inner exception explaining more.
         /// </summary>
         /// <param name="message">The description of the error from Guilded API</param>
         /// <param name="inner">Inner exception explaining more</param>
-        public GuildedAuthenticationException(string message, Exception inner) : base(message, inner) { }
+        public GuildedAuthorizationException(string message, Exception inner) : base(message, inner) { }
     }
 }

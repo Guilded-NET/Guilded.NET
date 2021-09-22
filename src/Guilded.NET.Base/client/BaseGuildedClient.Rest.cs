@@ -95,8 +95,8 @@ namespace Guilded.NET.Base
         /// <param name="encodeQuery">Whether to encode all given queries</param>
         /// <param name="query">The dictionary of queries and their values</param>
         /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <typeparam name="T">The type of the response's content</typeparam>
         /// <returns>Request response</returns>
@@ -115,8 +115,8 @@ namespace Guilded.NET.Base
         /// <param name="encodeQuery">Whether to encode all given queries</param>
         /// <param name="query">The dictionary of queries and their values</param>
         /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
         public async Task<IRestResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
@@ -155,7 +155,7 @@ namespace Guilded.NET.Base
         /// <param name="filedata">The contents of the file being uploaded</param>
         /// <param name="contentType">Content type for multipart form data</param>
         /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata, string contentType)
         {
@@ -186,7 +186,7 @@ namespace Guilded.NET.Base
         /// <param name="filename">The name of the file being uploaded</param>
         /// <param name="filedata">The contents of the file being uploaded</param>
         /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata)
         {
@@ -204,7 +204,7 @@ namespace Guilded.NET.Base
         /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
         /// </remarks>
         /// <param name="url">A URL link to an image to uplod</param>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
+        /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(Uri url)
         {
@@ -232,8 +232,8 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="request">The request to send to execute</param>
         /// <typeparam name="T">Type of the response to get</typeparam>
-        /// <exception cref="GuildedException">When the client receives an error from Guilded API</exception>
-        /// <exception cref="GuildedPermissionException">When the client is missing requested permissions</exception>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
         private async Task<IRestResponse<T>> SendRequest<T>(IRestRequest request)
@@ -260,7 +260,7 @@ namespace Guilded.NET.Base
                             new GuildedResourceException(code, errorMessage, response),
                         // Bad token
                         HttpStatusCode.Unauthorized =>
-                            new GuildedAuthenticationException(code, errorMessage, response),
+                            new GuildedAuthorizationException(code, errorMessage, response),
                         // Bad request parameters/something else related to the request
                         HttpStatusCode.BadRequest =>
                             new GuildedRequestException(code, errorMessage, response),
