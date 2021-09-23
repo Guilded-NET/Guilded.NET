@@ -3,13 +3,16 @@ using System.Collections.Generic;
 
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Base
+namespace Guilded.NET.Base.Content
 {
     /// <summary>
-    /// Emote used in a reaction.
+    /// The information about a reaction.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines a react in <see cref="ChannelContent{T}"/>.</para>
+    /// </remarks>
     /// <seealso cref="Emote"/>
-    /// <seealso cref="Chat.Message"/>
+    /// <seealso cref="Message"/>
     /// <seealso cref="Chat.ChatEmote"/>
     public class Reaction : ClientObject
     {
@@ -73,7 +76,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]
-        public bool ByBot => !(CreatedByBot is null) || !(CreatedByWebhook is null);
+        public bool CreatedAuto => !(CreatedByBot is null) || !(CreatedByWebhook is null);
         #endregion
 
         #region Overrides

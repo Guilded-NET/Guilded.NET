@@ -53,15 +53,7 @@ namespace Guilded.NET.Base
         /// Settings for <see cref="Rest"/> client's JSON (de)serialization.
         /// </summary>
         /// <remarks>
-        /// <para>JSON settings that are used in:</para>
-        /// <list>
-        ///     <item>
-        ///         <description><see cref="GuildedSerializer"/></description>
-        ///     </item>
-        ///     <item>
-        ///         <description><see cref="Rest"/></description>
-        ///     </item>
-        /// </list>
+        /// <para>JSON settings that are used in <see cref="GuildedSerializer"/> and <see cref="Rest"/>.</para>
         /// </remarks>
         /// <value>Serializer Settings</value>
         /// <seealso cref="Rest"/>

@@ -11,7 +11,7 @@ namespace Guilded.NET.Base.Embeds
     /// </summary>
     /// <remarks>
     /// <para>Represents a custom/rich embed that represents some kind of information.</para>
-    /// <para><see cref="Chat.Message"/> instance can hold more than 1 embed.</para>
+    /// <para><see cref="Content.Message"/> instance can hold more than 1 embed.</para>
     /// <para>This is usually used in Webhooks to provide an information about
     /// a new post or any event that occurred. It can also be used for displaying
     /// results from a bot or used as a content instead of plain Markdown.</para>
@@ -20,25 +20,7 @@ namespace Guilded.NET.Base.Embeds
     /// <para>Embeds may look something like quote blocks, but more customizable with fields, footers, etc.</para>
     /// </remarks>
     /// <example>
-    /// <para>Embeds can be created in multiple ways:</para>
-    /// <list type="bullet">
-    ///     <item>
-    ///         <term>Constructors</term>
-    ///         <description>You can use constructors to pass the <see cref="Uri"/> of a thumbnail, compared to making a new instance of <see cref="EmbedMedia"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <term>Object initializer</term>
-    ///         <description>
-    ///             <para>You can use object initializer or property setting when creating a new instance of <see cref="Embed"/>.</para>
-    ///             <para>This doesn't allow passing <see cref="Uri"/> instead of using <see cref="EmbedMedia"/></para>
-    ///             <para>In that case, use constructor parameters.</para>
-    ///         </description>
-    ///     </item>
-    ///     <item>
-    ///         <term>Fluent interface</term>
-    ///         <description>Methods, such as <see cref="Embed.SetImage(Uri, uint?, uint?)"/>, can be used to set properties of an embed.</description>
-    ///     </item>
-    /// </list>
+    /// <para>Embeds can be created using constructors, object initializers and fluent interface methods.</para>s
     /// <para>This example showcases mixing object initializer along with constructor parameters:</para>
     /// <code language="csharp">
     /// Embed embed = new Embed(thumbnail: imageUrl)

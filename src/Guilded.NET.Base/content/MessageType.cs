@@ -1,15 +1,14 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
-namespace Guilded.NET.Base.Chat
+namespace Guilded.NET.Base.Content
 {
     /// <summary>
     /// The type of the message created or updated.
     /// </summary>
     /// <remarks>
-    /// <para>Defines a type of <see cref="Message"/>. Currently only <see cref="Default"/> and <see cref="System"/> are available.</para>
+    /// <para>Defines the type of a <see cref="Message"/> instance. Currently only <see cref="Default"/> and <see cref="System"/> are available.</para>
     /// </remarks>
-    /// <seealso cref="BaseMessage"/>
     /// <seealso cref="Message"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum MessageType

@@ -7,9 +7,11 @@ namespace Guilded.NET.Base.Content
     /// <summary>
     /// A list item in a list channel.
     /// </summary>
+    /// <seealso cref="Message"/>
     /// <seealso cref="ForumThread"/>
     public class ListItem : ChannelContent<Guid>
     {
+        #region JSON properties
         /// <summary>
         /// The content of this item's message.
         /// </summary>
@@ -34,5 +36,6 @@ namespace Guilded.NET.Base.Content
         {
             get; set;
         }
+        #endregion
     }
 }

@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Chat
     /// <summary>
     /// A type of the reply header.
     /// </summary>
-    /// <seealso cref="MessageType"/>
+    /// <seealso cref="Content.MessageType"/>
     /// <seealso cref="MentionType"/>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum ReplyHeaderType

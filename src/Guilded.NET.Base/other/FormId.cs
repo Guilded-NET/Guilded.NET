@@ -12,8 +12,6 @@ namespace Guilded.NET.Base
     /// <remarks>
     /// <para>The form identifier.</para>
     /// <para>This can only be found in forms(form fields specifically) and media upload progress tracking.</para>
-    /// <para>This identifier is in form of <c>r-xxxxxxx-xxxxxxx</c> where <var>x</var> is any digit.
-    /// It's split into 2 parts, which are 7 characters in length.</para>
     /// </remarks>
     /// <example>
     /// <para>The list of different form identifiers:</para>

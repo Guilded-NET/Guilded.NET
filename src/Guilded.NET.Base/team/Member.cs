@@ -1,94 +1,57 @@
-// using System;
-// using System.ComponentModel;
-// using System.Threading.Tasks;
-// using System.Collections.Generic;
+using System.Threading.Tasks;
+using Guilded.NET.Base.Users;
+using Newtonsoft.Json;
 
-// using Newtonsoft.Json;
+namespace Guilded.NET.Base.Teams
+{
+    /// <summary>
+    /// A member in a member list.
+    /// </summary>
+    /// <remarks>
+    /// <para>Defines a normal or updated team member.</para>
+    /// </remarks>
+    /// <seealso cref="Events.MemberUpdatedEvent"/>
+    public class Member : ClientObject
+    {
+        #region JSON properties
+        /// <summary>
+        /// The identifier of this member.
+        /// </summary>
+        /// <value>User ID</value>
+        [JsonProperty(Required = Required.Always)]
+        public GId Id
+        {
+            get; set;
+        }
+        /// <summary>
+        /// A nickname of this member.
+        /// </summary>
+        /// <remarks>
+        /// <para>Defines a nickname of this member. This may be <see langword="null"/> if the member
+        /// has no nickname.</para>
+        /// </remarks>
+        /// <value>Name?</value>
+        public string Nickname
+        {
+            get; set;
+        }
+        #endregion
 
-// namespace Guilded.NET.Base.Teams
-// {
-//     using Users;
-//     /// <summary>
-//     /// A member in member list.
-//     /// </summary>
-//     public class Member : ClientObject
-//     {
-//         /// <summary>
-//         /// User ID of this member.
-//         /// </summary>
-//         /// <value>User ID</value>
-//         [JsonProperty(Required = Required.Always)]
-//         public GId Id
-//         {
-//             get; set;
-//         }
-//         /// <summary>
-//         /// The name of this user.
-//         /// </summary>
-//         /// <value>Name</value>
-//         [JsonProperty(Required = Required.Always)]
-//         public string Name
-//         {
-//             get; set;
-//         }
-//         /// <summary>
-//         /// A profile picture of this user.
-//         /// </summary>
-//         /// <value>Profile picture?</value>
-//         public Uri ProfilePicture
-//         {
-//             get; set;
-//         }
-//         /// <summary>
-//         /// A nickname of this member.
-//         /// </summary>
-//         /// <value>Name?</value>
-//         public string Nickname
-//         {
-//             get; set;
-//         }
-//         /// <summary>
-//         /// A list of roles this user has.
-//         /// </summary>
-//         /// <value>List of role IDs</value>
-//         [JsonProperty("roleIds")]
-//         public IList<uint> Roles
-//         {
-//             get; set;
-//         } = new List<uint>();
-//         /// <summary>
-//         /// A list of global badges this user has.
-//         /// </summary>
-//         /// <value>List of global badges</value>
-//         public IList<GlobalBadge> Badges
-//         {
-//             get; set;
-//         } = new List<GlobalBadge>();
-//         /// <summary>
-//         /// A presence of this user.
-//         /// </summary>
-//         /// <value>User presence</value>
-//         [JsonProperty("userPresenceStatus")]
-//         public Presence? Presence
-//         {
-//             get; set;
-//         }
-//         [JsonProperty("membershipRole")]
-//         public string MembershipRole
-//         {
-//             get; set;
-//         }
-//         /// <summary>
-//         /// Gets a nickname if it exists. Else, it gets a username.
-//         /// </summary>
-//         /// <value>Name</value>
-//         [JsonIgnore]
-//         public string DisplayName => Nickname ?? Name;
-//         /// <summary>
-//         /// If this user is an admin of the server. This is seems to be true when the member is an owner of the team.
-//         /// </summary>
-//         /// <value>Member is owner</value>
-//         [JsonIgnore]
-//         public bool IsAdmin => MembershipRole == "admin";
-//     }
-// }
+        #region Additional
+        /// <summary>
+        /// Gets member's social links.
+        /// </summary>
+        /// <remarks>
+        /// <para>Gets member's social link based on given <paramref name="linkType"/>.</para>
+        /// <para>This does not require any permissions to be given, as it is not team-based.</para>
+        /// </remarks>
+        /// <param name="linkType">The social link to get</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <returns>Member's social link</returns>
+        public async Task<SocialLink> GetSocialLinkAsync(SocialLinkType linkType) =>
+            await ParentClient.GetSocialLinkAsync(Id, linkType).ConfigureAwait(false);
+        #endregion
+    }
+}

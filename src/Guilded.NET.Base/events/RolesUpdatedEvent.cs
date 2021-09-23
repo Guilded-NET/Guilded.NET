@@ -14,9 +14,10 @@ namespace Guilded.NET.Base.Events
     /// list, so previous role list must be cached, if necessary.</para>
     /// <para>In API, this event is called <c>teamRolesUpdated</c>.</para>
     /// </remarks>
+    /// <seealso cref="MemberUpdatedEvent"/>
     /// <seealso cref="XpAddedEvent"/>
     /// <seealso cref="WelcomeEvent"/>
-    public class RolesUpdatedEvent : GuildedEvent
+    public class RolesUpdatedEvent : BaseObject
     {
         #region JSON properties
         /// <summary>

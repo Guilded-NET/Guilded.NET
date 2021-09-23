@@ -17,7 +17,7 @@
     <PackageId>Guilded.NET</PackageId>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageTags>wrapper,api,chat,guilded,bot,bots</PackageTags>
-    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageProjectUrl>https://guilded-net.github.io/index</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
@@ -30,7 +30,7 @@
     <!-- API-related stuff -->
     <PackageReference Include="RestSharp" Version="106.12.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="Websocket.Client" Version="4.3.35" />
+    <PackageReference Include="Websocket.Client" Version="4.3.38" />
   </ItemGroup>
   
   <!-- For NuGet package -->
@@ -53,24 +53,24 @@
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Docs' ">
-    <DefaultDocumentationFolder>../Documentation/Guilded.NET</DefaultDocumentationFolder>
+    <DefaultDocumentationFolder>$(MSBuildProjectDirectory)/../Documentation/Guilded.NET</DefaultDocumentationFolder>
     <DefaultDocumentationFileNameMode>Name</DefaultDocumentationFileNameMode>
     <DefaultDocumentationAssemblyPageName>Guilded_NET</DefaultDocumentationAssemblyPageName>
     <!-- For which items to generate documentation for -->
     <DefaultDocumentationGeneratedPages>Assembly,Types,Members</DefaultDocumentationGeneratedPages>
     <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>
     <!-- Make sure Guilded.NET.Base assembly types won't be thought as Microsoft's types -->
-    <DefaultDocumentationLinksOutputFile>../Documentation/Guilded.NET.link</DefaultDocumentationLinksOutputFile>
-    <DefaultDocumentationExternLinksFiles>../Documentation/*.link</DefaultDocumentationExternLinksFiles>
+    <DefaultDocumentationLinksOutputFile>$(MSBuildProjectDirectory)/../Documentation/Guilded.NET.link</DefaultDocumentationLinksOutputFile>
+    <DefaultDocumentationExternLinksFiles>$(MSBuildProjectDirectory)/../Documentation/*.link</DefaultDocumentationExternLinksFiles>
     <!-- Text -->
     <DefaultDocumentationRemoveFileExtensionFromLinks>true</DefaultDocumentationRemoveFileExtensionFromLinks>
     <DefaultDocumentationIgnoreLineBreak>true</DefaultDocumentationIgnoreLineBreak>
   </PropertyGroup>
 
-  <!-- Files to include to Guilded.NET -->
+  <!-- Files to include in Guilded.NET -->
   <ItemGroup>
-    <None Include="../../assets/Icon.png" Pack="true" PackagePath="" />
-    <None Include="Readme.md" Pack="true" PackagePath="" />
+    <Content Include="../../assets/Icon.png" Pack="true" PackagePath="" />
+    <Content Include="../../README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

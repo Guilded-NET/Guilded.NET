@@ -21,43 +21,17 @@ namespace Guilded.NET
     /// client.MessageCreated.Subscribe(msg => Console.WriteLine("Received message with content:\n{0}", msg.Content));
     /// await client.ConnectAsync();
     /// </code>
-    /// <para>This example relies on these members:</para>
-    /// <list type="bullet">
-    ///     <item>
-    ///         <description><see cref="AbstractGuildedClient.Prepared"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="AbstractGuildedClient.MessageCreated"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="ConnectAsync()"/></description>
-    ///     </item>
-    /// </list>
     /// <para>An example of a Guilded bot client with <c>!ping</c> command</para>
     /// <code language="csharp">
     /// using GuildedBotClient client = new GuildedBotClient("...auth...");
+    ///
     /// client.Prepared += _ => Console.WriteLine("I am prepared!");
-    /// client.MessageCreated.Subscribe(msg => {
-    ///     if(msg.Content == "!ping")
-    ///         await msg.RespondAsync("Pong!");
-    /// });
+    /// client.MessageCreated
+    ///     .Where(msg => msg.Content == "!ping")
+    ///     .Subscribe(msg => await msg.RespondAsync("Pong!"));
+    ///
     /// await client.ConnectAsync();
     /// </code>
-    /// <para>Members used in the example:</para>
-    /// <list type="bullet">
-    ///     <item>
-    ///         <description><see cref="AbstractGuildedClient.Prepared"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="AbstractGuildedClient.MessageCreated"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="ConnectAsync()"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="Base.Events.MessageEvent{T}.RespondAsync(string)"/></description>
-    ///     </item>
-    /// </list>
     /// </example>
     /// <seealso cref="AbstractGuildedClient"/>
     /// <seealso cref="Base.BaseGuildedClient"/>

@@ -24,7 +24,7 @@ namespace Guilded.NET.Base
         /// <para>This is initiated via internal OnDeserialized method and only available
         /// after deserialization, but not during it.</para>
         /// <para><see cref="ClientObject"/> is used to provide methods to objects, such as
-        /// <see cref="Chat.BaseMessage.RespondAsync(string)"/>, which rely on built-in client methods.</para>
+        /// <see cref="Content.Message.CreateMessageAsync(string)"/>, which rely on built-in client methods.</para>
         /// </remarks>
         /// <value>Client</value>
         [JsonIgnore]

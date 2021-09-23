@@ -29,13 +29,7 @@ namespace Guilded.NET
         /// </summary>
         /// <remarks>
         /// <para>An event that occurs once Guilded client has added finishing touches.</para>
-        /// <para>These things need to be completed in order for it to occur:</para>
-        /// <list type="number">
-        ///     <item>
-        ///         <term>Connected</term>
-        ///         <description>Guilded client must be connected.</description>
-        ///     </item>
-        /// </list>
+        /// <para>As of now, this is called at the same time as <see cref="BaseGuildedClient.Connected"/> event.</para>
         /// <para>You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly
         /// working and can be used.</para>
         /// </remarks>
@@ -57,7 +51,7 @@ namespace Guilded.NET
             SerializerSettings.Converters = new JsonConverter[]
             {
                 new RichTextConverter(),
-                new ContentConverter(),
+                //new ContentConverter(),
                 new HexColorConverter()
             };
             GuildedSerializer = JsonSerializer.Create(SerializerSettings);
@@ -88,15 +82,7 @@ namespace Guilded.NET
         /// Connects this client to Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>Connects to Guilded and starts these functions:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <description>Guilded WebSocket</description>
-        ///     </item>
-        ///     <item>
-        ///         <description><see cref="BaseGuildedClient.HeartbeatTimer"/> used for WebSocket heartbeats</description>
-        ///     </item>
-        /// </list>
+        /// <para>Connects to Guilded and starts Guilded's WebSocket, as well as its heartbeat.</para>
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
         /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
@@ -118,15 +104,7 @@ namespace Guilded.NET
         /// Disconnects this client from Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>This method stops:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <description>All Websockets in <see cref="BaseGuildedClient.Websockets"/></description>
-        ///     </item>
-        ///     <item>
-        ///         <description><see cref="BaseGuildedClient.HeartbeatTimer"/> used for WebSocket heartbeats</description>
-        ///     </item>
-        /// </list>
+        /// <para>The method that stops Guilded WebSocket and its heartbeat.</para>
         /// </remarks>
         /// <seealso cref="ConnectAsync"/>
         /// <seealso cref="Dispose"/>
@@ -154,15 +132,7 @@ namespace Guilded.NET
         /// Disposes <see cref="AbstractGuildedClient"/> instance.
         /// </summary>
         /// <remarks>
-        /// <para>Disposes <see cref="AbstractGuildedClient"/> and its connections:</para>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <description>All Websockets in <see cref="BaseGuildedClient.Websockets"/></description>
-        ///     </item>
-        ///     <item>
-        ///         <description><see cref="BaseGuildedClient.HeartbeatTimer"/> used for WebSocket heartbeats</description>
-        ///     </item>
-        /// </list>
+        /// <para>Disposes <see cref="AbstractGuildedClient"/> and its WebSockets and heartbeat.</para>
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
         public override void Dispose() =>

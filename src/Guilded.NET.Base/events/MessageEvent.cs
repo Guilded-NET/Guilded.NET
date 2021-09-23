@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base.Events
 {
     using Chat;
-    using Permissions;
+    using Content;
     /// <summary>
     /// The base for message-related events.
     /// </summary>
@@ -14,7 +14,7 @@ namespace Guilded.NET.Base.Events
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
     /// <seealso cref="MessageDeletedEvent"/>
-    public class MessageEvent<T> : BaseObject, ITeamEvent where T : BaseMessage
+    public class MessageEvent<T> : BaseObject where T : BaseObject
     {
         #region JSON properties
         /// <summary>
@@ -27,48 +27,6 @@ namespace Guilded.NET.Base.Events
             get; set;
         }
         #endregion
-
-        #region Properties
-        /// <inheritdoc cref="BaseMessage.ChannelId"/>
-        [JsonIgnore]
-        public Guid ChannelId => Message.ChannelId;
-        #endregion
-
-        #region Additional
-        /// <inheritdoc cref="BaseMessage.RespondAsync(MessageContent)"/>
-        public async Task<Message> RespondAsync(MessageContent content) =>
-            await Message.RespondAsync(content).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(string)"/>
-        public async Task<Message> RespondAsync(string content) =>
-            await Message.RespondAsync(content).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(string, object)"/>
-        public async Task<Message> RespondAsync(string format, object arg0) =>
-            await RespondAsync(string.Format(format, arg0)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(string, object, object)"/>
-        public async Task<Message> RespondAsync(string format, object arg0, object arg1) =>
-            await RespondAsync(string.Format(format, arg0, arg1)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(string, object, object, object)"/>
-        public async Task<Message> RespondAsync(string format, object arg0, object arg1, object arg2) =>
-            await RespondAsync(string.Format(format, arg0, arg1, arg2)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(string, object[])"/>
-        public async Task<Message> RespondAsync(string format, params object[] args) =>
-            await RespondAsync(string.Format(format, args)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(IFormatProvider, string, object)"/>
-        public async Task<Message> RespondAsync(IFormatProvider provider, string format, object arg0) =>
-            await RespondAsync(string.Format(provider, format, arg0)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(IFormatProvider, string, object, object)"/>
-        public async Task<Message> RespondAsync(IFormatProvider provider, string format, object arg0, object arg1) =>
-            await RespondAsync(string.Format(provider, format, arg0, arg1)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(IFormatProvider, string, object, object, object)"/>
-        public async Task<Message> RespondAsync(IFormatProvider provider, string format, object arg0, object arg1, object arg2) =>
-            await RespondAsync(string.Format(provider, format, arg0, arg1, arg2)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(IFormatProvider, string, object[])"/>
-        public async Task<Message> RespondAsync(IFormatProvider provider, string format, params object[] args) =>
-            await RespondAsync(string.Format(provider, format, args)).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseMessage.RespondAsync(object)"/>
-        public async Task<Message> RespondAsync(object content) =>
-            await RespondAsync(content.ToString()).ConfigureAwait(false);
-        #endregion
     }
     /// <summary>
     /// The base for message-related events.
@@ -80,60 +38,71 @@ namespace Guilded.NET.Base.Events
     public class MessageEvent : MessageEvent<Message>
     {
         #region Properties
-        /// <inheritdoc cref="Message.ByBot"/>
+        /// <inheritdoc cref="ChannelContent{T}.ChannelId"/>
         [JsonIgnore]
-        public bool ByBot => Message.ByBot;
+        public Guid ChannelId => Message.ChannelId;
         /// <inheritdoc cref="Message.Content"/>
         [JsonIgnore]
         public string Content => Message.Content;
-        /// <inheritdoc cref="Message.CreatedBy"/>
+        /// <inheritdoc cref="ChannelContent{T}.CreatedBy"/>
         [JsonIgnore]
         public GId CreatedBy => Message.CreatedBy;
-        /// <inheritdoc cref="Message.CreatedByWebhook"/>
+        /// <inheritdoc cref="ChannelContent{T}.CreatedByWebhook"/>
         [JsonIgnore]
         public Guid? CreatedByWebhook => Message.CreatedByWebhook;
-        /// <inheritdoc cref="Message.CreatedByBot"/>
+        /// <inheritdoc cref="ChannelContent{T}.CreatedByBot"/>
         [JsonIgnore]
         public Guid? CreatedByBot => Message.CreatedByBot;
+        /// <inheritdoc cref="ChannelContent{T}.CreatedAt"/>
+        [JsonIgnore]
+        public DateTime CreatedAt => Message.CreatedAt;
+        /// <inheritdoc cref="ChannelContent{T}.CreatedAuto"/>
+        [JsonIgnore]
+        public bool CreatedAuto => Message.CreatedAuto;
         /// <inheritdoc cref="Message.Type"/>
         [JsonIgnore]
         public MessageType Type => Message.Type;
         #endregion
 
         #region Additional
+        /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)"/>
+        public async Task<Message> CreateMessageAsync(MessageContent content) =>
+            await Message.CreateMessageAsync(content).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent, Guid[])"/>
+        public async Task<Message> CreateMessageAsync(MessageContent content, params Guid[] replyMessageIds) =>
+            await Message.CreateMessageAsync(content, replyMessageIds).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent, bool, Guid[])"/>
+        public async Task<Message> CreateMessageAsync(MessageContent content, bool isPrivate, params Guid[] replyMessageIds) =>
+            await Message.CreateMessageAsync(content, isPrivate, replyMessageIds).ConfigureAwait(false);
+
+        /// <inheritdoc cref="Message.CreateMessageAsync(string)"/>
+        public async Task<Message> CreateMessageAsync(string content) =>
+            await Message.CreateMessageAsync(content).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])"/>
+        public async Task<Message> CreateMessageAsync(string content, params Guid[] replyMessageIds) =>
+            await Message.CreateMessageAsync(content, replyMessageIds).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, Guid[])"/>
+        public async Task<Message> CreateMessageAsync(string content, bool isPrivate, params Guid[] replyMessageIds) =>
+            await Message.CreateMessageAsync(content, isPrivate, replyMessageIds).ConfigureAwait(false);
+
+        /// <inheritdoc cref="Message.ReplyAsync(MessageContent)"/>
+        public async Task<Message> ReplyAsync(MessageContent content) =>
+            await Message.ReplyAsync(content).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.ReplyAsync(MessageContent, bool)"/>
+        public async Task<Message> ReplyAsync(MessageContent content, bool isPrivate) =>
+            await Message.ReplyAsync(content, isPrivate).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.ReplyAsync(string)"/>
+        public async Task<Message> ReplyAsync(string content) =>
+            await Message.ReplyAsync(content).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.ReplyAsync(string, bool)"/>
+        public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
+            await Message.ReplyAsync(content, isPrivate).ConfigureAwait(false);
         /// <inheritdoc cref="Message.UpdateMessageAsync(MessageContent)"/>
         public async Task<Message> UpdateMessageAsync(MessageContent content) =>
             await Message.UpdateMessageAsync(content).ConfigureAwait(false);
         /// <inheritdoc cref="Message.UpdateMessageAsync(string)"/>
         public async Task<Message> UpdateMessageAsync(string content) =>
             await Message.UpdateMessageAsync(content).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(string, object)"/>
-        public async Task<Message> UpdateMessageAsync(string format, object arg0) =>
-            await UpdateMessageAsync(string.Format(format, arg0)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(string, object, object)"/>
-        public async Task<Message> UpdateMessageAsync(string format, object arg0, object arg1) =>
-            await UpdateMessageAsync(string.Format(format, arg0, arg1)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(string, object, object, object)"/>
-        public async Task<Message> UpdateMessageAsync(string format, object arg0, object arg1, object arg2) =>
-            await UpdateMessageAsync(string.Format(format, arg0, arg1, arg2)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(string, object[])"/>
-        public async Task<Message> UpdateMessageAsync(string format, params object[] args) =>
-            await UpdateMessageAsync(string.Format(format, args)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(IFormatProvider, string, object)"/>
-        public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, object arg0) =>
-            await UpdateMessageAsync(string.Format(provider, format, arg0)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(IFormatProvider, string, object, object)"/>
-        public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, object arg0, object arg1) =>
-            await UpdateMessageAsync(string.Format(provider, format, arg0, arg1)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(IFormatProvider, string, object, object, object)"/>
-        public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, object arg0, object arg1, object arg2) =>
-            await UpdateMessageAsync(string.Format(provider, format, arg0, arg1, arg2)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(IFormatProvider, string, object[])"/>
-        public async Task<Message> UpdateMessageAsync(IFormatProvider provider, string format, params object[] args) =>
-            await UpdateMessageAsync(string.Format(provider, format, args)).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(object)"/>
-        public async Task<Message> UpdateMessageAsync(object content) =>
-            await UpdateMessageAsync(content).ConfigureAwait(false);
         /// <inheritdoc cref="Message.DeleteMessageAsync"/>
         public async Task DeleteMessageAsync() =>
             await Message.DeleteMessageAsync().ConfigureAwait(false);

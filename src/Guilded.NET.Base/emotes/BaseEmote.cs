@@ -12,7 +12,7 @@ namespace Guilded.NET.Base
     public class BaseEmote : ClientObject
     {
         /// <summary>
-        /// ID of the emote.
+        /// The identifier of the emote.
         /// </summary>
         /// <value>Emote ID</value>
         [JsonProperty(Required = Required.Always)]
@@ -21,7 +21,7 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// URL to emote's PNG file.
+        /// The source URL to emote's PNG file.
         /// </summary>
         /// <value>.PNG URL?</value>
         [JsonProperty("png")]
@@ -30,7 +30,7 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// URL to emote's APNG(Animated PNG) file.
+        /// The source URL to emote's APNG(Animated PNG) file.
         /// </summary>
         /// <value>.APNG URL?</value>
         [JsonProperty("apng")]
@@ -39,7 +39,7 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// URL to emote's WebP file.
+        /// The source URL to emote's WebP file.
         /// </summary>
         /// <value>.WEBP URL?</value>
         [JsonProperty("webp")]
@@ -48,7 +48,7 @@ namespace Guilded.NET.Base
             get; set;
         }
         /// <summary>
-        /// Name of the emote.
+        /// The name of the emote.
         /// </summary>
         /// <value>Name</value>
         [JsonProperty(Required = Required.Always)]

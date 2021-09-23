@@ -5,10 +5,6 @@ using System.Reactive.Linq;
 namespace Guilded.NET
 {
     using Base.Events;
-
-    /// <summary>
-    /// A base for all Guilded clients.
-    /// </summary>
     public abstract partial class AbstractGuildedClient
     {
         /// <summary>

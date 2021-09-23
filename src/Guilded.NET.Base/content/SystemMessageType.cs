@@ -3,7 +3,7 @@
 // using Newtonsoft.Json;
 // using Newtonsoft.Json.Converters;
 
-// namespace Guilded.NET.Base.Chat
+// namespace Guilded.NET.Base.Content
 // {
 //     /// <summary>
 //     /// A type of the system message.
