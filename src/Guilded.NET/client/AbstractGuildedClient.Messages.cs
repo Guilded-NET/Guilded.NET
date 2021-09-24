@@ -12,7 +12,7 @@ namespace Guilded.NET
         /// </summary>
         /// <remarks>
         /// <para>A dictionary of all supported Guilded events, containing their event names and information about the event to use.</para>
-        /// <para>Use this if you need to support events that Guilded.NET does not.</para>
+        /// <para>You can add more events to this dictionary if Guilded.NET does not support certain events.</para>
         /// </remarks>
         /// <value>Dictionary of events</value>
         protected Dictionary<object, IEventInfo<object>> GuildedEvents
@@ -33,11 +33,18 @@ namespace Guilded.NET
         #region Teams
         /// <inheritdoc cref="XpAddedEvent"/>
         /// <seealso cref="RolesUpdated"/>
+        /// <seealso cref="MemberUpdated"/>
         public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["TeamXpAdded"]).Observable;
 
         /// <inheritdoc cref="RolesUpdatedEvent"/>
         /// <seealso cref="XpAdded"/>
+        /// <seealso cref="MemberUpdated"/>
         public IObservable<RolesUpdatedEvent> RolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["teamRolesUpdated"]).Observable;
+
+        /// <inheritdoc cref="MemberUpdatedEvent"/>
+        /// <seealso cref="RolesUpdated"/>
+        /// <seealso cref="XpAdded"/>
+        public IObservable<MemberUpdatedEvent> MemberUpdated => ((IEventInfo<MemberUpdatedEvent>)GuildedEvents["TeamMemberUpdated"]).Observable;
         #endregion
 
         #region Chat channels
@@ -61,11 +68,11 @@ namespace Guilded.NET
         /// When the socket message event is invoked.
         /// </summary>
         /// <remarks>
-        /// <para>Receives and handles received <see cref="GuildedEvent"/> messages.</para>
+        /// <para>Receives and handles received <see cref="GuildedSocketMessage"/> messages.</para>
         /// <para>This relies on <see cref="GuildedEvents"/> dictionary.</para>
         /// </remarks>
         /// <param name="message">A message received from a WebSocket</param>
-        protected void OnSocketMessage(GuildedEvent message)
+        protected void OnSocketMessage(GuildedSocketMessage message)
         {
             if (message is null) return;
 

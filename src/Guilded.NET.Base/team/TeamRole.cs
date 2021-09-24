@@ -5,8 +5,6 @@
 
 // namespace Guilded.NET.Base.Teams
 // {
-//     using Chat;
-
 //     using Permissions;
 //     /// <summary>
 //     /// Represents role in teams.

@@ -6,7 +6,6 @@
 
 // namespace Guilded.NET.Base.Content
 // {
-//     using Chat;
 //     /// <summary>
 //     /// Announcement posted in the Overview or announcement channel.
 //     /// </summary>

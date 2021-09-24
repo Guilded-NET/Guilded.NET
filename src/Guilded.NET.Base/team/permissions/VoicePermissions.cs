@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Voice chat/channel permissions.
+    /// Permissions related to voice.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to voice and voice rooms.</para>
+    /// </remarks>
     [Flags]
     public enum VoicePermissions
     {

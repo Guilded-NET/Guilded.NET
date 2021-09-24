@@ -10,8 +10,7 @@ namespace Guilded.NET.Base
     /// </summary>
     /// <remarks>
     /// <para>Provides a base for all Guilded.NET objects.</para>
-    /// <para>This object can be serialized with <see cref="Serialize(JsonSerializer)"/>
-    /// or <see cref="Serialize(JsonConverter[])"/> methods.</para>
+    /// <para>This object can be serialized with <see cref="Serialize(JsonSerializer)"/> or <see cref="Serialize(JsonConverter[])"/> methods.</para>
     /// </remarks>
     /// <seealso cref="ClientObject"/>
     public abstract class BaseObject

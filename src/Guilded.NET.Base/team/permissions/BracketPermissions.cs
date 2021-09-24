@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// All of the bracket permissions for team tournaments.
+    /// Permissions related to brackets.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions for tournament bracket related things.</para>
+    /// </remarks>
     [Flags]
     public enum BracketPermissions
     {

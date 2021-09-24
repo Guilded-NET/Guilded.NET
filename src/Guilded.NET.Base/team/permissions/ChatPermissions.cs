@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Chat/text channel related permissions.
+    /// Permissions related to chat.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions for chat &amp; text related things.</para>
+    /// </remarks>
     [Flags]
     public enum ChatPermissions
     {

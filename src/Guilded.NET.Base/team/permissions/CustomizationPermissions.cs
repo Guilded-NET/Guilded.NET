@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions which allow you to customize things, such as nicknames and emotes.
+    /// Permissions related to customization.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to nickname and emoji customizations.</para>
+    /// </remarks>
     [Flags]
     public enum CustomPermissions
     {

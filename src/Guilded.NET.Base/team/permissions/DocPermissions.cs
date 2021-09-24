@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions of document/doc channel.
+    /// Permissions related to documents.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to documents.</para>
+    /// </remarks>
     [Flags]
     public enum DocPermissions
     {

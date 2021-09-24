@@ -6,7 +6,6 @@
 
 // namespace Guilded.NET.Base.Content
 // {
-//     using Chat;
 //     /// <summary>
 //     /// An event that is in calendar channel.
 //     /// </summary>

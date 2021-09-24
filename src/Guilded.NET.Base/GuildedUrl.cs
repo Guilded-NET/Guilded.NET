@@ -3,29 +3,38 @@ using System;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// The list of URLs for Guilded services.
+    /// Defines a list of URLs to Guilded services.
     /// </summary>
     public static class GuildedUrl
     {
         /// <summary>
-        /// The URL for performing REST-related things on Guilded.
+        /// The URL to Guilded's API.
         /// </summary>
-        /// <value>URL</value>
+        /// <value>API URL</value>
         public static readonly Uri Api = new Uri("https://www.guilded.gg/api/v1/");
         /// <summary>
-        /// The URL for image, media and webhook related things.
+        /// The URL to Guilded's media services.
         /// </summary>
-        /// <value>URL</value>
+        /// <remarks>
+        /// <para>Provides the URL to Guilded's media services that allow image &amp; video uploads, as well as webhook-related functions.</para>
+        /// </remarks>
+        /// <value>Media URL</value>
         public static readonly Uri Media = new Uri("https://media.guilded.gg/");
         /// <summary>
-        /// The URL for viewing Guilded images and videos.
+        /// The URL to Guilded's image CDN.
         /// </summary>
-        /// <value>URL</value>
+        /// <remarks>
+        /// <para>Provides the URL to Guilded's image CDN that hosts all of the images on Guilded.</para>
+        /// </remarks>
+        /// <value>Image CDN URL</value>
         public static readonly Uri ImageCdn = new Uri("https://img.guildedcdn.com/");
         /// <summary>
-        /// The URL for initiating Guilded WebSocket.
+        /// The URL to Guilded's websocket.
         /// </summary>
-        /// <value>URL</value>
+        /// <remarks>
+        /// <para>Provides the URL to Guilded's API WebSocket.</para>
+        /// </remarks>
+        /// <value>WebSocket URL</value>
         public static readonly Uri Websocket = new Uri("wss://api.guilded.gg/v1/websocket");
     }
 }

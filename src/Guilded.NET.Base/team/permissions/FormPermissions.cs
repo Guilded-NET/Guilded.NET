@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Form and poll permissions.
+    /// Permissions related to forms &amp; polls.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to forms &amp; polls.</para>
+    /// </remarks>
     [Flags]
     public enum FormPermissions
     {

@@ -50,7 +50,6 @@ namespace Guilded.NET
             // Serializer converters for REST
             SerializerSettings.Converters = new JsonConverter[]
             {
-                new RichTextConverter(),
                 //new ContentConverter(),
                 new HexColorConverter()
             };
@@ -71,6 +70,7 @@ namespace Guilded.NET
                 // Team events
                 { "TeamXpAdded",            new EventInfo<XpAddedEvent>() },
                 { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>() },
+                { "TeamMemberUpdated",      new EventInfo<MemberUpdatedEvent>() },
                 // Chat messages
                 { "ChatMessageCreated",     new EventInfo<MessageCreatedEvent>() },
                 { "ChatMessageUpdated",     new EventInfo<MessageUpdatedEvent>() },

@@ -14,8 +14,7 @@ namespace Guilded.NET.Base
     /// An API wrapping layer for all Guilded client.
     /// </summary>
     /// <remarks>
-    /// <para>A base that adds a layer to Guilded API wrapping.</para>
-    /// <para>This is a base for all Guilded clients.</para>
+    /// <para>The base that adds a layer to Guilded API wrapping. This is used in all Guilded.NET clients.</para>
     /// </remarks>
     public abstract partial class BaseGuildedClient : IDisposable
     {

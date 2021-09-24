@@ -6,7 +6,6 @@
 
 // namespace Guilded.NET.Base.Users
 // {
-//     using Chat;
 //     /// <summary>
 //     /// Guilded user. This is NOT Guild member.
 //     /// </summary>

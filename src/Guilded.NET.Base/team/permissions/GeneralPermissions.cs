@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// General server/team management permissions.
+    /// Permissions related to servers.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to server management.</para>
+    /// </remarks>
     [Flags]
     public enum GeneralPermissions
     {

@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// List channel's permissions.
+    /// Permissions related to lists.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to lists/tasks in list channels.</para>
+    /// </remarks>
     [Flags]
     public enum ListPermissions
     {

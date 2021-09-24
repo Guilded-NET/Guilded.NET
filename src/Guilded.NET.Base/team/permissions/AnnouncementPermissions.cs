@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions related to announcement channel(and Overview channel, if it's CreateAnnouncements).
+    /// Permissions related to announcements.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions for announcement related things.</para>
+    /// </remarks>
     [Flags]
     public enum AnnounPermissions
     {

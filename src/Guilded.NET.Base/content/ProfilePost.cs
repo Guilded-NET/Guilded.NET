@@ -5,7 +5,6 @@
 
 // namespace Guilded.NET.Base.Content
 // {
-//     using Chat;
 //     using Users;
 //     /// <summary>
 //     /// A post that was posted in the profile.

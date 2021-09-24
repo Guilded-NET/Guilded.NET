@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
 {
-    using Chat;
     using Content;
     /// <summary>
     /// The base for message-related events.
@@ -65,16 +64,6 @@ namespace Guilded.NET.Base.Events
         #endregion
 
         #region Additional
-        /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)"/>
-        public async Task<Message> CreateMessageAsync(MessageContent content) =>
-            await Message.CreateMessageAsync(content).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent, Guid[])"/>
-        public async Task<Message> CreateMessageAsync(MessageContent content, params Guid[] replyMessageIds) =>
-            await Message.CreateMessageAsync(content, replyMessageIds).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent, bool, Guid[])"/>
-        public async Task<Message> CreateMessageAsync(MessageContent content, bool isPrivate, params Guid[] replyMessageIds) =>
-            await Message.CreateMessageAsync(content, isPrivate, replyMessageIds).ConfigureAwait(false);
-
         /// <inheritdoc cref="Message.CreateMessageAsync(string)"/>
         public async Task<Message> CreateMessageAsync(string content) =>
             await Message.CreateMessageAsync(content).ConfigureAwait(false);
@@ -84,22 +73,12 @@ namespace Guilded.NET.Base.Events
         /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, Guid[])"/>
         public async Task<Message> CreateMessageAsync(string content, bool isPrivate, params Guid[] replyMessageIds) =>
             await Message.CreateMessageAsync(content, isPrivate, replyMessageIds).ConfigureAwait(false);
-
-        /// <inheritdoc cref="Message.ReplyAsync(MessageContent)"/>
-        public async Task<Message> ReplyAsync(MessageContent content) =>
-            await Message.ReplyAsync(content).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.ReplyAsync(MessageContent, bool)"/>
-        public async Task<Message> ReplyAsync(MessageContent content, bool isPrivate) =>
-            await Message.ReplyAsync(content, isPrivate).ConfigureAwait(false);
         /// <inheritdoc cref="Message.ReplyAsync(string)"/>
         public async Task<Message> ReplyAsync(string content) =>
             await Message.ReplyAsync(content).ConfigureAwait(false);
         /// <inheritdoc cref="Message.ReplyAsync(string, bool)"/>
         public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
             await Message.ReplyAsync(content, isPrivate).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(MessageContent)"/>
-        public async Task<Message> UpdateMessageAsync(MessageContent content) =>
-            await Message.UpdateMessageAsync(content).ConfigureAwait(false);
         /// <inheritdoc cref="Message.UpdateMessageAsync(string)"/>
         public async Task<Message> UpdateMessageAsync(string content) =>
             await Message.UpdateMessageAsync(content).ConfigureAwait(false);

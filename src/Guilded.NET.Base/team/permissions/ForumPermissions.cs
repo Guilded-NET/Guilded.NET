@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions of forum channel.
+    /// Permissions related to forums.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to forums.</para>
+    /// </remarks>
     [Flags]
     public enum ForumPermissions
     {

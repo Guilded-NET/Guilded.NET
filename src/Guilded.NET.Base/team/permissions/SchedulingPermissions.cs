@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions for scheduling channel.
+    /// Permissions related to scheduling.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to availability in scheduling channels.</para>
+    /// </remarks>
     [Flags]
     public enum SchedulingPermissions
     {

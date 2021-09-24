@@ -34,10 +34,10 @@ namespace Guilded.NET.Base
         /// The REST client for Guilded.
         /// </summary>
         /// <remarks>
-        /// The REST client that is used for all Guilded requests by Guilded.NET.
+        /// <para>The REST client that is used to send requests to Guilded API.</para>
         /// </remarks>
-        /// <seealso cref="Websocket"/>
         /// <value>Rest client</value>
+        /// <seealso cref="Websocket"/>
         protected internal IRestClient Rest
         {
             get; set;
@@ -49,11 +49,11 @@ namespace Guilded.NET.Base
         /// Serializes object with client's Guilded serializer.
         /// </summary>
         /// <remarks>
-        /// <para>Serializes given object to JSON using <see cref="GuildedSerializer"/>.</para>
-        /// <para>Use this if you want to send REST request or WebSocket message.</para>
+        /// <para>Serializes given object to JSON using <see cref="GuildedSerializer"/>. Use this if you want to send REST request or WebSocket message.</para>
         /// </remarks>
-        /// <param name="obj">Object to serialize</param>
+        /// <param name="obj">The parameter to serialize</param>
         /// <returns>Serialized object</returns>
+        /// <seealso cref="Deserialize"/>
         public string Serialize(object obj)
         {
             using StringWriter strWriter = new StringWriter();
@@ -66,12 +66,12 @@ namespace Guilded.NET.Base
         /// Deserializes JSON with client's Guilded serializer.
         /// </summary>
         /// <remarks>
-        /// <para>Deserializes given JSON file/text using <see cref="GuildedSerializer"/>.</para>
-        /// <para>Use this if you want to deserialize Guilded response or WebSocket message.</para>
+        /// <para>Deserializes given JSON file/text using <see cref="GuildedSerializer"/>. Use this if you want to deserialize Guilded response or WebSocket message.</para>
         /// </remarks>
         /// <param name="json">Raw JSON to deserialize</param>
-        /// <typeparam name="T">Returning type</typeparam>
+        /// <typeparam name="T">The type of deserialized instance</typeparam>
         /// <returns>Deserialized object</returns>
+        /// <seealso cref="Serialize"/>
         public T Deserialize<T>(string json)
         {
             using StringReader strReader = new StringReader(json);
@@ -86,8 +86,7 @@ namespace Guilded.NET.Base
         /// Sends a request to Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type.</para>
-        /// <para>Any errors received will be thrown.</para>
+        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. Any errors received will be thrown.</para>
         /// </remarks>
         /// <param name="resource">The full URL of the endpoint</param>
         /// <param name="method">The action method of the endpoint</param>
@@ -97,6 +96,8 @@ namespace Guilded.NET.Base
         /// <param name="headers">The dictionary of headers and their values</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="GuildedRequestException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <typeparam name="T">The type of the response's content</typeparam>
         /// <returns>Request response</returns>
@@ -106,8 +107,7 @@ namespace Guilded.NET.Base
         /// Sends a request to Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type.</para>
-        /// <para>Any errors received will be thrown.</para>
+        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. Any errors received will be thrown.</para>
         /// </remarks>
         /// <param name="resource">The full URL of the endpoint</param>
         /// <param name="method">The action method of the endpoint</param>
@@ -117,6 +117,8 @@ namespace Guilded.NET.Base
         /// <param name="headers">The dictionary of headers and their values</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <exception cref="GuildedRequestException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
         public async Task<IRestResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>

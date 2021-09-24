@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Users
     /// A social media link.
     /// </summary>
     /// <remarks>
-    /// <para>Defines what platforms this user has linked to, such as <see cref="SocialLinkType.Twitch"/>.</para>
+    /// <para>Defines what platforms this user has linked to, such as <see cref="SocialLinkType.Twitch"/> and provides information about them.</para>
     /// </remarks>
     /// <seealso cref="Teams.Member"/>
     /// <seealso cref="SocialLinkType"/>

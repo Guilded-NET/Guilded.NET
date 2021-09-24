@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 namespace Guilded.NET.Base
 {
-    using Chat;
     using Content;
     using Permissions;
     public abstract partial class BaseGuildedClient
@@ -84,38 +83,6 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message with <paramref name="content"/>.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message created</returns>
-        public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent content);
-        /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)"/>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-        public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent content, params Guid[] replyMessageIds);
-        /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)"/>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <param name="isPrivate">Whether the reply is private</param>
-        /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-        public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent content, bool isPrivate, params Guid[] replyMessageIds);
-        /// <summary>
-        /// Creates a message in a chat.
-        /// </summary>
-        /// <remarks>
         /// <para>Creates a new message with <paramref name="content"/> formatted in Markdown.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
@@ -146,31 +113,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <remarks>
-        /// <para>Edits the message <paramref name="messageId"/> if the specified message is from
-        /// the client. This does not work if the client is not the creator of the message.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="messageId">The identifier of the message to edit</param>
-        /// <param name="content">The new content of the message in rich text markup</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message updated</returns>
-        public abstract Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, MessageContent content);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <remarks>
-        /// <para>Edits the message <paramref name="messageId"/>, if the specified message is from
-        /// the client. This does not work if the client is not the creator of the message.</para>
+        /// <para>Edits the message <paramref name="messageId"/>, if the specified message is from the client. This does not work if the client is not the creator of the message.</para>
         /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
@@ -191,8 +134,7 @@ namespace Guilded.NET.Base
         /// Deletes a specified message.
         /// </summary>
         /// <remarks>
-        /// <para>Removes the message of identifier <paramref name="messageId"/>, whether it be from the client or
-        /// another user.</para>
+        /// <para>Removes the message of identifier <paramref name="messageId"/>, whether it be from the client or another user.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to delete</param>
@@ -257,27 +199,6 @@ namespace Guilded.NET.Base
         #endregion*/
 
         #region Forum channels
-        /// <summary>
-        /// Creates a forum thread.
-        /// </summary>
-        /// <remarks>
-        /// <para>Creates a forum thread/post in forums.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="title">The title of the forum post</param>
-        /// <param name="content">The content of the forum post</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
-        /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
-        /// <returns>Forum thread created</returns>
-        public abstract Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, MessageContent content);
         /// <summary>
         /// Creates a forum thread.
         /// </summary>
@@ -578,27 +499,6 @@ namespace Guilded.NET.Base
         #endregion*/
 
         #region List channels
-        /// <summary>
-        /// Creates a list item.
-        /// </summary>
-        /// <remarks>
-        /// <para>Creates a new list item in list/task channel.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="message">The title content of this list item</param>
-        /// <param name="note">The note of this list item</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
-        /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
-        /// <returns>List item created</returns>
-        public abstract Task<ListItem> CreateListItemAsync(Guid channelId, MessageContent message, MessageContent note = null);
         /// <summary>
         /// Creates a list item.
         /// </summary>

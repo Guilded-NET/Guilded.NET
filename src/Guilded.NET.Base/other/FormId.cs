@@ -7,11 +7,10 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// The identifier for forms and media uploads.
+    /// An identifier for forms and media uploads.
     /// </summary>
     /// <remarks>
-    /// <para>The form identifier.</para>
-    /// <para>This can only be found in forms(form fields specifically) and media upload progress tracking.</para>
+    /// <para>The form identifier. This can only be found in forms(form fields specifically) and media upload progress tracking.</para>
     /// </remarks>
     /// <example>
     /// <para>The list of different form identifiers:</para>

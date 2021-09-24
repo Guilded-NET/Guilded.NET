@@ -8,9 +8,7 @@ namespace Guilded.NET.Base.Content
     /// The base type for channel contents.
     /// </summary>
     /// <remarks>
-    /// <para>Defines the base type for all channel contents.</para>
-    /// <para>This is not the base type for deleted channel content, as they hold minimal information
-    /// about deleted content.</para>
+    /// <para>Defines the base type for all channel contents, apart from deleted ones.</para>
     /// </remarks>
     /// <typeparam name="T">The type of the identifier <see cref="Id"/></typeparam>
     public abstract class ChannelContent<T> : ClientObject

@@ -31,15 +31,14 @@ namespace Guilded.NET.Base
         /// A timer for heartbeats.
         /// </summary>
         /// <remarks>
-        /// <para>A timer that sends a heartbeat through WebSockets to Guilded.</para>
-        /// <para>This ensures that WebSockets are still connected to Guilded.</para>
+        /// <para>A timer that sends a heartbeat through WebSockets to Guilded. This ensures that WebSockets are still connected to Guilded.</para>
         /// </remarks>
         /// <value>Timer</value>
         protected Timer HeartbeatTimer
         {
             get; set;
         }
-        private readonly Subject<GuildedEvent> OnWebsocketMessage = new Subject<GuildedEvent>();
+        private readonly Subject<GuildedSocketMessage> OnWebsocketMessage = new Subject<GuildedSocketMessage>();
         /// <summary>
         /// An event when WebSocket receives a message.
         /// </summary>
@@ -47,8 +46,8 @@ namespace Guilded.NET.Base
         /// <para>An event when WebSocket receives any kind of message from Guilded.</para>
         /// <para>If event with opcode <c>8</c> is received, it is given as an exception instead.</para>
         /// </remarks>
-        /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{GuildedEvent}.OnError(Exception)"/>.</exception>
-        protected IObservable<GuildedEvent> WebsocketMessage => OnWebsocketMessage.AsObservable();
+        /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{T}.OnError(Exception)"/>.</exception>
+        protected IObservable<GuildedSocketMessage> WebsocketMessage => OnWebsocketMessage.AsObservable();
         /// <summary>
         /// Initializes a new WebSocket client.
         /// </summary>
@@ -61,7 +60,7 @@ namespace Guilded.NET.Base
         /// <exception cref="WebsocketException">Either <paramref name="lastMessageId"/> or <see cref="AdditionalHeaders"/> has a bad formatting</exception>
         /// <returns>Created websocket</returns>
         /// <seealso cref="ResumeEvent"/>
-        /// <seealso cref="InitWebsocket(GuildedEvent)"/>
+        /// <seealso cref="InitWebsocket(GuildedSocketMessage)"/>
         protected virtual async Task<WebsocketClient> InitWebsocket(string lastMessageId = null, Uri websocketUrl = null)
         {
             Func<ClientWebSocket> factory = new Func<ClientWebSocket>(() =>
@@ -104,7 +103,7 @@ namespace Guilded.NET.Base
         /// <returns>Created websocket</returns>
         /// <seealso cref="ResumeEvent"/>
         /// <seealso cref="InitWebsocket(string, Uri)"/>
-        protected virtual async Task<WebsocketClient> InitWebsocket(GuildedEvent @event) =>
+        protected virtual async Task<WebsocketClient> InitWebsocket(GuildedSocketMessage @event) =>
             await InitWebsocket(@event.MessageId).ConfigureAwait(false);
         /// <summary>
         /// Used for when any WebSocket receives a message.
@@ -118,7 +117,7 @@ namespace Guilded.NET.Base
         {
             if (response.MessageType == WebSocketMessageType.Text)
             {
-                GuildedEvent @event = Deserialize<GuildedEvent>(response.Text);
+                GuildedSocketMessage @event = Deserialize<GuildedSocketMessage>(response.Text);
                 // Check for a welcome message to change hearbeat interval
                 if (@event.Opcode == welcome_opcode)
                 {

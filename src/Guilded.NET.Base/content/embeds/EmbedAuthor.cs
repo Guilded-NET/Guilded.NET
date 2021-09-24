@@ -8,8 +8,7 @@ namespace Guilded.NET.Base.Embeds
     /// The provided information about embed author.
     /// </summary>
     /// <remarks>
-    /// <para>Defines an author of the quoting message or anything else.</para>
-    /// <para>The <see cref="EmbedAuthor"/> feature has following properties:</para>
+    /// <para>Defines an author of the quoting message or anything else. The <see cref="EmbedAuthor"/> feature has following properties:</para>
     /// </remarks>
     /// <example>
     /// <para>An example of using <see cref="EmbedAuthor"/> to display content owner:</para>
@@ -27,7 +26,6 @@ namespace Guilded.NET.Base.Embeds
     /// </code>
     /// </example>
     /// <seealso cref="EmbedFooter"/>
-    /// <seealso cref="EmbedProvider"/>
     /// <seealso cref="EmbedField"/>
     /// <seealso cref="EmbedMedia"/>
     public class EmbedAuthor : BaseObject

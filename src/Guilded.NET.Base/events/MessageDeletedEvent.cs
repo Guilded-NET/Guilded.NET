@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
 {
-    using Chat;
     /// <summary>
     /// An event that occurs once someone deletes a message.
     /// </summary>
@@ -21,8 +20,7 @@ namespace Guilded.NET.Base.Events
         /// A message that was recently deleted/removed.
         /// </summary>
         /// <remarks>
-        /// <para>A no longer existing message that was deleted/removed
-        /// by an author of this message or by a server staff.</para>
+        /// <para>A no longer existing message that was deleted/removed by an author of this message or by a server staff.</para>
         /// </remarks>
         /// <seealso cref="Content.Message"/>
         /// <seealso cref="MessageDeletedEvent"/>

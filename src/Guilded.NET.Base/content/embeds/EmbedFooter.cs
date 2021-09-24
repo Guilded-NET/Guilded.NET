@@ -8,11 +8,8 @@ namespace Guilded.NET.Base.Embeds
     /// The footer of an embed.
     /// </summary>
     /// <remarks>
-    /// <para>The bottom area of an embed that provides further information about anything.</para>
-    /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Embed.Timestamp"/> property. Timestamps are
-    /// not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
+    /// <para>The bottom area of an embed that defines a side information about something, such as post likes. Footers can also have timestamps, but that can be used by setting <see cref="Embed.Timestamp"/> property. Timestamps are not officially part of footers, but that's the way it is displayed.</para>
     /// </remarks>
-    /// <seealso cref="EmbedProvider"/>
     /// <seealso cref="EmbedAuthor"/>
     /// <seealso cref="EmbedField"/>
     /// <seealso cref="EmbedMedia"/>

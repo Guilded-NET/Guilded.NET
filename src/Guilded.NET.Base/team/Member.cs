@@ -27,8 +27,7 @@ namespace Guilded.NET.Base.Teams
         /// A nickname of this member.
         /// </summary>
         /// <remarks>
-        /// <para>Defines a nickname of this member. This may be <see langword="null"/> if the member
-        /// has no nickname.</para>
+        /// <para>Defines a nickname of this member. This may be <see langword="null"/> if the member has no nickname.</para>
         /// </remarks>
         /// <value>Name?</value>
         public string Nickname

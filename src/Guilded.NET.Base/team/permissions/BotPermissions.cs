@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions for managing bots and flowbots.
+    ///Permissions related to bots.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions for flowbots related things.</para>
+    /// </remarks>
     [Flags]
     public enum BotPermissions
     {

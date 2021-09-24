@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions related to XP and levels.
+    /// Permissions related to XP.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to XP &amp; levels.</para>
+    /// </remarks>
     [Flags]
     public enum XPPermissions
     {

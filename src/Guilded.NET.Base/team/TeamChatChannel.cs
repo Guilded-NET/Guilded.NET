@@ -5,7 +5,6 @@
 
 // namespace Guilded.NET.Base.Teams
 // {
-//     using Chat;
 //     /// <summary>
 //     /// Interface for team channels and categories.
 //     /// </summary>

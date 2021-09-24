@@ -7,8 +7,7 @@ namespace Guilded.NET.Base
     /// An error received from Guilded WebSocket.
     /// </summary>
     /// <remarks>
-    /// <para>An error that occurs involving WebSockets.</para>
-    /// <para>This error can occur in these different ways:</para>
+    /// <para>An error that occurs involving WebSockets. This error can occur in these different ways:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term>Expired last event message identifier</term>

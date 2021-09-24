@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions for streaming/stream channel.
+    /// Permissions related to streaming.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to streaming channels.</para>
+    /// </remarks>
     [Flags]
     public enum StreamPermissions
     {

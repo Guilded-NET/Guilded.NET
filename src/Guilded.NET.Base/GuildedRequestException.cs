@@ -9,8 +9,7 @@ namespace Guilded.NET.Base
     /// A bad request exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
-    /// <para>An exception thrown by Guilded API when request is invalid/bad.</para>
-    /// <para>This has these leading causes:</para>
+    /// <para>An exception thrown by Guilded API when request is invalid/bad. This has these leading causes:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term>Invalid/bad parameters</term>

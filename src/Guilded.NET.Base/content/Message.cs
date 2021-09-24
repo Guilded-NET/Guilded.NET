@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Content
 {
-    using Chat;
     using Events;
     using Permissions;
     /// <summary>
@@ -14,30 +13,11 @@ namespace Guilded.NET.Base.Content
     /// </summary>
     /// <remarks>
     /// <para>An existing/a cached message that can be found in a chat.</para>
-    /// <para>This message type can be found in:</para>
-    /// <list type="bullet">
-    ///     <item>
-    ///         <description><see cref="BaseGuildedClient.GetMessagesAsync(Guid, uint)"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="BaseGuildedClient.GetMessageAsync(Guid, Guid)"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="MessageCreatedEvent"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description><see cref="MessageUpdatedEvent"/></description>
-    ///     </item>
-    ///     <item>
-    ///         <description>A return value from message creation and updating methods.</description>
-    ///     </item>
-    /// </list>
     /// </remarks>
     /// <seealso cref="ListItem"/>
     /// <seealso cref="ForumThread"/>
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
-    /// <seealso cref="MessageContent"/>
     public class Message : ChannelContent<Guid>
     {
         #region JSON properties
@@ -126,40 +106,6 @@ namespace Guilded.NET.Base.Content
         /// <remarks>
         /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T}.ChannelId"/> where the message is.</para>
         /// <para>This does not automatically include the message in the reply list.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedRequestException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message created</returns>
-        public async Task<Message> CreateMessageAsync(MessageContent content) =>
-            await ParentClient.CreateMessageAsync(ChannelId, content).ConfigureAwait(false);
-        /// <inheritdoc cref="CreateMessageAsync(MessageContent)"/>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-        public async Task<Message> CreateMessageAsync(MessageContent content, params Guid[] replyMessageIds) =>
-            await ParentClient.CreateMessageAsync(ChannelId, content, replyMessageIds).ConfigureAwait(false);
-        /// <inheritdoc cref="CreateMessageAsync(MessageContent)"/>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <param name="isPrivate">Whether the reply is private</param>
-        /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-        public async Task<Message> CreateMessageAsync(MessageContent content, bool isPrivate, params Guid[] replyMessageIds) =>
-            await ParentClient.CreateMessageAsync(ChannelId, content, isPrivate, replyMessageIds).ConfigureAwait(false);
-        /// <summary>
-        /// Creates a message in a chat.
-        /// </summary>
-        /// <remarks>
-        /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T}.ChannelId"/> where the message is.</para>
-        /// <para>This does not automatically include the message in the reply list.</para>
         /// </remarks>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException"/>
@@ -192,34 +138,6 @@ namespace Guilded.NET.Base.Content
         /// <remarks>
         /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T}.ChannelId"/> where the message is.</para>
         /// <para>Includes the message in the reply list.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedRequestException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message created</returns>
-        public async Task<Message> ReplyAsync(MessageContent content) =>
-            await CreateMessageAsync(content, Id).ConfigureAwait(false);
-        /// <inheritdoc cref="ReplyAsync(MessageContent)"/>
-        /// <param name="content">The contents of the message in rich text markup</param>
-        /// <param name="isPrivate">Whether the reply is private</param>
-        public async Task<Message> ReplyAsync(MessageContent content, bool isPrivate) =>
-            await CreateMessageAsync(content, isPrivate, Id).ConfigureAwait(false);
-        /// <summary>
-        /// Replies to the message in the chat.
-        /// </summary>
-        /// <remarks>
-        /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T}.ChannelId"/> where the message is.</para>
-        /// <para>Includes the message in the reply list.</para>
         /// </remarks>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException"/>
@@ -240,28 +158,6 @@ namespace Guilded.NET.Base.Content
         /// <param name="isPrivate">Whether the reply is private</param>
         public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
             await CreateMessageAsync(content, isPrivate, Id).ConfigureAwait(false);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <remarks>
-        /// <para>Edits the message if the specified message is from the client.
-        /// This does not work if the client is not the creator of the message.</para>
-        /// <blockquote class="warning">
-        ///     Rich text markup will be removed from use eventually and only be used internally
-        ///     in Guilded API
-        /// </blockquote>
-        /// </remarks>
-        /// <param name="content">The new content of the message in rich text markup</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message edited</returns>
-        public async Task<Message> UpdateMessageAsync(MessageContent content) =>
-            await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
         /// <summary>
         /// Updates the contents of the message.
         /// </summary>

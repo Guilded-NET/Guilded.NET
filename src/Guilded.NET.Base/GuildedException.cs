@@ -9,12 +9,8 @@ namespace Guilded.NET.Base
     /// An exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
-    /// <para>A base exception type for Guilded.</para>
-    /// <para>This should not usually be thrown and instead, children types of
-    /// <see cref="GuildedException"/> should be thrown instead. If you see it get thrown, this is
-    /// most likely due to internal server error or some kind of other unknown exception.</para>
-    /// <para>If you get internal server error, make sure you are doing everything right as
-    /// documented or noted.</para>
+    /// <para>A base exception type for Guilded. This should not usually be thrown and instead, children types of <see cref="GuildedException"/> should be thrown instead. If you see it get thrown, this is most likely due to internal server error or some kind of other unknown exception.</para>
+    /// <para>If you get internal server error, make sure you are doing everything right as documented or noted.</para>
     /// </remarks>
     /// <seealso cref="GuildedPermissionException"/>
     /// <seealso cref="GuildedRequestException"/>

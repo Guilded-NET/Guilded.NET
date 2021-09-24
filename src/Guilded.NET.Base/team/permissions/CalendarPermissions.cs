@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Event/calendar channel permissions.
+    /// Permissions related to calendar.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions for calendar and event related things.</para>
+    /// </remarks>
     [Flags]
     public enum CalendarPermissions
     {

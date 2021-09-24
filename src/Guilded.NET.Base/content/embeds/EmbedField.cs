@@ -7,12 +7,9 @@ namespace Guilded.NET.Base.Embeds
     /// A field in an embed.
     /// </summary>
     /// <remarks>
-    /// <para>Displays a field with its own description/value and title/name.</para>
-    /// <para>Fields can be both inline and blocks.</para>
-    /// <para>They are only inline if <see cref="Inline"/> parameter is <see langword="true"/>.</para>
+    /// <para>Displays a field with its own description/value and title/name. Fields can be both inline and blocks. They are only inline if <see cref="Inline"/> parameter is <see langword="true"/>.</para>
     /// </remarks>
     /// <seealso cref="EmbedFooter"/>
-    /// <seealso cref="EmbedProvider"/>
     /// <seealso cref="EmbedAuthor"/>
     /// <seealso cref="EmbedMedia"/>
     public class EmbedField : BaseObject

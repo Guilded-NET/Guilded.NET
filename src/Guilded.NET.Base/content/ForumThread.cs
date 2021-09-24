@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Content
     /// A forum thread in a forum channel.
     /// </summary>
     /// <remarks>
-    /// <para>A forum post/thread in forums.</para>
+    /// <para>A forum post/thread in forums that holds <see cref="Content"/> and a short <see cref="Title"/>.</para>
     /// <para>Currently can only be found as a return value from forum thread creation methods.</para>
     /// </remarks>
     /// <seealso cref="Message"/>

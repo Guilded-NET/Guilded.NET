@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Permissions related to media channel.
+    /// Permissions related to media.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to media in media channels.</para>
+    /// </remarks>
     [Flags]
     public enum MediaPermissions
     {

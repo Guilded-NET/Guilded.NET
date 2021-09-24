@@ -9,11 +9,9 @@ namespace Guilded.NET.Base.Content
     /// The information about a reaction.
     /// </summary>
     /// <remarks>
-    /// <para>Defines a react in <see cref="ChannelContent{T}"/>.</para>
+    /// <para>Defines a reaction in <see cref="ChannelContent{T}"/>. Currently doesn't hold the count of all reactions, nor return all reacting users.</para>
     /// </remarks>
-    /// <seealso cref="Emote"/>
     /// <seealso cref="Message"/>
-    /// <seealso cref="Chat.ChatEmote"/>
     public class Reaction : ClientObject
     {
         #region JSON properties

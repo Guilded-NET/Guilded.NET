@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// All of the permissions related to applications and recruiting.
+    /// Permissions related to recruiting.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to recruiting in applications.</para>
+    /// </remarks>
     [Flags]
     public enum RecruitmentPermissions
     {

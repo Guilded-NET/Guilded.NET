@@ -4,7 +4,6 @@
 
 // namespace Guilded.NET.Base.Teams
 // {
-//     using Chat;
 //     /// <summary>
 //     /// Represents Guilded channel.
 //     /// </summary>

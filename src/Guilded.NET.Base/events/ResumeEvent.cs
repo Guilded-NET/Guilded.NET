@@ -6,10 +6,7 @@ namespace Guilded.NET.Base.Events
     /// Event that occurs when client passes last event message identifier.
     /// </summary>
     /// <remarks>
-    /// <para><see cref="ResumeEvent"/> only occurs if last event message identifier
-    /// is passed to the WebSocket in <c>guilded-last-message-id</c> header.</para>
-    /// <para>This event is only received after all events are given to the client
-    /// and normal events are being received again.</para>
+    /// <para><see cref="ResumeEvent"/> only occurs if last event message identifier is passed to the WebSocket in <c>guilded-last-message-id</c> header. This event is only received after all events are given to the client and normal events are being received again.</para>
     /// <para>In API, this event has no name but has an event opcode of <c>2</c>.</para>
     /// </remarks>
     /// <seealso cref="WelcomeEvent"/>
@@ -22,7 +19,7 @@ namespace Guilded.NET.Base.Events
         /// </summary>
         /// <remarks>
         /// <para>Gets the identifier of the last received event message that was passed in <c>guilded-last-message-id</c>.</para>
-        /// <para>You can get the identifier of the event message by using <see cref="GuildedEvent.MessageId"/> property from events.</para>
+        /// <para>You can get the identifier of the event message by using <see cref="GuildedSocketMessage.MessageId"/> property from events.</para>
         /// </remarks>
         /// <value>Event message ID</value>
         [JsonProperty("s", Required = Required.Always)]

@@ -15,8 +15,7 @@ namespace Guilded.NET
         /// A subscribable observable.
         /// </summary>
         /// <remarks>
-        /// <para>An observable that can be subscribed to.</para>
-        /// <para>The received event will be of type <typeparamref name="T"/>.</para>
+        /// <para>An observable that can be subscribed to. The received event will be of type <typeparamref name="T"/>.</para>
         /// </remarks>
         /// <value>Observable</value>
         IObservable<T> Observable { get; }
@@ -24,8 +23,7 @@ namespace Guilded.NET
         /// The type of the arguments that should be used.
         /// </summary>
         /// <remarks>
-        /// <para>The type of the event that will be received.</para>
-        /// <para>Relies on <typeparamref name="T"/> type.</para>
+        /// <para>The type of the event that will be received. Relies on <typeparamref name="T"/> type.</para>
         /// </remarks>
         /// <value>Type</value>
         Type ArgumentType { get; }
@@ -60,9 +58,8 @@ namespace Guilded.NET
         /// A subscribable observable.
         /// </summary>
         /// <remarks>
-        /// <para>An observable that can be subscribed to.</para>
-        /// <para>The received event will be of type <typeparamref name="T"/>.</para>
-        /// <para>This relies on <see cref="Subject"/> subject.</para>
+        /// <para>An observable that can be subscribed to. The received event will be of type <typeparamref name="T"/>.</para>
+        /// <para>This relies on <see cref="Subject"/>.</para>
         /// </remarks>
         /// <value><see cref="Subject"/> as observable</value>
         public IObservable<T> Observable => Subject.AsObservable();
@@ -70,8 +67,7 @@ namespace Guilded.NET
         /// The type of the arguments that should be used.
         /// </summary>
         /// <remarks>
-        /// <para>The type of the event that will be received.</para>
-        /// <para>Relies on <typeparamref name="T"/> type.</para>
+        /// <para>The type of the event that will be received. Relies on <typeparamref name="T"/> type.</para>
         /// </remarks>
         /// <value>Type</value>
         public Type ArgumentType => typeof(T);
@@ -83,8 +79,7 @@ namespace Guilded.NET
         /// Notifies observers with OnNext.
         /// </summary>
         /// <remarks>
-        /// <para>Notifies all <see cref="Observable"/>'s observers.</para>
-        /// <para>Invokes <see cref="Subject"/>'s <see cref="Subject{T}.OnNext(T)"/> method.</para>
+        /// <para>Notifies all <see cref="Observable"/>'s observers. Invokes <see cref="Subject"/>'s <see cref="Subject{T}.OnNext(T)"/> method.</para>
         /// </remarks>
         /// <param name="value">The next received value</param>
         public void OnNext(object value) =>
@@ -93,8 +88,7 @@ namespace Guilded.NET
         /// Notifies observers with OnError.
         /// </summary>
         /// <remarks>
-        /// <para>Notifies all <see cref="Observable"/>'s observers with an error.</para>
-        /// <para>Invokes <see cref="Subject"/>'s <see cref="Subject{T}.OnError(Exception)"/> method.</para>
+        /// <para>Notifies all <see cref="Observable"/>'s observers with an error. Invokes <see cref="Subject"/>'s <see cref="Subject{T}.OnError(Exception)"/> method.</para>
         /// </remarks>
         /// <param name="exception">The next received exception/error</param>
         public void OnError(Exception exception) =>

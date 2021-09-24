@@ -6,12 +6,10 @@ using Newtonsoft.Json;
 namespace Guilded.NET.Base
 {
     /// <summary>
-    /// The identifier for Guilded teams, users, etc.
+    /// An identifier for Guilded teams, users, etc.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of various Guilded objects.</para>
-    /// <para>Guilded identifier is 8 characters in length and
-    /// consists of digits, uppercase letters and lowercase letters.</para>
+    /// <para>The identifier of various Guilded objects. Guilded identifier is 8 characters in length and consists of digits, uppercase letters and lowercase letters.</para>
     /// <para>This can be found in:</para>
     /// <list type="bullet">
     ///     <item>
@@ -36,10 +34,6 @@ namespace Guilded.NET.Base
     /// <code language="none">
     /// R40Mp0Wd
     /// Ann6LewA
-    /// Abcdefg7
-    /// UasJs5I
-    /// QiW0kBN
-    /// Ga9aSd3
     /// </code>
     /// </example>
     /// <seealso cref="Guid"/>

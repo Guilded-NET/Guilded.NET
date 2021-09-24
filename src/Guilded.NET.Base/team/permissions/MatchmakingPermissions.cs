@@ -3,8 +3,11 @@ using System;
 namespace Guilded.NET.Base.Permissions
 {
     /// <summary>
-    /// Tournament and scrims permissions.
+    /// Permissions related to matchmaking.
     /// </summary>
+    /// <remarks>
+    /// <para>Defines permissions related to tournaments &amp; scrims.</para>
+    /// </remarks>
     [Flags]
     public enum MatchmakingPermissions
     {

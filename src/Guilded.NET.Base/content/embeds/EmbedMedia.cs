@@ -6,11 +6,9 @@ namespace Guilded.NET.Base.Embeds
     /// The media found in an embed.
     /// </summary>
     /// <remarks>
-    /// <para>Represents an image, a thumbnail or a video in an embed.</para>
-    /// <para>Provides both a way to set image's URL and its dimensions</para>
+    /// <para>Represents an image, a thumbnail or a video in an embed that can have its defined dimensions with <see cref="Width"/> and <see cref="Height"/> properties.</para>
     /// </remarks>
     /// <seealso cref="EmbedFooter"/>
-    /// <seealso cref="EmbedProvider"/>
     /// <seealso cref="EmbedAuthor"/>
     /// <seealso cref="EmbedField"/>
     public class EmbedMedia : BaseObject
