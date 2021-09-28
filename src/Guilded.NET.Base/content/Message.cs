@@ -40,11 +40,9 @@ namespace Guilded.NET.Base.Content
         /// Which messages it is replying to.
         /// </summary>
         /// <remarks>
-        /// <para>Specifies which messages were replied to in this message.</para>
-        /// <para>The max reply limit is 5.</para>
-        /// <para>If this property is <see langword="null"/>, this message isn't a reply.</para>
+        /// <para>Specifies which messages were replied to in this message. The max reply limit is 5.</para>
         /// </remarks>
-        /// <value>List of message IDs</value>
+        /// <value>List of message IDs?</value>
         public IList<Guid> ReplyMessageIds
         {
             get; set;
@@ -66,9 +64,9 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>Checks whether the message is a reply.</para>
-        /// <para>This uses <see cref="ReplyMessageIds"/> property to verify it.</para>
         /// </remarks>
         /// <value>Message is a reply</value>
+        [JsonIgnore]
         public bool IsReply => ReplyMessageIds?.Count > 0;
         #endregion
 
@@ -77,8 +75,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>The <see cref="DateTime"/> of when the message was edited.</para>
-        /// <para>This is recorded by the server and all the delays that were
-        /// created by the client will be added as well.</para>
+        /// <para>This is recorded by the server and all the delays that were created by the client will be added as well.</para>
         /// </remarks>
         /// <value>Updated at?</value>
         public DateTime? UpdatedAt

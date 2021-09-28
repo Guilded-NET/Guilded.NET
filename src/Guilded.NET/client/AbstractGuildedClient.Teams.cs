@@ -59,7 +59,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing roles</permission>
-        public override async Task AttachRoleLevelAsync(uint roleId, long amount) =>
+        public override async Task SetRoleLevelAsync(uint roleId, long amount) =>
             await ExecuteRequest($"roles/{roleId}/xp", Method.POST, new
             {
                 amount

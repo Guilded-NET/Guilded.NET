@@ -4,49 +4,83 @@ using System.Threading.Tasks;
 
 namespace Guilded.NET.Base
 {
+    using Embeds;
     using Content;
     using Permissions;
     public abstract partial class BaseGuildedClient
     {
-        // #region Webhook
-        // /// <summary>
-        // /// Creates a webhook in a given channel.
-        // /// </summary>
-        // /// <param name="channelId">The identifier of the parent channel</param>
-        // /// <param name="name">The name of the webhook</param>
-        // /// <exception cref="GuildedException"/>
-        // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
-        // /// <returns>Created webhook</returns>
-        // public abstract Task<Webhook> CreateWebhookAsync(Guid channelId, string name);
-        // /// <summary>
-        // /// Updates webhook's name or profile picture.
-        // /// </summary>
-        // /// <param name="channelId">The identifier of the parent channel</param>
-        // /// <param name="webhookId">The identifier of the webhook to update</param>
-        // /// <param name="name">A new name of the webhook</param>
-        // /// <param name="avatar">Profile picture/icon of the webhook</param>
-        // /// <exception cref="GuildedException"/>
-        // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
-        // /// <returns>Updated webhook</returns>
-        // public abstract Task<Webhook> UpdateWebhookAsync(Guid channelId, Guid webhookId, string name, Uri avatar);
-        // /// <summary>
-        // /// Deletes a webhook.
-        // /// </summary>
-        // /// <param name="webhookId">The identifier of the webhook to delete</param>
-        // /// <exception cref="GuildedException"/>
-        // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
-        // /// <returns>Deleted webhook</returns>
-        // public abstract Task<Webhook> DeleteWebhookAsync(Guid webhookId);
-        // /// <summary>
-        // /// Posts a message using a webhook.
-        // /// </summary>
-        // /// <param name="webhookId">The identifier of the webhook</param>
-        // /// <param name="token">Token of this webhook</param>
-        // /// <param name="content">Message to send using the webhook</param>
-        // /// <param name="embeds">An array of embeds to send</param>
-        // /// <exception cref="GuildedException"/>
-        // public abstract Task ExecuteWebhookAsync(Guid webhookId, string token, string content = null, params Embed[] embeds);
-        // #endregion
+        #region Webhook
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="content">The contents of message in Markdown plain text</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public abstract Task CreateHookMessageAsync(Guid webhookId, string token, string content);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="content">The contents of message in Markdown plain text</param>
+        /// <param name="embeds">The list of embeds to add in the message</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public abstract Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="content">The contents of message in Markdown plain text</param>
+        /// <param name="embeds">The array of embeds to add in the message</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public async Task CreateHookMessageAsync(Guid webhookId, string token, string content, params Embed[] embeds) =>
+            await CreateHookMessageAsync(webhookId, token, content, (IList<Embed>)embeds).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="embeds">The list of embeds to add in the message</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public abstract Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="embeds">The array of embeds to add in the message</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public async Task CreateHookMessageAsync(Guid webhookId, string token, params Embed[] embeds) =>
+            await CreateHookMessageAsync(webhookId, token, (IList<Embed>)embeds).ConfigureAwait(false);
+
+        #endregion
 
         #region Chat channels
         /// <summary>
@@ -178,26 +212,6 @@ namespace Guilded.NET.Base
         public abstract Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId);
         #endregion
 
-        /*#region Threads
-        /// <summary>
-        /// Creates a thread as a response to a message.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel to create thread in</param>
-        /// <param name="name">Name of the thread</param>
-        /// <param name="message">Message to respond to</param>
-        /// <param name="response">Content of the response</param>
-        /// <param name="contentType">Type of the channel where thread should be created in</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Thread created</returns>
-        Task<ThreadChannel> CreateThreadAsync(Guid channelId, string name, Message message, MessageContent response, ChannelType contentType = ChannelType.Chat);
-        /// <summary>
-        /// Leaves a thread and no longer receives notifications from it.
-        /// </summary>
-        /// <param name="threadId">The identifier of the thread to leave</param>
-        /// <exception cref="GuildedException"/>
-        Task LeaveThreadAsync(Guid threadId);
-        #endregion*/
-
         #region Forum channels
         /// <summary>
         /// Creates a forum thread.
@@ -216,287 +230,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
         /// <returns>Forum thread created</returns>
         public abstract Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string content);
-        #endregion        
-
-        /*
-        /// <summary>
-        /// Gets forum posts from a specific forum channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <param name="beforeDate">Before what date it should get posts</param>
-        /// <param name="maxItems">How many forum posts it should get</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Forum post list</returns>
-        Task<IList<ForumPost>> GetForumPostsAsync(Guid channelId, uint maxItems = 1000, DateTime? beforeDate = null);
-        /// <summary>
-        /// Edits a forum post in a specific channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel post is in</param>
-        /// <param name="postId">The identifier of the post</param>
-        /// <param name="title">New title of this post</param>
-        /// <param name="message">New content of the post</param>
-        /// <exception cref="GuildedException"/>
-        Task EditForumPostAsync(Guid channelId, uint postId, string title, MessageContent message);
-        /// <summary>
-        /// Deletes a forum post in a specific channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where the post is in</param>
-        /// <param name="postId">The identifier of the post to delete</param>
-        /// <exception cref="GuildedException"/>
-        Task DeleteForumPostAsync(Guid channelId, uint postId);
-        /// <summary>
-        /// Gets replies from a forum post.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <param name="postId">The identifier of the post it should get replies of</param>
-        /// <param name="maxItems">How many forum posts it should get</param>
-        /// <param name="afterDate">After what date it should get posts</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Forum reply list</returns>
-        Task<IList<ForumReply>> GetForumRepliesAsync(Guid channelId, uint postId, uint maxItems = 10, DateTime? afterDate = null);
-        /// <summary>
-        /// Replies to a forum post.
-        /// </summary>
-        /// <param name="channelId">The identifier of the forum channel</param>
-        /// <param name="postId">The identifier of the post it should reply to</param>
-        /// <param name="message">Content of the forum post</param>
-        /// <exception cref="GuildedException"/>
-        Task CreateForumReplyAsync(Guid channelId, uint postId, MessageContent message);
-        /// <summary>
-        /// Deletes a forum reply/comment.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where the post is in</param>
-        /// <param name="postId">A forum post where reply should be deleted</param>
-        /// <param name="replyId">A reply of a forum post that should be deleted</param>
-        /// <exception cref="GuildedException"/>
-        Task DeleteForumReplyAsync(Guid channelId, uint postId, uint replyId);
-        /// <summary>
-        /// Edits a forum reply.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where forum post is in</param>
-        /// <param name="postId">The identifier of the post to edit reply in</param>
-        /// <param name="replyId">Reply to edit contents of</param>
-        /// <param name="content">New content which will replace the old content</param>
-        /// <exception cref="GuildedException"/>
-        Task EditForumReplyAsync(Guid channelId, uint postId, uint replyId, MessageContent content);
-        /// <summary>
-        /// Adds a reaction to a forum reply or a forum post.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team where the post is</param>
-        /// <param name="postId">The identifier of forum post or reply to react on</param>
-        /// <param name="emoteId">The identifier of the emote to react with</param>
-        /// <param name="isContentReply">Is it a reaction on a reply</param>
-        /// <exception cref="GuildedException"/>
-        Task AddForumReactionAsync(GId teamId, uint postId, uint emoteId, bool isContentReply = false);
-        /// <summary>
-        /// Removes a reaction from a forum reply or a forum post.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team where the post is</param>
-        /// <param name="postId">The identifier of content or reply to react on</param>
-        /// <param name="emoteId">The identifier of the emote to react with</param>
-        /// <param name="isContentReply">Is it a reaction on a reply</param>
-        /// <exception cref="GuildedException"/>
-        Task RemoveForumReactionAsync(GId teamId, uint postId, uint emoteId, bool isContentReply = false)
         #endregion
-
-        #region Document channels
-        /// <summary>
-        /// Gets all documents within a specific channel with given max count and before given date.
-        /// </summary>
-        /// <param name="channelId">The identifier of channel to fetch documents from</param>
-        /// <param name="maxItems">Amount of documents to get</param>
-        /// <param name="beforeDate">Date before which it should get documents</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of documents</returns>
-        Task<IList<GuildedDocument>> GetDocumentsAsync(Guid channelId, uint maxItems = 50, DateTime? beforeDate = null);
-        /// <summary>
-        /// Gets a specific document in a specific channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of channel to fetch documents from</param>
-        /// <param name="docId">The identifier of the document</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Document</returns>
-        Task<GuildedDocument> GetDocumentAsync(Guid channelId, uint docId);
-        /// <summary>
-        /// Updates already existing document.
-        /// </summary>
-        /// <param name="doc">Document to update</param>
-        /// <param name="title">New title of the document</param>
-        /// <param name="content">New message of the document</param>
-        /// <param name="isDraft">Whether it is a draft or not</param>
-        /// <returns>Updated document</returns>
-        Task<GuildedDocument> UpdateDocumentAsync(GuildedDocument doc, string title = null, MessageContent content = null, bool? isDraft = null);
-        /// <summary>
-        /// Deletes a document from doc channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where the document is in</param>
-        /// <param name="docId">The identifier of the document to delete</param>
-        Task DeleteDocumentAsync(Guid channelId, uint docId);
-        #endregion
-
-
-        #region Media channels
-        /// <summary>
-        /// Gets all media within a specific channel with given max count and before given date.
-        /// </summary>
-        /// <param name="channelId">The identifier of channel to fetch media from</param>
-        /// <param name="pageSize">Limit of media to get</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of media posts</returns>
-        Task<IList<GuildedMedia>> GetMediaAsync(Guid channelId, uint pageSize = 40);
-        /// <summary>
-        /// Gets all comments in a given media post.
-        /// </summary>
-        /// <param name="mediaId">The identifier of the media post</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of content replies</returns>
-        Task<IList<ContentReply>> GetMediaRepliesAsync(uint mediaId);
-        /// <summary>
-        /// Posts new media post.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team where the channel is</param>
-        /// <param name="channelId">The identifier of the channel where to post it</param>
-        /// <param name="src">Source URL</param>
-        /// <param name="title">Title of the media</param>
-        /// <param name="description">Description of the media</param>
-        /// <param name="type">Type of the media: image or video</param>
-        /// <param name="gameId">The identifier of the game of the group</param>
-        /// <param name="tags">Tags associated with the media</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Media posted</returns>
-        Task<GuildedMedia> PostMediaAsync(GId teamId, Guid channelId, Uri src, string title, string description = "", MediaType type = MediaType.Image, uint? gameId = null, params string[] tags);
-        /// <summary>
-        /// Deletes media post.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where the media is</param>
-        /// <param name="mediaId">The identifier of the media to delete</param>
-        /// <exception cref="GuildedException"/>
-        Task DeleteMediaAsync(Guid channelId, uint mediaId);
-        #endregion
-
-
-        #region Calendar channels
-        /// <summary>
-        /// Gets given amount of events from a specific channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <param name="startDate">At which date it should start</param>
-        /// <param name="endDate">At which date it should end</param>
-        /// <param name="maxItems">How many events it should get</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of calendar events</returns>
-        Task<IList<CalendarEvent>> GetEventsAsync(Guid channelId, DateTime startDate, DateTime endDate, uint maxItems = 250);
-        #endregion
-
-        
-        #region Scheduling channels
-        /// <summary>
-        /// Get availabilities in a schedule channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of availabilities</returns>
-        Task<IList<Availability>> GetSchedulesAsync(Guid channelId);
-        /// <summary>
-        /// Creates a schedule availability.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where to create a schedule</param>
-        /// <param name="startDate">Start date of this availability</param>
-        /// <param name="endDate">End date of this availability</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Created schedule availability</returns>
-        Task<IList<Availability>> CreateScheduleAsync(Guid channelId, DateTime startDate, DateTime endDate);
-        /// <summary>
-        /// Edits a schedule availability.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where an availability is</param>
-        /// <param name="availabilityId">The identifier of schedule availability to edit</param>
-        /// <param name="startDate">Start date of this availability</param>
-        /// <param name="endDate">End date of this availability</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Edited schedule availability</returns>
-        Task<IList<Availability>> EditScheduleAsync(Guid channelId, uint availabilityId, DateTime startDate, DateTime endDate);
-        /// <summary>
-        /// Deletes a schedule availability.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where an availability is</param>
-        /// <param name="availabilityId">The identifier of schedule availability to edit</param>
-        /// <exception cref="GuildedException"/>
-        Task DeleteScheduleAsync(Guid channelId, uint availabilityId);
-        #endregion
-
-        #region Announcements channels
-        /// <summary>
-        /// Gets a list of announcements in a specific channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <param name="maxItems">How many announcements it should get</param>
-        /// <param name="beforeDate">Before which date it should get announcements</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of announcements</returns>
-        Task<IList<Announcement>> GetAnnouncementsAsync(Guid channelId, uint maxItems = 10, DateTime? beforeDate = null);
-        /// <summary>
-        /// Gets a list of announcements in a team.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team</param>
-        /// <param name="maxItems">How many announcements it should get</param>
-        /// <param name="beforeDate">Before which date it should get announcements</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of announcements</returns>
-        Task<IList<Announcement>> GetAnnouncementsAsync(GId teamId, uint maxItems, DateTime? beforeDate);
-        /// <summary>
-        /// Gets a list of pinned announcements in a specific channel.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel</param>
-        /// <returns>List of announcements</returns>
-        Task<IList<Announcement>> GetPinnedAnnouncementsAsync(Guid channelId);
-        /// <summary>
-        /// Gets a list of pinned announcements in a team.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>List of announcements</returns>
-        Task<IList<Announcement>> GetPinnedAnnouncementsAsync(GId teamId);
-        /// <summary>
-        /// Creates and posts a new announcement.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team to create announcement in</param>
-        /// <param name="channelId">The identifier of the channel to create announcement in</param>
-        /// <param name="title">Title of the announcement</param>
-        /// <param name="content">Content of the announcement</param>
-        /// <param name="dontSendNotifications">If it should not send a notification to everyone</param>
-        /// <param name="gameId">The identifier of the group's game</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Created announcement</returns>
-        Task<Announcement> PostAnnouncementAsync(GId teamId, Guid channelId, string title, MessageContent content, bool dontSendNotifications = true, uint? gameId = null);
-        /// <summary>
-        /// Pins or unpins an announcement.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where announcement is in</param>
-        /// <param name="announcementId">The identifier of the announcement to (un)pin</param>
-        /// <param name="isPinned">True - pin announcement, false - unpin announcement</param>
-        /// <exception cref="GuildedException"/>
-        Task PinAnnouncementAsync(Guid channelId, GId announcementId, bool isPinned = true);
-        /// <summary>
-        /// Updates/edits an announcement.
-        /// </summary>
-        /// <param name="teamId">The identifier of the team where announcement is</param>
-        /// <param name="channelId">The identifier of the channel where announcement is</param>
-        /// <param name="announcementId">The identifier of the announcement to edit</param>
-        /// <param name="title">New title</param>
-        /// <param name="content">New content</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>The identifier of edited/updated announcement</returns>
-        Task<GId> UpdateAnnouncementAsync(GId teamId, Guid channelId, GId announcementId, string title, MessageContent content);
-        /// <summary>
-        /// Deletes an announcement.
-        /// </summary>
-        /// <param name="channelId">The identifier of the channel where announcement is</param>
-        /// <param name="announcementId">The identifier of the announcement to delete</param>
-        /// <exception cref="GuildedException"/>
-        /// <returns>Deleted announcement</returns>
-        Task<Announcement> DeleteAnnouncementAsync(Guid channelId, GId announcementId);
-        #endregion*/
 
         #region List channels
         /// <summary>

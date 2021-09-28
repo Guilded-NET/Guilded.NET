@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 namespace Guilded.NET
 {
     using Base;
+    using Base.Embeds;
     using Base.Content;
     /// <summary>
     /// A new creatable message.
@@ -28,8 +29,18 @@ namespace Guilded.NET
         /// </blockquote>
         /// </remarks>
         /// <value>Rich text markup or Markdown string</value>
-        [JsonProperty(Required = Required.Always)]
         public object Content
+        {
+            get; set;
+        }
+        /// <summary>
+        /// The list of embeds in the message.
+        /// </summary>
+        /// <remarks>
+        /// <para>The list of embeds that are in the message.</para>
+        /// </remarks>
+        /// <value>List of embeds?</value>
+        public IList<Embed> Embeds
         {
             get; set;
         }

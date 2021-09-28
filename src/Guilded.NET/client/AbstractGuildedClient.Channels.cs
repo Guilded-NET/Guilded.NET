@@ -6,81 +6,72 @@ using RestSharp;
 namespace Guilded.NET
 {
     using Base;
+    using Base.Embeds;
     using Base.Content;
     using Base.Permissions;
     public abstract partial class AbstractGuildedClient
     {
         private const int messageLimit = 4000;
 
-        // #region Webhook
-        // /// <summary>
-        // /// Creates a webhook in a given channel.
-        // /// </summary>
-        // /// <param name="channelId">The identifier of the parent channel</param>
-        // /// <param name="name">The name of the webhook</param>
-        // /// <exception cref="GuildedException"/>
-        // /// <exception cref="GuildedPermissionException"/>
-        // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
-        // /// <returns>Created webhook</returns>
-        // public override async Task<Webhook> CreateWebhookAsync(Guid channelId, string name) =>
-        //     await GetObject<Webhook>("webhooks", Method.POST, body: new
-        //     {
-        //         channelId,
-        //         name
-        //     });
-        // /// <summary>
-        // /// Updates webhook's name or profile picture.
-        // /// </summary>
-        // /// <param name="channelId">The identifier of the parent channel    `</param>
-        // /// <param name="webhookId">The identifier of the webhook to update</param>
-        // /// <param name="name">The new name of the webhook</param>
-        // /// <param name="avatar">The new profile picture/icon of the webhook</param>
-        // /// <exception cref="GuildedException"/>
-        // /// <exception cref="GuildedPermissionException"/>
-        // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
-        // /// <returns>Updated webhook</returns>
-        // public override async Task<Webhook> UpdateWebhookAsync(Guid channelId, Guid webhookId, string name = null, Uri avatar = null)
-        // {
-        //     // Expect both arguments
-        //     if (name is null && avatar is null)
-        //         throw new ArgumentException($"Both {nameof(name)} and {nameof(avatar)} cannot be null");
-        //     
-        //     Dictionary<string, object> change = new Dictionary<string, object>()
-        //     {
-        //         {"channelId", channelId}
-        //     };
-        //     if (!(name is null))
-        //         change.Add("name", name);
-        //     if (!(avatar is null))
-        //         change.Add("iconUrl", avatar);
-        //     
-        //     return await GetObject<Webhook>($"webhooks/{webhookId}", Method.PUT, body: change);
-        // }
-        // /// <summary>
-        // /// Deletes a given webhook.
-        // /// </summary>
-        // /// <param name="webhookId">The identifier of the webhook to delete</param>
-        // /// <exception cref="GuildedException"/>
-        // /// <exception cref="GuildedPermissionException"/>
-        // /// <permission cref="GeneralPermissions.ManageWebhooks">Required for managing webhooks</permission>
-        // /// <returns>Deleted webhook</returns>
-        // public override async Task<Webhook> DeleteWebhookAsync(Guid webhookId) =>
-        //     await GetObject<Webhook>($"webhooks/{webhookId}", Method.DELETE);
-        // /// <summary>
-        // /// Posts a message using a webhook.
-        // /// </summary>
-        // /// <param name="webhookId">The identifier of the webhook</param>
-        // /// <param name="token">The token of this webhook</param>
-        // /// <param name="content">The message to send using the webhook</param>
-        // /// <param name="embeds">An array of embeds to send</param>
-        // /// <exception cref="GuildedException"/>
-        // public override async Task ExecuteWebhookAsync(Guid webhookId, string token, string content = null, params Embed[] embeds) =>
-        //     await ExecuteRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST, body: new
-        //     {
-        //         content,
-        //         embeds
-        //     });
-        // #endregion
+        #region Webhook
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="message">The message to send using webhook</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        private async Task CreateHookMessageAsync(Guid webhookId, string token, CreatableMessage message) =>
+            await ExecuteRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST, body: message).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="content">The contents of message in Markdown plain text</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
+            await CreateHookMessageAsync(webhookId, token, new CreatableMessage { Content = content }).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="content">The contents of message in Markdown plain text</param>
+        /// <param name="embeds">The list of embeds to add in the message</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds) =>
+            await CreateHookMessageAsync(webhookId, token, new CreatableMessage { Content = content, Embeds = embeds }).ConfigureAwait(false);
+        /// <summary>
+        /// Creates a message in a chat using provided webhook.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// </remarks>
+        /// <param name="webhookId">The identifier of the webhook to execute</param>
+        /// <param name="token">The token of executed webhook</param>
+        /// <param name="embeds">The list of embeds to add in the message</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedRequestException"/>
+        /// <exception cref="GuildedResourceException"/>
+        public override async Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds) =>
+            await CreateHookMessageAsync(webhookId, token, new CreatableMessage { Embeds = embeds }).ConfigureAwait(false);
+        #endregion
 
         #region Chat channel
         /// <summary>
@@ -117,11 +108,21 @@ namespace Guilded.NET
         public override async Task<Message> GetMessageAsync(Guid channelId, Guid messageId) =>
             await GetObject<Message>($"channels/{channelId}/messages/{messageId}", Method.GET, key: "message").ConfigureAwait(false);
         /// <summary>
-        /// A base for creating a message
+        /// Creates a message in a chat.
         /// </summary>
-        /// <param name="channelId">Endpoint path channelId parameter</param>
-        /// <param name="message">Request body</param>
-        /// <returns>Created message</returns>
+        /// <remarks>
+        /// <para>Creates <paramref name="message"/> in the channel of identifier <paramref name="channelId"/>.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="message">The message to send</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
         private async Task<Message> CreateMessageAsync(Guid channelId, CreatableMessage message) =>
             await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", message).ConfigureAwait(false);
         /// <summary>

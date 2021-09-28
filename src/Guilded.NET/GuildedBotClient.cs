@@ -47,11 +47,8 @@ namespace Guilded.NET
         /// An authentication token used to log into a bot in Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>An authentication token that will be used to connect to Guilded
-        /// using <see cref="ConnectAsync()"/> method.</para>
-        /// <para>This token can be set through <see cref="GuildedBotClient(string)"/> constructor.
-        /// This is optional and <see cref="ConnectAsync(string)"/> can be used instead with
-        /// authentication token as an argument.</para>
+        /// <para>An authentication token that will be used to connect to Guilded using <see cref="ConnectAsync()"/> method.</para>
+        /// <para>This token can be set through <see cref="GuildedBotClient(string)"/> constructor. This is optional and <see cref="ConnectAsync(string)"/> can be used instead with authentication token as an argument.</para>
         /// <para><see cref="AuthToken"/> will be passed as a header <c>Authorization</c> with bearer prefix.</para>
         /// </remarks>
         /// <value>Authentication token</value>
