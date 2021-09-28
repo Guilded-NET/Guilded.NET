@@ -2,23 +2,23 @@
 
 # Guilded.NET
 
-[![Version](https://img.shields.io/badge/Version-0.4.0-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Beta-orange?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-0.4.1-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Beta-orange?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
-Guilded.NET is an open-source unofficial API wrapper for [Guilded](https://guilded.gg/). It provides
-a "surface" to create bots or other clients on.
+Guilded.NET is an open-source unofficial API wrapper for [Guilded](https://guilded.gg/) written on .NET platform. It tries to integrate as many Guilded API features as possible, while also maintaining the usability and ease of use.
 
-## Getting Started
+## Documentation
 
-[Click here](https://guilded-net.github.io/guides) to get started with Guilded.NET.
-
-## Maintainers
-- **IdkGoodName** - leading maintainer
+- [Website](https://guilded-net.github.io)
+- [Guides](https://guilded-net.github.io/guides) - get started with Guilded.NET.
 
 ## Libraries
 - **NewtonSoft.Json** - Used as a library to (de)serialize Guilded.NET models. Might be replaced by System.Text.Json in the future.
 - **RestSharp** - Used for REST clients in Guilded.NET
 - **Websocket.Client** - Used for WebSocket clients in Guilded.NET
 - **DefaultDocumentation** - Generates documentation/references from .NET XML documentation in Guilded.NET
+
+## Maintainers
+- **IdkGoodName** - leading maintainer
 
 ## Links
 - [Website](https://guilded-net.github.io/)
