@@ -6,18 +6,18 @@
 
 Guilded.NET is an open-source unofficial API wrapper for [Guilded](https://guilded.gg/) written on .NET platform. It tries to integrate as many Guilded API features as possible, while also maintaining the usability and ease of use for the developers.
 
-- To get started with **Guilded.NET**{: .text-gilded}, check out [documentation page](./docs).
-- To see all **Guilded.NET**{: .text-gilded} references, check out [reference page](./references).
+- To get started with **Guilded.NET**, check out [documentation page](https://guilded-net.github.io/docs).
+- To see all **Guilded.NET** references, check out [reference page](https://guilded-net.github.io/references).
 
 ## Links
 - [NuGet](https://www.nuget.org/packages/Guilded.NET/)
 - [FuGet](https://www.fuget.org/packages/Guilded.NET/)
 
 ## Libraries
-- **NewtonSoft.Json** - Used as a library to (de)serialize Guilded.NET models. Might be replaced by System.Text.Json in the future.
-- **RestSharp** - Used for REST clients in Guilded.NET
-- **Websocket.Client** - Used for WebSocket clients in Guilded.NET
-- **DefaultDocumentation** - Generates documentation/references from .NET XML documentation in Guilded.NET
+- **NewtonSoft.Json** - Used as a library to (de)serialize Guilded.NET models.
+- **RestSharp** - Used for REST clients
+- **Websocket.Client** - Used for WebSocket clients
+- **DefaultDocumentation** - Generates documentation/references from .NET XML documentation
 
 ## Maintainers
 - [**IdkGoodName**](https://guilded.gg/profile/R40Mp0Wd) - leading maintainer
