@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Guilded.NET.Base
 {
@@ -56,6 +57,20 @@ namespace Guilded.NET.Base
         #endregion
 
         #region Members
+        /// <summary>
+        /// Gets member's roles.
+        /// </summary>
+        /// <remarks>
+        /// <para>Gets given member's role ID list.</para>
+        /// <para>No permissions are required, as it is team-wide.</para>
+        /// </remarks>
+        /// <param name="memberId">The identifier of the role holder</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <returns>List of role IDs</returns>
+        public abstract Task<IList<uint>> GetMemberRolesAsync(GId memberId);
         /// <summary>
         /// Updates member's nickname.
         /// </summary>

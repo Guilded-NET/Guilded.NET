@@ -5,6 +5,7 @@ using RestSharp;
 
 namespace Guilded.NET
 {
+    using System.Collections.Generic;
     using Base;
     using Base.Permissions;
     public abstract partial class AbstractGuildedClient
@@ -67,6 +68,21 @@ namespace Guilded.NET
         #endregion
 
         #region Members
+        /// <summary>
+        /// Gets member's roles.
+        /// </summary>
+        /// <remarks>
+        /// <para>Gets given member's role ID list.</para>
+        /// <para>No permissions are required, as it is team-wide.</para>
+        /// </remarks>
+        /// <param name="memberId">The identifier of the role holder</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <returns>List of role IDs</returns>
+        public override async Task<IList<uint>> GetMemberRolesAsync(GId memberId) =>
+            await GetObject<IList<uint>>($"members/{memberId}/roles", Method.GET, key: "roleIds").ConfigureAwait(false);
         /// <summary>
         /// Updates member's nickname.
         /// </summary>

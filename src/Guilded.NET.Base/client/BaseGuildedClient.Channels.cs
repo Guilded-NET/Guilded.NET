@@ -90,14 +90,14 @@ namespace Guilded.NET.Base
         /// <para>Gets a list of messages in a specified channel of identifier <paramref name="channelId"/>.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="limit">How many messages it should get</param>
+        /// <param name="includePrivate">Whether to get private replies or not</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>List of messages</returns>
-        public abstract Task<IList<Message>> GetMessagesAsync(Guid channelId, uint limit = 50);
+        public abstract Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false);
         /// <summary>
         /// Gets a message in a specific channel.
         /// </summary>
