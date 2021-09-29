@@ -89,7 +89,6 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>List of messages</returns>
         public override async Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false) =>
-            // TODO: Add limit query
             await GetObject<IList<Message>>($"channels/{channelId}/messages?includePrivate={includePrivate}", Method.GET, key: "messages").ConfigureAwait(false);
         /// <summary>
         /// Gets a message in a specific channel.

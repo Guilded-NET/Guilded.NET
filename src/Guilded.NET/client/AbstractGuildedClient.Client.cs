@@ -28,10 +28,8 @@ namespace Guilded.NET
         /// An event when the client is prepared.
         /// </summary>
         /// <remarks>
-        /// <para>An event that occurs once Guilded client has added finishing touches.</para>
+        /// <para>An event that occurs once Guilded client has added finishing touches. You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly working and can be used.</para>
         /// <para>As of now, this is called at the same time as <see cref="BaseGuildedClient.Connected"/> event.</para>
-        /// <para>You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly
-        /// working and can be used.</para>
         /// </remarks>
         protected EventHandler PreparedEvent;
         /// <inheritdoc cref="PreparedEvent"/>
@@ -54,7 +52,13 @@ namespace Guilded.NET
                 new HexColorConverter()
             };
             GuildedSerializer = JsonSerializer.Create(SerializerSettings);
-            WebsocketMessage.Subscribe(OnSocketMessage);
+
+            WebsocketMessage.Subscribe(
+                OnSocketMessage,
+                // Relay the error onto welcome observable
+                // TODO: Change welcome observable with something else
+                e => GuildedEvents[1].OnError(e)
+            );
 
             #region Event list
             // Dictionary of supported events, so we wouldn't need to manually do it.
@@ -64,7 +68,7 @@ namespace Guilded.NET
             // No idea if this can put back a bit of performance.
             GuildedEvents = new Dictionary<object, IEventInfo<object>>
             {
-                // Utils
+                // Event messages
                 { 1,                        new EventInfo<WelcomeEvent>() },
                 { 2,                        new EventInfo<ResumeEvent>() },
                 // Team events
@@ -89,14 +93,26 @@ namespace Guilded.NET
         /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task ConnectAsync()
         {
-            HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
+            // Whether to start it again or create and start it
+            if(HeartbeatTimer is null)
             {
-                AutoReset = true,
-                Enabled = true
-            };
+                HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
+                {
+                    AutoReset = true,
+                    Enabled = true
+                };
 
-            HeartbeatTimer.Elapsed += SendHeartbeat;
-            Websockets.Add("", await InitWebsocket().ConfigureAwait(false));
+                HeartbeatTimer.Elapsed += SendHeartbeat;
+            }
+            else
+            {
+                HeartbeatTimer.Enabled = true;
+            }
+
+            if(Websocket is null)
+                Websocket = await InitWebsocket().ConfigureAwait(false);
+            else
+                await Websocket.StartOrFail().ConfigureAwait(false);
 
             HeartbeatTimer.Start();
         }
@@ -112,19 +128,10 @@ namespace Guilded.NET
         /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task DisconnectAsync()
         {
-            foreach (string wsKey in Websockets.Keys)
-            {
-                WebsocketClient ws = Websockets[wsKey];
-
-                if (ws.IsRunning)
-                    await ws.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
-
-                ws.Dispose();
-                Websockets.Remove(wsKey);
-            }
+            if (Websocket.IsRunning)
+                await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
             // Stop the heartbeats
             HeartbeatTimer?.Stop();
-            HeartbeatTimer?.Dispose();
 
             DisconnectedEvent?.Invoke(this, EventArgs.Empty);
         }
@@ -135,8 +142,13 @@ namespace Guilded.NET
         /// <para>Disposes <see cref="AbstractGuildedClient"/> and its WebSockets and heartbeat.</para>
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
-        public override void Dispose() =>
+        public override void Dispose()
+        {
             DisconnectAsync().GetAwaiter().GetResult();
+            // Dispose them entirely; they aren't disposed by DisconnectAsync, only shut down
+            Websocket.Dispose();
+            HeartbeatTimer?.Dispose();
+        }
         private async Task<T> GetObject<T>(string resource, Method method, object key, object body = null) =>
             (await ExecuteRequest<JContainer>(resource, method, body).ConfigureAwait(false)).Data[key].ToObject<T>(GuildedSerializer);
     }

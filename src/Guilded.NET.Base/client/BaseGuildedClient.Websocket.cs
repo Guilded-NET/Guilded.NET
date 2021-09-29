@@ -19,14 +19,17 @@ namespace Guilded.NET.Base
         /// </summary>
         public const double DefaultHeartbeatInterval = 22500;
         /// <summary>
-        /// A dictionary of all websocket clients.
+        /// The WebSocket that will be used by the client.
         /// </summary>
+        /// <remarks>
+        /// <para>The WebSocket that will be used by the client to receive all Guilded events and event messages.</para>
+        /// </remarks>
         /// <seealso cref="Rest"/>
-        /// <value>Websocket dictionary</value>
-        public Dictionary<string, WebsocketClient> Websockets
+        /// <value>Main WebSocket</value>
+        public WebsocketClient Websocket
         {
             get; set;
-        } = new Dictionary<string, WebsocketClient>();
+        }
         /// <summary>
         /// A timer for heartbeats.
         /// </summary>
@@ -52,7 +55,7 @@ namespace Guilded.NET.Base
         /// Initializes a new WebSocket client.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new WebSocket client and adds it to <see cref="Websockets"/>.</para>
+        /// <para>Creates a new WebSocket client and sets it to <see cref="Websocket"/>.</para>
         /// <para>If <paramref name="lastMessageId"/> is passed, it gets all of the events that occurred after that message.</para>
         /// </remarks>
         /// <param name="lastMessageId">The identifier of the last event before WebSocket disconnection</param>
@@ -86,16 +89,18 @@ namespace Guilded.NET.Base
                 factory
             );
 
-            client.MessageReceived.Subscribe(OnWebsocketResponse);
+            client.MessageReceived
+                .Where(msg => msg.MessageType == WebSocketMessageType.Text)
+                .Subscribe(OnWebsocketResponse);
             await client.StartOrFail().ConfigureAwait(false);
 
-            return client;
+            return Websocket = client;
         }
         /// <summary>
         /// Initializes a new WebSocket client.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new WebSocket client and adds it to <see cref="Websockets"/>.</para>
+        /// <para>Creates a new WebSocket client and sets it to <see cref="Websocket"/>.</para>
         /// <para>If <paramref name="event"/> is passed, it gets all of the events that occurred after that message.</para>
         /// </remarks>
         /// <param name="event">The last event before WebSocket disconnection</param>
@@ -115,38 +120,32 @@ namespace Guilded.NET.Base
         /// <param name="response">The response received from Guilded WebSocket</param>
         protected virtual void OnWebsocketResponse(ResponseMessage response)
         {
-            if (response.MessageType == WebSocketMessageType.Text)
+            GuildedSocketMessage @event = Deserialize<GuildedSocketMessage>(response.Text);
+            // Check for a welcome message to change hearbeat interval
+            if (@event.Opcode == welcome_opcode)
             {
-                GuildedSocketMessage @event = Deserialize<GuildedSocketMessage>(response.Text);
-                // Check for a welcome message to change hearbeat interval
-                if (@event.Opcode == welcome_opcode)
-                {
-                    HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
-                }
-                // If it's an error, just send it through OnWebsocketMessage as an error
-                else if(@event.Opcode == error_opcode)
-                {
-                    OnWebsocketMessage.OnError(
-                        new GuildedWebsocketException(response, @event.RawData.Value<string>("message"))
-                    );
-                    return;
-                }
-                OnWebsocketMessage.OnNext(@event);
+                HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
             }
+            // If it's an error, just send it through OnWebsocketMessage as an error
+            else if(@event.Opcode == error_opcode)
+            {
+                OnWebsocketMessage.OnError(
+                    new GuildedWebsocketException(response, @event.RawData.Value<string>("message"))
+                );
+                return;
+            }
+            OnWebsocketMessage.OnNext(@event);
         }
         /// <summary>
         /// Sends a heartbeat.
         /// </summary>
         /// <remarks>
-        /// <para>Sends a heartbeat through all WebSocket clients in <see cref="Websockets"/> dictionary.</para>
+        /// <para>Sends a heartbeat through <see cref="Websocket"/> client.</para>
         /// </remarks>
         /// <param name="sender">Who invoked the event</param>
         /// <param name="args">Arguments of the timer's elapsed event</param>
-        protected virtual void SendHeartbeat(object sender, ElapsedEventArgs args)
-        {
-            // Send ping through each WebSocket to show that it's not dead
-            foreach (WebsocketClient client in Websockets.Values)
-                client.Send("2");
-        }
+        protected virtual void SendHeartbeat(object sender, ElapsedEventArgs args) =>
+            // Send ping through WebSocket to show that it's not dead
+            Websocket.Send("2");
     }
 }

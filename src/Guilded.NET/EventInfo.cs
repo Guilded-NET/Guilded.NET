@@ -35,6 +35,14 @@ namespace Guilded.NET
         /// </remarks>
         /// <param name="value">The next received value</param>
         void OnNext(object value);
+        /// <summary>
+        /// Notifies observers with OnError.
+        /// </summary>
+        /// <remarks>
+        /// <para>Notifies all <see cref="Observable"/>'s observers with an error.</para>
+        /// </remarks>
+        /// <param name="exception">The next received exception/error</param>
+        void OnError(Exception exception);
     }
     /// <summary>
     /// Defines a Guilded event.
