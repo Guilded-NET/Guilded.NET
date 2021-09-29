@@ -12,7 +12,8 @@ namespace Guilded.NET.Base.Content
     /// A message posted in the chat.
     /// </summary>
     /// <remarks>
-    /// <para>An existing/a cached message that can be found in a chat.</para>
+    /// <para>An existing/a cached message that can be found in a chat. This can be found in chat channels, voice channels, stream channels and their equivalent threads.</para>
+    /// <para>This currently includes both messages of types <see cref="MessageType.Default"/> and <see cref="MessageType.System"/>, but it could be changed in the future.</para>
     /// </remarks>
     /// <seealso cref="ListItem"/>
     /// <seealso cref="ForumThread"/>
@@ -193,7 +194,7 @@ namespace Guilded.NET.Base.Content
         /// Adds a reaction to a message.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a reaction of identifier <paramref name="emoteId"/> to the message.</para>
+        /// <para>Adds a specified emote as a reaction to the message.</para>
         /// </remarks>
         /// <param name="emoteId">The identifier of the emote to add</param>
         /// <exception cref="GuildedException"/>
@@ -208,7 +209,7 @@ namespace Guilded.NET.Base.Content
         /// Removes a reaction from a message.
         /// </summary>
         /// <remarks>
-        /// <para>Remove a reaction of identifier <paramref name="emoteId"/> from the message.</para>
+        /// <para>Removes a specified reaction from the message.</para>
         /// </remarks>
         /// <param name="emoteId">The identifier of the emote to remove</param>
         /// <exception cref="GuildedException"/>

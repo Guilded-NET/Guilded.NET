@@ -17,8 +17,7 @@ namespace Guilded.NET.Base
     ///     </item>
     ///     <item>
     ///         <term>Guilded.NET related issue</term>
-    ///         <description>This could be related to Guilded.NET itself, especially if new breaking
-    ///         update came and Guilded.NET hasn't updated endpoints.</description>
+    ///         <description>This could be related to Guilded.NET itself, especially if new breaking update came and Guilded.NET hasn't updated endpoints.</description>
     ///     </item>
     /// </list>
     /// </remarks>

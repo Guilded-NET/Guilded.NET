@@ -147,7 +147,7 @@ namespace Guilded.NET.Base
         /// Updates the contents of the message.
         /// </summary>
         /// <remarks>
-        /// <para>Edits the message <paramref name="messageId"/>, if the specified message is from the client. This does not work if the client is not the creator of the message.</para>
+        /// <para>Edits the specified message if the client is the creator of the message. This does not work if the client is not the creator of the message.</para>
         /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
@@ -168,7 +168,7 @@ namespace Guilded.NET.Base
         /// Deletes a specified message.
         /// </summary>
         /// <remarks>
-        /// <para>Removes the message of identifier <paramref name="messageId"/>, whether it be from the client or another user.</para>
+        /// <para>Removes the specified message, whether it be from the client or another user.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to delete</param>
@@ -183,7 +183,7 @@ namespace Guilded.NET.Base
         /// Adds a reaction to a message.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a reaction of identifier <paramref name="emoteId"/> to <paramref name="messageId"/>.</para>
+        /// <para>Adds a specified emote as a reaction to the given message.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to add a reaction on</param>
@@ -199,7 +199,7 @@ namespace Guilded.NET.Base
         /// Removes a reaction from a message.
         /// </summary>
         /// <remarks>
-        /// <para>Remove a reaction of identifier <paramref name="emoteId"/> from <paramref name="messageId"/>.</para>
+        /// <para>Removes a specified reaction from the given message.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to remove a reaction from</param>
@@ -257,7 +257,7 @@ namespace Guilded.NET.Base
         /// Adds a reaction to the content.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a reaction of identifier <paramref name="emoteId"/> to content of identifier <paramref name="contentId"/>.</para>
+        /// <para>Adds a specified emote as a reaction to the given content.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="contentId">The identifier of the content to add a reaction on</param>
@@ -276,7 +276,7 @@ namespace Guilded.NET.Base
         /// Removes a reaction from the content.
         /// </summary>
         /// <remarks>
-        /// <para>Remove a reaction of identifier <paramref name="emoteId"/> from content of identifier <paramref name="contentId"/>.</para>
+        /// <para>Removes a specified reaction from the given message.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="contentId">The identifier of the content to remove a reaction from</param>

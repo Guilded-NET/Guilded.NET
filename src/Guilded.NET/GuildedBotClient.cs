@@ -76,30 +76,30 @@ namespace Guilded.NET
         /// <para>You can also use <see cref="ConnectAsync(string)"/>, which doesn't require <see cref="AuthToken"/> set.</para>
         /// </remarks>
         /// <param name="auth">Authentication token used to log into the bot in Guilded</param>
-        /// <exception cref="ArgumentException">When passed argument <paramref name="auth"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="ArgumentNullException">When passed argument <paramref name="auth"/> is <see langword="null"/>, empty or whitespace</exception>
         public GuildedBotClient(string auth)
         {
             // Make sure correct token is passed
             if (string.IsNullOrWhiteSpace(auth))
-                throw new ArgumentException($"{nameof(auth)} cannot be null, full of whitespace or empty.");
+                throw new ArgumentNullException($"{nameof(auth)} cannot be null, full of whitespace or empty.");
 
             AuthToken = auth;
         }
         /// <summary>
-        /// Connects to Guilded bot using <paramref name="auth"/>.
+        /// Connects to Guilded bot using parameter as an auth.
         /// </summary>
         /// <remarks>
         /// <para>Creates a new connection to Guilded using argument <paramref name="auth"/>. This does not use <see cref="AuthToken"/>.</para>
         /// <para>To disconnect from Guilded, use <see cref="AbstractGuildedClient.DisconnectAsync"/></para>
         /// </remarks>
         /// <param name="auth">The token to be used for authorization</param>
-        /// <exception cref="ArgumentException">When passed argument <paramref name="auth"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="ArgumentNullException">When passed argument <paramref name="auth"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <seealso cref="ConnectAsync()"/>
         /// <seealso cref="AbstractGuildedClient.DisconnectAsync"/>
         public async Task ConnectAsync(string auth)
         {
             if (string.IsNullOrWhiteSpace(auth))
-                throw new ArgumentException($"{nameof(auth)} cannot be null, full of whitespace or empty.");
+                throw new ArgumentNullException($"{nameof(auth)} cannot be null, full of whitespace or empty.");
             // Give authentication token to Guilded
             AdditionalHeaders.Add("Authorization", $"Bearer {auth}");
             Rest.AddDefaultHeaders(AdditionalHeaders);
@@ -113,10 +113,10 @@ namespace Guilded.NET
             PreparedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>
-        /// Connects to Guilded using <see cref="AuthToken"/>.
+        /// Connects to Guilded using defined auth.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new connection to Guilded using set property <see cref="AuthToken"/>.</para>
+        /// <para>Creates a new connection to Guilded using set property <see cref="AuthToken"/> as an authentication token.</para>
         /// </remarks>
         /// <seealso cref="ConnectAsync(string)"/>
         /// <seealso cref="AbstractGuildedClient.DisconnectAsync"/>

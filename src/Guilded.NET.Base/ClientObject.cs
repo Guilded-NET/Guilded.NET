@@ -8,7 +8,7 @@ namespace Guilded.NET.Base
     /// A base that with a parent client.
     /// </summary>
     /// <remarks>
-    /// <para>A base object that also contains definining parent client. The parent client that defined this method is referenced in <see cref="ParentClient"/>, that is initiated with internal OnDeserialized method.</para>
+    /// <para>A base object that also contains definining parent client. The parent client that defined this method is referenced in <see cref="ParentClient"/>, that is initiated with internal OnDeserialized method. This allows having methods like <see cref="Content.Message.CreateMessageAsync(string)"/>, where it requires to call the parent client's methods.</para>
     /// </remarks>
     /// <seealso cref="BaseGuildedClient"/>
     /// <seealso cref="BaseObject"/>
@@ -18,9 +18,7 @@ namespace Guilded.NET.Base
         /// The parent client that adopts this object.
         /// </summary>
         /// <remarks>
-        /// <para>The parent client that deserialized this object.</para>
-        /// <para>This is initiated via internal OnDeserialized method and only available after deserialization, but not during it.</para>
-        /// <para><see cref="ClientObject"/> is used to provide methods to objects, such as <see cref="Content.Message.CreateMessageAsync(string)"/>, which rely on built-in client methods.</para>
+        /// <para>The parent client that deserialized this object. This is initiated via internal OnDeserialized method and only available after deserialization, but not during it.</para>
         /// </remarks>
         /// <value>Client</value>
         [JsonIgnore]

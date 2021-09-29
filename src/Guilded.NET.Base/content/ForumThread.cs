@@ -8,7 +8,7 @@ namespace Guilded.NET.Base.Content
     /// A forum thread in a forum channel.
     /// </summary>
     /// <remarks>
-    /// <para>A forum post/thread in forums that holds <see cref="Content"/> and a short <see cref="Title"/>.</para>
+    /// <para>A forum post/thread in forums.</para>
     /// <para>Currently can only be found as a return value from forum thread creation methods.</para>
     /// </remarks>
     /// <seealso cref="Message"/>
@@ -19,6 +19,9 @@ namespace Guilded.NET.Base.Content
         /// <summary>
         /// The title of the forum thread.
         /// </summary>
+        /// <remarks>
+        /// <para>The title of the forum thread that typically doesn't hold any formatting.</para>
+        /// </remarks>
         /// <value>Title</value>
         [JsonProperty(Required = Required.Always)]
         public string Title
@@ -45,7 +48,7 @@ namespace Guilded.NET.Base.Content
         /// Adds a reaction to a forum thread.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a reaction of identifier <paramref name="emoteId"/> to the message.</para>
+        /// <para>Adds a specified emote as a reaction to the forum thread.</para>
         /// </remarks>
         /// <param name="emoteId">The identifier of the emote to add</param>
         /// <exception cref="GuildedException"/>
@@ -60,7 +63,7 @@ namespace Guilded.NET.Base.Content
         /// Removes a reaction from a forum thread.
         /// </summary>
         /// <remarks>
-        /// <para>Remove a reaction of identifier <paramref name="emoteId"/> from the message.</para>
+        /// <para>Removes a specified reaction from the forum thread.</para>
         /// </remarks>
         /// <param name="emoteId">The identifier of the emote to remove</param>
         /// <exception cref="GuildedException"/>

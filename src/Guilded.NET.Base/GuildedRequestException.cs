@@ -9,7 +9,7 @@ namespace Guilded.NET.Base
     /// A bad request exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
-    /// <para>An exception thrown by Guilded API when request is invalid/bad. This has these leading causes:</para>
+    /// <para>An exception thrown by Guilded API when the request is invalid/bad. This has these leading causes:</para>
     /// <list type="bullet">
     ///     <item>
     ///         <term>Invalid/bad parameters</term>
@@ -17,13 +17,11 @@ namespace Guilded.NET.Base
     ///     </item>
     ///     <item>
     ///         <term>Outdated methods</term>
-    ///         <description>If you are using newer version of API and older incompatible methods,
-    ///         this can lead to an exception. This would rarely be the case, but still a possibility.</description>
+    ///         <description>If you are using newer version of API and older incompatible methods, this can lead to an exception. This would rarely be the case, but still a possibility.</description>
     ///     </item>
     ///     <item>
     ///         <term>Guilded.NET related issue</term>
-    ///         <description>This could be related to Guilded.NET itself, especially if new breaking
-    ///         update came and Guilded.NET hasn't changed methods yet.</description>
+    ///         <description>This could be related to Guilded.NET itself, especially if new breaking update came and Guilded.NET hasn't changed methods yet.</description>
     ///     </item>
     /// </list>
     /// </remarks>

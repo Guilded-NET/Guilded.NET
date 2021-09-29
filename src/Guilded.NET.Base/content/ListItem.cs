@@ -8,7 +8,7 @@ namespace Guilded.NET.Base.Content
     /// A list item in a list channel.
     /// </summary>
     /// <remarks>
-    /// <para>A list item in a list channel that has <see cref="Message"/> and optionally <see cref="Note"/>.</para>
+    /// <para>A list item in a list channel with an optional <see cref="Note"/>.</para>
     /// <para>It can only be found as a return value when creating a list item.</para>
     /// </remarks>
     /// <seealso cref="Message"/>

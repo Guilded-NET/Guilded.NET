@@ -9,7 +9,7 @@ namespace Guilded.NET.Base.Content
     /// The information about a reaction.
     /// </summary>
     /// <remarks>
-    /// <para>Defines a reaction in <see cref="ChannelContent{T}"/>. Currently doesn't hold the count of all reactions, nor return all reacting users.</para>
+    /// <para>Defines a reaction in <see cref="ChannelContent{T}"/>. Only currently exists on messages, forum threads, announcements, media, documents and calendar events. Currently doesn't hold the count of all reactions, nor return all reacting users.</para>
     /// </remarks>
     /// <seealso cref="Message"/>
     public class Reaction : ClientObject
@@ -34,8 +34,12 @@ namespace Guilded.NET.Base.Content
             get; set;
         }
         /// <summary>
-        /// The identifier of the author of this reaction.
+        /// The identifier of the user creator of the reaction.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the user that created this reaction.</para>
+        /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
+        /// </remarks>
         /// <value>User ID</value>
         [JsonProperty(Required = Required.Always)]
         public GId CreatedBy
@@ -43,8 +47,14 @@ namespace Guilded.NET.Base.Content
             get; set;
         }
         /// <summary>
-        /// The identifier of the webhook that created this reaction.
+        /// The identifier of the webhook creator of the reaction.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the webhook that posted created this reaction.</para>
+        /// <blockquote class="note">
+        ///     Currently, only chat messages can be created by Webhooks.
+        /// </blockquote>
+        /// </remarks>
         /// <value>Webhook ID?</value>
         [JsonProperty("createdByWebhookId")]
         public Guid? CreatedByWebhook
@@ -52,8 +62,11 @@ namespace Guilded.NET.Base.Content
             get; set;
         }
         /// <summary>
-        /// The identifier of the bot that created this reaction.
+        /// The identifier of the bot creator of the reaction.
         /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the flow bot that created this reaction.</para>
+        /// </remarks>
         /// <value>Bot ID?</value>
         [JsonProperty("createdByBotId")]
         public Guid? CreatedByBot
@@ -68,9 +81,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>Whether the message was automatically posted by a bot or a webhook.</para>
-        /// <para>This relies on <see cref="CreatedByBot"/> and <see cref="CreatedByWebhook"/> properties.
-        /// If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise,
-        /// <see langword="false"/> will be returned.</para>
+        /// <para>This relies on <see cref="CreatedByBot"/> and <see cref="CreatedByWebhook"/> properties. If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise, <see langword="false"/> will be returned.</para>
         /// </remarks>
         /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]

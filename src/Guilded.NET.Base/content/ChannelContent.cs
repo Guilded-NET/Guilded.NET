@@ -48,6 +48,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>The identifier of the user that created this content.</para>
+        /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
         /// </remarks>
         /// <value>User ID</value>
         [JsonProperty(Required = Required.Always)]
@@ -106,9 +107,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>Whether the content was automatically created by a bot or a webhook.</para>
-        /// <para>This relies on <see cref="ChannelContent{T}.CreatedByBot"/> and <see cref="ChannelContent{T}.CreatedByWebhook"/> properties.
-        /// If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise,
-        /// <see langword="false"/> will be returned.</para>
+        /// <para>This relies on <see cref="ChannelContent{T}.CreatedByBot"/> and <see cref="ChannelContent{T}.CreatedByWebhook"/> properties. If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise, <see langword="false"/> will be returned.</para>
         /// </remarks>
         /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]

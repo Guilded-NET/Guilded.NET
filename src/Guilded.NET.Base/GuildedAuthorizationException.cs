@@ -1,6 +1,4 @@
 using System;
-using System.Net;
-using System.Runtime.Serialization;
 using RestSharp;
 
 namespace Guilded.NET.Base
@@ -9,7 +7,7 @@ namespace Guilded.NET.Base
     /// An authorization exception thrown by Guilded API.
     /// </summary>
     /// <remarks>
-    /// <para>An exception thrown by Guilded API when the request is invalid. This is caused if you are trying to connect to Guilded or do an action with invalid or expired authentication token. The only solution is to create a new authentication token and use it instead.</para>
+    /// <para>An exception thrown by Guilded API when the request is invalid. This is caused if you are trying to connect to Guilded or do an action with invalid or expired authentication token. The only solution is to create a new auth and use it instead.</para>
     /// </remarks>
     /// <seealso cref="GuildedException"/>
     /// <seealso cref="GuildedPermissionException"/>
