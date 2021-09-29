@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to scheduling.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to availability in scheduling channels.</para>
+    /// <para>Defines channel permissions related to availability in scheduling channels.</para>
     /// </remarks>
     [Flags]
     public enum SchedulingPermissions
@@ -36,10 +36,29 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="DeleteSchedule"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = DeleteSchedule,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions/
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateSchedule"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ViewSchedules"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateSchedule | ViewSchedules
         #endregion
     }

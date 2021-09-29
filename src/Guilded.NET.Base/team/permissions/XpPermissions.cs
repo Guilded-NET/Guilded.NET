@@ -6,10 +6,10 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to XP.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to XP &amp; levels.</para>
+    /// <para>Defines team permissions related to XP &amp; levels.</para>
     /// </remarks>
     [Flags]
-    public enum XPPermissions
+    public enum XpPermissions
     {
         /// <summary>
         /// No given permissions.
@@ -18,17 +18,25 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// Allows you to manage XP on server members
         /// </summary>
-        ManageServerXP = 1,
+        ManageServerXp = 1,
 
         #region Additional
         /// <summary>
         /// All of the permissions combined.
         /// </summary>
-        All = ManageServerXP,
+        All = ManageServerXp,
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
-        Manage = ManageServerXP
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageServerXp"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
+        Manage = ManageServerXp
         #endregion
     }
 }

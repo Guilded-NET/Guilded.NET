@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to media.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to media in media channels.</para>
+    /// <para>Defines channel permissions related to media in media channels.</para>
     /// </remarks>
     [Flags]
     public enum MediaPermissions
@@ -40,10 +40,32 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageMedia"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="RemoveMedia"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ManageMedia | RemoveMedia,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateMedia"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="SeeMedia"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateMedia | SeeMedia
         #endregion
     }

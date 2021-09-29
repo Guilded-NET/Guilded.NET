@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to forms &amp; polls.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to forms &amp; polls.</para>
+    /// <para>Defines team permissions related to forms &amp; polls.</para>
     /// </remarks>
     [Flags]
     public enum FormPermissions
@@ -32,6 +32,14 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="PollResults"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = PollResults
         #endregion
     }

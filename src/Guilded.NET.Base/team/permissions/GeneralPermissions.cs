@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to servers.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to server management.</para>
+    /// <para>Defines team and channel permissions related to server management.</para>
     /// </remarks>
     [Flags]
     public enum GeneralPermissions
@@ -56,6 +56,29 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="UpdateServer"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="KickBanMembers"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ManageChannels"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ManageWebhooks"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ManageGroups"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ManageRoles"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = UpdateServer | KickBanMembers | ManageChannels | ManageWebhooks | ManageGroups | ManageRoles
         #endregion
     }

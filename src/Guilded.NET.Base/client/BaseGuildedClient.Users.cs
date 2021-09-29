@@ -11,7 +11,7 @@ namespace Guilded.NET.Base
         /// Gets user's social links.
         /// </summary>
         /// <remarks>
-        /// <para>Gets user's(from <paramref name="userId"/>) social link based on given <paramref name="linkType"/>.</para>
+        /// <para>Gets given user's social link based on given <paramref name="linkType"/>.</para>
         /// <para>This does not require any permissions to be given, as it is not team-based.</para>
         /// </remarks>
         /// <param name="userId">The identifier of the user</param>

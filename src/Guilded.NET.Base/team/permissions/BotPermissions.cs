@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     ///Permissions related to bots.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions for flowbots related things.</para>
+    /// <para>Defines team permissions for flowbots related things.</para>
     /// </remarks>
     [Flags]
     public enum BotPermissions

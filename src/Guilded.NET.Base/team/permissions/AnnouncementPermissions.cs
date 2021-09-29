@@ -6,10 +6,10 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to announcements.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions for announcement related things.</para>
+    /// <para>Defines channel permissions for announcement related things.</para>
     /// </remarks>
     [Flags]
-    public enum AnnounPermissions
+    public enum AnnouncementPermissions
     {
         /// <summary>
         /// No given permissions.
@@ -36,10 +36,26 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageAnnouncements"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ManageAnnouncements,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateAnnouncements"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateAnnouncements
         #endregion
     }

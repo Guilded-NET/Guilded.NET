@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to brackets.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions for tournament bracket related things.</para>
+    /// <para>Defines team permissions for tournament bracket related things.</para>
     /// </remarks>
     [Flags]
     public enum BracketPermissions

@@ -10,8 +10,8 @@ namespace Guilded.NET.Base
         /// Adds a member to the group.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a member of <paramref name="memberId"/> to the group <paramref name="groupId"/>.</para>
-        /// <para>This allows member of <paramref name="memberId"/> to see and interact with the group <paramref name="groupId"/>.</para>
+        /// <para>Adds the member to the group.</para>
+        /// <para>This allows the member to see and interact with the given group.</para>
         /// </remarks>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to add</param>
@@ -25,8 +25,8 @@ namespace Guilded.NET.Base
         /// Removes a member from the group.
         /// </summary>
         /// <remarks>
-        /// <para>Removes a member of <paramref name="memberId"/> from the group <paramref name="groupId"/>.</para>
-        /// <para>This disallows member of <paramref name="memberId"/> to interact or see the group <paramref name="groupId"/></para>
+        /// <para>Removes the given member from the group.</para>
+        /// <para>This disallows the member to interact or see the given group.</para>
         /// </remarks>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to remove</param>
@@ -43,8 +43,7 @@ namespace Guilded.NET.Base
         /// Attaches amount of XP required to a role.
         /// </summary>
         /// <remarks>
-        /// <para>Sets how much <paramref name="amount"/> of XP is necessary for role of
-        /// <paramref name="roleId"/> to be given.</para>
+        /// <para>Sets how much <paramref name="amount"/> of XP is necessary for the given role to be received.</para>
         /// </remarks>
         /// <param name="roleId">The identifier of the editing role</param>
         /// <param name="amount">The amount XP needed</param>
@@ -61,7 +60,7 @@ namespace Guilded.NET.Base
         /// Updates member's nickname.
         /// </summary>
         /// <remarks>
-        /// <para>Changes given member's nickname to set <paramref name="nickname"/> parameter.</para>
+        /// <para>Changes given member's nickname.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the member to update</param>
         /// <param name="nickname">The new nickname of the member</param>
@@ -94,8 +93,8 @@ namespace Guilded.NET.Base
         /// Adds a role to the given user.
         /// </summary>
         /// <remarks>
-        /// <para>Gives a member of <paramref name="memberId"/> the role of <paramref name="roleId"/> if permissions are met.</para>
-        /// <para>If they hold the role of <paramref name="roleId"/>, then nothing happens.</para>
+        /// <para>Gives the given role to the member.</para>
+        /// <para>If they hold the role, then nothing happens.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the receiving user</param>
         /// <param name="roleId">The identifier of the role to add</param>
@@ -109,8 +108,8 @@ namespace Guilded.NET.Base
         /// Removes a role from the given user.
         /// </summary>
         /// <remarks>
-        /// <para>Removes a role of <paramref name="roleId"/> from the member of <paramref name="memberId"/> if permissions are met.</para>
-        /// <para>If they don't hold a role of <paramref name="roleId"/>, then nothing happens.</para>
+        /// <para>Removes the given role from the given member.</para>
+        /// <para>If they don't hold the role, then nothing happens.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the losing user</param>
         /// <param name="roleId">The identifier of the role to remove</param>
@@ -124,7 +123,7 @@ namespace Guilded.NET.Base
         /// Adds XP to the given user.
         /// </summary>
         /// <remarks>
-        /// <para>Gives <paramref name="amount"/> of XP to member of <paramref name="memberId"/>.</para>
+        /// <para>Gives the <paramref name="amount"/> of XP to the given member.</para>
         /// <para>The minimum XP amount is <c>-1000</c> and maximum is <c>1000</c>.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the receiving member</param>
@@ -134,7 +133,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="System.ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
-        /// <permission cref="XPPermissions.ManageServerXP">Required for managing member's XP</permission>
+        /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
         /// <returns>Total XP</returns>
         public abstract Task<long> AddXpAsync(GId memberId, short amount);
         #endregion

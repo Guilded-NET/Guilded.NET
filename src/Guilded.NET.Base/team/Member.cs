@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Teams
 {
+    using Permissions;
     /// <summary>
     /// A member in a member list.
     /// </summary>
@@ -37,20 +38,24 @@ namespace Guilded.NET.Base.Teams
         #endregion
 
         #region Additional
-        /// <summary>
-        /// Gets member's social links.
-        /// </summary>
-        /// <remarks>
-        /// <para>Gets member's social link based on given <paramref name="linkType"/>.</para>
-        /// <para>This does not require any permissions to be given, as it is not team-based.</para>
-        /// </remarks>
-        /// <param name="linkType">The social link to get</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <returns>Member's social link</returns>
+        /// <inheritdoc cref="BaseGuildedClient.GetSocialLinkAsync(GId, SocialLinkType)"/>
         public async Task<SocialLink> GetSocialLinkAsync(SocialLinkType linkType) =>
             await ParentClient.GetSocialLinkAsync(Id, linkType).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(GId, string)"/>
+        public async Task<string> UpdateNicknameAsync(string nickname) =>
+            await ParentClient.UpdateNicknameAsync(Id, nickname).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(System.Guid, System.Guid)"/>
+        public async Task DeleteNicknameAsync() =>
+            await ParentClient.DeleteNicknameAsync(Id).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(GId, uint)"/>
+        public async Task AddRoleAsync(uint roleId) =>
+            await ParentClient.AddRoleAsync(Id, roleId).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(GId, uint)"/>
+        public async Task RemoveRoleAsync(uint roleId) =>
+            await ParentClient.RemoveRoleAsync(Id, roleId).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(GId, short)"/>
+        public async Task<long> AddXpAsync(short amount) =>
+            await ParentClient.AddXpAsync(Id, amount).ConfigureAwait(false);
         #endregion
     }
 }

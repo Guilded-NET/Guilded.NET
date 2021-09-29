@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to lists.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to lists/tasks in list channels.</para>
+    /// <para>Defines channel permissions related to lists/tasks in list channels.</para>
     /// </remarks>
     [Flags]
     public enum ListPermissions
@@ -48,10 +48,38 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageListItems"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="RemoveListItems"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ReorderListItems"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ManageListItems | RemoveListItems | ReorderListItems,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateListItem"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ViewListItems"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="CompleteListItems"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateListItem | ViewListItems | CompleteListItems
         #endregion
     }

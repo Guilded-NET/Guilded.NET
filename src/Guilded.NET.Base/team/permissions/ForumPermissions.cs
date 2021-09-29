@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to forums.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to forums.</para>
+    /// <para>Defines channel permissions related to forums.</para>
     /// </remarks>
     [Flags]
     public enum ForumPermissions
@@ -48,10 +48,38 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageTopics"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="StickyTopics"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="LockTopics"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ManageTopics | StickyTopics | LockTopics,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateTopics"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ReadForums"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="CreateTopicReplies"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateTopics | ReadForums | CreateTopicReplies
         #endregion
     }

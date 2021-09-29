@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to documents.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to documents.</para>
+    /// <para>Defines channel permissions related to documents.</para>
     /// </remarks>
     [Flags]
     public enum DocPermissions
@@ -40,10 +40,32 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageDocs"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="RemoveDocs"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ManageDocs | RemoveDocs,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateDocs"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ViewDocs"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateDocs | ViewDocs
         #endregion
     }

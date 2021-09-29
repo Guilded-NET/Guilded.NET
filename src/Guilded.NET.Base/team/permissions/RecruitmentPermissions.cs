@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to recruiting.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to recruiting in applications.</para>
+    /// <para>Defines team permissions related to recruiting in applications.</para>
     /// </remarks>
     [Flags]
     public enum RecruitmentPermissions
@@ -44,6 +44,20 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ApproveApplications"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="EditApplications"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ModifyStatus"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ApproveApplications | EditApplications | ModifyStatus
         #endregion
     }

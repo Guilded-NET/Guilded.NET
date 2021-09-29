@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to calendar.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions for calendar and event related things.</para>
+    /// <para>Defines channel permissions for calendar and event related things.</para>
     /// </remarks>
     [Flags]
     public enum CalendarPermissions
@@ -44,10 +44,35 @@ namespace Guilded.NET.Base.Permissions
         /// <summary>
         /// All of the manage permissions combined.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="ManageEvents"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="RemoveEvents"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="EditRSVPs"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Manage = ManageEvents | RemoveEvents | EditRSVPs,
         /// <summary>
         /// A simple permission combination allowing writing permissions and reading permissions.
         /// </summary>
+        /// <remarks>
+        /// <para>Sets these permissions:</para>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <description><see cref="CreateEvents"/></description>
+        ///     </item>
+        ///     <item>
+        ///         <description><see cref="ViewEvents"/></description>
+        ///     </item>
+        /// </list>
+        /// </remarks>
         Basic = CreateEvents | ViewEvents
         #endregion
     }

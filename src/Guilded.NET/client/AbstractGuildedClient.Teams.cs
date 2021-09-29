@@ -160,7 +160,7 @@ namespace Guilded.NET
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
-        /// <permission cref="XPPermissions.ManageServerXP">Required for managing member's XP</permission>
+        /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
         /// <returns>Total XP</returns>
         public override async Task<long> AddXpAsync(GId memberId, short amount)
         {
@@ -173,6 +173,5 @@ namespace Guilded.NET
             }).ConfigureAwait(false);
         }
         #endregion
-
     }
 }

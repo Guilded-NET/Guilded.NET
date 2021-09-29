@@ -6,7 +6,7 @@ namespace Guilded.NET.Base.Permissions
     /// Permissions related to customization.
     /// </summary>
     /// <remarks>
-    /// <para>Defines permissions related to nickname and emoji customizations.</para>
+    /// <para>Defines team permissions related to nickname and emoji customizations.</para>
     /// </remarks>
     [Flags]
     public enum CustomPermissions
