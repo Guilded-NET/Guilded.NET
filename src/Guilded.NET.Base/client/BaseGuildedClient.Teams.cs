@@ -39,23 +39,6 @@ namespace Guilded.NET.Base
         public abstract Task RemoveMembershipAsync(GId groupId, GId memberId);
         #endregion
 
-        #region Roles
-        /// <summary>
-        /// Attaches amount of XP required to a role.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets how much <paramref name="amount"/> of XP is necessary for the given role to be received.</para>
-        /// </remarks>
-        /// <param name="roleId">The identifier of the editing role</param>
-        /// <param name="amount">The amount XP needed</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="GeneralPermissions.ManageRoles">Required for managing roles</permission>
-        public abstract Task SetRoleLevelAsync(uint roleId, long amount);
-        #endregion
-
         #region Members
         /// <summary>
         /// Gets member's roles.
@@ -139,7 +122,6 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Gives the <paramref name="amount"/> of XP to the given member.</para>
-        /// <para>The minimum XP amount is <c>-1000</c> and maximum is <c>1000</c>.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the receiving member</param>
         /// <param name="amount">The amount of XP received from -1000 to 1000</param>
@@ -150,7 +132,21 @@ namespace Guilded.NET.Base
         /// <exception cref="System.ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
         /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
         /// <returns>Total XP</returns>
-        public abstract Task<long> AddXpAsync(GId memberId, short amount);
+        public abstract Task<long> AddXpAsync(GId memberId, long amount);
+        /// <summary>
+        /// Adds XP to the given role.
+        /// </summary>
+        /// <remarks>
+        /// <para>Gives the <paramref name="amount"/> of XP to all role holders.</para>
+        /// </remarks>
+        /// <param name="roleId">The identifier of the receiving role</param>
+        /// <param name="amount">The amount of XP received from -1000 to 1000</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
+        public abstract Task AddXpAsync(uint roleId, long amount);
         #endregion
     }
 }

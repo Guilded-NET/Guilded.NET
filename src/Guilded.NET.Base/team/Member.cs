@@ -53,7 +53,7 @@ namespace Guilded.NET.Base.Teams
         /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(GId, uint)"/>
         public async Task RemoveRoleAsync(uint roleId) =>
             await ParentClient.RemoveRoleAsync(Id, roleId).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(GId, short)"/>
+        /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(GId, long)"/>
         public async Task<long> AddXpAsync(short amount) =>
             await ParentClient.AddXpAsync(Id, amount).ConfigureAwait(false);
         #endregion
