@@ -25,7 +25,7 @@ namespace Guilded.NET.Base
     /// <seealso cref="GId"/>
     [TypeConverter(typeof(FormIdConverter))]
     [JsonConverter(typeof(IdConverter))]
-    public struct FormId : IEquatable<FormId>
+    public readonly struct FormId : IEquatable<FormId>
     {
         internal readonly string _;
         private const int partLength = 7;

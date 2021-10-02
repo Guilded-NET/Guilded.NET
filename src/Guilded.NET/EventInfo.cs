@@ -11,7 +11,7 @@ namespace Guilded.NET
     public interface IEventInfo<out T>
     {
         /// <summary>
-        /// A subscribable observable.
+        /// An observable that can be subscribed.
         /// </summary>
         /// <remarks>
         /// <para>An observable that can be subscribed to. The received event will be of type <typeparamref name="T"/>.</para>
@@ -62,7 +62,7 @@ namespace Guilded.NET
         /// <returns>Subject</returns>
         protected internal Subject<T> Subject = new Subject<T>();
         /// <summary>
-        /// A subscribable observable.
+        /// An observable that can be subscribed.
         /// </summary>
         /// <remarks>
         /// <para>An observable that can be subscribed to. The received event will be of type <typeparamref name="T"/>.</para>

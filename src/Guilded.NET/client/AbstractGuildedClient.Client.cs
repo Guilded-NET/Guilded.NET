@@ -11,7 +11,6 @@ namespace Guilded.NET
 {
     using Base;
     using Base.Events;
-    using Converters;
 
     /// <summary>
     /// A base for all Guilded clients.
@@ -44,12 +43,6 @@ namespace Guilded.NET
         /// <seealso cref="GuildedBotClient(string)"/>
         protected AbstractGuildedClient()
         {
-            // Serializer converters for REST
-            SerializerSettings.Converters = new JsonConverter[]
-            {
-                //new ContentConverter(),
-                new HexColorConverter()
-            };
             GuildedSerializer = JsonSerializer.Create(SerializerSettings);
 
             WebsocketMessage.Subscribe(
@@ -92,7 +85,7 @@ namespace Guilded.NET
         /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task ConnectAsync()
         {
-            // Whether to start it again or create and start it
+            // Determine whether to start it again or start it new
             if(HeartbeatTimer is null)
             {
                 HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
