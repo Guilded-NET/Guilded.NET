@@ -1,6 +1,4 @@
 using System;
-using System.Net;
-using System.Runtime.Serialization;
 using RestSharp;
 
 namespace Guilded.NET.Base
@@ -36,7 +34,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedPermissionException"/> with default message:</para>
-        /// <para>"Forbidden. Guilded client is missing permissions."</para>
+        /// <blockquote>Forbidden. Guilded client is missing permissions.</blockquote>
         /// </remarks>
         public GuildedPermissionException() : this("Forbidden. Guilded client is missing permissions.") { }
         /// <summary>

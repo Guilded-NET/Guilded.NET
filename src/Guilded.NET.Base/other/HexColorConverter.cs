@@ -4,7 +4,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.NET.Converters
+namespace Guilded.NET.Base
 {
     /// <summary>
     /// Converts colour to hex for roles.

@@ -1,5 +1,3 @@
-using System.Linq;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events

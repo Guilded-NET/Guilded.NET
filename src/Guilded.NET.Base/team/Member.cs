@@ -4,7 +4,6 @@ using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Teams
 {
-    using Permissions;
     /// <summary>
     /// A member in a member list.
     /// </summary>

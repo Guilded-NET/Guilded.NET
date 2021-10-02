@@ -187,11 +187,14 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <param name="filename">The name of the file being uploaded</param>
         /// <param name="filedata">The contents of the file being uploaded</param>
-        /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
+        /// <exception cref="ArgumentNullException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
         /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(string filename, byte[] filedata)
         {
+            if(string.IsNullOrWhiteSpace(filename))
+                throw new ArgumentNullException(nameof(filename));
+
             string ext = Path.GetExtension(filename).ToLower();
             // Automatically get content type instead of manually typing it
             string contentType = BaseGuildedClient.contentType.ContainsKey(ext) ? BaseGuildedClient.contentType[ext] : BaseGuildedClient.contentType.Values.FirstOrDefault();
@@ -205,7 +208,7 @@ namespace Guilded.NET.Base
         /// <para>Uploads an image from link <paramref name="url"/> to Guilded.</para>
         /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
         /// </remarks>
-        /// <param name="url">A URL link to an image to uplod</param>
+        /// <param name="url">URL link to an image to upload</param>
         /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
         public async Task<Uri> UploadFileAsync(Uri url)

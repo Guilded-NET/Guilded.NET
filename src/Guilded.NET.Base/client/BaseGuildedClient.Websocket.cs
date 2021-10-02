@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using System.Timers;
 using Websocket.Client;
@@ -8,8 +10,6 @@ using Websocket.Client.Exceptions;
 
 namespace Guilded.NET.Base
 {
-    using System.Reactive.Linq;
-    using System.Reactive.Subjects;
     using Events;
     public abstract partial class BaseGuildedClient
     {

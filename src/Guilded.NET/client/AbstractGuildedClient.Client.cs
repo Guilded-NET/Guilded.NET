@@ -6,7 +6,6 @@ using System.Timers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
-using Websocket.Client;
 
 namespace Guilded.NET
 {

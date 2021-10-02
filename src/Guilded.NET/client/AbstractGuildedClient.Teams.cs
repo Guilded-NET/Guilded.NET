@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using RestSharp;
 
 namespace Guilded.NET
 {
-    using System.Collections.Generic;
     using Base;
     using Base.Permissions;
     public abstract partial class AbstractGuildedClient
@@ -105,7 +105,6 @@ namespace Guilded.NET
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="CustomPermissions.ManageNicknames">Required for managing nicknames of members</permission>
         /// <permission cref="CustomPermissions.ChangeNickname">Required for changing your own nickname</permission>
-        /// <returns>Nickname</returns>
         public override async Task DeleteNicknameAsync(GId memberId) =>
             await ExecuteRequest($"members/{memberId}/nickname", Method.DELETE).ConfigureAwait(false);
         /// <summary>
@@ -147,7 +146,7 @@ namespace Guilded.NET
         /// <para>Gives the <paramref name="amount"/> of XP to the given member.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the receiving member</param>
-        /// <param name="amount">The amount of XP received from -1000 to 1000</param>
+        /// <param name="amount">The amount of XP received</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>
@@ -166,7 +165,7 @@ namespace Guilded.NET
         /// <para>Gives the <paramref name="amount"/> of XP to all role holders.</para>
         /// </remarks>
         /// <param name="roleId">The identifier of the receiving role</param>
-        /// <param name="amount">The amount of XP received from -1000 to 1000</param>
+        /// <param name="amount">The amount of XP received</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>

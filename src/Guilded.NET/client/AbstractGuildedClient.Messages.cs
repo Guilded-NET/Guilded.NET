@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
 
 namespace Guilded.NET
 {
@@ -69,7 +68,6 @@ namespace Guilded.NET
         /// </summary>
         /// <remarks>
         /// <para>Receives and handles received <see cref="GuildedSocketMessage"/> messages.</para>
-        /// <para>This relies on <see cref="GuildedEvents"/> dictionary.</para>
         /// </remarks>
         /// <param name="message">A message received from a WebSocket</param>
         protected void OnSocketMessage(GuildedSocketMessage message)

@@ -30,8 +30,7 @@ namespace Guilded.NET.Base
         /// The response message from Guilded WebSocket.
         /// </summary>
         /// <remarks>
-        /// <para>WebSocket response message that holds the error found.</para>
-        /// <para>Use this if further information is necessary.</para>
+        /// <para>WebSocket response message that holds the error found. Can be used if further information is necessary.</para>
         /// </remarks>
         /// <value>WebSocket response</value>
         public ResponseMessage Response

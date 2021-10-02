@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -87,8 +86,6 @@ namespace Guilded.NET.Base
         /// <exception cref="ArgumentNullException">When <paramref name="apiUrl"/> is <see langword="null"/></exception>
         protected BaseGuildedClient(Uri apiUrl)
         {
-            if(apiUrl == null)
-                throw new ArgumentNullException($"Expected {nameof(apiUrl)} to have a value");
             // Sets serialization settings for REST client
             SerializerSettings = new JsonSerializerSettings
             {
@@ -100,7 +97,7 @@ namespace Guilded.NET.Base
                 }
             };
 
-            Rest = new RestClient(apiUrl ?? throw new ArgumentNullException($"{nameof(apiUrl)} can not be empty."))
+            Rest = new RestClient(apiUrl ?? throw new ArgumentNullException(nameof(apiUrl)))
                 .AddDefaultHeader("Origin", "https://www.guilded.gg/")
                 .UseNewtonsoftJson(SerializerSettings);
         }

@@ -81,7 +81,7 @@ namespace Guilded.NET
         {
             // Make sure correct token is passed
             if (string.IsNullOrWhiteSpace(auth))
-                throw new ArgumentNullException($"{nameof(auth)} cannot be null, full of whitespace or empty.");
+                throw new ArgumentNullException(nameof(auth));
 
             AuthToken = auth;
         }
@@ -99,7 +99,7 @@ namespace Guilded.NET
         public async Task ConnectAsync(string auth)
         {
             if (string.IsNullOrWhiteSpace(auth))
-                throw new ArgumentNullException($"{nameof(auth)} cannot be null, full of whitespace or empty.");
+                throw new ArgumentNullException(nameof(auth));
             // Give authentication token to Guilded
             AdditionalHeaders.Add("Authorization", $"Bearer {auth}");
             Rest.AddDefaultHeaders(AdditionalHeaders);

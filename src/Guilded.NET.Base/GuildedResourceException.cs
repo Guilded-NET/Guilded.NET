@@ -1,6 +1,4 @@
 using System;
-using System.Net;
-using System.Runtime.Serialization;
 using RestSharp;
 
 namespace Guilded.NET.Base
@@ -46,7 +44,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedResourceException"/> with default message:</para>
-        /// <para>"Not found. Given item has not been found."</para>
+        /// <blockquote>Not found. Given item has not been found.</blockquote>
         /// </remarks>
         public GuildedResourceException() : this("Not found. Given item has not been found.") { }
         /// <summary>

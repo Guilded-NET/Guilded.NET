@@ -7,8 +7,7 @@ namespace Guilded.NET.Base.Events
     /// Message that was received from a WebSocket client.
     /// </summary>
     /// <remarks>
-    /// <para>Any message that can be received the Guilded WebSocket.</para>
-    /// <para>This will always hold <see cref="Opcode"/> that defines what the message is.</para>
+    /// <para>Any message that can be received the Guilded WebSocket, including Guilded events.</para>
     /// </remarks>
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
@@ -78,7 +77,7 @@ namespace Guilded.NET.Base.Events
         /// <remarks>
         /// <para>The data associated with the receiving event/message. Holds the data of most messages, including <see cref="WelcomeEvent"/>, <see cref="ResumeEvent"/> and <see cref="GuildedWebsocketException"/>. Only if <see cref="Opcode"/> is <c>9</c>, this will be <see langword="null"/>.</para>
         /// </remarks>
-        /// <value>Object?</value>
+        /// <value>Data?</value>
         [JsonProperty("d")]
         public JObject RawData
         {

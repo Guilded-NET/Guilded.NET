@@ -1,6 +1,4 @@
 using System;
-using System.Net;
-using System.Runtime.Serialization;
 using RestSharp;
 
 namespace Guilded.NET.Base
@@ -50,7 +48,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedRequestException"/> with default message:</para>
-        /// <para>"Unacceptable. The request was unacceptable. Invalid/bad parameters?"</para>
+        /// <blockquote>Unacceptable. The request was unacceptable. Invalid/bad parameters?</blockquote>
         /// </remarks>
         public GuildedRequestException() : this("Bad request. The request was unacceptable. Invalid/bad parameters?") { }
         /// <summary>
