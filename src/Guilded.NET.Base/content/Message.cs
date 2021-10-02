@@ -159,8 +159,7 @@ namespace Guilded.NET.Base.Content
         /// Updates the contents of the message.
         /// </summary>
         /// <remarks>
-        /// <para>Edits the message if the specified message is from the client.
-        /// This does not work if the client is not the creator of the message.</para>
+        /// <para>Edits the message if the specified message is from the client. This does not work if the client is not the creator of the message.</para>
         /// </remarks>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <exception cref="GuildedException"/>

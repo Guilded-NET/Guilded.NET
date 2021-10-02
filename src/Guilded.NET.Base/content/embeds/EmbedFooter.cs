@@ -21,8 +21,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <remarks>
         /// <para>The piece of text that will be displayed in the footer.</para>
-        /// <para>The footer text usually ignores any provided Markdown by clients like
-        /// Guilded official app, but may be displayed by other clients.</para>
+        /// <para>The provided Markdown will be ignored.</para>
         /// </remarks>
         /// <value>Description</value>
         [JsonProperty(Required = Required.Always)]

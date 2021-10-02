@@ -181,8 +181,7 @@ namespace Guilded.NET.Base
         /// Uploads a file to Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>Uploads any image, text or document file to Guilded with content
-        /// type automatically assigned.</para>
+        /// <para>Uploads any image, text or document file to Guilded with content type automatically assigned.</para>
         /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
         /// </remarks>
         /// <param name="filename">The name of the file being uploaded</param>

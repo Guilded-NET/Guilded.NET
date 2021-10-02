@@ -44,8 +44,7 @@ namespace Guilded.NET.Base.Events
             /// </summary>
             /// <remarks>
             /// <para>The list of roles that <see cref="UserId"/> is currently holding.</para>
-            /// <para>Received or removed roles are not provided, so caching of previous
-            /// role list is necessary if previous role list is needed.</para>
+            /// <para>Received or removed roles are not provided, so caching of previou role list is necessary if previous role list is needed.</para>
             /// </remarks>
             /// <value>List of role IDs</value>
             [JsonProperty(Required = Required.Always)]

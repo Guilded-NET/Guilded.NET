@@ -13,8 +13,7 @@ namespace Guilded.NET
     /// <para>You can also use <see cref="ConnectAsync(string)"/>, which doesn't require <see cref="AuthToken"/> set.</para>
     /// </remarks>
     /// <example>
-    /// <para>This showcases a Guilded bot client that connects to Guilded, listens for prepared
-    /// event and only listens to messages:</para>
+    /// <para>This showcases a Guilded bot client that connects to Guilded, listens for prepared event and only listens to messages:</para>
     /// <code language="csharp">
     /// using GuildedBotClient client = new GuildedBotClient("...auth...");
     /// client.Prepared += _ => Console.WriteLine("I am prepared!");

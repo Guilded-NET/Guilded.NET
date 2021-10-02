@@ -60,11 +60,7 @@ namespace Guilded.NET.Base.Embeds
         /// Creates a new instance of <see cref="EmbedField"/>, which is optionally inline.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new field with the name <paramref name="name"/> and a value <paramref name="value"/>.
-        /// The name acts like a title of the field and the value acts like a description.</para>
-        /// <para>Fields can be optionally inline(with <paramref name="inline"/> parameter being <see langword="true"/>),
-        /// which stacks up to 3 fields in one line. If field is not inline and there are
-        /// surrounding inline fields, it will still not stack with other fields.</para>
+        /// <para>Creates a new field with the name <paramref name="name"/> and a value <paramref name="value"/>.</para>
         /// </remarks>
         /// <param name="name">The title of the embed</param>
         /// <param name="value">The description text of the field</param>

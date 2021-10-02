@@ -41,9 +41,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <remarks>
         /// <para>A short text that appears above description.</para>
-        /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>.</para>
-        /// <para>This usually ignores any Markdown that is given for the clients, like Guilded official app.
-        /// Other clients may display it in correct formatting.</para>
+        /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>. The provided Markdown will be ignored.</para>
         /// </remarks>
         /// <value>Title?</value>
         public string Title

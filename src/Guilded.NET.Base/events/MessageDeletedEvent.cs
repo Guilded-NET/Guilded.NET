@@ -50,8 +50,6 @@ namespace Guilded.NET.Base.Events
             /// </summary>
             /// <remarks>
             /// <para>The <see cref="DateTime"/> of when the message was removed.</para>
-            /// <para>This is recorded by the server and all the delays that were
-            /// created by the client will be added as well.</para>
             /// </remarks>
             /// <value>Deleted at</value>
             [JsonProperty(Required = Required.Always)]

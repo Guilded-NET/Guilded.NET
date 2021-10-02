@@ -19,9 +19,7 @@ namespace Guilded.NET.Base.Events
         /// The duration between heartbeats.
         /// </summary>
         /// <remarks>
-        /// <para>The duration between each heartbeat in milliseconds.</para>
-        /// <para>This may not mutate in any way, but if sudden API change comes, it will allow
-        /// clients to automatically pick up the change without any effort from developers.</para>
+        /// <para>The duration between each heartbeat in milliseconds. The value is usually <c>22500</c>.</para>
         /// </remarks>
         /// <value>Milliseconds</value>
         [JsonProperty("heartbeatIntervalMs", Required = Required.Always)]
