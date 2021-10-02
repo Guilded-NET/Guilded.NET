@@ -8,14 +8,14 @@ namespace Guilded.NET
     using Base.Embeds;
     using Base.Content;
     /// <summary>
-    /// A new creatable message.
+    /// The contents of the message.
     /// </summary>
     /// <remarks>
-    /// <para>Defines a new message for create and update message methods.</para>
+    /// <para>Defines the contents of the message with which a chat message can be created.</para>
     /// </remarks>
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
                 ItemNullValueHandling = NullValueHandling.Ignore)]
-    internal class CreatableMessage : BaseObject
+    internal class MessageContent : BaseObject
     {
         #region JSON properties
         /// <summary>

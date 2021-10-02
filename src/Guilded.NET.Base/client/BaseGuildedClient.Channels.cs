@@ -117,7 +117,7 @@ namespace Guilded.NET.Base
         /// <returns>Message</returns>
         public abstract Task<Message> GetMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
-        /// Creates a message in chat.
+        /// Creates a message in the chat.
         /// </summary>
         /// <remarks>
         /// <para>Creates a new chat messsage in the specified channel.</para>
@@ -148,7 +148,7 @@ namespace Guilded.NET.Base
         /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
         public abstract Task<Message> CreateMessageAsync(Guid channelId, string content, bool isPrivate, params Guid[] replyMessageIds);
         /// <summary>
-        /// Updates the specified message.
+        /// Updates the message.
         /// </summary>
         /// <remarks>
         /// <para>Edits the contents of the specified message.</para>
@@ -169,7 +169,7 @@ namespace Guilded.NET.Base
         /// <returns>Message updated</returns>
         public abstract Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content);
         /// <summary>
-        /// Deletes a specified message.
+        /// Deletes the message.
         /// </summary>
         /// <remarks>
         /// <para>Removes the specified message, whether it be from the client or another user.</para>
@@ -184,10 +184,10 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.ManageMessages">Required for deleting messages made by others</permission>
         public abstract Task DeleteMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
-        /// Adds a reaction to a message.
+        /// Adds a reaction to the message.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a specified emote as a reaction to the given message.</para>
+        /// <para>Adds a specified emote as a reaction to the specified message.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to add a reaction on</param>
@@ -200,10 +200,10 @@ namespace Guilded.NET.Base
         /// <returns>Reaction added</returns>
         public abstract Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId);
         /// <summary>
-        /// Removes a reaction from a message.
+        /// Removes a reaction from the message.
         /// </summary>
         /// <remarks>
-        /// <para>Removes a specified reaction from the given message.</para>
+        /// <para>Removes a specified reaction from the specified message.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of the message to remove a reaction from</param>
@@ -218,7 +218,7 @@ namespace Guilded.NET.Base
 
         #region Forum channels
         /// <summary>
-        /// Creates a forum thread.
+        /// Creates a thread in forums.
         /// </summary>
         /// <remarks>
         /// <para>Creates a forum thread/post in forums.</para>
@@ -238,7 +238,7 @@ namespace Guilded.NET.Base
 
         #region List channels
         /// <summary>
-        /// Creates a list item.
+        /// Creates an item in the list.
         /// </summary>
         /// <remarks>
         /// <para>Creates a new list item in list/task channel.</para>
@@ -261,7 +261,7 @@ namespace Guilded.NET.Base
         /// Adds a reaction to the content.
         /// </summary>
         /// <remarks>
-        /// <para>Adds a specified emote as a reaction to the given content.</para>
+        /// <para>Adds a specified emote as a reaction to the specified content.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="contentId">The identifier of the content to add a reaction on</param>
@@ -280,7 +280,7 @@ namespace Guilded.NET.Base
         /// Removes a reaction from the content.
         /// </summary>
         /// <remarks>
-        /// <para>Removes a specified reaction from the given message.</para>
+        /// <para>Removes a specified reaction from the specified content.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="contentId">The identifier of the content to remove a reaction from</param>

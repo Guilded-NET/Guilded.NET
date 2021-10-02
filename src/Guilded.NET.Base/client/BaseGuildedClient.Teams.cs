@@ -11,8 +11,8 @@ namespace Guilded.NET.Base
         /// Adds a member to the group.
         /// </summary>
         /// <remarks>
-        /// <para>Adds the member to the group.</para>
-        /// <para>This allows the member to see and interact with the given group.</para>
+        /// <para>Adds the specified member to the group.</para>
+        /// <para>This allows the member to see and interact with the specified group.</para>
         /// </remarks>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to add</param>
@@ -26,8 +26,8 @@ namespace Guilded.NET.Base
         /// Removes a member from the group.
         /// </summary>
         /// <remarks>
-        /// <para>Removes the given member from the group.</para>
-        /// <para>This disallows the member to interact or see the given group.</para>
+        /// <para>Removes the specified member from the group.</para>
+        /// <para>This disallows the member to interact or see the specified group.</para>
         /// </remarks>
         /// <param name="groupId">The identifier of the parent group</param>
         /// <param name="memberId">The identifier of the member to remove</param>
@@ -41,11 +41,10 @@ namespace Guilded.NET.Base
 
         #region Members
         /// <summary>
-        /// Gets member's roles.
+        /// Gets the member's roles.
         /// </summary>
         /// <remarks>
-        /// <para>Gets given member's role ID list.</para>
-        /// <para>No permissions are required, as it is team-wide.</para>
+        /// <para>Gets the specified member's role ID list. No permissions are required.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the role holder</param>
         /// <exception cref="GuildedException"/>
@@ -55,10 +54,10 @@ namespace Guilded.NET.Base
         /// <returns>List of role IDs</returns>
         public abstract Task<IList<uint>> GetMemberRolesAsync(GId memberId);
         /// <summary>
-        /// Updates member's nickname.
+        /// Updates the member's nickname.
         /// </summary>
         /// <remarks>
-        /// <para>Changes given member's nickname.</para>
+        /// <para>Changes the specified member's nickname. New nickname will be set as <paramref name="nickname"/> parameter.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the member to update</param>
         /// <param name="nickname">The new nickname of the member</param>
@@ -75,7 +74,7 @@ namespace Guilded.NET.Base
         /// Deletes member's nickname.
         /// </summary>
         /// <remarks>
-        /// <para>Removes given member's nickname.</para>
+        /// <para>Removes the specified member's nickname.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the member to update</param>
         /// <exception cref="GuildedException"/>
@@ -88,11 +87,11 @@ namespace Guilded.NET.Base
         /// <returns>Nickname</returns>
         public abstract Task DeleteNicknameAsync(GId memberId);
         /// <summary>
-        /// Adds a role to the given user.
+        /// Adds a role to the user.
         /// </summary>
         /// <remarks>
-        /// <para>Gives the given role to the member.</para>
-        /// <para>If they hold the role, then nothing happens.</para>
+        /// <para>Gives the specified role to the member.</para>
+        /// <para>If they hold the specified role, then nothing happens.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the receiving user</param>
         /// <param name="roleId">The identifier of the role to add</param>
@@ -103,11 +102,11 @@ namespace Guilded.NET.Base
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public abstract Task AddRoleAsync(GId memberId, uint roleId);
         /// <summary>
-        /// Removes a role from the given user.
+        /// Removes a role from the user.
         /// </summary>
         /// <remarks>
-        /// <para>Removes the given role from the given member.</para>
-        /// <para>If they don't hold the role, then nothing happens.</para>
+        /// <para>Removes the specified role from the given member.</para>
+        /// <para>If they don't hold the soecified role, then nothing happens.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the losing user</param>
         /// <param name="roleId">The identifier of the role to remove</param>
@@ -118,10 +117,10 @@ namespace Guilded.NET.Base
         /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
         public abstract Task RemoveRoleAsync(GId memberId, uint roleId);
         /// <summary>
-        /// Adds XP to the given user.
+        /// Adds XP to the user.
         /// </summary>
         /// <remarks>
-        /// <para>Gives the <paramref name="amount"/> of XP to the given member.</para>
+        /// <para>Gives the specified <paramref name="amount"/> of XP to the member.</para>
         /// </remarks>
         /// <param name="memberId">The identifier of the receiving member</param>
         /// <param name="amount">The amount of XP received</param>
@@ -134,10 +133,10 @@ namespace Guilded.NET.Base
         /// <returns>Total XP</returns>
         public abstract Task<long> AddXpAsync(GId memberId, long amount);
         /// <summary>
-        /// Adds XP to the given role.
+        /// Adds XP to the role.
         /// </summary>
         /// <remarks>
-        /// <para>Gives the <paramref name="amount"/> of XP to all role holders.</para>
+        /// <para>Gives the specified <paramref name="amount"/> of XP to the role's members.</para>
         /// </remarks>
         /// <param name="roleId">The identifier of the receiving role</param>
         /// <param name="amount">The amount of XP received</param>

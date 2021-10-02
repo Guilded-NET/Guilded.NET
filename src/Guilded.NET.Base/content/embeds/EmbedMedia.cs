@@ -18,8 +18,7 @@ namespace Guilded.NET.Base.Embeds
         /// The source URL to the image.
         /// </summary>
         /// <remarks>
-        /// <para><see cref="Uri"/> that points to image's/video's source location.</para>
-        /// <para>This property will be used to fetch the image/video from the given URL.</para>
+        /// <para><see cref="Uri"/> that points to image's/video's source location. This property will be used to fetch the image/video from the given URL.</para>
         /// </remarks>
         /// <value>URL</value>
         public Uri Url

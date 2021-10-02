@@ -20,7 +20,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <remarks>
         /// <para>The name or the title of the field that is displayed above <see cref="Value"/>.</para>
-        /// <para>The Markdown is usually ignored by clients like Guilded official app, but may be displayed by others.</para>
+        /// <para>The provided Markdown is ignored.</para>
         /// </remarks>
         /// <value>Title</value>
         [JsonProperty(Required = Required.Always)]

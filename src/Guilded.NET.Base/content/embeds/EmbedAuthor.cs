@@ -35,9 +35,8 @@ namespace Guilded.NET.Base.Embeds
         /// The name of an embed author.
         /// </summary>
         /// <remarks>
-        /// <para>The name of the <see cref="EmbedAuthor"/> that will be displayed in the embed.</para>
-        /// <para>Usually a nickname or username of a Guilded user or user from other platforms.</para>
-        /// <para>Any provided Markdown will usually be ignored by the clients such as Guilded official app.</para>
+        /// <para>The name of the <see cref="EmbedAuthor"/> that will be displayed in the embed. Usually a nickname or username of a Guilded user or user from other platforms.</para>
+        /// <para>The provided Markdown is ignored.</para>
         /// </remarks>
         /// <value>Name</value>
         [JsonProperty(Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]

@@ -75,7 +75,6 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>The <see cref="DateTime"/> of when the message was edited.</para>
-        /// <para>This is recorded by the server and all the delays that were created by the client will be added as well.</para>
         /// </remarks>
         /// <value>Updated at?</value>
         public DateTime? UpdatedAt

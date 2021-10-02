@@ -15,17 +15,17 @@ namespace Guilded.NET
 
         #region Webhook
         /// <inheritdoc/>
-        private async Task CreateHookMessageAsync(Guid webhookId, string token, CreatableMessage message) =>
+        private async Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message) =>
             await ExecuteRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST, body: message).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
-            await CreateHookMessageAsync(webhookId, token, new CreatableMessage { Content = content }).ConfigureAwait(false);
+            await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content }).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds) =>
-            await CreateHookMessageAsync(webhookId, token, new CreatableMessage { Content = content, Embeds = embeds }).ConfigureAwait(false);
+            await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content, Embeds = embeds }).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds) =>
-            await CreateHookMessageAsync(webhookId, token, new CreatableMessage { Embeds = embeds }).ConfigureAwait(false);
+            await CreateHookMessageAsync(webhookId, token, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
         #endregion
 
         #region Chat channel
@@ -51,7 +51,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message created</returns>
-        private async Task<Message> CreateMessageAsync(Guid channelId, CreatableMessage message) =>
+        private async Task<Message> CreateMessageAsync(Guid channelId, MessageContent message) =>
             await GetObject<Message>($"channels/{channelId}/messages", Method.POST, "message", message).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Message> CreateMessageAsync(Guid channelId, string content)
@@ -61,7 +61,7 @@ namespace Guilded.NET
             else if (content.Length > messageLimit)
                 throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             else
-                return await CreateMessageAsync(channelId, new CreatableMessage { Content = content }).ConfigureAwait(false);
+                return await CreateMessageAsync(channelId, new MessageContent { Content = content }).ConfigureAwait(false);
         }
         /// <inheritdoc/>
         public override async Task<Message> CreateMessageAsync(Guid channelId, string content, params Guid[] replyMessageIds)
@@ -76,7 +76,7 @@ namespace Guilded.NET
             }
             else
             {
-                return await CreateMessageAsync(channelId, new CreatableMessage
+                return await CreateMessageAsync(channelId, new MessageContent
                 {
                     Content = content,
                     ReplyMessageIds = replyMessageIds
@@ -96,7 +96,7 @@ namespace Guilded.NET
             }
             else
             {
-                return await CreateMessageAsync(channelId, new CreatableMessage
+                return await CreateMessageAsync(channelId, new MessageContent
                 {
                     Content = content,
                     IsPrivate = isPrivate,
@@ -117,7 +117,7 @@ namespace Guilded.NET
             }
             else
             {
-                return await CreateMessageAsync(channelId, new CreatableMessage
+                return await CreateMessageAsync(channelId, new MessageContent
                 {
                     Content = content
                 }).ConfigureAwait(false);

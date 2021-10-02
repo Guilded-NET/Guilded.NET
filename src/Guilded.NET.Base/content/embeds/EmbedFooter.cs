@@ -34,7 +34,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <remarks>
         /// <para>The icon of the footer.</para>
-        /// <para>Displayed to the left side of the text in Guilded official app.</para>
+        /// <para>Usually displayed before the footer text.</para>
         /// </remarks>
         /// <value>URL?</value>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

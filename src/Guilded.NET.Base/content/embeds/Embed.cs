@@ -53,7 +53,6 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <remarks>
         /// <para>Defines the URL to the content this embed displays.</para>
-        /// <para>This is displayed as <see cref="Title"/> but as a hyperlink that links this URL by the Guilded official app.</para>
         /// </remarks>
         /// <value>URL?</value>
         public Uri Url
@@ -161,7 +160,7 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <remarks>
         /// <para>The <see cref="DateTime"/> that will be shown in the embed.</para>
-        /// <para>This is usually displayed in the <see cref="EmbedFooter"/> by clients like Guilded official client, but may be displayed elsewhere in other clients.</para>
+        /// <para>Usually displayed in the footer.</para>
         /// </remarks>
         /// <value>Date?</value>
         public DateTime? Timestamp

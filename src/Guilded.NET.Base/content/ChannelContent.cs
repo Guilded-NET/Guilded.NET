@@ -86,7 +86,6 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>The <see cref="DateTime"/> of when the content was created.</para>
-        /// <para>This is recorded by the server and all the delays that were created by the client will be added as well.</para>
         /// </remarks>
         /// <value>Created at</value>
         [JsonProperty(Required = Required.Always)]
