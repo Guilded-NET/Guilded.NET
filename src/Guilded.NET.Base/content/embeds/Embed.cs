@@ -366,6 +366,8 @@ namespace Guilded.NET.Base.Embeds
         #endregion
 
         #region Additional
+
+        #region Title
         /// <summary>
         /// Sets the title as the given parameter.
         /// </summary>
@@ -396,20 +398,25 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Creates a new <see cref="Uri"/> instance from <paramref name="url"/> parameter and sets it to <see cref="Url"/> property.</para>
         /// </remarks>
         /// <param name="url">The URL that title will link</param>
+        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetUrl(string url) =>
             SetUrl(new Uri(url));
+        #endregion
+
+        #region Description
         /// <summary>
         /// Sets the description as the given parameter.
         /// </summary>
         /// <param name="description">Embed's description</param>
-        /// <exception cref="NullReferenceException"><paramref name="description"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="description"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <exception cref="OverflowException"><paramref name="description"/> exceeds 4000 character limit</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetDescription(string description)
         {
             if (string.IsNullOrWhiteSpace(description))
-                throw new NullReferenceException($"Argument {nameof(description)} cannot be null, empty or whitespace.");
+                throw new ArgumentNullException(nameof(description));
             else if (description.Length > 4000)
                 throw new OverflowException($"Argument {nameof(description)} cannot be more than 4'000 characters.");
             Description = description;
@@ -425,6 +432,9 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetDescription(object description) =>
             SetDescription(description.ToString());
+        #endregion
+
+        #region Author
         /// <summary>
         /// Sets the author as the given parameter.
         /// </summary>
@@ -447,6 +457,9 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetAuthor(string name, Uri iconUrl = null, Uri url = null) =>
             SetAuthor(new EmbedAuthor(name, iconUrl, url));
+        #endregion
+
+        #region Fields
         /// <summary>
         /// Adds the given fields to the embed.
         /// </summary>
@@ -520,6 +533,9 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed AddField(string name, object value, bool inline = false) =>
             AddField(name, value.ToString(), inline);
+        #endregion
+
+        #region Media
         /// <summary>
         /// Sets the embed image as the given parameter.
         /// </summary>
@@ -543,37 +559,19 @@ namespace Guilded.NET.Base.Embeds
         public Embed SetImage(Uri url, uint? width = null, uint? height = null) =>
             SetImage(new EmbedMedia(url, width, height));
         /// <summary>
-        /// Sets the footer as the given parameter.
-        /// </summary>
-        /// <param name="footer">The footer to set</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(EmbedFooter footer)
-        {
-            Footer = footer;
-            return this;
-        }
-        /// <summary>
-        /// Sets the footer as the given parameters.
+        /// Sets the embed image as the given parameters.
         /// </summary>
         /// <remarks>
-        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters.</para>
+        /// <para>Sets <see cref="Image"/> as a new instance of <see cref="EmbedMedia"/> made from given parameter.</para>
         /// </remarks>
-        /// <param name="text">The text of the footer</param>
-        /// <param name="iconUrl">The icon of the footer</param>
+        /// <param name="url">The source URL of the image</param>
+        /// <param name="width">The width of the image</param>
+        /// <param name="height">The height of the image</param>
+        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(string text, Uri iconUrl = null) =>
-            SetFooter(new EmbedFooter(text, iconUrl));
-        /// <summary>
-        /// Sets the footer as the given parameters.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters. The text will be set as string equivalent to <paramref name="text"/>.</para>
-        /// </remarks>
-        /// <param name="text">The text of the footer</param>
-        /// <param name="iconUrl">The icon of the footer</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(object text, Uri iconUrl = null) =>
-            SetFooter(text.ToString(), iconUrl);
+        public Embed SetImage(string url, uint? width = null, uint? height = null) =>
+            SetImage(new Uri(url), width, height);
         /// <summary>
         /// Sets the thumbnail as the given parameter.
         /// </summary>
@@ -600,6 +598,81 @@ namespace Guilded.NET.Base.Embeds
             return this;
         }
         /// <summary>
+        /// Sets the thumbnail as the given parameters.
+        /// </summary>
+        /// <remarks>
+        /// <para>Sets <see cref="Thumbnail"/> as a new instance of <see cref="EmbedMedia"/> made from given parameters.</para>
+        /// </remarks>
+        /// <param name="url">The source URL of the thumbnail image</param>
+        /// <param name="width">The width of the image</param>
+        /// <param name="height">The height of the image</param>
+        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetThumbnail(string url, uint? width = null, uint? height = null) =>
+            SetThumbnail(new Uri(url), width, height);
+        #endregion
+
+        #region Footer
+        /// <summary>
+        /// Sets the footer as the given parameter.
+        /// </summary>
+        /// <param name="footer">The footer to set</param>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetFooter(EmbedFooter footer)
+        {
+            Footer = footer;
+            return this;
+        }
+        /// <summary>
+        /// Sets the footer as the given parameters.
+        /// </summary>
+        /// <remarks>
+        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters.</para>
+        /// </remarks>
+        /// <param name="text">The text of the footer</param>
+        /// <param name="iconUrl">The icon of the footer</param>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetFooter(string text, Uri iconUrl = null) =>
+            SetFooter(new EmbedFooter(text, iconUrl));
+        /// <summary>
+        /// Sets the footer as the given parameters.
+        /// </summary>
+        /// <remarks>
+        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters.</para>
+        /// </remarks>
+        /// <param name="text">The text of the footer</param>
+        /// <param name="iconUrl">The icon of the footer</param>
+        /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetFooter(string text, string iconUrl = null) =>
+            SetFooter(text, iconUrl is null ? null : new Uri(iconUrl));
+        /// <summary>
+        /// Sets the footer as the given parameters.
+        /// </summary>
+        /// <remarks>
+        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters. The text will be set as string equivalent to <paramref name="text"/>.</para>
+        /// </remarks>
+        /// <param name="text">The text of the footer</param>
+        /// <param name="iconUrl">The icon of the footer</param>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetFooter(object text, Uri iconUrl = null) =>
+            SetFooter(text.ToString(), iconUrl);
+        /// <summary>
+        /// Sets the footer as the given parameters.
+        /// </summary>
+        /// <remarks>
+        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters. The text will be set as string equivalent to <paramref name="text"/>.</para>
+        /// </remarks>
+        /// <param name="text">The text of the footer</param>
+        /// <param name="iconUrl">The icon of the footer</param>
+        /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetFooter(object text, string iconUrl = null) =>
+            SetFooter(text, iconUrl is null ? null : new Uri(iconUrl));
+        /// <summary>
         /// Sets the timestamp as the given parameter.
         /// </summary>
         /// <param name="time">The date to be set to</param>
@@ -613,11 +686,14 @@ namespace Guilded.NET.Base.Embeds
         /// Sets the timestamp as the current date.
         /// </summary>
         /// <remarks>
-        /// <para>Sets <see cref="Timestamp"/> as <see cref="DateTime.Now"/>.</para>
+        /// <para>Sets <see cref="Timestamp"/> as <see cref="DateTime.UtcNow"/>.</para>
         /// </remarks>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetTimestamp() =>
-            SetTimestamp(DateTime.Now);
+            SetTimestamp(DateTime.UtcNow);
+        #endregion
+
+        #region Parameters
         /// <summary>
         /// Sets the colour as the given parameter.
         /// </summary>
@@ -661,6 +737,8 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetColor(int red, int green, int blue) =>
             SetColor(System.Drawing.Color.FromArgb(red, green, blue));
+        #endregion
+
         #endregion
     }
 }

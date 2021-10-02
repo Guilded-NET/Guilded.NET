@@ -12,10 +12,10 @@ namespace Guilded.NET
         #region Groups
         /// <inheritdoc/>
         public override async Task AddMembershipAsync(GId groupId, GId memberId) =>
-            await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.PUT).ConfigureAwait(false);
+            await ExecuteRestAsync($"groups/{groupId}/members/{memberId}", Method.PUT).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task RemoveMembershipAsync(GId groupId, GId memberId) =>
-            await ExecuteRequest($"groups/{groupId}/members/{memberId}", Method.DELETE).ConfigureAwait(false);
+            await ExecuteRestAsync($"groups/{groupId}/members/{memberId}", Method.DELETE).ConfigureAwait(false);
         #endregion
 
         #region Members
@@ -37,13 +37,13 @@ namespace Guilded.NET
         }
         /// <inheritdoc/>
         public override async Task DeleteNicknameAsync(GId memberId) =>
-            await ExecuteRequest($"members/{memberId}/nickname", Method.DELETE).ConfigureAwait(false);
+            await ExecuteRestAsync($"members/{memberId}/nickname", Method.DELETE).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task AddRoleAsync(GId memberId, uint roleId) =>
-            await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.PUT).ConfigureAwait(false);
+            await ExecuteRestAsync($"members/{memberId}/roles/{roleId}", Method.PUT).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task RemoveRoleAsync(GId memberId, uint roleId) =>
-            await ExecuteRequest($"members/{memberId}/roles/{roleId}", Method.DELETE).ConfigureAwait(false);
+            await ExecuteRestAsync($"members/{memberId}/roles/{roleId}", Method.DELETE).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<long> AddXpAsync(GId memberId, long amount) =>
             await GetObject<long>($"members/{memberId}/xp", Method.POST, "total", new

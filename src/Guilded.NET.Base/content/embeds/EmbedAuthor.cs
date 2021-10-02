@@ -22,7 +22,7 @@ namespace Guilded.NET.Base.Embeds
     ///                 ? post.Text.Substring(0, 3997) + "..."
     ///                 : post.Text
     /// };
-    /// await client.CreateMessageAsync(channelId, new ChatEmbed(embed));
+    /// await client.CreateMessageAsync(channelId, embed);
     /// </code>
     /// </example>
     /// <seealso cref="EmbedFooter"/>
@@ -74,19 +74,35 @@ namespace Guilded.NET.Base.Embeds
 
         #region Constructors
         /// <summary>
+        /// Creates a new instance of <see cref="EmbedAuthor"/> without an icon and without a URL.
+        /// </summary>
+        /// <param name="name">The name of the embed author</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>, empty or whitespace</exception>
+        public EmbedAuthor(string name)
+        {
+            Name = name;
+
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentNullException(nameof(name));
+        }
+        /// <summary>
         /// Creates a new instance of <see cref="EmbedAuthor"/> with optional URL <paramref name="url"/>.
         /// </summary>
         /// <param name="name">The name of the embed author</param>
         /// <param name="iconUrl">The URL to author's icon</param>
         /// <param name="url">The URL that author links</param>
-        /// <exception cref="NullReferenceException"><paramref name="name"/> is <see langword="null"/>, empty or whitespace</exception>
-        public EmbedAuthor(string name, Uri iconUrl = null, Uri url = null)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new NullReferenceException($"Argument {nameof(name)} cannot be null, empty or whitespace.");
-
-            (Name, IconUrl, Url) = (name, iconUrl, url);
-        }
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>, empty or whitespace</exception>
+        public EmbedAuthor(string name, Uri iconUrl = null, Uri url = null) : this(name) =>
+            (IconUrl, Url) = (iconUrl, url);
+        /// <summary>
+        /// Creates a new instance of <see cref="EmbedAuthor"/> with optional URL <paramref name="url"/>.
+        /// </summary>
+        /// <param name="name">The name of the embed author</param>
+        /// <param name="iconUrl">The URL to author's icon</param>
+        /// <param name="url">The URL that author links</param>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/>, <paramref name="url"/> or <paramref name="iconUrl"/> are <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="url"/> or <paramref name="iconUrl"/> have bad <see cref="Uri"/> formatting</exception>
+        public EmbedAuthor(string name, string iconUrl = null, string url = null) : this(name, iconUrl is null ? null : new Uri(iconUrl), url is null ? null : new Uri(url)) {}
         #endregion
     }
 }

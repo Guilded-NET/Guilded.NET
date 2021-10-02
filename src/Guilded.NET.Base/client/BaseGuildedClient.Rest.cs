@@ -101,8 +101,8 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <typeparam name="T">The type of the response's content</typeparam>
         /// <returns>Request response</returns>
-        public async Task<IRestResponse<T>> ExecuteRequest<T>(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
+        public async Task<IRestResponse<T>> ExecuteRestAsync<T>(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
+            await ExecuteRequestAsync<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
         /// <summary>
         /// Sends a request to Guilded.
         /// </summary>
@@ -121,15 +121,15 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedRequestException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
-        public async Task<IRestResponse<object>> ExecuteRequest(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
-        /// <inheritdoc cref="ExecuteRequest{T}(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
-        public async Task<IRestResponse<T>> ExecuteRequest<T>(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await SendRequest<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
-        /// <inheritdoc cref="ExecuteRequest(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
-        public async Task<IRestResponse<object>> ExecuteRequest(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRequest<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
-        // Builds requests for ExecuteRequest methods
+        public async Task<IRestResponse<object>> ExecuteRestAsync(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
+            await ExecuteRestAsync<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
+        /// <inheritdoc cref="ExecuteRestAsync{T}(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
+        public async Task<IRestResponse<T>> ExecuteRestAsync<T>(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
+            await ExecuteRequestAsync<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
+        /// <inheritdoc cref="ExecuteRestAsync(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
+        public async Task<IRestResponse<object>> ExecuteRestAsync(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
+            await ExecuteRestAsync<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
+        // Builds requests for ExecuteRestAsync methods
         private IRestRequest BuildRequest(IRestRequest request, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null)
         {
             if (!(body is null))
@@ -164,18 +164,15 @@ namespace Guilded.NET.Base
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentException($"{nameof(filename)} can not be empty.");
 
-            IRestRequest req = new RestRequest($"{GuildedUrl.Media}/media/upload?dynamicMediaTypeId=ContentMedia", Method.POST, DataFormat.Json)
+            IRestRequest req = new RestRequest(GuildedUrl.MediaFileUpload, Method.POST, DataFormat.Json)
                 .AddFile("file", filedata, filename, contentType)
                 // Make sure Guilded is not angry
                 .AddParameter("uploadTrackingId", FormId.Random.ToString(), "multipart/form-data", ParameterType.GetOrPost)
                 .AddParameter("Content-Type", "multipart/form-data");
 
-            JObject obj = (await SendRequest<JObject>(req).ConfigureAwait(false)).Data;
-            // To make sure it has uploaded correctly 
-            if (!obj.ContainsKey("url"))
-                return null;
+            JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data;
 
-            return obj["url"].ToObject<Uri>();
+            return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
         }
         /// <summary>
         /// Uploads a file to Guilded.
@@ -215,7 +212,7 @@ namespace Guilded.NET.Base
             if (url is null)
                 throw new ArgumentException($"{nameof(url)} can not be null.");
 
-            IRestRequest req = new RestRequest($"{GuildedUrl.Media}/media/upload", Method.POST);
+            IRestRequest req = new RestRequest(GuildedUrl.MediaUrlUpload, Method.POST);
             /* {
              *   "mediaInfo": { "src": "url" },
              *   "dynamicMediaTypeId": "ContentMedia",
@@ -224,12 +221,9 @@ namespace Guilded.NET.Base
              */
             req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"{FormId.Random}\" }}");
 
-            JObject obj = (await SendRequest<JObject>(req).ConfigureAwait(false)).Data;
-            // To make sure it has uploaded correctly
-            if (!obj.ContainsKey("url"))
-                return null;
+            JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data;
 
-            return obj["url"].ToObject<Uri>();
+            return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
         }
         /// <summary>
         /// Executes a request and receives response or an error.
@@ -240,7 +234,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
         /// <returns>Request response</returns>
-        private async Task<IRestResponse<T>> SendRequest<T>(IRestRequest request)
+        private async Task<IRestResponse<T>> ExecuteRequestAsync<T>(IRestRequest request)
         {
             IRestResponse<T> response = await Rest.ExecuteAsync<T>(request).ConfigureAwait(false);
 

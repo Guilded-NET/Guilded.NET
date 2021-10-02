@@ -142,6 +142,6 @@ namespace Guilded.NET
             HeartbeatTimer?.Dispose();
         }
         private async Task<T> GetObject<T>(string resource, Method method, object key, object body = null) =>
-            (await ExecuteRequest<JContainer>(resource, method, body).ConfigureAwait(false)).Data[key].ToObject<T>(GuildedSerializer);
+            (await ExecuteRestAsync<JContainer>(resource, method, body).ConfigureAwait(false)).Data[key].ToObject<T>(GuildedSerializer);
     }
 }

@@ -52,6 +52,14 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="iconUrl">The URL to footer's icon</param>
         public EmbedFooter(string text, Uri iconUrl = null) =>
             (Text, IconUrl) = (text, iconUrl);
+        /// <summary>
+        /// Creates a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>.
+        /// </summary>
+        /// <param name="text">The description of the footer</param>
+        /// <param name="iconUrl">The URL to footer's icon</param>
+        /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
+        public EmbedFooter(string text, string iconUrl) : this(text, new Uri(iconUrl)) {}
         #endregion
     }
 }

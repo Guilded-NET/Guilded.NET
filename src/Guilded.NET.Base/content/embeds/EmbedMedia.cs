@@ -52,6 +52,15 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="height">The height of the image</param>
         public EmbedMedia(Uri url, uint? width = null, uint? height = null) =>
             (Url, Width, Height) = (url, width, height);
+        /// <summary>
+        /// Creates a new instance of <see cref="EmbedMedia"/> with optional size parameters.
+        /// </summary>
+        /// <param name="url">The source URL to the image</param>
+        /// <param name="width">The width of the image</param>
+        /// <param name="height">The height of the image</param>
+        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
+        public EmbedMedia(string url, uint? width = null, uint? height = null) : this(new Uri(url), width, height) {}
         #endregion
 
         #region Internal

@@ -16,7 +16,7 @@ namespace Guilded.NET
         #region Webhook
         /// <inheritdoc/>
         private async Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message) =>
-            await ExecuteRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST, body: message).ConfigureAwait(false);
+            await ExecuteRestAsync(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST, body: message).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
             await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content }).ConfigureAwait(false);
@@ -125,13 +125,13 @@ namespace Guilded.NET
         }
         /// <inheritdoc/>
         public override async Task DeleteMessageAsync(Guid channelId, Guid messageId) =>
-            await ExecuteRequest($"channels/{channelId}/messages/{messageId}", Method.DELETE).ConfigureAwait(false);
+            await ExecuteRestAsync($"channels/{channelId}/messages/{messageId}", Method.DELETE).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
             await GetObject<Reaction>($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.PUT, key: "emote").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
-            await ExecuteRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
+            await ExecuteRestAsync($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
         #endregion
 
         #region Forum channels
@@ -172,7 +172,7 @@ namespace Guilded.NET
             await GetObject<Reaction>($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.PUT, key: "emote").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
-            await ExecuteRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
+            await ExecuteRestAsync($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.DELETE).ConfigureAwait(false);
         #endregion
     }
 }

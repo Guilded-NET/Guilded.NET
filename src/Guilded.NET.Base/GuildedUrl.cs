@@ -21,6 +21,22 @@ namespace Guilded.NET.Base
         /// <value>Media URL</value>
         public static readonly Uri Media = new Uri("https://media.guilded.gg/");
         /// <summary>
+        /// The URL to upload Guilded's media.
+        /// </summary>
+        /// <remarks>
+        /// <para>The URL that will be used to upload videos, images and other files.</para>
+        /// </remarks>
+        /// <value>Media upload URL</value>
+        public static readonly Uri MediaFileUpload = new Uri("https://media.guilded.gg/media/upload?dynamicMediaTypeId=ContentMedia");
+        /// <summary>
+        /// The URL to upload Guilded's media.
+        /// </summary>
+        /// <remarks>
+        /// <para>The URL that will be used to upload URL links.</para>
+        /// </remarks>
+        /// <value>Media upload URL</value>
+        public static readonly Uri MediaUrlUpload = new Uri("https://media.guilded.gg/media/upload");
+        /// <summary>
         /// The URL to Guilded's image CDN.
         /// </summary>
         /// <remarks>
