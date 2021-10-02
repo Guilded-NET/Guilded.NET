@@ -155,66 +155,19 @@ namespace Guilded.NET.Base.Content
         /// <param name="isPrivate">Whether the reply is private</param>
         public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
             await CreateMessageAsync(content, isPrivate, Id).ConfigureAwait(false);
-        /// <summary>
-        /// Updates the contents of the message.
-        /// </summary>
-        /// <remarks>
-        /// <para>Edits the message if the specified message is from the client. This does not work if the client is not the creator of the message.</para>
-        /// </remarks>
+        /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)"/>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <exception cref="ArgumentNullException">When the <paramref name="content"/> only consists of whitespace or is <see langword="null"/></exception>
-        /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content"/> is above the message limit of 4000 characters</exception>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message edited</returns>
         public async Task<Message> UpdateMessageAsync(string content) =>
             await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
-        /// <summary>
-        /// Deletes a specified message.
-        /// </summary>
-        /// <remarks>
-        /// <para>Removes the message, whether it be from the client or another user.</para>
-        /// </remarks>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.ManageMessages">Required for deleting messages made by others</permission>
+        /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)"/>
         public async Task DeleteMessageAsync() =>
             await ParentClient.DeleteMessageAsync(ChannelId, Id).ConfigureAwait(false);
-        /// <summary>
-        /// Adds a reaction to a message.
-        /// </summary>
-        /// <remarks>
-        /// <para>Adds a specified emote as a reaction to the message.</para>
-        /// </remarks>
+        /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)"/>
         /// <param name="emoteId">The identifier of the emote to add</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for adding a reaction to a message you see</permission>
-        /// <returns>Reaction added</returns>
         public async Task<Reaction> AddReactionAsync(uint emoteId) =>
             await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
-        /// <summary>
-        /// Removes a reaction from a message.
-        /// </summary>
-        /// <remarks>
-        /// <para>Removes a specified reaction from the message.</para>
-        /// </remarks>
+        /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)"/>
         /// <param name="emoteId">The identifier of the emote to remove</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for removing a reaction from a message you see</permission>
         public async Task RemoveReactionAsync(uint emoteId) =>
             await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
         #endregion

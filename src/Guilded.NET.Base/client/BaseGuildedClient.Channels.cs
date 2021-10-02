@@ -14,7 +14,8 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat using provided webhook.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// <para>Creates a new message using the specified webhook.</para>
+        /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="webhookId">The identifier of the webhook to execute</param>
         /// <param name="token">The token of executed webhook</param>
@@ -27,7 +28,8 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat using provided webhook.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// <para>Creates a new message using the specified webhook.</para>
+        /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="webhookId">The identifier of the webhook to execute</param>
         /// <param name="token">The token of executed webhook</param>
@@ -41,7 +43,8 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat using provided webhook.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// <para>Creates a new message using the specified webhook.</para>
+        /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="webhookId">The identifier of the webhook to execute</param>
         /// <param name="token">The token of executed webhook</param>
@@ -56,7 +59,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat using provided webhook.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// <para>Creates a new message using the specified webhook.</para>
         /// </remarks>
         /// <param name="webhookId">The identifier of the webhook to execute</param>
         /// <param name="token">The token of executed webhook</param>
@@ -69,7 +72,7 @@ namespace Guilded.NET.Base
         /// Creates a message in a chat using provided webhook.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message using webhook of identifier <paramref name="webhookId"/>.</para>
+        /// <para>Creates a new message using the specified webhook.</para>
         /// </remarks>
         /// <param name="webhookId">The identifier of the webhook to execute</param>
         /// <param name="token">The token of executed webhook</param>
@@ -84,10 +87,10 @@ namespace Guilded.NET.Base
 
         #region Chat channels
         /// <summary>
-        /// Gets messages with a specific limit.
+        /// Gets a set of messages.
         /// </summary>
         /// <remarks>
-        /// <para>Gets a list of messages in a specified channel of identifier <paramref name="channelId"/>.</para>
+        /// <para>Gets a set of messages in the specified channel.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="includePrivate">Whether to get private replies or not</param>
@@ -99,10 +102,10 @@ namespace Guilded.NET.Base
         /// <returns>List of messages</returns>
         public abstract Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false);
         /// <summary>
-        /// Gets a message in a specific channel.
+        /// Gets a message.
         /// </summary>
         /// <remarks>
-        /// <para>Gets a specified message with an identifier <paramref name="messageId"/>.</para>
+        /// <para>Gets the specified message.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="messageId">The identifier of message it should get</param>
@@ -114,10 +117,11 @@ namespace Guilded.NET.Base
         /// <returns>Message</returns>
         public abstract Task<Message> GetMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
-        /// Creates a message in a chat.
+        /// Creates a message in chat.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message with <paramref name="content"/> formatted in Markdown.</para>
+        /// <para>Creates a new chat messsage in the specified channel.</para>
+        /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
@@ -144,10 +148,10 @@ namespace Guilded.NET.Base
         /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
         public abstract Task<Message> CreateMessageAsync(Guid channelId, string content, bool isPrivate, params Guid[] replyMessageIds);
         /// <summary>
-        /// Updates the contents of the message.
+        /// Updates the specified message.
         /// </summary>
         /// <remarks>
-        /// <para>Edits the specified message if the client is the creator of the message. This does not work if the client is not the creator of the message.</para>
+        /// <para>Edits the contents of the specified message.</para>
         /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
