@@ -40,9 +40,7 @@
   
   <!-- For testing purposes -->
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">
-    <Reference Include="Guilded.NET.Base">
-      <HintPath>../Guilded.NET.Base/bin/Debug/netstandard2.1/Guilded.NET.Base.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="../Guilded.NET.Base/Guilded.NET.Base.csproj"/>
   </ItemGroup>
   
   <!-- Documentation -->
