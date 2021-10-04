@@ -15,7 +15,7 @@ namespace Guilded.NET
     /// </remarks>
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
                 ItemNullValueHandling = NullValueHandling.Ignore)]
-    internal class MessageContent : BaseObject
+    public class MessageContent : BaseObject
     {
         #region JSON properties
         /// <summary>

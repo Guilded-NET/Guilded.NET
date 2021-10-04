@@ -83,70 +83,6 @@ namespace Guilded.NET.Base
 
         #region Requests
         /// <summary>
-        /// Sends a request to Guilded.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. Any errors received will be thrown.</para>
-        /// </remarks>
-        /// <param name="resource">The full URL of the endpoint</param>
-        /// <param name="method">The action method of the endpoint</param>
-        /// <param name="body">The object to be used as request's body</param>
-        /// <param name="encodeQuery">Whether to encode all given queries</param>
-        /// <param name="query">The dictionary of queries and their values</param>
-        /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <exception cref="GuildedRequestException"/>
-        /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
-        /// <typeparam name="T">The type of the response's content</typeparam>
-        /// <returns>Request response</returns>
-        public async Task<IRestResponse<T>> ExecuteRestAsync<T>(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRequestAsync<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
-        /// <summary>
-        /// Sends a request to Guilded.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sends a request to Guilded API and returns response as <see cref="IRestResponse{T}"/> type. Any errors received will be thrown.</para>
-        /// </remarks>
-        /// <param name="resource">The full URL of the endpoint</param>
-        /// <param name="method">The action method of the endpoint</param>
-        /// <param name="body">The object to be used as request's body</param>
-        /// <param name="encodeQuery">Whether to encode all given queries</param>
-        /// <param name="query">The dictionary of queries and their values</param>
-        /// <param name="headers">The dictionary of headers and their values</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <exception cref="GuildedRequestException"/>
-        /// <exception cref="GuildedResourceException">When <paramref name="resource"/> refers to an invalid endpoint</exception>
-        /// <returns>Request response</returns>
-        public async Task<IRestResponse<object>> ExecuteRestAsync(Uri resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRestAsync<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
-        /// <inheritdoc cref="ExecuteRestAsync{T}(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
-        public async Task<IRestResponse<T>> ExecuteRestAsync<T>(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRequestAsync<T>(BuildRequest(new RestRequest(resource, method), body, encodeQuery, query, headers)).ConfigureAwait(false);
-        /// <inheritdoc cref="ExecuteRestAsync(Uri, Method, object, bool, IDictionary{string, string}, IDictionary{string, string})"/>
-        public async Task<IRestResponse<object>> ExecuteRestAsync(string resource, Method method, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null) =>
-            await ExecuteRestAsync<object>(resource, method, body, encodeQuery, query, headers).ConfigureAwait(false);
-        // Builds requests for ExecuteRestAsync methods
-        private IRestRequest BuildRequest(IRestRequest request, object body = null, bool encodeQuery = true, IDictionary<string, string> query = null, IDictionary<string, string> headers = null)
-        {
-            if (!(body is null))
-                request.AddJsonBody(body);
-
-            if (!(query is null))
-            {
-                foreach (KeyValuePair<string, string> q in query)
-                    request.AddQueryParameter(q.Key, q.Value, encodeQuery);
-            }
-
-            if (!(headers is null))
-                request.AddHeaders(headers);
-
-            return request;
-        }
-        /// <summary>
         /// Uploads a file to Guilded.
         /// </summary>
         /// <remarks>
@@ -226,15 +162,25 @@ namespace Guilded.NET.Base
             return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
         }
         /// <summary>
-        /// Executes a request and receives response or an error.
+        /// Executes a request and receives a response or an error.
+        /// </summary>
+        /// <param name="request">The request to send to execute</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
+        /// <returns>Guilded request response</returns>
+        protected async Task<IRestResponse<object>> ExecuteRequestAsync(IRestRequest request) =>
+            await ExecuteRequestAsync<object>(request).ConfigureAwait(false);
+        /// <summary>
+        /// Executes a request and receives ra esponse or an error.
         /// </summary>
         /// <param name="request">The request to send to execute</param>
         /// <typeparam name="T">Type of the response to get</typeparam>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
-        /// <returns>Request response</returns>
-        private async Task<IRestResponse<T>> ExecuteRequestAsync<T>(IRestRequest request)
+        /// <returns>Guilded request response</returns>
+        protected async Task<IRestResponse<T>> ExecuteRequestAsync<T>(IRestRequest request)
         {
             IRestResponse<T> response = await Rest.ExecuteAsync<T>(request).ConfigureAwait(false);
 

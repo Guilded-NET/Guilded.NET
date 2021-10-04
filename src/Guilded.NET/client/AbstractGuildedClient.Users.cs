@@ -12,7 +12,7 @@ namespace Guilded.NET
         #region Profile info
         /// <inheritdoc/>
         public override async Task<SocialLink> GetSocialLinkAsync(GId userId, SocialLinkType linkType) =>
-            await GetObject<SocialLink>($"users/{userId}/social-links/{linkType.ToString().ToLower()}", Method.GET, key: "socialLink").ConfigureAwait(false);
+            await GetObject<SocialLink>(new RestRequest($"users/{userId}/social-links/{linkType.ToString().ToLower()}", Method.GET), "socialLink").ConfigureAwait(false);
         #endregion
     }
 }
