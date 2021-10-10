@@ -8,11 +8,11 @@ namespace Guilded.NET.Base.Events
     /// An event that occurs once XP is given to a set of users.
     /// </summary>
     /// <remarks>
-    /// <para>An event that occurs once <see cref="Amount"/> XP is given to <see cref="Users"/>. This can be given to a couple users, instead of it being restricted to one user. <see cref="XpAddedEvent"/> can only occur in teams and tournaments.</para>
-    /// <para>In API, this event is called <c>TeamXpAdded</c>.</para>
+    /// <para>An event of the name <c>TeamXpAdded</c> and opcode <c>0</c> that occurs once <see cref="Amount"/> XP is given to <see cref="Users"/>. This can be given to a couple users, instead of it being restricted to one user. <see cref="XpAddedEvent"/> can only occur in teams and tournaments.</para>
     /// </remarks>
     /// <seealso cref="WelcomeEvent"/>
     /// <seealso cref="RolesUpdatedEvent"/>
+    /// <seealso cref="Teams.Member"/>
     public class XpAddedEvent : BaseObject
     {
         #region JSON properties

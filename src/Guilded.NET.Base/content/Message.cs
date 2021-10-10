@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Guilded.NET.Base.Events;
+using Guilded.NET.Base.Permissions;
 
 namespace Guilded.NET.Base.Content
 {
-    using Events;
-    using Permissions;
     /// <summary>
     /// A message posted in the chat.
     /// </summary>

@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Guilded.NET.Base.Events;
 
 namespace Guilded.NET
 {
-    using Base.Events;
     public abstract partial class AbstractGuildedClient
     {
         /// <summary>
@@ -27,6 +27,14 @@ namespace Guilded.NET
         /// <inheritdoc cref="ResumeEvent"/>
         /// <seealso cref="Welcome"/>
         public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[2]).Observable;
+        /// <summary>
+        /// Event that occurs when pong is received.
+        /// </summary>
+        /// <remarks>
+        /// <para>An event of opcode <c>10</c> that is received as a response once client sends a ping.</para>
+        /// <para>This does not have any associated data with it.</para>
+        /// </remarks>
+        public IObservable<GuildedSocketMessage> Pong => ((IEventInfo<GuildedSocketMessage>)GuildedEvents[10]).Observable;
         #endregion
 
         #region Teams

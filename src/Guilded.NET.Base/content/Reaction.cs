@@ -50,9 +50,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <remarks>
         /// <para>The identifier of the webhook that posted created this reaction.</para>
-        /// <blockquote class="note">
-        ///     Currently, only chat messages can be created by Webhooks.
-        /// </blockquote>
+        /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
         /// </remarks>
         /// <value>Webhook ID?</value>
         [JsonProperty("createdByWebhookId")]

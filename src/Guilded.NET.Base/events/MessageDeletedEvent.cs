@@ -1,5 +1,4 @@
 using System;
-
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
@@ -8,12 +7,12 @@ namespace Guilded.NET.Base.Events
     /// An event that occurs once someone deletes a message.
     /// </summary>
     /// <remarks>
-    /// <para>An event that occurs once someone creates/posts a message in the chat.</para>
-    /// <para>In API, this event is called <c>ChatMessageDeleted</c>.</para>
+    /// <para>An event of the name <c>ChatMessageDeleted</c> and opcode <c>0</c> that occurs once someone creates/posts a message in the chat.</para>
     /// </remarks>
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
     /// <seealso cref="MessageDeleted"/>
+    /// <seealso cref="Content.Message"/>
     public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDeleted>
     {
         /// <summary>

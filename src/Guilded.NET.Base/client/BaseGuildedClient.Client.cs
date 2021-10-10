@@ -25,6 +25,7 @@ namespace Guilded.NET.Base
         /// <para>This usually occurs once <see cref="ConnectAsync"/> is called and no errors get thrown.</para>
         /// </remarks>
         /// <seealso cref="ConnectAsync"/>
+        /// <seealso cref="Disconnected"/>
         protected EventHandler ConnectedEvent;
         /// <summary>
         /// An event when client gets disconnected
@@ -33,7 +34,8 @@ namespace Guilded.NET.Base
         /// <para>An event that occurs once Guilded client disconnects from Guilded.</para>
         /// <para>This usually occurs once <see cref="DisconnectAsync"/> is called and no errors get thrown.</para>
         /// </remarks>
-        /// <seealso cref="ConnectAsync"/>
+        /// <seealso cref="DisconnectAsync"/>
+        /// <seealso cref="Connected"/>
         protected EventHandler DisconnectedEvent;
         /// <inheritdoc cref="ConnectedEvent"/>
         public event EventHandler Connected
@@ -114,7 +116,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new connection to Guilded with this client.</para>
-        /// <blockquote class="note">See documentation of child types for more information.</blockquote>
+        /// <note type="tip">See documentation of child types for more information.</note>
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
         public abstract Task ConnectAsync();
@@ -123,7 +125,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Stops any connections this client has with Guilded.</para>
-        /// <blockquote class="note">See documentation of child types for more information.</blockquote>
+        /// <note type="tip">See documentation of child types for more information.</note>
         /// </remarks>
         /// <seealso cref="ConnectAsync"/>
         /// <seealso cref="Dispose"/>

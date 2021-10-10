@@ -44,18 +44,22 @@ namespace Guilded.NET.Base.Events
         ///     </item>
         ///     <item>
         ///         <term>8</term>
-        ///         <description>An event that occurs once WebSocket-related error has been thrown</description>
+        ///         <description>Closing/error frame</description>
         ///     </item>
         ///     <item>
         ///         <term>9</term>
-        ///         <description>Unknown</description>
+        ///         <description>RFC6455 Ping frame</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>10</term>
+        ///         <description>RFC6455 Pong frame</description>
         ///     </item>
         /// </list>
         /// <para>If <see cref="Opcode"/> is received as <c>8</c>, <see cref="GuildedWebsocketException"/> will be received instead of a typical event.</para>
         /// </remarks>
         /// <value>Opcode</value>
         [JsonProperty("op", Required = Required.Always)]
-        public uint Opcode
+        public byte Opcode
         {
             get; set;
         }

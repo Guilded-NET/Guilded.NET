@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Guilded.NET.Base;
+using Guilded.NET.Base.Embeds;
+using Guilded.NET.Base.Content;
 using Newtonsoft.Json;
 
 namespace Guilded.NET
 {
-    using Base;
-    using Base.Embeds;
-    using Base.Content;
     /// <summary>
     /// The contents of the message.
     /// </summary>
@@ -15,7 +15,7 @@ namespace Guilded.NET
     /// </remarks>
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
                 ItemNullValueHandling = NullValueHandling.Ignore)]
-    public class MessageContent : BaseObject
+    internal class MessageContent : BaseObject
     {
         #region JSON properties
         /// <summary>
@@ -23,10 +23,7 @@ namespace Guilded.NET
         /// </summary>
         /// <remarks>
         /// <para>The object that will be sent to Guilded.</para>
-        /// <blockquote class="warning">
-        ///     This does NOT convert the given object to string. Only Markdown string and rich text
-        ///     markup are available.
-        /// </blockquote>
+        /// <note type="warning">This does NOT convert the given object to string. Only Markdown string and rich text markup are available.</note>
         /// </remarks>
         /// <value>Rich text markup or Markdown string</value>
         public object Content

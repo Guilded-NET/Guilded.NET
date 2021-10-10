@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
 using System.Timers;
+using Guilded.NET.Base;
+using Guilded.NET.Base.Events;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace Guilded.NET
 {
-    using Base;
-    using Base.Events;
-
     /// <summary>
     /// A base for all Guilded clients.
     /// </summary>
@@ -63,6 +62,7 @@ namespace Guilded.NET
                 // Event messages
                 { 1,                        new EventInfo<WelcomeEvent>() },
                 { 2,                        new EventInfo<ResumeEvent>() },
+                { 10,                       new EventInfo<GuildedSocketMessage>() },
                 // Team events
                 { "TeamXpAdded",            new EventInfo<XpAddedEvent>() },
                 { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>() },

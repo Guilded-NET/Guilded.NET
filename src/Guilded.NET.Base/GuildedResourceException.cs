@@ -44,7 +44,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedResourceException"/> with default message:</para>
-        /// <blockquote>Not found. Given item has not been found.</blockquote>
+        /// <note>Not found. Given item has not been found.</note>
         /// </remarks>
         public GuildedResourceException() : this("Not found. Given item has not been found.") { }
         /// <summary>

@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Guilded.NET.Base;
+using Guilded.NET.Base.Embeds;
+using Guilded.NET.Base.Content;
+using Guilded.NET.Base.Permissions;
 using RestSharp;
 
 namespace Guilded.NET
 {
-    using Base;
-    using Base.Embeds;
-    using Base.Content;
-    using Base.Permissions;
     public abstract partial class AbstractGuildedClient
     {
         private const int messageLimit = 4000;
@@ -51,7 +51,7 @@ namespace Guilded.NET
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message created</returns>
-        public async Task<Message> CreateMessageAsync(Guid channelId, MessageContent message) =>
+        private async Task<Message> CreateMessageAsync(Guid channelId, MessageContent message) =>
             await GetObject<Message>(new RestRequest($"channels/{channelId}/messages", Method.POST).AddJsonBody(message), "message").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Message> CreateMessageAsync(Guid channelId, string content)

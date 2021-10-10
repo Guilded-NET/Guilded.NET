@@ -1,10 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.NET.Base.Content;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
 {
-    using Content;
     /// <summary>
     /// The base for message-related events.
     /// </summary>

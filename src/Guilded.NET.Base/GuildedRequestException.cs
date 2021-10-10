@@ -48,7 +48,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedRequestException"/> with default message:</para>
-        /// <blockquote>Unacceptable. The request was unacceptable. Invalid/bad parameters?</blockquote>
+        /// <note>Unacceptable. The request was unacceptable. Invalid/bad parameters?</note>
         /// </remarks>
         public GuildedRequestException() : this("Bad request. The request was unacceptable. Invalid/bad parameters?") { }
         /// <summary>

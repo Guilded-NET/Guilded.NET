@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Guilded.NET.Base.Embeds;
+using Guilded.NET.Base.Content;
+using Guilded.NET.Base.Permissions;
 
 namespace Guilded.NET.Base
 {
-    using Embeds;
-    using Content;
-    using Permissions;
     public abstract partial class BaseGuildedClient
     {
         #region Webhook

@@ -13,7 +13,7 @@ namespace Guilded.NET.Base
     using Events;
     public abstract partial class BaseGuildedClient
     {
-        internal const int welcome_opcode = 1, error_opcode = 8;
+        internal const int welcome_opcode = 1, close_opcode = 8;
         /// <summary>
         /// The default timespan between each interval in milliseconds.
         /// </summary>
@@ -126,8 +126,7 @@ namespace Guilded.NET.Base
             {
                 HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
             }
-            // If it's an error, just send it through OnWebsocketMessage as an error
-            else if(@event.Opcode == error_opcode)
+            else if(@event.Opcode == close_opcode)
             {
                 OnWebsocketMessage.OnError(
                     new GuildedWebsocketException(response, @event.RawData.Value<string>("message"))
@@ -146,6 +145,6 @@ namespace Guilded.NET.Base
         /// <param name="args">Arguments of the timer's elapsed event</param>
         protected virtual void SendHeartbeat(object sender, ElapsedEventArgs args) =>
             // Send ping through WebSocket to show that it's not dead
-            Websocket.Send("2");
+            Websocket.Send("{\"op\":9}");
     }
 }

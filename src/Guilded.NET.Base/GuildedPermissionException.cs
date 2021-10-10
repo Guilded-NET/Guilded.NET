@@ -34,7 +34,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedPermissionException"/> with default message:</para>
-        /// <blockquote>Forbidden. Guilded client is missing permissions.</blockquote>
+        /// <note>Forbidden. Guilded client is missing permissions.</note>
         /// </remarks>
         public GuildedPermissionException() : this("Forbidden. Guilded client is missing permissions.") { }
         /// <summary>

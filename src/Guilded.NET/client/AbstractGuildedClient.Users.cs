@@ -1,12 +1,10 @@
-using System;
 using System.Threading.Tasks;
-
+using Guilded.NET.Base;
+using Guilded.NET.Base.Users;
 using RestSharp;
 
 namespace Guilded.NET
 {
-    using Base;
-    using Base.Users;
     public abstract partial class AbstractGuildedClient
     {
         #region Profile info

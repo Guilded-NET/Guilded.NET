@@ -26,7 +26,7 @@ namespace Guilded.NET.Base
         /// <param name="objectType">The type of the object to convert</param>
         /// <param name="existingValue">The previous value of the property being converted</param>
         /// <param name="serializer">The serializer that is deserializing the object</param>
-        /// <returns><see cref="GId"/> | <see cref="FormId"/></returns>
+        /// <returns><see cref="GId"/> or <see cref="FormId"/></returns>
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) =>
             objectType == gid ? (object)new GId((string)reader.Value) : new FormId((string)reader.Value);
         /// <summary>

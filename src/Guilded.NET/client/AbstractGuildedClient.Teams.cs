@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using Guilded.NET.Base;
 using RestSharp;
 
 namespace Guilded.NET
 {
-    using Base;
     public abstract partial class AbstractGuildedClient
     {
         #region Groups

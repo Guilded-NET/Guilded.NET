@@ -59,8 +59,5 @@ namespace Guilded.NET.Base
         /// <param name="message">The message that was received from Guilded Websocket</param>
         /// <param name="inner">The inner exception of this error</param>
         public GuildedWebsocketException(string message, Exception inner) : base(message, inner) { }
-        // protected GuildedWebsocketException(
-        //     System.Runtime.Serialization.SerializationInfo info,
-        //     System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

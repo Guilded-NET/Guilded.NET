@@ -1,20 +1,20 @@
 using System.Linq;
 using System.Collections.Generic;
+using Guilded.NET.Base.Teams;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
 {
-    using Teams;
     /// <summary>
     /// An event that occurs once someone receives or loses a role.
     /// </summary>
     /// <remarks>
-    /// <para>An event that occurs once role holder either loses a role or receives it. This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>
-    /// <para>In API, this event is called <c>teamRolesUpdated</c>.</para>
+    /// <para>An event of the name <c>teamRolesUpdated</c> and opcode <c>0</c> that occurs once role holder either loses a role or receives it. This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>
     /// </remarks>
     /// <seealso cref="MemberUpdatedEvent"/>
     /// <seealso cref="XpAddedEvent"/>
     /// <seealso cref="WelcomeEvent"/>
+    /// <seealso cref="Member"/>
     public class RolesUpdatedEvent : BaseObject
     {
         /// <summary>

@@ -34,7 +34,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Creates a new instance of <see cref="GuildedAuthorizationException"/> with default message:</para>
-        /// <blockquote>Invalid. Provided authentication token is invalid or expired.</blockquote>
+        /// <note>Invalid. Provided authentication token is invalid or expired.</note>
         /// </remarks>
         public GuildedAuthorizationException() : this("Invalid. Provided authentication token is invalid or expired.") { }
         /// <summary>
