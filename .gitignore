@@ -6,3 +6,7 @@ src/Guilded*/obj/*
 *.nupkg
 *.log
 src/Documentation
+example/*/bin
+example/*/bin/*
+example/*/obj
+example/*/obj/*
