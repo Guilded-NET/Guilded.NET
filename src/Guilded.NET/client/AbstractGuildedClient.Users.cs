@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Guilded.NET.Base;
 using Guilded.NET.Base.Users;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace Guilded.NET
@@ -9,8 +10,8 @@ namespace Guilded.NET
     {
         #region Profile info
         /// <inheritdoc/>
-        public override async Task<SocialLink> GetSocialLinkAsync(GId userId, SocialLinkType linkType) =>
-            await GetObject<SocialLink>(new RestRequest($"users/{userId}/social-links/{linkType.ToString().ToLower()}", Method.GET), "socialLink").ConfigureAwait(false);
+        public override async Task<SocialLink> GetSocialLinkAsync(GId memberId, SocialLinkType linkType) =>
+            await GetObject<SocialLink>(new RestRequest($"members/{memberId}/social-links/{linkType.ToString().ToLower()}", Method.GET), "socialLink").ConfigureAwait(false);
         #endregion
     }
 }

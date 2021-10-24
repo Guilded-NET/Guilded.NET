@@ -22,7 +22,19 @@ namespace Guilded.NET.Base.Users
             get; set;
         }
         /// <summary>
-        /// The identifier of the user in this service.
+        /// The name or identifier in this social link.
+        /// </summary>
+        /// <remarks>
+        /// <para>Defines a unique name or identifier of the user in the defined social link.</para>
+        /// </remarks>
+        /// <value>Social link handle</value>
+        [JsonProperty(Required = Required.Always)]
+        public string Handle
+        {
+            get; set;
+        }
+        /// <summary>
+        /// The identifier of this social link.
         /// </summary>
         /// <remarks>
         /// <para>Defines the identifier of this user in the linked service.</para>
