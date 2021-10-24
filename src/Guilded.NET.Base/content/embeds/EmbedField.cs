@@ -65,12 +65,12 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="name">The title of the embed</param>
         /// <param name="value">The description text of the field</param>
         /// <param name="inline">Whether the field should be inline with other fields</param>
-        /// <exception cref="ArgumentNullException">Either <paramref name="name"/> or <paramref name="value"/> are <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="ArgumentNullException">Either <paramref name="name"/> or <paramref name="value"/> are <see langword="null"/></exception>
         public EmbedField(string name, string value, bool inline = false)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (name is null)
                 throw new ArgumentNullException(nameof(name));
-            else if (string.IsNullOrWhiteSpace(value))
+            else if (value is null)
                 throw new ArgumentNullException(nameof(value));
 
             (Name, Value, Inline) = (name, value, inline);

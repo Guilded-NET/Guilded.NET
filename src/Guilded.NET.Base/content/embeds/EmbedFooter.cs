@@ -50,8 +50,14 @@ namespace Guilded.NET.Base.Embeds
         /// </summary>
         /// <param name="text">The description of the footer</param>
         /// <param name="iconUrl">The URL to footer's icon</param>
-        public EmbedFooter(string text, Uri iconUrl = null) =>
+        /// <exception cref="ArgumentNullException">When <paramref name="text"/> is <see langword="null"/></exception>
+        public EmbedFooter(string text, Uri iconUrl = null)
+        {
+            if (text is null)
+                throw new ArgumentNullException(nameof(text));
+
             (Text, IconUrl) = (text, iconUrl);
+        }
         /// <summary>
         /// Creates a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>.
         /// </summary>

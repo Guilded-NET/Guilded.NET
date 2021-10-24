@@ -372,12 +372,9 @@ namespace Guilded.NET.Base.Embeds
         /// Sets the title as the given parameter.
         /// </summary>
         /// <param name="title">The text of the title</param>
-        /// <exception cref="NullReferenceException"><paramref name="title"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetTitle(string title)
         {
-            if (string.IsNullOrWhiteSpace(title))
-                throw new NullReferenceException($"Argument {nameof(title)} cannot be null, empty or whitespace.");
             Title = title;
             return this;
         }
@@ -415,9 +412,7 @@ namespace Guilded.NET.Base.Embeds
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetDescription(string description)
         {
-            if (string.IsNullOrWhiteSpace(description))
-                throw new ArgumentNullException(nameof(description));
-            else if (description.Length > 4000)
+            if (description?.Length > 4000)
                 throw new OverflowException($"Argument {nameof(description)} cannot be more than 4'000 characters.");
             Description = description;
             return this;
