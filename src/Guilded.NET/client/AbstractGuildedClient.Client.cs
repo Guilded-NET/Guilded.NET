@@ -56,13 +56,11 @@ namespace Guilded.NET
             // The only manual work to be done is in AbstractGuildedClient.Messages.cs file,
             // which only allows us to subscribe to events and it is literally +1 member
             // to be added and copy pasting for the most part.
-            // No idea if this can put back a bit of performance.
             GuildedEvents = new Dictionary<object, IEventInfo<object>>
             {
                 // Event messages
                 { 1,                        new EventInfo<WelcomeEvent>() },
                 { 2,                        new EventInfo<ResumeEvent>() },
-                { 10,                       new EventInfo<GuildedSocketMessage>() },
                 // Team events
                 { "TeamXpAdded",            new EventInfo<XpAddedEvent>() },
                 { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>() },
@@ -78,41 +76,23 @@ namespace Guilded.NET
         /// Connects this client to Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>Connects to Guilded and starts Guilded's WebSocket, as well as its heartbeat.</para>
+        /// <para>Connects to Guilded and starts Guilded's WebSocket.</para>
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
         /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
         /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task ConnectAsync()
         {
-            // Determine whether to start it again or start it new
-            if(HeartbeatTimer is null)
-            {
-                HeartbeatTimer = new Timer(DefaultHeartbeatInterval)
-                {
-                    AutoReset = true,
-                    Enabled = true
-                };
-
-                HeartbeatTimer.Elapsed += SendHeartbeat;
-            }
-            else
-            {
-                HeartbeatTimer.Enabled = true;
-            }
-
-            if(Websocket is null)
+            if (Websocket is null)
                 Websocket = await InitWebsocket().ConfigureAwait(false);
             else
                 await Websocket.StartOrFail().ConfigureAwait(false);
-
-            HeartbeatTimer.Start();
         }
         /// <summary>
         /// Disconnects this client from Guilded.
         /// </summary>
         /// <remarks>
-        /// <para>The method that stops Guilded WebSocket and its heartbeat.</para>
+        /// <para>The method that stops Guilded WebSocket.</para>
         /// </remarks>
         /// <seealso cref="ConnectAsync"/>
         /// <seealso cref="Dispose"/>
@@ -122,8 +102,6 @@ namespace Guilded.NET
         {
             if (Websocket.IsRunning)
                 await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
-            // Stop the heartbeats
-            HeartbeatTimer?.Stop();
 
             DisconnectedEvent?.Invoke(this, EventArgs.Empty);
         }
@@ -131,7 +109,7 @@ namespace Guilded.NET
         /// Disposes <see cref="AbstractGuildedClient"/> instance.
         /// </summary>
         /// <remarks>
-        /// <para>Disposes <see cref="AbstractGuildedClient"/> and its WebSockets and heartbeat.</para>
+        /// <para>Disposes <see cref="AbstractGuildedClient"/> and its WebSockets.</para>
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
         public override void Dispose()
@@ -139,7 +117,6 @@ namespace Guilded.NET
             DisconnectAsync().GetAwaiter().GetResult();
             // Dispose them entirely; they aren't disposed by DisconnectAsync, only shut down
             Websocket.Dispose();
-            HeartbeatTimer?.Dispose();
         }
         private async Task<T> GetObject<T>(IRestRequest request, object key) =>
             (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data[key].ToObject<T>(GuildedSerializer);

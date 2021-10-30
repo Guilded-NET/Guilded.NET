@@ -17,7 +17,7 @@ namespace Guilded.NET.Base
         /// <summary>
         /// The default timespan between each interval in milliseconds.
         /// </summary>
-        public const double DefaultHeartbeatInterval = 22500;
+        private const double DefaultHeartbeatInterval = 22500;
         /// <summary>
         /// The WebSocket that will be used by the client.
         /// </summary>
@@ -27,17 +27,6 @@ namespace Guilded.NET.Base
         /// <seealso cref="Rest"/>
         /// <value>Main WebSocket</value>
         public WebsocketClient Websocket
-        {
-            get; set;
-        }
-        /// <summary>
-        /// A timer for heartbeats.
-        /// </summary>
-        /// <remarks>
-        /// <para>A timer that sends a heartbeat through WebSockets to Guilded. This ensures that WebSockets are still connected to Guilded.</para>
-        /// </remarks>
-        /// <value>Timer</value>
-        protected Timer HeartbeatTimer
         {
             get; set;
         }
@@ -70,9 +59,9 @@ namespace Guilded.NET.Base
             {
                 ClientWebSocket socket = new ClientWebSocket
                 {
-                    // Options = {
-                    //     Cookies = GuildedCookies
-                    // }
+                    Options = {
+                        KeepAliveInterval = TimeSpan.FromMilliseconds(DefaultHeartbeatInterval),
+                    }
                 };
                 // Add additional headers for authentication tokens and such
                 foreach (KeyValuePair<string, string> header in AdditionalHeaders)
@@ -124,7 +113,7 @@ namespace Guilded.NET.Base
             // Check for a welcome message to change hearbeat interval
             if (@event.Opcode == welcome_opcode)
             {
-                HeartbeatTimer.Interval = @event.RawData.Value<double>("heartbeatIntervalMs");
+                //Websocket.NativeClient.Options.KeepAliveInterval = TimeSpan.FromMilliseconds(@event.RawData.Value<double>("heartbeatIntervalMs"));
             }
             else if(@event.Opcode == close_opcode)
             {
@@ -135,16 +124,5 @@ namespace Guilded.NET.Base
             }
             OnWebsocketMessage.OnNext(@event);
         }
-        /// <summary>
-        /// Sends a heartbeat.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sends a heartbeat through <see cref="Websocket"/> client.</para>
-        /// </remarks>
-        /// <param name="sender">Who invoked the event</param>
-        /// <param name="args">Arguments of the timer's elapsed event</param>
-        protected virtual void SendHeartbeat(object sender, ElapsedEventArgs args) =>
-            // Send ping through WebSocket to show that it's not dead
-            Websocket.Send("{\"op\":9}");
     }
 }
