@@ -11,8 +11,6 @@ namespace Guilded.NET
 {
     public abstract partial class AbstractGuildedClient
     {
-        private const int messageLimit = 4000;
-
         #region Webhook
         /// <inheritdoc/>
         private async Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message) =>
@@ -35,74 +33,18 @@ namespace Guilded.NET
         /// <inheritdoc/>
         public override async Task<Message> GetMessageAsync(Guid channelId, Guid messageId) =>
             await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.GET), "message").ConfigureAwait(false);
-        /// <summary>
-        /// Creates a message in chat.
-        /// </summary>
-        /// <remarks>
-        /// <para>Creates a new chat messsage in the specified channel.</para>
-        /// </remarks>
-        /// <param name="channelId">The identifier of the parent channel</param>
-        /// <param name="message">The message to send</param>
-        /// <exception cref="GuildedException"/>
-        /// <exception cref="GuildedPermissionException"/>
-        /// <exception cref="GuildedResourceException"/>
-        /// <exception cref="GuildedAuthorizationException"/>
-        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message created</returns>
-        private async Task<Message> CreateMessageAsync(Guid channelId, MessageContent message) =>
-            await GetObject<Message>(new RestRequest($"channels/{channelId}/messages", Method.POST).AddJsonBody(message), "message").ConfigureAwait(false);
         /// <inheritdoc/>
-        public override async Task<Message> CreateMessageAsync(Guid channelId, string content)
+        public override async Task<Message> CreateMessageAsync(Guid channelId, MessageContent message)
         {
-            if (string.IsNullOrWhiteSpace(content))
-                throw new ArgumentNullException(nameof(content));
-            else if (content.Length > messageLimit)
-                throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
-            else
-                return await CreateMessageAsync(channelId, new MessageContent { Content = content }).ConfigureAwait(false);
-        }
-        /// <inheritdoc/>
-        public override async Task<Message> CreateMessageAsync(Guid channelId, string content, params Guid[] replyMessageIds)
-        {
-            if (string.IsNullOrWhiteSpace(content))
+            if (string.IsNullOrWhiteSpace(message?.Content))
             {
-                throw new ArgumentNullException(nameof(content));
+                throw new ArgumentNullException(nameof(message.Content));
             }
-            else if (content.Length > messageLimit)
+            else if (message.Content.Length > MessageLimit)
             {
-                throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+                throw new ArgumentOutOfRangeException(nameof(message.Content), message.Content, $"{nameof(message.Content)} exceeds the 4000 character message limit");
             }
-            else
-            {
-                return await CreateMessageAsync(channelId, new MessageContent
-                {
-                    Content = content,
-                    ReplyMessageIds = replyMessageIds
-                }).ConfigureAwait(false);
-            }
-        }
-        /// <inheritdoc/>
-        public override async Task<Message> CreateMessageAsync(Guid channelId, string content, bool isPrivate, params Guid[] replyMessageIds)
-        {
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                throw new ArgumentNullException(nameof(content));
-            }
-            else if (content.Length > messageLimit)
-            {
-                throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
-            }
-            else
-            {
-                return await CreateMessageAsync(channelId, new MessageContent
-                {
-                    Content = content,
-                    IsPrivate = isPrivate,
-                    ReplyMessageIds = replyMessageIds
-                }).ConfigureAwait(false);
-            }
+            return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages", Method.POST).AddJsonBody(message), "message").ConfigureAwait(false);
         }
         /// <inheritdoc/>
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content)
@@ -111,7 +53,7 @@ namespace Guilded.NET
             {
                 throw new ArgumentNullException(nameof(content));
             }
-            else if (content.Length > messageLimit)
+            else if (content.Length > MessageLimit)
             {
                 throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             }

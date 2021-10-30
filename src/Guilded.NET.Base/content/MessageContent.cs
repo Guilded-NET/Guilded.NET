@@ -8,25 +8,24 @@ using Newtonsoft.Json;
 namespace Guilded.NET
 {
     /// <summary>
-    /// The contents of the message.
+    /// Represents the contents of the message.
     /// </summary>
     /// <remarks>
     /// <para>Defines the contents of the message with which a chat message can be created.</para>
     /// </remarks>
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
                 ItemNullValueHandling = NullValueHandling.Ignore)]
-    internal class MessageContent : BaseObject
+    public class MessageContent : BaseObject
     {
         #region JSON properties
         /// <summary>
         /// The contents of the message.
         /// </summary>
         /// <remarks>
-        /// <para>The object that will be sent to Guilded.</para>
-        /// <note type="warning">This does NOT convert the given object to string. Only Markdown string and rich text markup are available.</note>
+        /// <para>The contents of the message in Markdown format.</para>
         /// </remarks>
-        /// <value>Rich text markup or Markdown string</value>
-        public object Content
+        /// <value>Markdown string</value>
+        public string Content
         {
             get; set;
         }
@@ -34,7 +33,7 @@ namespace Guilded.NET
         /// The list of embeds in the message.
         /// </summary>
         /// <remarks>
-        /// <para>The list of embeds that are in the message.</para>
+        /// <para>The list of embeds that will be present in the created message.</para>
         /// </remarks>
         /// <value>List of embeds?</value>
         public IList<Embed> Embeds

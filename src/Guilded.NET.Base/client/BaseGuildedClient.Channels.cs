@@ -9,6 +9,14 @@ namespace Guilded.NET.Base
 {
     public abstract partial class BaseGuildedClient
     {
+        /// <summary>
+        /// The chat message character limit.
+        /// </summary>
+        /// <remarks>
+        /// <para>The <c>4000</c> character limit in chat message's content.</para>
+        /// </remarks>
+        protected const int MessageLimit = 4000;
+
         #region Webhook
         /// <summary>
         /// Creates a message in a chat using provided webhook.
@@ -117,6 +125,23 @@ namespace Guilded.NET.Base
         /// <returns>Message</returns>
         public abstract Task<Message> GetMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
+        /// Creates a message in chat.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new chat messsage in the specified channel.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="message">The message to send</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
+        /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
+        /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+        /// <returns>Message created</returns>
+        public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent message);
+        /// <summary>
         /// Creates a message in the chat.
         /// </summary>
         /// <remarks>
@@ -135,18 +160,30 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message created</returns>
-        public abstract Task<Message> CreateMessageAsync(Guid channelId, string content);
+        public async Task<Message> CreateMessageAsync(Guid channelId, string content) =>
+            await CreateMessageAsync(channelId, new MessageContent { Content = content }).ConfigureAwait(false);
         /// <inheritdoc cref="CreateMessageAsync(Guid, string)"/>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-        public abstract Task<Message> CreateMessageAsync(Guid channelId, string content, params Guid[] replyMessageIds);
+        public async Task<Message> CreateMessageAsync(Guid channelId, string content, params Guid[] replyMessageIds) =>
+            await CreateMessageAsync(channelId, new MessageContent
+            {
+                Content = content,
+                ReplyMessageIds = replyMessageIds
+            }).ConfigureAwait(false);
         /// <inheritdoc cref="CreateMessageAsync(Guid, string)"/>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <param name="isPrivate">Whether the reply is private</param>
         /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-        public abstract Task<Message> CreateMessageAsync(Guid channelId, string content, bool isPrivate, params Guid[] replyMessageIds);
+        public async Task<Message> CreateMessageAsync(Guid channelId, string content, bool isPrivate, params Guid[] replyMessageIds) =>
+            await CreateMessageAsync(channelId, new MessageContent
+            {
+                Content = content,
+                IsPrivate = isPrivate,
+                ReplyMessageIds = replyMessageIds
+            }).ConfigureAwait(false);
         /// <summary>
         /// Updates the message.
         /// </summary>
