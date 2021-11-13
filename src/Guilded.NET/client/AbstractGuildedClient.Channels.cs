@@ -59,10 +59,10 @@ namespace Guilded.NET
             }
             else
             {
-                return await CreateMessageAsync(channelId, new MessageContent
+                return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.PUT).AddJsonBody(new MessageContent
                 {
                     Content = content
-                }).ConfigureAwait(false);
+                }), "message").ConfigureAwait(false);
             }
         }
         /// <inheritdoc/>

@@ -59,8 +59,8 @@ namespace Guilded.NET
             GuildedEvents = new Dictionary<object, IEventInfo<object>>
             {
                 // Event messages
-                { 1,                        new EventInfo<WelcomeEvent>() },
-                { 2,                        new EventInfo<ResumeEvent>() },
+                { (byte)1,                  new EventInfo<WelcomeEvent>() },
+                { (byte)2,                  new EventInfo<ResumeEvent>() },
                 // Team events
                 { "TeamXpAdded",            new EventInfo<XpAddedEvent>() },
                 { "teamRolesUpdated",       new EventInfo<RolesUpdatedEvent>() },

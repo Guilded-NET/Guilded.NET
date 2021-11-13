@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Guilded.NET.Base.Events;
 
 namespace Guilded.NET
@@ -22,11 +23,11 @@ namespace Guilded.NET
         #region WebSocket
         /// <inheritdoc cref="WelcomeEvent"/>
         /// <seealso cref="Resume"/>
-        public IObservable<WelcomeEvent> Welcome => ((IEventInfo<WelcomeEvent>)GuildedEvents[1]).Observable;
+        public IObservable<WelcomeEvent> Welcome => ((IEventInfo<WelcomeEvent>)GuildedEvents[(byte)1]).Observable;
 
         /// <inheritdoc cref="ResumeEvent"/>
         /// <seealso cref="Welcome"/>
-        public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[2]).Observable;
+        public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[(byte)2]).Observable;
         #endregion
 
         #region Teams
