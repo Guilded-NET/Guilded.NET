@@ -11,7 +11,6 @@ namespace Guilded.NET.Base.Events
     /// </remarks>
     /// <seealso cref="WelcomeEvent"/>
     /// <seealso cref="GuildedWebsocketException"/>
-    /// <seealso cref="BaseGuildedClient.InitWebsocket(string, System.Uri)"/>
     public class ResumeEvent : BaseObject
     {
         #region JSON properties

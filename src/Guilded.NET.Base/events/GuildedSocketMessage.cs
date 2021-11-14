@@ -83,7 +83,7 @@ namespace Guilded.NET.Base.Events
         /// An identifier that allows the event to be replayed.
         /// </summary>
         /// <remarks>
-        /// <para>The identifier of the event message. This can be used in <see cref="BaseGuildedClient.InitWebsocket(string, System.Uri)"/>, which will give all of the events that were supposed to be received after this event.</para>
+        /// <para>The identifier of the event message.</para>
         /// <para>This property only holds the value if <see cref="Opcode"/> is <c>0</c>.</para>
         /// </remarks>
         /// <value>Event ID?</value>

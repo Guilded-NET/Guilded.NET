@@ -100,6 +100,8 @@ namespace Guilded.NET.Base
                 // Set any required headers, such as auth token
                 foreach (KeyValuePair<string, string> header in AdditionalHeaders)
                     socket.Options.SetRequestHeader(header.Key, header.Value);
+                if (LastMessageId is not null)
+                    socket.Options.SetRequestHeader("guilded-last-message-id", LastMessageId);
 
                 return socket;
             });
