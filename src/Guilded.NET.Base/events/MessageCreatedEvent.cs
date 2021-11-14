@@ -1,3 +1,6 @@
+using Guilded.NET.Base.Content;
+using Newtonsoft.Json;
+
 namespace Guilded.NET.Base.Events
 {
     /// <summary>
@@ -8,6 +11,17 @@ namespace Guilded.NET.Base.Events
     /// </remarks>
     /// <seealso cref="MessageUpdatedEvent"/>
     /// <seealso cref="MessageDeletedEvent"/>
-    /// <seealso cref="Content.Message"/>
-    public class MessageCreatedEvent : MessageEvent { }
+    /// <seealso cref="Message"/>
+    public class MessageCreatedEvent : MessageEvent
+    {
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageCreatedEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="message">The message that has been created</param>
+        [JsonConstructor]
+        public MessageCreatedEvent(
+            [JsonProperty(Required = Required.Always)]
+            Message message
+        ) : base(message) { }
+    }
 }

@@ -23,7 +23,6 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The provided Markdown is ignored.</para>
         /// </remarks>
         /// <value>Title</value>
-        [JsonProperty(Required = Required.Always)]
         public string Name
         {
             get; set;
@@ -36,7 +35,6 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This allows any given Markdown.</para>
         /// </remarks>
         /// <value>Description</value>
-        [JsonProperty(Required = Required.Always)]
         public string Value
         {
             get; set;
@@ -66,15 +64,17 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="value">The description text of the field</param>
         /// <param name="inline">Whether the field should be inline with other fields</param>
         /// <exception cref="ArgumentNullException">Either <paramref name="name"/> or <paramref name="value"/> are <see langword="null"/></exception>
-        public EmbedField(string name, string value, bool inline = false)
-        {
-            if (name is null)
-                throw new ArgumentNullException(nameof(name));
-            else if (value is null)
-                throw new ArgumentNullException(nameof(value));
+        [JsonConstructor]
+        public EmbedField(
+            [JsonProperty(Required = Required.Always)]
+            string name,
 
+            [JsonProperty(Required = Required.Always)]
+            string value,
+
+            bool inline = false
+        ) =>
             (Name, Value, Inline) = (name, value, inline);
-        }
         #endregion
     }
 }

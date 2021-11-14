@@ -63,7 +63,7 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         /// <value>Name?</value>
         [JsonProperty("t")]
-        public string EventName
+        public string? EventName
         {
             get; set;
         }
@@ -75,7 +75,7 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         /// <value>Data?</value>
         [JsonProperty("d")]
-        public JObject RawData
+        public JObject? RawData
         {
             get; set;
         }
@@ -88,7 +88,7 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         /// <value>Event ID?</value>
         [JsonProperty("s")]
-        public string MessageId
+        public string? MessageId
         {
             get; set;
         }

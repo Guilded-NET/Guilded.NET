@@ -13,6 +13,7 @@ namespace Guilded.NET.Base
     /// <seealso cref="BaseObject"/>
     public abstract class ClientObject : BaseObject
     {
+        #nullable disable
         /// <summary>
         /// The parent client that adopts this object.
         /// </summary>
@@ -35,5 +36,6 @@ namespace Guilded.NET.Base
             if (context.Context is BaseGuildedClient client)
                 ParentClient = client;
         }
+        #nullable restore
     }
 }

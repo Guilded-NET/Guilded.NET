@@ -1,3 +1,4 @@
+using System;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Users
@@ -12,11 +13,11 @@ namespace Guilded.NET.Base.Users
     /// <seealso cref="SocialLinkType"/>
     public class SocialLink : BaseObject
     {
+        #region JSON properties
         /// <summary>
         /// The type of social link it is.
         /// </summary>
         /// <value>Social link platform</value>
-        [JsonProperty(Required = Required.Always)]
         public SocialLinkType Type
         {
             get; set;
@@ -28,7 +29,6 @@ namespace Guilded.NET.Base.Users
         /// <para>Defines a unique name or identifier of the user in the defined social link.</para>
         /// </remarks>
         /// <value>Social link handle</value>
-        [JsonProperty(Required = Required.Always)]
         public string Handle
         {
             get; set;
@@ -40,9 +40,30 @@ namespace Guilded.NET.Base.Users
         /// <para>Defines the identifier of this user in the linked service.</para>
         /// </remarks>
         /// <value>Social link ID</value>
-        public string ServiceId
+        public string? ServiceId
         {
             get; set;
         }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="SocialLink"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="type">The type of the socials linked</param>
+        /// <param name="handle">The name, tag or identifier of the user</param>
+        /// <param name="serviceId">The identifier of this social link</param>
+        [JsonConstructor]
+        public SocialLink(
+            [JsonProperty(Required = Required.Always)]
+            SocialLinkType type,
+
+            [JsonProperty(Required = Required.Always)]
+            string handle,
+
+            string? serviceId
+        ) =>
+            (Type, Handle, ServiceId) = (type, handle, serviceId);
+        #endregion
     }
 }

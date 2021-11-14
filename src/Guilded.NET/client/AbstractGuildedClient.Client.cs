@@ -2,10 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Threading.Tasks;
-using System.Timers;
 using Guilded.NET.Base;
 using Guilded.NET.Base.Events;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -28,7 +26,7 @@ namespace Guilded.NET
         /// <para>An event that occurs once Guilded client has added finishing touches. You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly working and can be used.</para>
         /// <para>As of now, this is called at the same time as <see cref="BaseGuildedClient.Connected"/> event.</para>
         /// </remarks>
-        protected EventHandler PreparedEvent;
+        protected EventHandler? PreparedEvent;
         /// <inheritdoc cref="PreparedEvent"/>
         public event EventHandler Prepared
         {
@@ -42,15 +40,6 @@ namespace Guilded.NET
         /// <seealso cref="GuildedBotClient(string)"/>
         protected AbstractGuildedClient()
         {
-            GuildedSerializer = JsonSerializer.Create(SerializerSettings);
-
-            WebsocketMessage.Subscribe(
-                OnSocketMessage,
-                // Relay the error onto welcome observable
-                // TODO: Change welcome observable with something else
-                e => GuildedEvents[1].OnError(e)
-            );
-
             #region Event list
             // Dictionary of supported events, so we wouldn't need to manually do it.
             // The only manual work to be done is in AbstractGuildedClient.Messages.cs file,
@@ -71,6 +60,12 @@ namespace Guilded.NET
                 { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>() }
             };
             #endregion
+
+            WebsocketMessage.Subscribe(
+                OnSocketMessage,
+                // Relay the error onto welcome observable
+                e => GuildedEvents[(byte)1].OnError(e)
+            );
         }
         /// <summary>
         /// Connects this client to Guilded.
@@ -83,10 +78,7 @@ namespace Guilded.NET
         /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
         public override async Task ConnectAsync()
         {
-            if (Websocket is null)
-                Websocket = await InitWebsocket().ConfigureAwait(false);
-            else
-                await Websocket.StartOrFail().ConfigureAwait(false);
+            await Websocket.StartOrFail().ConfigureAwait(false);
         }
         /// <summary>
         /// Disconnects this client from Guilded.
@@ -119,6 +111,6 @@ namespace Guilded.NET
             Websocket.Dispose();
         }
         private async Task<T> GetObject<T>(IRestRequest request, object key) =>
-            (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data[key].ToObject<T>(GuildedSerializer);
+            (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data[key]!.ToObject<T>(GuildedSerializer)!;
     }
 }

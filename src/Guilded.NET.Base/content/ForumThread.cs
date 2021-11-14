@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -22,7 +23,6 @@ namespace Guilded.NET.Base.Content
         /// <para>The title of the forum thread that typically doesn't hold any formatting.</para>
         /// </remarks>
         /// <value>Title</value>
-        [JsonProperty(Required = Required.Always)]
         public string Title
         {
             get; set;
@@ -31,15 +31,53 @@ namespace Guilded.NET.Base.Content
         /// The contents of the forum thread.
         /// </summary>
         /// <remarks>
-        /// <para>The contents of the forum thread in Markdown format.</para>
+        /// <para>The contents of the forum thread formatted in Markdown.</para>
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
         /// <value>Content in Markdown</value>
-        [JsonProperty(Required = Required.Always)]
         public string Content
         {
             get; set;
         }
+        #endregion
+
+        #region Constructorss
+        /// <summary>
+        /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
+        /// </summary>
+        /// <param name="id">The identifier of the content</param>
+        /// <param name="channelId">The identifier of the channel where the content is</param>
+        /// <param name="title">The title of the forum thread</param>
+        /// <param name="content">The contents of the forum thread</param>
+        /// <param name="createdBy">The identifier of the user creator of the content</param>
+        /// <param name="createdByBotId">The identifier of the bot creator of the content</param>
+        /// <param name="createdByWebhookId">The identifier of the webhook creator of the content</param>
+        /// <param name="createdAt">The date of when the content was created</param>
+        [JsonConstructor]
+        public ForumThread(
+            [JsonProperty(Required = Required.Always)]
+            uint id,
+
+            [JsonProperty(Required = Required.Always)]
+            Guid channelId,
+
+            [JsonProperty(Required = Required.Always)]
+            string title,
+
+            [JsonProperty(Required = Required.Always)]
+            string content,
+
+            [JsonProperty(Required = Required.Always)]
+            GId createdBy,
+
+            Guid? createdByBotId,
+
+            Guid? createdByWebhookId,
+
+            [JsonProperty(Required = Required.Always)]
+            DateTime createdAt
+        ) : base(id, channelId, createdBy, createdByBotId, createdByWebhookId, createdAt) =>
+            (Title, Content) = (title, content);
         #endregion
 
         #region Additional

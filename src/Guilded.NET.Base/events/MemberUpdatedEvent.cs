@@ -24,7 +24,6 @@ namespace Guilded.NET.Base.Events
         /// <para>As of now, this only means <see cref="Member.Nickname"/> has been updated.</para>
         /// </remarks>
         /// <value>Member info</value>
-        [JsonProperty(Required = Required.Always)]
         public Member UserInfo
         {
             get; set;
@@ -41,6 +40,19 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         [JsonIgnore]
         public GId MemberId => UserInfo.Id;
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="MemberUpdatedEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="userInfo">The info about updated member</param>
+        [JsonConstructor]
+        public MemberUpdatedEvent(
+            [JsonProperty(Required = Required.Always)]
+            Member userInfo
+        ) =>
+            UserInfo = userInfo;
         #endregion
     }
 }

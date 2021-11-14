@@ -10,6 +10,8 @@
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TargetFrameworks>netstandard2.1; net5.0; net6.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
+    <LangVersion>9.0</LangVersion>
     <!-- Authors -->
     <Authors>IdkGoodName</Authors>
     <Author>IdkGoodName</Author>
@@ -40,7 +42,7 @@
   
   <!-- For testing purposes -->
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">
-    <ProjectReference Include="../Guilded.NET.Base/Guilded.NET.Base.csproj"/>
+    <ProjectReference Include="../Guilded.NET.Base/Guilded.NET.Base.csproj" />
   </ItemGroup>
   
   <!-- Documentation -->

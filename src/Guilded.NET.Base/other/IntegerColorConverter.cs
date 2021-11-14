@@ -17,9 +17,14 @@ namespace Guilded.NET.Base
         /// <param name="writer">The writer to use to write to JSON</param>
         /// <param name="value">The object to write to JSON</param>
         /// <param name="serializer">The serializer that is serializing the object</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        {
             // Converts it to ARGB and filters out Alpha channel, to leave out RGB only
-            writer.WriteValue(((Color)value).ToArgb() & 0xFFFFFF);
+            if (value is not null)
+                writer.WriteValue(((Color)value!).ToArgb() & 0xFFFFFF);
+            else
+                writer.WriteNull();
+        }
         /// <summary>
         /// Reads the given JSON object as <see cref="Color"/>.
         /// </summary>
@@ -28,7 +33,7 @@ namespace Guilded.NET.Base
         /// <param name="existingValue">The previous value of the property being converted</param>
         /// <param name="serializer">The serializer that is deserializing the object</param>
         /// <returns><see cref="Color"/></returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             JToken token = JToken.Load(reader);
             // Make sure some object isn't passed instead of integer

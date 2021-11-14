@@ -22,7 +22,7 @@ namespace Guilded.NET.Base
         /// <returns>Serialized <see cref="BaseObject"/> instance</returns>
         public string Serialize(JsonSerializer serializer)
         {
-            using StringWriter strWriter = new StringWriter();
+            using StringWriter strWriter = new();
             using JsonWriter writer = new JsonTextWriter(strWriter);
 
             serializer.Serialize(writer, this);

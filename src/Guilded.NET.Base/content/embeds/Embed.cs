@@ -44,7 +44,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>. The provided Markdown will be ignored.</para>
         /// </remarks>
         /// <value>Title?</value>
-        public string Title
+        public string? Title
         {
             get; set;
         }
@@ -55,7 +55,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Defines the URL to the content this embed displays.</para>
         /// </remarks>
         /// <value>URL?</value>
-        public Uri Url
+        public Uri? Url
         {
             get; set;
         }
@@ -67,7 +67,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This can have formatting using Markdown.</para>
         /// </remarks>
         /// <value>Description?</value>
-        public string Description
+        public string? Description
         {
             get; set;
         }
@@ -78,7 +78,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Defines an author of the quoting message or anything else.</para>
         /// </remarks>
         /// <value>Author?</value>
-        public EmbedAuthor Author
+        public EmbedAuthor? Author
         {
             get; set;
         }
@@ -103,7 +103,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This is displayed as image at the right of the embed and as square in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
-        public EmbedMedia Thumbnail
+        public EmbedMedia? Thumbnail
         {
             get; set;
         }
@@ -115,7 +115,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This is displayed as an image that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
-        public EmbedMedia Image
+        public EmbedMedia? Image
         {
             get; set;
         }
@@ -127,7 +127,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This is displayed as a video that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
-        public EmbedMedia Video
+        public EmbedMedia? Video
         {
             get; set;
         }
@@ -139,7 +139,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Fields can be both inline and blocks.</para>
         /// </remarks>
         /// <value>List of fields?</value>
-        public IList<EmbedField> Fields
+        public IList<EmbedField>? Fields
         {
             get; set;
         }
@@ -151,7 +151,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Timestamp"/> property. Timestamps are not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
         /// </remarks>
         /// <value>Footer?</value>
-        public EmbedFooter Footer
+        public EmbedFooter? Footer
         {
             get; set;
         }
@@ -180,7 +180,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="image">The image of the embed</param>
         /// <param name="video">The video of the embed</param>
         /// <param name="thumbnail">The thumbnail image of the embed</param>
-        public Embed(Uri image = null, Uri video = null, Uri thumbnail = null) =>
+        public Embed(Uri? image = null, Uri? video = null, Uri? thumbnail = null) =>
             (Image, Video, Thumbnail) = (EmbedMedia.CreateOrNull(image), EmbedMedia.CreateOrNull(video), EmbedMedia.CreateOrNull(thumbnail));
         /// <summary>
         /// Creates a new instance of <see cref="Embed"/> with URL <paramref name="url"/>.
@@ -425,8 +425,8 @@ namespace Guilded.NET.Base.Embeds
         /// </remarks>
         /// <param name="description">Embed's description</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetDescription(object description) =>
-            SetDescription(description.ToString());
+        public Embed SetDescription(object? description) =>
+            SetDescription(description is null ? string.Empty : description.ToString()!);
         #endregion
 
         #region Author
@@ -450,7 +450,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="iconUrl">URL of the image</param>
         /// <param name="url">URL of the author's name</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetAuthor(string name, Uri iconUrl = null, Uri url = null) =>
+        public Embed SetAuthor(string name, Uri? iconUrl = null, Uri? url = null) =>
             SetAuthor(new EmbedAuthor(name, iconUrl, url));
         #endregion
 
@@ -468,7 +468,7 @@ namespace Guilded.NET.Base.Embeds
         public Embed AddFields(IList<EmbedField> fields)
         {
             // Don't allow >25 fields
-            if ((Fields?.Count + fields?.Count) > fieldLimit || Fields?.Count > 25)
+            if ((Fields?.Count + fields.Count) > fieldLimit || Fields?.Count > 25)
                 throw new OverflowException("Cannot add more than 25 fields to the embed");
             else if (Fields is null)
                 Fields = fields;
@@ -527,7 +527,7 @@ namespace Guilded.NET.Base.Embeds
         /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed AddField(string name, object value, bool inline = false) =>
-            AddField(name, value.ToString(), inline);
+            AddField(name, value is null ? string.Empty : value.ToString()!, inline);
         #endregion
 
         #region Media
@@ -628,7 +628,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="text">The text of the footer</param>
         /// <param name="iconUrl">The icon of the footer</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(string text, Uri iconUrl = null) =>
+        public Embed SetFooter(string text, Uri? iconUrl = null) =>
             SetFooter(new EmbedFooter(text, iconUrl));
         /// <summary>
         /// Sets the footer as the given parameters.
@@ -641,7 +641,7 @@ namespace Guilded.NET.Base.Embeds
         /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(string text, string iconUrl = null) =>
+        public Embed SetFooter(string text, string? iconUrl = null) =>
             SetFooter(text, iconUrl is null ? null : new Uri(iconUrl));
         /// <summary>
         /// Sets the footer as the given parameters.
@@ -652,8 +652,8 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="text">The text of the footer</param>
         /// <param name="iconUrl">The icon of the footer</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(object text, Uri iconUrl = null) =>
-            SetFooter(text.ToString(), iconUrl);
+        public Embed SetFooter(object text, Uri? iconUrl = null) =>
+            SetFooter(text is null ? string.Empty : text.ToString()!, iconUrl);
         /// <summary>
         /// Sets the footer as the given parameters.
         /// </summary>
@@ -665,7 +665,7 @@ namespace Guilded.NET.Base.Embeds
         /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(object text, string iconUrl = null) =>
+        public Embed SetFooter(object text, string? iconUrl = null) =>
             SetFooter(text, iconUrl is null ? null : new Uri(iconUrl));
         /// <summary>
         /// Sets the timestamp as the given parameter.

@@ -1,4 +1,5 @@
 using System;
+using System.Net.WebSockets;
 using System.Threading.Tasks;
 using RestSharp;
 
@@ -54,7 +55,7 @@ namespace Guilded.NET
         /// <seealso cref="ConnectAsync()"/>
         /// <seealso cref="ConnectAsync(string)"/>
         /// <seealso cref="GuildedBotClient(string)"/>
-        protected string AuthToken
+        protected string? AuthToken
         {
             get;
         }
@@ -101,6 +102,7 @@ namespace Guilded.NET
                 throw new ArgumentNullException(nameof(auth));
             // Give authentication token to Guilded
             AdditionalHeaders.Add("Authorization", $"Bearer {auth}");
+            // Add all headers to the clients
             Rest.AddDefaultHeaders(AdditionalHeaders);
 
             await base.ConnectAsync().ConfigureAwait(false);
@@ -120,6 +122,6 @@ namespace Guilded.NET
         /// <seealso cref="ConnectAsync(string)"/>
         /// <seealso cref="AbstractGuildedClient.DisconnectAsync"/>
         public override Task ConnectAsync() =>
-            ConnectAsync(AuthToken);
+            ConnectAsync(AuthToken ?? throw new NullReferenceException("Expected AuthToken to have a value"));
     }
 }

@@ -19,11 +19,21 @@ namespace Guilded.NET.Base.Events
         /// The message received from the event.
         /// </summary>
         /// <value>Message</value>
-        [JsonProperty(Required = Required.Always)]
         public T Message
         {
             get; set;
         }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="message">The message received from the event</param>
+        public MessageEvent(
+            T message
+        ) =>
+            Message = message;
         #endregion
     }
     /// <summary>
@@ -60,6 +70,18 @@ namespace Guilded.NET.Base.Events
         /// <inheritdoc cref="Message.Type"/>
         [JsonIgnore]
         public MessageType Type => Message.Type;
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="message">The message received from the event</param>
+        [JsonConstructor]
+        public MessageEvent(
+            [JsonProperty(Required = Required.Always)]
+            Message message
+        ) : base(message) { }
         #endregion
 
         #region Additional

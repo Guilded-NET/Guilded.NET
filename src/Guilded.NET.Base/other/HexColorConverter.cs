@@ -23,14 +23,21 @@ namespace Guilded.NET.Base
         /// <param name="writer">The writer to use to write to JSON</param>
         /// <param name="value">The object to write to JSON</param>
         /// <param name="serializer">The serializer that is serializing the object</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            Color col = (Color)value;
-            writer.WriteValue(JToken.FromObject(
-                col.A == 0
-                ? "transparent"
-                : $"#{col.R:X2}{col.G:X2}{col.B:X2}"
-            ));
+            if (value is not null)
+            {
+                Color col = (Color)value;
+                writer.WriteValue(JToken.FromObject(
+                    col.A == 0
+                    ? "transparent"
+                    : $"#{col.R:X2}{col.G:X2}{col.B:X2}"
+                ));
+            }
+            else
+            {
+                writer.WriteNull();
+            }
         }
         /// <summary>
         /// Reads the given JSON object as <see cref="Color"/>.
@@ -40,7 +47,7 @@ namespace Guilded.NET.Base
         /// <param name="existingValue">The previous value of the property being converted</param>
         /// <param name="serializer">The serializer that is deserializing the object</param>
         /// <returns></returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) =>
+        public override object ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) =>
             throw new NotSupportedException("This converter does not support reading.");
         /// <summary>
         /// Returns whether the converter supports converting the given type.

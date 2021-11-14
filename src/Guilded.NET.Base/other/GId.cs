@@ -45,7 +45,7 @@ namespace Guilded.NET.Base
         internal readonly string _;
         private const int idLength = 8;
         private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        internal static readonly FormatException FormatError = new FormatException("The given ID string is in incorrect format.");
+        internal static readonly FormatException FormatError = new("The given ID string is in incorrect format.");
         /// <summary>
         /// The identifier for Guilded teams, users, etc.
         /// </summary>
@@ -85,7 +85,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="obj">Another object to compare</param>
         /// <returns>Both are equal</returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is GId id && Equals(id);
         #endregion
 

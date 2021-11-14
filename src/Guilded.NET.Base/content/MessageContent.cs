@@ -25,7 +25,7 @@ namespace Guilded.NET
         /// <para>The contents of the message in Markdown format.</para>
         /// </remarks>
         /// <value>Markdown string</value>
-        public string Content
+        public string? Content
         {
             get; set;
         }
@@ -36,12 +36,12 @@ namespace Guilded.NET
         /// <para>The list of embeds that will be present in the created message.</para>
         /// </remarks>
         /// <value>List of embeds?</value>
-        public IList<Embed> Embeds
+        public IList<Embed>? Embeds
         {
             get; set;
         }
         /// <inheritdoc cref="Message.ReplyMessageIds"/>
-        public IList<Guid> ReplyMessageIds
+        public IList<Guid>? ReplyMessageIds
         {
             get; set;
         }
@@ -50,6 +50,19 @@ namespace Guilded.NET
         {
             get; set;
         }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates an instance of <see cref="MessageContent"/>.
+        /// </summary>
+        /// <param name="content">The content of the message</param>
+        public MessageContent(string? content) =>
+            Content = content;
+        /// <summary>
+        /// Creates an instance of <see cref="MessageContent"/> with no content.
+        /// </summary>
+        public MessageContent() { }
         #endregion
     }
 }

@@ -30,7 +30,7 @@ namespace Guilded.NET.Base.Teams
         /// <para>Defines a nickname of this member. This may be <see langword="null"/> if the member has no nickname.</para>
         /// </remarks>
         /// <value>Name?</value>
-        public string Nickname
+        public string? Nickname
         {
             get; set;
         }

@@ -22,7 +22,6 @@ namespace Guilded.NET.Base.Events
         /// <para>The duration between each heartbeat in milliseconds. The value is usually <c>22500</c>.</para>
         /// </remarks>
         /// <value>Milliseconds</value>
-        [JsonProperty("heartbeatIntervalMs", Required = Required.Always)]
         public int HeartbeatInterval
         {
             get; set;
@@ -34,10 +33,26 @@ namespace Guilded.NET.Base.Events
         /// <para>The identifier of the last message that was received before this event.</para>
         /// </remarks>
         /// <value>Event ID?</value>
-        public string LastMessageId
+        public string? LastMessageId
         {
             get; set;
         }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="WelcomeEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="heartbeatIntervalMs">The duration between heartbeats</param>
+        /// <param name="lastMessageId">The identifier of the last event sent</param>
+        [JsonConstructor]
+        public WelcomeEvent(
+            [JsonProperty(Required = Required.Always)]
+            int heartbeatIntervalMs,
+
+            string? lastMessageId
+        ) =>
+            (HeartbeatInterval, LastMessageId) = (heartbeatIntervalMs, lastMessageId);
         #endregion
     }
 }

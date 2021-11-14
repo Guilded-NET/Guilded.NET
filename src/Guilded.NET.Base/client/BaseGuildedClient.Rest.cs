@@ -13,7 +13,7 @@ namespace Guilded.NET.Base
 {
     public abstract partial class BaseGuildedClient : IDisposable
     {
-        private static readonly Dictionary<string, string> contentType = new Dictionary<string, string>()
+        private static readonly Dictionary<string, string> contentType = new()
         {
             // Text/Document
             {"txt", MediaTypeNames.Text.Plain},
@@ -56,10 +56,10 @@ namespace Guilded.NET.Base
         /// <seealso cref="Deserialize"/>
         public string Serialize(object obj)
         {
-            using StringWriter strWriter = new StringWriter();
+            using StringWriter strWriter = new();
             using JsonWriter writer = new JsonTextWriter(strWriter);
 
-            GuildedSerializer.Serialize(writer, obj);
+            GuildedSerializer!.Serialize(writer, obj);
             return strWriter.ToString();
         }
         /// <summary>
@@ -72,12 +72,12 @@ namespace Guilded.NET.Base
         /// <typeparam name="T">The type of deserialized instance</typeparam>
         /// <returns>Deserialized object</returns>
         /// <seealso cref="Serialize"/>
-        public T Deserialize<T>(string json)
+        public T? Deserialize<T>(string json)
         {
-            using StringReader strReader = new StringReader(json);
+            using StringReader strReader = new(json);
             using JsonReader reader = new JsonTextReader(strReader);
 
-            return (T)GuildedSerializer.Deserialize(reader, typeof(T));
+            return GuildedSerializer!.Deserialize<T>(reader);
         }
         #endregion
 
@@ -95,7 +95,7 @@ namespace Guilded.NET.Base
         /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
         /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
-        public async Task<Uri> UploadFileAsync(string filename, byte[] filedata, string contentType)
+        public async Task<Uri?> UploadFileAsync(string filename, byte[] filedata, string contentType)
         {
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentException($"{nameof(filename)} can not be empty.");
@@ -122,14 +122,14 @@ namespace Guilded.NET.Base
         /// <exception cref="ArgumentNullException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
         /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
-        public async Task<Uri> UploadFileAsync(string filename, byte[] filedata)
+        public async Task<Uri?> UploadFileAsync(string filename, byte[] filedata)
         {
             if(string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentNullException(nameof(filename));
 
             string ext = Path.GetExtension(filename).ToLower();
             // Automatically get content type instead of manually typing it
-            string contentType = BaseGuildedClient.contentType.ContainsKey(ext) ? BaseGuildedClient.contentType[ext] : BaseGuildedClient.contentType.Values.FirstOrDefault();
+            string contentType = BaseGuildedClient.contentType.ContainsKey(ext) ? BaseGuildedClient.contentType[ext] : BaseGuildedClient.contentType.Values.First();
 
             return await UploadFileAsync(filename, filedata, contentType).ConfigureAwait(false);
         }
@@ -143,7 +143,7 @@ namespace Guilded.NET.Base
         /// <param name="url">URL link to an image to upload</param>
         /// <exception cref="GuildedException"/>
         /// <returns>File URL</returns>
-        public async Task<Uri> UploadFileAsync(Uri url)
+        public async Task<Uri?> UploadFileAsync(Uri url)
         {
             if (url is null)
                 throw new ArgumentException($"{nameof(url)} can not be null.");
@@ -190,8 +190,8 @@ namespace Guilded.NET.Base
                 JObject obj = (JObject)token;
 
                 // For giving Guilded exception more information
-                string code = obj.Value<string>("code"),
-                       errorMessage = obj.Value<string>("message");
+                string code         = obj.Value<string>("code")!,
+                       errorMessage = obj.Value<string>("message")!;
 
                 GuildedException exc =
                     response.StatusCode switch

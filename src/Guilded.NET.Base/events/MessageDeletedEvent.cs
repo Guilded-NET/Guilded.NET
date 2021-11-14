@@ -15,6 +15,27 @@ namespace Guilded.NET.Base.Events
     /// <seealso cref="Content.Message"/>
     public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDeleted>
     {
+        #region Properties
+        /// <inheritdoc cref="MessageDeleted.Id"/>
+        public Guid Id => Message.Id;
+        /// <inheritdoc cref="MessageDeleted.ChannelId"/>
+        public Guid ChannelId => Message.ChannelId;
+        /// <inheritdoc cref="MessageDeleted.DeletedAt"/>
+        [JsonIgnore]
+        public DateTime DeletedAt => Message.DeletedAt;
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageDeletedEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="message">The minimal information about the deleted message</param>
+        [JsonConstructor]
+        public MessageDeletedEvent(
+            MessageDeleted message
+        ) : base(message) { }
+        #endregion
+
         /// <summary>
         /// A message that was recently deleted/removed.
         /// </summary>
@@ -30,16 +51,14 @@ namespace Guilded.NET.Base.Events
             /// The identifier of the message.
             /// </summary>
             /// <value>Message ID</value>
-            [JsonProperty(Required = Required.Always)]
             public Guid Id
             {
                 get; set;
             }
             /// <summary>
-            /// The identifier of the channel where this message is.
+            /// The identifier of the channel where the message is.
             /// </summary>
             /// <value>Channel ID</value>
-            [JsonProperty(Required = Required.Always)]
             public Guid ChannelId
             {
                 get; set;
@@ -51,11 +70,31 @@ namespace Guilded.NET.Base.Events
             /// <para>The <see cref="DateTime"/> of when the message was removed.</para>
             /// </remarks>
             /// <value>Deleted at</value>
-            [JsonProperty(Required = Required.Always)]
             public DateTime DeletedAt
             {
                 get; set;
             }
+            #endregion
+
+            #region Constructors
+            /// <summary>
+            /// The identifier of the message.
+            /// </summary>
+            /// <param name="id">The identifier of the message</param>
+            /// <param name="channelId">The identifier of the channel where the message is</param>
+            /// <param name="deletedAt">The date of when the message was deleted</param>
+            [JsonConstructor]
+            public MessageDeleted(
+                [JsonProperty(Required = Required.Always)]
+                Guid id,
+
+                [JsonProperty(Required = Required.Always)]
+                Guid channelId,
+
+                [JsonProperty(Required = Required.Always)]
+                DateTime deletedAt
+            ) =>
+                (Id, ChannelId, DeletedAt) = (id, channelId, deletedAt);
             #endregion
 
             #region Overrides
@@ -70,7 +109,7 @@ namespace Guilded.NET.Base.Events
             /// </summary>
             /// <param name="obj">Another object to compare</param>
             /// <returns>Are equal</returns>
-            public override bool Equals(object obj) =>
+            public override bool Equals(object? obj) =>
                 obj is MessageDeleted message && message.ChannelId == ChannelId && message.Id == Id;
             /// <summary>
             /// Gets a hashcode of this object.
@@ -80,15 +119,5 @@ namespace Guilded.NET.Base.Events
                 HashCode.Combine(ChannelId, Id);
             #endregion
         }
-
-        #region Properties
-        /// <inheritdoc cref="MessageDeleted.Id"/>
-        public Guid Id => Message.Id;
-        /// <inheritdoc cref="MessageDeleted.ChannelId"/>
-        public Guid ChannelId => Message.ChannelId;
-        /// <inheritdoc cref="MessageDeleted.DeletedAt"/>
-        [JsonIgnore]
-        public DateTime DeletedAt => Message.DeletedAt;
-        #endregion
     }
 }

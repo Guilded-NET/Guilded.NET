@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
@@ -17,14 +18,13 @@ namespace Guilded.NET.Base.Events
     {
         #region JSON properties
         /// <summary>
-        /// The identifiers of all users that received that amount of XP.
+        /// The identifiers of users who received XP.
         /// </summary>
         /// <remarks>
         /// <para>This contains a set of users that were given <see cref="Amount"/> amount of XP.</para>
         /// <para>The set can contain more than one member.</para>
         /// </remarks>
         /// <value>List of user IDs</value>
-        [JsonProperty("userIds", Required = Required.Always)]
         public ISet<GId> Users
         {
             get; set;
@@ -37,14 +37,13 @@ namespace Guilded.NET.Base.Events
         /// <para>This should usually be between 1000 and -1000 amount of XP.</para>
         /// </remarks>
         /// <value>XP</value>
-        [JsonProperty(Required = Required.Always)]
         public long Amount
         {
             get; set;
         }
         #endregion
 
-        #region Additional
+        #region Properties
         /// <summary>
         /// Gets the first XP receiving user.
         /// </summary>
@@ -63,6 +62,23 @@ namespace Guilded.NET.Base.Events
         /// <returns>User ID</returns>
         [JsonIgnore]
         public GId LastUser => Users.Last();
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="XpAddedEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="userIds">The identifiers of users who received XP</param>
+        /// <param name="amount">The amount of XP given to the users</param>
+        [JsonConstructor]
+        public XpAddedEvent(
+            [JsonProperty(Required = Required.Always)]
+            ISet<GId> userIds,
+
+            [JsonProperty(Required = Required.Always)]
+            long amount
+        ) =>
+            (Users, Amount) = (userIds, amount);
         #endregion
     }
 }

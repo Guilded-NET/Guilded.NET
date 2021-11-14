@@ -17,10 +17,10 @@ namespace Guilded.NET
             await ExecuteRequestAsync(new RestRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST).AddJsonBody(message)).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
-            await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content }).ConfigureAwait(false);
+            await CreateHookMessageAsync(webhookId, token, new MessageContent(content)).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds) =>
-            await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content, Embeds = embeds }).ConfigureAwait(false);
+            await CreateHookMessageAsync(webhookId, token, new MessageContent(content) { Embeds = embeds }).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds) =>
             await CreateHookMessageAsync(webhookId, token, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
@@ -59,10 +59,7 @@ namespace Guilded.NET
             }
             else
             {
-                return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.PUT).AddJsonBody(new MessageContent
-                {
-                    Content = content
-                }), "message").ConfigureAwait(false);
+                return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.PUT).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);
             }
         }
         /// <inheritdoc/>
@@ -97,7 +94,7 @@ namespace Guilded.NET
 
         #region List channels
         /// <inheritdoc/>
-        public override async Task<ListItem> CreateListItemAsync(Guid channelId, string message, string note = null)
+        public override async Task<ListItem> CreateListItemAsync(Guid channelId, string message, string? note = null)
         {
             if(string.IsNullOrWhiteSpace(message))
                 throw new ArgumentNullException(nameof(message));

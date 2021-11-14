@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Net.WebSockets;
+using System.Reactive.Linq;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -26,7 +28,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <seealso cref="ConnectAsync"/>
         /// <seealso cref="Disconnected"/>
-        protected EventHandler ConnectedEvent;
+        protected EventHandler? ConnectedEvent;
         /// <summary>
         /// An event when client gets disconnected
         /// </summary>
@@ -36,7 +38,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <seealso cref="DisconnectAsync"/>
         /// <seealso cref="Connected"/>
-        protected EventHandler DisconnectedEvent;
+        protected EventHandler? DisconnectedEvent;
         /// <inheritdoc cref="ConnectedEvent"/>
         public event EventHandler Connected
         {
@@ -77,17 +79,35 @@ namespace Guilded.NET.Base
         protected Dictionary<string, string> AdditionalHeaders
         {
             get; set;
-        } = new Dictionary<string, string>();
+        } = new();
         /// <summary>
         /// Creates default settings for <see cref="BaseGuildedClient"/>'s child types.
         /// </summary>
         /// <remarks>
-        /// <para>Inititates REST client and serializer settings.</para>
+        /// <para>Inititates basic client components for API-related things, such as WebSocket and REST client. The rest is up to child types.</para>
         /// </remarks>
-        /// <param name="apiUrl">URL of Guilded API</param>
-        /// <exception cref="ArgumentNullException">When <paramref name="apiUrl"/> is <see langword="null"/></exception>
-        protected BaseGuildedClient(Uri apiUrl)
+        /// <param name="apiUrl">The URL to Guilded-like API</param>
+        /// <param name="websocketUrl">The URL to Guilded-like WebSocket client</param>
+        protected BaseGuildedClient(Uri apiUrl, Uri websocketUrl)
         {
+            Func<ClientWebSocket> factory = new(() => {
+                ClientWebSocket socket = new()
+                {
+                    Options = {
+                        KeepAliveInterval = TimeSpan.FromMilliseconds(DefaultHeartbeatInterval),
+                    }
+                };
+                // Set any required headers, such as auth token
+                foreach (KeyValuePair<string, string> header in AdditionalHeaders)
+                    socket.Options.SetRequestHeader(header.Key, header.Value);
+
+                return socket;
+            });
+            Websocket = new(websocketUrl ?? GuildedUrl.Websocket, factory);
+            Websocket.MessageReceived
+                .Where(msg => msg.MessageType == WebSocketMessageType.Text)
+                .Subscribe(OnWebsocketResponse);
+
             // Sets serialization settings for REST client
             SerializerSettings = new JsonSerializerSettings
             {
@@ -98,6 +118,7 @@ namespace Guilded.NET.Base
                     NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
                 }
             };
+            GuildedSerializer = JsonSerializer.Create(SerializerSettings);
 
             Rest = new RestClient(apiUrl ?? throw new ArgumentNullException(nameof(apiUrl)))
                 .AddDefaultHeader("Origin", "https://www.guilded.gg/")
@@ -108,9 +129,9 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <remarks>
         /// <para>Inititates REST client and serializer settings.</para>
-        /// <para>Relies on <see cref="BaseGuildedClient(Uri)"/> with <see cref="GuildedUrl.Api"/> as API URL.</para>
+        /// <para>The <see cref="GuildedUrl.Api"/> property and <see cref="GuildedUrl.Websocket"/> property URLs will be used by default.</para>
         /// </remarks>
-        protected BaseGuildedClient() : this(GuildedUrl.Api) { }
+        protected BaseGuildedClient() : this(GuildedUrl.Api, GuildedUrl.Websocket) { }
         /// <summary>
         /// Connects this client to Guilded.
         /// </summary>

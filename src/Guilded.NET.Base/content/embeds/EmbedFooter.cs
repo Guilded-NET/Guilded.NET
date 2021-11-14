@@ -24,7 +24,6 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The provided Markdown will be ignored.</para>
         /// </remarks>
         /// <value>Description</value>
-        [JsonProperty(Required = Required.Always)]
         public string Text
         {
             get; set;
@@ -37,8 +36,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Usually displayed before the footer text.</para>
         /// </remarks>
         /// <value>URL?</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Uri IconUrl
+        public Uri? IconUrl
         {
             get; set;
         }
@@ -51,13 +49,15 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="text">The description of the footer</param>
         /// <param name="iconUrl">The URL to footer's icon</param>
         /// <exception cref="ArgumentNullException">When <paramref name="text"/> is <see langword="null"/></exception>
-        public EmbedFooter(string text, Uri iconUrl = null)
-        {
-            if (text is null)
-                throw new ArgumentNullException(nameof(text));
+        [JsonConstructor]
+        public EmbedFooter(
+            [JsonProperty(Required = Required.Always)]
+            string text,
 
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            Uri? iconUrl = null
+        ) =>
             (Text, IconUrl) = (text, iconUrl);
-        }
         /// <summary>
         /// Creates a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>.
         /// </summary>

@@ -161,15 +161,14 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
         /// <returns>Message created</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, string content) =>
-            await CreateMessageAsync(channelId, new MessageContent { Content = content }).ConfigureAwait(false);
+            await CreateMessageAsync(channelId, new MessageContent(content)).ConfigureAwait(false);
         /// <inheritdoc cref="CreateMessageAsync(Guid, string)"/>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="content">The contents of the message in Markdown plain text</param>
         /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
         public async Task<Message> CreateMessageAsync(Guid channelId, string content, params Guid[] replyMessageIds) =>
-            await CreateMessageAsync(channelId, new MessageContent
+            await CreateMessageAsync(channelId, new MessageContent(content)
             {
-                Content = content,
                 ReplyMessageIds = replyMessageIds
             }).ConfigureAwait(false);
         /// <inheritdoc cref="CreateMessageAsync(Guid, string)"/>
@@ -178,9 +177,8 @@ namespace Guilded.NET.Base
         /// <param name="isPrivate">Whether the reply is private</param>
         /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
         public async Task<Message> CreateMessageAsync(Guid channelId, string content, bool isPrivate, params Guid[] replyMessageIds) =>
-            await CreateMessageAsync(channelId, new MessageContent
+            await CreateMessageAsync(channelId, new MessageContent(content)
             {
-                Content = content,
                 IsPrivate = isPrivate,
                 ReplyMessageIds = replyMessageIds
             }).ConfigureAwait(false);
@@ -290,7 +288,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
         /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
         /// <returns>List item created</returns>
-        public abstract Task<ListItem> CreateListItemAsync(Guid channelId, string message, string note = null);
+        public abstract Task<ListItem> CreateListItemAsync(Guid channelId, string message, string? note = null);
         #endregion
 
         #region Content

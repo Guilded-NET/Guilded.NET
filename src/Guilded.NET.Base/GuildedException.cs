@@ -24,7 +24,7 @@ namespace Guilded.NET.Base
         /// The code name of Guilded error.
         /// </summary>
         /// <value>Code name</value>
-        public string Code
+        public string? Code
         {
             get; set;
         }
@@ -32,7 +32,7 @@ namespace Guilded.NET.Base
         /// The response that was received from Guilded API.
         /// </summary>
         /// <value>REST Response</value>
-        public IRestResponse Response
+        public IRestResponse? Response
         {
             get; set;
         }
@@ -40,7 +40,7 @@ namespace Guilded.NET.Base
         /// The HTTP status that was found in the response.
         /// </summary>
         /// <value>HTTP status</value>
-        public HttpStatusCode StatusCode => Response.StatusCode;
+        public HttpStatusCode? StatusCode => Response?.StatusCode;
         /// <summary>
         /// Creates a new instance of <see cref="GuildedException"/>.
         /// </summary>

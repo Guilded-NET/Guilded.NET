@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Globalization;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded.NET.Base
 {
@@ -17,8 +18,8 @@ namespace Guilded.NET.Base
         /// <param name="writer">The writer to use to write to JSON</param>
         /// <param name="value">The object to write to JSON</param>
         /// <param name="serializer">The serializer that is serializing the object</param>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer) =>
-            writer.WriteValue(value.ToString());
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) =>
+            writer.WriteValue(value?.ToString());
         /// <summary>
         /// Reads the given JSON object as <see cref="GId"/> or <see cref="FormId"/>.
         /// </summary>
@@ -27,8 +28,8 @@ namespace Guilded.NET.Base
         /// <param name="existingValue">The previous value of the property being converted</param>
         /// <param name="serializer">The serializer that is deserializing the object</param>
         /// <returns><see cref="GId"/> or <see cref="FormId"/></returns>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer) =>
-            objectType == gid ? (object)new GId((string)reader.Value) : new FormId((string)reader.Value);
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer) =>
+            reader.Value is string str ? objectType == gid ? new GId(str) : new FormId(str) : null;
         /// <summary>
         /// Returns whether the converter supports converting the given type.
         /// </summary>
@@ -48,7 +49,7 @@ namespace Guilded.NET.Base
         /// <param name="context">The descriptor context for converter</param>
         /// <param name="sourceType">The type found in the source</param>
         /// <returns>Can convert</returns>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) =>
+        public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) =>
             sourceType == typeof(string);
         /// <summary>
         /// Converts string to <see cref="GId"/>.
@@ -57,7 +58,7 @@ namespace Guilded.NET.Base
         /// <param name="culture">The current date localization culture</param>
         /// <param name="value">The string to convert</param>
         /// <returns><see cref="GId"/> from string</returns>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) =>
+        public override object ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) =>
             new GId((string)value);
     }
     /// <summary>
@@ -71,7 +72,7 @@ namespace Guilded.NET.Base
         /// <param name="context">The descriptor context for converter</param>
         /// <param name="sourceType">The type found in the source</param>
         /// <returns>Can convert</returns>
-        public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) =>
+        public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) =>
             sourceType == typeof(string);
         /// <summary>
         /// Converts string to <see cref="FormId"/>.
@@ -80,7 +81,7 @@ namespace Guilded.NET.Base
         /// <param name="culture">The current date localization culture</param>
         /// <param name="value">The string to convert</param>
         /// <returns><see cref="FormId"/> from string</returns>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value) =>
+        public override object ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) =>
             new FormId((string)value);
     }
 }

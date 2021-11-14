@@ -30,12 +30,12 @@ namespace Guilded.NET.Base
         internal readonly string _;
         private const int partLength = 7;
         private const string partChars = "0123456789";
-        private static readonly Random random = new Random();
+        private static readonly Random random = new();
         /// <summary>
         /// Creates a random value of <see cref="FormId"/>.
         /// </summary>
         /// <value>New form ID</value>
-        public static FormId Random => new FormId($"r-{random.Next(1000000, 9999999)}-{random.Next(1000000, 9999999)}");
+        public static FormId Random => new($"r-{random.Next(1000000, 9999999)}-{random.Next(1000000, 9999999)}");
         /// <summary>
         /// The identifier for forms and media uploads.
         /// </summary>
@@ -75,7 +75,7 @@ namespace Guilded.NET.Base
         /// </summary>
         /// <param name="obj">Another object to compare</param>
         /// <returns>Both are equal</returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is FormId id && Equals(id);
         #endregion
 

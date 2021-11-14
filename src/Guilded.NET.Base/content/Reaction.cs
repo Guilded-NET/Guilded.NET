@@ -82,7 +82,7 @@ namespace Guilded.NET.Base.Content
         /// </remarks>
         /// <returns>Created by bot or webhook</returns>
         [JsonIgnore]
-        public bool CreatedAuto => !(CreatedByBot is null) || !(CreatedByWebhook is null);
+        public bool CreatedAuto => CreatedByBot is not null || CreatedByWebhook is not null;
         #endregion
 
         #region Overrides
@@ -91,7 +91,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <param name="obj">Another object to compare</param>
         /// <returns>Are equal</returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             obj is Reaction reaction && Id == reaction.Id;
         /// <summary>
         /// Gets a hashcode of this object.

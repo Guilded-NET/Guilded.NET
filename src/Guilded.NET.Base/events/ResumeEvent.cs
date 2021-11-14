@@ -14,6 +14,7 @@ namespace Guilded.NET.Base.Events
     /// <seealso cref="BaseGuildedClient.InitWebsocket(string, System.Uri)"/>
     public class ResumeEvent : BaseObject
     {
+        #region JSON properties
         /// <summary>
         /// The identifier of the last received event.
         /// </summary>
@@ -22,10 +23,23 @@ namespace Guilded.NET.Base.Events
         /// <para>You can get the identifier of the event message by using <see cref="GuildedSocketMessage.MessageId"/> property from events.</para>
         /// </remarks>
         /// <value>Event message ID</value>
-        [JsonProperty("s", Required = Required.Always)]
         public string MessageId
         {
             get; set;
         }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="ResumeEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="s">The identifier of the last received message</param>
+        [JsonConstructor]
+        public ResumeEvent(
+            [JsonProperty(Required = Required.Always)]
+            string s
+        ) =>
+            MessageId = s;
+        #endregion
     }
 }

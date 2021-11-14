@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Embeds
 {
@@ -50,7 +51,15 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="url">The source URL to the image</param>
         /// <param name="width">The width of the image</param>
         /// <param name="height">The height of the image</param>
-        public EmbedMedia(Uri url, uint? width = null, uint? height = null) =>
+        [JsonConstructor]
+        public EmbedMedia(
+            [JsonProperty(Required = Required.Always)]
+            Uri url,
+
+            uint? width = null,
+
+            uint? height = null
+        ) =>
             (Url, Width, Height) = (url, width, height);
         /// <summary>
         /// Creates a new instance of <see cref="EmbedMedia"/> with optional size parameters.
@@ -73,8 +82,8 @@ namespace Guilded.NET.Base.Embeds
         /// </remarks>
         /// <param name="url">The source URL to the image</param>
         /// <returns><see cref="EmbedMedia"/>?</returns>
-        internal static EmbedMedia CreateOrNull(Uri url) =>
-            url != null ? new EmbedMedia(url) : null;
+        internal static EmbedMedia? CreateOrNull(Uri? url) =>
+            url is not null ? new EmbedMedia(url) : null;
         #endregion
     }
 }

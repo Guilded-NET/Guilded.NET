@@ -60,7 +60,7 @@ namespace Guilded.NET
         /// <para>Subject that will be used as an observable in <see cref="Observable"/>.</para>
         /// </remarks>
         /// <returns>Subject</returns>
-        protected internal Subject<T> Subject = new Subject<T>();
+        protected internal Subject<T> Subject = new();
         /// <summary>
         /// An observable that can be subscribed.
         /// </summary>

@@ -39,7 +39,6 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The provided Markdown is ignored.</para>
         /// </remarks>
         /// <value>Name</value>
-        [JsonProperty(Required = Required.Always, NullValueHandling = NullValueHandling.Ignore)]
         public string Name
         {
             get; set;
@@ -52,8 +51,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Can be used to open up author's profile or link to the content of the embed.</para>
         /// </remarks>
         /// <value>URL?</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Uri Url
+        public Uri? Url
         {
             get; set;
         }
@@ -65,8 +63,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Used to display the icon of the content's author.</para>
         /// </remarks>
         /// <value>URL?</value>
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Uri IconUrl
+        public Uri? IconUrl
         {
             get; set;
         }
@@ -77,32 +74,34 @@ namespace Guilded.NET.Base.Embeds
         /// Creates a new instance of <see cref="EmbedAuthor"/> without an icon and without a URL.
         /// </summary>
         /// <param name="name">The name of the embed author</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>, empty or whitespace</exception>
-        public EmbedAuthor(string name)
-        {
+        public EmbedAuthor(string name) =>
             Name = name;
-
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException(nameof(name));
-        }
         /// <summary>
         /// Creates a new instance of <see cref="EmbedAuthor"/> with optional URL <paramref name="url"/>.
         /// </summary>
         /// <param name="name">The name of the embed author</param>
-        /// <param name="iconUrl">The URL to author's icon</param>
         /// <param name="url">The URL that author links</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>, empty or whitespace</exception>
-        public EmbedAuthor(string name, Uri iconUrl = null, Uri url = null) : this(name) =>
+        /// <param name="iconUrl">The URL to author's icon</param>
+        [JsonConstructor]
+        public EmbedAuthor(
+            [JsonProperty(Required = Required.Always)]
+            string name,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            Uri? url = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            Uri? iconUrl = null
+        ) : this(name) =>
             (IconUrl, Url) = (iconUrl, url);
         /// <summary>
         /// Creates a new instance of <see cref="EmbedAuthor"/> with optional URL <paramref name="url"/>.
         /// </summary>
         /// <param name="name">The name of the embed author</param>
-        /// <param name="iconUrl">The URL to author's icon</param>
         /// <param name="url">The URL that author links</param>
-        /// <exception cref="ArgumentNullException"><paramref name="name"/>, <paramref name="url"/> or <paramref name="iconUrl"/> are <see langword="null"/>, empty or whitespace</exception>
+        /// <param name="iconUrl">The URL to author's icon</param>
         /// <exception cref="UriFormatException"><paramref name="url"/> or <paramref name="iconUrl"/> have bad <see cref="Uri"/> formatting</exception>
-        public EmbedAuthor(string name, string iconUrl = null, string url = null) : this(name, iconUrl is null ? null : new Uri(iconUrl), url is null ? null : new Uri(url)) {}
+        public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, iconUrl is null ? null : new Uri(iconUrl), url is null ? null : new Uri(url)) {}
         #endregion
     }
 }

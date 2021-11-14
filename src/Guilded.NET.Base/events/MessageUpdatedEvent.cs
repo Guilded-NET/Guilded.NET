@@ -16,8 +16,22 @@ namespace Guilded.NET.Base.Events
     /// <seealso cref="Message"/>
     public class MessageUpdatedEvent : MessageEvent
     {
+        #region Properties
         /// <inheritdoc cref="Message.UpdatedAt"/>
         [JsonIgnore]
-        public DateTime UpdatedAt => (DateTime)Message.UpdatedAt;
+        public DateTime UpdatedAt => (DateTime)Message.UpdatedAt!;
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="MessageUpdatedEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="message">The message that has been updated</param>
+        [JsonConstructor]
+        public MessageUpdatedEvent(
+            [JsonProperty(Required = Required.Always)]
+            Message message
+        ) : base(message) { }
+        #endregion
     }
 }

@@ -17,43 +17,6 @@ namespace Guilded.NET.Base.Events
     /// <seealso cref="Member"/>
     public class RolesUpdatedEvent : BaseObject
     {
-        /// <summary>
-        /// Defines a role list holder and their role list.
-        /// </summary>
-        /// <remarks>
-        /// <para>Defines a receiving a role holder <see cref="UserId"/> and their current role list <see cref="RoleIds"/>. Roles that were added or removed, or previous role list are not provided. If necessary, previous role list should be cached before-hand.</para>
-        /// </remarks>
-        /// <seealso cref="MemberUpdatedEvent"/>
-        /// <seealso cref="Member"/>
-        public class RolesUpdated
-        {
-            /// <summary>
-            /// The identifier of the role holder.
-            /// </summary>
-            /// <remarks>
-            /// <para>The identifier of the user that has received all roles in <see cref="RoleIds"/> list.</para>
-            /// </remarks>
-            /// <value>User ID</value>
-            [JsonProperty(Required = Required.Always)]
-            public GId UserId
-            {
-                get; set;
-            }
-            /// <summary>
-            /// The list of roles <see cref="UserId"/> holds.
-            /// </summary>
-            /// <remarks>
-            /// <para>The list of roles that <see cref="UserId"/> is currently holding.</para>
-            /// <para>Received or removed roles are not provided, so caching of previou role list is necessary if previous role list is needed.</para>
-            /// </remarks>
-            /// <value>List of role IDs</value>
-            [JsonProperty(Required = Required.Always)]
-            public IList<uint> RoleIds
-            {
-                get; set;
-            }
-        }
-
         #region JSON properties
         /// <summary>
         /// The list of receiving/losing member and current roles.
@@ -64,7 +27,6 @@ namespace Guilded.NET.Base.Events
         /// <para>If only updated users are needed, use <see cref="UpdatedUsers"/> property.</para>
         /// </remarks>
         /// <value>Member and role definition</value>
-        [JsonProperty(Required = Required.Always)]
         public IList<RolesUpdated> MemberRoleIds
         {
             get; set;
@@ -83,5 +45,72 @@ namespace Guilded.NET.Base.Events
         [JsonIgnore]
         public GId[] UpdatedUsers => MemberRoleIds.Select(x => x.UserId).ToArray();
         #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="RolesUpdatedEvent"/>. This is currently only used in deserialization.
+        /// </summary>
+        /// <param name="memberRoleIds">The list of roles and role holders</param>
+        [JsonConstructor]
+        public RolesUpdatedEvent(
+            [JsonProperty(Required = Required.Always)]
+            IList<RolesUpdated> memberRoleIds
+        ) =>
+            MemberRoleIds = memberRoleIds;
+        #endregion
+
+        /// <summary>
+        /// Defines a role list holder and their role list.
+        /// </summary>
+        /// <remarks>
+        /// <para>Defines a receiving a role holder <see cref="UserId"/> and their current role list <see cref="RoleIds"/>. Roles that were added or removed, or previous role list are not provided. If necessary, previous role list should be cached before-hand.</para>
+        /// </remarks>
+        /// <seealso cref="MemberUpdatedEvent"/>
+        /// <seealso cref="Member"/>
+        public class RolesUpdated
+        {
+            #region JSON properties
+            /// <summary>
+            /// The identifier of the role holder.
+            /// </summary>
+            /// <remarks>
+            /// <para>The identifier of the user that has received all roles in <see cref="RoleIds"/> list.</para>
+            /// </remarks>
+            /// <value>User ID</value>
+            public GId UserId
+            {
+                get; set;
+            }
+            /// <summary>
+            /// The list of roles <see cref="UserId"/> holds.
+            /// </summary>
+            /// <remarks>
+            /// <para>The list of roles that <see cref="UserId"/> is currently holding.</para>
+            /// <para>Received or removed roles are not provided, so caching of previou role list is necessary if previous role list is needed.</para>
+            /// </remarks>
+            /// <value>List of role IDs</value>
+            public IList<uint> RoleIds
+            {
+                get; set;
+            }
+            #endregion
+
+            #region Constructors
+            /// <summary>
+            /// Creates a new instance of <see cref="RolesUpdated"/>. This is currently only used in deserialization.
+            /// </summary>
+            /// <param name="userId">The identifier of the user who holds the roles</param>
+            /// <param name="roleIds">The list of role identifiers user holds</param>
+            [JsonConstructor]
+            public RolesUpdated(
+                [JsonProperty(Required = Required.Always)]
+                GId userId,
+
+                [JsonProperty(Required = Required.Always)]
+                IList<uint> roleIds
+            ) =>
+                (UserId, RoleIds) = (userId, roleIds);
+            #endregion
+        }
     }
 }

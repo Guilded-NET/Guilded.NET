@@ -31,19 +31,18 @@ namespace Guilded.NET.Base.Content
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
         /// <value>Content in Markdown</value>
-        [JsonProperty(Required = Required.Always)]
         public string Content
         {
             get; set;
         }
         /// <summary>
-        /// Which messages it is replying to.
+        /// The list of messages being replied to.
         /// </summary>
         /// <remarks>
         /// <para>Specifies which messages were replied to in this message. The max reply limit is 5.</para>
         /// </remarks>
         /// <value>List of message IDs?</value>
-        public IList<Guid> ReplyMessageIds
+        public IList<Guid>? ReplyMessageIds
         {
             get; set;
         }
@@ -93,6 +92,47 @@ namespace Guilded.NET.Base.Content
         {
             get; set;
         }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
+        /// </summary>
+        /// <param name="id">The identifier of the message</param>
+        /// <param name="channelId">The identifier of the channel where the message is</param>
+        /// <param name="content">The contents of the message</param>
+        /// <param name="replyMessageIds">The list of messages being replied to</param>
+        /// <param name="isPrivate">Whether the reply is private</param>
+        /// <param name="createdBy">The identifier of the user creator of the message</param>
+        /// <param name="createdByBotId">The identifier of the bot creator of the message</param>
+        /// <param name="createdByWebhookId">The identifier of the webhook creator of the message</param>
+        /// <param name="createdAt">The date of when the message was created</param>
+        [JsonConstructor]
+        public Message(
+            [JsonProperty(Required = Required.Always)]
+            Guid id,
+
+            [JsonProperty(Required = Required.Always)]
+            Guid channelId,
+
+            [JsonProperty(Required = Required.Always)]
+            string content,
+
+            IList<Guid>? replyMessageIds,
+
+            bool isPrivate,
+
+            [JsonProperty(Required = Required.Always)]
+            GId createdBy,
+
+            Guid? createdByBotId,
+
+            Guid? createdByWebhookId,
+
+            [JsonProperty(Required = Required.Always)]
+            DateTime createdAt
+        ) : base(id, channelId, createdBy, createdByBotId, createdByWebhookId, createdAt) =>
+            (Content, ReplyMessageIds, IsPrivate) = (content, replyMessageIds, isPrivate);
         #endregion
 
         #region Additional
