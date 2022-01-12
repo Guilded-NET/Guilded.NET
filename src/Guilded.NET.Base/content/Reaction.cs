@@ -11,7 +11,7 @@ namespace Guilded.NET.Base.Content
     /// <para>Defines a reaction in <see cref="ChannelContent{T}"/>. Only currently exists on messages, forum threads, announcements, media, documents and calendar events. Currently doesn't hold the count of all reactions, nor return all reacting users.</para>
     /// </remarks>
     /// <seealso cref="Message"/>
-    public class Reaction : ClientObject
+    public class Reaction : ClientObject, IWebhookCreatable
     {
         #region JSON properties
         /// <summary>
@@ -58,31 +58,6 @@ namespace Guilded.NET.Base.Content
         {
             get; set;
         }
-        /// <summary>
-        /// The identifier of the bot creator of the reaction.
-        /// </summary>
-        /// <remarks>
-        /// <para>The identifier of the flow bot that created this reaction.</para>
-        /// </remarks>
-        /// <value>Bot ID?</value>
-        [JsonProperty("createdByBotId")]
-        public Guid? CreatedByBot
-        {
-            get; set;
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets whether the message was created by a bot or webhook.
-        /// </summary>
-        /// <remarks>
-        /// <para>Whether the message was automatically posted by a bot or a webhook.</para>
-        /// <para>This relies on <see cref="CreatedByBot"/> and <see cref="CreatedByWebhook"/> properties. If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise, <see langword="false"/> will be returned.</para>
-        /// </remarks>
-        /// <returns>Created by bot or webhook</returns>
-        [JsonIgnore]
-        public bool CreatedAuto => CreatedByBot is not null || CreatedByWebhook is not null;
         #endregion
 
         #region Overrides

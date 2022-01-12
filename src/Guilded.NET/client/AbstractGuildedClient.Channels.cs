@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using Guilded.NET.Base;
-using Guilded.NET.Base.Embeds;
 using Guilded.NET.Base.Content;
+using Guilded.NET.Base.Embeds;
 using Guilded.NET.Base.Permissions;
 using RestSharp;
 
@@ -50,17 +51,11 @@ namespace Guilded.NET
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content)
         {
             if (string.IsNullOrWhiteSpace(content))
-            {
                 throw new ArgumentNullException(nameof(content));
-            }
             else if (content.Length > MessageLimit)
-            {
                 throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
-            }
             else
-            {
                 return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.PUT).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);
-            }
         }
         /// <inheritdoc/>
         public override async Task DeleteMessageAsync(Guid channelId, Guid messageId) =>
@@ -77,10 +72,8 @@ namespace Guilded.NET
         /// <inheritdoc/>
         public override async Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string content)
         {
-            if(string.IsNullOrWhiteSpace(title))
-                throw new ArgumentNullException(nameof(title));
-            else if(string.IsNullOrWhiteSpace(content))
-                throw new ArgumentNullException(nameof(content));
+            if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
+            else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
 
             return await GetObject<ForumThread>(new RestRequest($"channels/{channelId}/forum", Method.POST)
                 .AddJsonBody(new
@@ -96,7 +89,7 @@ namespace Guilded.NET
         /// <inheritdoc/>
         public override async Task<ListItem> CreateListItemAsync(Guid channelId, string message, string? note = null)
         {
-            if(string.IsNullOrWhiteSpace(message))
+            if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentNullException(nameof(message));
 
             return await GetObject<ListItem>(new RestRequest($"channels/{channelId}/list", Method.POST)
@@ -107,6 +100,46 @@ namespace Guilded.NET
                 })
             , "listItem").ConfigureAwait(false);
         }
+        #endregion
+
+        #region Document channels
+        /// <inheritdoc/>
+        public override async Task<IList<Doc>> GetDocsAsync(Guid channelId) =>
+            await GetObject<IList<Doc>>(new RestRequest($"channels/{channelId}/docs", Method.GET), "docs").ConfigureAwait(false);
+        /// <inheritdoc/>
+        public override async Task<Doc> GetDocAsync(Guid channelId, uint docId) =>
+            await GetObject<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.GET), "doc").ConfigureAwait(false);
+        /// <inheritdoc/>
+        public override async Task<Doc> CreatedDocAsync(Guid channelId, string title, string content)
+        {
+            if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
+            else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
+
+            return await GetObject<Doc>(new RestRequest($"channels/{channelId}/docs", Method.POST)
+                .AddJsonBody(new
+                {
+                    title,
+                    content
+                })
+            , "doc").ConfigureAwait(false);
+        }
+        /// <inheritdoc/>
+        public override async Task<Doc> UpdateDocAsync(Guid channelId, uint docId, string title, string content)
+        {
+            if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
+            else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
+
+            return await GetObject<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.PUT)
+                .AddJsonBody(new
+                {
+                    title,
+                    content
+                })
+            , "doc").ConfigureAwait(false);
+        }
+        /// <inheritdoc/>
+        public override async Task DeleteDocAsync(Guid channelId, uint docId) =>
+            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/docs/{docId}", Method.DELETE)).ConfigureAwait(false);
         #endregion
 
         #region Content

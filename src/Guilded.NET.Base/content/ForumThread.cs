@@ -8,12 +8,12 @@ namespace Guilded.NET.Base.Content
     /// A forum thread in a forum channel.
     /// </summary>
     /// <remarks>
-    /// <para>A forum post/thread in forums.</para>
+    /// <para>A forum post/thread with a <see cref="Title"/> and <see cref="Content"/>, similarly to <see cref="Doc"/>.</para>
     /// <para>Currently can only be found as a return value from forum thread creation methods.</para>
     /// </remarks>
     /// <seealso cref="Message"/>
     /// <seealso cref="ListItem"/>
-    public class ForumThread : ChannelContent<uint>
+    public class ForumThread : ChannelContent<uint>, IReactibleContent, IWebhookCreatable
     {
         #region JSON properties
         /// <summary>
@@ -22,7 +22,7 @@ namespace Guilded.NET.Base.Content
         /// <remarks>
         /// <para>The title of the forum thread that typically doesn't hold any formatting.</para>
         /// </remarks>
-        /// <value>Title</value>
+        /// <value>Single-line string</value>
         public string Title
         {
             get; set;
@@ -34,23 +34,34 @@ namespace Guilded.NET.Base.Content
         /// <para>The contents of the forum thread formatted in Markdown.</para>
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
-        /// <value>Content in Markdown</value>
+        /// <value>Markdown string</value>
         public string Content
+        {
+            get; set;
+        }
+        /// <summary>
+        /// The identifier of the webhook creator of the forum thread.
+        /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the webhook that posted created this forum thread.</para>
+        /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
+        /// </remarks>
+        /// <value>Webhook ID?</value>
+        public Guid? CreatedByWebhook
         {
             get; set;
         }
         #endregion
 
-        #region Constructorss
+        #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
+        /// Creates a new instance of <see cref="ForumThread"/> with provided details.
         /// </summary>
         /// <param name="id">The identifier of the content</param>
         /// <param name="channelId">The identifier of the channel where the content is</param>
         /// <param name="title">The title of the forum thread</param>
         /// <param name="content">The contents of the forum thread</param>
         /// <param name="createdBy">The identifier of the user creator of the content</param>
-        /// <param name="createdByBotId">The identifier of the bot creator of the content</param>
         /// <param name="createdByWebhookId">The identifier of the webhook creator of the content</param>
         /// <param name="createdAt">The date of when the content was created</param>
         [JsonConstructor]
@@ -70,14 +81,12 @@ namespace Guilded.NET.Base.Content
             [JsonProperty(Required = Required.Always)]
             GId createdBy,
 
-            Guid? createdByBotId,
-
             Guid? createdByWebhookId,
 
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt
-        ) : base(id, channelId, createdBy, createdByBotId, createdByWebhookId, createdAt) =>
-            (Title, Content) = (title, content);
+        ) : base(id, channelId, createdBy, createdAt) =>
+            (Title, Content, CreatedByWebhook) = (title, content, createdByWebhookId);
         #endregion
 
         #region Additional

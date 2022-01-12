@@ -55,18 +55,12 @@ namespace Guilded.NET.Base.Events
         /// <inheritdoc cref="ChannelContent{T}.CreatedBy"/>
         [JsonIgnore]
         public GId CreatedBy => Message.CreatedBy;
-        /// <inheritdoc cref="ChannelContent{T}.CreatedByWebhook"/>
+        /// <inheritdoc cref="Message.CreatedByWebhook"/>
         [JsonIgnore]
         public Guid? CreatedByWebhook => Message.CreatedByWebhook;
-        /// <inheritdoc cref="ChannelContent{T}.CreatedByBot"/>
-        [JsonIgnore]
-        public Guid? CreatedByBot => Message.CreatedByBot;
         /// <inheritdoc cref="ChannelContent{T}.CreatedAt"/>
         [JsonIgnore]
         public DateTime CreatedAt => Message.CreatedAt;
-        /// <inheritdoc cref="ChannelContent{T}.CreatedAuto"/>
-        [JsonIgnore]
-        public bool CreatedAuto => Message.CreatedAuto;
         /// <inheritdoc cref="Message.Type"/>
         [JsonIgnore]
         public MessageType Type => Message.Type;

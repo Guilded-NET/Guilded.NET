@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Guilded.NET.Base.Events;
 using Guilded.NET.Base.Permissions;
+using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Content
 {
@@ -18,7 +18,7 @@ namespace Guilded.NET.Base.Content
     /// <seealso cref="ForumThread"/>
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
-    public class Message : ChannelContent<Guid>
+    public class Message : ChannelContent<Guid>, IUpdatableContent, IWebhookCreatable, IReactibleContent
     {
         #region JSON properties
 
@@ -30,7 +30,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The contents of the message in Markdown format.</para>
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
-        /// <value>Content in Markdown</value>
+        /// <value>Markdown string</value>
         public string Content
         {
             get; set;
@@ -70,10 +70,21 @@ namespace Guilded.NET.Base.Content
         #endregion
 
         /// <summary>
+        /// The identifier of the webhook creator of the message.
+        /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the webhook that created this message.</para>
+        /// </remarks>
+        /// <value>Webhook ID?</value>
+        public Guid? CreatedByWebhook
+        {
+            get; set;
+        }
+        /// <summary>
         /// The date of when the message was updated.
         /// </summary>
         /// <remarks>
-        /// <para>The <see cref="DateTime"/> of when the message was edited.</para>
+        /// <para>The <see cref="DateTime"/> of when the message was updated/edited. Only returns the most recent update.</para>
         /// </remarks>
         /// <value>Updated at?</value>
         public DateTime? UpdatedAt
@@ -96,7 +107,7 @@ namespace Guilded.NET.Base.Content
 
         #region Constructor
         /// <summary>
-        /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
+        /// Creates a new instance of <see cref="Message"/> with provided details.
         /// </summary>
         /// <param name="id">The identifier of the message</param>
         /// <param name="channelId">The identifier of the channel where the message is</param>
@@ -104,7 +115,6 @@ namespace Guilded.NET.Base.Content
         /// <param name="replyMessageIds">The list of messages being replied to</param>
         /// <param name="isPrivate">Whether the reply is private</param>
         /// <param name="createdBy">The identifier of the user creator of the message</param>
-        /// <param name="createdByBotId">The identifier of the bot creator of the message</param>
         /// <param name="createdByWebhookId">The identifier of the webhook creator of the message</param>
         /// <param name="createdAt">The date of when the message was created</param>
         [JsonConstructor]
@@ -125,14 +135,12 @@ namespace Guilded.NET.Base.Content
             [JsonProperty(Required = Required.Always)]
             GId createdBy,
 
-            Guid? createdByBotId,
-
             Guid? createdByWebhookId,
 
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt
-        ) : base(id, channelId, createdBy, createdByBotId, createdByWebhookId, createdAt) =>
-            (Content, ReplyMessageIds, IsPrivate) = (content, replyMessageIds, isPrivate);
+        ) : base(id, channelId, createdBy, createdAt) =>
+            (Content, ReplyMessageIds, IsPrivate, CreatedByWebhook) = (content, replyMessageIds, isPrivate, createdByWebhookId);
         #endregion
 
         #region Additional

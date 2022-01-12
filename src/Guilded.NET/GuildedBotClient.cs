@@ -109,8 +109,7 @@ namespace Guilded.NET
 
             ConnectedEvent?.Invoke(this, EventArgs.Empty);
 
-            // Gets all of the required info
-            //Me = await GetThisUserAsync();
+            // TODO: GetMeAsync
             PreparedEvent?.Invoke(this, EventArgs.Empty);
         }
         /// <summary>

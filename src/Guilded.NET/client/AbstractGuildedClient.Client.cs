@@ -76,10 +76,8 @@ namespace Guilded.NET
         /// <seealso cref="DisconnectAsync"/>
         /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
         /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
-        public override async Task ConnectAsync()
-        {
+        public override async Task ConnectAsync() =>
             await Websocket.StartOrFail().ConfigureAwait(false);
-        }
         /// <summary>
         /// Disconnects this client from Guilded.
         /// </summary>

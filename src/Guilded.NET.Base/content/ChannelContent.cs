@@ -51,29 +51,6 @@ namespace Guilded.NET.Base.Content
             get; set;
         }
         /// <summary>
-        /// The identifier of the webhook creator of the content.
-        /// </summary>
-        /// <remarks>
-        /// <para>The identifier of the webhook that posted created this content.</para>
-        /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
-        /// </remarks>
-        /// <value>Webhook ID?</value>
-        public Guid? CreatedByWebhook
-        {
-            get; set;
-        }
-        /// <summary>
-        /// The identifier of the bot creator of the content.
-        /// </summary>
-        /// <remarks>
-        /// <para>The identifier of the flow bot that created this content.</para>
-        /// </remarks>
-        /// <value>Bot ID?</value>
-        public Guid? CreatedByBot
-        {
-            get; set;
-        }
-        /// <summary>
         /// The date of when the content was created.
         /// </summary>
         /// <remarks>
@@ -88,19 +65,6 @@ namespace Guilded.NET.Base.Content
 
         #endregion
 
-        #region Properties
-        /// <summary>
-        /// Gets whether the content was created by a bot or a webhook.
-        /// </summary>
-        /// <remarks>
-        /// <para>Whether the content was automatically created by a bot or a webhook.</para>
-        /// <para>This relies on <see cref="ChannelContent{T}.CreatedByBot"/> and <see cref="ChannelContent{T}.CreatedByWebhook"/> properties. If one of them is not <see langword="null"/>, <see langword="true"/> will be returned. Otherwise, <see langword="false"/> will be returned.</para>
-        /// </remarks>
-        /// <returns>Created by bot or webhook</returns>
-        [JsonIgnore]
-        public bool CreatedAuto => CreatedByBot is not null || CreatedByWebhook is not null;
-        #endregion
-
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
@@ -108,8 +72,6 @@ namespace Guilded.NET.Base.Content
         /// <param name="id">The identifier of the content</param>
         /// <param name="channelId">The identifier of the channel where the content is</param>
         /// <param name="createdBy">The identifier of the user creator of the content</param>
-        /// <param name="createdByBotId">The identifier of the bot creator of the content</param>
-        /// <param name="createdByWebhookId">The identifier of the webhook creator of the content</param>
         /// <param name="createdAt">The date of when the content was created</param>
         protected ChannelContent(
             [JsonProperty(Required = Required.Always)]
@@ -121,14 +83,10 @@ namespace Guilded.NET.Base.Content
             [JsonProperty(Required = Required.Always)]
             GId createdBy,
 
-            Guid? createdByBotId,
-
-            Guid? createdByWebhookId,
-
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt
         ) =>
-            (Id, ChannelId, CreatedBy, CreatedByBot, CreatedByWebhook, CreatedAt) = (id, channelId, createdBy, createdByBotId, createdByWebhookId, createdAt);
+            (Id, ChannelId, CreatedBy, CreatedAt) = (id, channelId, createdBy, createdAt);
         #endregion
 
         #region Overrides

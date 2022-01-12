@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
-using Guilded.NET.Base.Embeds;
 using Guilded.NET.Base.Content;
+using Guilded.NET.Base.Embeds;
 using Guilded.NET.Base.Permissions;
 
 namespace Guilded.NET.Base
@@ -122,7 +123,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-        /// <returns>Message</returns>
+        /// <returns>Specified message</returns>
         public abstract Task<Message> GetMessageAsync(Guid channelId, Guid messageId);
         /// <summary>
         /// Creates a message in chat.
@@ -139,7 +140,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message created</returns>
+        /// <returns>Created message</returns>
         public abstract Task<Message> CreateMessageAsync(Guid channelId, MessageContent message);
         /// <summary>
         /// Creates a message in the chat.
@@ -159,7 +160,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-        /// <returns>Message created</returns>
+        /// <returns>Created message</returns>
         public async Task<Message> CreateMessageAsync(Guid channelId, string content) =>
             await CreateMessageAsync(channelId, new MessageContent(content)).ConfigureAwait(false);
         /// <inheritdoc cref="CreateMessageAsync(Guid, string)"/>
@@ -201,7 +202,7 @@ namespace Guilded.NET.Base
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <permission cref="ChatPermissions.SendMessages">Required for editing your own messages posted in a channel</permission>
         /// <permission cref="ChatPermissions.SendThreadMessages">Required for editing your own messages posted in a thread</permission>
-        /// <returns>Message updated</returns>
+        /// <returns>Updated message</returns>
         public abstract Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content);
         /// <summary>
         /// Deletes the message.
@@ -232,7 +233,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for adding a reaction to a message you see</permission>
-        /// <returns>Reaction added</returns>
+        /// <returns>Added reaction</returns>
         public abstract Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId);
         /// <summary>
         /// Removes a reaction from the message.
@@ -267,7 +268,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ForumPermissions.ReadForums">Required to create a forum thread in forums you can read</permission>
         /// <permission cref="ForumPermissions.CreateTopics">Required to create forum threads</permission>
-        /// <returns>Forum thread created</returns>
+        /// <returns>Created forum thread</returns>
         public abstract Task<ForumThread> CreateForumThreadAsync(Guid channelId, string title, string content);
         #endregion
 
@@ -287,8 +288,91 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
         /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
-        /// <returns>List item created</returns>
+        /// <returns>Created list item</returns>
         public abstract Task<ListItem> CreateListItemAsync(Guid channelId, string message, string? note = null);
+        #endregion
+
+        #region Docs channel
+        /// <summary>
+        /// Gets a list of documents.
+        /// </summary>
+        /// <remarks>
+        /// <para>Gets latest 50 documents in a specified document channel.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="DocPermissions.ViewDocs">Required to view a list of documents</permission>
+        /// <returns>List of documents</returns>
+        public abstract Task<IList<Doc>> GetDocsAsync(Guid channelId);
+        /// <summary>
+        /// Gets the specified document.
+        /// </summary>
+        /// <remarks>
+        /// <para>Gets the specified document in the provided channel.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="docId">The identifier of the document to get</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="DocPermissions.ViewDocs">Required to view a list of documents</permission>
+        /// <returns>Specified document</returns>
+        public abstract Task<Doc> GetDocAsync(Guid channelId, uint docId);
+        /// <summary>
+        /// Creates a document in document list.
+        /// </summary>
+        /// <remarks>
+        /// <para>Creates a new document in a document channel.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="title">The title of this document</param>
+        /// <param name="content">The Markdown content of this document</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="DocPermissions.ViewDocs">Required to create a document in document channel you can view</permission>
+        /// <permission cref="DocPermissions.CreateDocs">Required to create document</permission>
+        /// <returns>Created document</returns>
+        public abstract Task<Doc> CreatedDocAsync(Guid channelId, string title, string content);
+        /// <summary>
+        /// Updates the document.
+        /// </summary>
+        /// <remarks>
+        /// <para>Updates/edits the specified document.</para>
+        /// <para>This will bump the document to the very top.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="docId">The identifier of the document to update/edit</param>
+        /// <param name="title">The new title of this document</param>
+        /// <param name="content">The new Markdown content of this document</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="DocPermissions.ViewDocs">Required to update a document in document channel you can view</permission>
+        /// <permission cref="DocPermissions.ManageDocs">Required to update/edit documents of others</permission>
+        /// <returns>Updated document</returns>
+        public abstract Task<Doc> UpdateDocAsync(Guid channelId, uint docId, string title, string content);
+        /// <summary>
+        /// Deletes the document.
+        /// </summary>
+        /// <remarks>
+        /// <para>Deletes the specified document.</para>
+        /// </remarks>
+        /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="docId">The identifier of the document to delete</param>
+        /// <exception cref="GuildedException"/>
+        /// <exception cref="GuildedPermissionException"/>
+        /// <exception cref="GuildedResourceException"/>
+        /// <exception cref="GuildedAuthorizationException"/>
+        /// <permission cref="DocPermissions.ViewDocs">Required to update a document in document channel you can view</permission>
+        /// <permission cref="DocPermissions.ManageDocs">Required to update/edit documents of others</permission>
+        public abstract Task DeleteDocAsync(Guid channelId, uint docId);
         #endregion
 
         #region Content
