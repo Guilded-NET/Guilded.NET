@@ -25,37 +25,14 @@
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
-    <!-- JSON related dependencies-->
+    <!-- JSON related dependencies -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
-    
+
     <!-- API-related stuff -->
     <PackageReference Include="RestSharp" Version="106.12.0" />
     <PackageReference Include="Websocket.Client" Version="4.3.38" />
   </ItemGroup>
-  
-  <!-- Documentation -->
-  <ItemGroup Condition=" '$(Configuration)' == 'Docs' ">
-    <PackageReference Include="DefaultDocumentation" Version="0.7.6-beta2">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Docs' ">
-    <DefaultDocumentationFolder>$(MSBuildProjectDirectory)/../Documentation/Guilded.NET.Base</DefaultDocumentationFolder>
-    <DefaultDocumentationFileNameMode>Name</DefaultDocumentationFileNameMode>
-    <DefaultDocumentationAssemblyPageName>Guilded_NET_Base</DefaultDocumentationAssemblyPageName>
-    <!-- For which items to generate documentation for -->
-    <DefaultDocumentationGeneratedPages>Assembly,Types,Members</DefaultDocumentationGeneratedPages>
-    <DefaultDocumentationGeneratedAccessModifiers>Public,ProtectedInternal,Protected</DefaultDocumentationGeneratedAccessModifiers>
-    <!-- Make sure Guilded.NET.Base assembly types won't be thought as Microsoft's types -->
-    <DefaultDocumentationLinksOutputFile>$(MSBuildProjectDirectory)/../Documentation/Guilded.NET.Base.link</DefaultDocumentationLinksOutputFile>
-    <DefaultDocumentationExternLinksFiles>$(MSBuildProjectDirectory)/../Documentation/*.link</DefaultDocumentationExternLinksFiles>
-    <!-- Text -->
-    <DefaultDocumentationRemoveFileExtensionFromLinks>true</DefaultDocumentationRemoveFileExtensionFromLinks>
-    <DefaultDocumentationIgnoreLineBreak>true</DefaultDocumentationIgnoreLineBreak>
-  </PropertyGroup>
-    
 
   <!-- Files to include in Guilded.NET.Base -->
   <ItemGroup>

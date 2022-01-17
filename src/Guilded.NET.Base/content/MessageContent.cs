@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Guilded.NET.Base;
 using Guilded.NET.Base.Embeds;
-using Guilded.NET.Base.Content;
 using Newtonsoft.Json;
 
-namespace Guilded.NET
+namespace Guilded.NET.Base.Content
 {
     /// <summary>
     /// Represents the contents of the message.
