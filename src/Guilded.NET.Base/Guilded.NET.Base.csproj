@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Guilded.NET.Base</Product>
-    <Version>0.4.2</Version>
+    <Version>0.5.0</Version>
     <Description>Whole base for Guilded.NET</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -27,11 +27,11 @@
     <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
     <!-- JSON related dependencies -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.1.1" />
 
     <!-- API-related stuff -->
-    <PackageReference Include="RestSharp" Version="106.12.0" />
-    <PackageReference Include="Websocket.Client" Version="4.3.38" />
+    <PackageReference Include="RestSharp" Version="107.1.1" />
+    <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
 
   <!-- Files to include in Guilded.NET.Base -->

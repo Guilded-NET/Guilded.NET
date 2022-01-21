@@ -14,7 +14,7 @@ namespace Guilded.NET
         #region Webhook
         /// <inheritdoc/>
         private async Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message) =>
-            await ExecuteRequestAsync(new RestRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.POST).AddJsonBody(message)).ConfigureAwait(false);
+            await ExecuteRequestAsync(new RestRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.Post).AddJsonBody(message)).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
             await CreateHookMessageAsync(webhookId, token, new MessageContent(content)).ConfigureAwait(false);
@@ -29,10 +29,10 @@ namespace Guilded.NET
         #region Chat channel
         /// <inheritdoc/>
         public override async Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false) =>
-            await GetObject<IList<Message>>(new RestRequest($"channels/{channelId}/messages?includePrivate={includePrivate}", Method.GET), "messages").ConfigureAwait(false);
+            await GetResponseProperty<IList<Message>>(new RestRequest($"channels/{channelId}/messages?includePrivate={includePrivate}", Method.Get), "messages").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Message> GetMessageAsync(Guid channelId, Guid messageId) =>
-            await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.GET), "message").ConfigureAwait(false);
+            await GetResponseProperty<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.Get), "message").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Message> CreateMessageAsync(Guid channelId, MessageContent message)
         {
@@ -44,7 +44,7 @@ namespace Guilded.NET
             {
                 throw new ArgumentOutOfRangeException(nameof(message.Content), message.Content, $"{nameof(message.Content)} exceeds the 4000 character message limit");
             }
-            return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages", Method.POST).AddJsonBody(message), "message").ConfigureAwait(false);
+            return await GetResponseProperty<Message>(new RestRequest($"channels/{channelId}/messages", Method.Post).AddJsonBody(message), "message").ConfigureAwait(false);
         }
         /// <inheritdoc/>
         public override async Task<Message> UpdateMessageAsync(Guid channelId, Guid messageId, string content)
@@ -54,17 +54,17 @@ namespace Guilded.NET
             else if (content.Length > Message.ContentLimit)
                 throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             else
-                return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.PUT).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);
+                return await GetResponseProperty<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.Put).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);
         }
         /// <inheritdoc/>
         public override async Task DeleteMessageAsync(Guid channelId, Guid messageId) =>
-            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.DELETE)).ConfigureAwait(false);
+            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.Delete)).ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Reaction> AddReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
-            await GetObject<Reaction>(new RestRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.PUT), "emote").ConfigureAwait(false);
+            await GetResponseProperty<Reaction>(new RestRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.Put), "emote").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
-            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.DELETE)).ConfigureAwait(false);
+            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.Delete)).ConfigureAwait(false);
         #endregion
 
         #region Forum channels
@@ -74,7 +74,7 @@ namespace Guilded.NET
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
 
-            return await GetObject<ForumThread>(new RestRequest($"channels/{channelId}/forum", Method.POST)
+            return await GetResponseProperty<ForumThread>(new RestRequest($"channels/{channelId}/forum", Method.Post)
                 .AddJsonBody(new
                 {
                     title,
@@ -91,7 +91,7 @@ namespace Guilded.NET
             if (string.IsNullOrWhiteSpace(message))
                 throw new ArgumentNullException(nameof(message));
 
-            return await GetObject<ListItem>(new RestRequest($"channels/{channelId}/list", Method.POST)
+            return await GetResponseProperty<ListItem>(new RestRequest($"channels/{channelId}/list", Method.Post)
                 .AddJsonBody(new
                 {
                     message,
@@ -104,17 +104,17 @@ namespace Guilded.NET
         #region Document channels
         /// <inheritdoc/>
         public override async Task<IList<Doc>> GetDocsAsync(Guid channelId) =>
-            await GetObject<IList<Doc>>(new RestRequest($"channels/{channelId}/docs", Method.GET), "docs").ConfigureAwait(false);
+            await GetResponseProperty<IList<Doc>>(new RestRequest($"channels/{channelId}/docs", Method.Get), "docs").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Doc> GetDocAsync(Guid channelId, uint docId) =>
-            await GetObject<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.GET), "doc").ConfigureAwait(false);
+            await GetResponseProperty<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.Get), "doc").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Doc> CreatedDocAsync(Guid channelId, string title, string content)
         {
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
 
-            return await GetObject<Doc>(new RestRequest($"channels/{channelId}/docs", Method.POST)
+            return await GetResponseProperty<Doc>(new RestRequest($"channels/{channelId}/docs", Method.Post)
                 .AddJsonBody(new
                 {
                     title,
@@ -128,7 +128,7 @@ namespace Guilded.NET
             if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
             else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
 
-            return await GetObject<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.PUT)
+            return await GetResponseProperty<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.Put)
                 .AddJsonBody(new
                 {
                     title,
@@ -138,16 +138,16 @@ namespace Guilded.NET
         }
         /// <inheritdoc/>
         public override async Task DeleteDocAsync(Guid channelId, uint docId) =>
-            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/docs/{docId}", Method.DELETE)).ConfigureAwait(false);
+            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/docs/{docId}", Method.Delete)).ConfigureAwait(false);
         #endregion
 
         #region Content
         /// <inheritdoc/>
         public override async Task<Reaction> AddReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
-            await GetObject<Reaction>(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.PUT), "emote").ConfigureAwait(false);
+            await GetResponseProperty<Reaction>(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.Put), "emote").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
-            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.DELETE)).ConfigureAwait(false);
+            await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.Delete)).ConfigureAwait(false);
         #endregion
     }
 }

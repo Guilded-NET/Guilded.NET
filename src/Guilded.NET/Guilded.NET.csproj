@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- Library -->
     <Product>Guilded.NET</Product>
-    <Version>0.4.2</Version>
+    <Version>0.5.0</Version>
     <Description>API wrapper for Guilded</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -27,17 +27,17 @@
   <ItemGroup>
     <!-- JSON related dependencies -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.12.0" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.1.1" />
 
     <!-- API-related stuff -->
-    <PackageReference Include="RestSharp" Version="106.12.0" />
+    <PackageReference Include="RestSharp" Version="107.1.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
-    <PackageReference Include="Websocket.Client" Version="4.3.38" />
+    <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.NET.Base" Version="0.4.2" />
+    <PackageReference Include="Guilded.NET.Base" Version="0.5.0" />
   </ItemGroup>
 
   <!-- For testing purposes -->

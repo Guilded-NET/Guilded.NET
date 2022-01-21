@@ -38,7 +38,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <value>Rest client</value>
         /// <seealso cref="Websocket"/>
-        protected internal IRestClient Rest { get; set; }
+        protected internal RestClient Rest { get; set; }
         #endregion
 
         #region Serialization
@@ -97,13 +97,13 @@ namespace Guilded.NET.Base
             if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentException($"{nameof(filename)} can not be empty.");
 
-            IRestRequest req = new RestRequest(GuildedUrl.MediaFileUpload, Method.POST, DataFormat.Json)
+            RestRequest req = new RestRequest(GuildedUrl.MediaFileUpload, Method.Post)
                 .AddFile("file", filedata, filename, contentType)
-                // Make sure Guilded is not angry
-                .AddParameter("uploadTrackingId", FormId.Random.ToString(), "multipart/form-data", ParameterType.GetOrPost)
+                //"multipart/form-data",
+                .AddParameter("uploadTrackingId", FormId.Random, ParameterType.GetOrPost)
                 .AddParameter("Content-Type", "multipart/form-data");
 
-            JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data;
+            JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data!;
 
             return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
         }
@@ -145,7 +145,7 @@ namespace Guilded.NET.Base
             if (url is null)
                 throw new ArgumentException($"{nameof(url)} can not be null.");
 
-            IRestRequest req = new RestRequest(GuildedUrl.MediaUrlUpload, Method.POST);
+            RestRequest req = new(GuildedUrl.MediaUrlUpload, Method.Post);
             /* {
              *   "mediaInfo": { "src": "url" },
              *   "dynamicMediaTypeId": "ContentMedia",
@@ -154,7 +154,7 @@ namespace Guilded.NET.Base
              */
             req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"{FormId.Random}\" }}");
 
-            JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data;
+            JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data!;
 
             return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
         }
@@ -166,7 +166,7 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
         /// <returns>Guilded request response</returns>
-        protected async Task<IRestResponse<object>> ExecuteRequestAsync(IRestRequest request) =>
+        protected async Task<RestResponse<object>> ExecuteRequestAsync(RestRequest request) =>
             await ExecuteRequestAsync<object>(request).ConfigureAwait(false);
         /// <summary>
         /// Executes a request and receives ra esponse or an error.
@@ -177,13 +177,13 @@ namespace Guilded.NET.Base
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
         /// <returns>Guilded request response</returns>
-        protected async Task<IRestResponse<T>> ExecuteRequestAsync<T>(IRestRequest request)
+        protected async Task<RestResponse<T>> ExecuteRequestAsync<T>(RestRequest request)
         {
-            IRestResponse<T> response = await Rest.ExecuteAsync<T>(request).ConfigureAwait(false);
+            RestResponse<T> response = await Rest.ExecuteAsync<T>(request).ConfigureAwait(false);
 
             if (!response.IsSuccessful)
             {
-                JToken token = JToken.Parse(response.Content);
+                JToken token = JToken.Parse(response.Content!);
                 JObject obj = (JObject)token;
 
                 // For giving Guilded exception more information

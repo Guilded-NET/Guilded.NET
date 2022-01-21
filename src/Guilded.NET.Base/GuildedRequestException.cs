@@ -42,7 +42,7 @@ namespace Guilded.NET.Base
         /// <param name="code">The name of the error from Guilded API</param>
         /// <param name="message">The description of the error from Guilded API</param>
         /// <param name="response">The response that was received from Guilded API</param>
-        public GuildedRequestException(string code, string message, IRestResponse response) : base(code, message, response) { }
+        public GuildedRequestException(string code, string message, RestResponse response) : base(code, message, response) { }
         /// <summary>
         /// Creates a new instance of <see cref="GuildedRequestException"/> with default message.
         /// </summary>

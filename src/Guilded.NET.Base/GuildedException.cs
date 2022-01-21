@@ -29,7 +29,7 @@ namespace Guilded.NET.Base
         /// The response that was received from Guilded API.
         /// </summary>
         /// <value>REST Response</value>
-        public IRestResponse? Response { get; }
+        public RestResponse? Response { get; }
         /// <summary>
         /// The HTTP status that was found in the response.
         /// </summary>
@@ -46,7 +46,7 @@ namespace Guilded.NET.Base
         /// <param name="code">The name of the error from Guilded API</param>
         /// <param name="message">The description of the error from Guilded API</param>
         /// <param name="response">The response that was received from Guilded API</param>
-        public GuildedException(string code, string message, IRestResponse response) : this(message) =>
+        public GuildedException(string code, string message, RestResponse response) : this(message) =>
             (Code, Response) = (code, response);
         /// <summary>
         /// Creates a new instance of <see cref="GuildedException"/> with default message.

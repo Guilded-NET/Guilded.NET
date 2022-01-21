@@ -108,7 +108,7 @@ namespace Guilded.NET
             // Dispose them entirely; they aren't disposed by DisconnectAsync, only shut down
             Websocket.Dispose();
         }
-        private async Task<T> GetObject<T>(IRestRequest request, object key) =>
-            (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data[key]!.ToObject<T>(GuildedSerializer)!;
+        private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>
+            (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;
     }
 }
