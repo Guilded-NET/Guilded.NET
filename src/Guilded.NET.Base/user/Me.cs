@@ -65,7 +65,7 @@
 //         /// </summary>
 //         /// <value>User ID</value>
 //         [JsonIgnore]
-//         public GId Id => User.Id;
+//         public Hashid Id => User.Id;
 //         /// <summary>
 //         /// Count of how many teams this client is in.
 //         /// </summary>
@@ -78,7 +78,7 @@
 //         /// </summary>
 //         /// <param name="teamId">ID of the team</param>
 //         /// <returns>Is in a team with given ID</returns>
-//         public bool InTeam(GId teamId) =>
+//         public bool InTeam(HashId teamId) =>
 //             Teams.Any(team => team.Id == teamId);
 //         #endregion
 //     }

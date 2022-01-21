@@ -9,15 +9,16 @@ namespace Guilded.NET.Base.Content
     /// <remarks>
     /// <para>Defines the base type for all channel contents, apart from deleted ones.</para>
     /// </remarks>
-    /// <typeparam name="T">The type of the identifier <see cref="Id"/></typeparam>
-    public abstract class ChannelContent<T> : ClientObject where T : notnull
+    /// <typeparam name="T">The type of the content identifier (property <see cref="Id"/>)</typeparam>
+    /// <typeparam name="S">The type of the server identifier (property <see cref="ServerId"/>)</typeparam>
+    public abstract class ChannelContent<T, S> : ClientObject where T : notnull
     {
         #region JSON properties
         /// <summary>
         /// The identifier of the content.
         /// </summary>
         /// <remarks>
-        /// <para>The identifier of the content that was created. Usually a <see cref="Guid"/>, <see cref="uint"/> or <see cref="GId"/>.</para>
+        /// <para>The identifier of the content that was created. Usually a <see cref="Guid"/>, <see cref="uint"/> or <see cref="HashId"/>.</para>
         /// </remarks>
         /// <value>Content ID</value>
         public T Id
@@ -36,6 +37,18 @@ namespace Guilded.NET.Base.Content
         {
             get; set;
         }
+        /// <summary>
+        /// The identifier of the server where the content is.
+        /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the server where the content was found.</para>
+        /// <para>The server can be either optional or not optional. This depends whether the content is global or server-wide. Content like forum threads will be server-wide, while content like chat messages and reactions will be global.</para>
+        /// </remarks>
+        /// <value>Server ID or Server ID?</value>
+        public S ServerId
+        {
+            get; set;
+        }
 
         #region Who, when
         /// <summary>
@@ -46,7 +59,7 @@ namespace Guilded.NET.Base.Content
         /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
         /// </remarks>
         /// <value>User ID</value>
-        public GId CreatedBy
+        public HashId CreatedBy
         {
             get; set;
         }
@@ -67,26 +80,15 @@ namespace Guilded.NET.Base.Content
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
+        /// Creates a new instance of <see cref="ChannelContent{T,S}"/> with provided details.
         /// </summary>
         /// <param name="id">The identifier of the content</param>
         /// <param name="channelId">The identifier of the channel where the content is</param>
+        /// <param name="serverId">The identifier of the server where the content is</param>
         /// <param name="createdBy">The identifier of the user creator of the content</param>
         /// <param name="createdAt">The date of when the content was created</param>
-        protected ChannelContent(
-            [JsonProperty(Required = Required.Always)]
-            T id,
-
-            [JsonProperty(Required = Required.Always)]
-            Guid channelId,
-
-            [JsonProperty(Required = Required.Always)]
-            GId createdBy,
-
-            [JsonProperty(Required = Required.Always)]
-            DateTime createdAt
-        ) =>
-            (Id, ChannelId, CreatedBy, CreatedAt) = (id, channelId, createdBy, createdAt);
+        protected ChannelContent(T id, Guid channelId, S serverId, HashId createdBy, DateTime createdAt) =>
+            (Id, ChannelId, ServerId, CreatedBy, CreatedAt) = (id, channelId, serverId, createdBy, createdAt);
         #endregion
 
         #region Overrides
@@ -96,7 +98,7 @@ namespace Guilded.NET.Base.Content
         /// <param name="obj">Another instance to compare</param>
         /// <returns>Instances are equal</returns>
         public override bool Equals(object? obj) =>
-            obj is ChannelContent<T> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
+            obj is ChannelContent<T, S> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
         /// <summary>
         /// Gets a hashcode of this instance.
         /// </summary>

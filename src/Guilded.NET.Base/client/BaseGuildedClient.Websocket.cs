@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Net.WebSockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Threading.Tasks;
-using System.Timers;
 using Websocket.Client;
-using Websocket.Client.Exceptions;
 
 namespace Guilded.NET.Base
 {
@@ -71,7 +66,7 @@ namespace Guilded.NET.Base
             {
                 //Websocket.NativeClient.Options.KeepAliveInterval = TimeSpan.FromMilliseconds(@event.RawData.Value<double>("heartbeatIntervalMs"));
             }
-            else if(@event.Opcode == close_opcode)
+            else if (@event.Opcode == close_opcode)
             {
                 OnWebsocketMessage.OnError(
                     new GuildedWebsocketException(response, @event!.RawData?.Value<string>("message")!)

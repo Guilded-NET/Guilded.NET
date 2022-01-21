@@ -11,7 +11,7 @@ namespace Guilded.NET.Base.Users
     /// <para>Defines a type of <see cref="SocialLink"/> that user holds.</para>
     /// </remarks>
     /// <seealso cref="SocialLink"/>
-    /// <seealso cref="Teams.Member"/>
+    /// <seealso cref="Servers.Member"/>
     [JsonConverter(typeof(StringEnumConverter), true)]
     public enum SocialLinkType
     {

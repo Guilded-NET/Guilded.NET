@@ -1,6 +1,6 @@
-using System.Linq;
 using System.Collections.Generic;
-using Guilded.NET.Base.Teams;
+using System.Linq;
+using Guilded.NET.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Events
@@ -31,6 +31,17 @@ namespace Guilded.NET.Base.Events
         {
             get; set;
         }
+        /// <summary>
+        /// The identifier of the server where roles were updated.
+        /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the server where the members were given a role or removed from a role.</para>
+        /// </remarks>
+        /// <value>Server ID</value>
+        public HashId ServerId
+        {
+            get;
+        }
         #endregion
 
         #region Properties
@@ -43,20 +54,24 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         /// <returns>Array of user IDs</returns>
         [JsonIgnore]
-        public GId[] UpdatedUsers => MemberRoleIds.Select(x => x.UserId).ToArray();
+        public HashId[] UpdatedUsers => MemberRoleIds.Select(x => x.UserId).ToArray();
         #endregion
 
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="RolesUpdatedEvent"/>. This is currently only used in deserialization.
         /// </summary>
+        /// <param name="serverId">The identifier of the server where roles were updated</param>
         /// <param name="memberRoleIds">The list of roles and role holders</param>
         [JsonConstructor]
         public RolesUpdatedEvent(
             [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
+            [JsonProperty(Required = Required.Always)]
             IList<RolesUpdated> memberRoleIds
         ) =>
-            MemberRoleIds = memberRoleIds;
+            (ServerId, MemberRoleIds) = (serverId, memberRoleIds);
         #endregion
 
         /// <summary>
@@ -77,7 +92,7 @@ namespace Guilded.NET.Base.Events
             /// <para>The identifier of the user that has received all roles in <see cref="RoleIds"/> list.</para>
             /// </remarks>
             /// <value>User ID</value>
-            public GId UserId
+            public HashId UserId
             {
                 get; set;
             }
@@ -104,7 +119,7 @@ namespace Guilded.NET.Base.Events
             [JsonConstructor]
             public RolesUpdated(
                 [JsonProperty(Required = Required.Always)]
-                GId userId,
+                HashId userId,
 
                 [JsonProperty(Required = Required.Always)]
                 IList<uint> roleIds

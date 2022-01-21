@@ -46,19 +46,22 @@ namespace Guilded.NET.Base.Events
     public class MessageEvent : MessageEvent<Message>
     {
         #region Properties
-        /// <inheritdoc cref="ChannelContent{T}.ChannelId"/>
+        /// <inheritdoc cref="ChannelContent{T, S}.ChannelId"/>
         [JsonIgnore]
         public Guid ChannelId => Message.ChannelId;
+        /// <inheritdoc cref="ChannelContent{T, S}.ServerId"/>
+        [JsonIgnore]
+        public HashId? ServerId => Message.ServerId;
         /// <inheritdoc cref="Message.Content"/>
         [JsonIgnore]
         public string Content => Message.Content;
-        /// <inheritdoc cref="ChannelContent{T}.CreatedBy"/>
+        /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy"/>
         [JsonIgnore]
-        public GId CreatedBy => Message.CreatedBy;
+        public HashId CreatedBy => Message.CreatedBy;
         /// <inheritdoc cref="Message.CreatedByWebhook"/>
         [JsonIgnore]
         public Guid? CreatedByWebhook => Message.CreatedByWebhook;
-        /// <inheritdoc cref="ChannelContent{T}.CreatedAt"/>
+        /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt"/>
         [JsonIgnore]
         public DateTime CreatedAt => Message.CreatedAt;
         /// <inheritdoc cref="Message.Type"/>

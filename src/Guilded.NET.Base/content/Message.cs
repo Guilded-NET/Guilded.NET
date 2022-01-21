@@ -18,8 +18,19 @@ namespace Guilded.NET.Base.Content
     /// <seealso cref="ForumThread"/>
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
-    public class Message : ChannelContent<Guid>, IUpdatableContent, IWebhookCreatable, IReactibleContent
+    public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent
     {
+        #region Static
+        /// <summary>
+        /// The limit of the message content
+        /// </summary>
+        /// <remarks>
+        /// <para>The count of how many max characters there can be in a message.</para>
+        /// </remarks>
+        /// <value>4000</value>
+        public const int ContentLimit = 4000;
+        #endregion
+
         #region JSON properties
 
         #region Content
@@ -111,6 +122,7 @@ namespace Guilded.NET.Base.Content
         /// </summary>
         /// <param name="id">The identifier of the message</param>
         /// <param name="channelId">The identifier of the channel where the message is</param>
+        /// <param name="serverId">The identifier of the server where the message is</param>
         /// <param name="content">The contents of the message</param>
         /// <param name="replyMessageIds">The list of messages being replied to</param>
         /// <param name="isPrivate">Whether the reply is private</param>
@@ -125,21 +137,27 @@ namespace Guilded.NET.Base.Content
             [JsonProperty(Required = Required.Always)]
             Guid channelId,
 
+            [JsonProperty]
+            HashId? serverId,
+
             [JsonProperty(Required = Required.Always)]
             string content,
 
+            [JsonProperty]
             IList<Guid>? replyMessageIds,
 
+            [JsonProperty]
             bool isPrivate,
 
             [JsonProperty(Required = Required.Always)]
-            GId createdBy,
+            HashId createdBy,
 
+            [JsonProperty]
             Guid? createdByWebhookId,
 
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt
-        ) : base(id, channelId, createdBy, createdAt) =>
+        ) : base(id, channelId, serverId, createdBy, createdAt) =>
             (Content, ReplyMessageIds, IsPrivate, CreatedByWebhook) = (content, replyMessageIds, isPrivate, createdByWebhookId);
         #endregion
 
@@ -148,7 +166,7 @@ namespace Guilded.NET.Base.Content
         /// Creates a message in a chat.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T}.ChannelId"/> where the message is.</para>
+        /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T, S}.ChannelId"/> where the message is.</para>
         /// <para>This does not automatically include the message in the reply list.</para>
         /// </remarks>
         /// <param name="content">The contents of the message in Markdown plain text</param>
@@ -180,7 +198,7 @@ namespace Guilded.NET.Base.Content
         /// Replies to the message in the chat.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T}.ChannelId"/> where the message is.</para>
+        /// <para>Creates a new message in the channel of identifier <see cref="ChannelContent{T, S}.ChannelId"/> where the message is.</para>
         /// <para>Includes the message in the reply list.</para>
         /// </remarks>
         /// <param name="content">The contents of the message in Markdown plain text</param>

@@ -56,10 +56,18 @@ namespace Guilded.NET.Base.Events
                 get; set;
             }
             /// <summary>
-            /// The identifier of the channel where the message is.
+            /// The identifier of the channel where the message was.
             /// </summary>
             /// <value>Channel ID</value>
             public Guid ChannelId
+            {
+                get; set;
+            }
+            /// <summary>
+            /// The identifier of the server where the message was.
+            /// </summary>
+            /// <value>Server ID?</value>
+            public HashId? ServerId
             {
                 get; set;
             }
@@ -81,7 +89,8 @@ namespace Guilded.NET.Base.Events
             /// The identifier of the message.
             /// </summary>
             /// <param name="id">The identifier of the message</param>
-            /// <param name="channelId">The identifier of the channel where the message is</param>
+            /// <param name="channelId">The identifier of the channel where the message was</param>
+            /// <param name="serverId">The identifier of the server where the message was</param>
             /// <param name="deletedAt">The date of when the message was deleted</param>
             [JsonConstructor]
             public MessageDeleted(
@@ -91,10 +100,13 @@ namespace Guilded.NET.Base.Events
                 [JsonProperty(Required = Required.Always)]
                 Guid channelId,
 
+                [JsonProperty]
+                HashId serverId,
+
                 [JsonProperty(Required = Required.Always)]
                 DateTime deletedAt
             ) =>
-                (Id, ChannelId, DeletedAt) = (id, channelId, deletedAt);
+                (Id, ChannelId, ServerId, DeletedAt) = (id, channelId, serverId, deletedAt);
             #endregion
 
             #region Overrides

@@ -12,7 +12,7 @@ namespace Guilded.NET.Base.Content
     /// <remarks>
     /// <para>A document with a <see cref="Title"/> and the <see cref="Content"/>, similarly to <see cref="ForumThread"/>.</para>
     /// </remarks>
-    public class Doc : ChannelContent<uint>, IUpdatableContent, IReactibleContent
+    public class Doc : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent
     {
         #region JSON properties
 
@@ -61,7 +61,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The identifier of the user who updated this document. Only includes the person who updated this document most recently.</para>
         /// </remarks>
         /// <value>User ID?</value>
-        public GId? UpdatedBy
+        public HashId? UpdatedBy
         {
             get; set;
         }
@@ -69,16 +69,17 @@ namespace Guilded.NET.Base.Content
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="ChannelContent{T}"/> with provided details.
+        /// Creates a new instance of <see cref="Doc"/> with provided details.
         /// </summary>
         /// <param name="id">The identifier of the content</param>
-        /// <param name="channelId">The identifier of the channel where the content is</param>
+        /// <param name="channelId">The identifier of the channel where the document is</param>
+        /// <param name="serverId">The identifier of the server where the document is</param>
         /// <param name="title">The title of the document</param>
         /// <param name="content">The contents of the document</param>
-        /// <param name="createdBy">The identifier of the user creator of the content</param>
-        /// <param name="createdAt">The date of when the content was created</param>
-        /// <param name="updatedBy">The identifier of the user who recently updated the content</param>
-        /// <param name="updatedAt">The date of when the content was recently updated</param>
+        /// <param name="createdBy">The identifier of the user creator of the document</param>
+        /// <param name="createdAt">The date of when the document was created</param>
+        /// <param name="updatedBy">The identifier of the user who recently updated the document</param>
+        /// <param name="updatedAt">The date of when the document was recently updated</param>
         [JsonConstructor]
         public Doc(
             [JsonProperty(Required = Required.Always)]
@@ -88,21 +89,26 @@ namespace Guilded.NET.Base.Content
             Guid channelId,
 
             [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
+            [JsonProperty(Required = Required.Always)]
             string title,
 
             [JsonProperty(Required = Required.Always)]
             string content,
 
             [JsonProperty(Required = Required.Always)]
-            GId createdBy,
+            HashId createdBy,
 
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt,
 
-            GId? updatedBy,
+            [JsonProperty]
+            HashId? updatedBy,
 
+            [JsonProperty]
             DateTime? updatedAt
-        ) : base(id, channelId, createdBy, createdAt) =>
+        ) : base(id, channelId, serverId, createdBy, createdAt) =>
             (Title, Content, UpdatedBy, UpdatedAt) = (title, content, updatedBy, updatedAt);
         #endregion
 

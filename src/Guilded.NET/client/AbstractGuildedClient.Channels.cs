@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Guilded.NET.Base;
 using Guilded.NET.Base.Content;
 using Guilded.NET.Base.Embeds;
-using Guilded.NET.Base.Permissions;
 using RestSharp;
 
 namespace Guilded.NET
@@ -41,7 +40,7 @@ namespace Guilded.NET
             {
                 throw new ArgumentNullException(nameof(message.Content));
             }
-            else if (message.Content.Length > MessageLimit)
+            else if (message.Content.Length > Message.ContentLimit)
             {
                 throw new ArgumentOutOfRangeException(nameof(message.Content), message.Content, $"{nameof(message.Content)} exceeds the 4000 character message limit");
             }
@@ -52,7 +51,7 @@ namespace Guilded.NET
         {
             if (string.IsNullOrWhiteSpace(content))
                 throw new ArgumentNullException(nameof(content));
-            else if (content.Length > MessageLimit)
+            else if (content.Length > Message.ContentLimit)
                 throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
             else
                 return await GetObject<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.PUT).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);

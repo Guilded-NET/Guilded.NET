@@ -13,7 +13,7 @@ namespace Guilded.NET.Base.Events
     /// </remarks>
     /// <seealso cref="WelcomeEvent"/>
     /// <seealso cref="RolesUpdatedEvent"/>
-    /// <seealso cref="Teams.Member"/>
+    /// <seealso cref="Servers.Member"/>
     public class XpAddedEvent : BaseObject
     {
         #region JSON properties
@@ -25,7 +25,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The set can contain more than one member.</para>
         /// </remarks>
         /// <value>List of user IDs</value>
-        public ISet<GId> Users
+        public ISet<HashId> Users
         {
             get; set;
         }
@@ -52,7 +52,7 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         /// <returns>User ID</returns>
         [JsonIgnore]
-        public GId FirstUser => Users.First();
+        public HashId FirstUser => Users.First();
         /// <summary>
         /// Gets the last XP receiving user.
         /// </summary>
@@ -61,7 +61,7 @@ namespace Guilded.NET.Base.Events
         /// </remarks>
         /// <returns>User ID</returns>
         [JsonIgnore]
-        public GId LastUser => Users.Last();
+        public HashId LastUser => Users.Last();
         #endregion
 
         #region Constructors
@@ -73,7 +73,7 @@ namespace Guilded.NET.Base.Events
         [JsonConstructor]
         public XpAddedEvent(
             [JsonProperty(Required = Required.Always)]
-            ISet<GId> userIds,
+            ISet<HashId> userIds,
 
             [JsonProperty(Required = Required.Always)]
             long amount

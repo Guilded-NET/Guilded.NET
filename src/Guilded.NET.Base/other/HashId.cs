@@ -9,7 +9,7 @@ namespace Guilded.NET.Base
     /// An identifier for Guilded teams, users, etc.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of various Guilded objects. Guilded identifier is 8 characters in length and consists of digits, uppercase letters and lowercase letters.</para>
+    /// <para>The identifier of various Guilded objects. Guilded hash identifier is 8 characters in length and consists of digits, uppercase letters and lowercase letters.</para>
     /// <para>This can be found in:</para>
     /// <list type="bullet">
     ///     <item>
@@ -30,7 +30,7 @@ namespace Guilded.NET.Base
     /// </list>
     /// </remarks>
     /// <example>
-    /// <para>The list of random Guilded identifiers:</para>
+    /// <para>The list of random Guilded hash identifiers:</para>
     /// <code language="none">
     /// R40Mp0Wd
     /// Ann6LewA
@@ -38,9 +38,9 @@ namespace Guilded.NET.Base
     /// </example>
     /// <seealso cref="Guid"/>
     /// <seealso cref="FormId"/>
-    [TypeConverter(typeof(GIdConverter))]
+    [TypeConverter(typeof(HashIdConverter))]
     [JsonConverter(typeof(IdConverter))]
-    public readonly struct GId : IEquatable<GId>
+    public readonly struct HashId : IEquatable<HashId>
     {
         internal readonly string _;
         private const int idLength = 8;
@@ -49,9 +49,9 @@ namespace Guilded.NET.Base
         /// <summary>
         /// The identifier for Guilded teams, users, etc.
         /// </summary>
-        /// <param name="id">The raw string in the format of Guilded ID</param>
+        /// <param name="id">The raw string in the format of Guilded Hash ID</param>
         /// <exception cref="FormatException">When the given ID string is in incorrect format</exception>
-        public GId(string id)
+        public HashId(string id)
         {
             // Make sure it's in correct format
             if (id?.Length != idLength || !Check(id))
@@ -62,9 +62,9 @@ namespace Guilded.NET.Base
 
         #region Overrides
         /// <summary>
-        /// Returns the string representation of this <see cref="GId"/> instance.
+        /// Returns the string representation of this <see cref="HashId"/> instance.
         /// </summary>
-        /// <returns><see cref="GId"/> as string</returns>
+        /// <returns><see cref="HashId"/> as string</returns>
         public override string ToString() =>
             _;
         /// <summary>
@@ -74,19 +74,19 @@ namespace Guilded.NET.Base
         public override int GetHashCode() =>
             HashCode.Combine(_, 2);
         /// <summary>
-        /// Returns whether this <see cref="GId"/> instance and <paramref name="other"/> are equal.
+        /// Returns whether this <see cref="HashId"/> instance and <paramref name="other"/> are equal.
         /// </summary>
         /// <param name="other">Another identifier to compare</param>
         /// <returns>Both are equal</returns>
-        public bool Equals(GId other) =>
+        public bool Equals(HashId other) =>
             other._ == _;
         /// <summary>
-        /// Returns whether this <see cref="GId"/> instance and <paramref name="obj"/> are equal.
+        /// Returns whether this <see cref="HashId"/> instance and <paramref name="obj"/> are equal.
         /// </summary>
         /// <param name="obj">Another object to compare</param>
         /// <returns>Both are equal</returns>
         public override bool Equals(object? obj) =>
-            obj is GId id && Equals(id);
+            obj is HashId id && Equals(id);
         #endregion
 
         #region Operators
@@ -96,7 +96,7 @@ namespace Guilded.NET.Base
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
         /// <returns>Both are equal</returns>
-        public static bool operator ==(GId id0, GId id1) =>
+        public static bool operator ==(HashId id0, HashId id1) =>
             id0._ == id1._;
         /// <summary>
         /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are not equal.
@@ -104,7 +104,7 @@ namespace Guilded.NET.Base
         /// <param name="id0">First ID to be compared</param>
         /// <param name="id1">Second ID to be compared</param>
         /// <returns>Both aren't equal</returns>
-        public static bool operator !=(GId id0, GId id1) =>
+        public static bool operator !=(HashId id0, HashId id1) =>
             !(id0 == id1);
         #endregion
 

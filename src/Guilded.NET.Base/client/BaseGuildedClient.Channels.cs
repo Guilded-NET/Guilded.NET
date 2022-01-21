@@ -10,14 +10,6 @@ namespace Guilded.NET.Base
 {
     public abstract partial class BaseGuildedClient
     {
-        /// <summary>
-        /// The chat message character limit.
-        /// </summary>
-        /// <remarks>
-        /// <para>The <c>4000</c> character limit in chat message's content.</para>
-        /// </remarks>
-        protected const int MessageLimit = 4000;
-
         #region Webhook
         /// <summary>
         /// Creates a message in a chat using provided webhook.

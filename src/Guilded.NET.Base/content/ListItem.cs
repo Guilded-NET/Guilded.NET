@@ -13,7 +13,7 @@ namespace Guilded.NET.Base.Content
     /// </remarks>
     /// <seealso cref="Message"/>
     /// <seealso cref="ForumThread"/>
-    public class ListItem : ChannelContent<Guid>, IWebhookCreatable
+    public class ListItem : ChannelContent<Guid, HashId>, IWebhookCreatable
     {
         #region JSON properties
         /// <summary>
@@ -57,13 +57,14 @@ namespace Guilded.NET.Base.Content
         /// <summary>
         /// Creates a new instance of <see cref="ListItem"/> with provided details.
         /// </summary>
-        /// <param name="id">The identifier of the content</param>
-        /// <param name="channelId">The identifier of the channel where the content is</param>
+        /// <param name="id">The identifier of the list item</param>
+        /// <param name="channelId">The identifier of the channel where the list item is</param>
+        /// <param name="serverId">The identifier of the server where the list item is</param>
         /// <param name="message">The contents of the message in list item</param>
         /// <param name="note">The contents of the note in list item</param>
-        /// <param name="createdBy">The identifier of the user creator of the content</param>
-        /// <param name="createdByWebhookId">The identifier of the webhook creator of the content</param>
-        /// <param name="createdAt">The date of when the content was created</param>
+        /// <param name="createdBy">The identifier of the user creator of the list item</param>
+        /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
+        /// <param name="createdAt">The date of when the list item was created</param>
         [JsonConstructor]
         public ListItem(
             [JsonProperty(Required = Required.Always)]
@@ -73,18 +74,23 @@ namespace Guilded.NET.Base.Content
             Guid channelId,
 
             [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
+            [JsonProperty(Required = Required.Always)]
             string message,
 
+            [JsonProperty]
             string? note,
 
             [JsonProperty(Required = Required.Always)]
-            GId createdBy,
+            HashId createdBy,
 
+            [JsonProperty]
             Guid? createdByWebhookId,
 
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt
-        ) : base(id, channelId, createdBy, createdAt) =>
+        ) : base(id, channelId, serverId, createdBy, createdAt) =>
             (Message, Note, CreatedByWebhook) = (message, note, createdByWebhookId);
         #endregion
     }

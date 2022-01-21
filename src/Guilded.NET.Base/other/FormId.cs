@@ -22,7 +22,7 @@ namespace Guilded.NET.Base
     /// </code>
     /// </example>
     /// <seealso cref="Guid"/>
-    /// <seealso cref="GId"/>
+    /// <seealso cref="HashId"/>
     [TypeConverter(typeof(FormIdConverter))]
     [JsonConverter(typeof(IdConverter))]
     public readonly struct FormId : IEquatable<FormId>
@@ -45,7 +45,7 @@ namespace Guilded.NET.Base
         {
             // Make sure it's in correct format
             if (!Check(id))
-                throw GId.FormatError;
+                throw HashId.FormatError;
 
             _ = id;
         }

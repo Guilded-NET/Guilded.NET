@@ -1,5 +1,5 @@
+using Guilded.NET.Base.Servers;
 using Newtonsoft.Json;
-using Guilded.NET.Base.Teams;
 
 namespace Guilded.NET.Base.Events
 {
@@ -28,6 +28,17 @@ namespace Guilded.NET.Base.Events
         {
             get; set;
         }
+        /// <summary>
+        /// The identifier of the server where member was updated.
+        /// </summary>
+        /// <remarks>
+        /// <para>The identifier of the server where the member was given a new nickname, lost a nickname or any other update occurred.</para>
+        /// </remarks>
+        /// <value>Server ID</value>
+        public HashId ServerId
+        {
+            get;
+        }
         #endregion
 
         #region Properties
@@ -39,20 +50,24 @@ namespace Guilded.NET.Base.Events
         /// <para>Fetched from <see cref="UserInfo"/> property.</para>
         /// </remarks>
         [JsonIgnore]
-        public GId MemberId => UserInfo.Id;
+        public HashId MemberId => UserInfo.Id;
         #endregion
 
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="MemberUpdatedEvent"/>. This is currently only used in deserialization.
         /// </summary>
+        /// <param name="serverId">The identifier of the server where the member was updated</param>
         /// <param name="userInfo">The info about updated member</param>
         [JsonConstructor]
         public MemberUpdatedEvent(
             [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
+            [JsonProperty(Required = Required.Always)]
             Member userInfo
         ) =>
-            UserInfo = userInfo;
+            (ServerId, UserInfo) = (serverId, userInfo);
         #endregion
     }
 }

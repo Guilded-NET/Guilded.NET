@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Guilded.NET.Base.Users;
 using Newtonsoft.Json;
 
-namespace Guilded.NET.Base.Teams
+namespace Guilded.NET.Base.Servers
 {
     /// <summary>
     /// A member in a member list.
@@ -19,7 +19,7 @@ namespace Guilded.NET.Base.Teams
         /// </summary>
         /// <value>User ID</value>
         [JsonProperty(Required = Required.Always)]
-        public GId Id
+        public HashId Id
         {
             get; set;
         }
@@ -37,24 +37,24 @@ namespace Guilded.NET.Base.Teams
         #endregion
 
         #region Additional
-        /// <inheritdoc cref="BaseGuildedClient.GetSocialLinkAsync(GId, SocialLinkType)"/>
-        public async Task<SocialLink> GetSocialLinkAsync(SocialLinkType linkType) =>
-            await ParentClient.GetSocialLinkAsync(Id, linkType).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(GId, string)"/>
-        public async Task<string> UpdateNicknameAsync(string nickname) =>
-            await ParentClient.UpdateNicknameAsync(Id, nickname).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.GetSocialLinkAsync(HashId, HashId, SocialLinkType)"/>
+        public async Task<SocialLink> GetSocialLinkAsync(HashId serverId, SocialLinkType linkType) =>
+            await ParentClient.GetSocialLinkAsync(serverId, Id, linkType).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)"/>
+        public async Task<string> UpdateNicknameAsync(HashId serverId, string nickname) =>
+            await ParentClient.UpdateNicknameAsync(serverId, Id, nickname).ConfigureAwait(false);
         /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(System.Guid, System.Guid)"/>
-        public async Task DeleteNicknameAsync() =>
-            await ParentClient.DeleteNicknameAsync(Id).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(GId, uint)"/>
-        public async Task AddRoleAsync(uint roleId) =>
-            await ParentClient.AddRoleAsync(Id, roleId).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(GId, uint)"/>
-        public async Task RemoveRoleAsync(uint roleId) =>
-            await ParentClient.RemoveRoleAsync(Id, roleId).ConfigureAwait(false);
-        /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(GId, long)"/>
-        public async Task<long> AddXpAsync(short amount) =>
-            await ParentClient.AddXpAsync(Id, amount).ConfigureAwait(false);
+        public async Task DeleteNicknameAsync(HashId serverId) =>
+            await ParentClient.DeleteNicknameAsync(serverId, Id).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)"/>
+        public async Task AddRoleAsync(HashId serverId, uint roleId) =>
+            await ParentClient.AddRoleAsync(serverId, Id, roleId).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(HashId, HashId, uint)"/>
+        public async Task RemoveRoleAsync(HashId serverId, uint roleId) =>
+            await ParentClient.RemoveRoleAsync(serverId, Id, roleId).ConfigureAwait(false);
+        /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, long)"/>
+        public async Task<long> AddXpAsync(HashId serverId, short amount) =>
+            await ParentClient.AddXpAsync(serverId, Id, amount).ConfigureAwait(false);
         #endregion
     }
 }
