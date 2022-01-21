@@ -18,11 +18,7 @@ namespace Guilded.NET.Base.Content
         /// The identifier of the emote reacted with.
         /// </summary>
         /// <value>Emote ID</value>
-        [JsonProperty(Required = Required.Always)]
-        public uint Id
-        {
-            get; set;
-        }
+        public uint Id { get; }
         /// <summary>
         /// The identifier of the server where the content is.
         /// </summary>
@@ -31,19 +27,12 @@ namespace Guilded.NET.Base.Content
         /// <para>The server can be either optional or not optional. This depends whether the content is global or server-wide. Content like forum threads will be server-wide, while content like chat messages and reactions will be global.</para>
         /// </remarks>
         /// <value>Server ID?</value>
-        public HashId? ServerId
-        {
-            get; set;
-        }
+        public HashId? ServerId { get; }
         /// <summary>
         /// The date of when this reaction was created.
         /// </summary>
         /// <value>Created at</value>
-        [JsonProperty(Required = Required.Always)]
-        public DateTime CreatedAt
-        {
-            get; set;
-        }
+        public DateTime CreatedAt { get; }
         /// <summary>
         /// The identifier of the user creator of the reaction.
         /// </summary>
@@ -52,11 +41,7 @@ namespace Guilded.NET.Base.Content
         /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
         /// </remarks>
         /// <value>User ID</value>
-        [JsonProperty(Required = Required.Always)]
-        public HashId CreatedBy
-        {
-            get; set;
-        }
+        public HashId CreatedBy { get; }
         /// <summary>
         /// The identifier of the webhook creator of the reaction.
         /// </summary>
@@ -65,11 +50,7 @@ namespace Guilded.NET.Base.Content
         /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
         /// </remarks>
         /// <value>Webhook ID?</value>
-        [JsonProperty("createdByWebhookId")]
-        public Guid? CreatedByWebhook
-        {
-            get; set;
-        }
+        public Guid? CreatedByWebhook { get; }
         #endregion
 
         #region Constructors

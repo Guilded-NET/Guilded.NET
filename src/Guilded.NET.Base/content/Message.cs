@@ -42,10 +42,7 @@ namespace Guilded.NET.Base.Content
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
         /// <value>Markdown string</value>
-        public string Content
-        {
-            get; set;
-        }
+        public string Content { get; }
         /// <summary>
         /// The list of messages being replied to.
         /// </summary>
@@ -53,10 +50,7 @@ namespace Guilded.NET.Base.Content
         /// <para>Specifies which messages were replied to in this message. The max reply limit is 5.</para>
         /// </remarks>
         /// <value>List of message IDs?</value>
-        public IList<Guid>? ReplyMessageIds
-        {
-            get; set;
-        }
+        public IList<Guid>? ReplyMessageIds { get; }
         /// <summary>
         /// Whether the reply is private.
         /// </summary>
@@ -65,10 +59,7 @@ namespace Guilded.NET.Base.Content
         /// <para>This can only be <see langword="true"/> if <see cref="ReplyMessageIds"/> has a value.</para>
         /// </remarks>
         /// <value>Reply is private</value>
-        public bool IsPrivate
-        {
-            get; set;
-        }
+        public bool IsPrivate { get; }
         /// <summary>
         /// Whether the specified message is a reply
         /// </summary>
@@ -87,10 +78,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The identifier of the webhook that created this message.</para>
         /// </remarks>
         /// <value>Webhook ID?</value>
-        public Guid? CreatedByWebhook
-        {
-            get; set;
-        }
+        public Guid? CreatedByWebhook { get; }
         /// <summary>
         /// The date of when the message was updated.
         /// </summary>
@@ -98,10 +86,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The <see cref="DateTime"/> of when the message was updated/edited. Only returns the most recent update.</para>
         /// </remarks>
         /// <value>Updated at?</value>
-        public DateTime? UpdatedAt
-        {
-            get; set;
-        }
+        public DateTime? UpdatedAt { get; }
         /// <summary>
         /// The type of the message.
         /// </summary>
@@ -109,11 +94,7 @@ namespace Guilded.NET.Base.Content
         /// <para>Allows message to be determined as a <see cref="MessageType.Default"/> or <see cref="MessageType.System"/>.</para>
         /// </remarks>
         /// <value>Message type</value>
-        [JsonProperty(Required = Required.Always)]
-        public MessageType Type
-        {
-            get; set;
-        }
+        public MessageType Type { get; }
         #endregion
 
         #region Constructor
@@ -129,6 +110,7 @@ namespace Guilded.NET.Base.Content
         /// <param name="createdBy">The identifier of the user creator of the message</param>
         /// <param name="createdByWebhookId">The identifier of the webhook creator of the message</param>
         /// <param name="createdAt">The date of when the message was created</param>
+        /// <param name="type">The type of the message</param>
         [JsonConstructor]
         public Message(
             [JsonProperty(Required = Required.Always)]
@@ -156,9 +138,12 @@ namespace Guilded.NET.Base.Content
             Guid? createdByWebhookId,
 
             [JsonProperty(Required = Required.Always)]
-            DateTime createdAt
+            DateTime createdAt,
+
+            [JsonProperty(Required = Required.Always)]
+            MessageType type
         ) : base(id, channelId, serverId, createdBy, createdAt) =>
-            (Content, ReplyMessageIds, IsPrivate, CreatedByWebhook) = (content, replyMessageIds, isPrivate, createdByWebhookId);
+            (Content, ReplyMessageIds, IsPrivate, CreatedByWebhook, Type) = (content, replyMessageIds, isPrivate, createdByWebhookId, type);
         #endregion
 
         #region Additional

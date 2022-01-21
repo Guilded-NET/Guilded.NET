@@ -24,10 +24,7 @@ namespace Guilded.NET.Base.Content
         /// <para>Videos, images, code blocks and other block formatting is not supported.</para>
         /// </remarks>
         /// <value>Single-line markdown string</value>
-        public string Message
-        {
-            get; set;
-        }
+        public string Message { get; }
         /// <summary>
         /// The contents of the note in the item.
         /// </summary>
@@ -35,10 +32,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The contents of the list item's note formatted in Markdown.</para>
         /// </remarks>
         /// <value>Markdown string?</value>
-        public string? Note
-        {
-            get; set;
-        }
+        public string? Note { get; }
         /// <summary>
         /// The identifier of the webhook creator of the list item.
         /// </summary>
@@ -47,10 +41,7 @@ namespace Guilded.NET.Base.Content
         /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
         /// </remarks>
         /// <value>Webhook ID?</value>
-        public Guid? CreatedByWebhook
-        {
-            get; set;
-        }
+        public Guid? CreatedByWebhook { get; }
         #endregion
 
         #region Constructors

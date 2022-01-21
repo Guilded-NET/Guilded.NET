@@ -15,130 +15,82 @@
 //         /// Represents chat/text channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public ChatPermissions? Chat
-//         {
-//             get; set;
-//         }
+//         public ChatPermissions? Chat { get; }
 //         /// <summary>
 //         /// Represents voice channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public VoicePermissions? Voice
-//         {
-//             get; set;
-//         }
+//         public VoicePermissions? Voice { get; }
 //         /// <summary>
 //         /// Represents document channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public DocPermissions? Docs
-//         {
-//             get; set;
-//         }
+//         public DocPermissions? Docs { get; }
 //         /// <summary>
 //         /// Represents permissions for forms and polls.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public FormPermissions? Forms
-//         {
-//             get; set;
-//         }
+//         public FormPermissions? Forms { get; }
 //         /// <summary>
 //         /// List channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public ListPermissions? Lists
-//         {
-//             get; set;
-//         }
+//         public ListPermissions? Lists { get; }
 //         /// <summary>
 //         /// Media channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public MediaPermissions? Media
-//         {
-//             get; set;
-//         }
+//         public MediaPermissions? Media { get;}
 //         /// <summary>
 //         /// Forum channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public ForumPermissions? Forums
-//         {
-//             get; set;
-//         }
+//         public ForumPermissions? Forums { get; }
 //         /// <summary>
 //         /// General permissions for managing the server.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public GeneralPermissions? General
-//         {
-//             get; set;
-//         }
+//         public GeneralPermissions? General { get; }
 //         /// <summary>
 //         /// Permissions related to streaming channel.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public StreamPermissions? Streams
-//         {
-//             get; set;
-//         }
+//         public StreamPermissions? Streams { get; }
 //         /// <summary>
 //         /// Calendar/event channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public CalendarPermissions? Calendar
-//         {
-//             get; set;
-//         }
+//         public CalendarPermissions? Calendar { get; }
 //         /// <summary>
 //         /// Scheduling channel permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public SchedulingPermissions? Scheduling
-//         {
-//             get; set;
-//         }
+//         public SchedulingPermissions? Scheduling { get; }
 //         /// <summary>
 //         /// Competitive permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public MatchmakingPermissions? Matchmaking
-//         {
-//             get; set;
-//         }
+//         public MatchmakingPermissions? Matchmaking { get; }
 //         /// <summary>
 //         /// Permissions for recruitment and applications.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public RecruitmentPermissions? Recruitment
-//         {
-//             get; set;
-//         }
+//         public RecruitmentPermissions? Recruitment { get; }
 //         /// <summary>
 //         /// Announcement channel and overview announcement permissions.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public AnnounPermissions? Announcements
-//         {
-//             get; set;
-//         }
+//         public AnnounPermissions? Announcements { get; }
 //         /// <summary>
 //         /// Permissions related to name and emote customization.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public CustomPermissions? Customization
-//         {
-//             get; set;
-//         }
+//         public CustomPermissions? Customization { get; }
 //         /// <summary>
 //         /// Permissions related to member XP and levels.
 //         /// </summary>
 //         /// <value>Permissions</value>
-//         public XPPermissions? Xp
-//         {
-//             get; set;
-//         }
+//         public XPPermissions? Xp { get; }
 //         #endregion
 
 //         /// <summary>

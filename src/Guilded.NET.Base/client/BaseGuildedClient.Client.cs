@@ -60,26 +60,17 @@ namespace Guilded.NET.Base
         /// <value>Serializer Settings</value>
         /// <seealso cref="Rest"/>
         /// <seealso cref="GuildedSerializer"/>
-        public JsonSerializerSettings SerializerSettings
-        {
-            get; set;
-        }
+        public JsonSerializerSettings SerializerSettings { get; set; }
         /// <summary>
         /// A serializer to (de)serialize for JSON from Guilded API.
         /// </summary>
         /// <value>Serializer from <see cref="SerializerSettings"/></value>
-        public JsonSerializer GuildedSerializer
-        {
-            get; set;
-        }
+        public JsonSerializer GuildedSerializer { get; set; }
         /// <summary>
         /// Headers that will be used for REST and WebSocket clients.
         /// </summary>
         /// <value>Dictionary of headers</value>
-        protected Dictionary<string, string> AdditionalHeaders
-        {
-            get; set;
-        } = new();
+        protected Dictionary<string, string> AdditionalHeaders { get; set; } = new();
         /// <summary>
         /// Creates default settings for <see cref="BaseGuildedClient"/>'s child types.
         /// </summary>
@@ -90,7 +81,8 @@ namespace Guilded.NET.Base
         /// <param name="websocketUrl">The URL to Guilded-like WebSocket client</param>
         protected BaseGuildedClient(Uri apiUrl, Uri websocketUrl)
         {
-            Func<ClientWebSocket> factory = new(() => {
+            Func<ClientWebSocket> factory = new(() =>
+            {
                 ClientWebSocket socket = new()
                 {
                     Options = {

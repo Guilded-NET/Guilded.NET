@@ -33,10 +33,7 @@ namespace Guilded.NET.Base
         /// <para>WebSocket response message that holds the error found. Can be used if further information is necessary.</para>
         /// </remarks>
         /// <value>WebSocket response</value>
-        public ResponseMessage? Response
-        {
-            get; set;
-        }
+        public ResponseMessage? Response { get; }
         /// <summary>
         /// Creates a new empty instance of <see cref="GuildedWebsocketException"/>.
         /// </summary>

@@ -18,7 +18,6 @@ namespace Guilded.NET.Base.Events
     {
         #region Properties
         /// <inheritdoc cref="Message.UpdatedAt"/>
-        [JsonIgnore]
         public DateTime UpdatedAt => (DateTime)Message.UpdatedAt!;
         #endregion
 

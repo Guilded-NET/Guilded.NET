@@ -50,11 +50,7 @@ namespace Guilded.NET.Base.Events
         /// <para>If <see cref="Opcode"/> is received as <c>8</c>, <see cref="GuildedWebsocketException"/> will be received instead of a typical event.</para>
         /// </remarks>
         /// <value>Opcode</value>
-        [JsonProperty("op", Required = Required.Always)]
-        public byte Opcode
-        {
-            get; set;
-        }
+        public byte Opcode { get; }
         /// <summary>
         /// The name of the event received.
         /// </summary>
@@ -62,11 +58,7 @@ namespace Guilded.NET.Base.Events
         /// <para>This only has a value if <see cref="Opcode"/> is <c>0</c>. It holds the name of the receiving Guilded event.</para>
         /// </remarks>
         /// <value>Name?</value>
-        [JsonProperty("t")]
-        public string? EventName
-        {
-            get; set;
-        }
+        public string? EventName { get; }
         /// <summary>
         /// The data associated with the event.
         /// </summary>
@@ -74,11 +66,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The data associated with the receiving event/message. Holds the data of most messages, including <see cref="WelcomeEvent"/>, <see cref="ResumeEvent"/> and <see cref="GuildedWebsocketException"/>. Only if <see cref="Opcode"/> is <c>9</c>, this will be <see langword="null"/>.</para>
         /// </remarks>
         /// <value>Data?</value>
-        [JsonProperty("d")]
-        public JObject? RawData
-        {
-            get; set;
-        }
+        public JObject? RawData { get; }
         /// <summary>
         /// An identifier that allows the event to be replayed.
         /// </summary>
@@ -87,11 +75,32 @@ namespace Guilded.NET.Base.Events
         /// <para>This property only holds the value if <see cref="Opcode"/> is <c>0</c>.</para>
         /// </remarks>
         /// <value>Event ID?</value>
-        [JsonProperty("s")]
-        public string? MessageId
-        {
-            get; set;
-        }
+        public string? MessageId { get; }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="GuildedSocketMessage"/> with given information.
+        /// </summary>
+        /// <param name="op">The opcode of the socket message</param>
+        /// <param name="t">The name of the event</param>
+        /// <param name="d">The data of the socket message</param>
+        /// <param name="s">The identifier of the socket message</param>
+        [JsonConstructor]
+        public GuildedSocketMessage(
+            [JsonProperty(Required = Required.Always)]
+            byte op,
+
+            [JsonProperty(Required = Required.Always)]
+            string? t,
+
+            [JsonProperty(Required = Required.Always)]
+            JObject? d,
+
+            [JsonProperty(Required = Required.Always)]
+            string? s
+        ) =>
+            (Opcode, EventName, RawData, MessageId) = (op, t, d, s);
         #endregion
     }
 }

@@ -24,10 +24,7 @@ namespace Guilded.NET.Base.Events
         /// <para>As of now, this only means <see cref="Member.Nickname"/> has been updated.</para>
         /// </remarks>
         /// <value>Member info</value>
-        public Member UserInfo
-        {
-            get; set;
-        }
+        public Member UserInfo { get; }
         /// <summary>
         /// The identifier of the server where member was updated.
         /// </summary>
@@ -35,10 +32,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The identifier of the server where the member was given a new nickname, lost a nickname or any other update occurred.</para>
         /// </remarks>
         /// <value>Server ID</value>
-        public HashId ServerId
-        {
-            get;
-        }
+        public HashId ServerId { get; }
         #endregion
 
         #region Properties
@@ -49,7 +43,6 @@ namespace Guilded.NET.Base.Events
         /// <para>Gets the identifier of the updated member.</para>
         /// <para>Fetched from <see cref="UserInfo"/> property.</para>
         /// </remarks>
-        [JsonIgnore]
         public HashId MemberId => UserInfo.Id;
         #endregion
 

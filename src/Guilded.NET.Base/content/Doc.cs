@@ -25,10 +25,7 @@ namespace Guilded.NET.Base.Content
         /// <para>This does not have any Markdown formatting.</para>
         /// </remarks>
         /// <value>Single-line string</value>
-        public string Title
-        {
-            get; set;
-        }
+        public string Title { get; }
         /// <summary>
         /// The contents of the document.
         /// </summary>
@@ -37,10 +34,7 @@ namespace Guilded.NET.Base.Content
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
         /// <value>Markdown string</value>
-        public string Content
-        {
-            get; set;
-        }
+        public string Content { get; }
         #endregion
 
         /// <summary>
@@ -50,10 +44,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The <see cref="DateTime"/> of when the document was updated/edited.</para>
         /// </remarks>
         /// <value>Date?</value>
-        public DateTime? UpdatedAt
-        {
-            get; set;
-        }
+        public DateTime? UpdatedAt { get; }
         /// <summary>
         /// The identifier of the user updater of the document.
         /// </summary>
@@ -61,10 +52,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The identifier of the user who updated this document. Only includes the person who updated this document most recently.</para>
         /// </remarks>
         /// <value>User ID?</value>
-        public HashId? UpdatedBy
-        {
-            get; set;
-        }
+        public HashId? UpdatedBy { get; }
         #endregion
 
         #region Constructors

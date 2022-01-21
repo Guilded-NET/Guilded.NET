@@ -16,17 +16,17 @@ namespace Guilded.NET.Base
         private static readonly Dictionary<string, string> contentType = new()
         {
             // Text/Document
-            {"txt", MediaTypeNames.Text.Plain},
-            {"rtf", MediaTypeNames.Text.RichText},
-            {"html", MediaTypeNames.Text.Html},
-            {"xml", MediaTypeNames.Text.Xml},
+            { "txt", MediaTypeNames.Text.Plain },
+            { "rtf", MediaTypeNames.Text.RichText },
+            { "html", MediaTypeNames.Text.Html },
+            { "xml", MediaTypeNames.Text.Xml },
             // Images
-            {"png", "image/png"},
-            {"svg", "image/svg+xml"},
-            {"jpeg", MediaTypeNames.Image.Jpeg},
-            {"jpg", MediaTypeNames.Image.Jpeg},
-            {"webp", "image/webp"},
-            {"tiff", MediaTypeNames.Image.Tiff}
+            { "png", "image/png" },
+            { "svg", "image/svg+xml" },
+            { "jpeg", MediaTypeNames.Image.Jpeg },
+            { "jpg", MediaTypeNames.Image.Jpeg },
+            { "webp", "image/webp" },
+            { "tiff", MediaTypeNames.Image.Tiff }
         };
 
         #region Properties
@@ -38,10 +38,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <value>Rest client</value>
         /// <seealso cref="Websocket"/>
-        protected internal IRestClient Rest
-        {
-            get; set;
-        }
+        protected internal IRestClient Rest { get; set; }
         #endregion
 
         #region Serialization
@@ -124,7 +121,7 @@ namespace Guilded.NET.Base
         /// <returns>File URL</returns>
         public async Task<Uri?> UploadFileAsync(string filename, byte[] filedata)
         {
-            if(string.IsNullOrWhiteSpace(filename))
+            if (string.IsNullOrWhiteSpace(filename))
                 throw new ArgumentNullException(nameof(filename));
 
             string ext = Path.GetExtension(filename).ToLower();
@@ -190,7 +187,7 @@ namespace Guilded.NET.Base
                 JObject obj = (JObject)token;
 
                 // For giving Guilded exception more information
-                string code         = obj.Value<string>("code")!,
+                string code = obj.Value<string>("code")!,
                        errorMessage = obj.Value<string>("message")!;
 
                 GuildedException exc =

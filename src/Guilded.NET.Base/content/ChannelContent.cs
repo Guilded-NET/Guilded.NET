@@ -21,10 +21,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The identifier of the content that was created. Usually a <see cref="Guid"/>, <see cref="uint"/> or <see cref="HashId"/>.</para>
         /// </remarks>
         /// <value>Content ID</value>
-        public T Id
-        {
-            get; set;
-        }
+        public T Id { get; }
         /// <summary>
         /// The identifier of the channel where the content is.
         /// </summary>
@@ -33,10 +30,7 @@ namespace Guilded.NET.Base.Content
         /// <para>This channel can be of any type and there is no identifying channel type as of now.</para>
         /// </remarks>
         /// <value>Channel ID</value>
-        public Guid ChannelId
-        {
-            get; set;
-        }
+        public Guid ChannelId { get; }
         /// <summary>
         /// The identifier of the server where the content is.
         /// </summary>
@@ -45,10 +39,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The server can be either optional or not optional. This depends whether the content is global or server-wide. Content like forum threads will be server-wide, while content like chat messages and reactions will be global.</para>
         /// </remarks>
         /// <value>Server ID or Server ID?</value>
-        public S ServerId
-        {
-            get; set;
-        }
+        public S ServerId { get; }
 
         #region Who, when
         /// <summary>
@@ -59,10 +50,7 @@ namespace Guilded.NET.Base.Content
         /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
         /// </remarks>
         /// <value>User ID</value>
-        public HashId CreatedBy
-        {
-            get; set;
-        }
+        public HashId CreatedBy { get; }
         /// <summary>
         /// The date of when the content was created.
         /// </summary>
@@ -70,10 +58,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The <see cref="DateTime"/> of when the content was created.</para>
         /// </remarks>
         /// <value>Created at</value>
-        public DateTime CreatedAt
-        {
-            get; set;
-        }
+        public DateTime CreatedAt { get; }
         #endregion
 
         #endregion

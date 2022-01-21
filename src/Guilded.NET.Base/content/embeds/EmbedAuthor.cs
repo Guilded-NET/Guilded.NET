@@ -39,10 +39,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The provided Markdown is ignored.</para>
         /// </remarks>
         /// <value>Name</value>
-        public string Name
-        {
-            get; set;
-        }
+        public string Name { get; set; }
         /// <summary>
         /// The URL that author links.
         /// </summary>
@@ -51,10 +48,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Can be used to open up author's profile or link to the content of the embed.</para>
         /// </remarks>
         /// <value>URL?</value>
-        public Uri? Url
-        {
-            get; set;
-        }
+        public Uri? Url { get; set; }
         /// <summary>
         /// The URL to author's icon.
         /// </summary>
@@ -63,10 +57,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Used to display the icon of the content's author.</para>
         /// </remarks>
         /// <value>URL?</value>
-        public Uri? IconUrl
-        {
-            get; set;
-        }
+        public Uri? IconUrl { get; set; }
         #endregion
 
         #region Constructors
@@ -101,7 +92,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="url">The URL that author links</param>
         /// <param name="iconUrl">The URL to author's icon</param>
         /// <exception cref="UriFormatException"><paramref name="url"/> or <paramref name="iconUrl"/> have bad <see cref="Uri"/> formatting</exception>
-        public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, iconUrl is null ? null : new Uri(iconUrl), url is null ? null : new Uri(url)) {}
+        public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, iconUrl is null ? null : new Uri(iconUrl), url is null ? null : new Uri(url)) { }
         #endregion
     }
 }

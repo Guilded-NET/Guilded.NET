@@ -18,10 +18,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The <see cref="DateTime"/> of when the content was updated/edited. Only returns the most recent update.</para>
         /// </remarks>
         /// <value>Updated at?</value>
-        DateTime? UpdatedAt
-        {
-            get; set;
-        }
+        DateTime? UpdatedAt { get; }
     }
     /// <summary>
     /// The content that can be created by a webhook.
@@ -39,10 +36,7 @@ namespace Guilded.NET.Base.Content
         /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
         /// </remarks>
         /// <value>Webhook ID?</value>
-        Guid? CreatedByWebhook
-        {
-            get; set;
-        }
+        Guid? CreatedByWebhook { get; }
     }
     /// <summary>
     /// The content that can be reacted on.

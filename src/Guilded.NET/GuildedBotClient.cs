@@ -54,10 +54,7 @@ namespace Guilded.NET
         /// <seealso cref="ConnectAsync()"/>
         /// <seealso cref="ConnectAsync(string)"/>
         /// <seealso cref="GuildedBotClient(string)"/>
-        protected string? AuthToken
-        {
-            get;
-        }
+        protected string? AuthToken { get; }
         /// <summary>
         /// Creates a new <see cref="GuildedBotClient"/> instance without authentication token.
         /// </summary>

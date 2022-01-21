@@ -22,10 +22,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The duration between each heartbeat in milliseconds. The value is usually <c>22500</c>.</para>
         /// </remarks>
         /// <value>Milliseconds</value>
-        public int HeartbeatInterval
-        {
-            get; set;
-        }
+        public int HeartbeatInterval { get; }
         /// <summary>
         /// The identifier of the last event sent.
         /// </summary>
@@ -33,10 +30,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The identifier of the last message that was received before this event.</para>
         /// </remarks>
         /// <value>Event ID?</value>
-        public string? LastMessageId
-        {
-            get; set;
-        }
+        public string? LastMessageId { get; }
         #endregion
 
         #region Constructors

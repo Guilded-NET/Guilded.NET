@@ -15,10 +15,7 @@ namespace Guilded.NET
         /// <para>You can add more events to this dictionary if Guilded.NET does not support certain events.</para>
         /// </remarks>
         /// <value>Dictionary of events</value>
-        protected Dictionary<object, IEventInfo<object>> GuildedEvents
-        {
-            get; set;
-        }
+        protected Dictionary<object, IEventInfo<object>> GuildedEvents { get; set; }
 
         #region WebSocket
         /// <inheritdoc cref="WelcomeEvent"/>

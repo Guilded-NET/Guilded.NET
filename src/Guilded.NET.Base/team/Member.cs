@@ -18,11 +18,7 @@ namespace Guilded.NET.Base.Servers
         /// The identifier of this member.
         /// </summary>
         /// <value>User ID</value>
-        [JsonProperty(Required = Required.Always)]
-        public HashId Id
-        {
-            get; set;
-        }
+        public HashId Id { get; }
         /// <summary>
         /// A nickname of this member.
         /// </summary>
@@ -30,10 +26,24 @@ namespace Guilded.NET.Base.Servers
         /// <para>Defines a nickname of this member. This may be <see langword="null"/> if the member has no nickname.</para>
         /// </remarks>
         /// <value>Name?</value>
-        public string? Nickname
-        {
-            get; set;
-        }
+        public string? Nickname { get; }
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Creates a new instance of <see cref="Member"/> with specified properties.
+        /// </summary>
+        /// <param name="id">The identifier of the member</param>
+        /// <param name="nickname">The set nickname of the member</param>
+        [JsonConstructor]
+        public Member(
+            [JsonProperty(Required = Required.Always)]
+            HashId id,
+
+            [JsonProperty]
+            string? nickname
+        ) =>
+            (Id, Nickname) = (id, nickname);
         #endregion
 
         #region Additional

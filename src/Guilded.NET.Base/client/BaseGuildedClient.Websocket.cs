@@ -21,10 +21,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <seealso cref="Rest"/>
         /// <value>Main WebSocket</value>
-        public WebsocketClient Websocket
-        {
-            get; set;
-        }
+        public WebsocketClient Websocket { get; set; }
         /// <summary>
         /// The identifier of the last WebSocket message.
         /// </summary>
@@ -32,10 +29,7 @@ namespace Guilded.NET.Base
         /// <para>Allows you to set the identifier of the last message to get events that weren't received.</para>
         /// </remarks>
         /// <value>WebSocket Message ID?</value>
-        public string? LastMessageId
-        {
-            get; set;
-        }
+        public string? LastMessageId { get; set; }
         private readonly Subject<GuildedSocketMessage> OnWebsocketMessage = new();
         /// <summary>
         /// An event when WebSocket receives a message.

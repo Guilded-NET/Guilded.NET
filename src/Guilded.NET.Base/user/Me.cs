@@ -11,46 +11,31 @@
 //         /// </summary>
 //         /// <value>List of teams</value>
 //         [JsonProperty(Required = Required.Always)]
-//         public IList<BaseTeam> Teams
-//         {
-//             get; set;
-//         }
+//         public IList<BaseTeam> Teams { get; }
 //         /// <summary>
 //         /// The user itself.
 //         /// </summary>
 //         /// <value>User</value>
 //         [JsonProperty(Required = Required.Always)]
-//         public ThisUser User
-//         {
-//             get; set;
-//         }
+//         public ThisUser User { get; }
 //         /// <summary>
 //         /// Custom emotes which can be used in Guilded by this user.
 //         /// </summary>
 //         /// <value>List of emotes</value>
 //         [JsonProperty("customReactions", Required = Required.Always)]
-//         public IList<BaseEmote> CustomEmotes
-//         {
-//             get; set;
-//         }
+//         public IList<BaseEmote> CustomEmotes { get; }
 //         /// <summary>
 //         /// How many times these emotes have been used.
 //         /// </summary>
 //         /// <value></value>
 //         [JsonProperty("reactionUsages", Required = Required.Always)]
-//         public IList<EmoteUse> EmoteUses
-//         {
-//             get; set;
-//         }
+//         public IList<EmoteUse> EmoteUses { get; }
 //         /// <summary>
 //         /// A list of friends of this user, friend requests sent by user and friend requests sent to user.
 //         /// </summary>
 //         /// <value>List of friends</value>
 //         [JsonProperty(Required = Required.Always)]
-//         public IList<Friend> Friends
-//         {
-//             get; set;
-//         }
+//         public IList<Friend> Friends { get; }
 //         #endregion
 
 //         #region Additional

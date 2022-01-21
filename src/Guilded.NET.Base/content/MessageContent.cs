@@ -23,10 +23,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The contents of the message in Markdown format.</para>
         /// </remarks>
         /// <value>Markdown string</value>
-        public string? Content
-        {
-            get; set;
-        }
+        public string? Content { get; set; }
         /// <summary>
         /// The list of embeds in the message.
         /// </summary>
@@ -34,20 +31,11 @@ namespace Guilded.NET.Base.Content
         /// <para>The list of embeds that will be present in the created message.</para>
         /// </remarks>
         /// <value>List of embeds?</value>
-        public IList<Embed>? Embeds
-        {
-            get; set;
-        }
+        public IList<Embed>? Embeds { get; set; }
         /// <inheritdoc cref="Message.ReplyMessageIds"/>
-        public IList<Guid>? ReplyMessageIds
-        {
-            get; set;
-        }
+        public IList<Guid>? ReplyMessageIds { get; set; }
         /// <inheritdoc cref="Message.IsPrivate"/>
-        public bool? IsPrivate
-        {
-            get; set;
-        }
+        public bool? IsPrivate { get; set; }
         #endregion
 
         #region Constructors

@@ -21,7 +21,6 @@ namespace Guilded.NET.Base.Events
         /// <inheritdoc cref="MessageDeleted.ChannelId"/>
         public Guid ChannelId => Message.ChannelId;
         /// <inheritdoc cref="MessageDeleted.DeletedAt"/>
-        [JsonIgnore]
         public DateTime DeletedAt => Message.DeletedAt;
         #endregion
 
@@ -32,6 +31,7 @@ namespace Guilded.NET.Base.Events
         /// <param name="message">The minimal information about the deleted message</param>
         [JsonConstructor]
         public MessageDeletedEvent(
+            [JsonProperty(Required = Required.Always)]
             MessageDeleted message
         ) : base(message) { }
         #endregion
@@ -51,26 +51,17 @@ namespace Guilded.NET.Base.Events
             /// The identifier of the message.
             /// </summary>
             /// <value>Message ID</value>
-            public Guid Id
-            {
-                get; set;
-            }
+            public Guid Id { get; }
             /// <summary>
             /// The identifier of the channel where the message was.
             /// </summary>
             /// <value>Channel ID</value>
-            public Guid ChannelId
-            {
-                get; set;
-            }
+            public Guid ChannelId { get; }
             /// <summary>
             /// The identifier of the server where the message was.
             /// </summary>
             /// <value>Server ID?</value>
-            public HashId? ServerId
-            {
-                get; set;
-            }
+            public HashId? ServerId { get; }
             /// <summary>
             /// The date of when the message was deleted.
             /// </summary>
@@ -78,10 +69,7 @@ namespace Guilded.NET.Base.Events
             /// <para>The <see cref="DateTime"/> of when the message was removed.</para>
             /// </remarks>
             /// <value>Deleted at</value>
-            public DateTime DeletedAt
-            {
-                get; set;
-            }
+            public DateTime DeletedAt { get; }
             #endregion
 
             #region Constructors

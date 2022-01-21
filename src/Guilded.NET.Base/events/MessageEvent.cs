@@ -19,10 +19,7 @@ namespace Guilded.NET.Base.Events
         /// The message received from the event.
         /// </summary>
         /// <value>Message</value>
-        public T Message
-        {
-            get; set;
-        }
+        public T Message { get; }
         #endregion
 
         #region Constructors
@@ -47,25 +44,18 @@ namespace Guilded.NET.Base.Events
     {
         #region Properties
         /// <inheritdoc cref="ChannelContent{T, S}.ChannelId"/>
-        [JsonIgnore]
         public Guid ChannelId => Message.ChannelId;
         /// <inheritdoc cref="ChannelContent{T, S}.ServerId"/>
-        [JsonIgnore]
         public HashId? ServerId => Message.ServerId;
         /// <inheritdoc cref="Message.Content"/>
-        [JsonIgnore]
         public string Content => Message.Content;
         /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy"/>
-        [JsonIgnore]
         public HashId CreatedBy => Message.CreatedBy;
         /// <inheritdoc cref="Message.CreatedByWebhook"/>
-        [JsonIgnore]
         public Guid? CreatedByWebhook => Message.CreatedByWebhook;
         /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt"/>
-        [JsonIgnore]
         public DateTime CreatedAt => Message.CreatedAt;
         /// <inheritdoc cref="Message.Type"/>
-        [JsonIgnore]
         public MessageType Type => Message.Type;
         #endregion
 

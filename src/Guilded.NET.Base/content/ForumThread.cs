@@ -23,10 +23,7 @@ namespace Guilded.NET.Base.Content
         /// <para>The title of the forum thread that typically doesn't hold any formatting.</para>
         /// </remarks>
         /// <value>Single-line string</value>
-        public string Title
-        {
-            get; set;
-        }
+        public string Title { get; }
         /// <summary>
         /// The contents of the forum thread.
         /// </summary>
@@ -35,10 +32,7 @@ namespace Guilded.NET.Base.Content
         /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
         /// </remarks>
         /// <value>Markdown string</value>
-        public string Content
-        {
-            get; set;
-        }
+        public string Content { get; }
         /// <summary>
         /// The identifier of the webhook creator of the forum thread.
         /// </summary>
@@ -47,10 +41,7 @@ namespace Guilded.NET.Base.Content
         /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
         /// </remarks>
         /// <value>Webhook ID?</value>
-        public Guid? CreatedByWebhook
-        {
-            get; set;
-        }
+        public Guid? CreatedByWebhook { get; }
         #endregion
 
         #region Constructors

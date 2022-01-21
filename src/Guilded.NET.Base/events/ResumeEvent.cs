@@ -23,10 +23,7 @@ namespace Guilded.NET.Base.Events
         /// <para>You can get the identifier of the event message by using <see cref="GuildedSocketMessage.MessageId"/> property from events.</para>
         /// </remarks>
         /// <value>Event message ID</value>
-        public string MessageId
-        {
-            get; set;
-        }
+        public string MessageId { get; }
         #endregion
 
         #region Constructors

@@ -13,7 +13,7 @@ namespace Guilded.NET.Base
     /// <seealso cref="BaseObject"/>
     public abstract class ClientObject : BaseObject
     {
-        #nullable disable
+#nullable disable
         /// <summary>
         /// The parent client that adopts this object.
         /// </summary>
@@ -22,10 +22,7 @@ namespace Guilded.NET.Base
         /// </remarks>
         /// <value>Client</value>
         [JsonIgnore]
-        public BaseGuildedClient ParentClient
-        {
-            get; set;
-        }
+        public BaseGuildedClient ParentClient { get; private set; }
         /// <summary>
         /// Adds a parent client if the context contains it.
         /// </summary>
@@ -36,6 +33,6 @@ namespace Guilded.NET.Base
             if (context.Context is BaseGuildedClient client)
                 ParentClient = client;
         }
-        #nullable restore
+#nullable restore
     }
 }

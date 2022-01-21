@@ -14,27 +14,18 @@
 //         /// </summary>
 //         /// <value>Channel ID</value>
 //         [JsonProperty(Required = Required.Always)]
-//         public Guid OriginatingChannelId
-//         {
-//             get; set;
-//         }
+//         public Guid OriginatingChannelId { get; }
 //         /// <summary>
 //         /// Type of channel where thread is originating in.
 //         /// </summary>
 //         /// <value>Channel ID</value>
 //         [JsonProperty("originatingChannelContentType", Required = Required.Always)]
-//         public ChannelType OriginatingContentType
-//         {
-//             get; set;
-//         }
+//         public ChannelType OriginatingContentType { get; }
 //         /// <summary>
 //         /// ID of the message from which thread is originating.
 //         /// </summary>
 //         /// <value>Message ID</value>
 //         [JsonProperty(Required = Required.Always)]
-//         public Guid ThreadMessageId
-//         {
-//             get; set;
-//         }
+//         public Guid ThreadMessageId { get; }
 //     }
 // }

@@ -24,10 +24,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The provided Markdown will be ignored.</para>
         /// </remarks>
         /// <value>Description</value>
-        public string Text
-        {
-            get; set;
-        }
+        public string Text { get; set; }
         /// <summary>
         /// The source URL of footer's icon.
         /// </summary>
@@ -36,10 +33,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Usually displayed before the footer text.</para>
         /// </remarks>
         /// <value>URL?</value>
-        public Uri? IconUrl
-        {
-            get; set;
-        }
+        public Uri? IconUrl { get; set; }
         #endregion
 
         #region Constructors
@@ -65,7 +59,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="iconUrl">The URL to footer's icon</param>
         /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
-        public EmbedFooter(string text, string iconUrl) : this(text, new Uri(iconUrl)) {}
+        public EmbedFooter(string text, string iconUrl) : this(text, new Uri(iconUrl)) { }
         #endregion
     }
 }

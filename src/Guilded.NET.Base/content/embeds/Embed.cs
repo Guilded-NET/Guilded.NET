@@ -44,10 +44,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>. The provided Markdown will be ignored.</para>
         /// </remarks>
         /// <value>Title?</value>
-        public string? Title
-        {
-            get; set;
-        }
+        public string? Title { get; set; }
         /// <summary>
         /// The URL of the embed.
         /// </summary>
@@ -55,10 +52,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Defines the URL to the content this embed displays.</para>
         /// </remarks>
         /// <value>URL?</value>
-        public Uri? Url
-        {
-            get; set;
-        }
+        public Uri? Url { get; set; }
         /// <summary>
         /// The description text of the embed.
         /// </summary>
@@ -67,10 +61,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This can have formatting using Markdown.</para>
         /// </remarks>
         /// <value>Description?</value>
-        public string? Description
-        {
-            get; set;
-        }
+        public string? Description { get; set; }
         /// <summary>
         /// The author of the embed.
         /// </summary>
@@ -78,10 +69,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Defines an author of the quoting message or anything else.</para>
         /// </remarks>
         /// <value>Author?</value>
-        public EmbedAuthor? Author
-        {
-            get; set;
-        }
+        public EmbedAuthor? Author { get; set; }
         /// <summary>
         /// The colour of the embed.
         /// </summary>
@@ -91,10 +79,7 @@ namespace Guilded.NET.Base.Embeds
         /// </remarks>
         /// <value>Colour?</value>
         [JsonConverter(typeof(DecimalColorConverter))]
-        public Color? Color
-        {
-            get; set;
-        }
+        public Color? Color { get; set; }
         /// <summary>
         /// The thumbnail image of the embed.
         /// </summary>
@@ -103,10 +88,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This is displayed as image at the right of the embed and as square in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
-        public EmbedMedia? Thumbnail
-        {
-            get; set;
-        }
+        public EmbedMedia? Thumbnail { get; set; }
         /// <summary>
         /// The image of the embed.
         /// </summary>
@@ -115,10 +97,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This is displayed as an image that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
-        public EmbedMedia? Image
-        {
-            get; set;
-        }
+        public EmbedMedia? Image { get; set; }
         /// <summary>
         /// The video of the embed.
         /// </summary>
@@ -127,10 +106,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This is displayed as a video that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Media?</value>
-        public EmbedMedia? Video
-        {
-            get; set;
-        }
+        public EmbedMedia? Video { get; set; }
         /// <summary>
         /// The list of fields in this embed.
         /// </summary>
@@ -139,10 +115,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Fields can be both inline and blocks.</para>
         /// </remarks>
         /// <value>List of fields?</value>
-        public IList<EmbedField>? Fields
-        {
-            get; set;
-        }
+        public IList<EmbedField>? Fields { get; set; }
         /// <summary>
         /// The footer of the embed.
         /// </summary>
@@ -151,10 +124,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Timestamp"/> property. Timestamps are not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
         /// </remarks>
         /// <value>Footer?</value>
-        public EmbedFooter? Footer
-        {
-            get; set;
-        }
+        public EmbedFooter? Footer { get; set; }
         /// <summary>
         /// The timestamp of the embed.
         /// </summary>
@@ -163,10 +133,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>Usually displayed in the footer.</para>
         /// </remarks>
         /// <value>Date?</value>
-        public DateTime? Timestamp
-        {
-            get; set;
-        }
+        public DateTime? Timestamp { get; set; }
         #endregion
 
         #region Constructors

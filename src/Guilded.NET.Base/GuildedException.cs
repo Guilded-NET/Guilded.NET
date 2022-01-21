@@ -24,18 +24,12 @@ namespace Guilded.NET.Base
         /// The code name of Guilded error.
         /// </summary>
         /// <value>Code name</value>
-        public string? Code
-        {
-            get; set;
-        }
+        public string? Code { get; }
         /// <summary>
         /// The response that was received from Guilded API.
         /// </summary>
         /// <value>REST Response</value>
-        public IRestResponse? Response
-        {
-            get; set;
-        }
+        public IRestResponse? Response { get; }
         /// <summary>
         /// The HTTP status that was found in the response.
         /// </summary>

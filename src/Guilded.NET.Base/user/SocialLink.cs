@@ -1,4 +1,3 @@
-using System;
 using Newtonsoft.Json;
 
 namespace Guilded.NET.Base.Users
@@ -18,10 +17,7 @@ namespace Guilded.NET.Base.Users
         /// The type of social link it is.
         /// </summary>
         /// <value>Social link platform</value>
-        public SocialLinkType Type
-        {
-            get; set;
-        }
+        public SocialLinkType Type { get; }
         /// <summary>
         /// The name or identifier in this social link.
         /// </summary>
@@ -29,10 +25,7 @@ namespace Guilded.NET.Base.Users
         /// <para>Defines a unique name or identifier of the user in the defined social link.</para>
         /// </remarks>
         /// <value>Social link handle</value>
-        public string Handle
-        {
-            get; set;
-        }
+        public string Handle { get; }
         /// <summary>
         /// The identifier of this social link.
         /// </summary>
@@ -40,10 +33,7 @@ namespace Guilded.NET.Base.Users
         /// <para>Defines the identifier of this user in the linked service.</para>
         /// </remarks>
         /// <value>Social link ID</value>
-        public string? ServiceId
-        {
-            get; set;
-        }
+        public string? ServiceId { get; }
         #endregion
 
         #region Constructors
@@ -61,6 +51,7 @@ namespace Guilded.NET.Base.Users
             [JsonProperty(Required = Required.Always)]
             string handle,
 
+            [JsonProperty]
             string? serviceId
         ) =>
             (Type, Handle, ServiceId) = (type, handle, serviceId);

@@ -23,10 +23,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>The provided Markdown is ignored.</para>
         /// </remarks>
         /// <value>Title</value>
-        public string Name
-        {
-            get; set;
-        }
+        public string Name { get; set; }
         /// <summary>
         /// The description text of the field.
         /// </summary>
@@ -35,10 +32,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>This allows any given Markdown.</para>
         /// </remarks>
         /// <value>Description</value>
-        public string Value
-        {
-            get; set;
-        }
+        public string Value { get; set; }
         /// <summary>
         /// Whether the field should be inline with other fields.
         /// </summary>
@@ -47,10 +41,7 @@ namespace Guilded.NET.Base.Embeds
         /// <para>If the value is <see langword="true"/>, the field will be displayed next to other fields</para>
         /// </remarks>
         /// <value>Boolean</value>
-        public bool Inline
-        {
-            get; set;
-        }
+        public bool Inline { get; set; }
         #endregion
 
         #region Constructors

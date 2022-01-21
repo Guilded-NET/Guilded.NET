@@ -27,10 +27,7 @@ namespace Guilded.NET.Base.Events
         /// <para>If only updated users are needed, use <see cref="UpdatedUsers"/> property.</para>
         /// </remarks>
         /// <value>Member and role definition</value>
-        public IList<RolesUpdated> MemberRoleIds
-        {
-            get; set;
-        }
+        public IList<RolesUpdated> MemberRoleIds { get; }
         /// <summary>
         /// The identifier of the server where roles were updated.
         /// </summary>
@@ -38,10 +35,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The identifier of the server where the members were given a role or removed from a role.</para>
         /// </remarks>
         /// <value>Server ID</value>
-        public HashId ServerId
-        {
-            get;
-        }
+        public HashId ServerId { get; }
         #endregion
 
         #region Properties
@@ -92,10 +86,7 @@ namespace Guilded.NET.Base.Events
             /// <para>The identifier of the user that has received all roles in <see cref="RoleIds"/> list.</para>
             /// </remarks>
             /// <value>User ID</value>
-            public HashId UserId
-            {
-                get; set;
-            }
+            public HashId UserId { get; }
             /// <summary>
             /// The list of roles <see cref="UserId"/> holds.
             /// </summary>
@@ -104,10 +95,7 @@ namespace Guilded.NET.Base.Events
             /// <para>Received or removed roles are not provided, so caching of previou role list is necessary if previous role list is needed.</para>
             /// </remarks>
             /// <value>List of role IDs</value>
-            public IList<uint> RoleIds
-            {
-                get; set;
-            }
+            public IList<uint> RoleIds { get; }
             #endregion
 
             #region Constructors

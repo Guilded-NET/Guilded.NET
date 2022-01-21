@@ -22,26 +22,17 @@ namespace Guilded.NET.Base.Embeds
         /// <para><see cref="Uri"/> that points to image's/video's source location. This property will be used to fetch the image/video from the given URL.</para>
         /// </remarks>
         /// <value>URL</value>
-        public Uri Url
-        {
-            get; set;
-        }
+        public Uri Url { get; set; }
         /// <summary>
         /// The height of the image/video.
         /// </summary>
         /// <value>Size?</value>
-        public uint? Height
-        {
-            get; set;
-        }
+        public uint? Height { get; set; }
         /// <summary>
         /// The width of the image/video.
         /// </summary>
         /// <value>Size?</value>
-        public uint? Width
-        {
-            get; set;
-        }
+        public uint? Width { get; set; }
         #endregion
 
         #region Constructors
@@ -69,7 +60,7 @@ namespace Guilded.NET.Base.Embeds
         /// <param name="height">The height of the image</param>
         /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
         /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
-        public EmbedMedia(string url, uint? width = null, uint? height = null) : this(new Uri(url), width, height) {}
+        public EmbedMedia(string url, uint? width = null, uint? height = null) : this(new Uri(url), width, height) { }
         #endregion
 
         #region Internal

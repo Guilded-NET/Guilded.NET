@@ -25,10 +25,7 @@ namespace Guilded.NET.Base.Events
         /// <para>The set can contain more than one member.</para>
         /// </remarks>
         /// <value>List of user IDs</value>
-        public ISet<HashId> Users
-        {
-            get; set;
-        }
+        public ISet<HashId> Users { get; }
         /// <summary>
         /// The amount of XP given to the users.
         /// </summary>
@@ -37,10 +34,7 @@ namespace Guilded.NET.Base.Events
         /// <para>This should usually be between 1000 and -1000 amount of XP.</para>
         /// </remarks>
         /// <value>XP</value>
-        public long Amount
-        {
-            get; set;
-        }
+        public long Amount { get; }
         #endregion
 
         #region Properties
@@ -51,7 +45,6 @@ namespace Guilded.NET.Base.Events
         /// <para>Gets the first user in <see cref="Users"/> set.</para>
         /// </remarks>
         /// <returns>User ID</returns>
-        [JsonIgnore]
         public HashId FirstUser => Users.First();
         /// <summary>
         /// Gets the last XP receiving user.
@@ -60,7 +53,6 @@ namespace Guilded.NET.Base.Events
         /// <para>Gets the last user in <see cref="Users"/> set.</para>
         /// </remarks>
         /// <returns>User ID</returns>
-        [JsonIgnore]
         public HashId LastUser => Users.Last();
         #endregion
 
