@@ -2,7 +2,7 @@
 
 # Guilded.NET
 
-[![Version](https://img.shields.io/badge/Version-0.4.2-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Beta-orange?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-0.5.0-red?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Beta-orange?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
 Guilded.NET is an open-source unofficial API wrapper for [Guilded](https://guilded.gg/) written on .NET platform. It tries to integrate as many Guilded API features as possible, while also maintaining the usability and ease of use for the developers.
 
