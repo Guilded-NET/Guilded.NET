@@ -2,13 +2,13 @@
 using System.IO;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Guilded.NET;
+using Guilded;
 using Newtonsoft.Json.Linq;
 
 // Get the configuration values
 JObject config = JObject.Parse(await File.ReadAllTextAsync("./config/config.json").ConfigureAwait(false));
 
-string? auth   = config.Value<string>("auth"),
+string? auth = config.Value<string>("auth"),
         prefix = config.Value<string>("prefix");
 
 using GuildedBotClient client = new(auth);

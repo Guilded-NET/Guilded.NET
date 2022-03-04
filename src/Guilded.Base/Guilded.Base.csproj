@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Product>Guilded.NET.Base</Product>
+    <Version>0.6.0</Version>
+    <Description>Whole base for Guilded.NET</Description>
+    <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <TargetFrameworks>netstandard2.1; net5.0; net6.0</TargetFrameworks>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- Authors -->
+    <Authors>IdkGoodName</Authors>
+    <!-- Package -->
+    <PackageId>Guilded.Base</PackageId>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageTags>wrapper,api,chat,guilded</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://guilded-net.github.io/index</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+    <PackageReference Include="System.Reactive.Linq" Version="5.0.0" />
+    <!-- JSON related dependencies -->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.1.1" />
+
+    <!-- API-related stuff -->
+    <PackageReference Include="RestSharp" Version="107.1.1" />
+    <PackageReference Include="Websocket.Client" Version="4.4.43" />
+  </ItemGroup>
+
+  <!-- Files to include in Guilded.NET.Base -->
+  <ItemGroup>
+    <Content Include="../../assets/Icon.png" Pack="true" PackagePath="" />
+    <Content Include="README.md" Pack="true" PackagePath="" />
+  </ItemGroup>
+</Project>

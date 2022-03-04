@@ -1,0 +1,244 @@
+{
+    "AssemblyFilePath": "./bin/Debug/net6.0/Guilded.Base.dll",
+    "OutputDirectoryPath": "../Documentation/Guilded.Base",
+    "GeneratedAccessModifiers": "Public,ProtectedInternal,Protected",
+    "GeneratedPages": "Assembly,Types,Members,Namespaces",
+
+    "FileNameFactory": "Name",
+    "RemoveFileExtensionFromLinks": true,
+    "LinksOutputFile": "../Documentation/Guilded.Base.link",
+
+    "AssemblyPageName": "index",
+    "AssemblyDocItem": {
+        "Sections": [
+            "TableOfContents"
+        ],
+        "Markdown.TableOfContentsModes": "IncludeKind"
+    },
+    "NamespaceDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "FrontMatterEnd",
+            "Title",
+            "TableOfContents"
+        ],
+        "Markdown.TableOfContentsModes": "IncludeKind,IncludeSummaryWithNewLine"
+    },
+    "ClassDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "Inheritance",
+            "Implement",
+            "Derived",
+            "remarks",
+            "example",
+            "TypeParameters",
+            "Constructors",
+            "Fields",
+            "Properties",
+            "Events",
+            "Methods",
+            "Operators",
+            "Classes",
+            "Structs",
+            "Interfaces",
+            "Enums",
+            "Delegates",
+            "seealso"
+        ]
+    },
+    "EnumDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "EnumFields",
+            "Classes",
+            "Structs",
+            "Interfaces",
+            "Enums",
+            "Delegates",
+            "seealso"
+        ]
+    },
+    "InterfaceDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "Implement",
+            "Derived",
+            "remarks",
+            "example",
+            "TypeParameters",
+            "Fields",
+            "Properties",
+            "Events",
+            "Methods",
+            "Explicitinterfaceimplementations",
+            "Classes",
+            "Structs",
+            "Interfaces",
+            "Enums",
+            "Delegates",
+            "seealso"
+        ]
+    },
+    "StructDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "Implement",
+            "remarks",
+            "example",
+            "TypeParameters",
+            "Constructors",
+            "Fields",
+            "Properties",
+            "Events",
+            "Methods",
+            "Operators",
+            "Classes",
+            "Structs",
+            "Interfaces",
+            "Enums",
+            "Delegates",
+            "seealso"
+        ]
+    },
+    "DelegateDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "TypeParameters",
+            "Parameters",
+            "returns",
+            "seealso"
+        ]
+    },
+
+    "ConstructorDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "Parameters",
+            "exception",
+            "returns",
+            "seealso"
+        ]
+    },
+    "FieldDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "value",
+            "seealso"
+        ]
+    },
+    "PropertyDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "exception",
+            "returns",
+            "value",
+            "seealso"
+        ]
+    },
+    "MethodDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "TypeParameters",
+            "Parameters",
+            "exception",
+            "returns",
+            "seealso"
+        ]
+    },
+    "EventDocItem": {
+        "Sections": [
+            "FrontMatterStart",
+            "summary",
+            "Definition",
+            "FrontMatterEnd",
+            "Title",
+            "ModifiedHeader",
+            "summary",
+            "Definition",
+            "remarks",
+            "example",
+            "EventType",
+            "returns",
+            "seealso"
+        ]
+    },
+    "Plugins": [
+        "../Guilded.Documentation/bin/Release/net6.0/Guilded.Documentation.dll"
+    ]
+}
