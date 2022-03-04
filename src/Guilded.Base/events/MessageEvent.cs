@@ -12,7 +12,7 @@ namespace Guilded.Base.Events
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
     /// <seealso cref="MessageDeletedEvent"/>
-    public class MessageEvent<T> : BaseObject where T : BaseObject
+    public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     {
         #region JSON properties
         /// <summary>
@@ -20,17 +20,22 @@ namespace Guilded.Base.Events
         /// </summary>
         /// <value>Message</value>
         public T Message { get; }
+        /// <inheritdoc />
+        public HashId ServerId { get; }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Creates a new instance of <see cref="MessageEvent"/>. This is currently only used in deserialization.
         /// </summary>
+        /// <param name="serverId">The identifier of the server where the message event occurred</param>
         /// <param name="message">The message received from the event</param>
-        public MessageEvent(
+        protected MessageEvent(
+            HashId serverId,
+
             T message
         ) =>
-            Message = message;
+            (ServerId, Message) = (serverId, message);
         #endregion
     }
     /// <summary>
@@ -40,13 +45,11 @@ namespace Guilded.Base.Events
     /// <seealso cref="MessageCreatedEvent"/>
     /// <seealso cref="MessageUpdatedEvent"/>
     /// <seealso cref="MessageDeletedEvent"/>
-    public class MessageEvent : MessageEvent<Message>
+    public abstract class MessageEvent : MessageEvent<Message>
     {
         #region Properties
         /// <inheritdoc cref="ChannelContent{T, S}.ChannelId"/>
         public Guid ChannelId => Message.ChannelId;
-        /// <inheritdoc cref="ChannelContent{T, S}.ServerId"/>
-        public HashId? ServerId => Message.ServerId;
         /// <inheritdoc cref="Message.Content"/>
         public string Content => Message.Content;
         /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy"/>
@@ -63,12 +66,16 @@ namespace Guilded.Base.Events
         /// <summary>
         /// Creates a new instance of <see cref="MessageEvent"/>. This is currently only used in deserialization.
         /// </summary>
+        /// <param name="serverId">The identifier of the server where the message event occurred</param>
         /// <param name="message">The message received from the event</param>
         [JsonConstructor]
-        public MessageEvent(
+        protected MessageEvent(
+            [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
             [JsonProperty(Required = Required.Always)]
             Message message
-        ) : base(message) { }
+        ) : base(serverId, message) { }
         #endregion
 
         #region Additional
@@ -87,12 +94,12 @@ namespace Guilded.Base.Events
         /// <inheritdoc cref="Message.ReplyAsync(string, bool)"/>
         public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
             await Message.ReplyAsync(content, isPrivate).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.UpdateMessageAsync(string)"/>
-        public async Task<Message> UpdateMessageAsync(string content) =>
-            await Message.UpdateMessageAsync(content).ConfigureAwait(false);
-        /// <inheritdoc cref="Message.DeleteMessageAsync"/>
-        public async Task DeleteMessageAsync() =>
-            await Message.DeleteMessageAsync().ConfigureAwait(false);
+        /// <inheritdoc cref="Message.UpdateAsync(string)"/>
+        public async Task<Message> UpdateAsync(string content) =>
+            await Message.UpdateAsync(content).ConfigureAwait(false);
+        /// <inheritdoc cref="Message.DeleteAsync"/>
+        public async Task DeleteAsync() =>
+            await Message.DeleteAsync().ConfigureAwait(false);
         /// <inheritdoc cref="Message.AddReactionAsync(uint)"/>
         public async Task<Reaction> AddReactionAsync(uint emoteId) =>
             await Message.AddReactionAsync(emoteId).ConfigureAwait(false);

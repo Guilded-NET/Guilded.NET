@@ -110,6 +110,7 @@ namespace Guilded.Base.Content
         /// <param name="createdBy">The identifier of the user creator of the message</param>
         /// <param name="createdByWebhookId">The identifier of the webhook creator of the message</param>
         /// <param name="createdAt">The date of when the message was created</param>
+        /// <param name="updatedAt">The date of when the message was updated</param>
         /// <param name="type">The type of the message</param>
         [JsonConstructor]
         public Message(
@@ -140,10 +141,13 @@ namespace Guilded.Base.Content
             [JsonProperty(Required = Required.Always)]
             DateTime createdAt,
 
+            [JsonProperty]
+            DateTime? updatedAt,
+
             [JsonProperty(Required = Required.Always)]
             MessageType type
         ) : base(id, channelId, serverId, createdBy, createdAt) =>
-            (Content, ReplyMessageIds, IsPrivate, CreatedByWebhook, Type) = (content, replyMessageIds, isPrivate, createdByWebhookId, type);
+            (Content, ReplyMessageIds, IsPrivate, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, isPrivate, createdByWebhookId, updatedAt, type);
         #endregion
 
         #region Additional
@@ -207,10 +211,10 @@ namespace Guilded.Base.Content
             await CreateMessageAsync(content, isPrivate, Id).ConfigureAwait(false);
         /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)"/>
         /// <param name="content">The contents of the message in Markdown plain text</param>
-        public async Task<Message> UpdateMessageAsync(string content) =>
+        public async Task<Message> UpdateAsync(string content) =>
             await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
         /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)"/>
-        public async Task DeleteMessageAsync() =>
+        public async Task DeleteAsync() =>
             await ParentClient.DeleteMessageAsync(ChannelId, Id).ConfigureAwait(false);
         /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)"/>
         /// <param name="emoteId">The identifier of the emote to add</param>

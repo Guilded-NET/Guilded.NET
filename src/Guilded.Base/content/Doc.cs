@@ -46,10 +46,10 @@ namespace Guilded.Base.Content
         /// <value>Date?</value>
         public DateTime? UpdatedAt { get; }
         /// <summary>
-        /// The identifier of the user updater of the document.
+        /// The identifier of the member updater of the document.
         /// </summary>
         /// <remarks>
-        /// <para>The identifier of the user who updated this document. Only includes the person who updated this document most recently.</para>
+        /// <para>The identifier of the user who updated this document. Only includes the user who updated this document most recently.</para>
         /// </remarks>
         /// <value>User ID?</value>
         public HashId? UpdatedBy { get; }
@@ -104,10 +104,10 @@ namespace Guilded.Base.Content
         /// <inheritdoc cref="BaseGuildedClient.UpdateDocAsync(Guid, uint, string, string)"/>
         /// <param name="title">The new title of the document</param>
         /// <param name="content">The Markdown content of the document</param>
-        public async Task<Doc> UpdateDocAsync(string title, string content) =>
+        public async Task<Doc> UpdateAsync(string title, string content) =>
             await ParentClient.UpdateDocAsync(ChannelId, Id, title, content);
         /// <inheritdoc cref="BaseGuildedClient.DeleteDocAsync(Guid, uint)"/>
-        public async Task DeleteDocAsync() =>
+        public async Task DeleteAsync() =>
             await ParentClient.DeleteDocAsync(ChannelId, Id);
         /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)"/>
         /// <param name="emoteId">The identifier of the emote to add</param>

@@ -28,12 +28,16 @@ namespace Guilded.Base.Events
         /// <summary>
         /// Creates a new instance of <see cref="MessageDeletedEvent"/>. This is currently only used in deserialization.
         /// </summary>
+        /// <param name="serverId">The identifier of the server where the message was deleted</param>
         /// <param name="message">The minimal information about the deleted message</param>
         [JsonConstructor]
         public MessageDeletedEvent(
             [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
+            [JsonProperty(Required = Required.Always)]
             MessageDeleted message
-        ) : base(message) { }
+        ) : base(serverId, message) { }
         #endregion
 
         /// <summary>

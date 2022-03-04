@@ -13,7 +13,7 @@ namespace Guilded.Base.Content
     /// </remarks>
     /// <seealso cref="Message"/>
     /// <seealso cref="ListItem"/>
-    public class ForumThread : ChannelContent<uint, HashId>, IReactibleContent, IWebhookCreatable
+    public class ForumThread : ChannelContent<uint, HashId>, IReactibleContent, IUpdatableContent, IWebhookCreatable
     {
         #region JSON properties
         /// <summary>
@@ -42,6 +42,14 @@ namespace Guilded.Base.Content
         /// </remarks>
         /// <value>Webhook ID?</value>
         public Guid? CreatedByWebhook { get; }
+        /// <summary>
+        /// The date of when the the forum thread was updated.
+        /// </summary>
+        /// <remarks>
+        /// <para>The <see cref="DateTime"/> of when the forum thread was updated/edited.</para>
+        /// </remarks>
+        /// <value>Date?</value>
+        public DateTime? UpdatedAt { get; }
         #endregion
 
         #region Constructors
@@ -56,6 +64,7 @@ namespace Guilded.Base.Content
         /// <param name="createdBy">The identifier of the user creator of the forum thread</param>
         /// <param name="createdByWebhookId">The identifier of the webhook creator of the forum thread</param>
         /// <param name="createdAt">The date of when the forum thread was created</param>
+        /// <param name="updatedAt">The date of when the forum thread was updated</param>
         [JsonConstructor]
         public ForumThread(
             [JsonProperty(Required = Required.Always)]
@@ -80,9 +89,12 @@ namespace Guilded.Base.Content
             Guid? createdByWebhookId,
 
             [JsonProperty(Required = Required.Always)]
-            DateTime createdAt
+            DateTime createdAt,
+
+            [JsonProperty]
+            DateTime? updatedAt
         ) : base(id, channelId, serverId, createdBy, createdAt) =>
-            (Title, Content, CreatedByWebhook) = (title, content, createdByWebhookId);
+            (Title, Content, CreatedByWebhook, UpdatedAt) = (title, content, createdByWebhookId, updatedAt);
         #endregion
 
         #region Additional

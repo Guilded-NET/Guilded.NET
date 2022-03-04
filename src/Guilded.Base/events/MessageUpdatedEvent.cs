@@ -25,12 +25,16 @@ namespace Guilded.Base.Events
         /// <summary>
         /// Creates a new instance of <see cref="MessageUpdatedEvent"/>. This is currently only used in deserialization.
         /// </summary>
+        /// <param name="serverId">The identifier of the server where the message was updated</param>
         /// <param name="message">The message that has been updated</param>
         [JsonConstructor]
         public MessageUpdatedEvent(
             [JsonProperty(Required = Required.Always)]
+            HashId serverId,
+
+            [JsonProperty(Required = Required.Always)]
             Message message
-        ) : base(message) { }
+        ) : base(serverId, message) { }
         #endregion
     }
 }

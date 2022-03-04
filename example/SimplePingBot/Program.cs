@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Guilded;
+using Guilded.NET;
 using Newtonsoft.Json.Linq;
 
 // Get the configuration values
