@@ -5,8 +5,8 @@ using Newtonsoft.Json.Linq;
 // Get the configuration values
 JObject config = JObject.Parse(await File.ReadAllTextAsync("./config/config.json").ConfigureAwait(false));
 
-string? auth = config.Value<string>("auth"),
-        prefix = config.Value<string>("prefix");
+string auth = config.Value<string>("auth")!,
+       prefix = config.Value<string>("prefix")!;
 
 using GuildedBotClient client = new(auth);
 
@@ -19,5 +19,6 @@ client.MessageCreated
     .Subscribe(async msgCreated => await msgCreated.ReplyAsync("Pong!").ConfigureAwait(false));
 
 await client.ConnectAsync().ConfigureAwait(false);
+
 // Don't close the program when the bot connects
 await Task.Delay(-1).ConfigureAwait(false);
