@@ -43,7 +43,7 @@ namespace Guilded.Base.Embeds
         /// <para>A short text that appears above description.</para>
         /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>. The provided Markdown will be ignored.</para>
         /// </remarks>
-        /// <value>Title?</value>
+        /// <value>Markdown string?</value>
         public string? Title { get; set; }
         /// <summary>
         /// The URL of the embed.
@@ -60,7 +60,7 @@ namespace Guilded.Base.Embeds
         /// <para>A piece of text that appears in the middle of the embed.</para>
         /// <para>This can have formatting using Markdown.</para>
         /// </remarks>
-        /// <value>Description?</value>
+        /// <value>Markdown string?</value>
         public string? Description { get; set; }
         /// <summary>
         /// The author of the embed.
@@ -68,7 +68,7 @@ namespace Guilded.Base.Embeds
         /// <remarks>
         /// <para>Defines an author of the quoting message or anything else.</para>
         /// </remarks>
-        /// <value>Author?</value>
+        /// <value>Embed Author?</value>
         public EmbedAuthor? Author { get; set; }
         /// <summary>
         /// The colour of the embed.
@@ -87,7 +87,7 @@ namespace Guilded.Base.Embeds
         /// <para>An image that represents a thumbnail.</para>
         /// <para>This is displayed as image at the right of the embed and as square in the official Guilded app.</para>
         /// </remarks>
-        /// <value>Media?</value>
+        /// <value>Embed Media?</value>
         public EmbedMedia? Thumbnail { get; set; }
         /// <summary>
         /// The image of the embed.
@@ -96,7 +96,7 @@ namespace Guilded.Base.Embeds
         /// <para>An image that will appear in the embed.</para>
         /// <para>This is displayed as an image that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
-        /// <value>Media?</value>
+        /// <value>Embed Media?</value>
         public EmbedMedia? Image { get; set; }
         /// <summary>
         /// The video of the embed.
@@ -105,7 +105,7 @@ namespace Guilded.Base.Embeds
         /// <para>A video that will appear in the embed.</para>
         /// <para>This is displayed as a video that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
-        /// <value>Media?</value>
+        /// <value>Embed Media?</value>
         public EmbedMedia? Video { get; set; }
         /// <summary>
         /// The list of fields in this embed.
@@ -114,7 +114,7 @@ namespace Guilded.Base.Embeds
         /// <para>Displays the list of fields with their own descriptions/values and titles/names.</para>
         /// <para>Fields can be both inline and blocks.</para>
         /// </remarks>
-        /// <value>List of fields?</value>
+        /// <value>List of embed fields?</value>
         public IList<EmbedField>? Fields { get; set; }
         /// <summary>
         /// The footer of the embed.
@@ -123,7 +123,7 @@ namespace Guilded.Base.Embeds
         /// <para>The bottom area of an embed that provides further information about anything.</para>
         /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Timestamp"/> property. Timestamps are not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
         /// </remarks>
-        /// <value>Footer?</value>
+        /// <value>Embed Footer?</value>
         public EmbedFooter? Footer { get; set; }
         /// <summary>
         /// The timestamp of the embed.
@@ -493,7 +493,7 @@ namespace Guilded.Base.Embeds
         /// <param name="inline">If this field should be inline</param>
         /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed AddField(string name, object value, bool inline = false) =>
+        public Embed AddField(string name, object? value, bool inline = false) =>
             AddField(name, value is null ? string.Empty : value.ToString()!, inline);
         #endregion
 

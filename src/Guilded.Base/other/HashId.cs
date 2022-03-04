@@ -9,7 +9,7 @@ namespace Guilded.Base
     /// An identifier for Guilded teams, users, etc.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of various Guilded objects. Guilded hash identifier is 8 characters in length and consists of digits, uppercase letters and lowercase letters.</para>
+    /// <para>The identifier of various Guilded objects. Guilded hash identifier is 8 characters or more in length and consists of digits, uppercase letters and lowercase letters.</para>
     /// <para>This can be found in:</para>
     /// <list type="bullet">
     ///     <item>
@@ -43,7 +43,7 @@ namespace Guilded.Base
     public readonly struct HashId : IEquatable<HashId>
     {
         internal readonly string _;
-        private const int idLength = 8;
+        private const int idMinLength = 8;
         private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         internal static readonly FormatException FormatError = new("The given ID string is in incorrect format.");
         /// <summary>
@@ -54,10 +54,10 @@ namespace Guilded.Base
         public HashId(string id)
         {
             // Make sure it's in correct format
-            if (id?.Length != idLength || !Check(id))
+            if (id?.Length < idMinLength || !Check(id))
                 throw FormatError;
 
-            _ = id;
+            _ = id!;
         }
 
         #region Overrides
@@ -114,8 +114,8 @@ namespace Guilded.Base
         /// </summary>
         /// <param name="str">A raw string to check</param>
         /// <returns>Correct formatting</returns>
-        public static bool Check(string str) =>
-            str?.Length == 8 && str.All(ch => allowedChars.Contains(ch));
+        public static bool Check(string? str) =>
+            str is not null && str.Length < 8 && str.All(ch => allowedChars.Contains(ch));
         #endregion
     }
 }
