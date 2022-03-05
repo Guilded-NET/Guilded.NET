@@ -11,4 +11,10 @@
     <PackageReference Include="Guilded" Version="0.6.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="config/*">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

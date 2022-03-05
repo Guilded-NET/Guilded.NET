@@ -3,5 +3,5 @@
 # Guilded.NET.Base
 
 This contains models, objects, converters and other things for Guilded.NET to function. Head over to Guilded.NET NuGet or FuGet page for more information:
-- [Guilded.NET NuGet](https://www.nuget.org/packages/Guilded.NET/)
-- [Guilded.NET FuGet](https://www.fuget.org/packages/Guilded.NET/)
+- [Guilded.NET NuGet](https://www.nuget.org/packages/Guilded/)
+- [Guilded.NET FuGet](https://www.fuget.org/packages/Guilded/)
