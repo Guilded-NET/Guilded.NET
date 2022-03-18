@@ -1,14 +1,13 @@
-namespace Guilded.Base.Events
+namespace Guilded.Base.Events;
+
+/// <summary>
+/// Interface for events based in servers.
+/// </summary>
+public interface IServerEvent
 {
     /// <summary>
-    /// Interface for events based in servers.
+    /// The identifier of the server where the event occurred.
     /// </summary>
-    public interface IServerEvent
-    {
-        /// <summary>
-        /// The identifier of the server where the event occurred.
-        /// </summary>
-        /// <value>Server ID</value>
-        HashId ServerId { get; }
-    }
+    /// <value>Server ID</value>
+    HashId ServerId { get; }
 }
