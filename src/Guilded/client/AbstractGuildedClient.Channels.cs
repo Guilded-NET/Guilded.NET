@@ -28,8 +28,14 @@ namespace Guilded
 
         #region Chat channel
         /// <inheritdoc/>
-        public override async Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false) =>
-            await GetResponseProperty<IList<Message>>(new RestRequest($"channels/{channelId}/messages?includePrivate={includePrivate}", Method.Get), "messages").ConfigureAwait(false);
+        public override async Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null) =>
+            await GetResponseProperty<IList<Message>>(
+                new RestRequest($"channels/{channelId}/messages", Method.Get)
+                    .AddQueryParameter("includePrivate", includePrivate, encode: false)
+                    .AddOptionalQuery("limit", limit, encode: false)
+                    .AddOptionalQuery("before", before)
+                    .AddOptionalQuery("after", after)
+            , "messages").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Message> GetMessageAsync(Guid channelId, Guid messageId) =>
             await GetResponseProperty<Message>(new RestRequest($"channels/{channelId}/messages/{messageId}", Method.Get), "message").ConfigureAwait(false);
@@ -103,8 +109,12 @@ namespace Guilded
 
         #region Document channels
         /// <inheritdoc/>
-        public override async Task<IList<Doc>> GetDocsAsync(Guid channelId) =>
-            await GetResponseProperty<IList<Doc>>(new RestRequest($"channels/{channelId}/docs", Method.Get), "docs").ConfigureAwait(false);
+        public override async Task<IList<Doc>> GetDocsAsync(Guid channelId, uint? limit = null, DateTime? before = null) =>
+            await GetResponseProperty<IList<Doc>>(
+                new RestRequest($"channels/{channelId}/docs", Method.Get)
+                    .AddOptionalQuery("limit", limit, encode: false)
+                    .AddOptionalQuery("before", before)
+            , "docs").ConfigureAwait(false);
         /// <inheritdoc/>
         public override async Task<Doc> GetDocAsync(Guid channelId, uint docId) =>
             await GetResponseProperty<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.Get), "doc").ConfigureAwait(false);

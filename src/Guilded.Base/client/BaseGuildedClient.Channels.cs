@@ -95,13 +95,16 @@ namespace Guilded.Base
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
         /// <param name="includePrivate">Whether to get private replies or not</param>
+        /// <param name="limit">The limit of how many messages to get (default — <c>50</c>, values — <c>(0, 100]</c>)</param>
+        /// <param name="before">The max limit of the creation date of fetched messages</param>
+        /// <param name="after">The min limit of the creation date of fetched messages</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
         /// <returns>List of messages</returns>
-        public abstract Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false);
+        public abstract Task<IList<Message>> GetMessagesAsync(Guid channelId, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null);
         /// <summary>
         /// Gets a message.
         /// </summary>
@@ -292,13 +295,15 @@ namespace Guilded.Base
         /// <para>Gets latest 50 documents in a specified document channel.</para>
         /// </remarks>
         /// <param name="channelId">The identifier of the parent channel</param>
+        /// <param name="limit">The limit of how many docs to get (default — <c>25</c>, values — <c>(0, 100]</c>)</param>
+        /// <param name="before">The max limit of the creation date of fetched messages</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>
         /// <exception cref="GuildedAuthorizationException"/>
         /// <permission cref="DocPermissions.ViewDocs">Required to view a list of documents</permission>
         /// <returns>List of documents</returns>
-        public abstract Task<IList<Doc>> GetDocsAsync(Guid channelId);
+        public abstract Task<IList<Doc>> GetDocsAsync(Guid channelId, uint? limit = null, DateTime? before = null);
         /// <summary>
         /// Gets the specified document.
         /// </summary>

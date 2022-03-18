@@ -129,7 +129,7 @@ namespace Guilded.Base
         /// </remarks>
         /// <param name="serverId">The server to modify member in</param>
         /// <param name="memberId">The identifier of the receiving member</param>
-        /// <param name="amount">The amount of XP received</param>
+        /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>
@@ -146,7 +146,7 @@ namespace Guilded.Base
         /// </remarks>
         /// <param name="serverId">The server where the role is</param>
         /// <param name="roleId">The identifier of the receiving role</param>
-        /// <param name="amount">The amount of XP received</param>
+        /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
         /// <exception cref="GuildedException"/>
         /// <exception cref="GuildedPermissionException"/>
         /// <exception cref="GuildedResourceException"/>
