@@ -10,3 +10,5 @@ example/*/bin
 example/*/bin/*
 example/*/obj
 example/*/obj/*
+
+src/Guilded.Commands

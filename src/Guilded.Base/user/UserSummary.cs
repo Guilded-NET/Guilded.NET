@@ -1,49 +1,73 @@
 using System.Threading.Tasks;
-using Guilded.Base.Users;
 using Newtonsoft.Json;
 
-namespace Guilded.Base.Servers;
+namespace Guilded.Base.Users;
 
 /// <summary>
-/// A member in a member list.
+/// Global minimal information about a user.
 /// </summary>
 /// <remarks>
-/// <para>Defines a normal or updated team member.</para>
+/// <para>Defines a normal user with minimal information.</para>
 /// </remarks>
-/// <seealso cref="Events.MemberUpdatedEvent"/>
-public class Member : ClientObject
+/// <seealso cref="User" />
+/// <seealso cref="SocialLink" />
+public class UserSummary : ClientObject
 {
     #region JSON properties
     /// <summary>
-    /// The identifier of this member.
+    /// The identifier of this user.
     /// </summary>
     /// <value>User ID</value>
     public HashId Id { get; }
     /// <summary>
-    /// A nickname of this member.
+    /// The type of the user.
     /// </summary>
     /// <remarks>
-    /// <para>Defines a nickname of this member. This may be <see langword="null"/> if the member has no nickname.</para>
+    /// <para>Defines the type of the user they are.</para>
     /// </remarks>
-    /// <value>Name?</value>
-    public string? Nickname { get; }
+    /// <value>User type</value>
+    public UserType Type { get; }
+    /// <summary>
+    /// The name of the user.
+    /// </summary>
+    /// <remarks>
+    /// <para>The global username that user uses.</para>
+    /// </remarks>
+    /// <value>Name</value>
+    public string Name { get; set; }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    /// Whether the user is a bot.
+    /// </summary>
+    /// <remarks>
+    /// <para>Gets whether the user is a global bot.</para>
+    /// </remarks>
+    /// <value>Is a bot</value>
+    public bool IsBot => Type == UserType.Bot;
+
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="Member"/> with specified properties.
+    /// Creates a new instance of <see cref="UserSummary"/> with specified properties.
     /// </summary>
-    /// <param name="id">The identifier of the member</param>
-    /// <param name="nickname">The set nickname of the member</param>
+    /// <param name="id">The identifier of the user</param>
+    /// <param name="type">The type of user they are</param>
+    /// <param name="name">The name of the user</param>
     [JsonConstructor]
-    public Member(
+    public UserSummary(
         [JsonProperty(Required = Required.Always)]
         HashId id,
 
-        [JsonProperty]
-        string? nickname
+        [JsonProperty(Required = Required.Always)]
+        UserType type,
+
+        [JsonProperty(Required = Required.Always)]
+        string name
     ) =>
-        (Id, Nickname) = (id, nickname);
+        (Id, Type, Name) = (id, type, name);
     #endregion
 
     #region Additional
@@ -65,5 +89,8 @@ public class Member : ClientObject
     /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, long)"/>
     public async Task<long> AddXpAsync(HashId serverId, short amount) =>
         await ParentClient.AddXpAsync(serverId, Id, amount).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.KickMemberAsync(HashId, HashId)"/>
+    public async Task KickMemberAsync(HashId serverId) =>
+        await ParentClient.KickMemberAsync(serverId, Id).ConfigureAwait(false);
     #endregion
 }

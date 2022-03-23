@@ -63,5 +63,8 @@ public abstract partial class AbstractGuildedClient
                 amount
             })
         , "total").ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task KickMemberAsync(HashId serverId, HashId memberId) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/members/{memberId}", Method.Delete)).ConfigureAwait(false);
     #endregion
 }

@@ -269,6 +269,35 @@ public abstract partial class BaseGuildedClient
 
     #region List channels
     /// <summary>
+    /// Gets a set of list items.
+    /// </summary>
+    /// <remarks>
+    /// <para>Gets a set of list items in the specified channel.</para>
+    /// </remarks>
+    /// <param name="channelId">The identifier of the channel to get list items in</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="ListPermissions.ViewListItems">Required to get a set of list items</permission>
+    /// <returns>List of list items</returns>
+    public abstract Task<IList<ListItem<ListItemNoteSummary>>> GetListItemsAsync(Guid channelId);
+    /// <summary>
+    /// Gets a list item.
+    /// </summary>
+    /// <remarks>
+    /// <para>Gets the specified list item.</para>
+    /// </remarks>
+    /// <param name="channelId">The identifier of the parent channel</param>
+    /// <param name="listItemId">The identifier of the list item to get</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="ListPermissions.ViewListItems">Required to get a list item in list channel you can view</permission>
+    /// <returns>Specified list item</returns>
+    public abstract Task<ListItem<ListItemNote>> GetListItemAsync(Guid channelId, Guid listItemId);
+    /// <summary>
     /// Creates an item in the list.
     /// </summary>
     /// <remarks>
@@ -284,7 +313,40 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
     /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
     /// <returns>Created list item</returns>
-    public abstract Task<ListItem> CreateListItemAsync(Guid channelId, string message, string? note = null);
+    public abstract Task<ListItem<ListItemNote>> CreateListItemAsync(Guid channelId, string message, string? note = null);
+    /// <summary>
+    /// Creates an item in the list.
+    /// </summary>
+    /// <remarks>
+    /// <para>Creates a new list item in list/task channel.</para>
+    /// </remarks>
+    /// <param name="channelId">The identifier of the channel where the list item is</param>
+    /// <param name="listItemId">The identifier of the list item to update</param>
+    /// <param name="message">The new title content of this list item</param>
+    /// <param name="note">The new note of this list item</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="ListPermissions.ViewListItems">Required to update a list item in list channel you can view</permission>
+    /// <permission cref="ListPermissions.ManageListItems">Required to update list items you don't own</permission>
+    /// <returns>Updated list item</returns>
+    public abstract Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channelId, Guid listItemId, string? message = null, string? note = null);
+    /// <summary>
+    /// Deletes an item in the list.
+    /// </summary>
+    /// <remarks>
+    /// <para>Deletes an already existing list item.</para>
+    /// </remarks>
+    /// <param name="channelId">The identifier of the channel where the list item is</param>
+    /// <param name="listItemId">The identifier of the list item to delete</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="ListPermissions.ViewListItems">Required to delete a list item in list channel you can view</permission>
+    /// <permission cref="ListPermissions.RemoveListItems">Required to delete list items</permission>
+    public abstract Task DeleteListItemAsync(Guid channelId, Guid listItemId);
     #endregion
 
     #region Docs channel

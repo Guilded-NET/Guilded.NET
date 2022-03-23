@@ -154,5 +154,21 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException"/>
     /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
     public abstract Task AddXpAsync(HashId serverId, uint roleId, long amount);
+    /// <summary>
+    /// Kicks the specified member.
+    /// </summary>
+    /// <remarks>
+    /// <para>Removes the member from the server.</para>
+    /// </remarks>
+    /// <param name="serverId">The server to kick member from</param>
+    /// <param name="memberId">The identifier of the member to kick</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="GeneralPermissions.KickBanMembers">Required for kicking the member</permission>
+    /// <returns>Nickname</returns>
+    public abstract Task KickMemberAsync(HashId serverId, HashId memberId);
     #endregion
 }

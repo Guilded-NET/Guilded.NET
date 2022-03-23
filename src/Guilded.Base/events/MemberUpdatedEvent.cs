@@ -21,10 +21,10 @@ public class MemberUpdatedEvent : BaseObject
     /// </summary>
     /// <remarks>
     /// <para>Defines an update that the member has received.</para>
-    /// <para>As of now, this only means <see cref="Member.Nickname"/> has been updated.</para>
+    /// <para>As of now, this only means <see cref="MemberUpdate.Nickname"/> has been updated.</para>
     /// </remarks>
     /// <value>Member info</value>
-    public Member UserInfo { get; }
+    public MemberUpdate UserInfo { get; }
     /// <summary>
     /// The identifier of the server where member was updated.
     /// </summary>
@@ -41,7 +41,6 @@ public class MemberUpdatedEvent : BaseObject
     /// </summary>
     /// <remarks>
     /// <para>Gets the identifier of the updated member.</para>
-    /// <para>Fetched from <see cref="UserInfo"/> property.</para>
     /// </remarks>
     public HashId MemberId => UserInfo.Id;
     #endregion
@@ -58,8 +57,40 @@ public class MemberUpdatedEvent : BaseObject
         HashId serverId,
 
         [JsonProperty(Required = Required.Always)]
-        Member userInfo
+        MemberUpdate userInfo
     ) =>
         (ServerId, UserInfo) = (serverId, userInfo);
     #endregion
+
+    /// <summary>
+    /// The updated information about a member.
+    /// </summary>
+    /// <remarks>
+    /// <para>The information that has been updated about a member.</para>
+    /// </remarks>
+    /// <seealso cref="Users.UserSummary" />
+    /// <seealso cref="MemberSummary{T}" />
+    /// <seealso cref="Users.User" />
+    /// <seealso cref="Member" />
+    public class MemberUpdate : BaseObject
+    {
+        /// <inheritdoc cref="Users.UserSummary.Id" />
+        public HashId Id { get; set; }
+        /// <inheritdoc cref="Member.Nickname" />
+        public string? Nickname { get; set; }
+        /// <summary>
+        /// Creates a new instance of <see cref="MemberUpdate" />.
+        /// </summary>
+        /// <param name="id">The identifier of the user</param>
+        /// <param name="nickname">The updated nickname of the user</param>
+        [JsonConstructor]
+        public MemberUpdate(
+            [JsonProperty(Required = Required.Always)]
+            HashId id,
+
+            [JsonProperty]
+            string? nickname
+        ) =>
+            (Id, Nickname) = (id, nickname);
+    }
 }

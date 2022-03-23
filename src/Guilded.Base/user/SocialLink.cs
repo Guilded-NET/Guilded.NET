@@ -8,7 +8,8 @@ namespace Guilded.Base.Users;
 /// <remarks>
 /// <para>Defines what platforms this user has linked to, such as <see cref="SocialLinkType.Twitch"/> and provides information about them.</para>
 /// </remarks>
-/// <seealso cref="Servers.Member"/>
+/// <seealso cref="User"/>
+/// <seealso cref="UserSummary"/>
 /// <seealso cref="SocialLinkType"/>
 public class SocialLink : BaseObject
 {

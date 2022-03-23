@@ -93,12 +93,18 @@ public abstract partial class AbstractGuildedClient
 
     #region List channels
     /// <inheritdoc/>
-    public override async Task<ListItem> CreateListItemAsync(Guid channelId, string message, string? note = null)
+    public override async Task<IList<ListItem<ListItemNoteSummary>>> GetListItemsAsync(Guid channelId) =>
+        await GetResponseProperty<IList<ListItem<ListItemNoteSummary>>>(new RestRequest($"channels/{channelId}/items", Method.Get), "listItems").ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task<ListItem<ListItemNote>> GetListItemAsync(Guid channelId, Guid listItemId) =>
+        await GetResponseProperty<ListItem<ListItemNote>>(new RestRequest($"channels/{channelId}/items/{listItemId}", Method.Get), "listItem").ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task<ListItem<ListItemNote>> CreateListItemAsync(Guid channelId, string message, string? note = null)
     {
         if (string.IsNullOrWhiteSpace(message))
             throw new ArgumentNullException(nameof(message));
 
-        return await GetResponseProperty<ListItem>(new RestRequest($"channels/{channelId}/list", Method.Post)
+        return await GetResponseProperty<ListItem<ListItemNote>>(new RestRequest($"channels/{channelId}/items", Method.Post)
             .AddJsonBody(new
             {
                 message,
@@ -106,6 +112,23 @@ public abstract partial class AbstractGuildedClient
             })
         , "listItem").ConfigureAwait(false);
     }
+    /// <inheritdoc/>
+    public override async Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channelId, Guid listItemId, string? message = null, string? note = null)
+    {
+        if (string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note))
+            throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified");
+
+        return await GetResponseProperty<ListItem<ListItemNote>>(new RestRequest($"channels/{channelId}/items/{listItemId}", Method.Put)
+            .AddJsonBody(new
+            {
+                message,
+                note
+            })
+        , "listItem").ConfigureAwait(false);
+    }
+    /// <inheritdoc/>
+    public override async Task DeleteListItemAsync(Guid channelId, Guid listItemId) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/items/{listItemId}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
     #region Document channels
