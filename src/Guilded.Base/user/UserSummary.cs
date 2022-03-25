@@ -90,7 +90,16 @@ public class UserSummary : ClientObject
     public async Task<long> AddXpAsync(HashId serverId, short amount) =>
         await ParentClient.AddXpAsync(serverId, Id, amount).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.KickMemberAsync(HashId, HashId)"/>
-    public async Task KickMemberAsync(HashId serverId) =>
+    public async Task KickAsync(HashId serverId) =>
         await ParentClient.KickMemberAsync(serverId, Id).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.GetBanAsync(HashId, HashId)"/>
+    public async Task GetBanAsync(HashId serverId) =>
+        await ParentClient.GetBanAsync(serverId, Id).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.BanMemberAsync(HashId, HashId, string?)"/>
+    public async Task BanAsync(HashId serverId, string? reason = null) =>
+        await ParentClient.BanMemberAsync(serverId, Id, reason).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.UnbanMemberAsync(HashId, HashId)"/>
+    public async Task UnbanAsync(HashId serverId) =>
+        await ParentClient.UnbanMemberAsync(serverId, Id).ConfigureAwait(false);
     #endregion
 }

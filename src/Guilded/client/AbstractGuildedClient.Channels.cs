@@ -108,7 +108,10 @@ public abstract partial class AbstractGuildedClient
             .AddJsonBody(new
             {
                 message,
-                note
+                note = new
+                {
+                    content = note
+                }
             })
         , "listItem").ConfigureAwait(false);
     }
@@ -122,7 +125,10 @@ public abstract partial class AbstractGuildedClient
             .AddJsonBody(new
             {
                 message,
-                note
+                note = new
+                {
+                    content = note
+                }
             })
         , "listItem").ConfigureAwait(false);
     }
@@ -143,7 +149,7 @@ public abstract partial class AbstractGuildedClient
     public override async Task<Doc> GetDocAsync(Guid channelId, uint docId) =>
         await GetResponseProperty<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.Get), "doc").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<Doc> CreatedDocAsync(Guid channelId, string title, string content)
+    public override async Task<Doc> CreateDocAsync(Guid channelId, string title, string content)
     {
         if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
         else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));

@@ -397,7 +397,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="DocPermissions.ViewDocs">Required to create a document in document channel you can view</permission>
     /// <permission cref="DocPermissions.CreateDocs">Required to create document</permission>
     /// <returns>Created document</returns>
-    public abstract Task<Doc> CreatedDocAsync(Guid channelId, string title, string content);
+    public abstract Task<Doc> CreateDocAsync(Guid channelId, string title, string content);
     /// <summary>
     /// Updates the document.
     /// </summary>
