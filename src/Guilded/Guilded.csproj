@@ -27,10 +27,10 @@
   <ItemGroup>
     <!-- JSON related dependencies -->
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.1.1" />
+    <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.3.0" />
 
     <!-- API-related stuff -->
-    <PackageReference Include="RestSharp" Version="107.1.1" />
+    <PackageReference Include="RestSharp" Version="107.3.0" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
     <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
