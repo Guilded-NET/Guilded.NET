@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 
 using Guilded.Base.Events;
-using Newtonsoft.Json.Linq;
 
 namespace Guilded;
 

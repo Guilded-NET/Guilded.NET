@@ -163,7 +163,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
 /// <remarks>
 /// <para>The minimal information about the list item's note.</para>
 /// </remarks>
-public class ListItemNoteSummary : BaseObject, ICreatableContent
+public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableContent
 {
     #region Who, when
     /// <summary>

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Guilded.Base.Events;
 using Guilded.Base.Permissions;
 using Newtonsoft.Json;
 
