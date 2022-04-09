@@ -9,8 +9,6 @@ namespace Guilded.Base.Events;
 /// The base for message-related events.
 /// </summary>
 /// <seealso cref="Message"/>
-/// <seealso cref="MessageCreatedEvent"/>
-/// <seealso cref="MessageUpdatedEvent"/>
 /// <seealso cref="MessageDeletedEvent"/>
 public abstract class MessageEvent<T> : BaseObject where T : BaseObject
 {
@@ -21,7 +19,7 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     /// <value>Message</value>
     public T Message { get; }
     /// <inheritdoc />
-    public HashId ServerId { get; }
+    public HashId? ServerId { get; }
     #endregion
 
     #region Constructors
@@ -31,7 +29,7 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     /// <param name="serverId">The identifier of the server where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
     protected MessageEvent(
-        HashId serverId,
+        HashId? serverId,
 
         T message
     ) =>
@@ -39,13 +37,14 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     #endregion
 }
 /// <summary>
-/// The base for message-related events.
+/// An event that occurs once someone creates/updates a message.
 /// </summary>
-/// <seealso cref="Message"/>
-/// <seealso cref="MessageCreatedEvent"/>
-/// <seealso cref="MessageUpdatedEvent"/>
+/// <remarks>
+/// <para>An event of the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone creates/posts or updates/edits a message in a channel.</para>
+/// </remarks>
 /// <seealso cref="MessageDeletedEvent"/>
-public abstract class MessageEvent : MessageEvent<Message>
+/// <seealso cref="Message"/>
+public class MessageEvent : MessageEvent<Message>
 {
     #region Properties
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId"/>
@@ -58,6 +57,8 @@ public abstract class MessageEvent : MessageEvent<Message>
     public Guid? CreatedByWebhook => Message.CreatedByWebhook;
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt"/>
     public DateTime CreatedAt => Message.CreatedAt;
+    /// <inheritdoc cref="Message.UpdatedAt"/>
+    public DateTime? UpdatedAt => Message.UpdatedAt;
     /// <inheritdoc cref="Message.Type"/>
     public MessageType Type => Message.Type;
     #endregion
@@ -69,9 +70,9 @@ public abstract class MessageEvent : MessageEvent<Message>
     /// <param name="serverId">The identifier of the server where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
     [JsonConstructor]
-    protected MessageEvent(
-        [JsonProperty(Required = Required.Always)]
-        HashId serverId,
+    public MessageEvent(
+        [JsonProperty]
+        HashId? serverId,
 
         [JsonProperty(Required = Required.Always)]
         Message message

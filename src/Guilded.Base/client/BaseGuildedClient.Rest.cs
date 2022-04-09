@@ -149,11 +149,11 @@ public abstract partial class BaseGuildedClient : IDisposable
 
         RestRequest req = new(GuildedUrl.MediaUrlUpload, Method.Post);
         /* {
-            *   "mediaInfo": { "src": "url" },
-            *   "dynamicMediaTypeId": "ContentMedia",
-            *   "uploadTrackingId": "r-1000000-1000000"
-            * }
-            */
+         *   "mediaInfo": { "src": "url" },
+         *   "dynamicMediaTypeId": "ContentMedia",
+         *   "uploadTrackingId": "r-1000000-1000000"
+         * }
+         */
         req.AddJsonBody($"{{ \"mediaInfo\": {{ \"src\": \"{url}\" }}, \"dynamicMediaTypeId\": \"ContentMedia\", \"uploadTrackingId\": \"{FormId.Random}\" }}");
 
         JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data!;
@@ -192,12 +192,14 @@ public abstract partial class BaseGuildedClient : IDisposable
             string code = obj.Value<string>("code")!,
                     errorMessage = obj.Value<string>("message")!;
 
+            JArray? missingPerms = obj.Value<JObject>("meta")?.Value<JArray>("missingPermissions");
+
             GuildedException exc =
                 response.StatusCode switch
                 {
                     // Missing permissions from the bot
                     HttpStatusCode.Forbidden =>
-                        new GuildedPermissionException(code, errorMessage, response),
+                        new GuildedPermissionException(code, missingPerms is not null ? errorMessage + ". Missing permissions: " + string.Join(", ", missingPerms) : errorMessage, response),
                     // Given path has not been found
                     HttpStatusCode.NotFound =>
                         new GuildedResourceException(code, errorMessage, response),

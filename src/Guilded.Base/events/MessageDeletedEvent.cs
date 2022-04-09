@@ -9,8 +9,6 @@ namespace Guilded.Base.Events;
 /// <remarks>
 /// <para>An event of the name <c>ChatMessageDeleted</c> and opcode <c>0</c> that occurs once someone creates/posts a message in the chat.</para>
 /// </remarks>
-/// <seealso cref="MessageCreatedEvent"/>
-/// <seealso cref="MessageUpdatedEvent"/>
 /// <seealso cref="MessageDeleted"/>
 /// <seealso cref="Content.Message"/>
 public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDeleted>
@@ -32,8 +30,8 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// <param name="message">The minimal information about the deleted message</param>
     [JsonConstructor]
     public MessageDeletedEvent(
-        [JsonProperty(Required = Required.Always)]
-        HashId serverId,
+        [JsonProperty]
+        HashId? serverId,
 
         [JsonProperty(Required = Required.Always)]
         MessageDeleted message
@@ -93,7 +91,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
             Guid channelId,
 
             [JsonProperty]
-            HashId serverId,
+            HashId? serverId,
 
             [JsonProperty(Required = Required.Always)]
             DateTime deletedAt

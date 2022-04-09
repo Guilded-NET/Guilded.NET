@@ -47,7 +47,6 @@ public class RolesUpdatedEvent : BaseObject
     /// <para>This property goes through <see cref="MemberRoleIds"/> and selects user IDs.</para>
     /// </remarks>
     /// <returns>Array of user IDs</returns>
-    [JsonIgnore]
     public HashId[] UpdatedUsers => MemberRoleIds.Select(x => x.UserId).ToArray();
     #endregion
 

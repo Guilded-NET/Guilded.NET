@@ -58,11 +58,11 @@ public abstract partial class BaseGuildedClient
         {
             return;
         }
-        // Check for a welcome message to change hearbeat interval
-        else if (@event.Opcode == welcome_opcode)
-        {
-            //Websocket.NativeClient.Options.KeepAliveInterval = TimeSpan.FromMilliseconds(@event.RawData.Value<double>("heartbeatIntervalMs"));
-        }
+        // // Check for a welcome message to change heartbeat interval
+        // else if (@event.Opcode == welcome_opcode)
+        // {
+        //     Websocket.NativeClient.Options.KeepAliveInterval = TimeSpan.FromMilliseconds(@event.RawData.Value<double>("heartbeatIntervalMs"));
+        // }
         else if (@event.Opcode == close_opcode)
         {
             OnWebsocketMessage.OnError(

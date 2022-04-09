@@ -14,17 +14,8 @@ public abstract partial class AbstractGuildedClient
 {
     #region Webhook
     /// <inheritdoc/>
-    private async Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message) =>
+    public override async Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message) =>
         await ExecuteRequestAsync(new RestRequest(new Uri(GuildedUrl.Media, $"webhooks/{webhookId}/{token}"), Method.Post).AddJsonBody(message)).ConfigureAwait(false);
-    /// <inheritdoc/>
-    public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
-        await CreateHookMessageAsync(webhookId, token, new MessageContent(content)).ConfigureAwait(false);
-    /// <inheritdoc/>
-    public override async Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds) =>
-        await CreateHookMessageAsync(webhookId, token, new MessageContent(content) { Embeds = embeds }).ConfigureAwait(false);
-    /// <inheritdoc/>
-    public override async Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds) =>
-        await CreateHookMessageAsync(webhookId, token, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
     #endregion
 
     #region Chat channel

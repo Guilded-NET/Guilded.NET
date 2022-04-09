@@ -16,6 +16,19 @@ public abstract partial class BaseGuildedClient
     /// </summary>
     /// <remarks>
     /// <para>Creates a new message using the specified webhook.</para>
+    /// </remarks>
+    /// <param name="webhookId">The identifier of the webhook to execute</param>
+    /// <param name="token">The token of executed webhook</param>
+    /// <param name="message">The message to send</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedResourceException"/>
+    public abstract Task CreateHookMessageAsync(Guid webhookId, string token, MessageContent message);
+    /// <summary>
+    /// Creates a message in a chat using provided webhook.
+    /// </summary>
+    /// <remarks>
+    /// <para>Creates a new message using the specified webhook.</para>
     /// <para>The <paramref name="content"/> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhookId">The identifier of the webhook to execute</param>
@@ -24,7 +37,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException"/>
     /// <exception cref="GuildedRequestException"/>
     /// <exception cref="GuildedResourceException"/>
-    public abstract Task CreateHookMessageAsync(Guid webhookId, string token, string content);
+    public async Task CreateHookMessageAsync(Guid webhookId, string token, string content) =>
+        await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content }).ConfigureAwait(false);
     /// <summary>
     /// Creates a message in a chat using provided webhook.
     /// </summary>
@@ -39,7 +53,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException"/>
     /// <exception cref="GuildedRequestException"/>
     /// <exception cref="GuildedResourceException"/>
-    public abstract Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds);
+    public async Task CreateHookMessageAsync(Guid webhookId, string token, string content, IList<Embed> embeds) =>
+        await CreateHookMessageAsync(webhookId, token, new MessageContent { Content = content, Embeds = embeds }).ConfigureAwait(false);
     /// <summary>
     /// Creates a message in a chat using provided webhook.
     /// </summary>
@@ -68,7 +83,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException"/>
     /// <exception cref="GuildedRequestException"/>
     /// <exception cref="GuildedResourceException"/>
-    public abstract Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds);
+    public async Task CreateHookMessageAsync(Guid webhookId, string token, IList<Embed> embeds) =>
+        await CreateHookMessageAsync(webhookId, token, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
     /// <summary>
     /// Creates a message in a chat using provided webhook.
     /// </summary>
@@ -83,7 +99,6 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException"/>
     public async Task CreateHookMessageAsync(Guid webhookId, string token, params Embed[] embeds) =>
         await CreateHookMessageAsync(webhookId, token, (IList<Embed>)embeds).ConfigureAwait(false);
-
     #endregion
 
     #region Chat channels

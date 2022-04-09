@@ -13,6 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="MemberJoinedEvent"/>
 /// <seealso cref="MemberUpdatedEvent"/>
+/// <seealso cref="MemberBanEvent"/>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="Member"/>
 public class MemberRemovedEvent : BaseObject
@@ -34,6 +35,22 @@ public class MemberRemovedEvent : BaseObject
     /// </remarks>
     /// <value>Server ID</value>
     public HashId ServerId { get; }
+    /// <summary>
+    /// Whether the user was kicked.
+    /// </summary>
+    /// <remarks>
+    /// <para>Whether the user was kicked from the server by a server staff.</para>
+    /// </remarks>
+    /// <value>User was kicked</value>
+    public bool IsKick { get; }
+    /// <summary>
+    /// Whether the user was banned.
+    /// </summary>
+    /// <remarks>
+    /// <para>Whether the user was banned from the server by a server staff.</para>
+    /// </remarks>
+    /// <value>User was banned</value>
+    public bool IsBan { get; }
     #endregion
 
     #region Constructors
@@ -42,14 +59,22 @@ public class MemberRemovedEvent : BaseObject
     /// </summary>
     /// <param name="serverId">The identifier of the server where the member got kicked or left</param>
     /// <param name="userId">The identifier of the member that got kicked or left</param>
+    /// <param name="isKick">Whether the user was kicked</param>
+    /// <param name="isBan">Whether the user was banned</param>
     [JsonConstructor]
     public MemberRemovedEvent(
         [JsonProperty(Required = Required.Always)]
         HashId serverId,
 
         [JsonProperty(Required = Required.Always)]
-        HashId userId
+        HashId userId,
+
+        [JsonProperty(Required = Required.Always)]
+        bool isKick,
+
+        [JsonProperty(Required = Required.Always)]
+        bool isBan
     ) =>
-        (ServerId, UserId) = (serverId, userId);
+        (ServerId, UserId, IsKick, IsBan) = (serverId, userId, isKick, isBan);
     #endregion
 }

@@ -26,7 +26,7 @@ public class SocialLink : BaseObject
     /// <para>Defines a unique name or identifier of the user in the defined social link.</para>
     /// </remarks>
     /// <value>Social link handle</value>
-    public string Handle { get; }
+    public string? Handle { get; }
     /// <summary>
     /// The identifier of this social link.
     /// </summary>
@@ -49,8 +49,8 @@ public class SocialLink : BaseObject
         [JsonProperty(Required = Required.Always)]
         SocialLinkType type,
 
-        [JsonProperty(Required = Required.Always)]
-        string handle,
+        [JsonProperty]
+        string? handle,
 
         [JsonProperty]
         string? serviceId

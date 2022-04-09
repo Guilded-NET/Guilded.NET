@@ -167,38 +167,56 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent
 {
     #region Who, when
     /// <summary>
-    /// The identifier of the user creator of the note.
+    /// The identifier of the user that created the note.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the user that created this note.</para>
-    /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; }
     /// <summary>
     /// The date of when the note was created.
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime"/> of when the note was created.</para>
-    /// </remarks>
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
+    /// <summary>
+    /// The identifier of the user that updated the note.
+    /// </summary>
+    /// <remarks>
+    /// <para>The identifier of the user that most recently updated this note.</para>
+    /// </remarks>
+    /// <value>User ID</value>
+    public HashId? UpdatedBy { get; }
+    /// <summary>
+    /// The date of when the note was updated.
+    /// </summary>
+    /// <remarks>
+    /// <para>The date of when the note was most recently updated.</para>
+    /// </remarks>
+    /// <value>Date</value>
+    public DateTime? UpdatedAt { get; }
     #endregion
 
     #region Constructors
     /// <summary>
     /// Creates a new instance of <see cref="ListItemNoteSummary"/> with provided details.
     /// </summary>
-    /// <param name="createdBy">The identifier of the user creator of the list item's node</param>
-    /// <param name="createdAt">The date of when the list item's note was created</param>
+    /// <param name="createdBy">The identifier of the user that created the note</param>
+    /// <param name="createdAt">The date of when the note was created</param>
+    /// <param name="updatedBy">The identifier of the user that updated the note</param>
+    /// <param name="updatedAt">The date of when the note was updated</param>
     [JsonConstructor]
     public ListItemNoteSummary(
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
         [JsonProperty(Required = Required.Always)]
-        DateTime createdAt
+        DateTime createdAt,
+
+        [JsonProperty]
+        HashId? updatedBy,
+
+        [JsonProperty]
+        DateTime? updatedAt
     ) =>
-        (CreatedAt, CreatedBy) = (createdAt, createdBy);
+        (CreatedAt, CreatedBy, UpdatedAt, UpdatedBy) = (createdAt, createdBy, updatedAt, updatedBy);
     #endregion
 }
 /// <summary>
@@ -227,6 +245,8 @@ public class ListItemNote : ListItemNoteSummary
     /// <param name="content">The contents of the note</param>
     /// <param name="createdBy">The identifier of the user creator of the list item's note</param>
     /// <param name="createdAt">The date of when the list item's note was created</param>
+    /// <param name="updatedBy">The identifier of the user that updated the note</param>
+    /// <param name="updatedAt">The date of when the note was updated</param>
     [JsonConstructor]
     public ListItemNote(
         [JsonProperty(Required = Required.Always)]
@@ -236,8 +256,14 @@ public class ListItemNote : ListItemNoteSummary
         HashId createdBy,
 
         [JsonProperty(Required = Required.Always)]
-        DateTime createdAt
-    ) : base(createdBy, createdAt) =>
+        DateTime createdAt,
+
+        [JsonProperty]
+        HashId? updatedBy,
+
+        [JsonProperty]
+        DateTime? updatedAt
+    ) : base(createdBy, createdAt, updatedBy, updatedAt) =>
         Content = content;
     #endregion
 }

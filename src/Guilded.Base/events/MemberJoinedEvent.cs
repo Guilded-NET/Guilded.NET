@@ -1,4 +1,6 @@
+using System;
 using Guilded.Base.Servers;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -12,6 +14,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="MemberUpdatedEvent"/>
+/// <seealso cref="WebhookEvent"/>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="Servers.Member"/>
 public class MemberJoinedEvent : BaseObject
@@ -36,14 +39,16 @@ public class MemberJoinedEvent : BaseObject
     #endregion
 
     #region Properties
-    /// <summary>
-    /// The identifier of the member.
-    /// </summary>
-    /// <remarks>
-    /// <para>Gets the identifier of the joined member.</para>
-    /// </remarks>
-    /// <value>User ID</value>
+    /// <inheritdoc cref="MemberSummary{User}.Id" />
     public HashId UserId => Member.Id;
+    /// <inheritdoc cref="MemberSummary{User}.Name" />
+    public string Name => Member.Name;
+    /// <inheritdoc cref="MemberSummary{User}.Type" />
+    public UserType Type => Member.Type;
+    /// <inheritdoc cref="MemberSummary{User}.IsBot" />
+    public bool IsBot => Member.IsBot;
+    /// <inheritdoc cref="Member.JoinedAt" />
+    public DateTime JoinedAt => Member.JoinedAt;
     #endregion
 
     #region Constructors

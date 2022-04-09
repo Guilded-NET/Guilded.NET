@@ -13,6 +13,7 @@ namespace Guilded.Base.Servers;
 /// </remarks>
 public class MemberBan : BaseObject, ICreatableContent
 {
+    #region JSON properties
     /// <summary>
     /// The banned user.
     /// </summary>
@@ -25,26 +26,21 @@ public class MemberBan : BaseObject, ICreatableContent
     /// The reason why the user has been banned.
     /// </summary>
     /// <remarks>
-    /// <para>The (un)specified for the ban by whom the member was banned.</para>
+    /// <para>The (un)specified reason why the user was banned by whom the member was banned.</para>
     /// </remarks>
     /// <value>Text?</value>
     public string? Reason { get; set; }
     /// <summary>
-    /// The date of when the member was banned
+    /// The date of when the user was banned
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime" /> of when the member has received the ban.</para>
-    /// </remarks>
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// The author of the ban.
+    /// The identifier of the staff who banned.
     /// </summary>
-    /// <remarks>
-    /// <para>The staff member of the server that has banned the <see cref="User" />.</para>
-    /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }
+    #endregion
 
     /// <summary>
     /// Creates a new instance of <see cref="MemberBan" /> with the provided details.

@@ -12,6 +12,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="WelcomeEvent"/>
+/// <seealso cref="WebhookEvent"/>
 /// <seealso cref="Member"/>
 public class MemberUpdatedEvent : BaseObject
 {
@@ -42,7 +43,7 @@ public class MemberUpdatedEvent : BaseObject
     /// <remarks>
     /// <para>Gets the identifier of the updated member.</para>
     /// </remarks>
-    public HashId MemberId => UserInfo.Id;
+    public HashId UserId => UserInfo.Id;
     #endregion
 
     #region Constructors

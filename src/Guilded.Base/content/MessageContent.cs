@@ -49,5 +49,20 @@ public class MessageContent : BaseObject
     /// Creates an instance of <see cref="MessageContent"/> with no content.
     /// </summary>
     public MessageContent() { }
+    /// <summary>
+    /// Creates an instance of <see cref="MessageContent"/> with no content.
+    /// </summary>
+    [JsonConstructor]
+    public MessageContent(
+        [JsonProperty]
+        IList<Embed>? embeds,
+
+        [JsonProperty]
+        IList<Guid>? replyMessageIds,
+
+        [JsonProperty]
+        bool? isPrivate
+    ) =>
+        (Embeds, ReplyMessageIds, IsPrivate) = (embeds, replyMessageIds, isPrivate);
     #endregion
 }

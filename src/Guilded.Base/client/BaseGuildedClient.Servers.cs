@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -164,7 +165,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException"/>
     /// <exception cref="GuildedResourceException"/>
     /// <exception cref="GuildedAuthorizationException"/>
-    /// <exception cref="System.ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
+    /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
     /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
     /// <returns>Total XP</returns>
     public abstract Task<long> AddXpAsync(HashId serverId, HashId userId, long amount);
@@ -264,5 +265,90 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException"/>
     /// <permission cref="GeneralPermissions.KickBanMembers">Required for removing the ban from the member</permission>
     public abstract Task UnbanMemberAsync(HashId serverId, HashId userId);
+    #endregion
+
+    #region Webhooks
+    /// <summary>
+    /// Gets a list of webhooks.
+    /// </summary>
+    /// <remarks>
+    /// <para>Gets a list of all webhooks in the specified server. If <paramref name="channelId"/> parameter is given, it gets all of the channel webhooks instead.</para>
+    /// </remarks>
+    /// <param name="serverId">The identifier of the server to get webhooks from</param>
+    /// <param name="channelId">The identifier of the channel to get webhooks from</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <returns>List of webhooks</returns>
+    public abstract Task<IList<Webhook>> GetWebhooksAsync(HashId serverId, Guid? channelId = null);
+    /// <summary>
+    /// Gets a webhook.
+    /// </summary>
+    /// <remarks>
+    /// <para>Gets the specified webhook.</para>
+    /// </remarks>
+    /// <param name="serverId">The identifier of the server where the webhook is</param>
+    /// <param name="webhookId">The identifier of the webhook to get</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <returns>Specified webhook</returns>
+    public abstract Task<Webhook> GetWebhookAsync(HashId serverId, Guid webhookId);
+    /// <summary>
+    /// Creates a webhook.
+    /// </summary>
+    /// <remarks>
+    /// <para>Creates a new webhook in the specified channel without a profile picture.</para>
+    /// </remarks>
+    /// <param name="serverId">The identifier of the server where the webhook will be created</param>
+    /// <param name="channelId">The identifier of the channel where the webhook will be created</param>
+    /// <param name="name">The name of the webhook</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
+    /// <permission cref="GeneralPermissions.ManageWebhooks">Required for creating webhooks</permission>
+    /// <returns>Created webhook</returns>
+    public abstract Task<Webhook> CreateWebhookAsync(HashId serverId, Guid channelId, string name);
+    /// <summary>
+    /// Creates a webhook.
+    /// </summary>
+    /// <remarks>
+    /// <para>Creates a new webhook in the specified channel without a profile picture.</para>
+    /// </remarks>
+    /// <param name="serverId">The identifier of the server where the webhook is</param>
+    /// <param name="webhookId">The identifier of the webhook to update</param>
+    /// <param name="name">The new name of the webhook</param>
+    /// <param name="newChannelId">The identifier of the channel where the webhook will be moved to</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="GeneralPermissions.ManageWebhooks">Required for updating webhooks</permission>
+    /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
+    /// <returns>Updated webhook</returns>
+    public abstract Task<Webhook> UpdateWebhookAsync(HashId serverId, Guid webhookId, string name, Guid? newChannelId = null);
+    /// <summary>
+    /// Deletes a webhook.
+    /// </summary>
+    /// <remarks>
+    /// <para>Deletes the specified webhook.</para>
+    /// </remarks>
+    /// <param name="serverId">The identifier of the server where the webhook is</param>
+    /// <param name="webhookId">The identifier of the webhook to delete</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="GeneralPermissions.ManageWebhooks">Required for deleting webhooks</permission>
+    public abstract Task DeleteWebhookAsync(HashId serverId, Guid webhookId);
     #endregion
 }

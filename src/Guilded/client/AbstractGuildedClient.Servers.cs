@@ -95,4 +95,46 @@ public abstract partial class AbstractGuildedClient
     public override async Task UnbanMemberAsync(HashId serverId, HashId userId) =>
         await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/bans/{userId}", Method.Delete)).ConfigureAwait(false);
     #endregion
+
+    #region Webhooks
+    /// <inheritdoc/>
+    public override async Task<IList<Webhook>> GetWebhooksAsync(HashId serverId, Guid? channelId = null) =>
+        await GetResponseProperty<IList<Webhook>>(new RestRequest($"servers/{serverId}/webhooks", Method.Get)
+            .AddOptionalQuery("channelId", channelId)
+        , "webhooks").ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task<Webhook> GetWebhookAsync(HashId serverId, Guid webhookId) =>
+        await GetResponseProperty<Webhook>(new RestRequest($"servers/{serverId}/webhooks/{webhookId}", Method.Get), "webhook").ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task<Webhook> CreateWebhookAsync(HashId serverId, Guid channelId, string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        return await GetResponseProperty<Webhook>(new RestRequest($"servers/{serverId}/webhooks", Method.Post)
+            .AddJsonBody(new
+            {
+                name,
+                channelId
+            })
+        , "webhook").ConfigureAwait(false);
+    }
+    /// <inheritdoc/>
+    public override async Task<Webhook> UpdateWebhookAsync(HashId serverId, Guid webhookId, string name, Guid? newChannelId = null)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        return await GetResponseProperty<Webhook>(new RestRequest($"servers/{serverId}/webhooks/{webhookId}", Method.Put)
+            .AddJsonBody(new
+            {
+                name,
+                channelId = newChannelId
+            })
+        , "webhook").ConfigureAwait(false);
+    }
+    /// <inheritdoc/>
+    public override async Task DeleteWebhookAsync(HashId serverId, Guid webhookId) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/webhooks/{webhookId}", Method.Delete)).ConfigureAwait(false);
+    #endregion
 }

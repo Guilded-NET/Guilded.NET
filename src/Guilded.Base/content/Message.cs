@@ -16,8 +16,6 @@ namespace Guilded.Base.Content;
 /// </remarks>
 /// <seealso cref="ListItem{T}"/>
 /// <seealso cref="ForumThread"/>
-/// <seealso cref="MessageCreatedEvent"/>
-/// <seealso cref="MessageUpdatedEvent"/>
 public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent
 {
     #region Static

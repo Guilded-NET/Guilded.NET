@@ -54,7 +54,7 @@ public readonly struct HashId : IEquatable<HashId>
     public HashId(string id)
     {
         // Make sure it's in correct format
-        if (id?.Length < idMinLength || !Check(id))
+        if (!Check(id))
             throw FormatError;
 
         _ = id!;
@@ -115,6 +115,6 @@ public readonly struct HashId : IEquatable<HashId>
     /// <param name="str">A raw string to check</param>
     /// <returns>Correct formatting</returns>
     public static bool Check(string? str) =>
-        str is not null && str.Length < 8 && str.All(ch => allowedChars.Contains(ch));
+        str is not null && str.Length >= idMinLength && str.All(ch => allowedChars.Contains(ch));
     #endregion
 }

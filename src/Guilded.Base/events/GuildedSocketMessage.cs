@@ -9,8 +9,6 @@ namespace Guilded.Base.Events;
 /// <remarks>
 /// <para>Any message that can be received the Guilded WebSocket, including Guilded events.</para>
 /// </remarks>
-/// <seealso cref="MessageCreatedEvent"/>
-/// <seealso cref="MessageUpdatedEvent"/>
 /// <seealso cref="MessageDeletedEvent"/>
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="MemberUpdatedEvent"/>

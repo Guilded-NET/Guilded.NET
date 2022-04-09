@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 
 using Guilded.Base.Events;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded;
 
@@ -29,31 +30,108 @@ public abstract partial class AbstractGuildedClient
 
     #region Teams
     /// <inheritdoc cref="XpAddedEvent"/>
-    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="MemberJoined"/>
     /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
     public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["TeamXpAdded"]).Observable;
 
     /// <inheritdoc cref="RolesUpdatedEvent"/>
-    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberJoined"/>
     /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
     public IObservable<RolesUpdatedEvent> RolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["teamRolesUpdated"]).Observable;
 
     /// <inheritdoc cref="MemberUpdatedEvent"/>
+    /// <seealso cref="MemberJoined"/>
     /// <seealso cref="RolesUpdated"/>
     /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
     public IObservable<MemberUpdatedEvent> MemberUpdated => ((IEventInfo<MemberUpdatedEvent>)GuildedEvents["TeamMemberUpdated"]).Observable;
+    /// <inheritdoc cref="MemberJoinedEvent"/>
+    /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
+    public IObservable<MemberJoinedEvent> MemberJoined => ((IEventInfo<MemberJoinedEvent>)GuildedEvents["TeamMemberJoined"]).Observable;
+    /// <inheritdoc cref="MemberRemovedEvent"/>
+    /// <seealso cref="MemberJoined"/>
+    /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
+    public IObservable<MemberRemovedEvent> MemberRemoved => ((IEventInfo<MemberRemovedEvent>)GuildedEvents["TeamMemberRemoved"]).Observable;
+    /// <inheritdoc cref="MemberBanEvent"/>
+    /// <seealso cref="MemberJoined"/>
+    /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
+    public IObservable<MemberBanEvent> MemberBanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberBanned"]).Observable;
+    /// <inheritdoc cref="MemberBanEvent"/>
+    /// <seealso cref="MemberJoined"/>
+    /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    /// <seealso cref="WebhookUpdated"/>
+    public IObservable<MemberBanEvent> MemberUnbanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberUnbanned"]).Observable;
+    /// <inheritdoc cref="WebhookEvent"/>
+    /// <seealso cref="MemberJoined"/>
+    /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookUpdated"/>
+    public IObservable<WebhookEvent> WebhookCreated => ((IEventInfo<WebhookEvent>)GuildedEvents["TeamWebhookCreated"]).Observable;
+    /// <inheritdoc cref="WebhookEvent"/>
+    /// <seealso cref="MemberJoined"/>
+    /// <seealso cref="MemberUpdated"/>
+    /// <seealso cref="RolesUpdated"/>
+    /// <seealso cref="XpAdded"/>
+    /// <seealso cref="MemberRemoved"/>
+    /// <seealso cref="MemberBanned"/>
+    /// <seealso cref="MemberUnbanned"/>
+    /// <seealso cref="WebhookCreated"/>
+    public IObservable<WebhookEvent> WebhookUpdated => ((IEventInfo<WebhookEvent>)GuildedEvents["TeamWebhookUpdated"]).Observable;
     #endregion
 
     #region Chat channels
-    /// <inheritdoc cref="MessageCreatedEvent"/>
+    /// <inheritdoc cref="MessageEvent"/>
     /// <seealso cref="MessageUpdated"/>
     /// <seealso cref="MessageDeleted"/>
-    public IObservable<MessageCreatedEvent> MessageCreated => ((IEventInfo<MessageCreatedEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
-
-    /// <inheritdoc cref="MessageUpdatedEvent"/>
+    public IObservable<MessageEvent> MessageCreated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
+    /// <inheritdoc cref="MessageEvent"/>
     /// <seealso cref="MessageCreated"/>
     /// <seealso cref="MessageDeleted"/>
-    public IObservable<MessageUpdatedEvent> MessageUpdated => ((IEventInfo<MessageUpdatedEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
+    public IObservable<MessageEvent> MessageUpdated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
     /// <inheritdoc cref="MessageDeletedEvent"/>
     /// <seealso cref="MessageUpdated"/>
     /// <seealso cref="MessageUpdated"/>
