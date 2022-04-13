@@ -1,3 +1,16 @@
+# v0.7.1-beta
+
+- Added `Me` and `IsPrepared` properties to AbstractGuildedClient
+- Added `IsSystemMessage` to `Message` and `MessageEvent`
+- Added `IsReply` to `MessageEvent`
+- Added `Reconnected` to AbstractGuildedClient
+- Changed `Prepared`, `Connected`, `Disconnected` to observables for consistency
+- Changed `Prepared` to now be invoked after `Welcome`
+- Changed `Disconnected`, `Prepared` and `Connected` returned arguments
+    - `Disconnected` — `Websocket.Client.DisconnectionInfo`
+    - `Connected` — `BaseGuildedClient`
+    - `Prepared` — `Me`
+
 # v0.7.0-beta
 
 - Added `limit`, `before` and `after` parameters to get messages, docs and list items methods

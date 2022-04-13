@@ -64,16 +64,12 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <para>Checks whether the message is a reply.</para>
     /// </remarks>
     /// <value>Message is a reply</value>
-    [JsonIgnore]
     public bool IsReply => ReplyMessageIds?.Count > 0;
     #endregion
 
     /// <summary>
-    /// The identifier of the webhook creator of the message.
+    /// The identifier of the webhook that created the message.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the webhook that created this message.</para>
-    /// </remarks>
     /// <value>Webhook ID?</value>
     public Guid? CreatedByWebhook { get; }
     /// <summary>
@@ -88,10 +84,19 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// The type of the message.
     /// </summary>
     /// <remarks>
-    /// <para>Allows message to be determined as a <see cref="MessageType.Default"/> or <see cref="MessageType.System"/>.</para>
+    /// <para>Distinguishes the messages by what content they contain.</para>
     /// </remarks>
     /// <value>Message type</value>
     public MessageType Type { get; }
+    /// <summary>
+    /// Whether the specified message is a system message.
+    /// </summary>
+    /// <remarks>
+    /// <para>Whether the specified is a system message.</para>
+    /// <para>A system message is a message that is created automatically on specific events, such as renaming the channel. Usually, it's something like "User has renamed the channel from X to Y"</para>
+    /// </remarks>
+    /// <value>Message is a system message</value>
+    public bool IsSystemMessage => Type == MessageType.System;
     #endregion
 
     #region Constructor

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Guilded.Base;
 using Guilded.Base.Events;
-
+using Guilded.Base.Users;
 using Newtonsoft.Json.Linq;
 
 using RestSharp;
@@ -29,13 +29,20 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <para>An event that occurs once Guilded client has added finishing touches. You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly working and can be used.</para>
     /// <para>As of now, this is called at the same time as <see cref="BaseGuildedClient.Connected"/> event.</para>
     /// </remarks>
-    protected EventHandler? PreparedEvent;
+    protected EventHandler<Me>? PreparedEvent;
     /// <inheritdoc cref="PreparedEvent"/>
-    public event EventHandler Prepared
+    public event EventHandler<Me> Prepared
     {
         add => PreparedEvent += value;
         remove => PreparedEvent -= value;
     }
+    /// <inheritdoc cref="WelcomeEvent.User" />
+    public Me? Me { get; protected set; }
+    /// <summary>
+    /// Whether the client is already prepared.
+    /// </summary>
+    /// <value>Client is prepared</value>
+    public bool IsPrepared { get; protected set; }
     /// <summary>
     /// A base constructor for creating Guilded clients.
     /// </summary>
@@ -75,6 +82,19 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             // Relay the error onto welcome observable
             e => GuildedEvents[(byte)1].OnError(e)
         );
+
+        // Prepare state
+        Welcome.Subscribe(welcome =>
+        {
+            Me = welcome.User;
+
+            if (!IsPrepared)
+            {
+                PreparedEvent?.Invoke(this, Me);
+                IsPrepared = true;
+            }
+        });
+        Disconnected.Subscribe(_ => IsPrepared = false);
     }
     /// <summary>
     /// Connects this client to Guilded.
@@ -85,8 +105,18 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <seealso cref="DisconnectAsync"/>
     /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
     /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
-    public override async Task ConnectAsync() =>
-        await Websocket.StartOrFail().ConfigureAwait(false);
+    public override async Task ConnectAsync()
+    {
+        try
+        {
+            await Websocket.StartOrFail().ConfigureAwait(false);
+            ConnectedSubject.OnNext(this);
+        }
+        catch (Exception e)
+        {
+            ConnectedSubject.OnError(e);
+        }
+    }
     /// <summary>
     /// Disconnects this client from Guilded.
     /// </summary>
@@ -101,8 +131,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     {
         if (Websocket.IsRunning)
             await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
-
-        DisconnectedEvent?.Invoke(this, EventArgs.Empty);
     }
     /// <summary>
     /// Disposes <see cref="AbstractGuildedClient"/> instance.

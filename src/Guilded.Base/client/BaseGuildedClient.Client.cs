@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
 
@@ -10,6 +11,8 @@ using Newtonsoft.Json.Serialization;
 
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
+using Websocket.Client;
+using Websocket.Client.Models;
 
 namespace Guilded.Base;
 
@@ -22,7 +25,7 @@ namespace Guilded.Base;
 public abstract partial class BaseGuildedClient : IDisposable
 {
     /// <summary>
-    /// An event when client is connected
+    /// An event when the client gets connected.
     /// </summary>
     /// <remarks>
     /// <para>An event that occurs once Guilded client connects to Guilded.</para>
@@ -30,29 +33,28 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// </remarks>
     /// <seealso cref="ConnectAsync"/>
     /// <seealso cref="Disconnected"/>
-    protected EventHandler? ConnectedEvent;
+    protected Subject<BaseGuildedClient> ConnectedSubject = new();
+    /// <inheritdoc cref="ConnectedSubject"/>
+    public IObservable<BaseGuildedClient> Connected => ConnectedSubject.AsObservable();
     /// <summary>
-    /// An event when client gets disconnected
+    /// An event when client gets reconnected.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event that occurs once Guilded client reconnects to Guilded.</para>
+    /// </remarks>
+    /// <seealso cref="Disconnected"/>
+    /// <seealso cref="Connected"/>
+    public IObservable<ReconnectionInfo> Reconnected => Websocket.ReconnectionHappened;
+    /// <summary>
+    /// An event when the client gets disconnected.
     /// </summary>
     /// <remarks>
     /// <para>An event that occurs once Guilded client disconnects from Guilded.</para>
-    /// <para>This usually occurs once <see cref="DisconnectAsync"/> is called and no errors get thrown.</para>
+    /// <para>This usually occurs once <see cref="DisconnectAsync"/> is called and no errors get thrown, or once an error occurs.</para>
     /// </remarks>
     /// <seealso cref="DisconnectAsync"/>
     /// <seealso cref="Connected"/>
-    protected EventHandler? DisconnectedEvent;
-    /// <inheritdoc cref="ConnectedEvent"/>
-    public event EventHandler Connected
-    {
-        add => ConnectedEvent += value;
-        remove => ConnectedEvent -= value;
-    }
-    /// <inheritdoc cref="DisconnectedEvent"/>
-    public event EventHandler Disconnected
-    {
-        add => DisconnectedEvent += value;
-        remove => DisconnectedEvent += value;
-    }
+    public IObservable<DisconnectionInfo> Disconnected => Websocket.DisconnectionHappened;
     /// <summary>
     /// Settings for <see cref="Rest"/> client's JSON (de)serialization.
     /// </summary>
@@ -100,6 +102,8 @@ public abstract partial class BaseGuildedClient : IDisposable
             return socket;
         });
         Websocket = new(websocketUrl ?? GuildedUrl.Websocket, factory);
+
+        // Event stuff
         Websocket.MessageReceived
             .Where(msg => msg.MessageType == WebSocketMessageType.Text)
             .Subscribe(OnWebsocketResponse);

@@ -103,11 +103,6 @@ public class GuildedBotClient : AbstractGuildedClient
         Rest.AddDefaultHeaders(AdditionalHeaders);
 
         await base.ConnectAsync().ConfigureAwait(false);
-
-        ConnectedEvent?.Invoke(this, EventArgs.Empty);
-
-        // TODO: GetMeAsync
-        PreparedEvent?.Invoke(this, EventArgs.Empty);
     }
     /// <summary>
     /// Connects to Guilded using defined auth.

@@ -1,3 +1,4 @@
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -31,6 +32,11 @@ public class WelcomeEvent : BaseObject
     /// </remarks>
     /// <value>Event ID?</value>
     public string? LastMessageId { get; }
+    /// <summary>
+    /// The current logged in user.
+    /// </summary>
+    /// <value>Me</value>
+    public Me User { get; set; }
     #endregion
 
     #region Constructors
@@ -38,14 +44,18 @@ public class WelcomeEvent : BaseObject
     /// Creates a new instance of <see cref="WelcomeEvent"/>. This is currently only used in deserialization.
     /// </summary>
     /// <param name="heartbeatIntervalMs">The duration between heartbeats</param>
+    /// <param name="user">The current logged in user</param>
     /// <param name="lastMessageId">The identifier of the last event sent</param>
     [JsonConstructor]
     public WelcomeEvent(
         [JsonProperty(Required = Required.Always)]
         int heartbeatIntervalMs,
 
+        [JsonProperty(Required = Required.Always)]
+        Me user,
+
         string? lastMessageId
     ) =>
-        (HeartbeatInterval, LastMessageId) = (heartbeatIntervalMs, lastMessageId);
+        (HeartbeatInterval, User, LastMessageId) = (heartbeatIntervalMs, user, lastMessageId);
     #endregion
 }

@@ -61,6 +61,10 @@ public class MessageEvent : MessageEvent<Message>
     public DateTime? UpdatedAt => Message.UpdatedAt;
     /// <inheritdoc cref="Message.Type"/>
     public MessageType Type => Message.Type;
+    /// <inheritdoc cref="Message.IsReply"/>
+    public bool IsReply => Message.IsReply;
+    /// <inheritdoc cref="Message.IsSystemMessage"/>
+    public bool IsSystemMessage => Message.IsSystemMessage;
     #endregion
 
     #region Constructors
