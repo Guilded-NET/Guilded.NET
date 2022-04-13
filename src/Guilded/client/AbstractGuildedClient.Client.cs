@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Net.WebSockets;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
 using Guilded.Base;
@@ -29,13 +31,9 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <para>An event that occurs once Guilded client has added finishing touches. You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly working and can be used.</para>
     /// <para>As of now, this is called at the same time as <see cref="BaseGuildedClient.Connected"/> event.</para>
     /// </remarks>
-    protected EventHandler<Me>? PreparedEvent;
-    /// <inheritdoc cref="PreparedEvent"/>
-    public event EventHandler<Me> Prepared
-    {
-        add => PreparedEvent += value;
-        remove => PreparedEvent -= value;
-    }
+    protected Subject<Me> PreparedSubject = new();
+    /// <inheritdoc cref="PreparedSubject"/>
+    public IObservable<Me> Prepared => PreparedSubject.AsObservable();
     /// <inheritdoc cref="WelcomeEvent.User" />
     public Me? Me { get; protected set; }
     /// <summary>
@@ -90,7 +88,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
 
             if (!IsPrepared)
             {
-                PreparedEvent?.Invoke(this, Me);
+                PreparedSubject.OnNext(Me);
                 IsPrepared = true;
             }
         });

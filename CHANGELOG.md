@@ -1,3 +1,7 @@
+# v0.7.2-beta
+
+- Fix `Prepared` actually not being observable
+
 # v0.7.1-beta
 
 - Added `Me` and `IsPrepared` properties to AbstractGuildedClient
