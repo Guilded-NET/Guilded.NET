@@ -1,3 +1,7 @@
+# v0.7.4-beta
+
+- Fix `Prepared` being called constantly
+
 # v0.7.2-beta
 
 - Fix `Prepared` actually not being observable

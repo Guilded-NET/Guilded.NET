@@ -11,6 +11,7 @@ using Guilded.Base.Users;
 using Newtonsoft.Json.Linq;
 
 using RestSharp;
+using Websocket.Client;
 
 namespace Guilded;
 
@@ -92,7 +93,11 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
                 IsPrepared = true;
             }
         });
-        Disconnected.Subscribe(_ => IsPrepared = false);
+        Disconnected.Subscribe(info =>
+        {
+            if (info.Type != DisconnectionType.NoMessageReceived)
+                IsPrepared = false;
+        });
     }
     /// <summary>
     /// Connects this client to Guilded.
