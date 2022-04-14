@@ -38,7 +38,10 @@ string auth   = "your_bots_auth_token",
 
 using GuildedBotClient client = new(auth);
 
-client.Prepared += (_, _) => Console.WriteLine("The bot is prepared!");
+client.Prepared
+      .Subscribe(me =>
+          Console.WriteLine("The bot is prepared!\nLogged in as \"{0}\" with the ID \"{1}\"", me.Name, me.Id)
+      );
 
 // Wait for !ping messages
 client.MessageCreated
