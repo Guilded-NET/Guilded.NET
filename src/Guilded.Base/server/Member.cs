@@ -37,7 +37,7 @@ public class Member : MemberSummary<User>
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="Member" />.
+    /// Initializes a new instance of <see cref="Member" />.
     /// </summary>
     /// <param name="user">The user that is a member of the server</param>
     /// <param name="roleIds">The list of roles that member holds</param>

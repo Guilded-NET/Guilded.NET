@@ -6,7 +6,7 @@ using RestSharp;
 namespace Guilded;
 
 /// <summary>
-/// A client type for Guilded bots.
+/// Represents the client type for Guilded bots.
 /// </summary>
 /// <remarks>
 /// <para>Use this to initiate and log into Guilded bot.</para>
@@ -25,7 +25,10 @@ namespace Guilded;
 /// <code language="csharp">
 /// using GuildedBotClient client = new GuildedBotClient("...auth...");
 ///
-/// client.Prepared += _ => Console.WriteLine("I am prepared!");
+/// client.Prepared
+///       .Subscribe(me =>
+///           Console.WriteLine("I am prepared! Logged in as '{0}'", me.Name)
+///       );
 /// client.MessageCreated
 ///     .Where(msg => msg.Content == "!ping")
 ///     .Subscribe(msg => await msg.RespondAsync("Pong!"));

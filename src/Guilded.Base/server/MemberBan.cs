@@ -43,7 +43,7 @@ public class MemberBan : BaseObject, ICreatableContent
     #endregion
 
     /// <summary>
-    /// Creates a new instance of <see cref="MemberBan" /> with the provided details.
+    /// Initializes a new instance of <see cref="MemberBan" /> with the provided details.
     /// </summary>
     /// <param name="user">The user that has been banned</param>
     /// <param name="createdBy">The author of the ban</param>

@@ -6,16 +6,16 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once someone receives or loses a role.
+/// Represents an event with the name <c>teamRolesUpdated</c> and opcode <c>0</c> that occurs once <see cref="RolesUpdated.UserId">role holder</see> either loses a <see cref="RolesUpdated.RoleIds">role</see> or receives it.
 /// </summary>
 /// <remarks>
-/// <para>An event of the name <c>teamRolesUpdated</c> and opcode <c>0</c> that occurs once role holder either loses a role or receives it. This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>
+/// <para>This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>
 /// </remarks>
 /// <seealso cref="MemberUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="Member"/>
-public class RolesUpdatedEvent : BaseObject
+public class RolesUpdatedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
@@ -52,7 +52,7 @@ public class RolesUpdatedEvent : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="RolesUpdatedEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="RolesUpdatedEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where roles were updated</param>
     /// <param name="memberRoleIds">The list of roles and role holders</param>
@@ -79,7 +79,7 @@ public class RolesUpdatedEvent : BaseObject
     {
         #region JSON properties
         /// <summary>
-        /// The identifier of the role holder.
+        /// Gets the identifier of the role holder.
         /// </summary>
         /// <remarks>
         /// <para>The identifier of the user that has received all roles in <see cref="RoleIds"/> list.</para>
@@ -87,10 +87,9 @@ public class RolesUpdatedEvent : BaseObject
         /// <value>User ID</value>
         public HashId UserId { get; }
         /// <summary>
-        /// The list of roles <see cref="UserId"/> holds.
+        /// Gets the list of roles that <see cref="UserId">member</see> is currently holding.
         /// </summary>
         /// <remarks>
-        /// <para>The list of roles that <see cref="UserId"/> is currently holding.</para>
         /// <para>Received or removed roles are not provided, so caching of previou role list is necessary if previous role list is needed.</para>
         /// </remarks>
         /// <value>List of role IDs</value>
@@ -99,7 +98,7 @@ public class RolesUpdatedEvent : BaseObject
 
         #region Constructors
         /// <summary>
-        /// Creates a new instance of <see cref="RolesUpdated"/>. This is currently only used in deserialization.
+        /// Initializes a new instance of <see cref="RolesUpdated"/> from the specified JSON properties.
         /// </summary>
         /// <param name="userId">The identifier of the user who holds the roles</param>
         /// <param name="roleIds">The list of role identifiers user holds</param>

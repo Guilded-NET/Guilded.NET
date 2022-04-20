@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 namespace Guilded.Base;
 
 /// <summary>
-/// The base for all Guilded models.
+/// Represents the base for all Guilded models.
 /// </summary>
 /// <remarks>
-/// <para>Provides a base for all Guilded.NET objects. This object can be serialized with <see cref="Serialize(JsonSerializer)"/> or <see cref="Serialize(JsonConverter[])"/> methods.</para>
+/// <para>This object can be serialized with <see cref="Serialize(JsonSerializer)"/> or <see cref="Serialize(JsonConverter[])"/> methods.</para>
 /// </remarks>
 /// <seealso cref="ClientObject"/>
 public abstract class BaseObject
@@ -29,11 +29,8 @@ public abstract class BaseObject
         return strWriter.ToString();
     }
     /// <summary>
-    /// Returns serialized <see cref="BaseObject"/> instance.
+    /// Returns the serialized <see cref="BaseObject"/> instance.
     /// </summary>
-    /// <remarks>
-    /// <para>Returns serialized version of this <see cref="BaseObject"/> instance based on <paramref name="converters"/>.</para>
-    /// </remarks>
     /// <param name="converters">Guilded object converters that will be used to serialize</param>
     /// <returns>Serialized <see cref="BaseObject"/> instance</returns>
     public virtual string Serialize(params JsonConverter[] converters) =>

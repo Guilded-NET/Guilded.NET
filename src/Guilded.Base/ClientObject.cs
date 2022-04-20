@@ -4,10 +4,10 @@ using Newtonsoft.Json;
 namespace Guilded.Base;
 
 /// <summary>
-/// A base that with a parent client.
+/// Represents a base for Guilded models that require a <see cref="ParentClient">client</see>.
 /// </summary>
 /// <remarks>
-/// <para>A base object that also contains definining parent client. The parent client that defined this method is referenced in <see cref="ParentClient"/>, that is initiated with internal OnDeserialized method. This allows having methods like <see cref="Content.Message.CreateMessageAsync(string)"/>, where it requires to call the parent client's methods.</para>
+/// <para>This allows having methods like <see cref="Content.Message.CreateMessageAsync(string)"/>, where it requires to call the parent client's methods.</para>
 /// </remarks>
 /// <seealso cref="BaseGuildedClient"/>
 /// <seealso cref="BaseObject"/>
@@ -15,16 +15,13 @@ public abstract class ClientObject : BaseObject
 {
 #nullable disable
     /// <summary>
-    /// The parent client that adopts this object.
+    /// Gets the parent client that adopts <see cref="ClientObject">this object</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>The parent client that deserialized this object. This is initiated via internal OnDeserialized method and only available after deserialization, but not during it.</para>
-    /// </remarks>
     /// <value>Client</value>
     [JsonIgnore]
     public BaseGuildedClient ParentClient { get; private set; }
     /// <summary>
-    /// Adds a parent client if the context contains it.
+    /// Adds a <see cref="ParentClient">parent client</see> if the context contains it.
     /// </summary>
     /// <param name="context">The context given by the serializer</param>
     [OnDeserialized]

@@ -5,10 +5,10 @@ using RestSharp;
 
 namespace Guilded.Base;
 /// <summary>
-/// An exception thrown by Guilded API.
+/// Represents an exception thrown by Guilded API.
 /// </summary>
 /// <remarks>
-/// <para>A base exception type for Guilded. This should not usually be thrown and instead, children types of <see cref="GuildedException"/> should be thrown instead. If you see it get thrown, this is most likely due to internal server error or some kind of other unknown exception.</para>
+/// <para>This should not usually be thrown and instead, children types of <see cref="GuildedException"/> should be thrown instead. If you see it get thrown, this is most likely due to internal server error or some kind of other unknown exception.</para>
 /// <para>If you get internal server error, make sure you are doing everything right as documented or noted.</para>
 /// </remarks>
 /// <seealso cref="GuildedPermissionException"/>
@@ -20,27 +20,27 @@ namespace Guilded.Base;
 public class GuildedException : Exception
 {
     /// <summary>
-    /// The code name of Guilded error.
+    /// Gets the code name of Guilded error.
     /// </summary>
     /// <value>Code name</value>
     public string? Code { get; }
     /// <summary>
-    /// The response that was received from Guilded API.
+    /// Gets the response that was received from Guilded API.
     /// </summary>
     /// <value>REST Response</value>
     public RestResponse? Response { get; }
     /// <summary>
-    /// The HTTP status that was found in the response.
+    /// Gets the HTTP status that was found in the response.
     /// </summary>
     /// <value>HTTP status</value>
     public HttpStatusCode? StatusCode => Response?.StatusCode;
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedException"/>.
+    /// Initializes a new instance of <see cref="GuildedException"/> with only a <paramref name="message" />.
     /// </summary>
     /// <param name="message">The message explaining the error</param>
     public GuildedException(string message) : base(message) { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedException"/> with information from given parameters.
+    /// Initializes a new instance of <see cref="GuildedException"/> from a <paramref name="response" />.
     /// </summary>
     /// <param name="code">The name of the error from Guilded API</param>
     /// <param name="message">The description of the error from Guilded API</param>
@@ -48,21 +48,21 @@ public class GuildedException : Exception
     public GuildedException(string code, string message, RestResponse response) : this(message) =>
         (Code, Response) = (code, response);
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedException"/> with default message.
+    /// Initializes a new instance of <see cref="GuildedException"/> with a default message.
     /// </summary>
     /// <remarks>
-    /// <para>Creates a new instance of <see cref="GuildedException"/> with default message:</para>
-    /// <para>"Guilded exception was thrown."</para>
+    /// <para>This is the message that will be used:</para>
+    /// <code>Guilded exception was thrown.</code>
     /// </remarks>
     public GuildedException() : this("Guilded exception was thrown.") { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedException"/> with inner exception explaining more.
+    /// Initializes a new instance of <see cref="GuildedException"/> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
     /// <param name="message">The description of the error from Guilded API</param>
     /// <param name="inner">Inner exception explaining more</param>
     public GuildedException(string message, Exception inner) : base(message, inner) { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedException"/> with serialization information.
+    /// Initializes a new instance of <see cref="GuildedException"/> with serialization information.
     /// </summary>
     /// <param name="info">The information about serialization that errored</param>
     /// <param name="context">The streaming context of the serialization</param>

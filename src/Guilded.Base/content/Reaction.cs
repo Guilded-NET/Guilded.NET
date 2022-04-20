@@ -5,45 +5,42 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Content;
 
 /// <summary>
-/// The information about a reaction.
+/// Represents a <see cref="ChannelContent{T, S}">content</see> reaction.
 /// </summary>
-/// <remarks>
-/// <para>Defines a reaction in <see cref="ChannelContent{T, S}"/>. Only currently exists on messages, forum threads, announcements, media, documents and calendar events. Currently doesn't hold the count of all reactions, nor return all reacting users.</para>
-/// </remarks>
 /// <seealso cref="Message"/>
-public class Reaction : ClientObject, IWebhookCreatable
+/// <seealso cref="Doc"/>
+/// <seealso cref="ForumThread"/>
+public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
 {
     #region JSON properties
     /// <summary>
-    /// The identifier of the emote reacted with.
+    /// Gets the identifier of the emote reacted with.
     /// </summary>
     /// <value>Emote ID</value>
     public uint Id { get; }
     /// <summary>
-    /// The identifier of the server where the content is.
+    /// Gets the identifier of the server where the content is.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the server where the content was found.</para>
-    /// <para>The server can be either optional or not optional. This depends whether the content is global or server-wide. Content like forum threads will be server-wide, while content like chat messages and reactions will be global.</para>
+    /// <para>As some of the content are bound to servers and some can be global, the identifier of the server may be <see langword="null" />.</para>
     /// </remarks>
     /// <value>Server ID?</value>
     public HashId? ServerId { get; }
     /// <summary>
-    /// The date of when this reaction was created.
+    /// Gets the date of when the reaction was created.
     /// </summary>
-    /// <value>Created at</value>
+    /// <value>Date</value>
     public DateTime CreatedAt { get; }
     /// <summary>
-    /// The identifier of the user creator of the reaction.
+    /// Gets the identifier of the user that created the reaction.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the user that created this reaction.</para>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; }
     /// <summary>
-    /// The identifier of the webhook creator of the reaction.
+    /// Gets the identifier of the webhook that created the reaction.
     /// </summary>
     /// <remarks>
     /// <para>The identifier of the webhook that posted created this reaction.</para>
@@ -55,7 +52,7 @@ public class Reaction : ClientObject, IWebhookCreatable
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="Reaction"/> with provided details.
+    /// Initializes a new instance of <see cref="Reaction"/> with provided details.
     /// </summary>
     /// <param name="id">The identifier of the emote reacted with</param>
     /// <param name="serverId">The identifier of the server where the reaction is</param>

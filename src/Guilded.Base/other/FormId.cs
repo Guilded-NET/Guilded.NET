@@ -100,7 +100,7 @@ public readonly struct FormId : IEquatable<FormId>
 
     #region Static methods
     /// <summary>
-    /// Checks if <paramref name="str"/> is in the correct <see cref="FormId"/> format.
+    /// Returns whether <paramref name="str"/> is in the correct <see cref="FormId"/> format.
     /// </summary>
     /// <param name="str">A raw string to check</param>
     /// <returns>Correct formatting</returns>
@@ -118,7 +118,7 @@ public readonly struct FormId : IEquatable<FormId>
         return split.Count == 2 && !split.Any(IsFormIdPart);
     }
     /// <summary>
-    /// Checks if <paramref name="part"/> is in 7 digits.
+    /// Returns whether <paramref name="part"/> is in 7 digits.
     /// </summary>
     /// <param name="part">The part of the <see cref="FormId"/> to check</param>
     /// <returns><paramref name="part"/> is in correct format</returns>

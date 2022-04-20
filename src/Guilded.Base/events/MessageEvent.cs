@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// The base for message-related events.
+/// Represents the base for message-related events.
 /// </summary>
 /// <seealso cref="Message"/>
 /// <seealso cref="MessageDeletedEvent"/>
@@ -24,7 +24,7 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MessageEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="MessageEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
@@ -37,11 +37,8 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     #endregion
 }
 /// <summary>
-/// An event that occurs once someone creates/updates a message.
+/// Represents an event with the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone creates/posts or updates/edits a <see cref="MessageEvent{T}.Message">message</see> in a channel.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone creates/posts or updates/edits a message in a channel.</para>
-/// </remarks>
 /// <seealso cref="MessageDeletedEvent"/>
 /// <seealso cref="Message"/>
 public class MessageEvent : MessageEvent<Message>
@@ -69,7 +66,7 @@ public class MessageEvent : MessageEvent<Message>
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MessageEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="MessageEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
@@ -108,8 +105,8 @@ public class MessageEvent : MessageEvent<Message>
     /// <inheritdoc cref="Message.AddReactionAsync(uint)"/>
     public async Task<Reaction> AddReactionAsync(uint emoteId) =>
         await Message.AddReactionAsync(emoteId).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.RemoveReactionAsync(uint)"/>
-    public async Task RemoveReactionAsync(uint emoteId) =>
-        await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
+    // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)"/>
+    // public async Task RemoveReactionAsync(uint emoteId) =>
+    //     await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
     #endregion
 }

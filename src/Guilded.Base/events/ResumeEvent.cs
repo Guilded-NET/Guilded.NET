@@ -3,12 +3,8 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Event that occurs when client passes last event message identifier.
+/// Represents an event with an event opcode of <c>2</c> that occurs when the client passes last event message identifier.
 /// </summary>
-/// <remarks>
-/// <para><see cref="ResumeEvent"/> only occurs if last event message identifier is passed to the WebSocket in <c>guilded-last-message-id</c> header. This event is only received after all events are given to the client and normal events are being received again.</para>
-/// <para>In API, this event has no name but has an event opcode of <c>2</c>.</para>
-/// </remarks>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="GuildedWebsocketException"/>
 /// <seealso cref="BaseGuildedClient.LastMessageId"/>
@@ -28,7 +24,7 @@ public class ResumeEvent : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="ResumeEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="ResumeEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="s">The identifier of the last received message</param>
     [JsonConstructor]

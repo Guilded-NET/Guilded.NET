@@ -8,48 +8,36 @@ namespace Guilded.Base;
 public static class GuildedUrl
 {
     /// <summary>
-    /// The URL to Guilded's API.
+    /// The base URL for Guilded's API requests.
     /// </summary>
     /// <value>API URL</value>
     public static readonly Uri Api = new("https://www.guilded.gg/api/v1/");
     /// <summary>
-    /// The URL to Guilded's media services.
+    /// The base URL for Guilded's media API.
     /// </summary>
     /// <remarks>
-    /// <para>Provides the URL to Guilded's media services that allow image &amp; video uploads, as well as webhook-related functions.</para>
+    /// <para>Can be used for executing webhooks.</para>
     /// </remarks>
-    /// <value>Media URL</value>
+    /// <value>URL</value>
     public static readonly Uri Media = new("https://media.guilded.gg/");
     /// <summary>
-    /// The URL to upload Guilded's media.
+    /// The URL for to upload Guilded's media from files.
     /// </summary>
-    /// <remarks>
-    /// <para>The URL that will be used to upload videos, images and other files.</para>
-    /// </remarks>
-    /// <value>Media upload URL</value>
+    /// <value>API URL</value>
     public static readonly Uri MediaFileUpload = new("https://media.guilded.gg/media/upload?dynamicMediaTypeId=ContentMedia");
     /// <summary>
-    /// The URL to upload Guilded's media.
+    /// The URL to upload Guilded's media from URLs.
     /// </summary>
-    /// <remarks>
-    /// <para>The URL that will be used to upload URL links.</para>
-    /// </remarks>
-    /// <value>Media upload URL</value>
+    /// <value>API URL</value>
     public static readonly Uri MediaUrlUpload = new("https://media.guilded.gg/media/upload");
     /// <summary>
     /// The URL to Guilded's image CDN.
     /// </summary>
-    /// <remarks>
-    /// <para>Provides the URL to Guilded's image CDN that hosts all of the images on Guilded.</para>
-    /// </remarks>
-    /// <value>Image CDN URL</value>
+    /// <value>URL</value>
     public static readonly Uri ImageCdn = new("https://img.guildedcdn.com/");
     /// <summary>
-    /// The URL to Guilded's websocket.
+    /// The URL to Guilded's WebSockets.
     /// </summary>
-    /// <remarks>
-    /// <para>Provides the URL to Guilded's API WebSocket.</para>
-    /// </remarks>
-    /// <value>WebSocket URL</value>
+    /// <value>API URL</value>
     public static readonly Uri Websocket = new("wss://api.guilded.gg/v1/websocket");
 }

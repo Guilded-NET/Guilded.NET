@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Embeds
 {
     /// <summary>
-    /// A custom content embed that represents any kind of information.
+    /// Represents a custom content embed that includes any kind of information.
     /// </summary>
     /// <remarks>
-    /// <para>Represents a custom/rich embed that represents some kind of information. This is usually used in Webhooks to provide an information about a new post or any event that occurred. It can also be used for displaying results from a bot or used as a content instead of plain Markdown. Embeds may look something like quote blocks, but with more content like fields, footers, etc.</para>
+    /// <para>This is usually used in Webhooks to provide an information about a new post or any event that occurred. It can also be used for displaying results from a bot or used as a content instead of plain Markdown. Embeds may look something like quote blocks, but with more content like fields, footers, etc.</para>
     /// </remarks>
     /// <example>
     /// <para>Embeds can be created using constructors, object initializers and fluent interface methods.</para>
@@ -33,85 +33,76 @@ namespace Guilded.Base.Embeds
     [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
     public class Embed : BaseObject
     {
-        private const int fieldLimit = 25;
+        /// <summary>
+        /// The count of how many fields there can be in <see cref="Embed" />.
+        /// </summary>
+        /// <value>Limit</value>
+        public const int FieldLimit = 25;
 
         #region JSON properties
         /// <summary>
-        /// The title of the embed.
+        /// Gets the title of the <see cref="Embed">embed</see>.
         /// </summary>
         /// <remarks>
-        /// <para>A short text that appears above description.</para>
-        /// <para>The name or the title of the content or the post. This text can be hyperlinked using <see cref="Url"/>. The provided Markdown will be ignored.</para>
+        /// <para>The contents are formatted in Markdown.</para>
         /// </remarks>
         /// <value>Markdown string?</value>
         public string? Title { get; set; }
         /// <summary>
-        /// The URL of the embed.
+        /// Gets the URL of the content that <see cref="Embed">embed</see> displays.
         /// </summary>
-        /// <remarks>
-        /// <para>Defines the URL to the content this embed displays.</para>
-        /// </remarks>
         /// <value>URL?</value>
         public Uri? Url { get; set; }
         /// <summary>
-        /// The description text of the embed.
+        /// The description text of the <see cref="Embed">embed</see>.
         /// </summary>
         /// <remarks>
-        /// <para>A piece of text that appears in the middle of the embed.</para>
-        /// <para>This can have formatting using Markdown.</para>
+        /// <para>The contents are formatted in Markdown.</para>
         /// </remarks>
         /// <value>Markdown string?</value>
         public string? Description { get; set; }
         /// <summary>
-        /// The author of the embed.
+        /// Gets the author of the content that <see cref="Embed">embed</see> displays.
         /// </summary>
-        /// <remarks>
-        /// <para>Defines an author of the quoting message or anything else.</para>
-        /// </remarks>
         /// <value>Embed Author?</value>
         public EmbedAuthor? Author { get; set; }
         /// <summary>
-        /// The colour of the embed.
+        /// Gets the colour of the <see cref="Embed">embed</see>.
         /// </summary>
         /// <remarks>
-        /// <para>The display colour of the embed.</para>
         /// <para>This is displayed as left-side border in the official Guilded client, but may be displayed differently in other clients.</para>
         /// </remarks>
         /// <value>Colour?</value>
         [JsonConverter(typeof(DecimalColorConverter))]
         public Color? Color { get; set; }
         /// <summary>
-        /// The thumbnail image of the embed.
+        /// Gets the thumbnail image of the <see cref="Embed">embed</see>.
         /// </summary>
         /// <remarks>
-        /// <para>An image that represents a thumbnail.</para>
         /// <para>This is displayed as image at the right of the embed and as square in the official Guilded app.</para>
         /// </remarks>
         /// <value>Embed Media?</value>
         public EmbedMedia? Thumbnail { get; set; }
         /// <summary>
-        /// The image of the embed.
+        /// Gets the image of the content that <see cref="Embed">embed</see> displays.
         /// </summary>
         /// <remarks>
-        /// <para>An image that will appear in the embed.</para>
         /// <para>This is displayed as an image that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Embed Media?</value>
         public EmbedMedia? Image { get; set; }
         /// <summary>
-        /// The video of the embed.
+        /// Gets the video of the content that <see cref="Embed">embed</see> displays.
         /// </summary>
         /// <remarks>
-        /// <para>A video that will appear in the embed.</para>
         /// <para>This is displayed as a video that appears at the bottom of the embed and above a footer in the official Guilded app.</para>
         /// </remarks>
         /// <value>Embed Media?</value>
         public EmbedMedia? Video { get; set; }
         /// <summary>
-        /// The list of fields in this embed.
+        /// Gets the list of fields in the <see cref="Embed">embed</see>.
         /// </summary>
         /// <remarks>
-        /// <para>Displays the list of fields with their own descriptions/values and titles/names.</para>
         /// <para>Fields can be both inline and blocks.</para>
         /// </remarks>
         /// <value>List of embed fields?</value>
@@ -126,10 +117,9 @@ namespace Guilded.Base.Embeds
         /// <value>Embed Footer?</value>
         public EmbedFooter? Footer { get; set; }
         /// <summary>
-        /// The timestamp of the embed.
+        /// Gets the timestamp of the embed.
         /// </summary>
         /// <remarks>
-        /// <para>The <see cref="DateTime"/> that will be shown in the embed.</para>
         /// <para>Usually displayed in the footer.</para>
         /// </remarks>
         /// <value>Date?</value>
@@ -142,7 +132,7 @@ namespace Guilded.Base.Embeds
         /// </summary>
         public Embed() { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with given parameters converted to <see cref="EmbedMedia"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with the given imagess.
         /// </summary>
         /// <param name="image">The image of the embed</param>
         /// <param name="video">The video of the embed</param>
@@ -150,45 +140,45 @@ namespace Guilded.Base.Embeds
         public Embed(Uri? image = null, Uri? video = null, Uri? thumbnail = null) =>
             (Image, Video, Thumbnail) = (EmbedMedia.CreateOrNull(image), EmbedMedia.CreateOrNull(video), EmbedMedia.CreateOrNull(thumbnail));
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with URL <paramref name="url"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with a <paramref name="url"/>.
         /// </summary>
-        /// <param name="url">The URL of the embed</param>
+        /// <param name="url">The URL of the content that embed displays</param>
         public Embed(Uri url) =>
             Url = url;
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with colour <paramref name="color"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with colour <paramref name="color"/>.
         /// </summary>
         /// <param name="color">The colour of the embed</param>
         public Embed(Color color) =>
             Color = color;
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with colour <paramref name="argb"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with colour <paramref name="argb"/>.
         /// </summary>
         /// <param name="argb">The colour of the embed in RGB format</param>
         public Embed(int argb) : this(System.Drawing.Color.FromArgb(argb)) { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with channels
+        /// Initializes a new instance of <see cref="Embed"/> with channels
         /// <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> of <see cref="Color"/> property.
         /// </summary>
-        /// <param name="red">The red channel of the <see cref="Color"/></param>
-        /// <param name="green">The green channel of <see cref="Color"/></param>
-        /// <param name="blue">The blue channel of <see cref="Color"/></param>
+        /// <param name="red">The red channel of the <see cref="Color">colour</see></param>
+        /// <param name="green">The green channel of <see cref="Color">colour</see></param>
+        /// <param name="blue">The blue channel of <see cref="Color">colour</see></param>
         public Embed(int red, int green, int blue) : this(System.Drawing.Color.FromArgb(red, green, blue)) { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with description <paramref name="description"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with a <paramref name="description"/>.
         /// </summary>
         /// <param name="description">The description text of the embed</param>
         public Embed(string description) =>
             Description = description;
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with title <paramref name="title"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with title <paramref name="title"/>.
         /// </summary>
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         public Embed(string title, string description) : this(description) =>
             Title = title;
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with title <paramref name="title"/> and URL <paramref name="url"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with a <paramref name="title"/> and a <paramref name="url"/>.
         /// </summary>
         /// <param name="title">The title of the embed</param>
         /// <param name="url">The URL of the embed</param>
@@ -196,133 +186,107 @@ namespace Guilded.Base.Embeds
         public Embed(string title, Uri url, string description) : this(title, description) =>
             Url = url;
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with image <paramref name="image"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with an <paramref name="image"/>.
         /// </summary>
         /// <param name="description">The description text of the embed</param>
         /// <param name="image">The image of the embed</param>
         public Embed(string description, EmbedMedia image) : this(description) =>
             Image = image;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with image <paramref name="image"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, EmbedMedia)" />
         /// <param name="description">The description text of the embed</param>
         /// <param name="image">The image of the embed</param>
         public Embed(string description, Uri image) : this(description, new EmbedMedia(image)) { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with image <paramref name="image"/> and title <paramref name="title"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with an <paramref name="image"/> and a <paramref name="title"/>.
         /// </summary>
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="image">The image of the embed</param>
         public Embed(string title, string description, EmbedMedia image) : this(title, description) =>
             Image = image;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with image <paramref name="image"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedMedia)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="url">The URL of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="image">The image of the embed</param>
         public Embed(string title, Uri url, string description, EmbedMedia image) : this(title, description, image) =>
             Url = url;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with image <paramref name="image"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedMedia)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="image">The image of the embed</param>
         public Embed(string title, string description, Uri image) : this(title, description, new EmbedMedia(image)) { }
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with image <paramref name="image"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedMedia)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="url">The URL of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="image">The image of the embed</param>
         public Embed(string title, Uri url, string description, Uri image) : this(title, url, description, new EmbedMedia(image)) { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with list of fields <paramref name="fields"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with its <paramref name="fields"/>.
         /// </summary>
         /// <param name="fields">The list of fields in this embed</param>
         public Embed(IList<EmbedField> fields) =>
             Fields = fields;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with array of fields <paramref name="fields"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(IList{EmbedField})" />
         /// <param name="fields">The array of fields in this embed</param>
         public Embed(params EmbedField[] fields) : this(fields.ToList()) { }
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with list of fields <paramref name="fields"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(IList{EmbedField})" />
         /// <param name="description">The description text of the embed</param>
         /// <param name="fields">The list of fields in this embed</param>
         public Embed(string description, IList<EmbedField> fields) : this(description) =>
             Fields = fields;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with array of fields <paramref name="fields"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(IList{EmbedField})" />
         /// <param name="description">The description text of the embed</param>
         /// <param name="fields">The array of fields in this embed</param>
         public Embed(string description, params EmbedField[] fields) : this(description, fields.ToList()) { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with list of fields <paramref name="fields"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with its <paramref name="fields"/> and a <paramref name="title" />.
         /// </summary>
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="fields">The list of fields in this embed</param>
         public Embed(string title, string description, IList<EmbedField> fields) : this(title, description) =>
             Fields = fields;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with array of fields <paramref name="fields"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, IList{EmbedField})" />
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="fields">The array of fields in this embed</param>
         public Embed(string title, string description, params EmbedField[] fields) : this(title, description, fields.ToList()) { }
         /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with footer <paramref name="footer"/> and title <paramref name="title"/>.
+        /// Initializes a new instance of <see cref="Embed"/> with a <paramref name="footer"/> and a <paramref name="title"/>.
         /// </summary>
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="footer">The footer of the embed</param>
         public Embed(string title, string description, EmbedFooter footer) : this(title, description) =>
             Footer = footer;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with footer <paramref name="footer"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="footer">The text of the embed footer</param>
         public Embed(string title, string description, string footer) : this(title, description, new EmbedFooter(footer)) { }
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with footer <paramref name="footer"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="url">The URL of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="footer">The footer of the embed</param>
         public Embed(string title, Uri url, string description, EmbedFooter footer) : this(title, description, footer) =>
             Url = url;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with footer <paramref name="footer"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="url">The URL of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="footer">The text of the embed footer</param>
         public Embed(string title, Uri url, string description, string footer) : this(title, url, description, new EmbedFooter(footer)) { }
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with footer <paramref name="footer"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="description">The description text of the embed</param>
         /// <param name="footer">The footer of the embed</param>
         /// <param name="timestamp">The timestamp of the embed footer</param>
         public Embed(string title, string description, EmbedFooter footer, DateTime timestamp) : this(title, description, footer) =>
             Timestamp = timestamp;
-        /// <summary>
-        /// Creates a new instance of <see cref="Embed"/> with footer <paramref name="footer"/> and title <paramref name="title"/>.
-        /// </summary>
+        /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
         /// <param name="title">The title of the embed</param>
         /// <param name="url">The URL of the embed</param>
         /// <param name="description">The description text of the embed</param>
@@ -336,86 +300,86 @@ namespace Guilded.Base.Embeds
 
         #region Title
         /// <summary>
-        /// Sets the title as the given parameter.
+        /// Sets the <see cref="Title">title</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <param name="title">The text of the title</param>
+        /// <param name="value">The value of the <see cref="Embed">embed's</see> title</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetTitle(string title)
+        public Embed SetTitle(string value)
         {
-            Title = title;
+            Title = value;
             return this;
         }
         /// <summary>
-        /// Sets the url as the given parameter.
+        /// Sets the <see cref="Url">url</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <param name="url">The URL that title will link</param>
+        /// <param name="value">The value of the <see cref="Embed">embed's</see> url</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetUrl(Uri url)
+        public Embed SetUrl(Uri value)
         {
-            Url = url;
+            Url = value;
             return this;
         }
         /// <summary>
-        /// Sets the url as a given parameter.
+        /// Sets the <see cref="Url">url</see> as the given <paramref name="value" />.
         /// </summary>
         /// <remarks>
-        /// <para>Creates a new <see cref="Uri"/> instance from <paramref name="url"/> parameter and sets it to <see cref="Url"/> property.</para>
+        /// <para>The given <paramref name="value" /> will be converted to <see cref="Uri" />.</para>
         /// </remarks>
-        /// <param name="url">The URL that title will link</param>
-        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
-        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
+        /// <param name="value">The value of the <see cref="Embed">embed's</see> url</param>
+        /// <exception cref="ArgumentNullException"><paramref name="value"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="UriFormatException"><paramref name="value"/> has bad <see cref="Uri"/> formatting</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetUrl(string url) =>
-            SetUrl(new Uri(url));
+        public Embed SetUrl(string value) =>
+            SetUrl(new Uri(value));
         #endregion
 
         #region Description
         /// <summary>
-        /// Sets the description as the given parameter.
+        /// Sets the <see cref="Description">description</see> as the given <paramref name="content">text</paramref>.
         /// </summary>
-        /// <param name="description">Embed's description</param>
-        /// <exception cref="ArgumentNullException"><paramref name="description"/> is <see langword="null"/>, empty or whitespace</exception>
-        /// <exception cref="OverflowException"><paramref name="description"/> exceeds 4000 character limit</exception>
+        /// <param name="content">The text contents of the <see cref="Embed">embed's</see> description</param>
+        /// <exception cref="ArgumentNullException"><paramref name="content"/> is <see langword="null"/>, empty or whitespace</exception>
+        /// <exception cref="OverflowException"><paramref name="content"/> exceeds 4000 character limit</exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetDescription(string description)
+        public Embed SetDescription(string content)
         {
-            if (description?.Length > 4000)
-                throw new OverflowException($"Argument {nameof(description)} cannot be more than 4'000 characters.");
-            Description = description;
+            if (content?.Length > 4000)
+                throw new OverflowException($"Argument {nameof(content)} cannot be more than 4'000 characters.");
+            Description = content;
             return this;
         }
         /// <summary>
-        /// Sets the description as a given parameter.
+        /// Sets the <see cref="Description">description</see> as the given <paramref name="value" />.
         /// </summary>
         /// <remarks>
-        /// <para>Sets <see cref="Description"/> as a string equivalent to <paramref name="description"/> parameter.</para>
+        /// <para>The given <paramref name="value" /> will be converted to string.</para>
         /// </remarks>
-        /// <param name="description">Embed's description</param>
+        /// <param name="value">The contents of the <see cref="Embed">embed's</see> description</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetDescription(object? description) =>
-            SetDescription(description is null ? string.Empty : description.ToString()!);
+        public Embed SetDescription(object? value) =>
+            SetDescription(value is null ? string.Empty : value.ToString()!);
         #endregion
 
         #region Author
         /// <summary>
-        /// Sets the author as the given parameter.
+        /// Sets the <see cref="Author">author</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <param name="author">Author to be set to</param>
+        /// <param name="value">The author of the content that <see cref="Embed">embed</see> represents</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetAuthor(EmbedAuthor author)
+        public Embed SetAuthor(EmbedAuthor value)
         {
-            Author = author;
+            Author = value;
             return this;
         }
         /// <summary>
-        /// Sets the author as a given parameter.
+        /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
         /// </summary>
         /// <remarks>
-        /// <para>Sets <see cref="Author"/> as a new <see cref="EmbedAuthor"/> instance from given parameters.</para>
+        /// <para>The given <paramref name="name" />, <paramref name="iconUrl" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
         /// </remarks>
-        /// <param name="name">Name of the author</param>
-        /// <param name="iconUrl">URL of the image</param>
-        /// <param name="url">URL of the author's name</param>
+        /// <param name="name">The name of the <see cref="Embed">embed</see>'s author</param>
+        /// <param name="iconUrl">The URL to icon of the <see cref="Embed">embed</see>'s author</param>
+        /// <param name="url">The URL of the <see cref="Embed">embed</see>'s author</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetAuthor(string name, Uri? iconUrl = null, Uri? url = null) =>
             SetAuthor(new EmbedAuthor(name, iconUrl, url));
@@ -423,233 +387,148 @@ namespace Guilded.Base.Embeds
 
         #region Fields
         /// <summary>
-        /// Adds the given fields to the embed.
+        /// Adds new <paramref name="fields" /> to the <see cref="Fields">current set of fields</see>.
         /// </summary>
-        /// <remarks>
-        /// <para>Adds the <paramref name="fields"/> parameter to <see cref="Fields"/> property.</para>
-        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded, <see cref="OverflowException"/> will be thrown.</para>
-        /// </remarks>
-        /// <param name="fields">The list of fields to be added</param>
+        /// <param name="fields">The list of fields to add</param>
         /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed AddFields(IList<EmbedField> fields)
+        public Embed AddFields(IEnumerable<EmbedField> fields)
         {
             // Don't allow >25 fields
-            if ((Fields?.Count + fields.Count) > fieldLimit || Fields?.Count > 25)
+            if ((Fields?.Count + fields.Count()) > FieldLimit)
                 throw new OverflowException("Cannot add more than 25 fields to the embed");
             else if (Fields is null)
-                Fields = fields;
+                Fields = fields.ToList();
             else
                 Fields = Fields.Concat(fields).ToList();
             return this;
         }
-        /// <summary>
-        /// Adds the given fields to the embed.
-        /// </summary>
-        /// <remarks>
-        /// <para>Adds the <paramref name="fields"/> parameter to <see cref="Fields"/> property.</para>
-        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded, <see cref="OverflowException"/> will be thrown.</para>
-        /// </remarks>
-        /// <param name="fields">The array of fields to be added</param>
-        /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <inheritdoc cref="AddFields(IEnumerable{EmbedField})" />
         public Embed AddFields(params EmbedField[] fields) =>
             AddFields((IList<EmbedField>)fields);
         /// <summary>
-        /// Adds the given field to the embed.
+        /// Adds a new <paramref name="field" /> to the <see cref="Fields">current set of fields</see>.
         /// </summary>
-        /// <remarks>
-        /// <para>Adds the <paramref name="field"/> parameter to <see cref="Fields"/> property.</para>
-        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded, <see cref="OverflowException"/> will be thrown.</para>
-        /// </remarks>
-        /// <param name="field">A field to add</param>
+        /// <param name="field">A new field to add</param>
         /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed AddField(EmbedField field) =>
             AddFields(field);
         /// <summary>
-        /// Adds the given field to the embed.
+        /// Adds a new field to the <see cref="Fields">current set of fields</see>.
         /// </summary>
-        /// <remarks>
-        /// <para>Creates a new instance of <see cref="EmbedField"/> with given parameters and adds it to <see cref="Fields"/> property.</para>
-        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded, <see cref="OverflowException"/> will be thrown.</para>
-        /// </remarks>
-        /// <param name="name">The title of the field</param>
-        /// <param name="value">The description of the field</param>
-        /// <param name="inline">If this field should be inline</param>
+        /// <param name="name">The title text of the new field</param>
+        /// <param name="value">The description text of the new field</param>
+        /// <param name="inline">Whether the field should be in the same row with other fields</param>
         /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed AddField(string name, string value, bool inline = false) =>
             AddField(new EmbedField(name, value, inline));
-        /// <summary>
-        /// Adds the given field to the embed.
-        /// </summary>
+        /// <inheritdoc cref="AddField(string, string, bool)" />
         /// <remarks>
-        /// <para>Creates a new instance of <see cref="EmbedField"/> with given parameters and adds it to <see cref="Fields"/> property.</para>
-        /// <para>The max field limit per embed is 25. If 25 field limit is exceeded, <see cref="OverflowException"/> will be thrown.</para>
+        /// <para>The given <paramref name="value" /> will be converted to string</para>
         /// </remarks>
-        /// <param name="name">The title of the field</param>
-        /// <param name="value">The description of the field</param>
-        /// <param name="inline">If this field should be inline</param>
-        /// <exception cref="OverflowException">When the combined field list exceeds max field limit of <c>25</c></exception>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed AddField(string name, object? value, bool inline = false) =>
             AddField(name, value is null ? string.Empty : value.ToString()!, inline);
         #endregion
 
         #region Media
         /// <summary>
-        /// Sets the embed image as the given parameter.
+        /// Sets the <see cref="Image">image</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <param name="media">The media to use as an image</param>
+        /// <param name="value">The value of the <see cref="Embed">embed's</see> image</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetImage(EmbedMedia media)
+        public Embed SetImage(EmbedMedia value)
         {
-            Image = media;
+            Image = value;
             return this;
         }
-        /// <summary>
-        /// Sets the embed image as the given parameters.
-        /// </summary>
+        /// <inheritdoc cref="SetImage(EmbedMedia)" />
         /// <remarks>
-        /// <para>Sets <see cref="Image"/> as a new instance of <see cref="EmbedMedia"/> made from given parameter.</para>
+        /// <para>The given <paramref name="url" /> will be used to display an image.</para>
         /// </remarks>
-        /// <param name="url">The source URL of the image</param>
-        /// <param name="width">The width of the image</param>
-        /// <param name="height">The height of the image</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <param name="url">The URL to the <see cref="Embed">embed's</see> image</param>
+        /// <param name="width">The displayed width of the image</param>
+        /// <param name="height">The displayed height of the image</param>
         public Embed SetImage(Uri url, uint? width = null, uint? height = null) =>
             SetImage(new EmbedMedia(url, width, height));
-        /// <summary>
-        /// Sets the embed image as the given parameters.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Image"/> as a new instance of <see cref="EmbedMedia"/> made from given parameter.</para>
-        /// </remarks>
-        /// <param name="url">The source URL of the image</param>
-        /// <param name="width">The width of the image</param>
-        /// <param name="height">The height of the image</param>
-        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
-        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <inheritdoc cref="SetImage(Uri, uint?, uint?)" />
         public Embed SetImage(string url, uint? width = null, uint? height = null) =>
             SetImage(new Uri(url), width, height);
         /// <summary>
-        /// Sets the thumbnail as the given parameter.
+        /// Sets the <see cref="Thumbnail">thumbnail</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <param name="media">The media to use as a thumbnail</param>
+        /// <param name="value">The value of the <see cref="Embed">embed's</see> thumbnail</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetThumbnail(EmbedMedia media)
+        public Embed SetThumbnail(EmbedMedia value)
         {
-            Thumbnail = media;
+            Thumbnail = value;
             return this;
         }
-        /// <summary>
-        /// Sets the thumbnail as the given parameters.
-        /// </summary>
+        /// <inheritdoc cref="SetThumbnail(EmbedMedia)" />
         /// <remarks>
-        /// <para>Sets <see cref="Thumbnail"/> as a new instance of <see cref="EmbedMedia"/> made from given parameters.</para>
+        /// <para>The given <paramref name="url" /> will be used to display a thumbnail.</para>
         /// </remarks>
-        /// <param name="url">The source URL of the thumbnail image</param>
-        /// <param name="width">The width of the image</param>
-        /// <param name="height">The height of the image</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <param name="url">The URL to the <see cref="Embed">embed's</see> thumbnail</param>
+        /// <param name="width">The displayed width of the thumbnail</param>
+        /// <param name="height">The displayed height of the thumbnail</param>
         public Embed SetThumbnail(Uri url, uint? width = null, uint? height = null)
         {
             Thumbnail = new EmbedMedia(url, height, width);
             return this;
         }
-        /// <summary>
-        /// Sets the thumbnail as the given parameters.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Thumbnail"/> as a new instance of <see cref="EmbedMedia"/> made from given parameters.</para>
-        /// </remarks>
-        /// <param name="url">The source URL of the thumbnail image</param>
-        /// <param name="width">The width of the image</param>
-        /// <param name="height">The height of the image</param>
-        /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
-        /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <inheritdoc cref="SetThumbnail(Uri, uint?, uint?)" />
         public Embed SetThumbnail(string url, uint? width = null, uint? height = null) =>
             SetThumbnail(new Uri(url), width, height);
         #endregion
 
         #region Footer
         /// <summary>
-        /// Sets the footer as the given parameter.
+        /// Sets the <see cref="Footer">footer</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <param name="footer">The footer to set</param>
+        /// <param name="value">The footer's content of the <see cref="Embed">embed</see></param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(EmbedFooter footer)
+        public Embed SetFooter(EmbedFooter value)
         {
-            Footer = footer;
+            Footer = value;
+            return this;
+        }
+        /// <inheritdoc cref="SetFooter(EmbedFooter)" />
+        /// <remarks>
+        /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" /> and <paramref name="icon" />.</para>
+        /// </remarks>
+        /// <param name="text">The text contents of the footer</param>
+        /// <param name="icon">URL to the icon's image that will be displayed in the left side of the footer</param>
+        public Embed SetFooter(string text, Uri? icon = null) =>
+            SetFooter(new EmbedFooter(text, icon));
+        /// <inheritdoc cref="SetFooter(string, Uri?)" />
+        public Embed SetFooter(string text, string? icon = null) =>
+            SetFooter(text, icon is null ? null : new Uri(icon));
+        // <inheritdoc cref="SetFooter(EmbedFooter)" />
+        /// <remarks>
+        /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref> and <paramref name="icon" />.</para>
+        /// <para><paramref name="value" /> parameter will be converted to string.</para>
+        /// </remarks>
+        /// <param name="value">The text contents of the footer</param>
+        /// <param name="icon">URL to the icon's image that will be displayed in the left side of the footer</param>
+        public Embed SetFooter(object? value, Uri? icon = null) =>
+            SetFooter(value is null ? string.Empty : value.ToString(), icon);
+        /// <inheritdoc cref="SetFooter(object?, Uri?)" />
+        public Embed SetFooter(object? text, string? icon = null) =>
+            SetFooter(text, icon is null ? null : new Uri(icon));
+        /// <summary>
+        /// Sets the <see cref="Timestamp">timestamp</see> as the given <paramref name="value" />.
+        /// </summary>
+        /// <param name="value">The timestamp of the <see cref="Embed">embed</see></param>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetTimestamp(DateTime value)
+        {
+            Timestamp = value;
             return this;
         }
         /// <summary>
-        /// Sets the footer as the given parameters.
+        /// Sets the <see cref="Timestamp">timestamp</see> as the <see cref="DateTime.UtcNow">current UTC time</see>.
         /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters.</para>
-        /// </remarks>
-        /// <param name="text">The text of the footer</param>
-        /// <param name="iconUrl">The icon of the footer</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(string text, Uri? iconUrl = null) =>
-            SetFooter(new EmbedFooter(text, iconUrl));
-        /// <summary>
-        /// Sets the footer as the given parameters.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters.</para>
-        /// </remarks>
-        /// <param name="text">The text of the footer</param>
-        /// <param name="iconUrl">The icon of the footer</param>
-        /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
-        /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(string text, string? iconUrl = null) =>
-            SetFooter(text, iconUrl is null ? null : new Uri(iconUrl));
-        /// <summary>
-        /// Sets the footer as the given parameters.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters. The text will be set as string equivalent to <paramref name="text"/>.</para>
-        /// </remarks>
-        /// <param name="text">The text of the footer</param>
-        /// <param name="iconUrl">The icon of the footer</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(object text, Uri? iconUrl = null) =>
-            SetFooter(text is null ? string.Empty : text.ToString()!, iconUrl);
-        /// <summary>
-        /// Sets the footer as the given parameters.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Footer"/> as a new instance of <see cref="EmbedFooter"/> made from given parameters. The text will be set as string equivalent to <paramref name="text"/>.</para>
-        /// </remarks>
-        /// <param name="text">The text of the footer</param>
-        /// <param name="iconUrl">The icon of the footer</param>
-        /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
-        /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetFooter(object text, string? iconUrl = null) =>
-            SetFooter(text, iconUrl is null ? null : new Uri(iconUrl));
-        /// <summary>
-        /// Sets the timestamp as the given parameter.
-        /// </summary>
-        /// <param name="time">The date to be set to</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetTimestamp(DateTime time)
-        {
-            Timestamp = time;
-            return this;
-        }
-        /// <summary>
-        /// Sets the timestamp as the current date.
-        /// </summary>
-        /// <remarks>
-        /// <para>Sets <see cref="Timestamp"/> as <see cref="DateTime.UtcNow"/>.</para>
-        /// </remarks>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetTimestamp() =>
             SetTimestamp(DateTime.UtcNow);
@@ -657,25 +536,18 @@ namespace Guilded.Base.Embeds
 
         #region Parameters
         /// <summary>
-        /// Sets the colour as the given parameter.
+        /// Sets the <see cref="Color">left-side colour</see> as the given <paramref name="value" />.
         /// </summary>
-        /// <example>
-        /// <code language="csharp">
-        /// embed.SetColor(Color.Red);
-        /// </code>
-        /// </example>
-        /// <param name="color">The decimal value of the colour</param>
+        /// <param name="value">The left-side colour of the <see cref="Embed">embed</see></param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
-        public Embed SetColor(Color color)
+        public Embed SetColor(Color value)
         {
-            Color = color;
+            Color = value;
             return this;
         }
-        /// <summary>
-        /// Sets the colour as the given parameter.
-        /// </summary>
+        /// <inheritdoc cref="SetColor(Color)" />
         /// <remarks>
-        /// <para>Sets <see cref="Color"/> as a new instance of <see cref="System.Drawing.Color"/> from parameter <paramref name="argb"/> in RGB format.</para>
+        /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="argb">argb value</paramref>.</para>
         /// </remarks>
         /// <example>
         /// <code language="csharp">
@@ -683,20 +555,21 @@ namespace Guilded.Base.Embeds
         /// embed.SetColor(0xFFFFFF);
         /// </code>
         /// </example>
-        /// <param name="argb">The value of the colour</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <param name="argb">The ARGB value of the <see cref="Color">embed's colour</see>.</param>
         public Embed SetColor(int argb) =>
             SetColor(System.Drawing.Color.FromArgb(argb));
-        /// <summary>
-        /// Sets the colour as the given parameters.
-        /// </summary>
+        /// <inheritdoc cref="SetColor(Color)" />
         /// <remarks>
-        /// <para>Sets <see cref="Color"/> a new instance of <see cref="System.Drawing.Color"/> with <paramref name="red"/>, <paramref name="green"/> and <paramref name="blue"/> channels.</para>
+        /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="red">red channel</paramref>, <paramref name="green">green channel</paramref> and <paramref name="blue">blue channel</paramref> values.</para>
         /// </remarks>
-        /// <param name="red">The value of the red channel</param>
-        /// <param name="green">The value of the blue channel</param>
-        /// <param name="blue">The value of the green channel</param>
-        /// <returns>Current <see cref="Embed"/> instance</returns>
+        /// <example>
+        /// <code language="csharp">
+        /// embed.SetColor(0xFF, 0xFF, 0xFF);
+        /// </code>
+        /// </example>
+        /// <param name="red">The red channel's strength of the <see cref="Color">colour</see>.</param>
+        /// <param name="green">The green channel's strength of the <see cref="Color">colour</see>.</param>
+        /// <param name="blue">The blue channel's strength of the <see cref="Color">colour</see>.</param>
         public Embed SetColor(int red, int green, int blue) =>
             SetColor(System.Drawing.Color.FromArgb(red, green, blue));
         #endregion

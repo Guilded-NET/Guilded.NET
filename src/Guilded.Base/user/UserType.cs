@@ -4,10 +4,10 @@ using Newtonsoft.Json.Converters;
 namespace Guilded.Base.Users;
 
 /// <summary>
-/// The type of user someone is.
+/// Represents the type of user someone is.
 /// </summary>
 /// <remarks>
-/// <para>The type of user someone is. This can be used to differentiate bots from users.</para>
+/// <para>This can be used to differentiate bots from users. Other types may be added later.</para>
 /// </remarks>
 [JsonConverter(typeof(StringEnumConverter), true)]
 public enum UserType

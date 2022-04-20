@@ -75,7 +75,7 @@ public interface IReactibleContent
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)"/>
     /// <param name="emoteId">The identifier of the emote to add</param>
     Task<Reaction> AddReactionAsync(uint emoteId);
-    /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)"/>
-    /// <param name="emoteId">The identifier of the emote to remove</param>
-    Task RemoveReactionAsync(uint emoteId);
+    // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)"/>
+    // /// <param name="emoteId">The identifier of the emote to remove</param>
+    // Task RemoveReactionAsync(uint emoteId);
 }

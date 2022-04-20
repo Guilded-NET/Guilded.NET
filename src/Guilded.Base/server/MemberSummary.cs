@@ -45,7 +45,7 @@ public class MemberSummary<T> : BaseObject where T : UserSummary
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MemberSummary{T}" />.
+    /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
     /// <param name="user">The user that is present in the server</param>
     /// <param name="roleIds">The list of roles user holds</param>

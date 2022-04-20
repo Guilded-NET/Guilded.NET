@@ -108,7 +108,7 @@ public abstract partial class BaseGuildedClient : IDisposable
             .Where(msg => msg.MessageType == WebSocketMessageType.Text)
             .Subscribe(OnWebsocketResponse);
 
-        // Sets serialization settings for REST client
+        // For REST client
         SerializerSettings = new JsonSerializerSettings
         {
             // For CientObject to receive this client

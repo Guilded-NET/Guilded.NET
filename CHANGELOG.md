@@ -1,3 +1,13 @@
+# v0.7.5-beta
+
+- Added `IsCompleted` property in `ListItem`
+- Reformatted and reworked a lot of documentation
+- Changed method parameter names (`messageId` -> `message`; `emoteId` -> `emote`)
+- Commented out remove reaction method that can fool developers
+- Added `TitledContent`, which is now a parent type of `Doc` and `ForumThread` types
+- `UserSummary.ToString` will now return the mention of the user
+- Added `IServerEvent` to the events that are supposed to have it
+
 # v0.7.4-beta
 
 - Fix `Prepared` being called constantly

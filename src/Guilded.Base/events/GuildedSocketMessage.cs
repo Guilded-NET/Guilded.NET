@@ -19,7 +19,7 @@ public class GuildedSocketMessage : ClientObject
 {
     #region JSON properties
     /// <summary>
-    /// An operation code that tells about the message.
+    /// Gets an operation code that tells about the message.
     /// </summary>
     /// <remarks>
     /// <para>Opcodes are defined as following:</para>
@@ -42,7 +42,7 @@ public class GuildedSocketMessage : ClientObject
     ///     </item>
     ///     <item>
     ///         <term>8</term>
-    ///         <description>Closing/error frame</description>
+    ///         <description>Error</description>
     ///     </item>
     /// </list>
     /// <para>If <see cref="Opcode"/> is received as <c>8</c>, <see cref="GuildedWebsocketException"/> will be received instead of a typical event.</para>
@@ -50,26 +50,26 @@ public class GuildedSocketMessage : ClientObject
     /// <value>Opcode</value>
     public byte Opcode { get; }
     /// <summary>
-    /// The name of the event received.
+    /// Gets the name of the event received.
     /// </summary>
     /// <remarks>
-    /// <para>This only has a value if <see cref="Opcode"/> is <c>0</c>. It holds the name of the receiving Guilded event.</para>
+    /// <para>This only has a value if <see cref="Opcode"/> is <c>0</c>.</para>
     /// </remarks>
     /// <value>Name?</value>
     public string? EventName { get; }
     /// <summary>
-    /// The data associated with the event.
+    /// Gets the data associated with the event.
     /// </summary>
     /// <remarks>
-    /// <para>The data associated with the receiving event/message. Holds the data of most messages, including <see cref="WelcomeEvent"/>, <see cref="ResumeEvent"/> and <see cref="GuildedWebsocketException"/>. Only if <see cref="Opcode"/> is <c>9</c>, this will be <see langword="null"/>.</para>
+    /// <para>Holds the data of most messages, including <see cref="WelcomeEvent"/>, <see cref="ResumeEvent"/> and <see cref="GuildedWebsocketException"/>. Only if <see cref="Opcode"/> is <c>9</c>, this will be <see langword="null"/>.</para>
     /// </remarks>
     /// <value>Data?</value>
     public JObject? RawData { get; }
     /// <summary>
-    /// An identifier that allows the event to be replayed.
+    /// Gets an identifier that allows the event to be replayed.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the event message. This can be passed to <see cref="BaseGuildedClient.LastMessageId"/> to receive any messages after this message.</para>
+    /// <para>This can be passed to <see cref="BaseGuildedClient.LastMessageId"/> to receive any messages after this message.</para>
     /// <para>This property only holds the value if <see cref="Opcode"/> is <c>0</c>.</para>
     /// </remarks>
     /// <value>Event ID?</value>
@@ -78,7 +78,7 @@ public class GuildedSocketMessage : ClientObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedSocketMessage"/> with given information.
+    /// Initializes a new instance of <see cref="GuildedSocketMessage"/> from the specified JSON properties.
     /// </summary>
     /// <param name="op">The opcode of the socket message</param>
     /// <param name="t">The name of the event</param>

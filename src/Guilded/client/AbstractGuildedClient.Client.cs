@@ -16,34 +16,29 @@ using Websocket.Client;
 namespace Guilded;
 
 /// <summary>
-/// A base for all Guilded clients.
+/// Represents the base for all Guilded clients.
 /// </summary>
 /// <remarks>
-/// <para>A base class for <see cref="GuildedBotClient"/> and soon other clients.</para>
 /// <para>There is not much to be used here. It is recommended to use <see cref="GuildedBotClient"/>.</para>
 /// </remarks>
 /// <seealso cref="GuildedBotClient"/>
 public abstract partial class AbstractGuildedClient : BaseGuildedClient
 {
     /// <summary>
-    /// An event when the client is prepared.
+    /// An observable event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
-    /// <remarks>
-    /// <para>An event that occurs once Guilded client has added finishing touches. You can use this as a signal <see cref="Prepared"/> ensures all client functions are properly working and can be used.</para>
-    /// <para>As of now, this is called at the same time as <see cref="BaseGuildedClient.Connected"/> event.</para>
-    /// </remarks>
     protected Subject<Me> PreparedSubject = new();
     /// <inheritdoc cref="PreparedSubject"/>
     public IObservable<Me> Prepared => PreparedSubject.AsObservable();
     /// <inheritdoc cref="WelcomeEvent.User" />
     public Me? Me { get; protected set; }
     /// <summary>
-    /// Whether the client is already prepared.
+    /// Whether the client is <see cref="Prepared">prepared</see>.
     /// </summary>
     /// <value>Client is prepared</value>
     public bool IsPrepared { get; protected set; }
     /// <summary>
-    /// A base constructor for creating Guilded clients.
+    /// Initializes a new base instance of <see cref="AbstractGuildedClient" /> children types.
     /// </summary>
     /// <seealso cref="GuildedBotClient()"/>
     /// <seealso cref="GuildedBotClient(string)"/>
@@ -100,11 +95,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         });
     }
     /// <summary>
-    /// Connects this client to Guilded.
+    /// Connects <see cref="AbstractGuildedClient">this client</see> to Guilded.
     /// </summary>
-    /// <remarks>
-    /// <para>Connects to Guilded and starts Guilded's WebSocket.</para>
-    /// </remarks>
     /// <seealso cref="DisconnectAsync"/>
     /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
     /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
@@ -121,11 +113,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         }
     }
     /// <summary>
-    /// Disconnects this client from Guilded.
+    /// Disconnects <see cref="AbstractGuildedClient">this client</see> from Guilded.
     /// </summary>
-    /// <remarks>
-    /// <para>The method that stops Guilded WebSocket.</para>
-    /// </remarks>
     /// <seealso cref="ConnectAsync"/>
     /// <seealso cref="Dispose"/>
     /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
@@ -133,19 +122,16 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     public override async Task DisconnectAsync()
     {
         if (Websocket.IsRunning)
-            await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "manual").ConfigureAwait(false);
+            await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "DisconnectAsync invoked").ConfigureAwait(false);
     }
     /// <summary>
-    /// Disposes <see cref="AbstractGuildedClient"/> instance.
+    /// Disposes <see cref="AbstractGuildedClient">this client</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>Disposes <see cref="AbstractGuildedClient"/> and its WebSockets.</para>
-    /// </remarks>
     /// <seealso cref="DisconnectAsync"/>
     public override void Dispose()
     {
         DisconnectAsync().GetAwaiter().GetResult();
-        // Dispose them entirely; they aren't disposed by DisconnectAsync, only shut down
+        // They aren't disposed by DisconnectAsync, only shut down
         Websocket.Dispose();
     }
     private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>

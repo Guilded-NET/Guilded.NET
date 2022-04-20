@@ -6,10 +6,10 @@ using Newtonsoft.Json;
 namespace Guilded.Base;
 
 /// <summary>
-/// An identifier for Guilded teams, users, etc.
+/// Represents an identifier for Guilded servers, users, etc.
 /// </summary>
 /// <remarks>
-/// <para>The identifier of various Guilded objects. Guilded hash identifier is 8 characters or more in length and consists of digits, uppercase letters and lowercase letters.</para>
+/// <para>Guilded hash identifier is 8 characters or more in length and consists of digits, uppercase letters and lowercase letters.</para>
 /// <para>This can be found in:</para>
 /// <list type="bullet">
 ///     <item>
@@ -47,7 +47,7 @@ public readonly struct HashId : IEquatable<HashId>
     private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     internal static readonly FormatException FormatError = new("The given ID string is in incorrect format.");
     /// <summary>
-    /// The identifier for Guilded teams, users, etc.
+    /// Initializes a new instance of <see cref="HashId" />.
     /// </summary>
     /// <param name="id">The raw string in the format of Guilded Hash ID</param>
     /// <exception cref="FormatException">When the given ID string is in incorrect format</exception>
@@ -62,8 +62,11 @@ public readonly struct HashId : IEquatable<HashId>
 
     #region Overrides
     /// <summary>
-    /// Returns the string representation of this <see cref="HashId"/> instance.
+    /// Returns the string representation of <see cref="HashId"/> instance.
     /// </summary>
+    /// <remarks>
+    /// <para>The raw string that makes up <see cref="HashId" /> will be returned.</para>
+    /// </remarks>
     /// <returns><see cref="HashId"/> as string</returns>
     public override string ToString() =>
         _;
@@ -110,7 +113,7 @@ public readonly struct HashId : IEquatable<HashId>
 
     #region Static methods
     /// <summary>
-    /// Checks if <paramref name="str"/> is in the correct <see cref="FormId"/> format.
+    /// Returns whether <paramref name="str"/> is in the correct <see cref="HashId"/> format.
     /// </summary>
     /// <param name="str">A raw string to check</param>
     /// <returns>Correct formatting</returns>

@@ -15,35 +15,26 @@ public class UserSummary : ClientObject
 {
     #region JSON properties
     /// <summary>
-    /// The identifier of this user.
+    /// Gets the identifier of the user.
     /// </summary>
     /// <value>User ID</value>
     public HashId Id { get; }
     /// <summary>
-    /// The type of the user.
+    /// Gets the type of the user they are.
     /// </summary>
-    /// <remarks>
-    /// <para>Defines the type of the user they are.</para>
-    /// </remarks>
     /// <value>User type</value>
     public UserType Type { get; }
     /// <summary>
-    /// The name of the user.
+    /// Gets the global username of the user.
     /// </summary>
-    /// <remarks>
-    /// <para>The global username that user uses.</para>
-    /// </remarks>
     /// <value>Name</value>
     public string Name { get; set; }
     #endregion
 
     #region Properties
     /// <summary>
-    /// Whether the user is a bot.
+    /// Gets whether the user is a <see cref="UserType.Bot">bot</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>Gets whether the user is a global bot.</para>
-    /// </remarks>
     /// <value>Is a bot</value>
     public bool IsBot => Type == UserType.Bot;
 
@@ -51,11 +42,11 @@ public class UserSummary : ClientObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="UserSummary"/> with specified properties.
+    /// Initializes a new instance of <see cref="UserSummary"/> with specified properties.
     /// </summary>
     /// <param name="id">The identifier of the user</param>
-    /// <param name="type">The type of user they are</param>
-    /// <param name="name">The name of the user</param>
+    /// <param name="type">The type of the user they are</param>
+    /// <param name="name">The global username of the user</param>
     [JsonConstructor]
     public UserSummary(
         [JsonProperty(Required = Required.Always)]
@@ -101,5 +92,28 @@ public class UserSummary : ClientObject
     /// <inheritdoc cref="BaseGuildedClient.UnbanMemberAsync(HashId, HashId)"/>
     public async Task UnbanAsync(HashId serverId) =>
         await ParentClient.UnbanMemberAsync(serverId, Id).ConfigureAwait(false);
+    #endregion
+
+    #region Overrides
+    /// <summary>
+    /// Returns the string representation of this <see cref="UserSummary"/> instance.
+    /// </summary>
+    /// <remarks>
+    /// <para>The mention syntax of the user will be returned.</para>
+    /// </remarks>
+    /// <example>
+    /// <para>An example of a code with clearly defined identifier:</para>
+    /// <code lang="csharp">
+    /// UserSummary user = new(new HashId("R40Mp0Wd"), UserType.User, "Example");
+    /// Console.WriteLine("Here's the user: {0}", user);
+    /// </code>
+    /// <para>The output of the code above:</para>
+    /// <code lang="bash">
+    /// Here's the user: &lt;@R40Mp0Wd&gt;
+    /// </code>
+    /// </example>
+    /// <returns>Markdown user mention</returns>
+    public override string ToString() =>
+        $"<@{Id}>";
     #endregion
 }

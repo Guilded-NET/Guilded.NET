@@ -4,12 +4,10 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that is received once WebSocket is initiated.
+/// Represents an event with the opcode <c>1</c> that is received once WebSocket connects or reconnects.
 /// </summary>
 /// <remarks>
-/// <para>This event is received once WebSocket (re)connects to Guilded.</para>
 /// <para><see cref="WelcomeEvent"/> can be used to ensure that WebSocket has connected to Guilded or that the events from Guilded are being received.</para>
-/// <para>This event has no name in API but has an event opcode of <c>1</c>.</para>
 /// </remarks>
 /// <seealso cref="ResumeEvent"/>
 /// <seealso cref="GuildedWebsocketException"/>
@@ -41,7 +39,7 @@ public class WelcomeEvent : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="WelcomeEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="WelcomeEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="heartbeatIntervalMs">The duration between heartbeats</param>
     /// <param name="user">The current logged in user</param>

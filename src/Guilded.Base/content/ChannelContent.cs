@@ -3,10 +3,10 @@ using System;
 namespace Guilded.Base.Content;
 
 /// <summary>
-/// The base type for channel contents.
+/// Represents the base for channel content.
 /// </summary>
 /// <remarks>
-/// <para>Defines the base type for all channel contents, apart from deleted ones.</para>
+/// <para>This does not include deleted content.</para>
 /// </remarks>
 /// <typeparam name="T">The type of the content identifier (property <see cref="Id"/>)</typeparam>
 /// <typeparam name="S">The type of the server identifier (property <see cref="ServerId"/>)</typeparam>
@@ -42,21 +42,17 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
 
     #region Who, when
     /// <summary>
-    /// The identifier of the user creator of the content.
+    /// Gets the identifier of the user that created the content.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the user that created this content.</para>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; }
     /// <summary>
-    /// The date of when the content was created.
+    /// Gets the date of when the content was created.
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime"/> of when the content was created.</para>
-    /// </remarks>
-    /// <value>Created at</value>
+    /// <value>Date</value>
     public DateTime CreatedAt { get; }
     #endregion
 
@@ -64,7 +60,7 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="ChannelContent{T,S}"/> with provided details.
+    /// Initializes a new instance of <see cref="ChannelContent{T, S}" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the content</param>
     /// <param name="channelId">The identifier of the channel where the content is</param>
@@ -77,16 +73,16 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
 
     #region Overrides
     /// <summary>
-    /// Returns whether this instance and specified instance are equal to each other.
+    /// Returns whether this instance and the <paramref name="other">specified instance</paramref> are equal to each other.
     /// </summary>
-    /// <param name="obj">Another instance to compare</param>
+    /// <param name="other">Another instance to compare</param>
     /// <returns>Instances are equal</returns>
-    public override bool Equals(object? obj) =>
-        obj is ChannelContent<T, S> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
+    public override bool Equals(object? other) =>
+        other is ChannelContent<T, S> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
     /// <summary>
-    /// Gets a hashcode of this instance.
+    /// Returns a hashcode of this instance.
     /// </summary>
-    /// <returns>Instance's HashCode</returns>
+    /// <returns>HashCode</returns>
     public override int GetHashCode() =>
         HashCode.Combine(ChannelId, Id);
     /// <summary>

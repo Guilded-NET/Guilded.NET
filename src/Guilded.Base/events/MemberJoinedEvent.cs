@@ -6,34 +6,25 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once a member joins.
+/// Represents an event with the name <c>TeamMemberJoined</c> and opcode <c>0</c> that occurs once <see cref="Member">member</see> joins a <see cref="ServerId">server</see>.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>TeamMemberJoined</c> and opcode <c>0</c> that occurs once member receives any update, apart from role update(see <see cref="RolesUpdatedEvent"/>).</para>
-/// </remarks>
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="MemberUpdatedEvent"/>
 /// <seealso cref="WebhookEvent"/>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="Servers.Member"/>
-public class MemberJoinedEvent : BaseObject
+public class MemberJoinedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// The member that joined.
+    /// Gets the member that has joined.
     /// </summary>
-    /// <remarks>
-    /// <para>The member that joined the server.</para>
-    /// </remarks>
     /// <value>Member</value>
     public Member Member { get; }
     /// <summary>
-    /// The identifier of the server where member joined.
+    /// Gets the identifier of the server where the member has joined.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the member joined.</para>
-    /// </remarks>
     /// <value>Server ID</value>
     public HashId ServerId { get; }
     #endregion
@@ -53,10 +44,10 @@ public class MemberJoinedEvent : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MemberJoinedEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="MemberJoinedEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the member joined</param>
-    /// <param name="member">The member that joined</param>
+    /// <param name="member">The member that has joined</param>
     [JsonConstructor]
     public MemberJoinedEvent(
         [JsonProperty(Required = Required.Always)]

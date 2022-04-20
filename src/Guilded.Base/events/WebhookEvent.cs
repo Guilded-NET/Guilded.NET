@@ -9,34 +9,25 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once a webhook gets created/updated.
+/// Represents an event with the name <c>TeamWebhookCreated</c> or <c>TeamWebhookUpdated</c> and opcode <c>0</c> that occurs once <see cref="Webhook">webhook</see> gets created or updated.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>TeamWebhookCreated</c> or <c>TeamWebhookUpdated</c> and opcode <c>0</c> that occurs once webhook gets created or updated.</para>
-/// </remarks>
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="MemberJoinedEvent"/>
 /// <seealso cref="MemberUpdatedEvent"/>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="Member"/>
-public class WebhookEvent : BaseObject
+public class WebhookEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// The webhook that got created or updated.
+    /// Gets the webhook that has been created or updated.
     /// </summary>
-    /// <remarks>
-    /// <para>The webhook that was created or updated.</para>
-    /// </remarks>
     /// <value>Webhook</value>
     public Webhook Webhook { get; }
     /// <summary>
-    /// The identifier of the server where webhook got created/updated.
+    /// Gets the identifier of the server where the webhook has been created/updated.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the webhook was created or updated.</para>
-    /// </remarks>
     /// <value>Server ID</value>
     public HashId ServerId { get; }
     #endregion
@@ -56,7 +47,7 @@ public class WebhookEvent : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="WebhookEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="WebhookEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the webhook got created/updated</param>
     /// <param name="webhook">The webhook that got created or updated</param>

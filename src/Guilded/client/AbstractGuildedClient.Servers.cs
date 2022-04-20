@@ -13,32 +13,32 @@ public abstract partial class AbstractGuildedClient
 {
     #region Groups
     /// <inheritdoc/>
-    public override async Task AddMembershipAsync(HashId groupId, HashId userId) =>
-        await ExecuteRequestAsync(new RestRequest($"groups/{groupId}/members/{userId}", Method.Put)).ConfigureAwait(false);
+    public override async Task AddMembershipAsync(HashId group, HashId member) =>
+        await ExecuteRequestAsync(new RestRequest($"groups/{group}/members/{member}", Method.Put)).ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task RemoveMembershipAsync(HashId groupId, HashId userId) =>
-        await ExecuteRequestAsync(new RestRequest($"groups/{groupId}/members/{userId}", Method.Delete)).ConfigureAwait(false);
+    public override async Task RemoveMembershipAsync(HashId group, HashId member) =>
+        await ExecuteRequestAsync(new RestRequest($"groups/{group}/members/{member}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
     #region Members
     /// <inheritdoc/>
-    public override async Task<IList<MemberSummary<UserSummary>>> GetMembersAsync(HashId serverId) =>
-        await GetResponseProperty<IList<MemberSummary<UserSummary>>>(new RestRequest($"servers/{serverId}/members", Method.Get), "members").ConfigureAwait(false);
+    public override async Task<IList<MemberSummary<UserSummary>>> GetMembersAsync(HashId server) =>
+        await GetResponseProperty<IList<MemberSummary<UserSummary>>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<Member> GetMemberAsync(HashId serverId, HashId userId) =>
-        await GetResponseProperty<Member>(new RestRequest($"servers/{serverId}/members/{userId}", Method.Get), "member").ConfigureAwait(false);
+    public override async Task<Member> GetMemberAsync(HashId server, HashId member) =>
+        await GetResponseProperty<Member>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<IList<uint>> GetMemberRolesAsync(HashId serverId, HashId userId) =>
-        await GetResponseProperty<IList<uint>>(new RestRequest($"servers/{serverId}/members/{userId}/roles", Method.Get), "roleIds").ConfigureAwait(false);
+    public override async Task<IList<uint>> GetMemberRolesAsync(HashId server, HashId member) =>
+        await GetResponseProperty<IList<uint>>(new RestRequest($"servers/{server}/members/{member}/roles", Method.Get), "roleIds").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<string> UpdateNicknameAsync(HashId serverId, HashId userId, string nickname)
+    public override async Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname)
     {
         if (string.IsNullOrWhiteSpace(nickname))
             throw new ArgumentNullException(nameof(nickname));
         else if (nickname.Length > 32)
             throw new ArgumentOutOfRangeException(nameof(nickname), nickname, $"Argument {nameof(nickname)} must be 32 characters in length max");
 
-        return await GetResponseProperty<string>(new RestRequest($"servers/{serverId}/members/{userId}/nickname", Method.Put)
+        return await GetResponseProperty<string>(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Put)
             .AddJsonBody(new
             {
                 nickname
@@ -46,25 +46,25 @@ public abstract partial class AbstractGuildedClient
         , "nickname").ConfigureAwait(false);
     }
     /// <inheritdoc/>
-    public override async Task DeleteNicknameAsync(HashId serverId, HashId userId) =>
-        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/members/{userId}/nickname", Method.Delete)).ConfigureAwait(false);
+    public override async Task DeleteNicknameAsync(HashId server, HashId member) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Delete)).ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task AddRoleAsync(HashId serverId, HashId userId, uint roleId) =>
-        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/members/{userId}/roles/{roleId}", Method.Put)).ConfigureAwait(false);
+    public override async Task AddRoleAsync(HashId server, HashId member, uint role) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Put)).ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task RemoveRoleAsync(HashId serverId, HashId userId, uint roleId) =>
-        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/members/{userId}/roles/{roleId}", Method.Delete)).ConfigureAwait(false);
+    public override async Task RemoveRoleAsync(HashId server, HashId member, uint role) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Delete)).ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<long> AddXpAsync(HashId serverId, HashId userId, long amount) =>
-        await GetResponseProperty<long>(new RestRequest($"servers/{serverId}/members/{userId}/xp", Method.Post)
+    public override async Task<long> AddXpAsync(HashId server, HashId member, long amount) =>
+        await GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
             })
         , "total").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task AddXpAsync(HashId serverId, uint roleId, long amount) =>
-        await GetResponseProperty<long>(new RestRequest($"servers/{serverId}/roles/{roleId}/xp", Method.Post)
+    public override async Task AddXpAsync(HashId server, uint role, long amount) =>
+        await GetResponseProperty<long>(new RestRequest($"servers/{server}/roles/{role}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
@@ -74,66 +74,66 @@ public abstract partial class AbstractGuildedClient
 
     #region Server-wide Moderation
     /// <inheritdoc/>
-    public override async Task KickMemberAsync(HashId serverId, HashId userId) =>
-        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/members/{userId}", Method.Delete)).ConfigureAwait(false);
+    public override async Task KickMemberAsync(HashId server, HashId member) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}", Method.Delete)).ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<IList<MemberBan>> GetBansAsync(HashId serverId) =>
-        await GetResponseProperty<IList<MemberBan>>(new RestRequest($"servers/{serverId}/bans", Method.Get), "serverMemberBans").ConfigureAwait(false);
+    public override async Task<IList<MemberBan>> GetBansAsync(HashId server) =>
+        await GetResponseProperty<IList<MemberBan>>(new RestRequest($"servers/{server}/bans", Method.Get), "serverMemberBans").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<MemberBan> GetBanAsync(HashId serverId, HashId userId) =>
-        await GetResponseProperty<MemberBan>(new RestRequest($"servers/{serverId}/bans/{userId}", Method.Get), "serverMemberBan").ConfigureAwait(false);
+    public override async Task<MemberBan> GetBanAsync(HashId server, HashId member) =>
+        await GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Get), "serverMemberBan").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<MemberBan> BanMemberAsync(HashId serverId, HashId userId, string? reason = null) =>
-        await GetResponseProperty<MemberBan>(new RestRequest($"servers/{serverId}/bans/{userId}", Method.Post)
+    public override async Task<MemberBan> BanMemberAsync(HashId server, HashId member, string? reason = null) =>
+        await GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Post)
             .AddJsonBody(new
             {
                 reason
             })
         , "serverMemberBan").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task UnbanMemberAsync(HashId serverId, HashId userId) =>
-        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/bans/{userId}", Method.Delete)).ConfigureAwait(false);
+    public override async Task UnbanMemberAsync(HashId server, HashId member) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{server}/bans/{member}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
     #region Webhooks
     /// <inheritdoc/>
-    public override async Task<IList<Webhook>> GetWebhooksAsync(HashId serverId, Guid? channelId = null) =>
-        await GetResponseProperty<IList<Webhook>>(new RestRequest($"servers/{serverId}/webhooks", Method.Get)
-            .AddOptionalQuery("channelId", channelId)
+    public override async Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid? channel = null) =>
+        await GetResponseProperty<IList<Webhook>>(new RestRequest($"servers/{server}/webhooks", Method.Get)
+            .AddOptionalQuery("channelId", channel)
         , "webhooks").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<Webhook> GetWebhookAsync(HashId serverId, Guid webhookId) =>
-        await GetResponseProperty<Webhook>(new RestRequest($"servers/{serverId}/webhooks/{webhookId}", Method.Get), "webhook").ConfigureAwait(false);
+    public override async Task<Webhook> GetWebhookAsync(HashId server, Guid webhook) =>
+        await GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Get), "webhook").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<Webhook> CreateWebhookAsync(HashId serverId, Guid channelId, string name)
+    public override async Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
 
-        return await GetResponseProperty<Webhook>(new RestRequest($"servers/{serverId}/webhooks", Method.Post)
+        return await GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks", Method.Post)
             .AddJsonBody(new
             {
                 name,
-                channelId
+                channelId = channel
             })
         , "webhook").ConfigureAwait(false);
     }
     /// <inheritdoc/>
-    public override async Task<Webhook> UpdateWebhookAsync(HashId serverId, Guid webhookId, string name, Guid? newChannelId = null)
+    public override async Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
 
-        return await GetResponseProperty<Webhook>(new RestRequest($"servers/{serverId}/webhooks/{webhookId}", Method.Put)
+        return await GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Put)
             .AddJsonBody(new
             {
                 name,
-                channelId = newChannelId
+                channelId = newChannel
             })
         , "webhook").ConfigureAwait(false);
     }
     /// <inheritdoc/>
-    public override async Task DeleteWebhookAsync(HashId serverId, Guid webhookId) =>
-        await ExecuteRequestAsync(new RestRequest($"servers/{serverId}/webhooks/{webhookId}", Method.Delete)).ConfigureAwait(false);
+    public override async Task DeleteWebhookAsync(HashId server, Guid webhook) =>
+        await ExecuteRequestAsync(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Delete)).ConfigureAwait(false);
     #endregion
 }

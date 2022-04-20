@@ -5,20 +5,22 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Content;
 
 /// <summary>
-/// A list item in a list channel.
+/// Represents an item in a list channel.
 /// </summary>
 /// <remarks>
-/// <para>A list item in a list channel with an optional <see cref="Note"/>.</para>
+/// <para>Either an existing or a cached list item. It can only be found in list items and may sometimes be found in list threads (officially unsupported).</para>
 /// </remarks>
-/// <seealso cref="Content.Message"/>
-/// <seealso cref="ForumThread"/>
+/// <typeparam name="T">The type of the list item's note</typeparam>
 /// <seealso cref="ListItemNote"/>
 /// <seealso cref="ListItemNoteSummary"/>
+/// <seealso cref="Content.Message"/>
+/// <seealso cref="ForumThread"/>
+/// <seealso cref="Doc"/>
 public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable where T : ListItemNoteSummary
 {
     #region JSON properties
     /// <summary>
-    /// The contents of the message in the item.
+    /// The text contents of the message in the item.
     /// </summary>
     /// <remarks>
     /// <para>The contents of the list item formatted in Markdown. The contents must only be in a single line.</para>
@@ -85,14 +87,21 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     public Guid? ParentListItemId { get; }
     #endregion
 
+    #region Properties
+    /// <summary>
+    ///
+    /// </summary>
+    public bool IsCompleted => CompletedAt is not null;
+    #endregion
+
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="ListItem{T}"/> with provided details.
+    /// Initializes a new instance of <see cref="ListItem{T}"/> with provided details.
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
     /// <param name="serverId">The identifier of the server where the list item is</param>
-    /// <param name="message">The contents of the message in list item</param>
+    /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
     /// <param name="createdBy">The identifier of the user creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
@@ -196,7 +205,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="ListItemNoteSummary"/> with provided details.
+    /// Initializes a new instance of <see cref="ListItemNoteSummary"/> with provided details.
     /// </summary>
     /// <param name="createdBy">The identifier of the user that created the note</param>
     /// <param name="createdAt">The date of when the note was created</param>
@@ -240,7 +249,7 @@ public class ListItemNote : ListItemNoteSummary
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="ListItemNote"/> with provided details.
+    /// Initializes a new instance of <see cref="ListItemNote"/> with provided details.
     /// </summary>
     /// <param name="content">The contents of the note</param>
     /// <param name="createdBy">The identifier of the user creator of the list item's note</param>

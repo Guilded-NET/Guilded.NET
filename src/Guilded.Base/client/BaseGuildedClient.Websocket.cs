@@ -33,6 +33,7 @@ public abstract partial class BaseGuildedClient
     /// </remarks>
     /// <value>WebSocket Message ID?</value>
     public string? LastMessageId { get; set; }
+
     private readonly Subject<GuildedSocketMessage> OnWebsocketMessage = new();
     /// <summary>
     /// An event when WebSocket receives a message.

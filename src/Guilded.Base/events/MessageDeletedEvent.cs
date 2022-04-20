@@ -4,11 +4,8 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once someone deletes a message.
+/// Represents an event with the name <c>ChatMessageDeleted</c> and opcode <c>0</c> that occurs once someone creates/posts a message in the chat.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>ChatMessageDeleted</c> and opcode <c>0</c> that occurs once someone creates/posts a message in the chat.</para>
-/// </remarks>
 /// <seealso cref="MessageDeleted"/>
 /// <seealso cref="Content.Message"/>
 public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDeleted>
@@ -24,7 +21,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MessageDeletedEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="MessageDeletedEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the message was deleted</param>
     /// <param name="message">The minimal information about the deleted message</param>

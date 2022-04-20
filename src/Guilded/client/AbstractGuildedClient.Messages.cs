@@ -8,10 +8,9 @@ namespace Guilded;
 public abstract partial class AbstractGuildedClient
 {
     /// <summary>
-    /// A dictionary of Guilded events.
+    /// Gets the dictionary of Guilded events, their names and other event information.
     /// </summary>
     /// <remarks>
-    /// <para>A dictionary of all supported Guilded events, containing their event names and information about the event to use.</para>
     /// <para>You can add more events to this dictionary if Guilded.NET does not support certain events.</para>
     /// </remarks>
     /// <value>Dictionary of events</value>

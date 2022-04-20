@@ -4,10 +4,10 @@ using Websocket.Client;
 namespace Guilded.Base;
 
 /// <summary>
-/// An error received from Guilded WebSocket.
+/// Represents an error received from Guilded WebSocket.
 /// </summary>
 /// <remarks>
-/// <para>An error that occurs involving WebSockets. This error can occur in these different ways:</para>
+/// <para>This error can occur in these different ways:</para>
 /// <list type="bullet">
 ///     <item>
 ///         <term>Expired last event message identifier</term>
@@ -27,31 +27,31 @@ namespace Guilded.Base;
 public class GuildedWebsocketException : Exception
 {
     /// <summary>
-    /// The response message from Guilded WebSocket.
+    /// Gets the response message from Guilded WebSocket.
     /// </summary>
     /// <remarks>
-    /// <para>WebSocket response message that holds the error found. Can be used if further information is necessary.</para>
+    /// <para>Can be used if further information is necessary.</para>
     /// </remarks>
     /// <value>WebSocket response</value>
     public ResponseMessage? Response { get; }
     /// <summary>
-    /// Creates a new empty instance of <see cref="GuildedWebsocketException"/>.
+    /// Initializes a new empty instance of <see cref="GuildedWebsocketException"/>.
     /// </summary>
     public GuildedWebsocketException() { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedWebsocketException"/> with a message received.
+    /// Initializes a new instance of <see cref="GuildedWebsocketException"/> with a <paramref name="message" />.
     /// </summary>
     /// <param name="message">The message that was received from Guilded Websocket</param>
     public GuildedWebsocketException(string message) : base(message) { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedWebsocketException"/> from WebSocket response message.
+    /// Initializes a new instance of <see cref="GuildedWebsocketException"/> from WebSocket <paramref name="message">response message</paramref>.
     /// </summary>
     /// <param name="response">The response message from Guilded WebSocket</param>
     /// <param name="message">The message that was received from Guilded Websocket</param>
     public GuildedWebsocketException(ResponseMessage response, string message) : this(message) =>
         Response = response;
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedWebsocketException"/> with a message received.
+    /// Initializes a new instance of <see cref="GuildedWebsocketException"/> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
     /// <param name="message">The message that was received from Guilded Websocket</param>
     /// <param name="inner">The inner exception of this error</param>

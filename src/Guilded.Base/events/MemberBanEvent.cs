@@ -6,11 +6,8 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once a member gets (un)banned.
+/// Represents an event with the name <c>TeamMemberBanned</c> or <c>TeamMemberUnbanned</c> and opcode <c>0</c> that occurs once <see cref="MemberBan.User">member</see> gets banned or unbanned.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>TeamMemberBanned</c> or <c>TeamMemberUnbanned</c> and opcode <c>0</c> that occurs once member gets banned or unbanned.</para>
-/// </remarks>
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="MemberJoinedEvent"/>
@@ -18,23 +15,17 @@ namespace Guilded.Base.Events;
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="MemberRemovedEvent"/>
 /// <seealso cref="Member"/>
-public class MemberBanEvent : BaseObject
+public class MemberBanEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// The member's ban information.
+    /// Gets the information about the member's ban.
     /// </summary>
-    /// <remarks>
-    /// <para>The information about the ban that member received.</para>
-    /// </remarks>
     /// <value>Member ban</value>
     public MemberBan MemberBan { get; }
     /// <summary>
-    /// The identifier of the server where member got (un)banned.
+    /// Gets the identifier of the server where member has been banned/unbanned.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the member got banned or unbanned.</para>
-    /// </remarks>
     /// <value>Server ID</value>
     public HashId ServerId { get; }
     #endregion
@@ -52,10 +43,10 @@ public class MemberBanEvent : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MemberBanEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="MemberBanEvent"/> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the member got (un)banned</param>
-    /// <param name="serverMemberBan">The member's ban information</param>
+    /// <param name="serverId">The identifier of the server where member got banned/unbanned</param>
+    /// <param name="serverMemberBan">The information about the member's ban</param>
     [JsonConstructor]
     public MemberBanEvent(
         [JsonProperty(Required = Required.Always)]

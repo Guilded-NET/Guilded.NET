@@ -4,10 +4,10 @@ using RestSharp;
 namespace Guilded.Base;
 
 /// <summary>
-/// A bad request exception thrown by Guilded API.
+/// Represents an exception thrown by Guilded API when a request has invalid parameters.
 /// </summary>
 /// <remarks>
-/// <para>An exception thrown by Guilded API when the request is invalid/bad. This has these leading causes:</para>
+/// <para>This has these leading causes:</para>
 /// <list type="bullet">
 ///     <item>
 ///         <term>Invalid/bad parameters</term>
@@ -32,27 +32,27 @@ namespace Guilded.Base;
 public sealed class GuildedRequestException : GuildedException
 {
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedRequestException"/>.
+    /// Initializes a new instance of <see cref="GuildedRequestException"/>.
     /// </summary>
     /// <param name="message">The message explaining the error</param>
     public GuildedRequestException(string message) : base(message) { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedRequestException"/> with information from given parameters.
+    /// Initializes a new instance of <see cref="GuildedRequestException"/> with information from given parameters.
     /// </summary>
     /// <param name="code">The name of the error from Guilded API</param>
     /// <param name="message">The description of the error from Guilded API</param>
     /// <param name="response">The response that was received from Guilded API</param>
     public GuildedRequestException(string code, string message, RestResponse response) : base(code, message, response) { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedRequestException"/> with default message.
+    /// Initializes a new instance of <see cref="GuildedRequestException"/> with default message.
     /// </summary>
     /// <remarks>
-    /// <para>Creates a new instance of <see cref="GuildedRequestException"/> with default message:</para>
+    /// <para>Initializes a new instance of <see cref="GuildedRequestException"/> with default message:</para>
     /// <note>Unacceptable. The request was unacceptable. Invalid/bad parameters?</note>
     /// </remarks>
     public GuildedRequestException() : this("Bad request. The request was unacceptable. Invalid/bad parameters?") { }
     /// <summary>
-    /// Creates a new instance of <see cref="GuildedRequestException"/> with inner exception explaining more.
+    /// Initializes a new instance of <see cref="GuildedRequestException"/> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
     /// <param name="message">The description of the error from Guilded API</param>
     /// <param name="inner">Inner exception explaining more</param>

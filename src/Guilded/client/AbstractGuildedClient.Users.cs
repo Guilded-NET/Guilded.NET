@@ -11,7 +11,7 @@ public abstract partial class AbstractGuildedClient
 {
     #region Profile info
     /// <inheritdoc/>
-    public override async Task<SocialLink> GetSocialLinkAsync(HashId serverId, HashId memberId, SocialLinkType linkType) =>
-        await GetResponseProperty<SocialLink>(new RestRequest($"servers/{serverId}/members/{memberId}/social-links/{linkType.ToString().ToLower()}", Method.Get), "socialLink").ConfigureAwait(false);
+    public override async Task<SocialLink> GetSocialLinkAsync(HashId server, HashId member, SocialLinkType linkType) =>
+        await GetResponseProperty<SocialLink>(new RestRequest($"servers/{server}/members/{member}/social-links/{linkType.ToString().ToLower()}", Method.Get), "socialLink").ConfigureAwait(false);
     #endregion
 }

@@ -4,54 +4,44 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once a member gets updated.
+/// Represents an event with the name <c>TeamMemberUpdated</c> and opcode <c>0</c> that occurs once member receives any update, apart from <see cref="RolesUpdatedEvent">role update</see>.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>TeamMemberUpdated</c> and opcode <c>0</c> that occurs once member receives any update, apart from role update(see <see cref="RolesUpdatedEvent"/>).</para>
-/// </remarks>
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="XpAddedEvent"/>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="WebhookEvent"/>
 /// <seealso cref="Member"/>
-public class MemberUpdatedEvent : BaseObject
+public class MemberUpdatedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// The info about updated member.
+    /// Gets the properties that have been updated in the member.
     /// </summary>
     /// <remarks>
-    /// <para>Defines an update that the member has received.</para>
     /// <para>As of now, this only means <see cref="MemberUpdate.Nickname"/> has been updated.</para>
     /// </remarks>
     /// <value>Member info</value>
     public MemberUpdate UserInfo { get; }
     /// <summary>
-    /// The identifier of the server where member was updated.
+    /// The identifier of the server where the <see cref="UserInfo">member</see> has been updated.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the member was given a new nickname, lost a nickname or any other update occurred.</para>
-    /// </remarks>
     /// <value>Server ID</value>
     public HashId ServerId { get; }
     #endregion
 
     #region Properties
     /// <summary>
-    /// The identifier of the member.
+    /// Gets the identifier of the <see cref="UserInfo">member</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>Gets the identifier of the updated member.</para>
-    /// </remarks>
     public HashId UserId => UserInfo.Id;
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="MemberUpdatedEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="MemberUpdatedEvent"/> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the member was updated</param>
-    /// <param name="userInfo">The info about updated member</param>
+    /// <param name="serverId">The identifier of the server where the <see cref="UserInfo">member</see> has been updated</param>
+    /// <param name="userInfo">The properties that have been updated in the member</param>
     [JsonConstructor]
     public MemberUpdatedEvent(
         [JsonProperty(Required = Required.Always)]
@@ -64,11 +54,8 @@ public class MemberUpdatedEvent : BaseObject
     #endregion
 
     /// <summary>
-    /// The updated information about a member.
+    /// Represents the properties that have been updated in the member.
     /// </summary>
-    /// <remarks>
-    /// <para>The information that has been updated about a member.</para>
-    /// </remarks>
     /// <seealso cref="Users.UserSummary" />
     /// <seealso cref="MemberSummary{T}" />
     /// <seealso cref="Users.User" />
@@ -80,9 +67,9 @@ public class MemberUpdatedEvent : BaseObject
         /// <inheritdoc cref="Member.Nickname" />
         public string? Nickname { get; set; }
         /// <summary>
-        /// Creates a new instance of <see cref="MemberUpdate" />.
+        /// Initializes a new instance of <see cref="MemberUpdate" /> from the specified JSON properties.
         /// </summary>
-        /// <param name="id">The identifier of the user</param>
+        /// <param name="id">The identifier of the updated user</param>
         /// <param name="nickname">The updated nickname of the user</param>
         [JsonConstructor]
         public MemberUpdate(

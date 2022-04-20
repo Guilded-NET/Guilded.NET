@@ -6,11 +6,8 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// An event that occurs once XP is given to a set of users.
+/// Represents an event with the name <c>TeamXpAdded</c> and opcode <c>0</c> that occurs once <see cref="Amount"/> XP is given to <see cref="Users"/>. This can be given to a couple users, instead of it being restricted to one user.
 /// </summary>
-/// <remarks>
-/// <para>An event of the name <c>TeamXpAdded</c> and opcode <c>0</c> that occurs once <see cref="Amount"/> XP is given to <see cref="Users"/>. This can be given to a couple users, instead of it being restricted to one user. <see cref="XpAddedEvent"/> can only occur in teams and tournaments.</para>
-/// </remarks>
 /// <seealso cref="WelcomeEvent"/>
 /// <seealso cref="RolesUpdatedEvent"/>
 /// <seealso cref="Servers.Member"/>
@@ -18,20 +15,15 @@ public class XpAddedEvent : BaseObject
 {
     #region JSON properties
     /// <summary>
-    /// The identifiers of users who received XP.
+    /// Gets the identifiers of the users who received <see cref="Amount">XP</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>This contains a set of users that were given <see cref="Amount"/> amount of XP.</para>
-    /// <para>The set can contain more than one member.</para>
-    /// </remarks>
-    /// <value>List of user IDs</value>
-    public ISet<HashId> Users { get; }
+    /// <value>list of user IDs</value>
+    public IList<HashId> Users { get; }
     /// <summary>
-    /// The amount of XP given to the users.
+    /// Gets the amount of XP given to the <see cref="Users">users</see>.
     /// </summary>
     /// <remarks>
-    /// <para>The amount of XP that was given to all users in <see cref="Users"/> set.</para>
-    /// <para>This should usually be between 1000 and -1000 amount of XP.</para>
+    /// <para>This should usually be between <c>1000</c> and <c>-1000</c> amount of XP.</para>
     /// </remarks>
     /// <value>XP</value>
     public long Amount { get; }
@@ -39,33 +31,27 @@ public class XpAddedEvent : BaseObject
 
     #region Properties
     /// <summary>
-    /// Gets the first XP receiving user.
+    /// Gets the first XP receiving <see cref="Users">user</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>Gets the first user in <see cref="Users"/> set.</para>
-    /// </remarks>
     /// <returns>User ID</returns>
     public HashId FirstUser => Users.First();
     /// <summary>
-    /// Gets the last XP receiving user.
+    /// Gets the last XP receiving <see cref="Users">user</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>Gets the last user in <see cref="Users"/> set.</para>
-    /// </remarks>
     /// <returns>User ID</returns>
     public HashId LastUser => Users.Last();
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="XpAddedEvent"/>. This is currently only used in deserialization.
+    /// Initializes a new instance of <see cref="XpAddedEvent"/> from the specified JSON properties.
     /// </summary>
-    /// <param name="userIds">The identifiers of users who received XP</param>
-    /// <param name="amount">The amount of XP given to the users</param>
+    /// <param name="userIds">The identifiers of the users who received <see cref="Amount">XP</see></param>
+    /// <param name="amount">The amount of XP given to the <see cref="Users">users</see></param>
     [JsonConstructor]
     public XpAddedEvent(
         [JsonProperty(Required = Required.Always)]
-        ISet<HashId> userIds,
+        IList<HashId> userIds,
 
         [JsonProperty(Required = Required.Always)]
         long amount

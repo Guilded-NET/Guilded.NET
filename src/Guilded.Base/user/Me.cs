@@ -4,49 +4,46 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Users;
 
 /// <summary>
-/// The information about the current logged in user.
+/// Represents the currently logged in user.
 /// </summary>
 public class Me : BaseObject
 {
     /// <summary>
-    /// The identifier of this user.
+    /// Gets the identifier of the user <see cref="BaseGuildedClient">this client</see> is logged into.
     /// </summary>
-    /// <remarks>
-    /// <para>The user identifier of the current client.</para>
-    /// </remarks>
     /// <value>User ID</value>
     public HashId Id { get; set; }
     /// <summary>
-    /// The identifier of this bot.
+    /// Gets the identifier of the bot <see cref="BaseGuildedClient">this client</see> is logged into.
     /// </summary>
-    /// <remarks>
-    /// <para>The bot identifier of the current client to distinguish it from flowbots.</para>
-    /// </remarks>
     /// <value>Bot ID</value>
     public Guid BotId { get; set; }
     /// <summary>
-    /// The name of this client.
+    /// Gets the name of <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
     /// <value>Name</value>
     public string Name { get; set; }
     /// <summary>
-    /// The creation date of this client.
+    /// Gets the creation date of <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// The identifier of the creator of this bot.
+    /// Gets the identifier of the user that has created <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
+    /// <remarks>
+    /// <para>This should usually be the identifier of your account or the user that owns the bot.</para>
+    /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }
     /// <summary>
-    /// Creates new instance of <see cref="Me" /> with the provided details.
+    /// Initializes a new instance of <see cref="Me" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of this user</param>
-    /// <param name="botId">The identifier of this bot</param>
-    /// <param name="name">The name of this client</param>
-    /// <param name="createdAt">The creation date of this client</param>
-    /// <param name="createdBy">The identifier of the creator of this bot</param>
+    /// <param name="id">The identifier of the user <see cref="BaseGuildedClient">this client</see> is logged into</param>
+    /// <param name="botId">The identifier of the bot <see cref="BaseGuildedClient">this client</see> is logged into</param>
+    /// <param name="name">The name of <see cref="BaseGuildedClient">this client</see></param>
+    /// <param name="createdAt">The creation date of <see cref="BaseGuildedClient">this client</see></param>
+    /// <param name="createdBy">The identifier of the user that has created <see cref="BaseGuildedClient">this client</see></param>
     [JsonConstructor]
     public Me(
         [JsonProperty(Required = Required.Always)]

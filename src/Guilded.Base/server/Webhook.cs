@@ -78,7 +78,7 @@ public class Webhook : ClientObject, ICreatableContent
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="Webhook" /> with the specified properties.
+    /// Initializes a new instance of <see cref="Webhook" /> with the specified properties.
     /// </summary>
     /// <param name="id">The identifier of the webhook</param>
     /// <param name="name">The name of the webhook</param>

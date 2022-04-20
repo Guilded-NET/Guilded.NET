@@ -5,49 +5,19 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Content;
 
 /// <summary>
-/// A document in a document channel.
+/// Represents a document in a document channel.
 /// </summary>
-/// <remarks>
-/// <para>A document with a <see cref="Title"/> and the <see cref="Content"/>, similarly to <see cref="ForumThread"/>.</para>
-/// </remarks>
-public class Doc : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent
+/// <seealso cref="ForumThread" />
+/// <seealso cref="ListItem{T}" />
+/// <seealso cref="Message" />
+public class Doc : TitledContent
 {
     #region JSON properties
-
-    #region Content
     /// <summary>
-    /// The title of the document.
+    /// Gets the identifier of the member that updated the document.
     /// </summary>
     /// <remarks>
-    /// <para>The displayed title of the document.</para>
-    /// <para>This does not have any Markdown formatting.</para>
-    /// </remarks>
-    /// <value>Single-line string</value>
-    public string Title { get; }
-    /// <summary>
-    /// The contents of the document.
-    /// </summary>
-    /// <remarks>
-    /// <para>The contents of document in Markdown format.</para>
-    /// <para>This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
-    /// </remarks>
-    /// <value>Markdown string</value>
-    public string Content { get; }
-    #endregion
-
-    /// <summary>
-    /// The date of when the document was updated.
-    /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime"/> of when the document was updated/edited.</para>
-    /// </remarks>
-    /// <value>Date?</value>
-    public DateTime? UpdatedAt { get; }
-    /// <summary>
-    /// The identifier of the member updater of the document.
-    /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the user who updated this document. Only includes the user who updated this document most recently.</para>
+    /// <para>Only includes the user who updated this document most recently.</para>
     /// </remarks>
     /// <value>User ID?</value>
     public HashId? UpdatedBy { get; }
@@ -55,14 +25,14 @@ public class Doc : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleCo
 
     #region Constructors
     /// <summary>
-    /// Creates a new instance of <see cref="Doc"/> with provided details.
+    /// Initializes a new instance of <see cref="Doc"/> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the content</param>
+    /// <param name="id">The identifier of the document</param>
     /// <param name="channelId">The identifier of the channel where the document is</param>
     /// <param name="serverId">The identifier of the server where the document is</param>
     /// <param name="title">The title of the document</param>
-    /// <param name="content">The contents of the document</param>
-    /// <param name="createdBy">The identifier of the user creator of the document</param>
+    /// <param name="content">The text contents of the document</param>
+    /// <param name="createdBy">The identifier of the user that created the document</param>
     /// <param name="createdAt">The date of when the document was created</param>
     /// <param name="updatedBy">The identifier of the user who recently updated the document</param>
     /// <param name="updatedAt">The date of when the document was recently updated</param>
@@ -94,8 +64,8 @@ public class Doc : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleCo
 
         [JsonProperty]
         DateTime? updatedAt
-    ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Title, Content, UpdatedBy, UpdatedAt) = (title, content, updatedBy, updatedAt);
+    ) : base(id, channelId, serverId, title, content, createdBy, createdAt, updatedAt) =>
+        UpdatedBy = updatedBy;
     #endregion
 
     #region Additional
@@ -107,13 +77,5 @@ public class Doc : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleCo
     /// <inheritdoc cref="BaseGuildedClient.DeleteDocAsync(Guid, uint)"/>
     public async Task DeleteAsync() =>
         await ParentClient.DeleteDocAsync(ChannelId, Id);
-    /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)"/>
-    /// <param name="emoteId">The identifier of the emote to add</param>
-    public async Task<Reaction> AddReactionAsync(uint emoteId) =>
-        await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
-    /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)"/>
-    /// <param name="emoteId">The identifier of the emote to remove</param>
-    public async Task RemoveReactionAsync(uint emoteId) =>
-        await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
     #endregion
 }

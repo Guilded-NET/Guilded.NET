@@ -5,11 +5,8 @@ using Newtonsoft.Json.Converters;
 namespace Guilded.Base.Users;
 
 /// <summary>
-/// The type of social link.
+/// Represents the type of a <see cref="SocialLink">social link</see>.
 /// </summary>
-/// <remarks>
-/// <para>Defines a type of <see cref="SocialLink"/> that user holds.</para>
-/// </remarks>
 /// <seealso cref="SocialLink"/>
 /// <seealso cref="User"/>
 /// <seealso cref="UserSummary"/>
