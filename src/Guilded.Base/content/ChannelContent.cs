@@ -8,9 +8,9 @@ namespace Guilded.Base.Content;
 /// <remarks>
 /// <para>This does not include deleted content.</para>
 /// </remarks>
-/// <typeparam name="T">The type of the content identifier (property <see cref="Id"/>)</typeparam>
-/// <typeparam name="S">The type of the server identifier (property <see cref="ServerId"/>)</typeparam>
-public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent where T : notnull
+/// <typeparam name="TId">The type of the content identifier (property <see cref="Id"/>)</typeparam>
+/// <typeparam name="TServer">The type of the server identifier (property <see cref="ServerId"/>)</typeparam>
+public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableContent where TId : notnull
 {
     #region JSON properties
     /// <summary>
@@ -20,7 +20,7 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
     /// <para>The identifier of the content that was created. Usually a <see cref="Guid"/>, <see cref="uint"/> or <see cref="HashId"/>.</para>
     /// </remarks>
     /// <value>Content ID</value>
-    public T Id { get; }
+    public TId Id { get; }
     /// <summary>
     /// The identifier of the channel where the content is.
     /// </summary>
@@ -38,7 +38,7 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
     /// <para>The server can be either optional or not optional. This depends whether the content is global or server-wide. Content like forum threads will be server-wide, while content like chat messages and reactions will be global.</para>
     /// </remarks>
     /// <value>Server ID or Server ID?</value>
-    public S ServerId { get; }
+    public TServer ServerId { get; }
 
     #region Who, when
     /// <summary>
@@ -67,7 +67,7 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
     /// <param name="serverId">The identifier of the server where the content is</param>
     /// <param name="createdBy">The identifier of the user creator of the content</param>
     /// <param name="createdAt">The date of when the content was created</param>
-    protected ChannelContent(T id, Guid channelId, S serverId, HashId createdBy, DateTime createdAt) =>
+    protected ChannelContent(TId id, Guid channelId, TServer serverId, HashId createdBy, DateTime createdAt) =>
         (Id, ChannelId, ServerId, CreatedBy, CreatedAt) = (id, channelId, serverId, createdBy, createdAt);
     #endregion
 
@@ -78,7 +78,7 @@ public abstract class ChannelContent<T, S> : ClientObject, ICreatableContent whe
     /// <param name="other">Another instance to compare</param>
     /// <returns>Instances are equal</returns>
     public override bool Equals(object? other) =>
-        other is ChannelContent<T, S> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
+        other is ChannelContent<TId, TServer> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
     /// <summary>
     /// Returns a hashcode of this instance.
     /// </summary>
