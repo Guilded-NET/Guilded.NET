@@ -46,12 +46,12 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <value>List of message IDs?</value>
     public IList<Guid>? ReplyMessageIds { get; }
     /// <summary>
-    /// Gets whether the reply is private.
+    /// Gets whether <see cref="IsReply">the reply</see> or mention is private.
     /// </summary>
     /// <remarks>
     /// <para>This can only be <see langword="true"/> if <see cref="ReplyMessageIds"/> has a value or there is an user or role mention in the <see cref="Content" />.</para>
     /// </remarks>
-    /// <value>Reply is private</value>
+    /// <value>Message is private</value>
     public bool IsPrivate { get; }
     /// <summary>
     /// Gets whether the specified message is a reply
@@ -169,7 +169,8 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <inheritdoc cref="CreateMessageAsync(string)"/>
     /// <param name="content">The text contents of the message in Markdown plain text</param>
     /// <param name="isPrivate">Whether the mention is private</param>
-    public async Task<Message> CreateMessageAsync(string content, bool isPrivate) =>
+    /// <param name="isSilent">Whether the mention is silent and does not ping</param>
+    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await ParentClient.CreateMessageAsync(ChannelId, content, isPrivate).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(string)"/>
     /// <param name="content">The text contents of the message in Markdown plain text</param>
@@ -179,9 +180,10 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <inheritdoc cref="CreateMessageAsync(string)"/>
     /// <param name="content">The text contents of the message in Markdown plain text</param>
     /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping</param>
     /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-    public async Task<Message> CreateMessageAsync(string content, bool isPrivate, params Guid[] replyMessageIds) =>
-        await ParentClient.CreateMessageAsync(ChannelId, content, isPrivate, replyMessageIds).ConfigureAwait(false);
+    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyMessageIds) =>
+        await ParentClient.CreateMessageAsync(ChannelId, content, isPrivate, isSilent, replyMessageIds).ConfigureAwait(false);
     /// <summary>
     /// Replies to the message in the parent channel (from <see cref="ChannelContent{T, T}.ChannelId" />).
     /// </summary>
@@ -206,8 +208,9 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <inheritdoc cref="ReplyAsync(string)"/>
     /// <param name="content">The text contents of the message in Markdown plain text</param>
     /// <param name="isPrivate">Whether the reply is private</param>
-    public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
-        await CreateMessageAsync(content, isPrivate, Id).ConfigureAwait(false);
+    /// <param name="isSilent">Whether the reply is silent and does not mention</param>
+    public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
+        await CreateMessageAsync(content, isPrivate, isSilent, Id).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)"/>
     /// <param name="content">The text contents of the message in Markdown plain text</param>
     public async Task<Message> UpdateAsync(string content) =>

@@ -24,6 +24,11 @@ public class MessageContent : BaseObject
     public IList<Guid>? ReplyMessageIds { get; set; }
     /// <inheritdoc cref="Message.IsPrivate"/>
     public bool? IsPrivate { get; set; }
+    /// <summary>
+    /// Gets whether <see cref="Message.IsReply">the reply</see> or the mention is silent and does not ping anyone.
+    /// </summary>
+    /// <value>Message is silent</value>
+    public bool? IsSilent { get; set; }
     #endregion
 
     #region Constructors
@@ -49,8 +54,11 @@ public class MessageContent : BaseObject
         IList<Guid>? replyMessageIds,
 
         [JsonProperty]
-        bool? isPrivate
+        bool? isPrivate,
+
+        [JsonProperty]
+        bool? isSilent
     ) =>
-        (Embeds, ReplyMessageIds, IsPrivate) = (embeds, replyMessageIds, isPrivate);
+        (Embeds, ReplyMessageIds, IsPrivate, IsSilent) = (embeds, replyMessageIds, isPrivate, isSilent);
     #endregion
 }

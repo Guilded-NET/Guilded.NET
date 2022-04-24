@@ -149,10 +149,12 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of the parent channel</param>
     /// <param name="content">The text content of the message in Markdown</param>
     /// <param name="isPrivate">Whether the mention is private</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate) =>
+    /// <param name="isSilent">Whether the mention is silent</param>
+    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false) =>
         await CreateMessageAsync(channel, new MessageContent(content)
         {
-            IsPrivate = isPrivate
+            IsPrivate = isPrivate,
+            IsSilent = isSilent
         }).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)"/>
     /// <param name="channel">The identifier of the parent channel</param>
@@ -167,11 +169,13 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of the parent channel</param>
     /// <param name="content">The text content of the message in Markdown</param>
     /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
     /// <param name="replyMessageIds">The array of all messages it is replying to(5 max)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate, params Guid[] replyMessageIds) =>
+    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyMessageIds) =>
         await CreateMessageAsync(channel, new MessageContent(content)
         {
             IsPrivate = isPrivate,
+            IsSilent = isSilent,
             ReplyMessageIds = replyMessageIds
         }).ConfigureAwait(false);
     /// <summary>

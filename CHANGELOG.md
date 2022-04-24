@@ -1,6 +1,7 @@
 # v0.7.5-beta
 
 - Added `IsCompleted` property in `ListItem`
+- Added `isSilent` parameter while creating messages
 - Reformatted and reworked a lot of documentation
 - Changed method parameter names (`messageId` -> `message`; `emoteId` -> `emote`)
 - Commented out remove reaction method that can fool developers

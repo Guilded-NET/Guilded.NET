@@ -84,18 +84,21 @@ public class MessageEvent : MessageEvent<Message>
     /// <inheritdoc cref="Message.CreateMessageAsync(string)"/>
     public async Task<Message> CreateMessageAsync(string content) =>
         await Message.CreateMessageAsync(content).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool)"/>
+    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false) =>
+        await Message.CreateMessageAsync(content, isPrivate, isSilent).ConfigureAwait(false);
     /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])"/>
     public async Task<Message> CreateMessageAsync(string content, params Guid[] replyMessageIds) =>
         await Message.CreateMessageAsync(content, replyMessageIds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, Guid[])"/>
-    public async Task<Message> CreateMessageAsync(string content, bool isPrivate, params Guid[] replyMessageIds) =>
-        await Message.CreateMessageAsync(content, isPrivate, replyMessageIds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[])"/>
+    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyMessageIds) =>
+        await Message.CreateMessageAsync(content, isPrivate, isSilent, replyMessageIds).ConfigureAwait(false);
     /// <inheritdoc cref="Message.ReplyAsync(string)"/>
     public async Task<Message> ReplyAsync(string content) =>
         await Message.ReplyAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(string, bool)"/>
-    public async Task<Message> ReplyAsync(string content, bool isPrivate) =>
-        await Message.ReplyAsync(content, isPrivate).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool)"/>
+    public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
+        await Message.ReplyAsync(content, isPrivate, isSilent).ConfigureAwait(false);
     /// <inheritdoc cref="Message.UpdateAsync(string)"/>
     public async Task<Message> UpdateAsync(string content) =>
         await Message.UpdateAsync(content).ConfigureAwait(false);
