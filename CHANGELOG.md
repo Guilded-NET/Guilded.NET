@@ -8,6 +8,7 @@
 - Added `TitledContent`, which is now a parent type of `Doc` and `ForumThread` types
 - `UserSummary.ToString` will now return the mention of the user
 - Added `IServerEvent` to the events that are supposed to have it
+- Added command system
 
 # v0.7.4-beta
 
