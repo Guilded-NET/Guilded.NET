@@ -71,7 +71,7 @@ internal static class CommandUtil
                         if (contextParameter.ParameterType != typeof(CommandEvent))
                             throw new FormatException("Expected method with [Command] attribute to have first parameter with CommandEvent type");
 
-                        return new CommandInfo(method, attribute, parameters.Skip(1));
+                        return new CommandInfo(method, attribute, parameters[1..]);
                     }
                     else
                     {

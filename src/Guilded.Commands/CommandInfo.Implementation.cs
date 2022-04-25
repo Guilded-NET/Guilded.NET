@@ -29,97 +29,95 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// <param name="parameters">The parameters that will be used as command arguments</param>
     public CommandInfo(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method) =>
         Arguments = parameters.Select(arg => new CommandArgumentInfo(arg));
+
     /// <summary>
     /// Returns the enumerable of runtime method parameter values.
     /// </summary>
+    /// <param name="commandEvent">The command event to add at the start of the sequence</param>
     /// <param name="arguments">The given arguments of the command</param>
     /// <returns>Enumerable of parameters</returns>
-    internal (bool generated, IEnumerable<object?>? arguments) GenerateMethodParameters(IEnumerable<string> arguments)
+    internal object?[]? GenerateMethodParameters(CommandEvent commandEvent, IEnumerable<string> arguments)
     {
         if (arguments.Count() < Arguments.Count())
-            return (generated: false, arguments: null);
+            return null;
 
-        bool hasGeneratedCorrectly = true;
+        try
+        {
+            var generatedArguments =
+                // (CommandEvent invokation, string arg0, int arg1)
+                new object[] { commandEvent }.Concat(
+                    Arguments.Select<CommandArgumentInfo, object?>((arg, argIndex) =>
+                    {
+                        string stringArgument = arguments.ElementAt(argIndex);
 
-        var generatedArguments =
-            Arguments.Select<CommandArgumentInfo, object?>((arg, argIndex) =>
-            {
-                Type argType = arg.ArgumentType;
+                        Type argType = arg.ArgumentType;
 
-                string stringArgument = arguments.ElementAt(argIndex);
+                        // Rest argument
+                        if (argType == typeof(string[]))
+                        {
+                            if (argIndex + 1 != Arguments.Count())
+                                throw new FormatException();
 
-                // Rest argument
-                if (argType == typeof(string[]))
-                {
-                    if (argIndex + 1 != Arguments.Count())
-                        hasGeneratedCorrectly = false;
+                            return arguments.Skip(argIndex).ToArray();
+                        }
 
-                    return arguments.Skip(argIndex).ToArray();
-                }
+                        // Could use TryParse, but you can't do `out object` and
+                        // it would require different name for every parsed item
+                        return
+                            argType == typeof(string)
+                            ? stringArgument
+                            : argType == typeof(bool)
+                            ? bool.Parse(stringArgument)
+                            : argType == typeof(int)
+                            ? int.Parse(stringArgument)
+                            : argType == typeof(long)
+                            ? long.Parse(stringArgument)
+                            : argType == typeof(short)
+                            ? short.Parse(stringArgument)
+                            : argType == typeof(sbyte)
+                            ? sbyte.Parse(stringArgument)
+                            : argType == typeof(uint)
+                            ? uint.Parse(stringArgument)
+                            : argType == typeof(ulong)
+                            ? ulong.Parse(stringArgument)
+                            : argType == typeof(ushort)
+                            ? ushort.Parse(stringArgument)
+                            : argType == typeof(byte)
+                            ? byte.Parse(stringArgument)
+                            : argType == typeof(float)
+                            ? float.Parse(stringArgument)
+                            : argType == typeof(double)
+                            ? double.Parse(stringArgument)
+                            : argType == typeof(decimal)
+                            ? decimal.Parse(stringArgument)
+                            : argType == typeof(DateTime)
+                            ? DateTime.Parse(stringArgument)
+                            : argType == typeof(Guid)
+                            ? new Guid(stringArgument)
+                            : argType == typeof(HashId)
+                            ? new HashId(stringArgument)
+                            : throw new FormatException($"Cannot have type {argType} as a command argument's type");
+                    })
+                );
 
-                try
-                {
-                    return
-                        argType == typeof(string)
-                        ? stringArgument
-                        : argType == typeof(bool)
-                        ? bool.Parse(stringArgument)
-                        : argType == typeof(int)
-                        ? int.Parse(stringArgument)
-                        : argType == typeof(long)
-                        ? long.Parse(stringArgument)
-                        : argType == typeof(short)
-                        ? short.Parse(stringArgument)
-                        : argType == typeof(sbyte)
-                        ? sbyte.Parse(stringArgument)
-                        : argType == typeof(uint)
-                        ? uint.Parse(stringArgument)
-                        : argType == typeof(ulong)
-                        ? ulong.Parse(stringArgument)
-                        : argType == typeof(ushort)
-                        ? ushort.Parse(stringArgument)
-                        : argType == typeof(byte)
-                        ? byte.Parse(stringArgument)
-                        : argType == typeof(float)
-                        ? float.Parse(stringArgument)
-                        : argType == typeof(double)
-                        ? double.Parse(stringArgument)
-                        : argType == typeof(decimal)
-                        ? decimal.Parse(stringArgument)
-                        : argType == typeof(DateTime)
-                        ? DateTime.Parse(stringArgument)
-                        : argType == typeof(Guid)
-                        ? new Guid(stringArgument)
-                        : argType == typeof(HashId)
-                        ? new HashId(stringArgument)
-                        : throw new FormatException($"Cannot have type {argType} as a command argument's type");
-                }
+            return generatedArguments.ToArray();
+        }
 #pragma warning disable CS0168
-                catch (FormatException _)
-                {
-                    hasGeneratedCorrectly = false;
-                    return default;
-                }
+        catch (FormatException _)
+        {
+            return null;
+        }
 #pragma warning restore CS0168
-            });
-
-        return (generated: hasGeneratedCorrectly, arguments: generatedArguments);
     }
     /// <inheritdoc />
     public override Task<bool> InvokeAsync(CommandEvent commandEvent, IEnumerable<string> arguments) =>
         Task.Run(() =>
         {
-            var invokationInfo = GenerateMethodParameters(arguments);
+            var invokationArguments = GenerateMethodParameters(commandEvent, arguments);
 
-            if (!invokationInfo.generated) return false;
+            if (invokationArguments is null) return false;
 
-            Member.Invoke(
-                this,
-                // Arguments
-                new object[] { commandEvent }
-                    .Concat(invokationInfo.arguments!)
-                    .ToArray()
-            );
+            Member.Invoke(this, invokationArguments);
 
             return true;
         });
