@@ -9,6 +9,8 @@
 - `UserSummary.ToString` will now return the mention of the user
 - Added `IServerEvent` to the events that are supposed to have it
 - Added command system
+- Fix `message` argument in `UpdateListItemAsync` not being required (consistency with API)
+- Fix `type` argument in `UserSummary` not being optional (consistency with API)
 
 # v0.7.4-beta
 

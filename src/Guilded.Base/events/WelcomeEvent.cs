@@ -15,25 +15,22 @@ public class WelcomeEvent : BaseObject
 {
     #region JSON properties
     /// <summary>
-    /// The duration between heartbeats.
+    /// Gets the time duration between heartbeats in milliseconds.
     /// </summary>
     /// <remarks>
-    /// <para>The duration between each heartbeat in milliseconds. The value is usually <c>22500</c>.</para>
+    /// <para>The value is usually <c>22500</c>.</para>
     /// </remarks>
     /// <value>Milliseconds</value>
     public int HeartbeatInterval { get; }
     /// <summary>
-    /// The identifier of the last event sent.
+    /// Gets the identifier of the last received WebSocket message.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the last message that was received before this event.</para>
-    /// </remarks>
     /// <value>Event ID?</value>
     public string? LastMessageId { get; }
     /// <summary>
-    /// The current logged in user.
+    /// Gets the currently logged in user.
     /// </summary>
-    /// <value>Me</value>
+    /// <value>This User</value>
     public Me User { get; set; }
     #endregion
 

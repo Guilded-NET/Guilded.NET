@@ -6,37 +6,28 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Servers;
 
 /// <summary>
-/// The ban's information.
+/// Represents the information of <see cref="User">user's</see> ban.
 /// </summary>
-/// <remarks>
-/// <para>The information about the ban of a certain member.</para>
-/// </remarks>
 public class MemberBan : BaseObject, ICreatableContent
 {
     #region JSON properties
     /// <summary>
-    /// The banned user.
+    /// Gets the banned user.
     /// </summary>
-    /// <remarks>
-    /// <para>The information about the user that has received a ban.</para>
-    /// </remarks>
     /// <value>User's summary</value>
     public UserSummary User { get; set; }
     /// <summary>
-    /// The reason why the user has been banned.
+    /// Gets the reason why the <see cref="User">user</see> has been banned, if the reason was specified.
     /// </summary>
-    /// <remarks>
-    /// <para>The (un)specified reason why the user was banned by whom the member was banned.</para>
-    /// </remarks>
     /// <value>Text?</value>
     public string? Reason { get; set; }
     /// <summary>
-    /// The date of when the user was banned
+    /// Gets the date of when the <see cref="User">user</see> was banned
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// The identifier of the staff who banned.
+    /// Gets the identifier of the staff who banned.
     /// </summary>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }

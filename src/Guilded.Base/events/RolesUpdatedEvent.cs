@@ -79,18 +79,15 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     {
         #region JSON properties
         /// <summary>
-        /// Gets the identifier of the role holder.
+        /// Gets the identifier of the user that lost or received <see cref="RoleIds">roles</see>.
         /// </summary>
-        /// <remarks>
-        /// <para>The identifier of the user that has received all roles in <see cref="RoleIds"/> list.</para>
-        /// </remarks>
         /// <value>User ID</value>
         public HashId UserId { get; }
         /// <summary>
         /// Gets the list of roles that <see cref="UserId">member</see> is currently holding.
         /// </summary>
         /// <remarks>
-        /// <para>Received or removed roles are not provided, so caching of previou role list is necessary if previous role list is needed.</para>
+        /// <para>Received or removed roles are not provided, so caching of previous role list is necessary if previous role list is needed.</para>
         /// </remarks>
         /// <value>List of role IDs</value>
         public IList<uint> RoleIds { get; }

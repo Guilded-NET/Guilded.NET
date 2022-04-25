@@ -5,29 +5,20 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Servers;
 
 /// <summary>
-/// A summary about a member.
+/// Represents the summary about a member.
 /// </summary>
-/// <remarks>
-/// <para>A summary object about a server member.</para>
-/// </remarks>
 /// <typeparam name="T">The type of the user object</typeparam>
 public class MemberSummary<T> : BaseObject where T : UserSummary
 {
     #region JSON properties
     /// <summary>
-    /// The user they are.
+    /// Gets the user they are.
     /// </summary>
-    /// <remarks>
-    /// <para>The user that is the member of the server.</para>
-    /// </remarks>
     /// <value>User</value>
     public T User { get; set; }
     /// <summary>
-    /// The list of roles user holds.
+    /// Gets the list of roles user holds.
     /// </summary>
-    /// <remarks>
-    /// <para>The list of role IDs that user is currently holding.</para>
-    /// </remarks>
     /// <value>List of role IDs</value>
     public IList<uint> RoleIds { get; set; }
     #endregion

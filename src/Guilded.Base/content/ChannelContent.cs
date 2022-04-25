@@ -14,30 +14,19 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
 {
     #region JSON properties
     /// <summary>
-    /// The identifier of the content.
+    /// Gets the identifier of the content.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the content that was created. Usually a <see cref="Guid"/>, <see cref="uint"/> or <see cref="HashId"/>.</para>
-    /// </remarks>
     /// <value>Content ID</value>
     public TId Id { get; }
     /// <summary>
-    /// The identifier of the channel where the content is.
+    /// Gets the identifier of the channel where the content is.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of channel where the content was found.</para>
-    /// <para>This channel can be of any type and there is no identifying channel type as of now.</para>
-    /// </remarks>
     /// <value>Channel ID</value>
     public Guid ChannelId { get; }
     /// <summary>
-    /// The identifier of the server where the content is.
+    /// Gets the identifier of the server where the content is.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the content was found.</para>
-    /// <para>The server can be either optional or not optional. This depends whether the content is global or server-wide. Content like forum threads will be server-wide, while content like chat messages and reactions will be global.</para>
-    /// </remarks>
-    /// <value>Server ID or Server ID?</value>
+    /// <value>Server ID</value>
     public TServer ServerId { get; }
 
     #region Who, when

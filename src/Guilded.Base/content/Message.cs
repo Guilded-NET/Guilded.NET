@@ -219,9 +219,9 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     public async Task DeleteAsync() =>
         await ParentClient.DeleteMessageAsync(ChannelId, Id).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)"/>
-    /// <param name="emoteId">The identifier of the emote to add</param>
-    public async Task<Reaction> AddReactionAsync(uint emoteId) =>
-        await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+    /// <param name="emote">The identifier of the emote to add</param>
+    public async Task<Reaction> AddReactionAsync(uint emote) =>
+        await ParentClient.AddReactionAsync(ChannelId, Id, emote).ConfigureAwait(false);
     // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)"/>
     // /// <param name="emoteId">The identifier of the emote to remove</param>
     // public async Task RemoveReactionAsync(uint emoteId) =>

@@ -12,10 +12,10 @@ public class ResumeEvent : BaseObject
 {
     #region JSON properties
     /// <summary>
-    /// The identifier of the last received event.
+    /// Gets the identifier of the last received event.
     /// </summary>
     /// <remarks>
-    /// <para>Gets the identifier of the last received event message that was passed in <c>guilded-last-message-id</c>.</para>
+    /// <para>This is the identifier of the event message that was passed in <c>guilded-last-message-id</c>.</para>
     /// <para>You can get the identifier of the event message by using <see cref="GuildedSocketMessage.MessageId"/> property from events.</para>
     /// </remarks>
     /// <value>Event message ID</value>

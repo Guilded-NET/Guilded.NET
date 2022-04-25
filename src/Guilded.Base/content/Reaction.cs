@@ -43,7 +43,6 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// Gets the identifier of the webhook that created the reaction.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the webhook that posted created this reaction.</para>
     /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
     /// </remarks>
     /// <value>Webhook ID?</value>

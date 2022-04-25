@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
+using Guilded.Base.Permissions;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Servers;
@@ -14,63 +15,48 @@ public class Webhook : ClientObject, ICreatableContent
 {
     #region JSON properties
     /// <summary>
-    /// The identifier of the webhook.
+    /// Gets the identifier of the webhook.
     /// </summary>
     /// <value>Webhook ID</value>
     public Guid Id { get; set; }
     /// <summary>
-    /// The name of the webhook.
+    /// Gets the name of the webhook.
     /// </summary>
-    /// <remarks>
-    /// <para>The displayed name of the webhook.</para>
-    /// </remarks>
     /// <value>Name</value>
     public string Name { get; set; }
     /// <summary>
-    /// The token of the webhook.
+    /// Gets the token of the webhook.
     /// </summary>
     /// <remarks>
-    /// <para>The token of the webhook that can be used to send messages.</para>
+    /// <para>This will only be given if you have <see cref="GeneralPermissions.ManageWebhooks">manage webhooks permission</see>.</para>
     /// </remarks>
     /// <value>Token?</value>
     public string? Token { get; set; }
     /// <summary>
-    /// The identifier of the channel.
+    /// Gets the identifier of the channel where the webhook is.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the channel where the webhook is.</para>
-    /// </remarks>
     /// <value>Channel ID</value>
     public Guid ChannelId { get; set; }
     /// <summary>
-    /// The identifier of the server.
+    /// Gets the identifier of the server where the webhook is.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the webhook is.</para>
-    /// </remarks>
     /// <value>Server ID</value>
     public HashId ServerId { get; set; }
     /// <summary>
-    /// The date when the webhook was created.
+    /// Gets the date when the webhook was created.
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime" /> of when the webhook was created.</para>
-    /// </remarks>
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// The identifier of the user creator of the webhook.
+    /// Gets the identifier of the user that created the webhook.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the user that has created this webhook.</para>
-    /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }
     /// <summary>
-    /// The date when the webhook was deleted.
+    /// Gets the date when the webhook was deleted.
     /// </summary>
     /// <remarks>
-    /// <para>The <see cref="DateTime" /> of when the webhook was created.</para>
+    /// <para>The webhook will remain present after being deleted for the clients to be able to render the webhook's avatar and name.</para>
     /// </remarks>
     /// <value>Date</value>
     public DateTime? DeletedAt { get; set; }

@@ -18,19 +18,13 @@ public class Member : MemberSummary<User>
 {
     #region JSON properties
     /// <summary>
-    /// The nickname of the user.
+    /// Gets the set nickname of the user in the server.
     /// </summary>
-    /// <remarks>
-    /// <para>The name of the user that is only present in the server.</para>
-    /// </remarks>
     /// <value>Name?</value>
     public string? Nickname { get; set; }
     /// <summary>
-    /// The date of when the member joined.
+    /// Gets the date of when the member joined.
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime" /> of when the member has joined the server.</para>
-    /// </remarks>
     /// <value>Date</value>
     public DateTime JoinedAt { get; set; }
     #endregion

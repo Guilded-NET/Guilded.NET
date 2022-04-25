@@ -63,35 +63,35 @@ public class UserSummary : ClientObject
 
     #region Additional
     /// <inheritdoc cref="BaseGuildedClient.GetSocialLinkAsync(HashId, HashId, SocialLinkType)"/>
-    public async Task<SocialLink> GetSocialLinkAsync(HashId serverId, SocialLinkType linkType) =>
-        await ParentClient.GetSocialLinkAsync(serverId, Id, linkType).ConfigureAwait(false);
+    public async Task<SocialLink> GetSocialLinkAsync(HashId server, SocialLinkType linkType) =>
+        await ParentClient.GetSocialLinkAsync(server, Id, linkType).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)"/>
-    public async Task<string> UpdateNicknameAsync(HashId serverId, string nickname) =>
-        await ParentClient.UpdateNicknameAsync(serverId, Id, nickname).ConfigureAwait(false);
+    public async Task<string> UpdateNicknameAsync(HashId server, string nickname) =>
+        await ParentClient.UpdateNicknameAsync(server, Id, nickname).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(System.Guid, System.Guid)"/>
-    public async Task DeleteNicknameAsync(HashId serverId) =>
-        await ParentClient.DeleteNicknameAsync(serverId, Id).ConfigureAwait(false);
+    public async Task DeleteNicknameAsync(HashId server) =>
+        await ParentClient.DeleteNicknameAsync(server, Id).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)"/>
-    public async Task AddRoleAsync(HashId serverId, uint roleId) =>
-        await ParentClient.AddRoleAsync(serverId, Id, roleId).ConfigureAwait(false);
+    public async Task AddRoleAsync(HashId server, uint role) =>
+        await ParentClient.AddRoleAsync(server, Id, role).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(HashId, HashId, uint)"/>
-    public async Task RemoveRoleAsync(HashId serverId, uint roleId) =>
-        await ParentClient.RemoveRoleAsync(serverId, Id, roleId).ConfigureAwait(false);
+    public async Task RemoveRoleAsync(HashId server, uint role) =>
+        await ParentClient.RemoveRoleAsync(server, Id, role).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, long)"/>
-    public async Task<long> AddXpAsync(HashId serverId, short amount) =>
-        await ParentClient.AddXpAsync(serverId, Id, amount).ConfigureAwait(false);
+    public async Task<long> AddXpAsync(HashId server, short amount) =>
+        await ParentClient.AddXpAsync(server, Id, amount).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.KickMemberAsync(HashId, HashId)"/>
-    public async Task KickAsync(HashId serverId) =>
-        await ParentClient.KickMemberAsync(serverId, Id).ConfigureAwait(false);
+    public async Task KickAsync(HashId server) =>
+        await ParentClient.KickMemberAsync(server, Id).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.GetBanAsync(HashId, HashId)"/>
-    public async Task GetBanAsync(HashId serverId) =>
-        await ParentClient.GetBanAsync(serverId, Id).ConfigureAwait(false);
+    public async Task GetBanAsync(HashId server) =>
+        await ParentClient.GetBanAsync(server, Id).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.BanMemberAsync(HashId, HashId, string?)"/>
-    public async Task BanAsync(HashId serverId, string? reason = null) =>
-        await ParentClient.BanMemberAsync(serverId, Id, reason).ConfigureAwait(false);
+    public async Task BanAsync(HashId server, string? reason = null) =>
+        await ParentClient.BanMemberAsync(server, Id, reason).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UnbanMemberAsync(HashId, HashId)"/>
-    public async Task UnbanAsync(HashId serverId) =>
-        await ParentClient.UnbanMemberAsync(serverId, Id).ConfigureAwait(false);
+    public async Task UnbanAsync(HashId server) =>
+        await ParentClient.UnbanMemberAsync(server, Id).ConfigureAwait(false);
     #endregion
 
     #region Overrides

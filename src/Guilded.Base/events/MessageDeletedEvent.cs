@@ -36,38 +36,32 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     #endregion
 
     /// <summary>
-    /// A message that was recently deleted/removed.
+    /// Represents a message that was recently deleted/removed.
     /// </summary>
-    /// <remarks>
-    /// <para>A no longer existing message that was deleted/removed by an author of this message or by a server staff.</para>
-    /// </remarks>
     /// <seealso cref="Content.Message"/>
     /// <seealso cref="MessageDeletedEvent"/>
     public class MessageDeleted : BaseObject
     {
         #region JSON properties
         /// <summary>
-        /// The identifier of the message.
+        /// Gets the identifier of the message.
         /// </summary>
         /// <value>Message ID</value>
         public Guid Id { get; }
         /// <summary>
-        /// The identifier of the channel where the message was.
+        /// Gets the identifier of the channel where the message was.
         /// </summary>
         /// <value>Channel ID</value>
         public Guid ChannelId { get; }
         /// <summary>
-        /// The identifier of the server where the message was.
+        /// Gets the identifier of the server where the message was.
         /// </summary>
         /// <value>Server ID?</value>
         public HashId? ServerId { get; }
         /// <summary>
-        /// The date of when the message was deleted.
+        /// Gets the date of when the message was deleted.
         /// </summary>
-        /// <remarks>
-        /// <para>The <see cref="DateTime"/> of when the message was removed.</para>
-        /// </remarks>
-        /// <value>Deleted at</value>
+        /// <value>Date</value>
         public DateTime DeletedAt { get; }
         #endregion
 
