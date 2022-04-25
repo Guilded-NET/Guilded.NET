@@ -106,7 +106,7 @@ public abstract partial class AbstractGuildedClient
         , "listItem").ConfigureAwait(false);
     }
     /// <inheritdoc/>
-    public override async Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channel, Guid listItem, string? message = null, string? note = null)
+    public override async Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null)
     {
         if (string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note))
             throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified");

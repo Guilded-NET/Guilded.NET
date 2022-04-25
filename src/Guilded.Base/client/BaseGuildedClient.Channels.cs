@@ -303,7 +303,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems">Required to update a list item in list channel you can view</permission>
     /// <permission cref="ListPermissions.ManageListItems">Required to update list items you don't own</permission>
     /// <returns>Updated list item</returns>
-    public abstract Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channel, Guid listItem, string? message = null, string? note = null);
+    public abstract Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null);
     /// <summary>
     /// Deletes an <paramref name="listItem">item</paramref> from a <paramref name="channel">list channel</paramref>.
     /// </summary>

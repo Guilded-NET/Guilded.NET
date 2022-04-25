@@ -52,13 +52,13 @@ public class UserSummary : ClientObject
         [JsonProperty(Required = Required.Always)]
         HashId id,
 
-        [JsonProperty(Required = Required.Always)]
-        UserType type,
+        [JsonProperty]
+        UserType? type,
 
         [JsonProperty(Required = Required.Always)]
         string name
     ) =>
-        (Id, Type, Name) = (id, type, name);
+        (Id, Type, Name) = (id, type ?? UserType.User, name);
     #endregion
 
     #region Additional
