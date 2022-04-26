@@ -37,8 +37,8 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Base" Version="0.6.0" />
-    <PackageReference Include="Guilded" Version="0.6.0" />
+    <PackageReference Include="Guilded.Base" Version="0.7.5" />
+    <PackageReference Include="Guilded" Version="0.7.5" />
   </ItemGroup>
 
   <!-- For testing purposes -->
