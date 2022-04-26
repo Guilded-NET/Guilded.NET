@@ -38,7 +38,7 @@ public class ForumThread : TitledContent
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
     /// <param name="createdAt">The date of when the forum thread was created</param>
-    /// <param name="updatedAt">The date of when the forum thread was updated</param>
+    /// <param name="updatedAt">The date of when the forum thread was edited</param>
     [JsonConstructor]
     public ForumThread(
         [JsonProperty(Required = Required.Always)]

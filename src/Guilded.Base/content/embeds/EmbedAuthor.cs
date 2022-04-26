@@ -81,6 +81,6 @@ public class EmbedAuthor : BaseObject
         (IconUrl, Url) = (iconUrl, url);
     /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
     /// <exception cref="UriFormatException"><paramref name="url"/> or <paramref name="iconUrl"/> have bad <see cref="Uri"/> formatting</exception>
-    public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, iconUrl is null ? null : new Uri(iconUrl), url is null ? null : new Uri(url)) { }
+    public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, url is null ? null : new Uri(url), iconUrl is null ? null : new Uri(iconUrl)) { }
     #endregion
 }

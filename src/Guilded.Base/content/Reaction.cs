@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
 
@@ -35,15 +36,15 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// Gets The identifier of <see cref="User">user</see> that created the reaction.
     /// </summary>
     /// <remarks>
-    /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
+    /// <para>If <see cref="Webhook">a webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; }
     /// <summary>
-    /// Gets the identifier of the webhook that created the reaction.
+    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created the reaction.
     /// </summary>
     /// <remarks>
-    /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
+    /// <note type="note">Currently, only chat messages can be created by <see cref="Webhook">webhooks</see>.</note>
     /// </remarks>
     /// <value>Webhook ID?</value>
     public Guid? CreatedByWebhook { get; }

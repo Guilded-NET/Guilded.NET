@@ -2,19 +2,20 @@
 
 - Added `IsCompleted` property in `ListItem`
 - Added `isSilent` parameter while creating messages
-- Reformatted and reworked a lot of documentation
-- Changed method parameter names (`messageId` -> `message`; `emoteId` -> `emote`)
-- Commented out remove reaction method that can fool developers
-- Added `TitledContent`, which is now a parent type of `Doc` and `ForumThread` types
-- `UserSummary.ToString` will now return the mention of the user
-- Added `IServerEvent` to the events that are supposed to have it
-- Added command system
-- Fix `message` argument in `UpdateListItemAsync` not being required (consistency with API)
-- Fix `type` argument in `UserSummary` not being optional (consistency with API)
-- Renamed `Message.ContentLimit` to `Message.TextLimit`
 - Added `Message.EmbedLimit` and `Message.ReplyLimit`
 - Added creating messages with embeds support
 - Added `Message.Embeds`
+- Added `TitledContent`, which is now a parent type of `Doc` and `ForumThread` types
+- Added `IServerEvent` to the events that are supposed to have it
+- Added command system
+- Changed method parameter names (`messageId` -> `message`; `emoteId` -> `emote`)
+- Changed `UserSummary.ToString` return value to the mention of the user
+- Reformatted and reworked a lot of documentation
+- Renamed `Message.ContentLimit` to `Message.TextLimit`
+- Fix `message` argument in `UpdateListItemAsync` not being required (consistency with API)
+- Fix `type` argument in `UserSummary` not being optional (consistency with API)
+- Fix `iconUrl` and `url` arguments being switched in `EmbedAuthor`
+- Commented out remove reaction method that can fool developers
 
 # v0.7.4-beta
 

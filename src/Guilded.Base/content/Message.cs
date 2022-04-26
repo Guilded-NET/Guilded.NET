@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base.Embeds;
 using Guilded.Base.Permissions;
+using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
 
@@ -81,12 +82,12 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     #endregion
 
     /// <summary>
-    /// Gets the identifier of the webhook that created the message.
+    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created the message.
     /// </summary>
     /// <value>Webhook ID?</value>
     public Guid? CreatedByWebhook { get; }
     /// <summary>
-    /// Gets the date of when the message was updated.
+    /// Gets the date of when the message was edited.
     /// </summary>
     /// <remarks>
     /// <para>Only returns the most recent update.</para>
@@ -125,7 +126,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the message</param>
     /// <param name="createdAt">The date of when the message was created</param>
-    /// <param name="updatedAt">The date of when the message was updated</param>
+    /// <param name="updatedAt">The date of when the message was edited</param>
     /// <param name="type">The type of the message</param>
     [JsonConstructor]
     public Message(

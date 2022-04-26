@@ -21,77 +21,59 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
 {
     #region JSON properties
     /// <summary>
-    /// The text contents of the message in the item.
+    /// Gets the text contents of the message in the item.
     /// </summary>
     /// <remarks>
-    /// <para>The contents of the list item formatted in Markdown. The contents must only be in a single line.</para>
+    /// <para>The contents of the list item are formatted in Markdown. The contents must only be in a single line.</para>
     /// <para>Videos, images, code blocks and other block formatting is not supported.</para>
     /// </remarks>
     /// <value>Single-line markdown string</value>
     public string Message { get; }
     /// <summary>
-    /// The note of the list item.
+    /// Gets the note of the list item.
     /// </summary>
-    /// <remarks>
-    /// <para>The information about the list item's note.</para>
-    /// </remarks>
     /// <value>List item note?</value>
     public T? Note { get; }
     /// <summary>
-    /// The identifier of the webhook creator of the list item.
+    /// Gets the identifier of the webhook that created the list item.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the webhook that created this list item.</para>
     /// <note type="note">Currently, only chat messages can be created by Webhooks.</note>
     /// </remarks>
     /// <value>Webhook ID?</value>
     public Guid? CreatedByWebhook { get; }
     /// <summary>
-    /// The date of when the list item was updated.
+    /// Gets the date of when the list item was edited.
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime"/> of when the list item was updated/edited.</para>
-    /// </remarks>
     /// <value>Date?</value>
     public DateTime? UpdatedAt { get; }
     /// <summary>
-    /// The identifier of the member who updated the list item.
+    /// Gets the identifier of <see cref="User">user</see> who updated this list item.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of <see cref="User">user</see> who updated this list item. Only includes the user who updated this list item most recently.</para>
-    /// </remarks>
     /// <value>User ID?</value>
     public HashId? UpdatedBy { get; }
     /// <summary>
-    /// The date of when the list item was completed.
+    /// Gets the date of when the list item was completed.
     /// </summary>
-    /// <remarks>
-    /// <para>The <see cref="DateTime"/> of when the list item was ticked off.</para>
-    /// </remarks>
     /// <value>Date?</value>
     public DateTime? CompletedAt { get; }
     /// <summary>
-    /// The identifier of the member completer of the list item.
+    /// Gets the identifier of <see cref="User">user</see> who ticked off this list item.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of <see cref="User">user</see> who ticked off this list item. Only includes the user who completed this list item most recently.</para>
-    /// </remarks>
     /// <value>User ID?</value>
     public HashId? CompletedBy { get; }
     /// <summary>
-    /// The identifier of the parent list item of this list item.
+    /// Gets the identifier of the parent list item of this list item.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the list item that adopts this list item as a child.</para>
-    /// </remarks>
     /// <value>User ID?</value>
     public Guid? ParentListItemId { get; }
     #endregion
 
     #region Properties
     /// <summary>
-    ///
+    /// Gets whether the list item was ticked off
     /// </summary>
+    /// <returns>List item is completed</returns>
     public bool IsCompleted => CompletedAt is not null;
     #endregion
 
@@ -107,7 +89,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
     /// <param name="createdAt">The date of when the list item was created</param>
-    /// <param name="updatedAt">The date of when the list item was updated</param>
+    /// <param name="updatedAt">The date of when the list item was edited</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> updater of the list item</param>
     /// <param name="completedAt">The date of when the list item was completed</param>
     /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
@@ -195,7 +177,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// <value>User ID</value>
     public HashId? UpdatedBy { get; }
     /// <summary>
-    /// The date of when the note was updated.
+    /// The date of when the note was edited.
     /// </summary>
     /// <remarks>
     /// <para>The date of when the note was most recently updated.</para>
@@ -211,7 +193,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the note</param>
     /// <param name="createdAt">The date of when the note was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
-    /// <param name="updatedAt">The date of when the note was updated</param>
+    /// <param name="updatedAt">The date of when the note was edited</param>
     [JsonConstructor]
     public ListItemNoteSummary(
         [JsonProperty(Required = Required.Always)]
@@ -256,7 +238,7 @@ public class ListItemNote : ListItemNoteSummary
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item's note</param>
     /// <param name="createdAt">The date of when the list item's note was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
-    /// <param name="updatedAt">The date of when the note was updated</param>
+    /// <param name="updatedAt">The date of when the note was edited</param>
     [JsonConstructor]
     public ListItemNote(
         [JsonProperty(Required = Required.Always)]
