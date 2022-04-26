@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Users;
 
 namespace Guilded.Base.Content;
 
@@ -31,7 +32,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
 
     #region Who, when
     /// <summary>
-    /// Gets the identifier of the user that created the content.
+    /// Gets The identifier of <see cref="User">user</see> that created the content.
     /// </summary>
     /// <remarks>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
@@ -54,7 +55,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
     /// <param name="id">The identifier of the content</param>
     /// <param name="channelId">The identifier of the channel where the content is</param>
     /// <param name="serverId">The identifier of the server where the content is</param>
-    /// <param name="createdBy">The identifier of the user creator of the content</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the content</param>
     /// <param name="createdAt">The date of when the content was created</param>
     protected ChannelContent(TId id, Guid channelId, TServer serverId, HashId createdBy, DateTime createdAt) =>
         (Id, ChannelId, ServerId, CreatedBy, CreatedAt) = (id, channelId, serverId, createdBy, createdAt);

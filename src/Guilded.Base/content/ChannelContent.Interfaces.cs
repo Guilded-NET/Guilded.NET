@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Users;
 
 namespace Guilded.Base.Content;
 
@@ -9,7 +10,7 @@ namespace Guilded.Base.Content;
 public interface ICreatableContent
 {
     /// <summary>
-    /// Gets the identifier of the user creator of the content.
+    /// Gets The identifier of <see cref="User">user</see> creator of the content.
     /// </summary>
     /// <remarks>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>

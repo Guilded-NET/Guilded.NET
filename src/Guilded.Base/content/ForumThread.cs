@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Content;
@@ -34,7 +35,7 @@ public class ForumThread : TitledContent
     /// <param name="serverId">The identifier of the server where the forum thread is</param>
     /// <param name="title">The title of the forum thread</param>
     /// <param name="content">The text contents of the forum thread</param>
-    /// <param name="createdBy">The identifier of the user that created the forum thread</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
     /// <param name="createdAt">The date of when the forum thread was created</param>
     /// <param name="updatedAt">The date of when the forum thread was updated</param>

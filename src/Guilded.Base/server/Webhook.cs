@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
 using Guilded.Base.Permissions;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Servers;
@@ -48,7 +49,7 @@ public class Webhook : ClientObject, ICreatableContent
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// Gets the identifier of the user that created the webhook.
+    /// Gets The identifier of <see cref="User">user</see> that created the webhook.
     /// </summary>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }
@@ -72,7 +73,7 @@ public class Webhook : ClientObject, ICreatableContent
     /// <param name="channelId">The identifier of the channel where webhook is</param>
     /// <param name="serverId">The identifier of the server where webhook is</param>
     /// <param name="createdAt">The date of when the webhook was created</param>
-    /// <param name="createdBy">The identifier of the user creator of the webhook</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the webhook</param>
     /// <param name="deletedAt">The date of when the webhook was deleted</param>
     [JsonConstructor]
     public Webhook(

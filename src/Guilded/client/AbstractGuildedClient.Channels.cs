@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Guilded.Base;
@@ -33,14 +34,27 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc/>
     public override async Task<Message> CreateMessageAsync(Guid channel, MessageContent message)
     {
-        if (string.IsNullOrWhiteSpace(message?.Content))
+        if (message is null)
+        {
+            throw new ArgumentNullException(nameof(message));
+        }
+        else if (
+            // No content and no embeds
+            (message.Content is null && message.OnlyText) ||
+            // Whitespace content
+            (message.Content is not null && string.IsNullOrWhiteSpace(message.Content)))
         {
             throw new ArgumentNullException(nameof(message.Content));
         }
-        else if (message.Content.Length > Message.ContentLimit)
+        else if (message.Content?.Length > Message.TextLimit)
         {
             throw new ArgumentOutOfRangeException(nameof(message.Content), message.Content, $"{nameof(message.Content)} exceeds the 4000 character message limit");
         }
+        else if (message.Embeds?.Count > Message.EmbedLimit)
+        {
+            throw new ArgumentOutOfRangeException(nameof(message.Embeds), message.Embeds, $"{nameof(message.Embeds)} exceeds 1 embed limit");
+        }
+
         return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message), "message").ConfigureAwait(false);
     }
     /// <inheritdoc/>
@@ -48,7 +62,7 @@ public abstract partial class AbstractGuildedClient
     {
         if (string.IsNullOrWhiteSpace(content))
             throw new ArgumentNullException(nameof(content));
-        else if (content.Length > Message.ContentLimit)
+        else if (content.Length > Message.TextLimit)
             throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
         else
             return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);

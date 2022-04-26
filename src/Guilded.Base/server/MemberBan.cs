@@ -36,7 +36,7 @@ public class MemberBan : BaseObject, ICreatableContent
     /// <summary>
     /// Initializes a new instance of <see cref="MemberBan" /> with the provided details.
     /// </summary>
-    /// <param name="user">The user that has been banned</param>
+    /// <param name="user">The user who has been banned</param>
     /// <param name="createdBy">The author of the ban</param>
     /// <param name="createdAt">The date of when the member was banned</param>
     /// <param name="reason">The reason why the user has been banned</param>

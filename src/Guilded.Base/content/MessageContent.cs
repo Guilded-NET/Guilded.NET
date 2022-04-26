@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Guilded.Base.Embeds;
 using Newtonsoft.Json;
 
@@ -15,10 +16,7 @@ public class MessageContent : BaseObject
     #region JSON properties
     /// <inheritdoc cref="Message.Content" />
     public string? Content { get; set; }
-    /// <summary>
-    /// The list of embeds in the message.
-    /// </summary>
-    /// <value>List of embeds?</value>
+    /// <inheritdoc cref="Message.Embeds" />
     public IList<Embed>? Embeds { get; set; }
     /// <inheritdoc cref="Message.ReplyMessageIds"/>
     public IList<Guid>? ReplyMessageIds { get; set; }
@@ -29,6 +27,14 @@ public class MessageContent : BaseObject
     /// </summary>
     /// <value>Message is silent</value>
     public bool? IsSilent { get; set; }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    /// Gets whether the message is <see cref="Content">text-only</see> and has no other content.
+    /// </summary>
+    /// <returns>Message does not have embeds</returns>
+    public bool OnlyText => Embeds is null || !Embeds.Any();
     #endregion
 
     #region Constructors

@@ -9,7 +9,7 @@ namespace Guilded.Base.Users;
 public class Me : BaseObject
 {
     /// <summary>
-    /// Gets the identifier of the user <see cref="BaseGuildedClient">this client</see> is logged into.
+    /// Gets The identifier of <see cref="User">user</see> <see cref="BaseGuildedClient">this client</see> is logged into.
     /// </summary>
     /// <value>User ID</value>
     public HashId Id { get; set; }
@@ -29,21 +29,21 @@ public class Me : BaseObject
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// Gets the identifier of the user that has created <see cref="BaseGuildedClient">this client</see>.
+    /// Gets The identifier of <see cref="User">user</see> that has created <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
     /// <remarks>
-    /// <para>This should usually be the identifier of your account or the user that owns the bot.</para>
+    /// <para>This should usually be the identifier of your account or the user who owns the bot.</para>
     /// </remarks>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }
     /// <summary>
     /// Initializes a new instance of <see cref="Me" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the user <see cref="BaseGuildedClient">this client</see> is logged into</param>
+    /// <param name="id">The identifier of <see cref="User">user</see> <see cref="BaseGuildedClient">this client</see> is logged into</param>
     /// <param name="botId">The identifier of the bot <see cref="BaseGuildedClient">this client</see> is logged into</param>
     /// <param name="name">The name of <see cref="BaseGuildedClient">this client</see></param>
     /// <param name="createdAt">The creation date of <see cref="BaseGuildedClient">this client</see></param>
-    /// <param name="createdBy">The identifier of the user that has created <see cref="BaseGuildedClient">this client</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that has created <see cref="BaseGuildedClient">this client</see></param>
     [JsonConstructor]
     public Me(
         [JsonProperty(Required = Required.Always)]

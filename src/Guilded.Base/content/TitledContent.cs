@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Content;
@@ -49,7 +50,7 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <param name="serverId">The identifier of the server where the channel content are</param>
     /// <param name="title">The title of the channel content</param>
     /// <param name="content">The text contents of the channel content</param>
-    /// <param name="createdBy">The identifier of the user that created the channel content</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the channel content</param>
     /// <param name="createdAt">The date of when the channel content were created</param>
     /// <param name="updatedAt">The date of when the channel content were recently updated</param>
     [JsonConstructor]

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Content;
@@ -54,10 +55,10 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <value>Date?</value>
     public DateTime? UpdatedAt { get; }
     /// <summary>
-    /// The identifier of the member updater of the list item.
+    /// The identifier of the member who updated the list item.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the user who updated this list item. Only includes the user who updated this list item most recently.</para>
+    /// <para>The identifier of <see cref="User">user</see> who updated this list item. Only includes the user who updated this list item most recently.</para>
     /// </remarks>
     /// <value>User ID?</value>
     public HashId? UpdatedBy { get; }
@@ -73,7 +74,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// The identifier of the member completer of the list item.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the user who ticked off this list item. Only includes the user who completed this list item most recently.</para>
+    /// <para>The identifier of <see cref="User">user</see> who ticked off this list item. Only includes the user who completed this list item most recently.</para>
     /// </remarks>
     /// <value>User ID?</value>
     public HashId? CompletedBy { get; }
@@ -103,13 +104,13 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <param name="serverId">The identifier of the server where the list item is</param>
     /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
-    /// <param name="createdBy">The identifier of the user creator of the list item</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
     /// <param name="createdAt">The date of when the list item was created</param>
     /// <param name="updatedAt">The date of when the list item was updated</param>
-    /// <param name="updatedBy">The identifier of the user updater of the list item</param>
+    /// <param name="updatedBy">The identifier of <see cref="User">user</see> updater of the list item</param>
     /// <param name="completedAt">The date of when the list item was completed</param>
-    /// <param name="completedBy">The identifier of the user completer of the list item</param>
+    /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
     /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
     [JsonConstructor]
     public ListItem(
@@ -159,7 +160,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)"/>
     /// <param name="message">The new contents of the list item's message in Markdown plain text</param>
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
-    public async Task<ListItem<ListItemNote>> UpdateAsync(string? message = null, string? note = null) =>
+    public async Task<ListItem<ListItemNote>> UpdateAsync(string message, string? note = null) =>
         await ParentClient.UpdateListItemAsync(ChannelId, Id, message, note).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.DeleteListItemAsync(Guid, Guid)"/>
     public async Task DeleteAsync() =>
@@ -176,7 +177,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
 {
     #region Who, when
     /// <summary>
-    /// The identifier of the user that created the note.
+    /// The identifier of <see cref="User">user</see> that created the note.
     /// </summary>
     /// <value>User ID</value>
     public HashId CreatedBy { get; }
@@ -186,10 +187,10 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
     /// <summary>
-    /// The identifier of the user that updated the note.
+    /// The identifier of <see cref="User">user</see> that updated the note.
     /// </summary>
     /// <remarks>
-    /// <para>The identifier of the user that most recently updated this note.</para>
+    /// <para>The identifier of <see cref="User">user</see> that most recently updated this note.</para>
     /// </remarks>
     /// <value>User ID</value>
     public HashId? UpdatedBy { get; }
@@ -207,9 +208,9 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// <summary>
     /// Initializes a new instance of <see cref="ListItemNoteSummary"/> with provided details.
     /// </summary>
-    /// <param name="createdBy">The identifier of the user that created the note</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the note</param>
     /// <param name="createdAt">The date of when the note was created</param>
-    /// <param name="updatedBy">The identifier of the user that updated the note</param>
+    /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
     /// <param name="updatedAt">The date of when the note was updated</param>
     [JsonConstructor]
     public ListItemNoteSummary(
@@ -252,9 +253,9 @@ public class ListItemNote : ListItemNoteSummary
     /// Initializes a new instance of <see cref="ListItemNote"/> with provided details.
     /// </summary>
     /// <param name="content">The contents of the note</param>
-    /// <param name="createdBy">The identifier of the user creator of the list item's note</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item's note</param>
     /// <param name="createdAt">The date of when the list item's note was created</param>
-    /// <param name="updatedBy">The identifier of the user that updated the note</param>
+    /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
     /// <param name="updatedAt">The date of when the note was updated</param>
     [JsonConstructor]
     public ListItemNote(

@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Content;
@@ -14,7 +15,7 @@ public class Doc : TitledContent
 {
     #region JSON properties
     /// <summary>
-    /// Gets the identifier of the member that updated the document.
+    /// Gets the identifier of the member who updated the document.
     /// </summary>
     /// <remarks>
     /// <para>Only includes the user who updated this document most recently.</para>
@@ -32,9 +33,9 @@ public class Doc : TitledContent
     /// <param name="serverId">The identifier of the server where the document is</param>
     /// <param name="title">The title of the document</param>
     /// <param name="content">The text contents of the document</param>
-    /// <param name="createdBy">The identifier of the user that created the document</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the document</param>
     /// <param name="createdAt">The date of when the document was created</param>
-    /// <param name="updatedBy">The identifier of the user who recently updated the document</param>
+    /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
     /// <param name="updatedAt">The date of when the document was recently updated</param>
     [JsonConstructor]
     public Doc(

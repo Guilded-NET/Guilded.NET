@@ -1,5 +1,5 @@
 using System;
-
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Content;
@@ -32,7 +32,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
     /// <summary>
-    /// Gets the identifier of the user that created the reaction.
+    /// Gets The identifier of <see cref="User">user</see> that created the reaction.
     /// </summary>
     /// <remarks>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
@@ -55,7 +55,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// </summary>
     /// <param name="id">The identifier of the emote reacted with</param>
     /// <param name="serverId">The identifier of the server where the reaction is</param>
-    /// <param name="createdBy">The identifier of the user creator of the reaction</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the reaction</param>
     /// <param name="createdByWebhookId">The identifier of the webhook creator of the reaction</param>
     /// <param name="createdAt">The date of when the reaction was created</param>
     [JsonConstructor]

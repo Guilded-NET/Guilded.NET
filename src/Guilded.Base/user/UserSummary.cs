@@ -15,7 +15,7 @@ public class UserSummary : ClientObject
 {
     #region JSON properties
     /// <summary>
-    /// Gets the identifier of the user.
+    /// Gets The identifier of <see cref="User">user</see>.
     /// </summary>
     /// <value>User ID</value>
     public HashId Id { get; }
@@ -44,7 +44,7 @@ public class UserSummary : ClientObject
     /// <summary>
     /// Initializes a new instance of <see cref="UserSummary"/> with specified properties.
     /// </summary>
-    /// <param name="id">The identifier of the user</param>
+    /// <param name="id">The identifier of <see cref="User">user</see></param>
     /// <param name="type">The type of the user they are</param>
     /// <param name="name">The global username of the user</param>
     [JsonConstructor]

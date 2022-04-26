@@ -22,7 +22,7 @@ public class User : UserSummary
     /// <summary>
     /// Initializes a new instance of <see cref="UserSummary"/> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the user</param>
+    /// <param name="id">The identifier of <see cref="User">user</see></param>
     /// <param name="type">The type of the user they are</param>
     /// <param name="name">The global username of the user</param>
     /// <param name="createdAt">The date of when the user was created</param>

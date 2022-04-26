@@ -17,7 +17,7 @@ public class MemberRemovedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// Gets the identifier of the member that has been kicked or has left.
+    /// Gets the identifier of the member who has been kicked or has left.
     /// </summary>
     /// <value>User ID</value>
     public HashId UserId { get; }
@@ -43,7 +43,7 @@ public class MemberRemovedEvent : BaseObject, IServerEvent
     /// Initializes a new instance of <see cref="MemberRemovedEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the member got kicked or left</param>
-    /// <param name="userId">The identifier of the member that got kicked or left</param>
+    /// <param name="userId">The identifier of the member who got kicked or left</param>
     /// <param name="isKick">Whether the user has been kicked</param>
     /// <param name="isBan">Whether the user has been banned</param>
     [JsonConstructor]

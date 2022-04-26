@@ -18,7 +18,7 @@ public class MemberJoinedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// Gets the member that has joined.
+    /// Gets the member who has joined.
     /// </summary>
     /// <value>Member</value>
     public Member Member { get; }
@@ -47,7 +47,7 @@ public class MemberJoinedEvent : BaseObject, IServerEvent
     /// Initializes a new instance of <see cref="MemberJoinedEvent"/> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the member joined</param>
-    /// <param name="member">The member that has joined</param>
+    /// <param name="member">The member who has joined</param>
     [JsonConstructor]
     public MemberJoinedEvent(
         [JsonProperty(Required = Required.Always)]

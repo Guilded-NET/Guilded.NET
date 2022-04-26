@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Guilded.Base.Servers;
+using Guilded.Base.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -79,7 +80,7 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     {
         #region JSON properties
         /// <summary>
-        /// Gets the identifier of the user that lost or received <see cref="RoleIds">roles</see>.
+        /// Gets The identifier of <see cref="User">user</see> that lost or received <see cref="RoleIds">roles</see>.
         /// </summary>
         /// <value>User ID</value>
         public HashId UserId { get; }
@@ -97,7 +98,7 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
         /// <summary>
         /// Initializes a new instance of <see cref="RolesUpdated"/> from the specified JSON properties.
         /// </summary>
-        /// <param name="userId">The identifier of the user who holds the roles</param>
+        /// <param name="userId">The identifier of <see cref="User">user</see> who holds the roles</param>
         /// <param name="roleIds">The list of role identifiers user holds</param>
         [JsonConstructor]
         public RolesUpdated(

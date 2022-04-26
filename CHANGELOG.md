@@ -11,6 +11,10 @@
 - Added command system
 - Fix `message` argument in `UpdateListItemAsync` not being required (consistency with API)
 - Fix `type` argument in `UserSummary` not being optional (consistency with API)
+- Renamed `Message.ContentLimit` to `Message.TextLimit`
+- Added `Message.EmbedLimit` and `Message.ReplyLimit`
+- Added creating messages with embeds support
+- Added `Message.Embeds`
 
 # v0.7.4-beta
 

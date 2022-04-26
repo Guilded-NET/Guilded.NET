@@ -24,7 +24,7 @@ public interface ICommandInfo<out T> where T : MemberInfo
     /// <value>Array of names</value>
     string[]? Aliases { get; }
     /// <summary>
-    /// Gets the member that was declared as a command.
+    /// Gets the member who was declared as a command.
     /// </summary>
     /// <value>Reflection member</value>
     T Member { get; }
@@ -79,7 +79,7 @@ public abstract class AbstractCommandInfo<T> : ICommandInfo<T> where T : MemberI
     /// Initializes a new instance of <see cref="AbstractCommandInfo{T}" />.
     /// </summary>
     /// <param name="attribute">The command attribute that was given to the member</param>
-    /// <param name="member">The member that was declared as a command</param>
+    /// <param name="member">The member who was declared as a command</param>
     protected AbstractCommandInfo(CommandAttribute attribute, T member) =>
         (Name, Member, Attribute) = (attribute.Name ?? member.Name.ToLowerInvariant(), member, attribute);
     #endregion

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Content;
+using Guilded.Base.Embeds;
 using Guilded.Base.Events;
 
 namespace Guilded.Commands;
@@ -78,32 +79,56 @@ public class CommandEvent
     #endregion
 
     #region Additional
-    /// <inheritdoc cref="Message.CreateMessageAsync(string)" />
+    /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)"/>
+    public async Task<Message> CreateMessageAsync(MessageContent message) =>
+        await Message.CreateMessageAsync(message).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string)"/>
     public async Task<Message> CreateMessageAsync(string content) =>
         await Message.CreateMessageAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool)" />
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool)"/>
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await Message.CreateMessageAsync(content, isPrivate, isSilent).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])" />
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])"/>
     public async Task<Message> CreateMessageAsync(string content, params Guid[] replyMessageIds) =>
         await Message.CreateMessageAsync(content, replyMessageIds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[])" />
-    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyMessageIds) =>
-        await Message.CreateMessageAsync(content, isPrivate, isSilent, replyMessageIds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(string)" />
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[])"/>
+    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
+        await Message.CreateMessageAsync(content, isPrivate, isSilent, replyTo).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(Embed[])" />
+    public async Task<Message> CreateMessageAsync(params Embed[] embeds) =>
+        await Message.CreateMessageAsync(embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(bool, bool, Guid[], Embed[])" />
+    public async Task<Message> CreateMessageAsync(bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
+        await Message.CreateMessageAsync(isPrivate, isSilent, replyTo, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, Embed[])" />
+    public async Task<Message> CreateMessageAsync(string content, params Embed[] embeds) =>
+        await Message.CreateMessageAsync(content, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[], Embed[])" />
+    public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
+        await Message.CreateMessageAsync(content, isPrivate, isSilent, replyTo, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.ReplyAsync(string)"/>
     public async Task<Message> ReplyAsync(string content) =>
         await Message.ReplyAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool)" />
+    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool)"/>
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await Message.ReplyAsync(content, isPrivate, isSilent).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.UpdateAsync(string)" />
+    /// <inheritdoc cref="Message.ReplyAsync(bool, bool, Embed[])"/>
+    public async Task<Message> ReplyAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        await Message.ReplyAsync(isPrivate, isSilent, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool, Embed[])"/>
+    public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        await Message.ReplyAsync(content, isPrivate, isSilent, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.UpdateAsync(string)"/>
     public async Task<Message> UpdateAsync(string content) =>
         await Message.UpdateAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.DeleteAsync()" />
+    /// <inheritdoc cref="Message.DeleteAsync"/>
     public async Task DeleteAsync() =>
         await Message.DeleteAsync().ConfigureAwait(false);
-    /// <inheritdoc cref="Message.AddReactionAsync(uint)" />
+    /// <inheritdoc cref="Message.AddReactionAsync(uint)"/>
     public async Task<Reaction> AddReactionAsync(uint emoteId) =>
         await Message.AddReactionAsync(emoteId).ConfigureAwait(false);
+    // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)"/>
+    // public async Task RemoveReactionAsync(uint emoteId) =>
+    //     await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
     #endregion
 }

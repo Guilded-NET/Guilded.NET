@@ -38,7 +38,7 @@ public class MemberSummary<T> : BaseObject where T : UserSummary
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user">The user that is present in the server</param>
+    /// <param name="user">The user who is present in the server</param>
     /// <param name="roleIds">The list of roles user holds</param>
     [JsonConstructor]
     public MemberSummary(
