@@ -43,6 +43,8 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
 
         try
         {
+            int usedArguments = 0;
+
             var generatedArguments =
                 // (CommandEvent invokation, string arg0, int arg1)
                 new object[] { commandEvent }.Concat(
@@ -58,8 +60,12 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                             if (argIndex + 1 != Arguments.Count())
                                 throw new FormatException();
 
+                            usedArguments = arguments.Count();
+
                             return arguments.Skip(argIndex).ToArray();
                         }
+
+                        usedArguments++;
 
                         // Could use TryParse, but you can't do `out object` and
                         // it would require different name for every parsed item
@@ -99,6 +105,10 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                             : throw new FormatException($"Cannot have type {argType} as a command argument's type");
                     })
                 );
+
+            // Only if all given arguments are exhausted, it means that this method is correct
+            if (usedArguments != arguments.Count())
+                return null;
 
             return generatedArguments.ToArray();
         }

@@ -68,6 +68,10 @@ public abstract class AbstractCommandInfo<T> : ICommandInfo<T> where T : MemberI
     public string Name { get; }
     /// <inheritdoc />
     public string[]? Aliases => Attribute.Aliases;
+    /// <inheritdoc cref="CommandAttribute.Description" />
+    public string? Description => Attribute.Description;
+    /// <inheritdoc cref="CommandAttribute.Examples" />
+    public string[]? Examples => Attribute.Examples;
     /// <inheritdoc />
     public T Member { get; }
     /// <inheritdoc />

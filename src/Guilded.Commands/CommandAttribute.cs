@@ -28,21 +28,34 @@ namespace Guilded.Commands;
 public class CommandAttribute : Attribute
 {
     /// <summary>
-    /// The name of the command.
+    /// Gets the overriden name of the command.
     /// </summary>
     /// <remarks>
-    /// <para>Overrides the name of the command. By default, lowercase name of the method will be used.</para>
+    /// <para>By default, lowercase name of the method will be used.</para>
     /// </remarks>
     /// <value>Name?</value>
     public string? Name { get; set; }
     /// <summary>
-    /// The alternative names of the command.
+    /// Gets the alternative names of the command.
+    /// </summary>
+    /// <value>Array of names?</value>
+    public string[]? Aliases { get; set; }
+    /// <summary>
+    /// Gets the description of the command.
     /// </summary>
     /// <remarks>
-    /// <para>The aliases of the commands that can be used as the alternative names of the command.</para>
+    /// <para>This is not used anywhere, so you can use it for command lists.</para>
     /// </remarks>
-    /// <value>Aliases?</value>
-    public string[]? Aliases { get; set; }
+    /// <value>Text?</value>
+    public string? Description { get; set; }
+    /// <summary>
+    /// Gets the examples of how to use the command.
+    /// </summary>
+    /// <remarks>
+    /// <para>This is not used anywhere, so you can use it for command lists.</para>
+    /// </remarks>
+    /// <value>Array of text?</value>
+    public string[]? Examples { get; set; }
     /// <summary>
     /// Declares a method as a command with no aliases.
     /// </summary>

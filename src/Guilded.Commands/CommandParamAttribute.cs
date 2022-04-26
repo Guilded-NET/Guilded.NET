@@ -17,18 +17,10 @@ public class CommandParamAttribute : Attribute
     /// </summary>
     /// <remarks>
     /// <para>By default, the name of the parameter is used.</para>
-    /// <para>This is not used anywhere for now, so you can use it for help commands or usage.</para>
+    /// <para>This is not used anywhere, so you can use it for command lists.</para>
     /// </remarks>
-    /// <value>Display name?</value>
-    public string? DisplayName { get; set; }
-    /// <summary>
-    /// Gets whether the parameter is optional.
-    /// </summary>
-    /// <remarks>
-    /// <para>Declares the argument as optional. By default, it looks whether the parameter is nullable.</para>
-    /// </remarks>
-    /// <value>Optional</value>
-    public bool? Optional { get; set; }
+    /// <value>Name?</value>
+    public string? Name { get; set; }
     /// <summary>
     /// Declares a command parameter with the display name as the parameter's name.
     /// </summary>
@@ -38,5 +30,5 @@ public class CommandParamAttribute : Attribute
     /// </summary>
     /// <param name="name">The displayed name of the parameter</param>
     public CommandParamAttribute(string name) =>
-        DisplayName = name;
+        Name = name;
 }

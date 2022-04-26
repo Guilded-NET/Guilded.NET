@@ -24,10 +24,10 @@ public class CommandArgumentInfo
     /// <value>Command param attribute</value>
     public CommandParamAttribute? Attribute { get; set; }
     /// <summary>
-    /// Gets the displayed name of <see cref="CommandParamAttribute.DisplayName">the command argument</see>.
+    /// Gets the displayed name of <see cref="CommandParamAttribute.Name">the command argument</see>.
     /// </summary>
     /// <value>Name</value>
-    public string DisplayName => Attribute?.DisplayName ?? Parameter.Name ?? "";
+    public string Name => Attribute?.Name ?? Parameter.Name ?? "";
     /// <summary>
     /// Initializes a new instance of <see cref="CommandArgumentInfo" /> from a <paramref name="parameter">method parameter</paramref>.
     /// </summary>
