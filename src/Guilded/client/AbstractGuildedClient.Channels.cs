@@ -20,14 +20,21 @@ public abstract partial class AbstractGuildedClient
 
     #region Chat channel
     /// <inheritdoc/>
-    public override async Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null) =>
-        await GetResponseProperty<IList<Message>>(
+    public override async Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null)
+    {
+        var req =
             new RestRequest($"channels/{channel}/messages", Method.Get)
-                .AddQueryParameter("includePrivate", includePrivate, encode: false)
+                // Because it gets uppercased
+                .AddQueryParameter("includePrivate", includePrivate ? "true" : "false", encode: false)
                 .AddOptionalQuery("limit", limit, encode: false)
                 .AddOptionalQuery("before", before)
-                .AddOptionalQuery("after", after)
-        , "messages").ConfigureAwait(false);
+                .AddOptionalQuery("after", after);
+
+        Console.WriteLine("Request resource: {0}", req.Resource);
+        Console.WriteLine("Parameters: [ {0} ]", string.Join(", ", req.Parameters.Select(x => $"{x.Name} ({x.Type}) = \"{x.Value}\"")));
+
+        return await GetResponseProperty<IList<Message>>(req, "messages").ConfigureAwait(false);
+    }
     /// <inheritdoc/>
     public override async Task<Message> GetMessageAsync(Guid channel, Guid messageId) =>
         await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{messageId}", Method.Get), "message").ConfigureAwait(false);

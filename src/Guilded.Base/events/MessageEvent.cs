@@ -118,6 +118,9 @@ public class MessageEvent : MessageEvent<Message>
     /// <inheritdoc cref="Message.ReplyAsync(bool, bool, Embed[])"/>
     public async Task<Message> ReplyAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         await Message.ReplyAsync(isPrivate, isSilent, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.ReplyAsync(Embed[])"/>
+    public async Task<Message> ReplyAsync(params Embed[] embeds) =>
+        await Message.ReplyAsync(embeds).ConfigureAwait(false);
     /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool, Embed[])"/>
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         await Message.ReplyAsync(content, isPrivate, isSilent, embeds).ConfigureAwait(false);

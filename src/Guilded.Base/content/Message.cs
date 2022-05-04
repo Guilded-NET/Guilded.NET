@@ -285,6 +285,10 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await CreateMessageAsync(content, isPrivate, isSilent, Id).ConfigureAwait(false);
     /// <inheritdoc cref="ReplyAsync(string)"/>
+    /// <param name="embeds">The array of custom embeds that will be visible in the message</param>
+    public async Task<Message> ReplyAsync(params Embed[] embeds) =>
+        await CreateMessageAsync(replyTo: new Guid[] { Id }, embeds: embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="ReplyAsync(string)"/>
     /// <param name="isPrivate">Whether the mention/reply is private</param>
     /// <param name="isSilent">Whether the mention/reply is silent and does not ping anyone</param>
     /// <param name="embeds">The array of custom embeds that will be visible in the message</param>
