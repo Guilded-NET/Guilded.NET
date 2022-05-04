@@ -7,7 +7,6 @@
 - Added `Message.Embeds`
 - Added `TitledContent`, which is now a parent type of `Doc` and `ForumThread` types
 - Added `IServerEvent` to the events that are supposed to have it
-- Added command system
 - Changed method parameter names (`messageId` -> `message`; `emoteId` -> `emote`)
 - Changed `UserSummary.ToString` return value to the mention of the user
 - Reformatted and reworked a lot of documentation

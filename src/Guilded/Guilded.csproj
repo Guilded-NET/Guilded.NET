@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <!-- JSON related dependencies -->
+    <PackageReference Include="Guilded.Base" Version="0.7.5" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.3.0" />
 

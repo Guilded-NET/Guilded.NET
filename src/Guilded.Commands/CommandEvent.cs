@@ -11,8 +11,9 @@ namespace Guilded.Commands;
 /// <summary>
 /// Represents an event that occurs once someone invokes a command.
 /// </summary>
-/// <seealso cref="MessageEvent" />
 /// <seealso cref="Message" />
+/// <seealso cref="MessageEvent" />
+/// <seealso cref="FailedCommandEvent" />
 /// <seealso cref="CommandAttribute" />
 public class CommandEvent
 {
@@ -30,7 +31,17 @@ public class CommandEvent
     /// <value>Prefix</value>
     public string Prefix { get; }
     /// <summary>
-    /// Gets the name of the command that was used.
+    /// Gets the name of the root-level command that was used in <see cref="Message">the message</see>.
+    /// </summary>
+    /// <value>Name</value>
+    public string RootCommandName { get; }
+    /// <summary>
+    /// Gets the enumerable of string arguments that were given to the root-level command in <see cref="Message">the message</see>.
+    /// </summary>
+    /// <value>Enumerable of arguments</value>
+    public IEnumerable<string> RootArguments { get; }
+    /// <summary>
+    /// Gets the name of that was used in the command.
     /// </summary>
     /// <value>Name</value>
     public string CommandName { get; }
@@ -60,6 +71,8 @@ public class CommandEvent
     public bool IsReply => Message.IsReply;
     /// <inheritdoc cref="Message.ReplyMessageIds" />
     public IList<Guid>? ReplyMessageIds => Message.ReplyMessageIds;
+    /// <inheritdoc cref="Message.Embeds" />
+    public IList<Embed>? Embeds => Message.Embeds;
     /// <inheritdoc cref="Message.IsPrivate" />
     public bool IsPrivate => Message.IsPrivate;
     #endregion
@@ -72,10 +85,12 @@ public class CommandEvent
     /// </summary>
     /// <param name="messageCreated">The message event that invoked the command</param>
     /// <param name="prefix">The prefix that has been used on the command</param>
+    /// <param name="rootCommandName">The name of the root-level command that was used</param>
+    /// <param name="rootArguments">The array of string arguments that were given to the root-level command</param>
     /// <param name="commandName">The name of the command that was used</param>
     /// <param name="arguments">The array of string arguments that were given to the command</param>
-    public CommandEvent(MessageEvent messageCreated, string prefix, string commandName, IEnumerable<string> arguments) =>
-        (MessageEvent, Prefix, CommandName, Arguments) = (messageCreated, prefix, commandName, arguments);
+    public CommandEvent(MessageEvent messageCreated, string prefix, string rootCommandName, IEnumerable<string> rootArguments, string commandName, IEnumerable<string> arguments) =>
+        (MessageEvent, Prefix, RootCommandName, RootArguments, CommandName, Arguments) = (messageCreated, prefix, rootCommandName, rootArguments, commandName, arguments);
     #endregion
 
     #region Additional

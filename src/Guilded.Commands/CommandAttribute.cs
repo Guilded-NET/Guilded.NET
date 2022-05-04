@@ -3,7 +3,7 @@
 namespace Guilded.Commands;
 
 /// <summary>
-/// Declares a method as a command.
+/// Declares a method or a type as a command.
 /// </summary>
 /// <remarks>
 /// <para>By default, all the parameters will be seen as context parameters, unless a parameter has <see cref="CommandParamAttribute" />. Parameters with <see cref="CommandParamAttribute" /> will be declared as command's parameters.</para>

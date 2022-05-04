@@ -9,8 +9,8 @@ namespace Guilded.Commands;
 /// <summary>
 /// Represents the interface for all commands.
 /// </summary>
-/// <typeparam name="T">The type of the reflection member</typeparam>
-public interface ICommandInfo<out T> where T : MemberInfo
+/// <typeparam name="TMember">The type of the reflection member</typeparam>
+public interface ICommandInfo<out TMember> where TMember : MemberInfo
 {
     #region Abstract members
     /// <summary>
@@ -27,19 +27,13 @@ public interface ICommandInfo<out T> where T : MemberInfo
     /// Gets the member who was declared as a command.
     /// </summary>
     /// <value>Reflection member</value>
-    T Member { get; }
+    TMember Member { get; }
     /// <summary>
     /// Gets the <see cref="CommandAttribute">command attribute</see> that was given to the <see cref="Member">member</see>.
     /// </summary>
     /// <value>Command attribute</value>
     CommandAttribute Attribute { get; }
-    /// <summary>
-    /// Invokes the command.
-    /// </summary>
-    /// <param name="commandEvent">The command event that invoked the command</param>
-    /// <param name="arguments">The arguments that have been used to invoke the command</param>
-    /// <returns>Whether the command was properly invoked</returns>
-    Task<bool> InvokeAsync(CommandEvent commandEvent, IEnumerable<string> arguments);
+
     #endregion
 
     #region Additional
@@ -55,13 +49,13 @@ public interface ICommandInfo<out T> where T : MemberInfo
 /// <summary>
 /// Represents the base for information about any type of Guilded.NET command.
 /// </summary>
-/// <typeparam name="T">The type of the member it uses for commands</typeparam>
+/// <typeparam name="TMember">The type of the member it uses for commands</typeparam>
 /// <seealso cref="CommandAttribute" />
 /// <seealso cref="CommandParamAttribute" />
-/// <seealso cref="ICommandInfo{T}" />
+/// <seealso cref="ICommandInfo{TMember}" />
 /// <seealso cref="CommandInfo" />
 /// <seealso cref="CommandContainerInfo" />
-public abstract class AbstractCommandInfo<T> : ICommandInfo<T> where T : MemberInfo
+public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where TMember : MemberInfo
 {
     #region Properties
     /// <inheritdoc />
@@ -73,23 +67,18 @@ public abstract class AbstractCommandInfo<T> : ICommandInfo<T> where T : MemberI
     /// <inheritdoc cref="CommandAttribute.Examples" />
     public string[]? Examples => Attribute.Examples;
     /// <inheritdoc />
-    public T Member { get; }
+    public TMember Member { get; }
     /// <inheritdoc />
     public CommandAttribute Attribute { get; }
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="AbstractCommandInfo{T}" />.
+    /// Initializes a new instance of <see cref="AbstractCommandInfo{TMember}" />.
     /// </summary>
     /// <param name="attribute">The command attribute that was given to the member</param>
     /// <param name="member">The member who was declared as a command</param>
-    protected AbstractCommandInfo(CommandAttribute attribute, T member) =>
+    protected AbstractCommandInfo(CommandAttribute attribute, TMember member) =>
         (Name, Member, Attribute) = (attribute.Name ?? member.Name.ToLowerInvariant(), member, attribute);
-    #endregion
-
-    #region Instance methods
-    /// <inheritdoc />
-    public abstract Task<bool> InvokeAsync(CommandEvent commandEvent, IEnumerable<string> arguments);
     #endregion
 }

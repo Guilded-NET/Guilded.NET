@@ -24,30 +24,27 @@ public delegate string ContextPrefix(MessageEvent msgCreated);
 /// <para>Adds customizable commands to selected clients.</para>
 /// </remarks>
 /// <seealso cref="ContextPrefix" />
-public class CommandModule
+public class CommandModule : CommandBase
 {
     /// <summary>
     /// The default argument separator characters.
     /// </summary>
     /// <remarks>
-    /// <para>The default characters that will be used to split different command arguments.</para>
     /// <para>By default, <c> </c>, <c>\t</c>, <c>\v</c>, <c>\n</c> and <c>\r</c> will be used.</para>
     /// </remarks>
     /// <value>Argument separator characters</value>
     public static readonly char[] DefaultSeparators = new char[] { ' ', '\t', '\v', '\n', '\r' };
     /// <summary>
-    /// The default argument splitting options.
+    /// The default splitting options for command arguments.
     /// </summary>
     /// <remarks>
-    /// <para>The default options that will be used to split different command arguments.</para>
     /// <para>By default, it uses <see cref="StringSplitOptions.RemoveEmptyEntries" />.</para>
     /// </remarks>
+    /// <value>Split options</value>
     public const StringSplitOptions DefaultSplitOptions = StringSplitOptions.RemoveEmptyEntries;
 
     private AbstractGuildedClient? _subscribedClient;
     private IDisposable? _commandSubscription;
-    private IEnumerable<ICommandInfo<MemberInfo>> _commands = new ICommandInfo<MemberInfo>[] { };
-    private MethodInfo? _unknownCommandFallback;
 
     /// <summary>
     /// Gets the method that will be used to get prefix based on <see cref="MessageEvent">the current context</see>.
@@ -70,8 +67,13 @@ public class CommandModule
     /// <param name="prefix">The context-based prefix method for commands</param>
     /// <param name="separators">The separators that split the command's arguments</param>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
-    public CommandModule(ContextPrefix prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) =>
+    public CommandModule(ContextPrefix prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) : base(new ICommandInfo<MemberInfo>[] { })
+    {
         (GetPrefix, Separators, SplitOptions) = (prefix, separators, splitOptions);
+
+        // Well... Not sure if it's good to call a method in a constructor
+        Commands = CommandUtil.GetCommandsOf(GetType());
+    }
     /// <summary>
     /// Initializes a new instance of <see cref="CommandModule" /> with context-based <paramref name="prefix" />.
     /// </summary>
@@ -91,6 +93,11 @@ public class CommandModule
     /// <param name="prefix">The context-based prefix method for commands</param>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(string prefix, StringSplitOptions splitOptions = DefaultSplitOptions) : this(_ => prefix, DefaultSeparators, splitOptions) { }
+    /// <summary>
+    /// Initializes a new instance of <see cref="CommandModule" /> with no prefix.
+    /// </summary>
+    /// <param name="splitOptions">The splitting options of the command's arguments</param>
+    public CommandModule(StringSplitOptions splitOptions = DefaultSplitOptions) : this(string.Empty, splitOptions) { }
 
     /// <summary>
     /// Adds the command module to the specified <paramref name="client" /> with the given settings.
@@ -125,14 +132,9 @@ public class CommandModule
                     // First one is the name of the command
                     IEnumerable<string> args = splitContent.Skip(1);
 
-                    CommandEvent commandEvent = new(msgCreated, prefix, commandName, args);
+                    RootCommandContext context = new(msgCreated, prefix, commandName, args);
 
-                    // Invoke all commands by name and wait for the good one
-                    bool commandHasInvoked = await CommandUtil.InvokeAnyCommand(commandEvent, commandName, _commands, args).ConfigureAwait(false);
-
-                    // Only use the fallback if no command was executed; some bots may require fallback
-                    if (!commandHasInvoked && _unknownCommandFallback is not null)
-                        _unknownCommandFallback.Invoke(this, new object[] { commandName, commandEvent, _commands });
+                    await InvokeAsync(string.Empty, context, splitContent).ConfigureAwait(false);
                 });
         _subscribedClient = client;
     }
@@ -147,38 +149,4 @@ public class CommandModule
         _commandSubscription!.Dispose();
         _subscribedClient = null;
     }
-    /// <summary>
-    /// Adds commands from the <paramref name="type">specified type</paramref>.
-    /// </summary>
-    /// <param name="type">The type to fetch commands from</param>
-    /// <typeparam name="T">The type of <see cref="CommandAttribute">command attribute</see> to fetch</typeparam>
-    /// <returns>Current <see cref="CommandModule" /> instance</returns>
-    public CommandModule IncludeCommandsFrom<T>(Type type) where T : CommandAttribute
-    {
-        IEnumerable<ICommandInfo<MemberInfo>> newCommands = CommandUtil.GetCommandsOf(type);
-
-        _commands = _commands.Concat(newCommands);
-
-        // ?xyz -> Unknown command
-        MethodInfo? foundUnknownFallback = CommandUtil.GetUnknownCommandFallback(type);
-
-        if (foundUnknownFallback is not null)
-            _unknownCommandFallback = foundUnknownFallback;
-
-        return this;
-    }
-    /// <inheritdoc cref="IncludeCommandsFrom{T}(Type)" />
-    public void IncludeCommandsFrom(Type type) =>
-        IncludeCommandsFrom<CommandAttribute>(type);
-    /// <summary>
-    /// Adds commands from the <typeparamref name="TCommands">specified type</typeparamref>.
-    /// </summary>
-    /// <typeparam name="TCommands">The type to fetch commands from</typeparam>
-    /// <typeparam name="TAttribute">The type of <see cref="CommandAttribute">command attribute</see> to fetch</typeparam>
-    /// <returns>Current <see cref="CommandModule" /> instance</returns>
-    public void IncludeCommandsFrom<TCommands, TAttribute>() where TAttribute : CommandAttribute =>
-        IncludeCommandsFrom<TAttribute>(typeof(TCommands));
-    /// <inheritdoc cref="IncludeCommandsFrom{T, C}" />
-    public void IncludeCommandsFrom<T>() =>
-        IncludeCommandsFrom<CommandAttribute>(typeof(T));
 }
