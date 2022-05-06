@@ -375,6 +375,16 @@ namespace Guilded.Base.Embeds
         /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
         /// </summary>
         /// <remarks>
+        /// <para>A given <paramref name="name" /> will be converted to <see cref="EmbedAuthor" />.</para>
+        /// </remarks>
+        /// <param name="name">The name of the <see cref="Embed">embed</see>'s author</param>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetAuthor(string name) =>
+            SetAuthor(new EmbedAuthor(name));
+        /// <summary>
+        /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
+        /// </summary>
+        /// <remarks>
         /// <para>The given <paramref name="name" />, <paramref name="iconUrl" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
         /// </remarks>
         /// <param name="name">The name of the <see cref="Embed">embed</see>'s author</param>
@@ -382,6 +392,18 @@ namespace Guilded.Base.Embeds
         /// <param name="url">The URL of the <see cref="Embed">embed</see>'s author</param>
         /// <returns>Current <see cref="Embed"/> instance</returns>
         public Embed SetAuthor(string name, Uri? iconUrl = null, Uri? url = null) =>
+            SetAuthor(new EmbedAuthor(name, iconUrl, url));
+        /// <summary>
+        /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
+        /// </summary>
+        /// <remarks>
+        /// <para>The given <paramref name="name" />, <paramref name="iconUrl" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
+        /// </remarks>
+        /// <param name="name">The name of the <see cref="Embed">embed</see>'s author</param>
+        /// <param name="iconUrl">The URL to icon of the <see cref="Embed">embed</see>'s author</param>
+        /// <param name="url">The URL of the <see cref="Embed">embed</see>'s author</param>
+        /// <returns>Current <see cref="Embed"/> instance</returns>
+        public Embed SetAuthor(string name, string? iconUrl = null, string? url = null) =>
             SetAuthor(new EmbedAuthor(name, iconUrl, url));
         #endregion
 
@@ -448,13 +470,11 @@ namespace Guilded.Base.Embeds
         /// <para>The given <paramref name="url" /> will be used to display an image.</para>
         /// </remarks>
         /// <param name="url">The URL to the <see cref="Embed">embed's</see> image</param>
-        /// <param name="width">The displayed width of the image</param>
-        /// <param name="height">The displayed height of the image</param>
-        public Embed SetImage(Uri url, uint? width = null, uint? height = null) =>
-            SetImage(new EmbedMedia(url, width, height));
-        /// <inheritdoc cref="SetImage(Uri, uint?, uint?)" />
-        public Embed SetImage(string url, uint? width = null, uint? height = null) =>
-            SetImage(new Uri(url), width, height);
+        public Embed SetImage(Uri url) =>
+            SetImage(new EmbedMedia(url));
+        /// <inheritdoc cref="SetImage(Uri)" />
+        public Embed SetImage(string url) =>
+            SetImage(new Uri(url));
         /// <summary>
         /// Sets the <see cref="Thumbnail">thumbnail</see> as the given <paramref name="value" />.
         /// </summary>
@@ -470,16 +490,14 @@ namespace Guilded.Base.Embeds
         /// <para>The given <paramref name="url" /> will be used to display a thumbnail.</para>
         /// </remarks>
         /// <param name="url">The URL to the <see cref="Embed">embed's</see> thumbnail</param>
-        /// <param name="width">The displayed width of the thumbnail</param>
-        /// <param name="height">The displayed height of the thumbnail</param>
-        public Embed SetThumbnail(Uri url, uint? width = null, uint? height = null)
+        public Embed SetThumbnail(Uri url)
         {
-            Thumbnail = new EmbedMedia(url, height, width);
+            Thumbnail = new EmbedMedia(url);
             return this;
         }
-        /// <inheritdoc cref="SetThumbnail(Uri, uint?, uint?)" />
-        public Embed SetThumbnail(string url, uint? width = null, uint? height = null) =>
-            SetThumbnail(new Uri(url), width, height);
+        /// <inheritdoc cref="SetThumbnail(Uri)" />
+        public Embed SetThumbnail(string url) =>
+            SetThumbnail(new Uri(url));
         #endregion
 
         #region Footer
@@ -495,6 +513,13 @@ namespace Guilded.Base.Embeds
         }
         /// <inheritdoc cref="SetFooter(EmbedFooter)" />
         /// <remarks>
+        /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" />.</para>
+        /// </remarks>
+        /// <param name="text">The text contents of the footer</param>
+        public Embed SetFooter(string text) =>
+            SetFooter(new EmbedFooter(text));
+        /// <inheritdoc cref="SetFooter(EmbedFooter)" />
+        /// <remarks>
         /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" /> and <paramref name="icon" />.</para>
         /// </remarks>
         /// <param name="text">The text contents of the footer</param>
@@ -504,6 +529,14 @@ namespace Guilded.Base.Embeds
         /// <inheritdoc cref="SetFooter(string, Uri?)" />
         public Embed SetFooter(string text, string? icon = null) =>
             SetFooter(text, icon is null ? null : new Uri(icon));
+        // <inheritdoc cref="SetFooter(EmbedFooter)" />
+        /// <remarks>
+        /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref>.</para>
+        /// <para><paramref name="value" /> parameter will be converted to string.</para>
+        /// </remarks>
+        /// <param name="value">The text contents of the footer</param>
+        public Embed SetFooter(object? value) =>
+            SetFooter(value is null ? string.Empty : value.ToString());
         // <inheritdoc cref="SetFooter(EmbedFooter)" />
         /// <remarks>
         /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref> and <paramref name="icon" />.</para>

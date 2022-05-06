@@ -75,7 +75,7 @@ public class EmbedAuthor : BaseObject
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Uri? url = null,
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
         Uri? iconUrl = null
     ) : this(name) =>
         (IconUrl, Url) = (iconUrl, url);

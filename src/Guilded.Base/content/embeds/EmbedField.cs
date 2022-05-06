@@ -54,6 +54,7 @@ public class EmbedField : BaseObject
         [JsonProperty(Required = Required.Always)]
         string value,
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         bool inline = false
     )
     {

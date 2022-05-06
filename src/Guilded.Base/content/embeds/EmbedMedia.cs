@@ -20,16 +20,6 @@ public class EmbedMedia : BaseObject
     /// </remarks>
     /// <value>URL</value>
     public Uri Url { get; set; }
-    /// <summary>
-    /// The height of the image/video.
-    /// </summary>
-    /// <value>Size?</value>
-    public uint? Height { get; set; }
-    /// <summary>
-    /// The width of the image/video.
-    /// </summary>
-    /// <value>Size?</value>
-    public uint? Width { get; set; }
     #endregion
 
     #region Constructors
@@ -37,27 +27,19 @@ public class EmbedMedia : BaseObject
     /// Initializes a new instance of <see cref="EmbedMedia"/> with optional size parameters.
     /// </summary>
     /// <param name="url">The source URL to the image</param>
-    /// <param name="width">The width of the image</param>
-    /// <param name="height">The height of the image</param>
     [JsonConstructor]
     public EmbedMedia(
         [JsonProperty(Required = Required.Always)]
-        Uri url,
-
-        uint? width = null,
-
-        uint? height = null
+        Uri url
     ) =>
-        (Url, Width, Height) = (url, width, height);
+        Url = url;
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedMedia"/> with optional size parameters.
     /// </summary>
     /// <param name="url">The source URL to the image</param>
-    /// <param name="width">The width of the image</param>
-    /// <param name="height">The height of the image</param>
     /// <exception cref="ArgumentNullException"><paramref name="url"/> is <see langword="null"/>, empty or whitespace</exception>
     /// <exception cref="UriFormatException"><paramref name="url"/> has bad <see cref="Uri"/> formatting</exception>
-    public EmbedMedia(string url, uint? width = null, uint? height = null) : this(new Uri(url), width, height) { }
+    public EmbedMedia(string url) : this(new Uri(url)) { }
     #endregion
 
     #region Internal

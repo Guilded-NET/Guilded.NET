@@ -54,11 +54,11 @@ public class MemberRemovedEvent : BaseObject, IServerEvent
         [JsonProperty(Required = Required.Always)]
         HashId userId,
 
-        [JsonProperty(Required = Required.Always)]
-        bool isKick,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isKick = false,
 
-        [JsonProperty(Required = Required.Always)]
-        bool isBan
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isBan = false
     ) =>
         (ServerId, UserId, IsKick, IsBan) = (serverId, userId, isKick, isBan);
     #endregion
