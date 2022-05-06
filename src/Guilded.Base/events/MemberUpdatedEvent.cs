@@ -76,8 +76,8 @@ public class MemberUpdatedEvent : BaseObject, IServerEvent
             [JsonProperty(Required = Required.Always)]
             HashId id,
 
-            [JsonProperty]
-            string? nickname
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            string? nickname = null
         ) =>
             (Id, Nickname) = (id, nickname);
     }

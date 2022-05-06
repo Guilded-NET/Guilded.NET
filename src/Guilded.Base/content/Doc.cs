@@ -60,11 +60,11 @@ public class Doc : TitledContent
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        HashId? updatedBy,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? updatedBy = null,
 
-        [JsonProperty]
-        DateTime? updatedAt
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null
     ) : base(id, channelId, serverId, title, content, createdBy, createdAt, updatedAt) =>
         UpdatedBy = updatedBy;
     #endregion

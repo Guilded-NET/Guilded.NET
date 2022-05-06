@@ -76,8 +76,8 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        DateTime? updatedAt
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
         (Title, Content, UpdatedAt) = (title, content, updatedAt);
     #endregion

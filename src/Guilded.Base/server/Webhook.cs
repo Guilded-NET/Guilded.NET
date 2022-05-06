@@ -83,9 +83,6 @@ public class Webhook : ClientObject, ICreatableContent
         [JsonProperty(Required = Required.Always)]
         string name,
 
-        [JsonProperty]
-        string? token,
-
         [JsonProperty(Required = Required.Always)]
         Guid channelId,
 
@@ -98,8 +95,11 @@ public class Webhook : ClientObject, ICreatableContent
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
-        [JsonProperty]
-        DateTime? deletedAt
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? token = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? deletedAt = null
     ) =>
         (Id, Name, Token, ChannelId, ServerId, CreatedAt, CreatedBy, DeletedAt) = (id, name, token, channelId, serverId, createdAt, createdBy, deletedAt);
     #endregion

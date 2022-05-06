@@ -32,14 +32,14 @@ public class User : UserSummary
         HashId id,
 
         [JsonProperty(Required = Required.Always)]
-        UserType type,
-
-        [JsonProperty(Required = Required.Always)]
         string name,
 
         [JsonProperty(Required = Required.Always)]
-        DateTime createdAt
-    ) : base(id, type, name) =>
+        DateTime createdAt,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        UserType type = UserType.User
+    ) : base(id, name, type) =>
         CreatedAt = createdAt;
     #endregion
 }

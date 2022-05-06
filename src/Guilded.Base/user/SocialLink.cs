@@ -40,11 +40,11 @@ public class SocialLink : BaseObject
         [JsonProperty(Required = Required.Always)]
         SocialLinkType type,
 
-        [JsonProperty]
-        string? handle,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? handle = null,
 
-        [JsonProperty]
-        string? serviceId
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? serviceId = null
     ) =>
         (Type, Handle, ServiceId) = (type, handle, serviceId);
     #endregion

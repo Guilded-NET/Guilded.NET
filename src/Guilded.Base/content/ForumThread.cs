@@ -59,14 +59,14 @@ public class ForumThread : TitledContent
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
-        [JsonProperty]
-        Guid? createdByWebhookId,
-
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        DateTime? updatedAt
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? createdByWebhookId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null
     ) : base(id, channelId, serverId, title, content, createdBy, createdAt, updatedAt) =>
         CreatedByWebhook = createdByWebhookId;
     #endregion

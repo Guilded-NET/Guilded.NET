@@ -48,8 +48,8 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <remarks>
     /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
     /// </remarks>
-    /// <value>Markdown string</value>
-    public string Content { get; }
+    /// <value>Markdown string?</value>
+    public string? Content { get; }
     /// <summary>
     /// Gets the list of <see cref="Message">messages</see> being replied to.
     /// </summary>
@@ -136,35 +136,36 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
         [JsonProperty(Required = Required.Always)]
         Guid channelId,
 
-        [JsonProperty]
-        HashId? serverId,
-
-        [JsonProperty(Required = Required.Always)]
-        string content,
-
-        [JsonProperty]
-        IList<Guid>? replyMessageIds,
-
-        [JsonProperty]
-        IList<Embed>? embeds,
-
-        [JsonProperty]
-        bool isPrivate,
 
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
-        [JsonProperty]
-        Guid? createdByWebhookId,
-
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        DateTime? updatedAt,
-
         [JsonProperty(Required = Required.Always)]
-        MessageType type
+        MessageType type,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? serverId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        IList<Guid>? replyMessageIds = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? content = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        IList<Embed>? embeds = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isPrivate = false,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? createdByWebhookId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
         (Content, ReplyMessageIds, Embeds, IsPrivate, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, embeds, isPrivate, createdByWebhookId, updatedAt, type);
     #endregion

@@ -48,7 +48,7 @@ public class MessageEvent : MessageEvent<Message>
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId"/>
     public Guid ChannelId => Message.ChannelId;
     /// <inheritdoc cref="Message.Content"/>
-    public string Content => Message.Content;
+    public string? Content => Message.Content;
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy"/>
     public HashId CreatedBy => Message.CreatedBy;
     /// <inheritdoc cref="Message.CreatedByWebhook"/>
@@ -73,11 +73,11 @@ public class MessageEvent : MessageEvent<Message>
     /// <param name="message">The message received from the event</param>
     [JsonConstructor]
     public MessageEvent(
-        [JsonProperty]
-        HashId? serverId,
-
         [JsonProperty(Required = Required.Always)]
-        Message message
+        Message message,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? serverId = null
     ) : base(serverId, message) { }
     #endregion
 

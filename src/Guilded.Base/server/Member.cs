@@ -45,11 +45,11 @@ public class Member : MemberSummary<User>
         [JsonProperty(Required = Required.Always)]
         IList<uint> roleIds,
 
-        [JsonProperty]
-        string? nickname,
-
         [JsonProperty(Required = Required.Always)]
-        DateTime joinedAt
+        DateTime joinedAt,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? nickname = null
     ) : base(user, roleIds) =>
         (Nickname, JoinedAt) = (nickname, joinedAt);
     #endregion

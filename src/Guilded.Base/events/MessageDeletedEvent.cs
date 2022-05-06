@@ -27,11 +27,11 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// <param name="message">The minimal information about the deleted message</param>
     [JsonConstructor]
     public MessageDeletedEvent(
-        [JsonProperty]
-        HashId? serverId,
-
         [JsonProperty(Required = Required.Always)]
-        MessageDeleted message
+        MessageDeleted message,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? serverId
     ) : base(serverId, message) { }
     #endregion
 
@@ -81,11 +81,11 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
             [JsonProperty(Required = Required.Always)]
             Guid channelId,
 
-            [JsonProperty]
-            HashId? serverId,
-
             [JsonProperty(Required = Required.Always)]
-            DateTime deletedAt
+            DateTime deletedAt,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            HashId? serverId = null
         ) =>
             (Id, ChannelId, ServerId, DeletedAt) = (id, channelId, serverId, deletedAt);
         #endregion

@@ -53,17 +53,17 @@ public class MessageContent : BaseObject
     /// </summary>
     [JsonConstructor]
     public MessageContent(
-        [JsonProperty]
-        IList<Embed>? embeds,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        IList<Embed>? embeds = null,
 
-        [JsonProperty]
-        IList<Guid>? replyMessageIds,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        IList<Guid>? replyMessageIds = null,
 
-        [JsonProperty]
-        bool? isPrivate,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool? isPrivate = null,
 
-        [JsonProperty]
-        bool? isSilent
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool? isSilent = null
     ) =>
         (Embeds, ReplyMessageIds, IsPrivate, IsSilent) = (embeds, replyMessageIds, isPrivate, isSilent);
     #endregion

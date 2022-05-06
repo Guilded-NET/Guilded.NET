@@ -64,17 +64,17 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
         [JsonProperty(Required = Required.Always)]
         uint id,
 
-        [JsonProperty]
-        HashId? serverId,
-
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
-        [JsonProperty]
-        Guid? createdByWebhookId,
-
         [JsonProperty(Required = Required.Always)]
-        DateTime createdAt
+        DateTime createdAt,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? serverId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? createdByWebhookId = null
     ) =>
         (Id, ServerId, CreatedAt, CreatedBy, CreatedByWebhook) = (id, serverId, createdAt, createdBy, createdByWebhookId);
     #endregion

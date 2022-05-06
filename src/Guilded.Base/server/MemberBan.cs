@@ -51,8 +51,8 @@ public class MemberBan : BaseObject, ICreatableContent
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        string? reason
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? reason = null
     ) =>
         (User, CreatedBy, CreatedAt, Reason) = (user, createdBy, createdAt, reason);
 }

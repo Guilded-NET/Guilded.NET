@@ -108,32 +108,32 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
         [JsonProperty(Required = Required.Always)]
         string message,
 
-        [JsonProperty]
-        T? note,
-
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
-
-        [JsonProperty]
-        Guid? createdByWebhookId,
 
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        DateTime? updatedAt,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? createdByWebhookId = null,
 
-        [JsonProperty]
-        HashId? updatedBy,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        T? note = null,
 
-        [JsonProperty]
-        DateTime? completedAt,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null,
 
-        [JsonProperty]
-        HashId? completedBy,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? updatedBy = null,
 
-        [JsonProperty]
-        Guid? parentListItemId
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? completedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? completedBy = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? parentListItemId = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
         (Message, Note, CreatedByWebhook, UpdatedAt, UpdatedBy, CompletedAt, CompletedBy, ParentListItemId) = (message, note, createdByWebhookId, updatedAt, updatedBy, completedAt, completedBy, parentListItemId);
     #endregion
@@ -202,11 +202,11 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        HashId? updatedBy,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? updatedBy = null,
 
-        [JsonProperty]
-        DateTime? updatedAt
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null
     ) =>
         (CreatedAt, CreatedBy, UpdatedAt, UpdatedBy) = (createdAt, createdBy, updatedAt, updatedBy);
     #endregion
@@ -250,11 +250,11 @@ public class ListItemNote : ListItemNoteSummary
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
-        [JsonProperty]
-        HashId? updatedBy,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? updatedBy = null,
 
-        [JsonProperty]
-        DateTime? updatedAt
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null
     ) : base(createdBy, createdAt, updatedBy, updatedAt) =>
         Content = content;
     #endregion
