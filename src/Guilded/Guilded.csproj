@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- Library -->
     <Product>Guilded.NET</Product>
-    <Version>0.7.5</Version>
+    <Version>0.7.6</Version>
     <Description>API wrapper for Guilded</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <!-- JSON related dependencies -->
-    <PackageReference Include="Guilded.Base" Version="0.7.5" />
+    <PackageReference Include="Guilded.Base" Version="0.7.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="107.3.0" />
 
