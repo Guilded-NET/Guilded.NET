@@ -9,17 +9,20 @@ namespace Guilded.Base.Events;
 /// <summary>
 /// Represents the base for message-related events.
 /// </summary>
-/// <seealso cref="Message"/>
+/// <seealso cref="Content.Message"/>
 /// <seealso cref="MessageDeletedEvent"/>
 public abstract class MessageEvent<T> : BaseObject where T : BaseObject
 {
     #region JSON properties
     /// <summary>
-    /// The message received from the event.
+    /// Gets the message received from the event.
     /// </summary>
     /// <value>Message</value>
     public T Message { get; }
-    /// <inheritdoc />
+    /// <summary>
+    /// Gets the identifier of the server where the event occurred.
+    /// </summary>
+    /// <value>Server ID?</value>
     public HashId? ServerId { get; }
     #endregion
 
@@ -38,7 +41,7 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     #endregion
 }
 /// <summary>
-/// Represents an event with the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone creates/posts or updates/edits a <see cref="MessageEvent{T}.Message">message</see> in a channel.
+/// Represents an event with the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone posts or edits a <see cref="MessageEvent{T}.Message">message</see> in <see cref="ChannelId">a channel</see>.
 /// </summary>
 /// <seealso cref="MessageDeletedEvent"/>
 /// <seealso cref="Message"/>

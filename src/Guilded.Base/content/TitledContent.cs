@@ -9,7 +9,7 @@ namespace Guilded.Base.Content;
 /// Represents a document in a document channel.
 /// </summary>
 /// <seealso cref="ForumThread" />
-/// <seealso cref="ListItem{T}" />
+/// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
 public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent
 {
@@ -35,7 +35,7 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     #endregion
 
     /// <summary>
-    /// Gets the date of when the content were updated.
+    /// Gets the date when the content were updated.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? UpdatedAt { get; }
@@ -51,8 +51,8 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <param name="title">The title of the channel content</param>
     /// <param name="content">The text contents of the channel content</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the channel content</param>
-    /// <param name="createdAt">The date of when the channel content were created</param>
-    /// <param name="updatedAt">The date of when the channel content were recently updated</param>
+    /// <param name="createdAt">the date when the channel content were created</param>
+    /// <param name="updatedAt">the date when the channel content were recently updated</param>
     [JsonConstructor]
     public TitledContent(
         [JsonProperty(Required = Required.Always)]

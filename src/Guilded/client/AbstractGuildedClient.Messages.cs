@@ -131,9 +131,57 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MessageDeleted"/>
     public IObservable<MessageEvent> MessageUpdated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
     /// <inheritdoc cref="MessageDeletedEvent"/>
-    /// <seealso cref="MessageUpdated"/>
+    /// <seealso cref="MessageCreated"/>
     /// <seealso cref="MessageUpdated"/>
     public IObservable<MessageDeletedEvent> MessageDeleted => ((IEventInfo<MessageDeletedEvent>)GuildedEvents["ChatMessageDeleted"]).Observable;
+    #endregion
+
+    #region List channels
+    /// <inheritdoc cref="ListItemEvent"/>
+    /// <seealso cref="ListItemUpdated"/>
+    /// <seealso cref="ListItemDeleted"/>
+    /// <seealso cref="ListItemCompleted"/>
+    /// <seealso cref="ListItemUncompleted"/>
+    public IObservable<ListItemEvent> ListItemCreated => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemCreated"]).Observable;
+    /// <inheritdoc cref="ListItemEvent"/>
+    /// <seealso cref="ListItemCreated"/>
+    /// <seealso cref="ListItemDeleted"/>
+    /// <seealso cref="ListItemCompleted"/>
+    /// <seealso cref="ListItemUncompleted"/>
+    public IObservable<ListItemEvent> ListItemUpdated => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemUpdated"]).Observable;
+    /// <inheritdoc cref="ListItemEvent"/>
+    /// <seealso cref="ListItemCreated"/>
+    /// <seealso cref="ListItemUpdated"/>
+    /// <seealso cref="ListItemCompleted"/>
+    /// <seealso cref="ListItemUncompleted"/>
+    public IObservable<ListItemEvent> ListItemDeleted => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemDeleted"]).Observable;
+    /// <inheritdoc cref="ListItemEvent"/>
+    /// <seealso cref="ListItemUpdated"/>
+    /// <seealso cref="ListItemUpdated"/>
+    /// <seealso cref="ListItemCompleted"/>
+    /// <seealso cref="ListItemUncompleted"/>
+    public IObservable<ListItemEvent> ListItemCompleted => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemDeleted"]).Observable;
+    /// <inheritdoc cref="ListItemEvent"/>
+    /// <seealso cref="ListItemUpdated"/>
+    /// <seealso cref="ListItemDeleted"/>
+    /// <seealso cref="ListItemCompleted"/>
+    /// <seealso cref="ListItemUncompleted"/>
+    public IObservable<ListItemEvent> ListItemUncompleted => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemDeleted"]).Observable;
+    #endregion
+
+    #region Docs channels
+    /// <inheritdoc cref="DocEvent"/>
+    /// <seealso cref="DocUpdated"/>
+    /// <seealso cref="DocDeleted"/>
+    public IObservable<DocEvent> DocCreated => ((IEventInfo<DocEvent>)GuildedEvents["DocCreated"]).Observable;
+    /// <inheritdoc cref="DocEvent"/>
+    /// <seealso cref="DocCreated"/>
+    /// <seealso cref="DocDeleted"/>
+    public IObservable<DocEvent> DocUpdated => ((IEventInfo<DocEvent>)GuildedEvents["DocUpdated"]).Observable;
+    /// <inheritdoc cref="DocEvent"/>
+    /// <seealso cref="DocCreated"/>
+    /// <seealso cref="DocUpdated"/>
+    public IObservable<DocEvent> DocDeleted => ((IEventInfo<DocEvent>)GuildedEvents["DocDeleted"]).Observable;
     #endregion
 
     #region Handling

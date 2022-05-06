@@ -1,3 +1,12 @@
+# v0.7.6-beta
+
+- Added channels and channel events
+- Added docs events
+- Added list item events
+- Fixed requiring `embeds:` in message creation for embeds
+- Fixed `includePrivate` error in `GetMessageAsync`
+- Removed extra unused properties and arguments in embeds
+
 # v0.7.5-beta
 
 - Added `IsCompleted` property in `ListItem`

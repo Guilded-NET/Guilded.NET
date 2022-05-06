@@ -59,7 +59,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// <value>Server ID?</value>
         public HashId? ServerId { get; }
         /// <summary>
-        /// Gets the date of when the message was deleted.
+        /// Gets the date when the message was deleted.
         /// </summary>
         /// <value>Date</value>
         public DateTime DeletedAt { get; }
@@ -72,7 +72,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// <param name="id">The identifier of the message</param>
         /// <param name="channelId">The identifier of the channel where the message was</param>
         /// <param name="serverId">The identifier of the server where the message was</param>
-        /// <param name="deletedAt">The date of when the message was deleted</param>
+        /// <param name="deletedAt">the date when the message was deleted</param>
         [JsonConstructor]
         public MessageDeleted(
             [JsonProperty(Required = Required.Always)]

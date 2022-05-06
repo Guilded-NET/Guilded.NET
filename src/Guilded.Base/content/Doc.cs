@@ -9,7 +9,7 @@ namespace Guilded.Base.Content;
 /// Represents a document in a document channel.
 /// </summary>
 /// <seealso cref="ForumThread" />
-/// <seealso cref="ListItem{T}" />
+/// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
 public class Doc : TitledContent
 {
@@ -34,9 +34,9 @@ public class Doc : TitledContent
     /// <param name="title">The title of the document</param>
     /// <param name="content">The text contents of the document</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the document</param>
-    /// <param name="createdAt">The date of when the document was created</param>
+    /// <param name="createdAt">the date when the document was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
-    /// <param name="updatedAt">The date of when the document was recently updated</param>
+    /// <param name="updatedAt">the date when the document was recently updated</param>
     [JsonConstructor]
     public Doc(
         [JsonProperty(Required = Required.Always)]

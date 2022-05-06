@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -15,7 +16,7 @@ public class UserSummary : ClientObject
 {
     #region JSON properties
     /// <summary>
-    /// Gets The identifier of <see cref="User">user</see>.
+    /// Gets the identifier of <see cref="User">user</see>.
     /// </summary>
     /// <value>User ID</value>
     public HashId Id { get; }
@@ -29,6 +30,11 @@ public class UserSummary : ClientObject
     /// </summary>
     /// <value>Name</value>
     public string Name { get; set; }
+    /// <summary>
+    /// Gets the global avatar of the user.
+    /// </summary>
+    /// <value>Media URL</value>
+    public Uri? Avatar { get; set; }
     #endregion
 
     #region Properties
@@ -47,6 +53,7 @@ public class UserSummary : ClientObject
     /// <param name="id">The identifier of <see cref="User">user</see></param>
     /// <param name="type">The type of the user they are</param>
     /// <param name="name">The global username of the user</param>
+    /// <param name="avatar">The global avatar of the user</param>
     [JsonConstructor]
     public UserSummary(
         [JsonProperty(Required = Required.Always)]
@@ -56,9 +63,12 @@ public class UserSummary : ClientObject
         string name,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? avatar = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         UserType type = UserType.User
     ) =>
-        (Id, Type, Name) = (id, type, name);
+        (Id, Type, Name, Avatar) = (id, type, name, avatar);
     #endregion
 
     #region Additional

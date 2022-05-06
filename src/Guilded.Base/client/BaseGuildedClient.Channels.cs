@@ -323,7 +323,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException"/>
     /// <permission cref="ListPermissions.ViewListItems">Required to get a set of list items</permission>
     /// <returns>List of list items</returns>
-    public abstract Task<IList<ListItem<ListItemNoteSummary>>> GetListItemsAsync(Guid channel);
+    public abstract Task<IList<ListItemSummary>> GetListItemsAsync(Guid channel);
     /// <summary>
     /// Gets a <paramref name="listItem">list item</paramref> from a <paramref name="channel">list channel</paramref>.
     /// </summary>
@@ -335,7 +335,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException"/>
     /// <permission cref="ListPermissions.ViewListItems">Required to get a list item in list channel you can view</permission>
     /// <returns>Specified list item</returns>
-    public abstract Task<ListItem<ListItemNote>> GetListItemAsync(Guid channel, Guid listItem);
+    public abstract Task<ListItem> GetListItemAsync(Guid channel, Guid listItem);
     /// <summary>
     /// Creates a new item in a <paramref name="channel">list</paramref>.
     /// </summary>
@@ -349,7 +349,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems">Required to create a list item in list channel you can view</permission>
     /// <permission cref="ListPermissions.CreateListItem">Required to create list items</permission>
     /// <returns>Created list item</returns>
-    public abstract Task<ListItem<ListItemNote>> CreateListItemAsync(Guid channel, string message, string? note = null);
+    public abstract Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null);
     /// <summary>
     /// Edits the <paramref name="message">text contents</paramref> of the <paramref name="listItem">list item</paramref> or the <paramref name="note">item's note</paramref> in a <paramref name="channel">list channel</paramref>.
     /// </summary>
@@ -364,7 +364,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems">Required to update a list item in list channel you can view</permission>
     /// <permission cref="ListPermissions.ManageListItems">Required to update list items you don't own</permission>
     /// <returns>Updated list item</returns>
-    public abstract Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null);
+    public abstract Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null);
     /// <summary>
     /// Deletes an <paramref name="listItem">item</paramref> from a <paramref name="channel">list channel</paramref>.
     /// </summary>
@@ -377,6 +377,30 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems">Required to delete a list item in list channel you can view</permission>
     /// <permission cref="ListPermissions.RemoveListItems">Required to delete list items</permission>
     public abstract Task DeleteListItemAsync(Guid channel, Guid listItem);
+    /// <summary>
+    /// Marks an <paramref name="listItem">item</paramref> from a <paramref name="channel">list channel</paramref> as completed.
+    /// </summary>
+    /// <param name="channel">The identifier of the channel where the list item is</param>
+    /// <param name="listItem">The identifier of the list item to complete</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="ListPermissions.ViewListItems">Required to delete a list item in list channel you can view</permission>
+    /// <permission cref="ListPermissions.CompleteListItems">Required to complete list items</permission>
+    public abstract Task CompleteListItemAsync(Guid channel, Guid listItem);
+    /// <summary>
+    /// Marks an <paramref name="listItem">item</paramref> from a <paramref name="channel">list channel</paramref> as completed.
+    /// </summary>
+    /// <param name="channel">The identifier of the channel where the list item is</param>
+    /// <param name="listItem">The identifier of the list item to complete</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="ListPermissions.ViewListItems">Required to delete a list item in list channel you can view</permission>
+    /// <permission cref="ListPermissions.CompleteListItems">Required to complete list items</permission>
+    public abstract Task UncompleteListItemAsync(Guid channel, Guid listItem);
     #endregion
 
     #region Docs channel

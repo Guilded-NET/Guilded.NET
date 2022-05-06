@@ -22,7 +22,7 @@ public class MemberBan : BaseObject, ICreatableContent
     /// <value>Text?</value>
     public string? Reason { get; set; }
     /// <summary>
-    /// Gets the date of when the <see cref="User">user</see> was banned
+    /// Gets the date when the <see cref="User">user</see> was banned
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
@@ -38,7 +38,7 @@ public class MemberBan : BaseObject, ICreatableContent
     /// </summary>
     /// <param name="user">The user who has been banned</param>
     /// <param name="createdBy">The author of the ban</param>
-    /// <param name="createdAt">The date of when the member was banned</param>
+    /// <param name="createdAt">the date when the member was banned</param>
     /// <param name="reason">The reason why the user has been banned</param>
     [JsonConstructor]
     public MemberBan(

@@ -9,15 +9,17 @@ namespace Guilded.Base.Content;
 /// Represents an item in a list channel.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached list item. It can only be found in list items and may sometimes be found in list threads (officially unsupported).</para>
+/// <para>Either an existing or a cached list item.</para>
 /// </remarks>
 /// <typeparam name="T">The type of the list item's note</typeparam>
+/// <seealso cref="ListItem"/>
+/// <seealso cref="ListItemSummary"/>
 /// <seealso cref="ListItemNote"/>
 /// <seealso cref="ListItemNoteSummary"/>
 /// <seealso cref="Content.Message"/>
 /// <seealso cref="ForumThread"/>
 /// <seealso cref="Doc"/>
-public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable where T : ListItemNoteSummary
+public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable where T : ListItemNoteSummary
 {
     #region JSON properties
     /// <summary>
@@ -43,7 +45,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <value>Webhook ID?</value>
     public Guid? CreatedByWebhook { get; }
     /// <summary>
-    /// Gets the date of when the list item was edited.
+    /// Gets the date when the list item was edited.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? UpdatedAt { get; }
@@ -53,7 +55,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <value>User ID?</value>
     public HashId? UpdatedBy { get; }
     /// <summary>
-    /// Gets the date of when the list item was completed.
+    /// Gets the date when the list item was completed.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? CompletedAt { get; }
@@ -66,7 +68,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// Gets the identifier of the parent list item of this list item.
     /// </summary>
     /// <value>User ID?</value>
-    public Guid? ParentListItemId { get; }
+    public Guid? ParentId { get; }
     #endregion
 
     #region Properties
@@ -79,7 +81,7 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItem{T}"/> with provided details.
+    /// Initializes a new instance of <see cref="ListItemBase{T}"/> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
@@ -88,14 +90,14 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
     /// <param name="note">The note of the list item</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
-    /// <param name="createdAt">The date of when the list item was created</param>
-    /// <param name="updatedAt">The date of when the list item was edited</param>
+    /// <param name="createdAt">the date when the list item was created</param>
+    /// <param name="updatedAt">the date when the list item was edited</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> updater of the list item</param>
-    /// <param name="completedAt">The date of when the list item was completed</param>
+    /// <param name="completedAt">the date when the list item was completed</param>
     /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
     /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
     [JsonConstructor]
-    public ListItem(
+    protected ListItemBase(
         [JsonProperty(Required = Required.Always)]
         Guid id,
 
@@ -135,26 +137,175 @@ public class ListItem<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWeb
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Message, Note, CreatedByWebhook, UpdatedAt, UpdatedBy, CompletedAt, CompletedBy, ParentListItemId) = (message, note, createdByWebhookId, updatedAt, updatedBy, completedAt, completedBy, parentListItemId);
+        (Message, Note, CreatedByWebhook, UpdatedAt, UpdatedBy, CompletedAt, CompletedBy, ParentId) = (message, note, createdByWebhookId, updatedAt, updatedBy, completedAt, completedBy, parentListItemId);
     #endregion
 
     #region Additional
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)"/>
     /// <param name="message">The new contents of the list item's message in Markdown plain text</param>
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
-    public async Task<ListItem<ListItemNote>> UpdateAsync(string message, string? note = null) =>
+    public async Task<ListItem> UpdateAsync(string message, string? note = null) =>
         await ParentClient.UpdateListItemAsync(ChannelId, Id, message, note).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.DeleteListItemAsync(Guid, Guid)"/>
     public async Task DeleteAsync() =>
         await ParentClient.DeleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.CompleteListItemAsync(Guid, Guid)"/>
+    public async Task CompleteAsync() =>
+        await ParentClient.CompleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.UncompleteListItemAsync(Guid, Guid)"/>
+    public async Task UncompleteAsync() =>
+        await ParentClient.UncompleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
     #endregion
 }
 /// <summary>
-/// The summary of the list item's note.
+/// Represents an item in a list channel.
 /// </summary>
 /// <remarks>
-/// <para>The minimal information about the list item's note.</para>
+/// <para>Either an existing or a cached list item.</para>
 /// </remarks>
+/// <seealso cref="ListItemSummary"/>
+/// <seealso cref="ListItemNote"/>
+/// <seealso cref="ListItemNoteSummary"/>
+/// <seealso cref="ListItemBase{T}"/>
+/// <seealso cref="Message"/>
+/// <seealso cref="ForumThread"/>
+/// <seealso cref="Doc"/>
+public class ListItem : ListItemBase<ListItemNote>
+{
+    /// <summary>
+    /// Initializes a new instance of <see cref="ListItem"/> from the specified JSON properties.
+    /// </summary>
+    /// <param name="id">The identifier of the list item</param>
+    /// <param name="channelId">The identifier of the channel where the list item is</param>
+    /// <param name="serverId">The identifier of the server where the list item is</param>
+    /// <param name="message">The text contents of the message in list item</param>
+    /// <param name="note">The note of the list item</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
+    /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
+    /// <param name="createdAt">the date when the list item was created</param>
+    /// <param name="updatedAt">the date when the list item was edited</param>
+    /// <param name="updatedBy">The identifier of <see cref="User">user</see> updater of the list item</param>
+    /// <param name="completedAt">the date when the list item was completed</param>
+    /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
+    /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
+    [JsonConstructor]
+    public ListItem(
+        [JsonProperty(Required = Required.Always)]
+        Guid id,
+
+        [JsonProperty(Required = Required.Always)]
+        Guid channelId,
+
+        [JsonProperty(Required = Required.Always)]
+        HashId serverId,
+
+        [JsonProperty(Required = Required.Always)]
+        string message,
+
+        [JsonProperty(Required = Required.Always)]
+        HashId createdBy,
+
+        [JsonProperty(Required = Required.Always)]
+        DateTime createdAt,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? createdByWebhookId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        ListItemNote? note = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? updatedBy = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? completedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? completedBy = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? parentListItemId = null
+    ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
+}
+/// <summary>
+/// Represents an item in a list channel.
+/// </summary>
+/// <remarks>
+/// <para>Either an existing or a cached list item.</para>
+/// </remarks>
+/// <seealso cref="ListItem"/>
+/// <seealso cref="ListItemNote"/>
+/// <seealso cref="ListItemNoteSummary"/>
+/// <seealso cref="ListItemBase{T}"/>
+/// <seealso cref="Message"/>
+/// <seealso cref="ForumThread"/>
+/// <seealso cref="Doc"/>
+public class ListItemSummary : ListItemBase<ListItemNote>
+{
+    /// <summary>
+    /// Initializes a new instance of <see cref="ListItemSummary"/> from the specified JSON properties.
+    /// </summary>
+    /// <param name="id">The identifier of the list item</param>
+    /// <param name="channelId">The identifier of the channel where the list item is</param>
+    /// <param name="serverId">The identifier of the server where the list item is</param>
+    /// <param name="message">The text contents of the message in list item</param>
+    /// <param name="note">The note of the list item</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
+    /// <param name="createdByWebhookId">The identifier of the webhook creator of the list item</param>
+    /// <param name="createdAt">the date when the list item was created</param>
+    /// <param name="updatedAt">the date when the list item was edited</param>
+    /// <param name="updatedBy">The identifier of <see cref="User">user</see> updater of the list item</param>
+    /// <param name="completedAt">the date when the list item was completed</param>
+    /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
+    /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
+    [JsonConstructor]
+    public ListItemSummary(
+        [JsonProperty(Required = Required.Always)]
+        Guid id,
+
+        [JsonProperty(Required = Required.Always)]
+        Guid channelId,
+
+        [JsonProperty(Required = Required.Always)]
+        HashId serverId,
+
+        [JsonProperty(Required = Required.Always)]
+        string message,
+
+        [JsonProperty(Required = Required.Always)]
+        HashId createdBy,
+
+        [JsonProperty(Required = Required.Always)]
+        DateTime createdAt,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? createdByWebhookId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        ListItemNote? note = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? updatedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? updatedBy = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? completedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? completedBy = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? parentListItemId = null
+    ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
+}
+/// <summary>
+/// Represents the summary of <see cref="ListItemSummary">the list item's</see> note.
+/// </summary>
 public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableContent
 {
     #region Who, when
@@ -164,7 +315,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// <value>User ID</value>
     public HashId CreatedBy { get; }
     /// <summary>
-    /// The date of when the note was created.
+    /// the date when the note was created.
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
@@ -177,10 +328,10 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// <value>User ID</value>
     public HashId? UpdatedBy { get; }
     /// <summary>
-    /// The date of when the note was edited.
+    /// the date when the note was edited.
     /// </summary>
     /// <remarks>
-    /// <para>The date of when the note was most recently updated.</para>
+    /// <para>the date when the note was most recently updated.</para>
     /// </remarks>
     /// <value>Date</value>
     public DateTime? UpdatedAt { get; }
@@ -191,9 +342,9 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// Initializes a new instance of <see cref="ListItemNoteSummary"/> with provided details.
     /// </summary>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the note</param>
-    /// <param name="createdAt">The date of when the note was created</param>
+    /// <param name="createdAt">the date when the note was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
-    /// <param name="updatedAt">The date of when the note was edited</param>
+    /// <param name="updatedAt">the date when the note was edited</param>
     [JsonConstructor]
     public ListItemNoteSummary(
         [JsonProperty(Required = Required.Always)]
@@ -212,11 +363,8 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     #endregion
 }
 /// <summary>
-/// The information about the list item's note.
+/// Represents the full information about <see cref="ListItem">the list item's</see> note.
 /// </summary>
-/// <remarks>
-/// <para>The full information about the list item's note.</para>
-/// </remarks>
 public class ListItemNote : ListItemNoteSummary
 {
     #region JSON properties
@@ -236,9 +384,9 @@ public class ListItemNote : ListItemNoteSummary
     /// </summary>
     /// <param name="content">The contents of the note</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item's note</param>
-    /// <param name="createdAt">The date of when the list item's note was created</param>
+    /// <param name="createdAt">the date when the list item's note was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
-    /// <param name="updatedAt">The date of when the note was edited</param>
+    /// <param name="updatedAt">the date when the note was edited</param>
     [JsonConstructor]
     public ListItemNote(
         [JsonProperty(Required = Required.Always)]

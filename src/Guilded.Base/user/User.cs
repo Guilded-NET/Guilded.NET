@@ -15,7 +15,12 @@ public class User : UserSummary
     /// Gets the date when the user has registered their account.
     /// </summary>
     /// <value>Date</value>
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; }
+    /// <summary>
+    /// Gets the global banner of the user.
+    /// </summary>
+    /// <value>Media URL?</value>
+    public Uri? Banner { get; }
     #endregion
 
     #region Constructors
@@ -25,7 +30,9 @@ public class User : UserSummary
     /// <param name="id">The identifier of <see cref="User">user</see></param>
     /// <param name="type">The type of the user they are</param>
     /// <param name="name">The global username of the user</param>
-    /// <param name="createdAt">The date of when the user was created</param>
+    /// <param name="createdAt">the date when the user was created</param>
+    /// <param name="avatar">The global avatar of the user</param>
+    /// <param name="banner">The global banner of the user</param>
     [JsonConstructor]
     public User(
         [JsonProperty(Required = Required.Always)]
@@ -38,8 +45,14 @@ public class User : UserSummary
         DateTime createdAt,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? avatar = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? banner = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         UserType type = UserType.User
-    ) : base(id, name, type) =>
-        CreatedAt = createdAt;
+    ) : base(id, name, avatar, type) =>
+        (Banner, CreatedAt) = (banner, createdAt);
     #endregion
 }

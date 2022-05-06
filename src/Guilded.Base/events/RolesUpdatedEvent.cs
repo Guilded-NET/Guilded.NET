@@ -80,7 +80,7 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     {
         #region JSON properties
         /// <summary>
-        /// Gets The identifier of <see cref="User">user</see> that lost or received <see cref="RoleIds">roles</see>.
+        /// Gets the identifier of <see cref="User">user</see> that lost or received <see cref="RoleIds">roles</see>.
         /// </summary>
         /// <value>User ID</value>
         public HashId UserId { get; }

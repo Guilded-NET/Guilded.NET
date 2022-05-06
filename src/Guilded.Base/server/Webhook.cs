@@ -49,7 +49,7 @@ public class Webhook : ClientObject, ICreatableContent
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// Gets The identifier of <see cref="User">user</see> that created the webhook.
+    /// Gets the identifier of <see cref="User">user</see> that created the webhook.
     /// </summary>
     /// <value>User ID</value>
     public HashId CreatedBy { get; set; }
@@ -72,9 +72,9 @@ public class Webhook : ClientObject, ICreatableContent
     /// <param name="token">The token of the webhook</param>
     /// <param name="channelId">The identifier of the channel where webhook is</param>
     /// <param name="serverId">The identifier of the server where webhook is</param>
-    /// <param name="createdAt">The date of when the webhook was created</param>
+    /// <param name="createdAt">the date when the webhook was created</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the webhook</param>
-    /// <param name="deletedAt">The date of when the webhook was deleted</param>
+    /// <param name="deletedAt">the date when the webhook was deleted</param>
     [JsonConstructor]
     public Webhook(
         [JsonProperty(Required = Required.Always)]

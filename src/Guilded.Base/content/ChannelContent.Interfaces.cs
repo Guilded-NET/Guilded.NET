@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
-using Guilded.Base.Users;
 using Guilded.Base.Servers;
+using Guilded.Base.Users;
 
 namespace Guilded.Base.Content;
 
@@ -11,7 +11,7 @@ namespace Guilded.Base.Content;
 public interface ICreatableContent
 {
     /// <summary>
-    /// Gets The identifier of <see cref="User">user</see> creator of the content.
+    /// Gets the identifier of <see cref="User">user</see> creator of the content.
     /// </summary>
     /// <remarks>
     /// <para>If <see cref="Webhook">a webhook</see> created the content, the value of this property will be <c>Ann6LewA</c>.</para>
@@ -19,7 +19,7 @@ public interface ICreatableContent
     /// <value>User ID</value>
     HashId CreatedBy { get; }
     /// <summary>
-    /// Gets the date of when the content was created.
+    /// Gets the date when the content was created.
     /// </summary>
     /// <value>Date</value>
     DateTime CreatedAt { get; }
@@ -30,7 +30,7 @@ public interface ICreatableContent
 public interface IUpdatableContent
 {
     /// <summary>
-    /// Gets the date of when the content was edited.
+    /// Gets the date when the content was edited.
     /// </summary>
     /// <remarks>
     /// <para>Only returns the most recent update.</para>

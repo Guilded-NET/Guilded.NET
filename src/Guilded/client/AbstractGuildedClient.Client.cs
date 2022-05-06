@@ -62,12 +62,25 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { "TeamMemberRemoved",      new EventInfo<MemberRemovedEvent>() },
             { "TeamMemberBanned",       new EventInfo<MemberBanEvent>() },
             { "TeamMemberUnbanned",     new EventInfo<MemberBanEvent>() },
+            { "TeamChannelCreated",     new EventInfo<ChannelEvent>() },
+            { "TeamChannelUpdated",     new EventInfo<ChannelEvent>() },
+            { "TeamChannelDeleted",     new EventInfo<ChannelEvent>() },
             { "TeamWebhookCreated",     new EventInfo<WebhookEvent>() },
             { "TeamWebhookUpdated",     new EventInfo<WebhookEvent>() },
             // Chat messages
             { "ChatMessageCreated",     new EventInfo<MessageEvent>() },
             { "ChatMessageUpdated",     new EventInfo<MessageEvent>() },
-            { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>() }
+            { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>() },
+            // List items
+            { "ListItemCreated",     new EventInfo<ListItemEvent>() },
+            { "ListItemUpdated",     new EventInfo<ListItemEvent>() },
+            { "ListItemDeleted",     new EventInfo<ListItemEvent>() },
+            { "ListItemCompleted",     new EventInfo<ListItemEvent>() },
+            { "ListItemUncompleted",     new EventInfo<ListItemEvent>() },
+            // Docs
+            { "DocCreated",     new EventInfo<DocEvent>() },
+            { "DocUpdated",     new EventInfo<DocEvent>() },
+            { "DocDeleted",     new EventInfo<DocEvent>() },
         };
         #endregion
 

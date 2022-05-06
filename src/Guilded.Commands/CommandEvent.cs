@@ -60,7 +60,7 @@ public class CommandEvent
     /// <inheritdoc cref="ChannelContent{TId, TServer}.ChannelId" />
     public Guid ChannelId => Message.ChannelId;
     /// <inheritdoc cref="Message.Content" />
-    public string Content => Message.Content;
+    public string? Content => Message.Content;
     /// <inheritdoc cref="ChannelContent{TId, TServer}.CreatedBy" />
     public HashId CreatedBy => Message.CreatedBy;
     /// <inheritdoc cref="Message.CreatedByWebhook" />

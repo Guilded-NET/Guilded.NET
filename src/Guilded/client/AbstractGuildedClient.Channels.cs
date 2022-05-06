@@ -20,21 +20,15 @@ public abstract partial class AbstractGuildedClient
 
     #region Chat channel
     /// <inheritdoc/>
-    public override async Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null)
-    {
-        var req =
+    public override async Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null) =>
+        await GetResponseProperty<IList<Message>>(
             new RestRequest($"channels/{channel}/messages", Method.Get)
                 // Because it gets uppercased
                 .AddQueryParameter("includePrivate", includePrivate ? "true" : "false", encode: false)
                 .AddOptionalQuery("limit", limit, encode: false)
                 .AddOptionalQuery("before", before)
-                .AddOptionalQuery("after", after);
-
-        Console.WriteLine("Request resource: {0}", req.Resource);
-        Console.WriteLine("Parameters: [ {0} ]", string.Join(", ", req.Parameters.Select(x => $"{x.Name} ({x.Type}) = \"{x.Value}\"")));
-
-        return await GetResponseProperty<IList<Message>>(req, "messages").ConfigureAwait(false);
-    }
+                .AddOptionalQuery("after", after)
+        , "messages").ConfigureAwait(false);
     /// <inheritdoc/>
     public override async Task<Message> GetMessageAsync(Guid channel, Guid messageId) =>
         await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{messageId}", Method.Get), "message").ConfigureAwait(false);
@@ -104,18 +98,18 @@ public abstract partial class AbstractGuildedClient
 
     #region List channels
     /// <inheritdoc/>
-    public override async Task<IList<ListItem<ListItemNoteSummary>>> GetListItemsAsync(Guid channel) =>
-        await GetResponseProperty<IList<ListItem<ListItemNoteSummary>>>(new RestRequest($"channels/{channel}/items", Method.Get), "listItems").ConfigureAwait(false);
+    public override async Task<IList<ListItemSummary>> GetListItemsAsync(Guid channel) =>
+        await GetResponseProperty<IList<ListItemSummary>>(new RestRequest($"channels/{channel}/items", Method.Get), "listItems").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<ListItem<ListItemNote>> GetListItemAsync(Guid channel, Guid listItem) =>
-        await GetResponseProperty<ListItem<ListItemNote>>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem").ConfigureAwait(false);
+    public override async Task<ListItem> GetListItemAsync(Guid channel, Guid listItem) =>
+        await GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem").ConfigureAwait(false);
     /// <inheritdoc/>
-    public override async Task<ListItem<ListItemNote>> CreateListItemAsync(Guid channel, string message, string? note = null)
+    public override async Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null)
     {
         if (string.IsNullOrWhiteSpace(message))
             throw new ArgumentNullException(nameof(message));
 
-        return await GetResponseProperty<ListItem<ListItemNote>>(new RestRequest($"channels/{channel}/items", Method.Post)
+        return await GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items", Method.Post)
             .AddJsonBody(new
             {
                 message,
@@ -127,12 +121,12 @@ public abstract partial class AbstractGuildedClient
         , "listItem").ConfigureAwait(false);
     }
     /// <inheritdoc/>
-    public override async Task<ListItem<ListItemNote>> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null)
+    public override async Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null)
     {
         if (string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note))
             throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified");
 
-        return await GetResponseProperty<ListItem<ListItemNote>>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
+        return await GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
             .AddJsonBody(new
             {
                 message,
@@ -146,6 +140,12 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc/>
     public override async Task DeleteListItemAsync(Guid channel, Guid listItem) =>
         await ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}", Method.Delete)).ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task CompleteListItemAsync(Guid channel, Guid listItem) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Post)).ConfigureAwait(false);
+    /// <inheritdoc/>
+    public override async Task UncompleteListItemAsync(Guid channel, Guid listItem) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Delete)).ConfigureAwait(false);
     #endregion
 
     #region Document channels

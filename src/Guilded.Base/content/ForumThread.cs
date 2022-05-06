@@ -12,7 +12,7 @@ namespace Guilded.Base.Content;
 /// </remarks>
 /// <seealso cref="Message"/>
 /// <seealso cref="Doc"/>
-/// <seealso cref="ListItem{T}"/>
+/// <seealso cref="ListItemBase{T}"/>
 public class ForumThread : TitledContent
 {
     #region JSON properties
@@ -37,8 +37,8 @@ public class ForumThread : TitledContent
     /// <param name="content">The text contents of the forum thread</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
-    /// <param name="createdAt">The date of when the forum thread was created</param>
-    /// <param name="updatedAt">The date of when the forum thread was edited</param>
+    /// <param name="createdAt">the date when the forum thread was created</param>
+    /// <param name="updatedAt">the date when the forum thread was edited</param>
     [JsonConstructor]
     public ForumThread(
         [JsonProperty(Required = Required.Always)]

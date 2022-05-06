@@ -241,17 +241,17 @@ public abstract partial class BaseGuildedClient
     /// Gets a list of webhooks.
     /// </summary>
     /// <remarks>
-    /// <para>Gets a list of all webhooks in the specified server. If <paramref name="channelId"/> parameter is given, it gets all of the channel webhooks instead.</para>
+    /// <para>If <paramref name="channel"/> parameter is given, it gets all of the channel webhooks instead.</para>
     /// </remarks>
-    /// <param name="serverId">The identifier of the server to get webhooks from</param>
-    /// <param name="channelId">The identifier of the channel to get webhooks from</param>
+    /// <param name="server">The identifier of the server to get webhooks from</param>
+    /// <param name="channel">The identifier of the channel to get webhooks from</param>
     /// <exception cref="GuildedException"/>
     /// <exception cref="GuildedPermissionException"/>
     /// <exception cref="GuildedResourceException"/>
     /// <exception cref="GuildedRequestException"/>
     /// <exception cref="GuildedAuthorizationException"/>
     /// <returns>List of webhooks</returns>
-    public abstract Task<IList<Webhook>> GetWebhooksAsync(HashId serverId, Guid? channelId = null);
+    public abstract Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid? channel = null);
     /// <summary>
     /// Gets the specified <paramref name="webhook" />.
     /// </summary>
@@ -310,5 +310,49 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException"/>
     /// <permission cref="GeneralPermissions.ManageWebhooks">Required for deleting webhooks</permission>
     public abstract Task DeleteWebhookAsync(HashId server, Guid webhook);
+    #endregion
+
+    #region Channels
+    /// <summary>
+    /// Gets the specified <paramref name="channel" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the channel to get</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <returns>Specified channel</returns>
+    public abstract Task<ServerChannel> GetChannelAsync(Guid channel);
+    /// <summary>
+    /// Creates a new channel in the specified <paramref name="server" />.
+    /// </summary>
+    /// <param name="server">The identifier of the server where the channel will be created</param>
+    /// <param name="name">The name of the channel</param>
+    /// <param name="type">The type of the content that the channel will hold</param>
+    /// <param name="topic">The topic describing what the channel is about</param>
+    /// <param name="group">The identifier of the group where the channel will be created</param>
+    /// <param name="category">The identifier of the category where the channel will be created</param>
+    /// <param name="isPublic">The topic describing what the channel is about</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
+    /// <permission cref="GeneralPermissions.ManageChannels">Required for creating channels</permission>
+    /// <returns>Created channel</returns>
+    public abstract Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null);
+    /// <summary>
+    /// Deletes the specified <paramref name="channel" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the channel to delete</param>
+    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedPermissionException"/>
+    /// <exception cref="GuildedResourceException"/>
+    /// <exception cref="GuildedRequestException"/>
+    /// <exception cref="GuildedAuthorizationException"/>
+    /// <permission cref="GeneralPermissions.ManageWebhooks">Required for deleting webhooks</permission>
+    public abstract Task DeleteChannelAsync(Guid channel);
     #endregion
 }

@@ -17,7 +17,7 @@ namespace Guilded.Base.Content;
 /// <para>This currently includes both messages of types <see cref="MessageType.Default"/> and <see cref="MessageType.System"/>, but it could be changed in the future.</para>
 /// </remarks>
 /// <seealso cref="Doc"/>
-/// <seealso cref="ListItem{T}"/>
+/// <seealso cref="ListItemBase{T}"/>
 /// <seealso cref="ForumThread"/>
 public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent
 {
@@ -87,7 +87,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <value>Webhook ID?</value>
     public Guid? CreatedByWebhook { get; }
     /// <summary>
-    /// Gets the date of when the message was edited.
+    /// Gets the date when the message was edited.
     /// </summary>
     /// <remarks>
     /// <para>Only returns the most recent update.</para>
@@ -125,8 +125,8 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <param name="isPrivate">Whether the reply is private</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the message</param>
-    /// <param name="createdAt">The date of when the message was created</param>
-    /// <param name="updatedAt">The date of when the message was edited</param>
+    /// <param name="createdAt">the date when the message was created</param>
+    /// <param name="updatedAt">the date when the message was edited</param>
     /// <param name="type">The type of the message</param>
     [JsonConstructor]
     public Message(
@@ -135,7 +135,6 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
 
         [JsonProperty(Required = Required.Always)]
         Guid channelId,
-
 
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,

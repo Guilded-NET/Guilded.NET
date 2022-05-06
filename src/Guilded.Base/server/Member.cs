@@ -23,7 +23,7 @@ public class Member : MemberSummary<User>
     /// <value>Name?</value>
     public string? Nickname { get; set; }
     /// <summary>
-    /// Gets the date of when the member joined.
+    /// Gets the date when the member joined.
     /// </summary>
     /// <value>Date</value>
     public DateTime JoinedAt { get; set; }
@@ -36,7 +36,7 @@ public class Member : MemberSummary<User>
     /// <param name="user">The user who is a member of the server</param>
     /// <param name="roleIds">The list of roles that member holds</param>
     /// <param name="nickname">The nickname that member has</param>
-    /// <param name="joinedAt">The date of when the member joined</param>
+    /// <param name="joinedAt">the date when the member joined</param>
     [JsonConstructor]
     public Member(
         [JsonProperty(Required = Required.Always)]

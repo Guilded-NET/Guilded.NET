@@ -119,7 +119,7 @@ public class CommandModule : CommandBase
                 {
                     string prefix = GetPrefix(msgCreated);
 
-                    if (!msgCreated.Content.StartsWith(prefix)) return;
+                    if (msgCreated.Content is null || !msgCreated.Content.StartsWith(prefix)) return;
 
                     string[] splitContent = msgCreated
                         .Content[prefix.Length..]

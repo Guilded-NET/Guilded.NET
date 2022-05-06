@@ -9,7 +9,7 @@ namespace Guilded.Base.Users;
 public class Me : BaseObject
 {
     /// <summary>
-    /// Gets The identifier of <see cref="User">user</see> <see cref="BaseGuildedClient">this client</see> is logged into.
+    /// Gets the identifier of <see cref="User">user</see> <see cref="BaseGuildedClient">this client</see> is logged into.
     /// </summary>
     /// <value>User ID</value>
     public HashId Id { get; set; }
@@ -29,7 +29,7 @@ public class Me : BaseObject
     /// <value>Date</value>
     public DateTime CreatedAt { get; set; }
     /// <summary>
-    /// Gets The identifier of <see cref="User">user</see> that has created <see cref="BaseGuildedClient">this client</see>.
+    /// Gets the identifier of <see cref="User">user</see> that has created <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
     /// <remarks>
     /// <para>This should usually be the identifier of your account or the user who owns the bot.</para>

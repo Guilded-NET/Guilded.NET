@@ -28,12 +28,12 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <value>Server ID?</value>
     public HashId? ServerId { get; }
     /// <summary>
-    /// Gets the date of when the reaction was created.
+    /// Gets the date when the reaction was created.
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
     /// <summary>
-    /// Gets The identifier of <see cref="User">user</see> that created the reaction.
+    /// Gets the identifier of <see cref="User">user</see> that created the reaction.
     /// </summary>
     /// <remarks>
     /// <para>If <see cref="Webhook">a webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
@@ -58,7 +58,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <param name="serverId">The identifier of the server where the reaction is</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the reaction</param>
     /// <param name="createdByWebhookId">The identifier of the webhook creator of the reaction</param>
-    /// <param name="createdAt">The date of when the reaction was created</param>
+    /// <param name="createdAt">the date when the reaction was created</param>
     [JsonConstructor]
     public Reaction(
         [JsonProperty(Required = Required.Always)]

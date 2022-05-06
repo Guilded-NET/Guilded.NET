@@ -136,4 +136,32 @@ public abstract partial class AbstractGuildedClient
     public override async Task DeleteWebhookAsync(HashId server, Guid webhook) =>
         await ExecuteRequestAsync(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Delete)).ConfigureAwait(false);
     #endregion
+
+    #region Channels
+    /// <inheritdoc />
+    public override async Task<ServerChannel> GetChannelAsync(Guid channel) =>
+        await GetResponseProperty<ServerChannel>(new RestRequest($"channels/{channel}", Method.Get), "channel").ConfigureAwait(false);
+    /// <inheritdoc />
+    public override async Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        return await GetResponseProperty<ServerChannel>(new RestRequest($"channel", Method.Post)
+            .AddJsonBody(new
+            {
+                serverId = server,
+                groupId = group,
+                categoryId = category,
+                name,
+                type,
+                topic,
+                isPublic
+            })
+        , "channel").ConfigureAwait(false);
+    }
+    /// <inheritdoc />
+    public override async Task DeleteChannelAsync(Guid channel) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}", Method.Delete)).ConfigureAwait(false);
+    #endregion
 }
