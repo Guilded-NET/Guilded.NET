@@ -39,7 +39,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <para>The REST client that is used to send requests to Guilded API.</para>
     /// </remarks>
     /// <value>Rest client</value>
-    /// <seealso cref="Websocket"/>
+    /// <seealso cref="Websocket" />
     protected internal RestClient Rest { get; set; }
     #endregion
 
@@ -48,11 +48,11 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// Serializes object with client's Guilded serializer.
     /// </summary>
     /// <remarks>
-    /// <para>Serializes given object to JSON using <see cref="GuildedSerializer"/>. Use this if you want to send REST request or WebSocket message.</para>
+    /// <para>Serializes given object to JSON using <see cref="GuildedSerializer" />. Use this if you want to send REST request or WebSocket message.</para>
     /// </remarks>
     /// <param name="obj">The parameter to serialize</param>
     /// <returns>Serialized object</returns>
-    /// <seealso cref="Deserialize"/>
+    /// <seealso cref="Deserialize" />
     public string Serialize(object obj)
     {
         using StringWriter strWriter = new();
@@ -65,12 +65,12 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// Deserializes JSON with client's Guilded serializer.
     /// </summary>
     /// <remarks>
-    /// <para>Deserializes given JSON file/text using <see cref="GuildedSerializer"/>. Use this if you want to deserialize Guilded response or WebSocket message.</para>
+    /// <para>Deserializes given JSON file/text using <see cref="GuildedSerializer" />. Use this if you want to deserialize Guilded response or WebSocket message.</para>
     /// </remarks>
     /// <param name="json">Raw JSON to deserialize</param>
     /// <typeparam name="T">The type of deserialized instance</typeparam>
     /// <returns>Deserialized object</returns>
-    /// <seealso cref="Serialize"/>
+    /// <seealso cref="Serialize" />
     public T? Deserialize<T>(string json)
     {
         using StringReader strReader = new(json);
@@ -85,14 +85,14 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// Uploads a file to Guilded.
     /// </summary>
     /// <remarks>
-    /// <para>Uploads any image, text or document file to Guilded with content type as <paramref name="contentType"/>.</para>
-    /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
+    /// <para>Uploads any image, text or document file to Guilded with content type as <paramref name="contentType" />.</para>
+    /// <para>The new image uploaded to Guilded will be received as <see cref="Uri" /> return value.</para>
     /// </remarks>
     /// <param name="filename">The name of the file being uploaded</param>
     /// <param name="filedata">The contents of the file being uploaded</param>
     /// <param name="contentType">Content type for multipart form data</param>
-    /// <exception cref="ArgumentException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
-    /// <exception cref="GuildedException"/>
+    /// <exception cref="ArgumentException">When <paramref name="filename" /> is empty or <see langword="null" /></exception>
+    /// <exception cref="GuildedException" />
     /// <returns>File URL</returns>
     public async Task<Uri?> UploadFileAsync(string filename, byte[] filedata, string contentType)
     {
@@ -114,12 +114,12 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// </summary>
     /// <remarks>
     /// <para>Uploads any image, text or document file to Guilded with content type automatically assigned.</para>
-    /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
+    /// <para>The new image uploaded to Guilded will be received as <see cref="Uri" /> return value.</para>
     /// </remarks>
     /// <param name="filename">The name of the file being uploaded</param>
     /// <param name="filedata">The contents of the file being uploaded</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="filename"/> is empty or <see langword="null"/></exception>
-    /// <exception cref="GuildedException"/>
+    /// <exception cref="ArgumentNullException">When <paramref name="filename" /> is empty or <see langword="null" /></exception>
+    /// <exception cref="GuildedException" />
     /// <returns>File URL</returns>
     public async Task<Uri?> UploadFileAsync(string filename, byte[] filedata)
     {
@@ -136,11 +136,11 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// Uploads a file to Guilded.
     /// </summary>
     /// <remarks>
-    /// <para>Uploads an image from link <paramref name="url"/> to Guilded.</para>
-    /// <para>The new image uploaded to Guilded will be received as <see cref="Uri"/> return value.</para>
+    /// <para>Uploads an image from link <paramref name="url" /> to Guilded.</para>
+    /// <para>The new image uploaded to Guilded will be received as <see cref="Uri" /> return value.</para>
     /// </remarks>
     /// <param name="url">URL link to an image to upload</param>
-    /// <exception cref="GuildedException"/>
+    /// <exception cref="GuildedException" />
     /// <returns>File URL</returns>
     public async Task<Uri?> UploadFileAsync(Uri url)
     {
@@ -164,20 +164,20 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// Executes a request and receives a response or an error.
     /// </summary>
     /// <param name="request">The request to send to execute</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException">When <paramref name="request" />'s URL refers to an invalid endpoint</exception>
     /// <returns>Guilded request response</returns>
     protected async Task<RestResponse<object>> ExecuteRequestAsync(RestRequest request) =>
         await ExecuteRequestAsync<object>(request).ConfigureAwait(false);
     /// <summary>
-    /// Executes a request and receives ra esponse or an error.
+    /// Executes a request and receives response or an error.
     /// </summary>
     /// <param name="request">The request to send to execute</param>
     /// <typeparam name="T">Type of the response to get</typeparam>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException">When <paramref name="request"/>'s URL refers to an invalid endpoint</exception>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException">When <paramref name="request" />'s URL refers to an invalid endpoint</exception>
     /// <returns>Guilded request response</returns>
     protected async Task<RestResponse<T>> ExecuteRequestAsync<T>(RestRequest request)
     {

@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to customization.
+/// Represents team permissions related to nickname and emoji customizations.
 /// </summary>
-/// <remarks>
-/// <para>Defines team permissions related to nickname and emoji customizations.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum CustomPermissions
 {

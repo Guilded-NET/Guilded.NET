@@ -6,9 +6,10 @@ namespace Guilded.Base.Embeds;
 /// <summary>
 /// Represents a field with its own <see cref="Name">title</see> in an <see cref="Embed">embed</see>.
 /// </summary>
-/// <seealso cref="EmbedFooter"/>
-/// <seealso cref="EmbedAuthor"/>
-/// <seealso cref="EmbedMedia"/>
+/// <seealso cref="Embed" />
+/// <seealso cref="EmbedFooter" />
+/// <seealso cref="EmbedAuthor" />
+/// <seealso cref="EmbedMedia" />
 public class EmbedField : BaseObject
 {
     #region JSON properties
@@ -32,7 +33,7 @@ public class EmbedField : BaseObject
     /// Gets whether the field should be inline with other fields.
     /// </summary>
     /// <remarks>
-    /// <para>If the value is <see langword="true"/>, the field will be displayed next to other fields</para>
+    /// <para>If the value is <see langword="true" />, the field will be displayed next to other fields</para>
     /// </remarks>
     /// <value>Field is inline</value>
     public bool Inline { get; set; }
@@ -40,12 +41,14 @@ public class EmbedField : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="EmbedField"/>, which is optionally inline.
+    /// Initializes a new instance of <see cref="EmbedField" />, which is optionally inline.
     /// </summary>
     /// <param name="name">The title of an <see cref="Embed">embed's</see> field</param>
     /// <param name="value">The text contents of an <see cref="Embed">embed's</see> field</param>
     /// <param name="inline">Whether the field should be inline with other fields</param>
-    /// <exception cref="ArgumentNullException">Either <paramref name="name"/> or <paramref name="value"/> are <see langword="null"/></exception>
+    /// <exception cref="ArgumentNullException">Either <paramref name="name" /> or <paramref name="value" /> are <see langword="null" /></exception>
+    /// <returns>New <see cref="EmbedField" /> instance</returns>
+    /// <seealso cref="EmbedField" />
     [JsonConstructor]
     public EmbedField(
         [JsonProperty(Required = Required.Always)]

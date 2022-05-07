@@ -22,7 +22,7 @@ public abstract partial class BaseGuildedClient
     /// <remarks>
     /// <para>The WebSocket that will be used by the client to receive all Guilded events and event messages.</para>
     /// </remarks>
-    /// <seealso cref="Rest"/>
+    /// <seealso cref="Rest" />
     /// <value>Main WebSocket</value>
     public WebsocketClient Websocket { get; set; }
     /// <summary>
@@ -42,7 +42,7 @@ public abstract partial class BaseGuildedClient
     /// <para>An event when WebSocket receives any kind of message from Guilded.</para>
     /// <para>If event with opcode <c>8</c> is received, it is given as an exception instead.</para>
     /// </remarks>
-    /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{T}.OnError(Exception)"/>.</exception>
+    /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{T}.OnError(Exception)" />.</exception>
     protected IObservable<GuildedSocketMessage> WebsocketMessage => OnWebsocketMessage.AsObservable();
     /// <summary>
     /// Used for when any WebSocket receives a message.

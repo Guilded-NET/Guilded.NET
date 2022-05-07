@@ -21,8 +21,8 @@ namespace Guilded.Base;
 /// r-4598392-4859302
 /// </code>
 /// </example>
-/// <seealso cref="Guid"/>
-/// <seealso cref="HashId"/>
+/// <seealso cref="Guid" />
+/// <seealso cref="HashId" />
 [TypeConverter(typeof(FormIdConverter))]
 [JsonConverter(typeof(IdConverter))]
 public readonly struct FormId : IEquatable<FormId>
@@ -32,7 +32,7 @@ public readonly struct FormId : IEquatable<FormId>
     private const string partChars = "0123456789";
     private static readonly Random random = new();
     /// <summary>
-    /// Creates a random value of <see cref="FormId"/>.
+    /// Creates a random value of <see cref="FormId" />.
     /// </summary>
     /// <value>New form ID</value>
     public static FormId Random => new($"r-{random.Next(1000000, 9999999)}-{random.Next(1000000, 9999999)}");
@@ -52,9 +52,9 @@ public readonly struct FormId : IEquatable<FormId>
 
     #region Overrides
     /// <summary>
-    /// Returns the string representation of this <see cref="FormId"/> instance.
+    /// Returns the string representation of this <see cref="FormId" /> instance.
     /// </summary>
-    /// <returns><see cref="FormId"/> as string</returns>
+    /// <returns><see cref="FormId" /> as string</returns>
     public override string ToString() =>
         _;
     /// <summary>
@@ -64,14 +64,14 @@ public readonly struct FormId : IEquatable<FormId>
     public override int GetHashCode() =>
         HashCode.Combine(_, 1);
     /// <summary>
-    /// Returns whether this <see cref="FormId"/> instance and <paramref name="other"/> are equal.
+    /// Returns whether this <see cref="FormId" /> instance and <paramref name="other" /> are equal.
     /// </summary>
     /// <param name="other">Another identifier to compare</param>
     /// <returns>Both are equal</returns>
     public bool Equals(FormId other) =>
         other == this;
     /// <summary>
-    /// Returns whether this <see cref="FormId"/> instance and <paramref name="obj"/> are equal.
+    /// Returns whether this <see cref="FormId" /> instance and <paramref name="obj" /> are equal.
     /// </summary>
     /// <param name="obj">Another object to compare</param>
     /// <returns>Both are equal</returns>
@@ -81,7 +81,7 @@ public readonly struct FormId : IEquatable<FormId>
 
     #region Operators
     /// <summary>
-    /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are equal.
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are equal.
     /// </summary>
     /// <param name="id0">First ID to be compared</param>
     /// <param name="id1">Second ID to be compared</param>
@@ -89,7 +89,7 @@ public readonly struct FormId : IEquatable<FormId>
     public static bool operator ==(FormId id0, FormId id1) =>
         id0._ == id1._;
     /// <summary>
-    /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are not equal.
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
     /// </summary>
     /// <param name="id0">First ID to be compared</param>
     /// <param name="id1">Second ID to be compared</param>
@@ -100,7 +100,7 @@ public readonly struct FormId : IEquatable<FormId>
 
     #region Static methods
     /// <summary>
-    /// Returns whether <paramref name="str"/> is in the correct <see cref="FormId"/> format.
+    /// Returns whether <paramref name="str" /> is in the correct <see cref="FormId" /> format.
     /// </summary>
     /// <param name="str">A raw string to check</param>
     /// <returns>Correct formatting</returns>
@@ -118,10 +118,10 @@ public readonly struct FormId : IEquatable<FormId>
         return split.Count == 2 && !split.Any(IsFormIdPart);
     }
     /// <summary>
-    /// Returns whether <paramref name="part"/> is in 7 digits.
+    /// Returns whether <paramref name="part" /> is in 7 digits.
     /// </summary>
-    /// <param name="part">The part of the <see cref="FormId"/> to check</param>
-    /// <returns><paramref name="part"/> is in correct format</returns>
+    /// <param name="part">The part of the <see cref="FormId" /> to check</param>
+    /// <returns><paramref name="part" /> is in correct format</returns>
     private static bool IsFormIdPart(string part) =>
         part.Length == partLength && part.All(ch => partChars.Contains(ch));
     #endregion

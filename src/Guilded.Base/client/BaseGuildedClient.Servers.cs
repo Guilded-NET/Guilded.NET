@@ -12,346 +12,345 @@ public abstract partial class BaseGuildedClient
 {
     #region Groups
     /// <summary>
-    /// Adds the <paramref name="user" /> to the <paramref name="group" />.
+    /// Adds <paramref name="user">the member</paramref> to <paramref name="group">the group</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>This allows the member to interact or see the specified group.</para>
+    /// <para>This allows <paramref name="user">the member</paramref> to interact or see the specified group.</para>
     /// </remarks>
     /// <param name="group">The identifier of the parent group</param>
-    /// <param name="user">The identifier of the member to add</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="user">The identifier of <see cref="Member">the member</see> to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
     public abstract Task AddMembershipAsync(HashId group, HashId user);
     /// <summary>
-    /// Removes the <paramref name="user" /> from the <paramref name="group" />.
+    /// Removes <paramref name="user">the member</paramref> from <paramref name="group">the group</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>This disallows the member to interact or see the specified group.</para>
+    /// <para>This disallows <paramref name="user">the member</paramref> to interact or see the specified group.</para>
     /// </remarks>
     /// <param name="group">The identifier of the parent group</param>
-    /// <param name="user">The identifier of the member to remove</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="user">The identifier of <see cref="Member">the member</see> to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageGroups">Required for managing group's memberships</permission>
     public abstract Task RemoveMembershipAsync(HashId group, HashId user);
     #endregion
 
     #region Members
     /// <summary>
-    /// Gets the list of all <paramref name="server" /> members.
+    /// Gets the list of all <paramref name="server" /> <see cref="Member">members</see>.
     /// </summary>
-    /// <param name="server">The server to get member list of</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <returns>List of members</returns>
+    /// <param name="server">The server to get <see cref="Member">member</see> list of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>List of <see cref="Member">members</see></returns>
     public abstract Task<IList<MemberSummary<UserSummary>>> GetMembersAsync(HashId server);
     /// <summary>
-    /// Gets full information about the specified <paramref name="member" /> in the <paramref name="server" />.
+    /// Gets full information about the <paramref name="member">specified member</paramref>.
     /// </summary>
-    /// <param name="server">The server where the member is</param>
-    /// <param name="member">The identifier of the member to get</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <returns>Member</returns>
+    /// <param name="server">The server where <see cref="Member">the member</see> is</param>
+    /// <param name="member">The identifier of <see cref="Member">the member</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns><paramref name="member">Specified member</paramref></returns>
     public abstract Task<Member> GetMemberAsync(HashId server, HashId member);
     /// <summary>
-    /// Gets the list of roles the <paramref name="member" /> holds in the <paramref name="server" />.
+    /// Gets the list of roles <paramref name="member">the specified member</paramref> holds.
     /// </summary>
     /// <remarks>
     /// <para>No permissions are required.</para>
     /// </remarks>
     /// <param name="server">The server where to fetch user's information</param>
     /// <param name="member">The identifier of the role holder</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <returns>List of role IDs</returns>
     public abstract Task<IList<uint>> GetMemberRolesAsync(HashId server, HashId member);
     /// <summary>
-    /// Changes the <paramref name="nickname" /> of the specified <paramref name="member" /> in the <paramref name="server" />.
+    /// Changes <see cref="Member.Nickname">the nickname</see> of the <paramref name="member">specified member</paramref>.
     /// </summary>
     /// <param name="server">The server to modify member in</param>
     /// <param name="member">The identifier of the member to update</param>
     /// <param name="nickname">The new nickname of the member</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CustomPermissions.ManageNicknames">Required for managing nicknames of members</permission>
     /// <permission cref="CustomPermissions.ChangeNickname">Required for changing your own nickname</permission>
-    /// <returns>Nickname</returns>
+    /// <returns>Updated <see cref="Member.Nickname">nickname</see></returns>
     public abstract Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname);
     /// <summary>
-    /// Removes the nickname of the specified <paramref name="member" /> in the <paramref name="server" />.
+    /// Removes <see cref="Member.Nickname">the nickname</see> of the <paramref name="member">specified member</paramref>.
     /// </summary>
-    /// <param name="server">The server to modify member in</param>
-    /// <param name="member">The identifier of the member to update</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of <see cref="Member">the member</see> to update</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CustomPermissions.ManageNicknames">Required for managing nicknames of members</permission>
     /// <permission cref="CustomPermissions.ChangeNickname">Required for changing your own nickname</permission>
-    /// <returns>Nickname</returns>
     public abstract Task DeleteNicknameAsync(HashId server, HashId member);
     /// <summary>
-    /// Adds a <paramref name="role" /> to the user.
+    /// Adds a <paramref name="role" /> to <see cref="User">the user</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If they hold the specified <paramref name="role" />, then nothing happens.</para>
+    /// <para>If they hold the <paramref name="role">specified role</paramref>, then nothing happens.</para>
     /// </remarks>
-    /// <param name="server">The server to modify member in</param>
-    /// <param name="member">The identifier of the receiving user</param>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of <see cref="Member">the receiving member</see></param>
     /// <param name="role">The identifier of the role to add</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
     public abstract Task AddRoleAsync(HashId server, HashId member, uint role);
     /// <summary>
-    /// Removes a <paramref name="role" /> from the user.
+    /// Removes <paramref name="role">the specified role</paramref> from <see cref="User">the user</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If they don't hold the specified <paramref name="role" />, then nothing happens.</para>
+    /// <para>If they don't hold the <paramref name="role">specified role</paramref>, then nothing happens.</para>
     /// </remarks>
-    /// <param name="server">The server to modify member in</param>
-    /// <param name="member">The identifier of the losing user</param>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of <see cref="Member">the losing member</see></param>
     /// <param name="role">The identifier of the role to remove</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageRoles">Required for managing member's roles</permission>
     public abstract Task RemoveRoleAsync(HashId server, HashId member, uint role);
     /// <summary>
     /// Gives <paramref name="amount">XP</paramref> to the specified <paramref name="member" />.
     /// </summary>
-    /// <param name="server">The server to modify member in</param>
-    /// <param name="member">The identifier of the receiving member</param>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of <see cref="Member">the receiving member</see></param>
     /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
     /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
     /// <returns>Total XP</returns>
     public abstract Task<long> AddXpAsync(HashId server, HashId member, long amount);
     /// <summary>
-    /// Gives <paramref name="amount">XP</paramref> to the specified <paramref name="role">role's</paramref> members.
+    /// Gives <paramref name="amount">XP</paramref> to the <paramref name="role">specified role's</paramref> members.
     /// </summary>
     /// <param name="server">The server where the role is</param>
     /// <param name="role">The identifier of the receiving role</param>
     /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="XpPermissions.ManageServerXp">Required for managing member's XP</permission>
     public abstract Task AddXpAsync(HashId server, uint role, long amount);
     #endregion
 
     #region Server-wide Moderation
     /// <summary>
-    /// Removes the specified <paramref name="member" /> from the <paramref name="server" />.
+    /// Removes the <paramref name="member">specified member</paramref> from the <paramref name="server" />.
     /// </summary>
-    /// <param name="server">The server to kick member from</param>
-    /// <param name="member">The identifier of the member to kick</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The server to kick <see cref="Member">the member</see> from</param>
+    /// <param name="member">The identifier of <see cref="Member">the member</see> to kick</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers">Required for kicking the member</permission>
     public abstract Task KickMemberAsync(HashId server, HashId member);
     /// <summary>
     /// Gets the list of <paramref name="server">server's</paramref> bans.
     /// </summary>
     /// <param name="server">The server to get bans of</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers">Required for getting all the bans of the server</permission>
-    /// <returns>List of member ban information</returns>
+    /// <returns>List of <see cref="MemberBan">Member ban information</see></returns>
     public abstract Task<IList<MemberBan>> GetBansAsync(HashId server);
     /// <summary>
-    /// Gets the information about the ban of the <paramref name="member" />.
+    /// Gets <see cref="MemberBan">the information</see> about the ban of <paramref name="member">the member</paramref>.
     /// </summary>
-    /// <param name="server">The server where the user has been banned</param>
-    /// <param name="member">The identifier of the member to get ban information of</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The server where <see cref="User">the user</see> has been banned</param>
+    /// <param name="member">The identifier of <see cref="Member">the member</see> to get ban information of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers">Required for getting the specified ban</permission>
-    /// <returns>Member ban information</returns>
+    /// <returns><paramref name="member">Specified member's</paramref> ban</returns>
     public abstract Task<MemberBan> GetBanAsync(HashId server, HashId member);
     /// <summary>
-    /// Bans the specified <paramref name="member" />.
+    /// Bans the <paramref name="member">specified member</paramref>.
     /// </summary>
     /// <remarks>
     /// <para>Disallows them from joining again, until they receive an unban with <see cref="UnbanMemberAsync" /> method.</para>
     /// </remarks>
     /// <param name="server">The server to ban member from</param>
-    /// <param name="member">The identifier of the member to ban</param>
+    /// <param name="member">The identifier of <see cref="Member">the member</see> to ban</param>
     /// <param name="reason">The reason for a ban</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <permission cref="GeneralPermissions.KickBanMembers">Required for banning the member</permission>
-    /// <returns>Member ban information</returns>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.KickBanMembers">Required for banning <see cref="Member">the member</see></permission>
+    /// <returns>Created <see cref="MemberBan">member's ban</see></returns>
     public abstract Task<MemberBan> BanMemberAsync(HashId server, HashId member, string? reason = null);
     /// <summary>
-    /// Unbans the specified <paramref name="member" />.
+    /// Unbans the <paramref name="member">specified member</paramref>.
     /// </summary>
     /// <remarks>
     /// <para>Allows them to join the server again.</para>
     /// </remarks>
-    /// <param name="server">The server to unban member in</param>
-    /// <param name="member">The identifier of the member to unban</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <permission cref="GeneralPermissions.KickBanMembers">Required for removing the ban from the member</permission>
+    /// <param name="server">The server to unban <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of <see cref="Member">the member</see> to unban</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.KickBanMembers">Required for removing the ban from <see cref="Member">the member</see></permission>
     public abstract Task UnbanMemberAsync(HashId server, HashId member);
     #endregion
 
     #region Webhooks
     /// <summary>
-    /// Gets a list of webhooks.
+    /// Gets a list of <see cref="Webhook">webhooks</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If <paramref name="channel"/> parameter is given, it gets all of the channel webhooks instead.</para>
+    /// <para>If <paramref name="channel" /> parameter is given, it gets all of <see cref="Webhook">the channel webhooks</see> instead.</para>
     /// </remarks>
-    /// <param name="server">The identifier of the server to get webhooks from</param>
-    /// <param name="channel">The identifier of the channel to get webhooks from</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <returns>List of webhooks</returns>
+    /// <param name="server">The identifier of the server to get <see cref="Webhook">webhooks</see> from</param>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get webhooks from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>List of <see cref="Webhook">webhooks</see></returns>
     public abstract Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid? channel = null);
     /// <summary>
-    /// Gets the specified <paramref name="webhook" />.
+    /// Gets the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where the webhook is</param>
-    /// <param name="webhook">The identifier of the webhook to get</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <returns>Specified webhook</returns>
+    /// <param name="server">The identifier of the server <see cref="Webhook">the webhook</see> is</param>
+    /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns><paramref name="webhook">Specified webhook</paramref></returns>
     public abstract Task<Webhook> GetWebhookAsync(HashId server, Guid webhook);
     /// <summary>
-    /// Creates a new webhook in the specified <paramref name="channel" />.
+    /// Creates a <see cref="Webhook">new webhook</see> in the <paramref name="channel">specified channel</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where the webhook will be created</param>
-    /// <param name="channel">The identifier of the channel where the webhook will be created</param>
-    /// <param name="name">The name of the webhook</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The identifier of the server where <see cref="Webhook">the webhook</see> will be created</param>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Webhook">the webhook</see> will be created</param>
+    /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
     /// <permission cref="GeneralPermissions.ManageWebhooks">Required for creating webhooks</permission>
-    /// <returns>Created webhook</returns>
+    /// <returns>Created <see cref="Webhook">webhook</see></returns>
     public abstract Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name);
     /// <summary>
-    /// Updates the specified <paramref name="webhook" /> in the specified <paramref name="server" />.
+    /// Edits the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>Webhooks can moved between channels using '<paramref name="newChannel" />' parameter.</para>
+    /// <para><see cref="Webhook" /> can moved between <see cref="ServerChannel">channels</see> using '<paramref name="newChannel" />' parameter.</para>
     /// </remarks>
-    /// <param name="server">The identifier of the server where the webhook is</param>
-    /// <param name="webhook">The identifier of the webhook to update</param>
-    /// <param name="name">The new name of the webhook</param>
-    /// <param name="newChannel">The identifier of the channel where the webhook will be moved to</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The identifier of the server where <see cref="Webhook">the webhook</see> is</param>
+    /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to update</param>
+    /// <param name="name">The new name of <see cref="Webhook">the webhook</see></param>
+    /// <param name="newChannel">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Webhook">the webhook</see> will be moved to</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageWebhooks">Required for updating webhooks</permission>
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
-    /// <returns>Updated webhook</returns>
+    /// <returns>Updated <see cref="Webhook">webhook</see></returns>
     public abstract Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null);
     /// <summary>
-    /// Deletes the specified <paramref name="webhook" />.
+    /// Deletes the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where the webhook is</param>
-    /// <param name="webhook">The identifier of the webhook to delete</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The identifier of the server where <see cref="Webhook">the webhook</see> is</param>
+    /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageWebhooks">Required for deleting webhooks</permission>
     public abstract Task DeleteWebhookAsync(HashId server, Guid webhook);
     #endregion
 
     #region Channels
     /// <summary>
-    /// Gets the specified <paramref name="channel" />.
+    /// Gets the <paramref name="channel">specified webhook</paramref>.
     /// </summary>
-    /// <param name="channel">The identifier of the channel to get</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
-    /// <returns>Specified channel</returns>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns><paramref name="channel">Specified channel</paramref></returns>
     public abstract Task<ServerChannel> GetChannelAsync(Guid channel);
     /// <summary>
-    /// Creates a new channel in the specified <paramref name="server" />.
+    /// Creates a new channel in the <paramref name="server">specified server</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where the channel will be created</param>
-    /// <param name="name">The name of the channel</param>
-    /// <param name="type">The type of the content that the channel will hold</param>
-    /// <param name="topic">The topic describing what the channel is about</param>
-    /// <param name="group">The identifier of the group where the channel will be created</param>
-    /// <param name="category">The identifier of the category where the channel will be created</param>
-    /// <param name="isPublic">The topic describing what the channel is about</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <param name="server">The identifier of the server where <see cref="ServerChannel">the channel</see> will be created</param>
+    /// <param name="name">The name of <see cref="ServerChannel">the channel</see></param>
+    /// <param name="type">The type of the content that <see cref="ServerChannel">the channel</see> will hold</param>
+    /// <param name="topic">The topic describing what <see cref="ServerChannel">the channel</see> is about</param>
+    /// <param name="group">The identifier of the group where <see cref="ServerChannel">the channel</see> will be created</param>
+    /// <param name="category">The identifier of the category where <see cref="ServerChannel">the channel</see> will be created</param>
+    /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
     /// <permission cref="GeneralPermissions.ManageChannels">Required for creating channels</permission>
-    /// <returns>Created channel</returns>
+    /// <returns>Created <see cref="ServerChannel">channel</see></returns>
     public abstract Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null);
     /// <summary>
-    /// Deletes the specified <paramref name="channel" />.
+    /// Deletes the <paramref name="channel">specified channel</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the channel to delete</param>
-    /// <exception cref="GuildedException"/>
-    /// <exception cref="GuildedPermissionException"/>
-    /// <exception cref="GuildedResourceException"/>
-    /// <exception cref="GuildedRequestException"/>
-    /// <exception cref="GuildedAuthorizationException"/>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageWebhooks">Required for deleting webhooks</permission>
     public abstract Task DeleteChannelAsync(Guid channel);
     #endregion

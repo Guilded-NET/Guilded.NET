@@ -8,12 +8,11 @@ namespace Guilded.Base.Events;
 /// <summary>
 /// Represents an event with the name <c>TeamMemberJoined</c> and opcode <c>0</c> that occurs once <see cref="Member">member</see> joins a <see cref="ServerId">server</see>.
 /// </summary>
-/// <seealso cref="RolesUpdatedEvent"/>
-/// <seealso cref="XpAddedEvent"/>
-/// <seealso cref="MemberUpdatedEvent"/>
-/// <seealso cref="WebhookEvent"/>
-/// <seealso cref="WelcomeEvent"/>
-/// <seealso cref="Servers.Member"/>
+/// <seealso cref="RolesUpdatedEvent" />
+/// <seealso cref="XpAddedEvent" />
+/// <seealso cref="MemberUpdatedEvent" />
+/// <seealso cref="WebhookEvent" />
+/// <seealso cref="Servers.Member" />
 public class MemberJoinedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
@@ -21,11 +20,16 @@ public class MemberJoinedEvent : BaseObject, IServerEvent
     /// Gets the member who has joined.
     /// </summary>
     /// <value>Member</value>
+    /// <seealso cref="MemberJoinedEvent" />
+    /// <seealso cref="Name" />
+    /// <seealso cref="ServerId" />
     public Member Member { get; }
     /// <summary>
     /// Gets the identifier of the server where the member has joined.
     /// </summary>
     /// <value>Server ID</value>
+    /// <seealso cref="MemberJoinedEvent" />
+    /// <seealso cref="Member" />
     public HashId ServerId { get; }
     #endregion
 
@@ -44,10 +48,12 @@ public class MemberJoinedEvent : BaseObject, IServerEvent
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="MemberJoinedEvent"/> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="MemberJoinedEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the member joined</param>
     /// <param name="member">The member who has joined</param>
+    /// <returns>New <see cref="MemberJoinedEvent" /> JSON instance</returns>
+    /// <seealso cref="MemberJoinedEvent" />
     [JsonConstructor]
     public MemberJoinedEvent(
         [JsonProperty(Required = Required.Always)]

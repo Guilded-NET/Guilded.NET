@@ -8,31 +8,40 @@ namespace Guilded.Base.Users;
 /// </summary>
 /// <seealso cref="SocialLink" />
 /// <seealso cref="UserSummary" />
+/// <seealso cref="Me" />
 public class User : UserSummary
 {
     #region JSON properties
     /// <summary>
-    /// Gets the date when the user has registered their account.
+    /// Gets the date when <see cref="Users.User">the user</see> has registered their account.
     /// </summary>
     /// <value>Date</value>
+    /// <seealso cref="User" />
+    /// <seealso cref="UserSummary" />
     public DateTime CreatedAt { get; }
     /// <summary>
-    /// Gets the global banner of the user.
+    /// Gets the global banner of <see cref="Users.User">the user</see>.
     /// </summary>
     /// <value>Media URL?</value>
+    /// <seealso cref="User" />
+    /// <seealso cref="UserSummary" />
+    /// <seealso cref="UserSummary.Avatar" />
+    /// <seealso cref="UserSummary.Name" />
     public Uri? Banner { get; }
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="UserSummary"/> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="UserSummary" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of <see cref="User">user</see></param>
-    /// <param name="type">The type of the user they are</param>
-    /// <param name="name">The global username of the user</param>
-    /// <param name="createdAt">the date when the user was created</param>
-    /// <param name="avatar">The global avatar of the user</param>
-    /// <param name="banner">The global banner of the user</param>
+    /// <param name="type">The type of <see cref="Users.User">the user</see> they are</param>
+    /// <param name="name">The global username of <see cref="Users.User">the user</see></param>
+    /// <param name="createdAt">the date when <see cref="Users.User">the user</see> was created</param>
+    /// <param name="avatar">The global avatar of <see cref="Users.User">the user</see></param>
+    /// <param name="banner">The global banner of <see cref="Users.User">the user</see></param>
+    /// <returns>New <see cref="User" /> JSON instance</returns>
+    /// <seealso cref="User" />
     [JsonConstructor]
     public User(
         [JsonProperty(Required = Required.Always)]

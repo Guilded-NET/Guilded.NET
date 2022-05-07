@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to recruiting.
+/// Represents team permissions related to recruiting in applications.
 /// </summary>
-/// <remarks>
-/// <para>Defines team permissions related to recruiting in applications.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum RecruitmentPermissions
 {
@@ -48,13 +62,13 @@ public enum RecruitmentPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ApproveApplications"/></description>
+    ///         <description><see cref="ApproveApplications" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="EditApplications"/></description>
+    ///         <description><see cref="EditApplications" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ModifyStatus"/></description>
+    ///         <description><see cref="ModifyStatus" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

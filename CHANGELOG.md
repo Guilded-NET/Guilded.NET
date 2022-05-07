@@ -3,8 +3,11 @@
 - Added channels and channel events
 - Added docs events
 - Added list item events
+- Added see also to a lot of documented items and added a lot of see references in documentation
+- Added comparisons between `HashId` and `string`
 - Fixed requiring `embeds:` in message creation for embeds
 - Fixed `includePrivate` error in `GetMessageAsync`
+- Renamed `ListItem<T>` to `ListItemBase<T>` and added `ListItem` and `ListItemSummary`
 - Removed extra unused properties and arguments in embeds
 
 # v0.7.5-beta

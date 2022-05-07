@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to servers.
+/// Represents team and channel permissions related to server management.
 /// </summary>
-/// <remarks>
-/// <para>Defines team and channel permissions related to server management.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum GeneralPermissions
 {
@@ -60,22 +74,22 @@ public enum GeneralPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="UpdateServer"/></description>
+    ///         <description><see cref="UpdateServer" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="KickBanMembers"/></description>
+    ///         <description><see cref="KickBanMembers" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageChannels"/></description>
+    ///         <description><see cref="ManageChannels" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageWebhooks"/></description>
+    ///         <description><see cref="ManageWebhooks" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageGroups"/></description>
+    ///         <description><see cref="ManageGroups" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageRoles"/></description>
+    ///         <description><see cref="ManageRoles" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

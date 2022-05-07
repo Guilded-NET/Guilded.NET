@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to voice.
+/// Represents channel permissions related to voice and voice rooms.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions related to voice and voice rooms.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum VoicePermissions
 {
@@ -73,16 +87,16 @@ public enum VoicePermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="MoveMembers"/></description>
+    ///         <description><see cref="MoveMembers" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="MuteMembers"/></description>
+    ///         <description><see cref="MuteMembers" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="DeafenMembers"/></description>
+    ///         <description><see cref="DeafenMembers" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageVoiceRooms"/></description>
+    ///         <description><see cref="ManageVoiceRooms" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -94,19 +108,19 @@ public enum VoicePermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="AddVoice"/></description>
+    ///         <description><see cref="AddVoice" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="HearVoice"/></description>
+    ///         <description><see cref="HearVoice" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="VoiceActivity"/></description>
+    ///         <description><see cref="VoiceActivity" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="Whisper"/></description>
+    ///         <description><see cref="Whisper" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SendMessages"/></description>
+    ///         <description><see cref="SendMessages" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

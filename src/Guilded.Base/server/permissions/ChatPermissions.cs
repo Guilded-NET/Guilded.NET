@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to chat.
+/// Represents channel permissions for chat &amp; text related things.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions for chat &amp; text related things.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum ChatPermissions
 {
@@ -52,13 +66,13 @@ public enum ChatPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageMessages"/></description>
+    ///         <description><see cref="ManageMessages" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="CreateThreads"/></description>
+    ///         <description><see cref="CreateThreads" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageThreads"/></description>
+    ///         <description><see cref="ManageThreads" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -70,13 +84,13 @@ public enum ChatPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="SendMessages"/></description>
+    ///         <description><see cref="SendMessages" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ReadMessages"/></description>
+    ///         <description><see cref="ReadMessages" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SendThreadMessages"/></description>
+    ///         <description><see cref="SendThreadMessages" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

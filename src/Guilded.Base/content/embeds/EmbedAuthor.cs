@@ -8,7 +8,7 @@ namespace Guilded.Base.Embeds;
 /// Represents an author of the content represented in an <see cref="Embed">embed</see>.
 /// </summary>
 /// <example>
-/// <para>An example of using <see cref="EmbedAuthor"/> to display content owner:</para>
+/// <para>An example of using <see cref="EmbedAuthor" /> to display content owner:</para>
 /// <code language="csharp">
 /// // ... Getting information about a new post...
 /// EmbedAuthor author = new EmbedAuthor(post.Author.Username, post.Author.Avatar, post.Url);
@@ -22,9 +22,10 @@ namespace Guilded.Base.Embeds;
 /// await client.CreateMessageAsync(channelId, embed);
 /// </code>
 /// </example>
-/// <seealso cref="EmbedFooter"/>
-/// <seealso cref="EmbedField"/>
-/// <seealso cref="EmbedMedia"/>
+/// <seealso cref="Embed" />
+/// <seealso cref="EmbedFooter" />
+/// <seealso cref="EmbedField" />
+/// <seealso cref="EmbedMedia" />
 public class EmbedAuthor : BaseObject
 {
     #region JSON properties
@@ -56,17 +57,20 @@ public class EmbedAuthor : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="EmbedAuthor"/> without an icon and without a URL.
+    /// Initializes a new instance of <see cref="EmbedAuthor" /> without an icon and without a URL.
     /// </summary>
     /// <param name="name">The name of the embed author</param>
     public EmbedAuthor(string name) =>
         Name = name;
     /// <summary>
-    /// Initializes a new instance of <see cref="EmbedAuthor"/> with an optional <paramref name="url" />.
+    /// Initializes a new instance of <see cref="EmbedAuthor" /> with an optional <paramref name="url" />.
     /// </summary>
     /// <param name="name">The name of the embed author</param>
     /// <param name="url">The URL that author links</param>
     /// <param name="iconUrl">The URL to author's icon</param>
+    /// <returns>New <see cref="EmbedAuthor" /> instance</returns>
+    /// <seealso cref="EmbedAuthor" />
+    /// <seealso cref="EmbedAuthor(string, string, string)" />
     [JsonConstructor]
     public EmbedAuthor(
         [JsonProperty(Required = Required.Always)]
@@ -80,7 +84,9 @@ public class EmbedAuthor : BaseObject
     ) : this(name) =>
         (IconUrl, Url) = (iconUrl, url);
     /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
-    /// <exception cref="UriFormatException"><paramref name="url"/> or <paramref name="iconUrl"/> have bad <see cref="Uri"/> formatting</exception>
+    /// <exception cref="UriFormatException"><paramref name="url" /> or <paramref name="iconUrl" /> have bad <see cref="Uri" /> formatting</exception>
+    /// <seealso cref="EmbedAuthor" />
+    /// <seealso cref="EmbedAuthor(string, Uri, Uri)" />
     public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, url is null ? null : new Uri(url), iconUrl is null ? null : new Uri(iconUrl)) { }
     #endregion
 }

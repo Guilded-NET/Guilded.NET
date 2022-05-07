@@ -8,6 +8,9 @@ namespace Guilded.Base.Servers;
 /// <summary>
 /// Represents the information of <see cref="User">user's</see> ban.
 /// </summary>
+/// <seealso cref="Member" />
+/// <seealso cref="MemberSummary{T}" />
+/// <seealso cref="Users.User" />
 public class MemberBan : BaseObject, ICreatableContent
 {
     #region JSON properties
@@ -29,7 +32,7 @@ public class MemberBan : BaseObject, ICreatableContent
     /// <summary>
     /// Gets the identifier of the staff who banned.
     /// </summary>
-    /// <value>User ID</value>
+    /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
     public HashId CreatedBy { get; set; }
     #endregion
 
@@ -40,6 +43,8 @@ public class MemberBan : BaseObject, ICreatableContent
     /// <param name="createdBy">The author of the ban</param>
     /// <param name="createdAt">the date when the member was banned</param>
     /// <param name="reason">The reason why the user has been banned</param>
+    /// <returns>New <see cref="MemberBan" /> JSON instance</returns>
+    /// <seealso cref="MemberBan" />
     [JsonConstructor]
     public MemberBan(
         [JsonProperty(Required = Required.Always)]

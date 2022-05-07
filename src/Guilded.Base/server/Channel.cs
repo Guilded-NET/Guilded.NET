@@ -18,7 +18,12 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <summary>
     /// Gets the identifier of the channel.
     /// </summary>
-    /// <value>Channel ID</value>
+    /// <value><see cref="Id">Channel ID</see></value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="GroupId" />
+    /// <seealso cref="ServerId" />
     public Guid Id { get; }
     /// <summary>
     /// Gets the identifier of the parent channel of this channel.
@@ -26,67 +31,120 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <remarks>
     /// <para>This property is only present in threads. This can be used to determine if this is a thread, and as such, <see cref="IsThread" /> property exists.</para>
     /// </remarks>
-    /// <value>Channel ID?</value>
+    /// <value><see cref="Id">Channel ID</see>?</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="GroupId" />
+    /// <seealso cref="ServerId" />
     public Guid? ParentId { get; }
     /// <summary>
     /// Gets the identifier of the parent category of this channel.
     /// </summary>
     /// <value>Category ID?</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="GroupId" />
+    /// <seealso cref="ServerId" />
     public uint? CategoryId { get; }
     /// <summary>
     /// Gets the identifier of the parent group of this channel.
     /// </summary>
     /// <value>Group ID</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="ServerId" />
     public HashId GroupId { get; }
     /// <summary>
     /// Gets the identifier of the parent server of this channel.
     /// </summary>
     /// <value>Server ID</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="GroupId" />
     public HashId ServerId { get; }
     /// <summary>
     /// Gets the type of content the channel holds.
     /// </summary>
     /// <value>Channel type</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="IsPublic" />
     public ChannelType Type { get; }
     /// <summary>
     /// Gets the name of the channel.
     /// </summary>
     /// <value>Name</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Topic" />
     public string Name { get; }
     /// <summary>
     /// Gets the topic describing what the channel is about.
     /// </summary>
     /// <value>Single-line description?</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Name" />
     public string? Topic { get; }
     /// <summary>
     /// Gets whether the channel is globally viewable.
     /// </summary>
     /// <value>Channel is public?</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Type" />
     public bool IsPublic { get; }
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created the channel.
     /// </summary>
-    /// <value>User ID</value>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="UpdatedAt" />
+    /// <seealso cref="ArchivedBy" />
+    /// <seealso cref="ArchivedAt" />
     public HashId CreatedBy { get; }
     /// <summary>
     /// Gets the date when the channel was created.
     /// </summary>
     /// <value>Date</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="UpdatedAt" />
+    /// <seealso cref="ArchivedBy" />
+    /// <seealso cref="ArchivedAt" />
     public DateTime CreatedAt { get; }
     /// <summary>
     /// Gets the date when the channel was edited.
     /// </summary>
     /// <value>Date?</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="ArchivedBy" />
+    /// <seealso cref="ArchivedAt" />
     public DateTime? UpdatedAt { get; }
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that archived the channel.
     /// </summary>
-    /// <value>User ID</value>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ArchivedAt" />
+    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="UpdatedAt" />
     public HashId? ArchivedBy { get; }
     /// <summary>
     /// Gets the date when the channel was archived.
     /// </summary>
     /// <value>Date?</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ArchivedBy" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="UpdatedAt" />
     public DateTime? ArchivedAt { get; }
     #endregion
 
@@ -95,16 +153,29 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// Gets whether the channel is a thread of <see cref="ChannelContent{TId, TServer}">a channel content</see>.
     /// </summary>
     /// <value>Channel is thread</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="IsArchived" />
+    /// <seealso cref="IsCategorized" />
     public bool IsThread => ParentId is not null;
     /// <summary>
     /// Gets whether the channel has been archived.
     /// </summary>
     /// <value>Channel is archived</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ArchivedAt" />
+    /// <seealso cref="ArchivedBy" />
+    /// <seealso cref="IsThread" />
+    /// <seealso cref="IsCategorized" />
     public bool IsArchived => ArchivedAt is not null;
     /// <summary>
     /// Gets whether the channel is in a category.
     /// </summary>
     /// <value>Channel is in a category</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="IsThread" />
+    /// <seealso cref="IsArchived" />
     public bool IsCategorized => CategoryId is not null;
     #endregion
 
@@ -125,6 +196,8 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <param name="topic">The topic describing what the channel is about</param>
     /// <param name="parentId">The identifier of the parent channel of the channel</param>
     /// <param name="categoryId">The identifier of the parent category of the channel</param>
+    /// <returns>New <see cref="ServerChannel" /> JSON instance</returns>
+    /// <seealso cref="ServerChannel" />
     [JsonConstructor]
     public ServerChannel(
         [JsonProperty(Required = Required.Always)]
@@ -170,11 +243,11 @@ public class ServerChannel : ClientObject, ICreatableContent
     #endregion
 
     #region Additional
-    /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)"/>
+    /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)" />
     public async Task DeleteAsync() =>
         await ParentClient.DeleteChannelAsync(Id);
     /// <inheritdoc cref="BaseGuildedClient.CreateWebhookAsync(HashId, Guid, string)" />
-    /// <param name="name">The name of the webhook</param>
+    /// <param name="name">The name of <see cref="Servers.Webhook">the webhook</see></param>
     public async Task<Webhook> CreateWebhookAsync(string name) =>
         await ParentClient.CreateWebhookAsync(ServerId, Id, name);
     #endregion

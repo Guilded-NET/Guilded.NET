@@ -19,38 +19,55 @@ namespace Guilded.Base;
 ///     </item>
 /// </list>
 /// </remarks>
-/// <seealso cref="GuildedException"/>
-/// <seealso cref="GuildedAuthorizationException"/>
-/// <seealso cref="GuildedPermissionException"/>
-/// <seealso cref="GuildedRequestException"/>
-/// <seealso cref="GuildedWebsocketException"/>
+/// <seealso cref="GuildedException" />
+/// <seealso cref="GuildedResourceException" />
+/// <seealso cref="GuildedPermissionException" />
+/// <seealso cref="GuildedRequestException" />
+/// <seealso cref="GuildedWebsocketException" />
 [Serializable]
 public sealed class GuildedResourceException : GuildedException
 {
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedResourceException"/>.
+    /// Initializes a new instance of <see cref="GuildedResourceException" />.
     /// </summary>
     /// <param name="message">The message explaining the error</param>
+    /// <returns>New message-only <see cref="GuildedResourceException">conflicting resource exception</see> instance</returns>
+    /// <seealso cref="GuildedResourceException" />
+    /// <seealso cref="GuildedResourceException()" />
+    /// <seealso cref="GuildedResourceException(string, Exception)" />
+    /// <seealso cref="GuildedResourceException(string, string, RestResponse)" />
     public GuildedResourceException(string message) : base(message) { }
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedResourceException"/> with information from given parameters.
+    /// Initializes a new instance of <see cref="GuildedResourceException" /> with information from given parameters.
     /// </summary>
     /// <param name="code">The name of the error from Guilded API</param>
     /// <param name="message">The description of the error from Guilded API</param>
-    /// <param name="response">The response that was received from Guilded API</param>
+    /// <param name="response">The response that was received from Guilded API</param><returns>New message-only <see cref="GuildedResourceException">conflicting resource exception</see> instance</returns>
+    /// <seealso cref="GuildedResourceException" />
+    /// <seealso cref="GuildedResourceException()" />
+    /// <seealso cref="GuildedResourceException(string)" />
+    /// <seealso cref="GuildedResourceException(string, Exception)" />
     public GuildedResourceException(string code, string message, RestResponse response) : base(code, message, response) { }
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedResourceException"/> with default message.
+    /// Initializes a new instance of <see cref="GuildedResourceException" /> with default message.
     /// </summary>
     /// <remarks>
-    /// <para>Initializes a new instance of <see cref="GuildedResourceException"/> with default message:</para>
+    /// <para>Initializes a new instance of <see cref="GuildedResourceException" /> with default message:</para>
     /// <note>Not found. Given item has not been found.</note>
-    /// </remarks>
+    /// </remarks><returns>New message-only <see cref="GuildedResourceException">conflicting resource exception</see> instance</returns>
+    /// <seealso cref="GuildedResourceException" />
+    /// <seealso cref="GuildedResourceException(string)" />
+    /// <seealso cref="GuildedResourceException(string, Exception)" />
+    /// <seealso cref="GuildedResourceException(string, string, RestResponse)" />
     public GuildedResourceException() : this("Not found. Given item has not been found.") { }
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedResourceException"/> with an <paramref name="inner">inner exception</paramref> explaining more.
+    /// Initializes a new instance of <see cref="GuildedResourceException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
     /// <param name="message">The description of the error from Guilded API</param>
-    /// <param name="inner">Inner exception explaining more</param>
+    /// <param name="inner">Inner exception explaining more</param><returns>New message-only <see cref="GuildedResourceException">conflicting resource exception</see> instance</returns>
+    /// <seealso cref="GuildedResourceException" />
+    /// <seealso cref="GuildedResourceException()" />
+    /// <seealso cref="GuildedResourceException(string)" />
+    /// <seealso cref="GuildedResourceException(string, string, RestResponse)" />
     public GuildedResourceException(string message, Exception inner) : base(message, inner) { }
 }

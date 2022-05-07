@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to streaming.
+/// Represents channel permissions related to streaming channels.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions related to streaming channels.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum StreamPermissions
 {
@@ -47,13 +61,13 @@ public enum StreamPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ViewStreams"/></description>
+    ///         <description><see cref="ViewStreams" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="JoinVoice"/></description>
+    ///         <description><see cref="JoinVoice" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SendMessages"/></description>
+    ///         <description><see cref="SendMessages" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

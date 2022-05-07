@@ -29,12 +29,12 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// </summary>
     /// <remarks>
     /// <para>An event that occurs once Guilded client connects to Guilded.</para>
-    /// <para>This usually occurs once <see cref="ConnectAsync"/> is called and no errors get thrown.</para>
+    /// <para>This usually occurs once <see cref="ConnectAsync" /> is called and no errors get thrown.</para>
     /// </remarks>
-    /// <seealso cref="ConnectAsync"/>
-    /// <seealso cref="Disconnected"/>
+    /// <seealso cref="ConnectAsync" />
+    /// <seealso cref="Disconnected" />
     protected Subject<BaseGuildedClient> ConnectedSubject = new();
-    /// <inheritdoc cref="ConnectedSubject"/>
+    /// <inheritdoc cref="ConnectedSubject" />
     public IObservable<BaseGuildedClient> Connected => ConnectedSubject.AsObservable();
     /// <summary>
     /// An event when client gets reconnected.
@@ -42,33 +42,33 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <remarks>
     /// <para>An event that occurs once Guilded client reconnects to Guilded.</para>
     /// </remarks>
-    /// <seealso cref="Disconnected"/>
-    /// <seealso cref="Connected"/>
+    /// <seealso cref="Disconnected" />
+    /// <seealso cref="Connected" />
     public IObservable<ReconnectionInfo> Reconnected => Websocket.ReconnectionHappened;
     /// <summary>
     /// An event when the client gets disconnected.
     /// </summary>
     /// <remarks>
     /// <para>An event that occurs once Guilded client disconnects from Guilded.</para>
-    /// <para>This usually occurs once <see cref="DisconnectAsync"/> is called and no errors get thrown, or once an error occurs.</para>
+    /// <para>This usually occurs once <see cref="DisconnectAsync" /> is called and no errors get thrown, or once an error occurs.</para>
     /// </remarks>
-    /// <seealso cref="DisconnectAsync"/>
-    /// <seealso cref="Connected"/>
+    /// <seealso cref="DisconnectAsync" />
+    /// <seealso cref="Connected" />
     public IObservable<DisconnectionInfo> Disconnected => Websocket.DisconnectionHappened;
     /// <summary>
-    /// Settings for <see cref="Rest"/> client's JSON (de)serialization.
+    /// Settings for <see cref="Rest" /> client's JSON (de)serialization.
     /// </summary>
     /// <remarks>
-    /// <para>JSON settings that are used in <see cref="GuildedSerializer"/> and <see cref="Rest"/>.</para>
+    /// <para>JSON settings that are used in <see cref="GuildedSerializer" /> and <see cref="Rest" />.</para>
     /// </remarks>
     /// <value>Serializer Settings</value>
-    /// <seealso cref="Rest"/>
-    /// <seealso cref="GuildedSerializer"/>
+    /// <seealso cref="Rest" />
+    /// <seealso cref="GuildedSerializer" />
     public JsonSerializerSettings SerializerSettings { get; set; }
     /// <summary>
     /// A serializer to (de)serialize for JSON from Guilded API.
     /// </summary>
-    /// <value>Serializer from <see cref="SerializerSettings"/></value>
+    /// <value>Serializer from <see cref="SerializerSettings" /></value>
     public JsonSerializer GuildedSerializer { get; set; }
     /// <summary>
     /// Headers that will be used for REST and WebSocket clients.
@@ -76,7 +76,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <value>Dictionary of headers</value>
     protected Dictionary<string, string> AdditionalHeaders { get; set; } = new();
     /// <summary>
-    /// Creates default settings for <see cref="BaseGuildedClient"/>'s child types.
+    /// Creates default settings for <see cref="BaseGuildedClient" />'s child types.
     /// </summary>
     /// <remarks>
     /// <para>Inititates basic client components for API-related things, such as WebSocket and REST client. The rest is up to child types.</para>
@@ -125,11 +125,11 @@ public abstract partial class BaseGuildedClient : IDisposable
             .UseNewtonsoftJson(SerializerSettings);
     }
     /// <summary>
-    /// Creates default settings for <see cref="BaseGuildedClient"/>'s child types with <see cref="GuildedUrl.Api"/> as URL.
+    /// Creates default settings for <see cref="BaseGuildedClient" />'s child types with <see cref="GuildedUrl.Api" /> as URL.
     /// </summary>
     /// <remarks>
     /// <para>Inititates REST client and serializer settings.</para>
-    /// <para>The <see cref="GuildedUrl.Api"/> property and <see cref="GuildedUrl.Websocket"/> property URLs will be used by default.</para>
+    /// <para>The <see cref="GuildedUrl.Api" /> property and <see cref="GuildedUrl.Websocket" /> property URLs will be used by default.</para>
     /// </remarks>
     protected BaseGuildedClient() : this(GuildedUrl.Api, GuildedUrl.Websocket) { }
     /// <summary>
@@ -139,7 +139,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <para>Creates a new connection to Guilded with this client.</para>
     /// <note type="tip">See documentation of child types for more information.</note>
     /// </remarks>
-    /// <seealso cref="DisconnectAsync"/>
+    /// <seealso cref="DisconnectAsync" />
     public abstract Task ConnectAsync();
     /// <summary>
     /// Disconnects this client from Guilded.
@@ -148,12 +148,12 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <para>Stops any connections this client has with Guilded.</para>
     /// <note type="tip">See documentation of child types for more information.</note>
     /// </remarks>
-    /// <seealso cref="ConnectAsync"/>
-    /// <seealso cref="Dispose"/>
+    /// <seealso cref="ConnectAsync" />
+    /// <seealso cref="Dispose" />
     public abstract Task DisconnectAsync();
     /// <summary>
-    /// Disposes <see cref="BaseGuildedClient"/> instance.
+    /// Disposes <see cref="BaseGuildedClient" /> instance.
     /// </summary>
-    /// <seealso cref="DisconnectAsync"/>
+    /// <seealso cref="DisconnectAsync" />
     public abstract void Dispose();
 }

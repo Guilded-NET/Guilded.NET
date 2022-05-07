@@ -9,12 +9,13 @@ namespace Guilded.Base.Events;
 /// <remarks>
 /// <para>Any message that can be received the Guilded WebSocket, including Guilded events.</para>
 /// </remarks>
-/// <seealso cref="MessageDeletedEvent"/>
-/// <seealso cref="RolesUpdatedEvent"/>
-/// <seealso cref="MemberUpdatedEvent"/>
-/// <seealso cref="XpAddedEvent"/>
-/// <seealso cref="WelcomeEvent"/>
-/// <seealso cref="ResumeEvent"/>
+/// <seealso cref="MessageDeletedEvent" />
+/// <seealso cref="MessageEvent" />
+/// <seealso cref="RolesUpdatedEvent" />
+/// <seealso cref="MemberUpdatedEvent" />
+/// <seealso cref="XpAddedEvent" />
+/// <seealso cref="WelcomeEvent" />
+/// <seealso cref="ResumeEvent" />
 public class GuildedSocketMessage : ClientObject
 {
     #region JSON properties
@@ -45,23 +46,30 @@ public class GuildedSocketMessage : ClientObject
     ///         <description>Error</description>
     ///     </item>
     /// </list>
-    /// <para>If <see cref="Opcode"/> is received as <c>8</c>, <see cref="GuildedWebsocketException"/> will be received instead of a typical event.</para>
+    /// <para>If <see cref="Opcode" /> is received as <c>8</c>, <see cref="GuildedWebsocketException" /> will be received instead of a typical event.</para>
     /// </remarks>
     /// <value>Opcode</value>
+    /// <seealso cref="GuildedSocketMessage" />
+    /// <seealso cref="EventName" />
+    /// <seealso cref="RawData" />
     public byte Opcode { get; }
     /// <summary>
     /// Gets the name of the event received.
     /// </summary>
     /// <remarks>
-    /// <para>This only has a value if <see cref="Opcode"/> is <c>0</c>.</para>
+    /// <para>This only has a value if <see cref="Opcode" /> is <c>0</c>.</para>
     /// </remarks>
     /// <value>Name?</value>
+    /// <seealso cref="GuildedSocketMessage" />
+    /// <seealso cref="Opcode" />
+    /// <seealso cref="RawData" />
+    /// <seealso cref="MessageId" />
     public string? EventName { get; }
     /// <summary>
     /// Gets the data associated with the event.
     /// </summary>
     /// <remarks>
-    /// <para>Holds the data of most messages, including <see cref="WelcomeEvent"/>, <see cref="ResumeEvent"/> and <see cref="GuildedWebsocketException"/>. Only if <see cref="Opcode"/> is <c>9</c>, this will be <see langword="null"/>.</para>
+    /// <para>Holds the data of most messages, including <see cref="WelcomeEvent" />, <see cref="ResumeEvent" /> and <see cref="GuildedWebsocketException" />. Only if <see cref="Opcode" /> is <c>9</c>, this will be <see langword="null" />.</para>
     /// </remarks>
     /// <value>Data?</value>
     public JObject? RawData { get; }
@@ -69,8 +77,8 @@ public class GuildedSocketMessage : ClientObject
     /// Gets an identifier that allows the event to be replayed.
     /// </summary>
     /// <remarks>
-    /// <para>This can be passed to <see cref="BaseGuildedClient.LastMessageId"/> to receive any messages after this message.</para>
-    /// <para>This property only holds the value if <see cref="Opcode"/> is <c>0</c>.</para>
+    /// <para>This can be passed to <see cref="BaseGuildedClient.LastMessageId" /> to receive any messages after this message.</para>
+    /// <para>This property only holds the value if <see cref="Opcode" /> is <c>0</c>.</para>
     /// </remarks>
     /// <value>Event ID?</value>
     public string? MessageId { get; }
@@ -78,7 +86,7 @@ public class GuildedSocketMessage : ClientObject
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedSocketMessage"/> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="GuildedSocketMessage" /> from the specified JSON properties.
     /// </summary>
     /// <param name="op">The opcode of the socket message</param>
     /// <param name="t">The name of the event</param>
@@ -89,14 +97,14 @@ public class GuildedSocketMessage : ClientObject
         [JsonProperty(Required = Required.Always)]
         byte op,
 
-        [JsonProperty(Required = Required.Always)]
-        string? t,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? t = null,
 
-        [JsonProperty(Required = Required.Always)]
-        JObject? d,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        JObject? d = null,
 
-        [JsonProperty(Required = Required.Always)]
-        string? s
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? s = null
     ) =>
         (Opcode, EventName, RawData, MessageId) = (op, t, d, s);
     #endregion

@@ -9,8 +9,11 @@ namespace Guilded.Base.Events;
 /// <summary>
 /// Represents the base for message-related events.
 /// </summary>
-/// <seealso cref="Content.Message"/>
-/// <seealso cref="MessageDeletedEvent"/>
+/// <seealso cref="Content.Message" />
+/// <seealso cref="MessageDeletedEvent" />
+/// <seealso cref="ListItemEvent" />
+/// <seealso cref="DocEvent" />
+/// <seealso cref="ChannelEvent" />
 public abstract class MessageEvent<T> : BaseObject where T : BaseObject
 {
     #region JSON properties
@@ -18,20 +21,28 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
     /// Gets the message received from the event.
     /// </summary>
     /// <value>Message</value>
+    /// <seealso cref="MessageEvent" />
+    /// <seealso cref="MessageEvent{T}" />
+    /// <seealso cref="ServerId" />
     public T Message { get; }
     /// <summary>
     /// Gets the identifier of the server where the event occurred.
     /// </summary>
     /// <value>Server ID?</value>
+    /// <seealso cref="MessageEvent" />
+    /// <seealso cref="MessageEvent{T}" />
+    /// <seealso cref="Message" />
     public HashId? ServerId { get; }
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="MessageEvent"/> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
+    /// <returns>New <see cref="MessageEvent{T}" /> JSON instance</returns>
+    /// <seealso cref="MessageEvent{T}" />
     protected MessageEvent(
         HashId? serverId,
 
@@ -43,37 +54,39 @@ public abstract class MessageEvent<T> : BaseObject where T : BaseObject
 /// <summary>
 /// Represents an event with the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone posts or edits a <see cref="MessageEvent{T}.Message">message</see> in <see cref="ChannelId">a channel</see>.
 /// </summary>
-/// <seealso cref="MessageDeletedEvent"/>
-/// <seealso cref="Message"/>
+/// <seealso cref="MessageDeletedEvent" />
+/// <seealso cref="Message" />
 public class MessageEvent : MessageEvent<Message>
 {
     #region Properties
-    /// <inheritdoc cref="ChannelContent{T, S}.ChannelId"/>
+    /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Message.ChannelId;
-    /// <inheritdoc cref="Message.Content"/>
+    /// <inheritdoc cref="Message.Content" />
     public string? Content => Message.Content;
-    /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy"/>
+    /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Message.CreatedBy;
-    /// <inheritdoc cref="Message.CreatedByWebhook"/>
+    /// <inheritdoc cref="Message.CreatedByWebhook" />
     public Guid? CreatedByWebhook => Message.CreatedByWebhook;
-    /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt"/>
+    /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
     public DateTime CreatedAt => Message.CreatedAt;
-    /// <inheritdoc cref="Message.UpdatedAt"/>
+    /// <inheritdoc cref="Message.UpdatedAt" />
     public DateTime? UpdatedAt => Message.UpdatedAt;
-    /// <inheritdoc cref="Message.Type"/>
+    /// <inheritdoc cref="Message.Type" />
     public MessageType Type => Message.Type;
-    /// <inheritdoc cref="Message.IsReply"/>
+    /// <inheritdoc cref="Message.IsReply" />
     public bool IsReply => Message.IsReply;
-    /// <inheritdoc cref="Message.IsSystemMessage"/>
+    /// <inheritdoc cref="Message.IsSystemMessage" />
     public bool IsSystemMessage => Message.IsSystemMessage;
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="MessageEvent"/> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
+    /// <returns>New <see cref="MessageEvent" /> JSON instance</returns>
+    /// <seealso cref="MessageEvent" />
     [JsonConstructor]
     public MessageEvent(
         [JsonProperty(Required = Required.Always)]
@@ -85,19 +98,19 @@ public class MessageEvent : MessageEvent<Message>
     #endregion
 
     #region Additional
-    /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)"/>
+    /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)" />
     public async Task<Message> CreateMessageAsync(MessageContent message) =>
         await Message.CreateMessageAsync(message).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string)"/>
+    /// <inheritdoc cref="Message.CreateMessageAsync(string)" />
     public async Task<Message> CreateMessageAsync(string content) =>
         await Message.CreateMessageAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool)"/>
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool)" />
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await Message.CreateMessageAsync(content, isPrivate, isSilent).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])"/>
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])" />
     public async Task<Message> CreateMessageAsync(string content, params Guid[] replyMessageIds) =>
         await Message.CreateMessageAsync(content, replyMessageIds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[])"/>
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[])" />
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
         await Message.CreateMessageAsync(content, isPrivate, isSilent, replyTo).ConfigureAwait(false);
     /// <inheritdoc cref="Message.CreateMessageAsync(Embed[])" />
@@ -112,31 +125,31 @@ public class MessageEvent : MessageEvent<Message>
     /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[], Embed[])" />
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
         await Message.CreateMessageAsync(content, isPrivate, isSilent, replyTo, embeds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(string)"/>
+    /// <inheritdoc cref="Message.ReplyAsync(string)" />
     public async Task<Message> ReplyAsync(string content) =>
         await Message.ReplyAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool)"/>
+    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool)" />
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await Message.ReplyAsync(content, isPrivate, isSilent).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(bool, bool, Embed[])"/>
+    /// <inheritdoc cref="Message.ReplyAsync(bool, bool, Embed[])" />
     public async Task<Message> ReplyAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         await Message.ReplyAsync(isPrivate, isSilent, embeds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(Embed[])"/>
+    /// <inheritdoc cref="Message.ReplyAsync(Embed[])" />
     public async Task<Message> ReplyAsync(params Embed[] embeds) =>
         await Message.ReplyAsync(embeds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool, Embed[])"/>
+    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool, Embed[])" />
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         await Message.ReplyAsync(content, isPrivate, isSilent, embeds).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.UpdateAsync(string)"/>
+    /// <inheritdoc cref="Message.UpdateAsync(string)" />
     public async Task<Message> UpdateAsync(string content) =>
         await Message.UpdateAsync(content).ConfigureAwait(false);
-    /// <inheritdoc cref="Message.DeleteAsync"/>
+    /// <inheritdoc cref="Message.DeleteAsync" />
     public async Task DeleteAsync() =>
         await Message.DeleteAsync().ConfigureAwait(false);
-    /// <inheritdoc cref="Message.AddReactionAsync(uint)"/>
+    /// <inheritdoc cref="Message.AddReactionAsync(uint)" />
     public async Task<Reaction> AddReactionAsync(uint emoteId) =>
         await Message.AddReactionAsync(emoteId).ConfigureAwait(false);
-    // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)"/>
+    // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)" />
     // public async Task RemoveReactionAsync(uint emoteId) =>
     //     await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
     #endregion

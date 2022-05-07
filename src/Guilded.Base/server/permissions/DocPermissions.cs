@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to documents.
+/// Represents channel permissions related to documents.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions related to documents.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum DocPermissions
 {
@@ -44,10 +58,10 @@ public enum DocPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageDocs"/></description>
+    ///         <description><see cref="ManageDocs" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="RemoveDocs"/></description>
+    ///         <description><see cref="RemoveDocs" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -59,10 +73,10 @@ public enum DocPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateDocs"/></description>
+    ///         <description><see cref="CreateDocs" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ViewDocs"/></description>
+    ///         <description><see cref="ViewDocs" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

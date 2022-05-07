@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to forums.
+/// Represents channel permissions related to forums.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions related to forums.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum ForumPermissions
 {
@@ -52,13 +66,13 @@ public enum ForumPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageTopics"/></description>
+    ///         <description><see cref="ManageTopics" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="StickyTopics"/></description>
+    ///         <description><see cref="StickyTopics" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="LockTopics"/></description>
+    ///         <description><see cref="LockTopics" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -70,13 +84,13 @@ public enum ForumPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateTopics"/></description>
+    ///         <description><see cref="CreateTopics" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ReadForums"/></description>
+    ///         <description><see cref="ReadForums" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="CreateTopicReplies"/></description>
+    ///         <description><see cref="CreateTopicReplies" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

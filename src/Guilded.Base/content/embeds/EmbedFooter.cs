@@ -7,9 +7,10 @@ namespace Guilded.Base.Embeds;
 /// <summary>
 /// Represents the footer area of an <see cref="Embed">embed</see>.
 /// </summary>
-/// <seealso cref="EmbedAuthor"/>
-/// <seealso cref="EmbedField"/>
-/// <seealso cref="EmbedMedia"/>
+/// <seealso cref="Embed" />
+/// <seealso cref="EmbedAuthor" />
+/// <seealso cref="EmbedField" />
+/// <seealso cref="EmbedMedia" />
 public class EmbedFooter : BaseObject
 {
     #region JSON properties
@@ -33,11 +34,14 @@ public class EmbedFooter : BaseObject
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="EmbedFooter"/> with text <paramref name="text"/>.
+    /// Initializes a new instance of <see cref="EmbedFooter" /> with text <paramref name="text" />.
     /// </summary>
     /// <param name="text">The text contents of the footer</param>
     /// <param name="iconUrl">The URL to footer's icon</param>
-    /// <exception cref="ArgumentNullException">When <paramref name="text"/> is <see langword="null"/></exception>
+    /// <exception cref="ArgumentNullException">When <paramref name="text" /> is <see langword="null" /></exception>
+    /// <returns>New <see cref="EmbedFooter" /> instance</returns>
+    /// <seealso cref="EmbedFooter" />
+    /// <seealso cref="EmbedFooter(string, string)" />
     [JsonConstructor]
     public EmbedFooter(
         [JsonProperty(Required = Required.Always)]
@@ -48,8 +52,11 @@ public class EmbedFooter : BaseObject
     ) =>
         (Text, IconUrl) = (text, iconUrl);
     /// <inheritdoc cref="EmbedFooter(string, Uri?)" />
-    /// <exception cref="ArgumentNullException"><paramref name="iconUrl"/> is <see langword="null"/>, empty or whitespace</exception>
-    /// <exception cref="UriFormatException"><paramref name="iconUrl"/> has bad <see cref="Uri"/> formatting</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="iconUrl" /> is <see langword="null" />, empty or whitespace</exception>
+    /// <exception cref="UriFormatException"><paramref name="iconUrl" /> has bad <see cref="Uri" /> formatting</exception>
+    /// <returns>New <see cref="EmbedFooter" /> instance</returns>
+    /// <seealso cref="EmbedFooter" />
+    /// <seealso cref="EmbedFooter(string, Uri)" />
     public EmbedFooter(string text, string iconUrl) : this(text, new Uri(iconUrl)) { }
     #endregion
 }

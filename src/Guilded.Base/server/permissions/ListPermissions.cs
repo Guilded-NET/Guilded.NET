@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to lists.
+/// Represents channel permissions related to lists/tasks in list channels.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions related to lists/tasks in list channels.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum ListPermissions
 {
@@ -52,13 +66,13 @@ public enum ListPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageListItems"/></description>
+    ///         <description><see cref="ManageListItems" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="RemoveListItems"/></description>
+    ///         <description><see cref="RemoveListItems" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ReorderListItems"/></description>
+    ///         <description><see cref="ReorderListItems" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -70,13 +84,13 @@ public enum ListPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateListItem"/></description>
+    ///         <description><see cref="CreateListItem" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ViewListItems"/></description>
+    ///         <description><see cref="ViewListItems" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="CompleteListItems"/></description>
+    ///         <description><see cref="CompleteListItems" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

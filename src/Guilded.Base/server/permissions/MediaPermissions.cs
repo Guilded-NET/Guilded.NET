@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to media.
+/// Represents channel permissions related to media in media channels.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions related to media in media channels.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="CalendarPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum MediaPermissions
 {
@@ -44,10 +58,10 @@ public enum MediaPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageMedia"/></description>
+    ///         <description><see cref="ManageMedia" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="RemoveMedia"/></description>
+    ///         <description><see cref="RemoveMedia" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -59,10 +73,10 @@ public enum MediaPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateMedia"/></description>
+    ///         <description><see cref="CreateMedia" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SeeMedia"/></description>
+    ///         <description><see cref="SeeMedia" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

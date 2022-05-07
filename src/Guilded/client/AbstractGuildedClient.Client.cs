@@ -19,16 +19,17 @@ namespace Guilded;
 /// Represents the base for all Guilded clients.
 /// </summary>
 /// <remarks>
-/// <para>There is not much to be used here. It is recommended to use <see cref="GuildedBotClient"/>.</para>
+/// <para>There is not much to be used here. It is recommended to use <see cref="GuildedBotClient" />.</para>
 /// </remarks>
-/// <seealso cref="GuildedBotClient"/>
+/// <seealso cref="GuildedBotClient" />
+/// <seealso cref="BaseGuildedClient" />
 public abstract partial class AbstractGuildedClient : BaseGuildedClient
 {
     /// <summary>
     /// An observable event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
     protected Subject<Me> PreparedSubject = new();
-    /// <inheritdoc cref="PreparedSubject"/>
+    /// <inheritdoc cref="PreparedSubject" />
     public IObservable<Me> Prepared => PreparedSubject.AsObservable();
     /// <inheritdoc cref="WelcomeEvent.User" />
     public Me? Me { get; protected set; }
@@ -40,8 +41,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <summary>
     /// Initializes a new base instance of <see cref="AbstractGuildedClient" /> children types.
     /// </summary>
-    /// <seealso cref="GuildedBotClient()"/>
-    /// <seealso cref="GuildedBotClient(string)"/>
+    /// <seealso cref="GuildedBotClient()" />
+    /// <seealso cref="GuildedBotClient(string)" />
     protected AbstractGuildedClient()
     {
         #region Event list
@@ -110,9 +111,9 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <summary>
     /// Connects <see cref="AbstractGuildedClient">this client</see> to Guilded.
     /// </summary>
-    /// <seealso cref="DisconnectAsync"/>
-    /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
-    /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
+    /// <seealso cref="DisconnectAsync" />
+    /// <seealso cref="GuildedBotClient.ConnectAsync()" />
+    /// <seealso cref="GuildedBotClient.ConnectAsync(string)" />
     public override async Task ConnectAsync()
     {
         try
@@ -128,10 +129,10 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <summary>
     /// Disconnects <see cref="AbstractGuildedClient">this client</see> from Guilded.
     /// </summary>
-    /// <seealso cref="ConnectAsync"/>
-    /// <seealso cref="Dispose"/>
-    /// <seealso cref="GuildedBotClient.ConnectAsync()"/>
-    /// <seealso cref="GuildedBotClient.ConnectAsync(string)"/>
+    /// <seealso cref="ConnectAsync" />
+    /// <seealso cref="Dispose" />
+    /// <seealso cref="GuildedBotClient.ConnectAsync()" />
+    /// <seealso cref="GuildedBotClient.ConnectAsync(string)" />
     public override async Task DisconnectAsync()
     {
         if (Websocket.IsRunning)
@@ -140,7 +141,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <summary>
     /// Disposes <see cref="AbstractGuildedClient">this client</see>.
     /// </summary>
-    /// <seealso cref="DisconnectAsync"/>
+    /// <seealso cref="DisconnectAsync" />
     public override void Dispose()
     {
         DisconnectAsync().GetAwaiter().GetResult();

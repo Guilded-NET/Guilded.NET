@@ -12,51 +12,52 @@ namespace Guilded.Base.Events;
 /// <remarks>
 /// <para>This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>
 /// </remarks>
-/// <seealso cref="MemberUpdatedEvent"/>
-/// <seealso cref="XpAddedEvent"/>
-/// <seealso cref="WelcomeEvent"/>
-/// <seealso cref="Member"/>
+/// <seealso cref="MemberUpdatedEvent" />
+/// <seealso cref="XpAddedEvent" />
+/// <seealso cref="Member" />
 public class RolesUpdatedEvent : BaseObject, IServerEvent
 {
     #region JSON properties
     /// <summary>
-    /// The list of receiving/losing member and current roles.
+    /// Gets the list of receiving/losing member and current roles.
     /// </summary>
     /// <remarks>
-    /// <para>The list of user and their current role list in IDs.</para>
-    /// <para>This returns users that lost roles, received roles or both.</para>
-    /// <para>If only updated users are needed, use <see cref="UpdatedUsers"/> property.</para>
+    /// <para>If only updated users are needed, use <see cref="UpdatedUsers" /> property.</para>
     /// </remarks>
     /// <value>Member and role definition</value>
+    /// <seealso cref="RolesUpdatedEvent" />
+    /// <seealso cref="UpdatedUsers" />
+    /// <seealso cref="ServerId" />
     public IList<RolesUpdated> MemberRoleIds { get; }
     /// <summary>
-    /// The identifier of the server where roles were updated.
+    /// Gets the identifier of the server where user's roles were given or removed.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of the server where the members were given a role or removed from a role.</para>
-    /// </remarks>
     /// <value>Server ID</value>
+    /// <seealso cref="RolesUpdatedEvent" />
+    /// <seealso cref="MemberRoleIds" />
+    /// <seealso cref="UpdatedUsers" />
     public HashId ServerId { get; }
     #endregion
 
     #region Properties
     /// <summary>
-    /// The array of updated users.
+    /// Gets the array of updated users that either lost or received roles.
     /// </summary>
-    /// <remarks>
-    /// <para>Returns the array of members that had their role list updated either by losing or receiving roles.</para>
-    /// <para>This property goes through <see cref="MemberRoleIds"/> and selects user IDs.</para>
-    /// </remarks>
     /// <returns>Array of user IDs</returns>
+    /// <seealso cref="RolesUpdatedEvent" />
+    /// <seealso cref="MemberRoleIds" />
+    /// <seealso cref="ServerId" />
     public HashId[] UpdatedUsers => MemberRoleIds.Select(x => x.UserId).ToArray();
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="RolesUpdatedEvent"/> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="RolesUpdatedEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the server where roles were updated</param>
     /// <param name="memberRoleIds">The list of roles and role holders</param>
+    /// <returns>New <see cref="RolesUpdatedEvent" /> JSON instance</returns>
+    /// <seealso cref="RolesUpdatedEvent" />
     [JsonConstructor]
     public RolesUpdatedEvent(
         [JsonProperty(Required = Required.Always)]
@@ -72,17 +73,17 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     /// Defines a role list holder and their role list.
     /// </summary>
     /// <remarks>
-    /// <para>Defines a receiving a role holder <see cref="UserId"/> and their current role list <see cref="RoleIds"/>. Roles that were added or removed, or previous role list are not provided. If necessary, previous role list should be cached before-hand.</para>
+    /// <para>Defines a receiving a role holder <see cref="UserId" /> and their current role list <see cref="RoleIds" />. Roles that were added or removed, or previous role list are not provided. If necessary, previous role list should be cached before-hand.</para>
     /// </remarks>
-    /// <seealso cref="MemberUpdatedEvent"/>
-    /// <seealso cref="Member"/>
+    /// <seealso cref="MemberUpdatedEvent" />
+    /// <seealso cref="Member" />
     public class RolesUpdated
     {
         #region JSON properties
         /// <summary>
         /// Gets the identifier of <see cref="User">user</see> that lost or received <see cref="RoleIds">roles</see>.
         /// </summary>
-        /// <value>User ID</value>
+        /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
         public HashId UserId { get; }
         /// <summary>
         /// Gets the list of roles that <see cref="UserId">member</see> is currently holding.
@@ -96,7 +97,7 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of <see cref="RolesUpdated"/> from the specified JSON properties.
+        /// Initializes a new instance of <see cref="RolesUpdated" /> from the specified JSON properties.
         /// </summary>
         /// <param name="userId">The identifier of <see cref="User">user</see> who holds the roles</param>
         /// <param name="roleIds">The list of role identifiers user holds</param>

@@ -36,8 +36,8 @@ namespace Guilded.Base;
 /// Ann6LewA
 /// </code>
 /// </example>
-/// <seealso cref="Guid"/>
-/// <seealso cref="FormId"/>
+/// <seealso cref="Guid" />
+/// <seealso cref="FormId" />
 [TypeConverter(typeof(HashIdConverter))]
 [JsonConverter(typeof(IdConverter))]
 public readonly struct HashId : IEquatable<HashId>
@@ -62,12 +62,12 @@ public readonly struct HashId : IEquatable<HashId>
 
     #region Overrides
     /// <summary>
-    /// Returns the string representation of <see cref="HashId"/> instance.
+    /// Returns the string representation of <see cref="HashId" /> instance.
     /// </summary>
     /// <remarks>
     /// <para>The raw string that makes up <see cref="HashId" /> will be returned.</para>
     /// </remarks>
-    /// <returns><see cref="HashId"/> as string</returns>
+    /// <returns><see cref="HashId" /> as string</returns>
     public override string ToString() =>
         _;
     /// <summary>
@@ -77,24 +77,47 @@ public readonly struct HashId : IEquatable<HashId>
     public override int GetHashCode() =>
         HashCode.Combine(_, 2);
     /// <summary>
-    /// Returns whether this <see cref="HashId"/> instance and <paramref name="other"/> are equal.
+    /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
     /// </summary>
     /// <param name="other">Another identifier to compare</param>
     /// <returns>Both are equal</returns>
     public bool Equals(HashId other) =>
-        other._ == _;
+        Equals(other._);
     /// <summary>
-    /// Returns whether this <see cref="HashId"/> instance and <paramref name="obj"/> are equal.
+    /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
     /// </summary>
-    /// <param name="obj">Another object to compare</param>
+    /// <param name="other">Another identifier to compare</param>
     /// <returns>Both are equal</returns>
-    public override bool Equals(object? obj) =>
-        obj is HashId id && Equals(id);
+    public bool Equals(string other) =>
+        other == _;
+    /// <summary>
+    /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
+    /// </summary>
+    /// <param name="other">Another object to compare</param>
+    /// <returns>Both are equal</returns>
+    public override bool Equals(object? other) =>
+        other is HashId id && Equals(id);
     #endregion
 
     #region Operators
     /// <summary>
-    /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are equal.
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are equal.
+    /// </summary>
+    /// <param name="id0">First ID to be compared</param>
+    /// <param name="id1">Second ID to be compared</param>
+    /// <returns>Both are equal</returns>
+    public static bool operator ==(string id0, HashId id1) =>
+        id0 == id1._;
+    /// <summary>
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are equal.
+    /// </summary>
+    /// <param name="id0">First ID to be compared</param>
+    /// <param name="id1">Second ID to be compared</param>
+    /// <returns>Both are equal</returns>
+    public static bool operator ==(HashId id0, string id1) =>
+        id0._ == id1;
+    /// <summary>
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are equal.
     /// </summary>
     /// <param name="id0">First ID to be compared</param>
     /// <param name="id1">Second ID to be compared</param>
@@ -102,18 +125,34 @@ public readonly struct HashId : IEquatable<HashId>
     public static bool operator ==(HashId id0, HashId id1) =>
         id0._ == id1._;
     /// <summary>
-    /// Returns whether <paramref name="id0"/> and <paramref name="id1"/> are not equal.
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
     /// </summary>
     /// <param name="id0">First ID to be compared</param>
     /// <param name="id1">Second ID to be compared</param>
     /// <returns>Both aren't equal</returns>
     public static bool operator !=(HashId id0, HashId id1) =>
         !(id0 == id1);
+    /// <summary>
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
+    /// </summary>
+    /// <param name="id0">First ID to be compared</param>
+    /// <param name="id1">Second ID to be compared</param>
+    /// <returns>Both aren't equal</returns>
+    public static bool operator !=(string id0, HashId id1) =>
+        !(id0 == id1);
+    /// <summary>
+    /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
+    /// </summary>
+    /// <param name="id0">First ID to be compared</param>
+    /// <param name="id1">Second ID to be compared</param>
+    /// <returns>Both aren't equal</returns>
+    public static bool operator !=(HashId id0, string id1) =>
+        !(id0 == id1);
     #endregion
 
     #region Static methods
     /// <summary>
-    /// Returns whether <paramref name="str"/> is in the correct <see cref="HashId"/> format.
+    /// Returns whether <paramref name="str" /> is in the correct <see cref="HashId" /> format.
     /// </summary>
     /// <param name="str">A raw string to check</param>
     /// <returns>Correct formatting</returns>

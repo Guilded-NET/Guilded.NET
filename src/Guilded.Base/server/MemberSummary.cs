@@ -7,19 +7,31 @@ namespace Guilded.Base.Servers;
 /// <summary>
 /// Represents the summary about a member.
 /// </summary>
-/// <typeparam name="T">The type of the user object</typeparam>
+/// <typeparam name="T">The type of <see cref="Users.User">the user</see> object</typeparam>
+/// <seealso cref="Member" />
+/// <seealso cref="MemberBan" />
+/// <seealso cref="UserSummary" />
+/// <seealso cref="Webhook" />
 public class MemberSummary<T> : BaseObject where T : UserSummary
 {
     #region JSON properties
     /// <summary>
-    /// Gets the user they are.
+    /// Gets <see cref="Users.User">the user</see> they are.
     /// </summary>
     /// <value>User</value>
+    /// <seealso cref="MemberSummary{T}" />
+    /// <seealso cref="Member" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="Users.User" />
+    /// <seealso cref="UserSummary" />
     public T User { get; set; }
     /// <summary>
     /// Gets the list of roles user holds.
     /// </summary>
     /// <value>List of role IDs</value>
+    /// <seealso cref="MemberSummary{T}" />
+    /// <seealso cref="Member" />
+    /// <seealso cref="Id" />
     public IList<uint> RoleIds { get; set; }
     #endregion
 
@@ -38,8 +50,10 @@ public class MemberSummary<T> : BaseObject where T : UserSummary
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user">The user who is present in the server</param>
+    /// <param name="user"><see cref="Users.User">The user</see> who is present in the server</param>
     /// <param name="roleIds">The list of roles user holds</param>
+    /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>
+    /// <seealso cref="MemberSummary{T}" />
     [JsonConstructor]
     public MemberSummary(
         [JsonProperty(Required = Required.Always)]

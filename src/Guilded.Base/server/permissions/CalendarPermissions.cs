@@ -3,11 +3,25 @@ using System;
 namespace Guilded.Base.Permissions;
 
 /// <summary>
-/// Permissions related to calendar.
+/// Represents channel permissions for calendar and event related things.
 /// </summary>
-/// <remarks>
-/// <para>Defines channel permissions for calendar and event related things.</para>
-/// </remarks>
+/// <seealso cref="AnnouncementPermissions" />
+/// <seealso cref="BotPermissions" />
+/// <seealso cref="BracketPermissions" />
+/// <seealso cref="ChatPermissions" />
+/// <seealso cref="CustomPermissions" />
+/// <seealso cref="DocPermissions" />
+/// <seealso cref="FormPermissions" />
+/// <seealso cref="ForumPermissions" />
+/// <seealso cref="GeneralPermissions" />
+/// <seealso cref="ListPermissions" />
+/// <seealso cref="MatchmakingPermissions" />
+/// <seealso cref="MediaPermissions" />
+/// <seealso cref="RecruitmentPermissions" />
+/// <seealso cref="SchedulingPermissions" />
+/// <seealso cref="StreamPermissions" />
+/// <seealso cref="VoicePermissions" />
+/// <seealso cref="XpPermissions" />
 [Flags]
 public enum CalendarPermissions
 {
@@ -48,13 +62,13 @@ public enum CalendarPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageEvents"/></description>
+    ///         <description><see cref="ManageEvents" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="RemoveEvents"/></description>
+    ///         <description><see cref="RemoveEvents" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="EditRSVPs"/></description>
+    ///         <description><see cref="EditRSVPs" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
@@ -66,10 +80,10 @@ public enum CalendarPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateEvents"/></description>
+    ///         <description><see cref="CreateEvents" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ViewEvents"/></description>
+    ///         <description><see cref="ViewEvents" /></description>
     ///     </item>
     /// </list>
     /// </remarks>

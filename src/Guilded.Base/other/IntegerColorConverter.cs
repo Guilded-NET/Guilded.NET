@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace Guilded.Base;
 
 /// <summary>
-/// Converts <see cref="Color"/> to an integer in RGB format.
+/// Converts <see cref="Color" /> to an integer in RGB format.
 /// </summary>
 public class DecimalColorConverter : JsonConverter
 {
@@ -26,13 +26,13 @@ public class DecimalColorConverter : JsonConverter
             writer.WriteNull();
     }
     /// <summary>
-    /// Reads the given JSON object as <see cref="Color"/>.
+    /// Reads the given JSON object as <see cref="Color" />.
     /// </summary>
     /// <param name="reader">The reader that was used to read JSON</param>
     /// <param name="objectType">The type of the object to convert</param>
     /// <param name="existingValue">The previous value of the property being converted</param>
     /// <param name="serializer">The serializer that is deserializing the object</param>
-    /// <returns><see cref="Color"/></returns>
+    /// <returns><see cref="Color" /></returns>
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         JToken token = JToken.Load(reader);
