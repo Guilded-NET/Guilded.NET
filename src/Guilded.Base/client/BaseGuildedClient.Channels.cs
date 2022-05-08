@@ -98,7 +98,7 @@ public abstract partial class BaseGuildedClient
     /// </remarks>
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
     /// <param name="includePrivate">Whether to get private replies or not</param>
-    /// <param name="limit">The limit of how many messages to get (default — <c>50</c>, values — <c>(0, 100]</c>)</param>
+    /// <param name="limit">The limit of how many messages to get (default — <c>50</c>, min — <c>1</c>, max — <c>100</c>)</param>
     /// <param name="before">The max limit of the creation date of fetched messages</param>
     /// <param name="after">The min limit of the creation date of fetched messages</param>
     /// <exception cref="GuildedException" />
@@ -141,7 +141,7 @@ public abstract partial class BaseGuildedClient
     /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
-    /// <param name="content">The text content of the message in Markdown</param>
+    /// <param name="content">The text content of the message in Markdown (max — <c>4000</c>)</param>
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="null" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
     /// <returns>Created <see cref="Message">message</see></returns>
@@ -149,7 +149,7 @@ public abstract partial class BaseGuildedClient
         await CreateMessageAsync(channel, new MessageContent(content)).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
-    /// <param name="content">The text content of the message in Markdown</param>
+    /// <param name="content">The text content of the message in Markdown (max — <c>4000</c>)</param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
     public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false) =>
@@ -160,8 +160,8 @@ public abstract partial class BaseGuildedClient
         }).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
-    /// <param name="content">The text content of the message in Markdown</param>
-    /// <param name="replyTo">The array of all messages it is replying to(5 max)</param>
+    /// <param name="content">The text content of the message in Markdown (max — <c>4000</c>)</param>
+    /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
     public async Task<Message> CreateMessageAsync(Guid channel, string content, params Guid[] replyTo) =>
         await CreateMessageAsync(channel, new MessageContent(content)
         {
@@ -169,10 +169,10 @@ public abstract partial class BaseGuildedClient
         }).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
-    /// <param name="content">The text content of the message in Markdown</param>
+    /// <param name="content">The text content of the message in Markdown (max — <c>4000</c>)</param>
     /// <param name="isPrivate">Whether the reply is private</param>
     /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
-    /// <param name="replyTo">The array of all messages it is replying to(5 max)</param>
+    /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
     public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
         await CreateMessageAsync(channel, new MessageContent(content)
         {
@@ -195,7 +195,7 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
     /// <param name="isPrivate">Whether the mention/reply is private</param>
     /// <param name="isSilent">Whether the mention/reply is silent and does not ping anyone</param>
-    /// <param name="replyTo">The array of all messages it is replying to(5 max)</param>
+    /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">custom embeds</see> that will be visible in the message</param>
     public async Task<Message> CreateMessageAsync(Guid channel, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
         await CreateMessageAsync(channel, new MessageContent
@@ -211,7 +211,7 @@ public abstract partial class BaseGuildedClient
     /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside <paramref name="content">text content</paramref>.</para>
     /// </remarks>
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
-    /// <param name="content">The text content of the message</param>
+    /// <param name="content">The text content of the message in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">custom embeds</see> that will be visible in the message</param>
     public async Task<Message> CreateMessageAsync(Guid channel, string content, params Embed[] embeds) =>
         await CreateMessageAsync(channel, new MessageContent
@@ -225,10 +225,10 @@ public abstract partial class BaseGuildedClient
     /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside <paramref name="content">text content</paramref>.</para>
     /// </remarks>
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel">the parent channel</see></param>
-    /// <param name="content">The text content of <see cref="Message">the message</see></param>
+    /// <param name="content">The text content of the message in Markdown (max — <c>4000</c>)</param>
     /// <param name="isPrivate">Whether the mention/reply is private</param>
     /// <param name="isSilent">Whether the mention/reply is silent and does not ping anyone</param>
-    /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to(5 max)</param>
+    /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">custom embeds</see> that will be visible in the message</param>
     public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
         await CreateMessageAsync(channel, new MessageContent
@@ -244,7 +244,7 @@ public abstract partial class BaseGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of <see cref="Servers.ServerChannel"><see cref="Servers.ServerChannel">the parent channel</see></see></param>
     /// <param name="message">The identifier of <see cref="Message">the message</see> to edit</param>
-    /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown plain text</param>
+    /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />

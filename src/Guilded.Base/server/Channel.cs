@@ -14,6 +14,25 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Webhook" />
 public class ServerChannel : ClientObject, ICreatableContent
 {
+    #region Constants
+    /// <summary>
+    /// The count of how many <see cref="char">characters</see> there can be in <see cref="Name">channel's name</see>.
+    /// </summary>
+    /// <value>Limit</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Name" />
+    /// <seealso cref="TopicLimit" />
+    public const short NameLimit = 4000;
+    /// <summary>
+    /// The count of how many <see cref="char">characters</see> there can be in <see cref="Topic">channel's topic</see>.
+    /// </summary>
+    /// <value>Limit</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Topic" />
+    /// <seealso cref="NameLimit" />
+    public const short TopicLimit = 4000;
+    #endregion
+
     #region JSON properties
     /// <summary>
     /// Gets the identifier of the channel.

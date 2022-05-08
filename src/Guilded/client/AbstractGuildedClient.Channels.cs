@@ -47,14 +47,9 @@ public abstract partial class AbstractGuildedClient
         {
             throw new ArgumentNullException(nameof(message.Content));
         }
-        else if (message.Content?.Length > Message.TextLimit)
-        {
-            throw new ArgumentOutOfRangeException(nameof(message.Content), message.Content, $"{nameof(message.Content)} exceeds the 4000 character message limit");
-        }
-        else if (message.Embeds?.Count > Message.EmbedLimit)
-        {
-            throw new ArgumentOutOfRangeException(nameof(message.Embeds), message.Embeds, $"{nameof(message.Embeds)} exceeds 1 embed limit");
-        }
+        CheckNullableContentOverLimit(nameof(message.ReplyMessageIds), message.ReplyMessageIds, Message.ReplyLimit);
+        CheckNullableContentOverLimit(nameof(message.Embeds), message.Embeds, Message.EmbedLimit);
+        CheckContentOverLimit(nameof(message.Content), message.Content!, Message.TextLimit);
 
         return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message), "message").ConfigureAwait(false);
     }
@@ -64,7 +59,7 @@ public abstract partial class AbstractGuildedClient
         if (string.IsNullOrWhiteSpace(content))
             throw new ArgumentNullException(nameof(content));
         else if (content.Length > Message.TextLimit)
-            throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character message limit");
+            throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character limit");
         else
             return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);
     }

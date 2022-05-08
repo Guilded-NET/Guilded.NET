@@ -327,9 +327,9 @@ public abstract partial class BaseGuildedClient
     /// Creates a new channel in the <paramref name="server">specified server</paramref>.
     /// </summary>
     /// <param name="server">The identifier of the server where <see cref="ServerChannel">the channel</see> will be created</param>
-    /// <param name="name">The name of <see cref="ServerChannel">the channel</see></param>
+    /// <param name="name">The name of <see cref="ServerChannel">the channel</see> (max — <c>100</c>)</param>
     /// <param name="type">The type of the content that <see cref="ServerChannel">the channel</see> will hold</param>
-    /// <param name="topic">The topic describing what <see cref="ServerChannel">the channel</see> is about</param>
+    /// <param name="topic">The topic describing what <see cref="ServerChannel">the channel</see> is about (max — <c>512</c>)</param>
     /// <param name="group">The identifier of the group where <see cref="ServerChannel">the channel</see> will be created</param>
     /// <param name="category">The identifier of the category where <see cref="ServerChannel">the channel</see> will be created</param>
     /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
