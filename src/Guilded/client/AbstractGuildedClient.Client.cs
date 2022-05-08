@@ -149,23 +149,14 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         // They aren't disposed by DisconnectAsync, only shut down
         Websocket.Dispose();
     }
-    private void CheckContentOverLimit(string name, string value, short limit)
+    private void EnforceLimit(string name, string value, short limit)
     {
         if (value.Length > limit)
             throw new ArgumentOutOfRangeException(name, value, $"{name} exceeds the {limit} character limit");
     }
-    private void CheckContentOverLimit<T>(string name, IEnumerable<T> value, short limit)
+    private void EnforceLimitOnNullable(string name, string? value, short limit)
     {
-        if (value.Count() > limit)
-            throw new ArgumentOutOfRangeException(name, value, $"{name} exceeds the {limit} length limit");
-    }
-    private void CheckNullableContentOverLimit(string name, string? value, short limit)
-    {
-        if (value is not null) CheckContentOverLimit(name, value, limit);
-    }
-    private void CheckNullableContentOverLimit<T>(string name, IEnumerable<T>? value, short limit)
-    {
-        if (value is not null) CheckContentOverLimit(name, value, limit);
+        if (value is not null) EnforceLimit(name, value, limit);
     }
     private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>
         (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;

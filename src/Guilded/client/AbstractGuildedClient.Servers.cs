@@ -147,8 +147,8 @@ public abstract partial class AbstractGuildedClient
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
 
-        CheckContentOverLimit(nameof(name), name, ServerChannel.NameLimit);
-        CheckNullableContentOverLimit(nameof(topic), topic, ServerChannel.TopicLimit);
+        EnforceLimit(nameof(name), name, ServerChannel.NameLimit);
+        EnforceLimitOnNullable(nameof(topic), topic, ServerChannel.TopicLimit);
 
         return await GetResponseProperty<ServerChannel>(new RestRequest($"channel", Method.Post)
             .AddJsonBody(new

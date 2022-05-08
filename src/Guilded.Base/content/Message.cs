@@ -172,7 +172,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <param name="content">The text contents of the message</param>
     /// <param name="replyMessageIds">Gets the list of <see cref="Message">messages</see> being replied to</param>
     /// <param name="embeds">Gets the list of <see cref="Embed">custom embeds</see> that this message contains</param>
-    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isPrivate">Whether <see cref="ReplyMessageIds">the reply</see> is private</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> that created the message</param>
     /// <param name="createdAt">the date when the message was created</param>
@@ -225,7 +225,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <summary>
     /// Creates a message in the parent channel (from <see cref="ChannelContent{T, S}.ChannelId" />).
     /// </summary>
-    /// <param name="message">The text contents of the message in Markdown (max — <c>4000</c>)</param>
+    /// <param name="message">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -236,30 +236,30 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
     /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
     /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-    /// <returns>Created message</returns>
+    /// <returns>Created <see cref="Message">message</see></returns>
     public async Task<Message> CreateMessageAsync(MessageContent message) =>
         await ParentClient.CreateMessageAsync(ChannelId, message);
     /// <inheritdoc cref="CreateMessageAsync(MessageContent)" />
     /// <remarks>
     /// <para>The <paramref name="content">text contents</paramref> will be formatted in Markdown.</para>
     /// </remarks>
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     public async Task<Message> CreateMessageAsync(string content) =>
         await ParentClient.CreateMessageAsync(ChannelId, content).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(string)" />
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping</param>
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await ParentClient.CreateMessageAsync(ChannelId, content, isPrivate, isSilent).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(string)" />
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
     public async Task<Message> CreateMessageAsync(string content, params Guid[] replyTo) =>
         await ParentClient.CreateMessageAsync(ChannelId, content, replyTo).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(string)" />
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="isPrivate">Whether <see cref="ReplyMessageIds">the reply</see> is private</param>
     /// <param name="isSilent">Whether the reply is silent and does not ping</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
@@ -268,14 +268,14 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <remarks>
     /// <para>No text contents of the message won't be displayed besides embed.</para>
     /// </remarks>
-    /// <param name="embeds">The array of custom embeds that will be visible in the message</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see></param>
     public async Task<Message> CreateMessageAsync(params Embed[] embeds) =>
         await ParentClient.CreateMessageAsync(ChannelId, embeds).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(Embed[])" />
     /// <param name="isPrivate">Whether the reply/mention is private</param>
-    /// <param name="isSilent">Whether the reply/mention is silent and does not ping</param>
+    /// <param name="isSilent">Whether the mention or <see cref="ReplyMessageIds">the reply</see> is silent and does not ping</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
-    /// <param name="embeds">The array of custom embeds that will be visible in the message (max — <c>1</c>)</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
     public async Task<Message> CreateMessageAsync(bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
         await ParentClient.CreateMessageAsync(ChannelId, isPrivate, isSilent, replyTo, embeds).ConfigureAwait(false);
     /// <summary>
@@ -286,8 +286,8 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <para>This does not automatically include the message in the reply list.</para>
     /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside <paramref name="content">text content</paramref>.</para>
     /// </remarks>
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
-    /// <param name="embeds">The array of custom embeds that will be visible in the message (max — <c>1</c>)</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -298,15 +298,15 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
     /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
     /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-    /// <returns>Created message</returns>
+    /// <returns>Created <see cref="Message">message</see></returns>
     public async Task<Message> CreateMessageAsync(string content, params Embed[] embeds) =>
         await ParentClient.CreateMessageAsync(ChannelId, content, embeds).ConfigureAwait(false);
     /// <inheritdoc cref="CreateMessageAsync(string, Embed[])" />
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="isPrivate">Whether <see cref="ReplyMessageIds">the reply</see> is private</param>
     /// <param name="isSilent">Whether the reply is silent and does not ping</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
-    /// <param name="embeds">The array of custom embeds that will be visible in the message (max — <c>1</c>)</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
     public async Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
         await ParentClient.CreateMessageAsync(ChannelId, content, isPrivate, isSilent, replyTo, embeds).ConfigureAwait(false);
     /// <summary>
@@ -316,7 +316,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <para>The given text <paramref name="content" /> will be formatted in Markdown.</para>
     /// <para>Includes this message (<see cref="ChannelContent{T, S}.Id" /> property) in the reply list.</para>
     /// </remarks>
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -327,36 +327,49 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
     /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
     /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
-    /// <returns>Created message</returns>
+    /// <returns>Created <see cref="Message">message</see></returns>
     public async Task<Message> ReplyAsync(string content) =>
         await CreateMessageAsync(content, Id).ConfigureAwait(false);
     /// <inheritdoc cref="ReplyAsync(string)" />
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the reply is private</param>
-    /// <param name="isSilent">Whether the reply is silent and does not mention</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="isPrivate">Whether <see cref="ReplyMessageIds">the reply</see> is private</param>
+    /// <param name="isSilent">Whether <see cref="ReplyMessageIds">the reply</see> is silent and does not ping</param>
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
         await CreateMessageAsync(content, isPrivate, isSilent, Id).ConfigureAwait(false);
     /// <inheritdoc cref="ReplyAsync(string)" />
-    /// <param name="embeds">The array of custom embeds that will be visible in the message</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see></param>
     public async Task<Message> ReplyAsync(params Embed[] embeds) =>
         await CreateMessageAsync(replyTo: new Guid[] { Id }, embeds: embeds).ConfigureAwait(false);
     /// <inheritdoc cref="ReplyAsync(string)" />
-    /// <param name="isPrivate">Whether the mention/reply is private</param>
-    /// <param name="isSilent">Whether the mention/reply is silent and does not ping anyone</param>
-    /// <param name="embeds">The array of custom embeds that will be visible in the message (max — <c>1</c>)</param>
+    /// <param name="isPrivate">Whether the mention or <see cref="ReplyMessageIds">the reply</see> is private</param>
+    /// <param name="isSilent">Whether the mention or <see cref="ReplyMessageIds">the reply</see> is silent and does not ping</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
     public async Task<Message> ReplyAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         await CreateMessageAsync(isPrivate, isSilent, replyTo: new Guid[] { Id }, embeds).ConfigureAwait(false);
     /// <inheritdoc cref="ReplyAsync(string)" />
-    /// <param name="content">The text contents of the message in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the mention/reply is private</param>
-    /// <param name="isSilent">Whether the mention/reply is silent and does not ping anyone</param>
-    /// <param name="embeds">The array of custom embeds that will be visible in the message (max — <c>1</c>)</param>
+    /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="isPrivate">Whether the mention or <see cref="ReplyMessageIds">the reply</see> is private</param>
+    /// <param name="isSilent">Whether the mention or <see cref="ReplyMessageIds">the reply</see> is silent and does not ping</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
     public async Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         await CreateMessageAsync(content, isPrivate, isSilent, replyTo: new Guid[] { Id }, embeds).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
-    /// <param name="content">The text contents of the message in Markdown plain text</param>
+    /// <param name="content">The <see cref="MessageContent">new contents</see> of <see cref="Message">the message</see></param>
+    public async Task<Message> UpdateAsync(MessageContent content) =>
+        await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
+    /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     public async Task<Message> UpdateAsync(string content) =>
         await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
+    /// <param name="embeds">The <see cref="Embed">new custom embeds</see> of <see cref="Message">the message</see> in Markdown (max — <c>1</c>)</param>
+    public async Task<Message> UpdateAsync(params Embed[] embeds) =>
+        await ParentClient.UpdateMessageAsync(ChannelId, Id, embeds).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
+    /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="embeds">The <see cref="Embed">new custom embeds</see> of <see cref="Message">the message</see> in Markdown (max — <c>1</c>)</param>
+    public async Task<Message> UpdateAsync(string content, params Embed[] embeds) =>
+        await ParentClient.UpdateMessageAsync(ChannelId, Id, content, embeds).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     public async Task DeleteAsync() =>
         await ParentClient.DeleteMessageAsync(ChannelId, Id).ConfigureAwait(false);

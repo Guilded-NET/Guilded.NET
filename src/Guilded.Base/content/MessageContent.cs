@@ -15,13 +15,49 @@ namespace Guilded.Base.Content;
             ItemNullValueHandling = NullValueHandling.Ignore)]
 public class MessageContent : BaseObject
 {
+    #region Fields
+    private string? _content;
+    private IList<Embed>? _embeds;
+    private IList<Guid>? _replyMessageIds;
+    #endregion
+
     #region JSON properties
     /// <inheritdoc cref="Message.Content" />
-    public string? Content { get; set; }
+    public string? Content
+    {
+        get => _content;
+        set
+        {
+            if (value is not null && value?.Length > Message.TextLimit)
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"Contents of the message exceed 4000 character limit");
+
+            _content = value;
+        }
+    }
     /// <inheritdoc cref="Message.Embeds" />
-    public IList<Embed>? Embeds { get; set; }
+    public IList<Embed>? Embeds
+    {
+        get => _embeds;
+        set
+        {
+            if (value is not null && value?.Count > Message.EmbedLimit)
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"Given embed list exceeds the 1 embed per message limit");
+
+            _embeds = value;
+        }
+    }
     /// <inheritdoc cref="Message.ReplyMessageIds" />
-    public IList<Guid>? ReplyMessageIds { get; set; }
+    public IList<Guid>? ReplyMessageIds
+    {
+        get => _replyMessageIds;
+        set
+        {
+            if (value is not null && value?.Count > Message.ReplyLimit)
+                throw new ArgumentOutOfRangeException(nameof(value), value, $"Given reply list exceeds 5 replies per message limit");
+
+            _replyMessageIds = value;
+        }
+    }
     /// <inheritdoc cref="Message.IsPrivate" />
     public bool? IsPrivate { get; set; }
     /// <summary>

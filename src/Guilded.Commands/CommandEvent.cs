@@ -81,7 +81,7 @@ public class CommandEvent
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandEvent" /> from <see cref="MessageEvent">a created message</see>.
+    /// Initializes a new instance of <see cref="CommandEvent" /> from <see cref="MessageEvent">a Created <see cref="Message">message</see></see>.
     /// </summary>
     /// <param name="messageCreated">The message event that invoked the command</param>
     /// <param name="prefix">The prefix that has been used on the command</param>

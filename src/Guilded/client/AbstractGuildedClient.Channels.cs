@@ -47,9 +47,6 @@ public abstract partial class AbstractGuildedClient
         {
             throw new ArgumentNullException(nameof(message.Content));
         }
-        CheckNullableContentOverLimit(nameof(message.ReplyMessageIds), message.ReplyMessageIds, Message.ReplyLimit);
-        CheckNullableContentOverLimit(nameof(message.Embeds), message.Embeds, Message.EmbedLimit);
-        CheckContentOverLimit(nameof(message.Content), message.Content!, Message.TextLimit);
 
         return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message), "message").ConfigureAwait(false);
     }
