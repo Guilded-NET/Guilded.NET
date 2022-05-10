@@ -100,7 +100,7 @@ public class UserSummary : ClientObject
     /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
     public async Task<string> UpdateNicknameAsync(HashId server, string nickname) =>
         await ParentClient.UpdateNicknameAsync(server, Id, nickname).ConfigureAwait(false);
-    /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(System.Guid, System.Guid)" />
+    /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     public async Task DeleteNicknameAsync(HashId server) =>
         await ParentClient.DeleteNicknameAsync(server, Id).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)" />

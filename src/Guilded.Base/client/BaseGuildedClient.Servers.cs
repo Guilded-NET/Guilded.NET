@@ -343,6 +343,21 @@ public abstract partial class BaseGuildedClient
     /// <returns>Created <see cref="ServerChannel">channel</see></returns>
     public abstract Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null);
     /// <summary>
+    /// Updates the <paramref name="channel">specified channel</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to update</param>
+    /// <param name="name">A new name of <see cref="ServerChannel">the channel</see> (max — <c>100</c>)</param>
+    /// <param name="topic">A new topic describing what <see cref="ServerChannel">the channel</see> is about (max — <c>512</c>)</param>
+    /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageChannels">Required for updating channels</permission>
+    /// <returns>Updated <paramref name="channel" /></returns>
+    public abstract Task<ServerChannel> UpdateChannelAsync(Guid channel, string? name = null, string? topic = null, bool? isPublic = null);
+    /// <summary>
     /// Deletes the <paramref name="channel">specified channel</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the channel to delete</param>

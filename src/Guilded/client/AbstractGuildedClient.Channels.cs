@@ -51,14 +51,12 @@ public abstract partial class AbstractGuildedClient
         return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message), "message").ConfigureAwait(false);
     }
     /// <inheritdoc />
-    public override async Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content)
+    public override async Task<Message> UpdateMessageAsync(Guid channel, Guid message, MessageContent content)
     {
-        if (string.IsNullOrWhiteSpace(content))
+        if (content is null)
             throw new ArgumentNullException(nameof(content));
-        else if (content.Length > Message.TextLimit)
-            throw new ArgumentOutOfRangeException(nameof(content), content, $"{nameof(content)} exceeds the 4000 character limit");
         else
-            return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(new MessageContent(content)), "message").ConfigureAwait(false);
+            return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(content), "message").ConfigureAwait(false);
     }
     /// <inheritdoc />
     public override async Task DeleteMessageAsync(Guid channel, Guid message) =>

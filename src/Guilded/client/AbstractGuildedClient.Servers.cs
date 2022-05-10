@@ -150,7 +150,7 @@ public abstract partial class AbstractGuildedClient
         EnforceLimit(nameof(name), name, ServerChannel.NameLimit);
         EnforceLimitOnNullable(nameof(topic), topic, ServerChannel.TopicLimit);
 
-        return await GetResponseProperty<ServerChannel>(new RestRequest($"channel", Method.Post)
+        return await GetResponseProperty<ServerChannel>(new RestRequest($"channels", Method.Post)
             .AddJsonBody(new
             {
                 serverId = server,
@@ -158,6 +158,18 @@ public abstract partial class AbstractGuildedClient
                 categoryId = category,
                 name,
                 type,
+                topic,
+                isPublic
+            })
+        , "channel").ConfigureAwait(false);
+    }
+    /// <inheritdoc />
+    public override async Task<ServerChannel> UpdateChannelAsync(Guid channel, string? name = null, string? topic = null, bool? isPublic = null)
+    {
+        return await GetResponseProperty<ServerChannel>(new RestRequest($"channels/{channel}", Method.Patch)
+            .AddJsonBody(new
+            {
+                name,
                 topic,
                 isPublic
             })
