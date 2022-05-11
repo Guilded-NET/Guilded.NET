@@ -1,3 +1,4 @@
+using DefaultDocumentation;
 using DefaultDocumentation.Api;
 using DefaultDocumentation.Models;
 using DefaultDocumentation.Models.Types;

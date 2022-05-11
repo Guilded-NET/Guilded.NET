@@ -1,14 +1,14 @@
 {
-    "AssemblyFilePath": "./bin/Release/net6.0/Guilded.NET.dll",
-    "OutputDirectoryPath": "../Documentation/Guilded.NET",
+    "AssemblyFilePath": "./bin/Release/net6.0/Guilded.dll",
+    "OutputDirectoryPath": "../Documentation/Guilded",
     "GeneratedAccessModifiers": "Public,ProtectedInternal,Protected",
     "GeneratedPages": "Assembly,Types,Members,Namespaces",
 
     "FileNameFactory": "Name",
     "RemoveFileExtensionFromLinks": true,
-    "LinksOutputFile": "../Documentation/Guilded.NET.link",
+    "LinksOutputFilePath": "../Documentation/Guilded.link",
     "ExternLinksFilePaths": [
-        "../Documentation/Guilded.NET.Base.link"
+        "../Documentation/Guilded.Base.link"
     ],
 
     "AssemblyPageName": "index",
@@ -31,7 +31,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -61,7 +60,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -82,7 +80,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -110,7 +107,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -138,7 +134,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -157,7 +152,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -175,7 +169,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -191,7 +184,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -209,7 +201,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -228,7 +219,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -242,6 +232,6 @@
         ]
     },
     "Plugins": [
-        "../Guilded.NET.Documentation/bin/Release/net6.0/Guilded.NET.Documentation.dll"
+        "../Guilded.Documentation/bin/Release/net6.0/Guilded.Documentation.dll"
     ]
 }

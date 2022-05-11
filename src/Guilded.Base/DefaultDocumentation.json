@@ -6,7 +6,7 @@
 
     "FileNameFactory": "Name",
     "RemoveFileExtensionFromLinks": true,
-    "LinksOutputFile": "../Documentation/Guilded.Base.link",
+    "LinksOutputFilePath": "../Documentation/Guilded.Base.link",
 
     "AssemblyPageName": "index",
     "AssemblyDocItem": {
@@ -28,7 +28,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -58,7 +57,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -79,7 +77,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -107,7 +104,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -135,7 +131,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -154,7 +149,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -172,7 +166,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -188,7 +181,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -206,7 +198,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
@@ -225,7 +216,6 @@
         "Sections": [
             "FrontMatterStart",
             "summary",
-            "Definition",
             "FrontMatterEnd",
             "Title",
             "ModifiedHeader",
