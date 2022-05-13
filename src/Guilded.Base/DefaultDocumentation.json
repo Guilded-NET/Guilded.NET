@@ -5,7 +5,7 @@
     "GeneratedPages": "Assembly,Types,Members,Namespaces",
 
     "FileNameFactory": "Name",
-    "RemoveFileExtensionFromLinks": true,
+    "Markdown.RemoveFileExtensionFromUrl": true,
     "LinksOutputFilePath": "../Documentation/Guilded.Base.link",
 
     "AssemblyPageName": "index",

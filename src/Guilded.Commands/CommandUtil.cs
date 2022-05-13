@@ -30,7 +30,7 @@ internal static class CommandUtil
                     failedCommand.Type == attr.Type
                 )
                 .Subscribe(failedCommand =>
-                    method.Invoke(command, new object[] { failedCommand })
+                    method.Invoke(command, new object[] { failedCommand.Invokation })
                 );
         }
     }

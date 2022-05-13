@@ -14,7 +14,7 @@ public sealed class ModifiedHeaderSection : ISection
         DocItem item = writer.GetDocItem();
 
         // Smaller text
-        writer.AppendLine().Append("###### **Assembly:** ");
+        writer.AppendLine().Append("##### **Assembly:** ");
 
         AssemblyDocItem assembly = (AssemblyDocItem)item.GetParents().First();
         // Write a hyperlink if its page exists
