@@ -12,6 +12,81 @@ namespace Guilded.Base;
 public abstract partial class BaseGuildedClient
 {
     #region Webhook
+
+    #region CreateHookMessageAsync with URL
+    /// <summary>
+    /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
+    /// </summary>
+    /// <param name="webhookUrl">The URL of <see cref="Webhook">the webhook</see></param>
+    /// <param name="message">The message to send</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public abstract Task CreateHookMessageAsync(Uri webhookUrl, MessageContent message);
+    /// <summary>
+    /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhookUrl">The URL of <see cref="Webhook">the webhook</see></param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public async Task CreateHookMessageAsync(Uri webhookUrl, string content) =>
+        await CreateHookMessageAsync(webhookUrl, new MessageContent(content)).ConfigureAwait(false);
+    /// <summary>
+    /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhookUrl">The URL of <see cref="Webhook">the webhook</see></param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown</param>
+    /// <param name="embeds">The list of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public async Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds) =>
+        await CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds }).ConfigureAwait(false);
+    /// <summary>
+    /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhookUrl">The URL of <see cref="Webhook">the webhook</see></param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown</param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public async Task CreateHookMessageAsync(Uri webhookUrl, string content, params Embed[] embeds) =>
+        await CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds }).ConfigureAwait(false);
+    /// <summary>
+    /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
+    /// </summary>
+    /// <param name="webhookUrl">The URL of <see cref="Webhook">the webhook</see></param>
+    /// <param name="embeds">The list of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public async Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds) =>
+        await CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    /// <summary>
+    /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
+    /// </summary>
+    /// <param name="webhookUrl">The URL of <see cref="Webhook">the webhook</see></param>
+    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public async Task CreateHookMessageAsync(Uri webhookUrl, params Embed[] embeds) =>
+        await CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    #endregion
+
+    #region CreateHookMessageAsync with webhookId + token
     /// <summary>
     /// Creates <see cref="Message">a message</see> using <paramref name="webhook">the specified webhook</paramref>.
     /// </summary>
@@ -21,7 +96,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public abstract Task CreateHookMessageAsync(Guid webhook, string token, MessageContent message);
+    public async Task CreateHookMessageAsync(Guid webhook, string token, MessageContent message) =>
+        await CreateHookMessageAsync(new Uri(GuildedUrl.Media, $"webhooks/{webhook}/{token}"), message).ConfigureAwait(false);
     /// <summary>
     /// Creates <see cref="Message">a message</see> with content containing only <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
     /// </summary>
@@ -45,7 +121,7 @@ public abstract partial class BaseGuildedClient
     /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of <see cref="Webhook">the webhook</see> to execute it</param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown</param>
-    /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
+    /// <param name="embeds">The list of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
@@ -88,6 +164,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     public async Task CreateHookMessageAsync(Guid webhook, string token, params Embed[] embeds) =>
         await CreateHookMessageAsync(webhook, token, (IList<Embed>)embeds).ConfigureAwait(false);
+    #endregion
+
     #endregion
 
     #region Chat channels

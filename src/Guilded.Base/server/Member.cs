@@ -6,11 +6,8 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Servers;
 
 /// <summary>
-/// A server member.
+/// Represents information about <see cref="User">the user</see> in a server.
 /// </summary>
-/// <remarks>
-/// <para>The full information about a member in the server.</para>
-/// </remarks>
 /// <seealso cref="MemberSummary{T}" />
 /// <seealso cref="MemberBan" />
 /// <seealso cref="UserSummary" />
@@ -20,7 +17,7 @@ public class Member : MemberSummary<User>
 {
     #region JSON properties
     /// <summary>
-    /// Gets the set nickname of <see cref="Users.User">the user</see> in the server.
+    /// Gets the set nickname of <see cref="Member">the member</see> in the server.
     /// </summary>
     /// <value>Name?</value>
     /// <seealso cref="Member" />
@@ -28,12 +25,18 @@ public class Member : MemberSummary<User>
     /// <seealso cref="MemberSummary{T}.RoleIds" />
     public string? Nickname { get; set; }
     /// <summary>
-    /// Gets the date when the member joined.
+    /// Gets the date when <see cref="Member">the member</see> joined.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="Member" />
     /// <seealso cref="MemberSummary{T}.Id" />
     public DateTime JoinedAt { get; set; }
+    /// <summary>
+    /// Gets whether <see cref="Member">the member</see> is the owner of the server.
+    /// </summary>
+    /// <value>Member is owner</value>
+    /// <seealso cref="Member" />
+    public bool IsOwner { get; set; }
     #endregion
 
     #region Constructors
@@ -43,6 +46,7 @@ public class Member : MemberSummary<User>
     /// <param name="user"><see cref="User">the user</see> who is a member of the server</param>
     /// <param name="roleIds">The list of roles that member holds</param>
     /// <param name="nickname">The nickname that member has</param>
+    /// <param name="isOwner">Whether <see cref="Member">the member</see> is the owner of the server</param>
     /// <param name="joinedAt">the date when the member joined</param>
     /// <returns>New <see cref="Member" /> JSON instance</returns>
     /// <seealso cref="Member" />
@@ -58,8 +62,11 @@ public class Member : MemberSummary<User>
         DateTime joinedAt,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        string? nickname = null
+        string? nickname = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isOwner = false
     ) : base(user, roleIds) =>
-        (Nickname, JoinedAt) = (nickname, joinedAt);
+        (Nickname, JoinedAt, IsOwner) = (nickname, joinedAt, isOwner);
     #endregion
 }

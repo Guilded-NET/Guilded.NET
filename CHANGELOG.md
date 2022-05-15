@@ -1,3 +1,8 @@
+# v0.8.0-beta
+
+- Added the ability to execute webhooks using URLs (not only using tokens and webhook IDs independently)
+- Added `IsOwner` property to `Member`
+
 # v0.7.6-beta
 
 - Added channels and channel events

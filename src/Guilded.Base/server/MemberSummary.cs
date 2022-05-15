@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Servers;
 
 /// <summary>
-/// Represents the summary about a member.
+/// Represents the summary of <see cref="Member">a member</see>.
 /// </summary>
 /// <typeparam name="T">The type of <see cref="Users.User">the user</see> object</typeparam>
 /// <seealso cref="Member" />
@@ -26,7 +26,7 @@ public class MemberSummary<T> : BaseObject where T : UserSummary
     /// <seealso cref="UserSummary" />
     public T User { get; set; }
     /// <summary>
-    /// Gets the list of roles user holds.
+    /// Gets the list of roles <see cref="Member">member</see> holds.
     /// </summary>
     /// <value>List of role IDs</value>
     /// <seealso cref="MemberSummary{T}" />
