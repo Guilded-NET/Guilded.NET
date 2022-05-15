@@ -6,6 +6,15 @@ namespace Guilded.Commands;
 /// <summary>
 /// Represents the information about the root/original command.
 /// </summary>
+/// <example>
+/// <para>Let's say we have this command structure:</para>
+/// <code>
+/// - `config` command
+///     - `items` command
+///         - `add` command with arguments (string name)
+/// </code>
+/// <para>Even if we invoke <q>config items add</q> command, the root command will always remain <q>config</q>.</para>
+/// </example>
 public struct RootCommandContext
 {
     /// <summary>

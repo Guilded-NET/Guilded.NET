@@ -1,4 +1,4 @@
-using Guilded.Base;
+using System.Collections.Generic;
 using Guilded.Base.Content;
 using Guilded.Base.Events;
 
@@ -11,25 +11,22 @@ namespace Guilded.Commands;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="FailedCommandEvent" />
 /// <seealso cref="CommandAttribute" />
-public class FailedCommandEvent : BaseObject
+public class FailedCommandEvent : CommandEvent
 {
     /// <summary>
-    /// Gets a command event that tried to invoke a command.
-    /// </summary>
-    /// <value>Command event</value>
-    public CommandEvent Invokation { get; set; }
-    /// <summary>
-    /// Gets the type of the event that occurred.
+    /// Gets the type of the error that occurred.
     /// </summary>
     /// <value>Event type</value>
     public FallbackType Type { get; set; }
     /// <summary>
     /// Initializes a new instance of <see cref="FailedCommandEvent" />.
     /// </summary>
-    /// <param name="commandEvent">A command event that tried to invoke a command</param>
+    /// <param name="context">The the root-level command that was used</param>
+    /// <param name="commandName">The name of the command that was used</param>
+    /// <param name="arguments">The array of string arguments that were given to the command</param>
     /// <param name="type">The type of the event that occurred</param>
-    public FailedCommandEvent(CommandEvent commandEvent, FallbackType type) =>
-        (Invokation, Type) = (commandEvent, type);
+    public FailedCommandEvent(RootCommandContext context, string commandName, IEnumerable<string> arguments, FallbackType type) : base(context, commandName, arguments) =>
+        Type = type;
 }
 /// <summary>
 /// Represents the type of <see cref="FailedCommandEvent">sub command failure</see>.

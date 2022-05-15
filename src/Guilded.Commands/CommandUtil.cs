@@ -30,7 +30,7 @@ internal static class CommandUtil
                     failedCommand.Type == attr.Type
                 )
                 .Subscribe(failedCommand =>
-                    method.Invoke(command, new object[] { failedCommand.Invokation })
+                    method.Invoke(command, new object[] { failedCommand })
                 );
         }
     }
@@ -48,7 +48,7 @@ internal static class CommandUtil
                 return
                     attribute is not null &&
                     (
-                        (memberType == MemberTypes.Method && ((MethodInfo)member).IsStatic) ||
+                        (memberType == MemberTypes.Method && !((MethodInfo)member).IsStatic) ||
                         memberType == MemberTypes.NestedType || memberType == MemberTypes.TypeInfo
                     );
             })

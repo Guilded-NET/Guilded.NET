@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -29,7 +30,8 @@ public class CommandBase
     /// </summary>
     /// <param name="commands">The sub-commands of this command</param>
     public CommandBase(IEnumerable<ICommandInfo<MemberInfo>> commands) =>
-        Commands = commands;
+        // CommandContainers first for invokation optimization reasons
+        Commands = commands.OrderByDescending(command => command is CommandContainerInfo);
     /// <summary>
     /// Invokes any of the command's <see cref="Commands">sub-commands</see>.
     /// </summary>
@@ -41,8 +43,7 @@ public class CommandBase
         if (!arguments.Any())
         {
             // Command index
-            CommandEvent thisParentEvent = new(context.MessageEvent, context.Prefix, context.RootCommandName, context.RootArguments, usedBaseName, arguments);
-            onFailedCommand.OnNext(new FailedCommandEvent(thisParentEvent, FallbackType.Unspecified));
+            onFailedCommand.OnNext(new FailedCommandEvent(context, usedBaseName, arguments, FallbackType.Unspecified));
             return;
         }
 
@@ -66,27 +67,45 @@ public class CommandBase
         // Filter by parameters and names
         var filteredSubCommands =
             FilterCommandsByName(commandName)
-                .Select(command =>
-                    command is CommandContainerInfo commandContainer
-                        ? (command, arguments, isContainer: true)
-                        : (command, arguments: ((CommandInfo)command).GenerateMethodParameters(arguments), isContainer: true)
-                )
-                .Where(tuple => tuple.isContainer || tuple.arguments is not null);
+                .Where(command =>
+                    command is CommandContainerInfo commandContainer || ((CommandInfo)command).HasCorrectCount(arguments.Count())
+                );
 
-        var firstTuple = filteredSubCommands.FirstOrDefault();
-        var firstCommand = firstTuple.command;
-
-        if (firstCommand is CommandContainerInfo commandContainer)
+        // Wait for one of them to be correctly invoked
+        foreach (var filteredCommand in filteredSubCommands)
         {
-            await commandContainer.Instance.InvokeAsync(commandName, context, arguments).ConfigureAwait(false);
-            return;
+            if (filteredCommand is CommandContainerInfo commandContainer)
+            {
+                await commandContainer.Instance.InvokeAsync(commandName, context, arguments).ConfigureAwait(false);
+                return;
+            }
+            else
+            {
+                CommandInfo command = (CommandInfo)filteredCommand;
+
+                try
+                {
+                    var commandArgs = command.GenerateMethodParameters(arguments);
+
+                    // Check if all commands have correct arguments
+                    if (commandArgs is not null)
+                    {
+                        // Context
+                        CommandEvent commandEvent = new(context, commandName, arguments);
+
+                        await command.InvokeAsync(this, commandEvent, commandArgs).ConfigureAwait(false);
+                        return;
+                    }
+                }
+#pragma warning disable CS0168
+                catch (FormatException _)
+                {
+                    continue;
+                }
+#pragma warning restore CS0168
+            }
         }
 
-        // Context
-        CommandEvent commandEvent = new(context.MessageEvent, context.Prefix, context.RootCommandName, context.RootArguments, commandName, arguments);
-
-        if (firstCommand is CommandInfo command)
-            await command.InvokeAsync(this, commandEvent, firstTuple.arguments!).ConfigureAwait(false);
-        else onFailedCommand.OnNext(new FailedCommandEvent(commandEvent, FallbackType.NoCommandFound));
+        onFailedCommand.OnNext(new FailedCommandEvent(context, commandName, arguments, FallbackType.NoCommandFound));
     }
 }

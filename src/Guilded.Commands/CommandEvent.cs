@@ -21,25 +21,39 @@ public class CommandEvent
 
     #region CommandEvent properties
     /// <summary>
+    /// Getss the most-top command that was invoked.
+    /// </summary>
+    /// <example>
+    /// <para>Let's say we have this command structure:</para>
+    /// <code>
+    /// - `config` command
+    ///     - `items` command
+    ///         - `add` command with arguments (string name)
+    /// </code>
+    /// <para>Even if we invoke <q>config items add</q> command, the root command will always remain <q>config</q>.</para>
+    /// </example>
+    /// <value>Command context</value>
+    public RootCommandContext RootCommand { get; }
+    /// <summary>
     /// Gets the message event that invoked the command.
     /// </summary>
     /// <value>Message creation event</value>
-    public MessageEvent MessageEvent { get; }
+    public MessageEvent MessageEvent => RootCommand.MessageEvent;
     /// <summary>
     /// Gets the prefix that has been used on the command.
     /// </summary>
     /// <value>Prefix</value>
-    public string Prefix { get; }
+    public string Prefix => RootCommand.Prefix;
     /// <summary>
     /// Gets the name of the root-level command that was used in <see cref="Message">the message</see>.
     /// </summary>
     /// <value>Name</value>
-    public string RootCommandName { get; }
+    public string RootCommandName => RootCommand.RootCommandName;
     /// <summary>
     /// Gets the enumerable of string arguments that were given to the root-level command in <see cref="Message">the message</see>.
     /// </summary>
     /// <value>Enumerable of arguments</value>
-    public IEnumerable<string> RootArguments { get; }
+    public IEnumerable<string> RootArguments => RootCommand.RootArguments;
     /// <summary>
     /// Gets the name of that was used in the command.
     /// </summary>
@@ -83,14 +97,11 @@ public class CommandEvent
     /// <summary>
     /// Initializes a new instance of <see cref="CommandEvent" /> from <see cref="MessageEvent">a Created <see cref="Message">message</see></see>.
     /// </summary>
-    /// <param name="messageCreated">The message event that invoked the command</param>
-    /// <param name="prefix">The prefix that has been used on the command</param>
-    /// <param name="rootCommandName">The name of the root-level command that was used</param>
-    /// <param name="rootArguments">The array of string arguments that were given to the root-level command</param>
+    /// <param name="context">The the root-level command that was used</param>
     /// <param name="commandName">The name of the command that was used</param>
     /// <param name="arguments">The array of string arguments that were given to the command</param>
-    public CommandEvent(MessageEvent messageCreated, string prefix, string rootCommandName, IEnumerable<string> rootArguments, string commandName, IEnumerable<string> arguments) =>
-        (MessageEvent, Prefix, RootCommandName, RootArguments, CommandName, Arguments) = (messageCreated, prefix, rootCommandName, rootArguments, commandName, arguments);
+    public CommandEvent(RootCommandContext context, string commandName, IEnumerable<string> arguments) =>
+        (RootCommand, CommandName, Arguments) = (context, commandName, arguments);
     #endregion
 
     #region Additional
