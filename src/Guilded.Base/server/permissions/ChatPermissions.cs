@@ -53,6 +53,14 @@ public enum ChatPermissions
     /// Allows you to archive and restore threads
     /// </summary>
     ManageThreads = 64,
+    /// <summary>
+    /// Allows you to send messages with images and videos
+    /// </summary>
+    UploadMedia = 128,
+    /// <summary>
+    /// Allows you to send private mentions and replies
+    /// </summary>
+    SendPrivateMessages = 256,
 
     #region Additional
     /// <summary>

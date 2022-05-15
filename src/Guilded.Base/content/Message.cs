@@ -295,9 +295,11 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="nu" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
-    /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-    /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-    /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+    /// <permission cref="ChatPermissions.ReadMessages" />
+    /// <permission cref="ChatPermissions.SendMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
+    /// <permission cref="ChatPermissions.SendThreadMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a thread</see></permission>
+    /// <permission cref="ChatPermissions.SendPrivateMessages">Required when sending <see cref="Message">a message</see> that is set as <see cref="Message.IsPrivate">private</see></permission>
+    /// <permission cref="ChatPermissions.UploadMedia">Required when sending <see cref="Message">a message</see> that contains an image or a video</permission>
     /// <returns>Created <see cref="Message">message</see></returns>
     public async Task<Message> CreateMessageAsync(string content, params Embed[] embeds) =>
         await ParentClient.CreateMessageAsync(ChannelId, content, embeds).ConfigureAwait(false);
@@ -324,9 +326,11 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="nu" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
-    /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-    /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-    /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+    /// <permission cref="ChatPermissions.ReadMessages" />
+    /// <permission cref="ChatPermissions.SendMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
+    /// <permission cref="ChatPermissions.SendThreadMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a thread</see></permission>
+    /// <permission cref="ChatPermissions.SendPrivateMessages">Required when sending <see cref="Message">a message</see> that is set as <see cref="Message.IsPrivate">private</see></permission>
+    /// <permission cref="ChatPermissions.UploadMedia">Required when sending <see cref="Message">a message</see> that contains an image or a video</permission>
     /// <returns>Created <see cref="Message">message</see></returns>
     public async Task<Message> ReplyAsync(string content) =>
         await CreateMessageAsync(content, Id).ConfigureAwait(false);
@@ -358,7 +362,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     public async Task<Message> UpdateAsync(MessageContent content) =>
         await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
-    /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     public async Task<Message> UpdateAsync(string content) =>
         await ParentClient.UpdateMessageAsync(ChannelId, Id, content).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
@@ -366,7 +370,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     public async Task<Message> UpdateAsync(params Embed[] embeds) =>
         await ParentClient.UpdateMessageAsync(ChannelId, Id, embeds).ConfigureAwait(false);
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
-    /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The <see cref="Embed">new custom embeds</see> of <see cref="Message">the message</see> in Markdown (max — <c>1</c>)</param>
     public async Task<Message> UpdateAsync(string content, params Embed[] embeds) =>
         await ParentClient.UpdateMessageAsync(ChannelId, Id, content, embeds).ConfigureAwait(false);

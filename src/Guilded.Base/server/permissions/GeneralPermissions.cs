@@ -61,6 +61,14 @@ public enum GeneralPermissions
     /// Allows you to update the server's roles
     /// </summary>
     ManageRoles = 16384,
+    /// <summary>
+    /// Allows you to bypass channel's slowmode settings
+    /// </summary>
+    SlowmodeException = 65536,
+    /// <summary>
+    /// Allows you to see private messages
+    /// </summary>
+    AccessModeratorView = 32768,
 
     #region Additional
     /// <summary>
