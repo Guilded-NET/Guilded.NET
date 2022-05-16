@@ -12,6 +12,10 @@ namespace Guilded.Commands;
 /// </summary>
 public class CommandInfo : AbstractCommandInfo<MethodInfo>
 {
+    // To reduce common duplicate `typeof` calls
+    private static readonly Type _strType = typeof(string), _boolType = typeof(bool),
+                                 _intType = typeof(int), _guidType = typeof(Guid),
+                                 _hashIdType = typeof(HashId), _floatType = typeof(float);
     private static readonly Type[] _allowedTypes = new Type[]
     {
         typeof(string), typeof(bool),
@@ -24,7 +28,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// Gets the enumerable of command arguments that can be specified by users.
     /// </summary>
     /// <value>Enumerable of command arguments</value>
-    public CommandArgumentInfo[] Arguments { get; }
+    public AbstractCommandArgument[] Arguments { get; }
     /// <summary>
     /// Gets whether there is a rest argument for the command.
     /// </summary>
@@ -37,7 +41,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// <param name="attribute">The command attribute it was given</param>
     /// <param name="parameters">The parameters that will be used as command arguments</param>
     public CommandInfo(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method) =>
-        Arguments = parameters.Select((arg, argIndex) =>
+        Arguments = parameters.Select<ParameterInfo, AbstractCommandArgument>((arg, argIndex) =>
         {
             // Honestly, I don't know what I am doing. I don't want to do repetitive ifs,
             // especially since it can be a bit slower (see branchless programming). But it
@@ -46,8 +50,14 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
             if (arg.ParameterType == typeof(string[]))
                 // We could probably do it backwards, but eh, better errors?
                 if (argIndex + 1 != parameters.Count())
+                {
                     throw new InvalidOperationException("String array can only be the last command parameter");
-                else HasRestArgument = true;
+                }
+                else
+                {
+                    HasRestArgument = true;
+                    return new CommandRestInfo(arg);
+                }
             else if (!_allowedTypes.Contains(arg.ParameterType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");
 
@@ -62,60 +72,9 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// </summary>
     /// <param name="arguments">The given arguments of the command</param>
     /// <returns>Enumerable of parameters</returns>
-    internal IEnumerable<object>? GenerateMethodParameters(IEnumerable<string> arguments)
-    {
-        var generatedArguments =
-            // (CommandEvent invokation, string arg0, int arg1)
-            Arguments.Select<CommandArgumentInfo, object>((arg, argIndex) =>
-            {
-                string stringArgument = arguments.ElementAt(argIndex);
-
-                Type argType = arg.ArgumentType;
-
-                // Rest argument
-                if (argType == typeof(string[])) return arguments.Skip(argIndex).ToArray();
-
-                // Could use TryParse, but you can't do `out object` and
-                // it would require different name for every parsed item
-                // TODO: Use fields for types?
-                return
-                    argType == typeof(string)
-                    ? stringArgument
-                    : argType == typeof(bool)
-                    ? bool.Parse(stringArgument)
-                    : argType == typeof(int)
-                    ? int.Parse(stringArgument)
-                    : argType == typeof(long)
-                    ? long.Parse(stringArgument)
-                    : argType == typeof(short)
-                    ? short.Parse(stringArgument)
-                    : argType == typeof(sbyte)
-                    ? sbyte.Parse(stringArgument)
-                    : argType == typeof(uint)
-                    ? uint.Parse(stringArgument)
-                    : argType == typeof(ulong)
-                    ? ulong.Parse(stringArgument)
-                    : argType == typeof(ushort)
-                    ? ushort.Parse(stringArgument)
-                    : argType == typeof(byte)
-                    ? byte.Parse(stringArgument)
-                    : argType == typeof(float)
-                    ? float.Parse(stringArgument)
-                    : argType == typeof(double)
-                    ? double.Parse(stringArgument)
-                    : argType == typeof(decimal)
-                    ? decimal.Parse(stringArgument)
-                    : argType == typeof(DateTime)
-                    ? DateTime.Parse(stringArgument)
-                    : argType == typeof(Guid)
-                    ? new Guid(stringArgument)
-                    : argType == typeof(HashId)
-                    ? new HashId(stringArgument)
-                    : throw new FormatException($"Cannot have type {argType} as a command argument's type");
-            });
-
-        return generatedArguments;
-    }
+    internal IEnumerable<object>? GenerateMethodParameters(IEnumerable<string> arguments) =>
+        // (CommandEvent invokation, string arg0, int arg1)
+        Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
     /// <summary>
     /// Invokes the command.
     /// </summary>

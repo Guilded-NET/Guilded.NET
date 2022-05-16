@@ -1,40 +1,71 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Guilded.Base;
 
 namespace Guilded.Commands;
 
 /// <summary>
-/// Represents the information about command argument in <see name="CommandInfo">a command method</see>.
+/// Represents the information about one-value command argument in <see name="CommandInfo">a command method</see>.
 /// </summary>
-public class CommandArgumentInfo
+public class CommandArgumentInfo : AbstractCommandArgument
 {
+    // FIXME: Cast int.Parse, bool.Parse, etc. to Func<string, object> somehow or something like that
+    // I hate this
+    private static readonly Dictionary<Type, Func<string, object>> _converters =
+        new()
+        {
+            { typeof(string), x => x },
+            { typeof(int), x => int.Parse(x) },
+            { typeof(bool), x => bool.Parse(x) },
+            { typeof(Guid), x => Guid.Parse(x) },
+            { typeof(HashId), x => new HashId(x) },
+            { typeof(long), x => long.Parse(x) },
+            { typeof(float), x => float.Parse(x) },
+            { typeof(short), x => short.Parse(x) },
+            { typeof(sbyte), x => sbyte.Parse(x) },
+            { typeof(byte), x => byte.Parse(x) },
+            { typeof(double), x => double.Parse(x) },
+            { typeof(decimal), x => decimal.Parse(x) },
+            { typeof(DateTime), x => DateTime.Parse(x) }
+        };
     /// <summary>
-    /// Gets the type of <see cref="Parameter">the parameter</see>.
+    /// Gets the converter to convert string values to the <see cref="AbstractCommandArgument.ArgumentType">argument's type</see>.
     /// </summary>
-    /// <value>Type</value>
-    public Type ArgumentType => Parameter.ParameterType;
-    /// <summary>
-    /// Gets the parameter that was declared in the method.
-    /// </summary>
-    /// <value>Reflection parameter</value>
-    public ParameterInfo Parameter { get; set; }
-    /// <summary>
-    /// Gets <see cref="CommandParamAttribute">the attribute</see> that was used to declare <see cref="CommandAttribute">the command parameter</see>.
-    /// </summary>
-    /// <value>Command param attribute</value>
-    public CommandParamAttribute? Attribute { get; set; }
-    /// <summary>
-    /// Gets the displayed name of <see cref="CommandParamAttribute.Name">the command argument</see>.
-    /// </summary>
-    /// <value>Name</value>
-    public string Name => Attribute?.Name ?? Parameter.Name ?? "";
+    /// <value>String to Object Converter</value>
+    internal Func<string, object> Converter { get; }
     /// <summary>
     /// Initializes a new instance of <see cref="CommandArgumentInfo" /> from a <paramref name="parameter">method parameter</paramref>.
     /// </summary>
     /// <param name="parameter">The parameter that was declared as a command parameter</param>
-    public CommandArgumentInfo(ParameterInfo parameter) =>
-        (Attribute, Parameter) = (
-            parameter.GetCustomAttribute<CommandParamAttribute>(),
-            parameter
-        );
+    public CommandArgumentInfo(ParameterInfo parameter) : base(parameter) =>
+        Converter = GetParametersParser(parameter.ParameterType);
+
+    /// <inheritdoc />
+    public override object GetValueFrom(IEnumerable<string> arguments, int index) =>
+        Converter(arguments.ElementAt(index));
+
+    internal static Func<string, object> GetParametersParser(Type parameterType)
+    {
+        if (!_converters.ContainsKey(parameterType))
+            throw new FormatException($"Cannot have type {parameterType} as a command argument's type");
+
+        return _converters[parameterType];
+    }
+}
+/// <summary>
+/// Represents the information about array command argument in <see name="CommandInfo">a command method</see>.
+/// </summary>
+public class CommandRestInfo : AbstractCommandArgument
+{
+    /// <summary>
+    /// Initializes a new instance of <see cref="CommandRestInfo" /> from a <paramref name="parameter">method parameter</paramref>.
+    /// </summary>
+    /// <param name="parameter">The parameter that was declared as a command parameter</param>
+    public CommandRestInfo(ParameterInfo parameter) : base(parameter) { }
+
+    /// <inheritdoc />
+    public override object GetValueFrom(IEnumerable<string> arguments, int index) =>
+        arguments.Skip(index).ToArray();
 }
