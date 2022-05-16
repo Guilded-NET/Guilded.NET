@@ -87,17 +87,13 @@ internal static class CommandUtil
                                 {
                                     ParameterInfo[] parameters = constructor.GetParameters();
 
-                                    return constructor.IsPublic && parameters.Count() == 1 && parameters.First().ParameterType == typeof(IEnumerable<ICommandInfo<MemberInfo>>);
+                                    return constructor.IsPublic && !parameters.Any();
                                 });
 
                         if (invokableConstructor is null)
-                            throw new MemberAccessException($"Could not find public constructor with parameter {nameof(IEnumerable<ICommandInfo<MethodInfo>>)} in type {type}");
+                            throw new MemberAccessException($"Could not find public constructor with no parameters in type {type}");
 
-                        // Allows nested types as well
-                        // [Command] type within [Command] type within [Command] type...
-                        IEnumerable<ICommandInfo<MemberInfo>> subCommands = GetCommandsOf(type);
-
-                        CommandBase instance = (CommandBase)invokableConstructor.Invoke(new object[] { subCommands });
+                        CommandBase instance = (CommandBase)invokableConstructor.Invoke(Array.Empty<object>());
 
                         SubscribeToFailedCommands(instance, type);
 

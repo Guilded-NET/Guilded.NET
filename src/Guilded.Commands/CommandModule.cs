@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Guilded.Base.Events;
 
 namespace Guilded.Commands;
@@ -50,7 +49,7 @@ public class CommandModule : CommandBase
     /// Gets the method that will be used to get prefix based on <see cref="MessageEvent">the current context</see>.
     /// </summary>
     /// <value>Context-based prefix</value>
-    public ContextPrefix GetPrefix { get; set; }
+    public ContextPrefix Prefix { get; set; }
     /// <summary>
     /// Gets the characters that separate command arguments.
     /// </summary>
@@ -67,13 +66,8 @@ public class CommandModule : CommandBase
     /// <param name="prefix">The context-based prefix method for commands</param>
     /// <param name="separators">The separators that split the command's arguments</param>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
-    public CommandModule(ContextPrefix prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) : base(new ICommandInfo<MemberInfo>[] { })
-    {
-        (GetPrefix, Separators, SplitOptions) = (prefix, separators, splitOptions);
-
-        // Well... Not sure if it's good to call a method in a constructor
-        Commands = CommandUtil.GetCommandsOf(GetType());
-    }
+    public CommandModule(ContextPrefix prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) =>
+        (Prefix, Separators, SplitOptions) = (prefix, separators, splitOptions);
     /// <summary>
     /// Initializes a new instance of <see cref="CommandModule" /> with context-based <paramref name="prefix" />.
     /// </summary>
@@ -117,7 +111,7 @@ public class CommandModule : CommandBase
                 .MessageCreated
                 .Subscribe(async msgCreated =>
                 {
-                    string prefix = GetPrefix(msgCreated);
+                    string prefix = Prefix(msgCreated);
 
                     if (msgCreated.Content is null || !msgCreated.Content.StartsWith(prefix)) return;
 

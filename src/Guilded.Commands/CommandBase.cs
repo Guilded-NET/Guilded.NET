@@ -18,7 +18,8 @@ public class CommandBase
     /// Gets the list of commands or sub-commands of this command.
     /// </summary>
     /// <value>Commands</value>
-    public IEnumerable<ICommandInfo<MemberInfo>> Commands { get; protected set; }
+    // Empty enumerable, because .Commands! looks yucky
+    public IEnumerable<ICommandInfo<MemberInfo>> Commands { get; protected internal set; }
     /// <summary>
     /// Gets the event for failed command invokation.
     /// </summary>
@@ -27,10 +28,12 @@ public class CommandBase
     /// <summary>
     /// Initializes a new instance of <see cref="CommandBase" />.
     /// </summary>
-    /// <param name="commands">The sub-commands of this command</param>
-    public CommandBase(IEnumerable<ICommandInfo<MemberInfo>> commands) =>
+    public CommandBase() =>
+        // Because it sucks having to use constructors everywhere
+        // Allows nested types as well
+        // [Command] type within [Command] type within [Command] type...
         // CommandContainers first for invokation optimization reasons
-        Commands = commands.OrderByDescending(command => command is CommandContainerInfo);
+        Commands = CommandUtil.GetCommandsOf(GetType()).OrderByDescending(command => command is CommandContainerInfo);
     /// <summary>
     /// Invokes any of the command's <see cref="Commands">sub-commands</see>.
     /// </summary>

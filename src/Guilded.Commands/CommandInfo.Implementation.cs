@@ -12,10 +12,6 @@ namespace Guilded.Commands;
 /// </summary>
 public class CommandInfo : AbstractCommandInfo<MethodInfo>
 {
-    // To reduce common duplicate `typeof` calls
-    private static readonly Type _strType = typeof(string), _boolType = typeof(bool),
-                                 _intType = typeof(int), _guidType = typeof(Guid),
-                                 _hashIdType = typeof(HashId), _floatType = typeof(float);
     private static readonly Type[] _allowedTypes = new Type[]
     {
         typeof(string), typeof(bool),
