@@ -389,7 +389,7 @@ public class Embed : BaseObject
     /// <param name="value">The contents of the <see cref="Embed">embed's</see> description</param>
     /// <returns>Current <see cref="Embed" /> instance</returns>
     public Embed SetDescription(object? value) =>
-        SetDescription(value is null ? string.Empty : value.ToString()!);
+        SetDescription(value?.ToString() ?? string.Empty);
     #endregion
 
     #region Author
@@ -483,7 +483,7 @@ public class Embed : BaseObject
     /// <para>The given <paramref name="value" /> will be converted to string</para>
     /// </remarks>
     public Embed AddField(string name, object? value, bool inline = false) =>
-        AddField(name, value is null ? string.Empty : value.ToString()!, inline);
+        AddField(name, value?.ToString() ?? string.Empty, inline);
     #endregion
 
     #region Media
@@ -548,8 +548,13 @@ public class Embed : BaseObject
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" />.</para>
     /// </remarks>
     /// <param name="text">The text contents of the footer</param>
-    public Embed SetFooter(string text) =>
-        SetFooter(new EmbedFooter(text));
+    public Embed SetFooter(string text)
+    {
+        if (text is null)
+            throw new ArgumentNullException(nameof(text));
+
+        return SetFooter(new EmbedFooter(text));
+    }
     /// <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" /> and <paramref name="icon" />.</para>
@@ -568,7 +573,7 @@ public class Embed : BaseObject
     /// </remarks>
     /// <param name="value">The text contents of the footer</param>
     public Embed SetFooter(object? value) =>
-        SetFooter(value is null ? string.Empty : value.ToString());
+        SetFooter(value?.ToString() ?? string.Empty);
     // <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref> and <paramref name="icon" />.</para>
@@ -577,7 +582,7 @@ public class Embed : BaseObject
     /// <param name="value">The text contents of the footer</param>
     /// <param name="icon">URL to the icon's image that will be displayed in the left side of the footer</param>
     public Embed SetFooter(object? value, Uri? icon = null) =>
-        SetFooter(value is null ? string.Empty : value.ToString(), icon);
+        SetFooter(value?.ToString() ?? string.Empty, icon);
     /// <inheritdoc cref="SetFooter(object?, Uri?)" />
     public Embed SetFooter(object? text, string? icon = null) =>
         SetFooter(text, icon is null ? null : new Uri(icon));
