@@ -2,6 +2,10 @@
 
 - Added the ability to execute webhooks using URLs (not only using tokens and webhook IDs independently)
 - Added `IsOwner` property to `Member`
+- Added command system
+- Added `IsSilent` to `Message` type
+- Added `IsPrivate` to `MessageDeletedEvent.MessageDeleted` and `MessageDeletedEvent` types
+- Added `IsPrivate`, `IsSilent` `ReplyMessageIds` and `Embeds` properties to `MessageEvent` type
 
 # v0.7.6-beta
 

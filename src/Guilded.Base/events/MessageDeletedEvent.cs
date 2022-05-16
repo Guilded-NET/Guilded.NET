@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Content;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -18,6 +19,8 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     public Guid ChannelId => Message.ChannelId;
     /// <inheritdoc cref="MessageDeleted.DeletedAt" />
     public DateTime DeletedAt => Message.DeletedAt;
+    /// <inheritdoc cref="MessageDeleted.IsPrivate" />
+    public bool IsPrivate => Message.IsPrivate;
     #endregion
 
     #region Constructors
@@ -66,6 +69,11 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// </summary>
         /// <value>Date</value>
         public DateTime DeletedAt { get; }
+        /// <summary>
+        /// Gets whether the deleted message was <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see>.
+        /// </summary>
+        /// <value><see cref="Message" /> is private</value>
+        public bool IsPrivate { get; }
         #endregion
 
         #region Constructors
@@ -75,6 +83,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// <param name="id">The identifier of the message</param>
         /// <param name="channelId">The identifier of the channel where the message was</param>
         /// <param name="serverId">The identifier of the server where the message was</param>
+        /// <param name="isPrivate">Whether the deleted message was <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></param>
         /// <param name="deletedAt">the date when the message was deleted</param>
         /// <returns>New <see cref="MessageDeleted" /> JSON instance</returns>
         /// <seealso cref="MessageDeleted" />
@@ -90,9 +99,12 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
             DateTime deletedAt,
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            HashId? serverId = null
+            HashId? serverId = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            bool isPrivate = false
         ) =>
-            (Id, ChannelId, ServerId, DeletedAt) = (id, channelId, serverId, deletedAt);
+            (Id, ChannelId, ServerId, DeletedAt, IsPrivate) = (id, channelId, serverId, deletedAt, isPrivate);
         #endregion
 
         #region Overrides

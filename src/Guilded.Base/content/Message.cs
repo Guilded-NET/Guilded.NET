@@ -100,11 +100,26 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// </remarks>
     /// <value><see cref="Message" /> is private</value>
     /// <seealso cref="Message" />
+    /// <seealso cref="IsSilent" />
     /// <seealso cref="IsReply" />
     /// <seealso cref="ReplyMessageIds" />
     /// <seealso cref="Content" />
     /// <seealso cref="Embeds" />
     public bool IsPrivate { get; }
+    /// <summary>
+    /// Gets whether <see cref="IsReply">the reply</see> or mention is silent and doesn't ping any user.
+    /// </summary>
+    /// <remarks>
+    /// <para>This can only be <see langword="true" /> if <see cref="ReplyMessageIds" /> has a value or there is an user or role mention in the <see cref="Content" />.</para>
+    /// </remarks>
+    /// <value><see cref="Message" /> is silent</value>
+    /// <seealso cref="Message" />
+    /// <seealso cref="IsPrivate" />
+    /// <seealso cref="IsReply" />
+    /// <seealso cref="ReplyMessageIds" />
+    /// <seealso cref="Content" />
+    /// <seealso cref="Embeds" />
+    public bool IsSilent { get; }
     /// <summary>
     /// Gets whether <see cref="Message">the message</see> is <see cref="ReplyMessageIds">a reply</see> to another message.
     /// </summary>
@@ -112,6 +127,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <seealso cref="Message" />
     /// <seealso cref="ReplyMessageIds" />
     /// <seealso cref="IsPrivate" />
+    /// <seealso cref="IsSilent" />
     public bool IsReply => ReplyMessageIds?.Count > 0;
     #endregion
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
@@ -63,6 +64,10 @@ public class MessageEvent : MessageEvent<Message>
     public Guid ChannelId => Message.ChannelId;
     /// <inheritdoc cref="Message.Content" />
     public string? Content => Message.Content;
+    /// <inheritdoc cref="Message.ReplyMessageIds" />
+    public IList<Guid>? ReplyMessageIds => Message.ReplyMessageIds;
+    /// <inheritdoc cref="Message.Embeds" />
+    public IList<Embed>? Embeds => Message.Embeds;
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Message.CreatedBy;
     /// <inheritdoc cref="Message.CreatedByWebhook" />
@@ -75,6 +80,10 @@ public class MessageEvent : MessageEvent<Message>
     public MessageType Type => Message.Type;
     /// <inheritdoc cref="Message.IsReply" />
     public bool IsReply => Message.IsReply;
+    /// <inheritdoc cref="Message.IsPrivate" />
+    public bool IsPrivate => Message.IsPrivate;
+    /// <inheritdoc cref="Message.IsSilent" />
+    public bool IsSilent => Message.IsSilent;
     /// <inheritdoc cref="Message.IsSystemMessage" />
     public bool IsSystemMessage => Message.IsSystemMessage;
     #endregion
