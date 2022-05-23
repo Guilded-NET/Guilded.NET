@@ -11,6 +11,7 @@ namespace Guilded.Base.Users;
 /// <seealso cref="Servers.Member" />
 public class Me : BaseObject, ICreatableContent
 {
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> <see cref="BaseGuildedClient">this client</see> is logged into.
     /// </summary>
@@ -19,6 +20,7 @@ public class Me : BaseObject, ICreatableContent
     /// <seealso cref="BotId" />
     /// <seealso cref="Name" />
     public HashId Id { get; set; }
+
     /// <summary>
     /// Gets the identifier of the bot <see cref="BaseGuildedClient">this client</see> is logged into.
     /// </summary>
@@ -27,6 +29,7 @@ public class Me : BaseObject, ICreatableContent
     /// <seealso cref="Id" />
     /// <seealso cref="Name" />
     public Guid BotId { get; set; }
+
     /// <summary>
     /// Gets the name of <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
@@ -35,6 +38,7 @@ public class Me : BaseObject, ICreatableContent
     /// <seealso cref="Id" />
     /// <seealso cref="BotId" />
     public string Name { get; set; }
+
     /// <summary>
     /// Gets the creation date of <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
@@ -42,6 +46,7 @@ public class Me : BaseObject, ICreatableContent
     /// <seealso cref="Me" />
     /// <seealso cref="CreatedBy" />
     public DateTime CreatedAt { get; set; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that has created <see cref="BaseGuildedClient">this client</see>.
     /// </summary>
@@ -52,6 +57,9 @@ public class Me : BaseObject, ICreatableContent
     /// <seealso cref="Me" />
     /// <seealso cref="CreatedAt" />
     public HashId CreatedBy { get; set; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="Me" /> from the specified JSON properties.
     /// </summary>
@@ -80,4 +88,5 @@ public class Me : BaseObject, ICreatableContent
         HashId createdBy
     ) =>
         (Id, BotId, Name, CreatedAt, CreatedBy) = (id, botId, name, createdAt, createdBy);
+    #endregion
 }

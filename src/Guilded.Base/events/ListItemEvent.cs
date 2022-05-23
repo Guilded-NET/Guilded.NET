@@ -14,7 +14,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ChannelEvent" />
 public class ListItemEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the list item received from the event.
     /// </summary>
@@ -23,6 +23,7 @@ public class ListItemEvent : BaseObject, IServerEvent
     /// <seealso cref="Message" />
     /// <seealso cref="ServerId" />
     public ListItem ListItem { get; }
+
     /// <inheritdoc />
     public HashId ServerId { get; }
     #endregion
@@ -30,24 +31,34 @@ public class ListItemEvent : BaseObject, IServerEvent
     #region Properties
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => ListItem.ChannelId;
+
     /// <inheritdoc cref="ListItemBase{T}.Message" />
     public string Message => ListItem.Message;
+
     /// <inheritdoc cref="ListItemBase{T}.Note" />
     public ListItemNote? Note => ListItem.Note;
+
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => ListItem.CreatedBy;
+
     /// <inheritdoc cref="ListItemBase{T}.CreatedByWebhook" />
     public Guid? CreatedByWebhook => ListItem.CreatedByWebhook;
+
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
     public DateTime CreatedAt => ListItem.CreatedAt;
+
     /// <inheritdoc cref="ListItemBase{T}.UpdatedAt" />
     public DateTime? UpdatedAt => ListItem.UpdatedAt;
+
     /// <inheritdoc cref="ListItemBase{T}.CompletedBy" />
     public HashId? CompletedBy => ListItem.CompletedBy;
+
     /// <inheritdoc cref="ListItemBase{T}.CompletedAt" />
     public DateTime? CompletedAt => ListItem.CompletedAt;
+
     /// <inheritdoc cref="ListItemBase{T}.IsCompleted" />
     public bool IsCompleted => ListItem.IsCompleted;
+
     /// <inheritdoc cref="ListItemBase{T}.ParentId" />
     public Guid? ParentId => ListItem.ParentId;
     #endregion
@@ -71,16 +82,19 @@ public class ListItemEvent : BaseObject, IServerEvent
         (ServerId, ListItem) = (serverId, listItem);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="ListItemBase{T}.UpdateAsync(string, string?)" />
     public async Task<ListItem> UpdateAsync(string message, string? note) =>
         await ListItem.UpdateAsync(message, note).ConfigureAwait(false);
+
     /// <inheritdoc cref="ListItemBase{T}.DeleteAsync" />
     public async Task DeleteAsync() =>
         await ListItem.DeleteAsync().ConfigureAwait(false);
+
     /// <inheritdoc cref="ListItemBase{T}.CompleteAsync" />
     public async Task CompleteAsync() =>
         await ListItem.CompleteAsync().ConfigureAwait(false);
+
     /// <inheritdoc cref="ListItemBase{T}.UncompleteAsync" />
     public async Task UncompleteAsync() =>
         await ListItem.UncompleteAsync().ConfigureAwait(false);

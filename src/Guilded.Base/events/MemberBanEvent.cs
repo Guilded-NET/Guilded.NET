@@ -16,7 +16,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="Member" />
 public class MemberBanEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the information about the member's ban.
     /// </summary>
@@ -25,6 +25,7 @@ public class MemberBanEvent : BaseObject, IServerEvent
     /// <seealso cref="User" />
     /// <seealso cref="ServerId" />
     public MemberBan MemberBan { get; }
+
     /// <summary>
     /// Gets the identifier of the server where member has been banned/unbanned.
     /// </summary>
@@ -37,10 +38,13 @@ public class MemberBanEvent : BaseObject, IServerEvent
     #region Properties
     /// <inheritdoc cref="MemberBan.User" />
     public UserSummary User => MemberBan.User;
+
     /// <inheritdoc cref="MemberBan.Reason" />
     public string? Reason => MemberBan.Reason;
+
     /// <inheritdoc cref="MemberBan.CreatedAt" />
     public DateTime CreatedAt => MemberBan.CreatedAt;
+
     /// <inheritdoc cref="MemberBan.CreatedBy" />
     public HashId CreatedBy => MemberBan.CreatedBy;
     #endregion

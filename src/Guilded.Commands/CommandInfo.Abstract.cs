@@ -58,16 +58,21 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
     #region Properties
     /// <inheritdoc />
     public string Name { get; }
-    /// <inheritdoc cref="CommandAttribute.Aliases" />
-    public string[]? Aliases => Attribute.Aliases;
-    /// <inheritdoc cref="CommandAttribute.Description" />
-    public string? Description => Attribute.Description;
-    /// <inheritdoc cref="CommandAttribute.Examples" />
-    public string[]? Examples => Attribute.Examples;
+
     /// <inheritdoc />
     public TMember Member { get; }
+
     /// <inheritdoc />
     public CommandAttribute Attribute { get; }
+
+    /// <inheritdoc cref="CommandAttribute.Aliases" />
+    public string[]? Aliases => Attribute.Aliases;
+
+    /// <inheritdoc cref="CommandAttribute.Description" />
+    public string? Description => Attribute.Description;
+
+    /// <inheritdoc cref="CommandAttribute.Examples" />
+    public string[]? Examples => Attribute.Examples;
     #endregion
 
     #region Constructors

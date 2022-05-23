@@ -14,6 +14,8 @@ namespace Guilded.Base;
 public abstract class ClientObject : BaseObject
 {
 #nullable disable
+
+    #region Properties
     /// <summary>
     /// Gets the parent client that adopts <see cref="ClientObject">this object</see>.
     /// </summary>
@@ -22,6 +24,9 @@ public abstract class ClientObject : BaseObject
     /// <seealso cref="BaseGuildedClient" />
     [JsonIgnore]
     public BaseGuildedClient ParentClient { get; private set; }
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Adds a <see cref="ParentClient">parent client</see> if the context contains it.
     /// </summary>
@@ -34,5 +39,7 @@ public abstract class ClientObject : BaseObject
         if (context.Context is BaseGuildedClient client)
             ParentClient = client;
     }
+    #endregion
+
 #nullable restore
 }

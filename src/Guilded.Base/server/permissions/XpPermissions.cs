@@ -29,6 +29,7 @@ public enum XpPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to manage XP on server members
     /// </summary>
@@ -39,6 +40,7 @@ public enum XpPermissions
     /// All of the permissions combined.
     /// </summary>
     All = ManageServerXp,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>

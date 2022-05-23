@@ -12,6 +12,7 @@ namespace Guilded;
 /// <seealso cref="AbstractGuildedClient" />
 public interface IEventInfo<out T>
 {
+    #region Properties
     /// <summary>
     /// An observable that can be subscribed.
     /// </summary>
@@ -20,6 +21,7 @@ public interface IEventInfo<out T>
     /// </remarks>
     /// <value>Observable</value>
     IObservable<T> Observable { get; }
+
     /// <summary>
     /// The type of the arguments that should be used.
     /// </summary>
@@ -28,6 +30,9 @@ public interface IEventInfo<out T>
     /// </remarks>
     /// <value>Type</value>
     Type ArgumentType { get; }
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Notifies observers with OnNext.
     /// </summary>
@@ -36,6 +41,7 @@ public interface IEventInfo<out T>
     /// </remarks>
     /// <param name="value">The next received value</param>
     void OnNext(object value);
+
     /// <summary>
     /// Notifies observers with OnError.
     /// </summary>
@@ -44,6 +50,7 @@ public interface IEventInfo<out T>
     /// </remarks>
     /// <param name="exception">The next received exception/error</param>
     void OnError(Exception exception);
+    #endregion
 }
 /// <summary>
 /// efines a new Guilded event that can be used in <see cref="AbstractGuildedClient.GuildedEvents" />
@@ -56,35 +63,48 @@ public interface IEventInfo<out T>
 /// <seealso cref="AbstractGuildedClient" />
 public class EventInfo<T> : IEventInfo<T>
 {
+    #region Fields
     /// <summary>
     /// The subject that will be used for subscribing to this event.
     /// </summary>
     /// <returns>Subject</returns>
     protected internal Subject<T> Subject = new();
+    #endregion
+
+    #region Properties
     /// <summary>
     /// Gets the observable event that can be used to subscribe to the event.
     /// </summary>
     /// <value><see cref="Subject" /> as observable</value>
     public IObservable<T> Observable => Subject.AsObservable();
+
     /// <summary>
     /// Gets the type of the observer's argument.
     /// </summary>
     /// <value>Type</value>
     public Type ArgumentType => typeof(T);
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="EventInfo{T}" />.
     /// </summary>
     public EventInfo() { }
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Notifies the observers with new value.
     /// </summary>
     /// <param name="value">The next received value</param>
     public void OnNext(object value) =>
         Subject.OnNext((T)value);
+
     /// <summary>
     /// Notifies observers with an exception.
     /// </summary>
     /// <param name="exception">The next received exception/error</param>
     public void OnError(Exception exception) =>
         Subject.OnError(exception);
+    #endregion
 }

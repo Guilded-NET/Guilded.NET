@@ -24,6 +24,7 @@ namespace Guilded.Base;
 /// </remarks>
 public abstract partial class BaseGuildedClient : IDisposable
 {
+    #region Fields
     /// <summary>
     /// An event when the client gets connected.
     /// </summary>
@@ -34,8 +35,12 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <seealso cref="ConnectAsync" />
     /// <seealso cref="Disconnected" />
     protected Subject<BaseGuildedClient> ConnectedSubject = new();
+    #endregion
+
+    #region Properties
     /// <inheritdoc cref="ConnectedSubject" />
     public IObservable<BaseGuildedClient> Connected => ConnectedSubject.AsObservable();
+
     /// <summary>
     /// An event when client gets reconnected.
     /// </summary>
@@ -45,6 +50,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <seealso cref="Disconnected" />
     /// <seealso cref="Connected" />
     public IObservable<ReconnectionInfo> Reconnected => Websocket.ReconnectionHappened;
+
     /// <summary>
     /// An event when the client gets disconnected.
     /// </summary>
@@ -55,6 +61,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <seealso cref="DisconnectAsync" />
     /// <seealso cref="Connected" />
     public IObservable<DisconnectionInfo> Disconnected => Websocket.DisconnectionHappened;
+
     /// <summary>
     /// Settings for <see cref="Rest" /> client's JSON (de)serialization.
     /// </summary>
@@ -65,16 +72,21 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <seealso cref="Rest" />
     /// <seealso cref="GuildedSerializer" />
     public JsonSerializerSettings SerializerSettings { get; set; }
+
     /// <summary>
     /// A serializer to (de)serialize for JSON from Guilded API.
     /// </summary>
     /// <value>Serializer from <see cref="SerializerSettings" /></value>
     public JsonSerializer GuildedSerializer { get; set; }
+
     /// <summary>
     /// Headers that will be used for REST and WebSocket clients.
     /// </summary>
     /// <value>Dictionary of headers</value>
     protected Dictionary<string, string> AdditionalHeaders { get; set; } = new();
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Creates default settings for <see cref="BaseGuildedClient" />'s child types.
     /// </summary>
@@ -124,6 +136,7 @@ public abstract partial class BaseGuildedClient : IDisposable
             .AddDefaultHeader("Origin", "https://www.guilded.gg/")
             .UseNewtonsoftJson(SerializerSettings);
     }
+
     /// <summary>
     /// Creates default settings for <see cref="BaseGuildedClient" />'s child types with <see cref="GuildedUrl.Api" /> as URL.
     /// </summary>
@@ -132,6 +145,9 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <para>The <see cref="GuildedUrl.Api" /> property and <see cref="GuildedUrl.Websocket" /> property URLs will be used by default.</para>
     /// </remarks>
     protected BaseGuildedClient() : this(GuildedUrl.Api, GuildedUrl.Websocket) { }
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Connects this client to Guilded.
     /// </summary>
@@ -156,4 +172,5 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// </summary>
     /// <seealso cref="DisconnectAsync" />
     public abstract void Dispose();
+    #endregion
 }

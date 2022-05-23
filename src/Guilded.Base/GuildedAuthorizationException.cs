@@ -17,6 +17,7 @@ namespace Guilded.Base;
 [Serializable]
 public sealed class GuildedAuthorizationException : GuildedException
 {
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedAuthorizationException" /> with only a <paramref name="message" />.
     /// </summary>
@@ -27,6 +28,7 @@ public sealed class GuildedAuthorizationException : GuildedException
     /// <seealso cref="GuildedAuthorizationException(string, Exception)" />
     /// <seealso cref="GuildedAuthorizationException(string, string, RestResponse)" />
     public GuildedAuthorizationException(string message) : base(message) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedAuthorizationException" /> from a <paramref name="response" />.
     /// </summary>
@@ -39,6 +41,7 @@ public sealed class GuildedAuthorizationException : GuildedException
     /// <seealso cref="GuildedAuthorizationException(string)" />
     /// <seealso cref="GuildedAuthorizationException(string, Exception)" />
     public GuildedAuthorizationException(string code, string message, RestResponse response) : base(code, message, response) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedAuthorizationException" /> with a <see cref="Exception.Message">default message</see>.
     /// </summary>
@@ -52,6 +55,7 @@ public sealed class GuildedAuthorizationException : GuildedException
     /// <seealso cref="GuildedAuthorizationException(string, Exception)" />
     /// <seealso cref="GuildedAuthorizationException(string, string, RestResponse)" />
     public GuildedAuthorizationException() : this("Invalid. Provided authentication token is invalid or expired.") { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedAuthorizationException" /> with <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
@@ -63,4 +67,5 @@ public sealed class GuildedAuthorizationException : GuildedException
     /// <seealso cref="GuildedAuthorizationException(string)" />
     /// <seealso cref="GuildedAuthorizationException(string, string, RestResponse)" />
     public GuildedAuthorizationException(string message, Exception inner) : base(message, inner) { }
+    #endregion
 }

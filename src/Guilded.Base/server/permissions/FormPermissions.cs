@@ -29,10 +29,12 @@ public enum FormPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to view all form responses
     /// </summary>
     FormResponses = 2,
+
     /// <summary>
     /// Allows you to view all poll results
     /// </summary>
@@ -43,6 +45,7 @@ public enum FormPermissions
     /// All of the permissions combined.
     /// </summary>
     All = FormResponses | PollResults,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
     /// </summary>

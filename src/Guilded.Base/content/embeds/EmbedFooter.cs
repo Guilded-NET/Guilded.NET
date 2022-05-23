@@ -13,7 +13,7 @@ namespace Guilded.Base.Embeds;
 /// <seealso cref="EmbedMedia" />
 public class EmbedFooter : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the text contents of the footer.
     /// </summary>

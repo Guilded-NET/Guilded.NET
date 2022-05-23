@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.WebSockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -26,19 +25,28 @@ namespace Guilded;
 /// <seealso cref="BaseGuildedClient" />
 public abstract partial class AbstractGuildedClient : BaseGuildedClient
 {
+    #region Fields
     /// <summary>
     /// An observable event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
     protected Subject<Me> PreparedSubject = new();
+    #endregion
+
+    #region Properties
     /// <inheritdoc cref="PreparedSubject" />
     public IObservable<Me> Prepared => PreparedSubject.AsObservable();
+
     /// <inheritdoc cref="WelcomeEvent.User" />
     public Me? Me { get; protected set; }
+
     /// <summary>
     /// Whether the client is <see cref="Prepared">prepared</see>.
     /// </summary>
     /// <value>Client is prepared</value>
     public bool IsPrepared { get; protected set; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new base instance of <see cref="AbstractGuildedClient" /> children types.
     /// </summary>
@@ -109,6 +117,9 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
                 IsPrepared = false;
         });
     }
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Connects <see cref="AbstractGuildedClient">this client</see> to Guilded.
     /// </summary>
@@ -127,6 +138,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             ConnectedSubject.OnError(e);
         }
     }
+
     /// <summary>
     /// Disconnects <see cref="AbstractGuildedClient">this client</see> from Guilded.
     /// </summary>
@@ -139,6 +151,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         if (Websocket.IsRunning)
             await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "DisconnectAsync invoked").ConfigureAwait(false);
     }
+
     /// <summary>
     /// Disposes <see cref="AbstractGuildedClient">this client</see>.
     /// </summary>
@@ -149,15 +162,19 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         // They aren't disposed by DisconnectAsync, only shut down
         Websocket.Dispose();
     }
+
     private void EnforceLimit(string name, string value, short limit)
     {
         if (value.Length > limit)
             throw new ArgumentOutOfRangeException(name, value, $"{name} exceeds the {limit} character limit");
     }
+
     private void EnforceLimitOnNullable(string name, string? value, short limit)
     {
         if (value is not null) EnforceLimit(name, value, limit);
     }
+
     private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>
         (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;
+    #endregion
 }

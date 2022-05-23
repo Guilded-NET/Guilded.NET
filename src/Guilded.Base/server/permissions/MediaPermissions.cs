@@ -29,18 +29,22 @@ public enum MediaPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to create media
     /// </summary>
     CreateMedia = 1,
+
     /// <summary>
     /// Allows you to see media
     /// </summary>
     SeeMedia = 2,
+
     /// <summary>
     /// Allows you to edit media created by others and move media items to other channels
     /// </summary>
     ManageMedia = 4,
+
     /// <summary>
     /// Allows you to remove media created by others
     /// </summary>
@@ -51,6 +55,7 @@ public enum MediaPermissions
     /// All of the permissions combined.
     /// </summary>
     All = CreateMedia | SeeMedia | ManageMedia | RemoveMedia,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>
@@ -66,6 +71,7 @@ public enum MediaPermissions
     /// </list>
     /// </remarks>
     Manage = ManageMedia | RemoveMedia,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
     /// </summary>

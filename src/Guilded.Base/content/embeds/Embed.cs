@@ -38,6 +38,7 @@ namespace Guilded.Base.Embeds;
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
 public class Embed : BaseObject
 {
+    #region Constants
     /// <summary>
     /// The count of how many fields there can be in <see cref="Embed" />.
     /// </summary>
@@ -46,8 +47,9 @@ public class Embed : BaseObject
     /// <seealso cref="EmbedField" />
     /// <seealso cref="Fields" />
     public const int FieldLimit = 25;
+    #endregion
 
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the title of the <see cref="Embed">embed</see>.
     /// </summary>
@@ -59,6 +61,7 @@ public class Embed : BaseObject
     /// <seealso cref="Url" />
     /// <seealso cref="Description" />
     public string? Title { get; set; }
+
     /// <summary>
     /// Gets the URL of the content that <see cref="Embed">embed</see> displays.
     /// </summary>
@@ -67,6 +70,7 @@ public class Embed : BaseObject
     /// <seealso cref="Title" />
     /// <seealso cref="Description" />
     public Uri? Url { get; set; }
+
     /// <summary>
     /// The description text of the <see cref="Embed">embed</see>.
     /// </summary>
@@ -78,6 +82,7 @@ public class Embed : BaseObject
     /// <seealso cref="Title" />
     /// <seealso cref="Url" />
     public string? Description { get; set; }
+
     /// <summary>
     /// Gets the author of the content that <see cref="Embed">embed</see> displays.
     /// </summary>
@@ -86,6 +91,7 @@ public class Embed : BaseObject
     /// <seealso cref="Footer" />
     /// <seealso cref="Timestamp" />
     public EmbedAuthor? Author { get; set; }
+
     /// <summary>
     /// Gets the colour of the <see cref="Embed">embed</see>.
     /// </summary>
@@ -98,6 +104,7 @@ public class Embed : BaseObject
     /// <seealso cref="Description" />
     [JsonConverter(typeof(DecimalColorConverter))]
     public Color? Color { get; set; }
+
     /// <summary>
     /// Gets the thumbnail image of the <see cref="Embed">embed</see>.
     /// </summary>
@@ -109,6 +116,7 @@ public class Embed : BaseObject
     /// <seealso cref="Image" />
     /// <seealso cref="Fields" />
     public EmbedMedia? Thumbnail { get; set; }
+
     /// <summary>
     /// Gets the image of the content that <see cref="Embed">embed</see> displays.
     /// </summary>
@@ -120,6 +128,7 @@ public class Embed : BaseObject
     /// <seealso cref="Thumbnail" />
     /// <seealso cref="Fields" />
     public EmbedMedia? Image { get; set; }
+
     /// <summary>
     /// Gets the list of fields in the <see cref="Embed">embed</see>.
     /// </summary>
@@ -132,6 +141,7 @@ public class Embed : BaseObject
     /// <seealso cref="Thumbnail" />
     /// <seealso cref="FieldLimit" />
     public IList<EmbedField>? Fields { get; set; }
+
     /// <summary>
     /// The footer of <see cref="Embed">an embed</see>.
     /// </summary>
@@ -144,6 +154,7 @@ public class Embed : BaseObject
     /// <seealso cref="Timestamp" />
     /// <seealso cref="Author" />
     public EmbedFooter? Footer { get; set; }
+
     /// <summary>
     /// Gets the timestamp of <see cref="Embed">an embed</see>.
     /// </summary>
@@ -164,6 +175,7 @@ public class Embed : BaseObject
     /// </summary>
     /// <returns>Empty <see cref="Embed" /> instance</returns>
     public Embed() { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with the given imagess.
     /// </summary>
@@ -171,23 +183,27 @@ public class Embed : BaseObject
     /// <param name="thumbnail">The thumbnail image of <see cref="Embed">an embed</see></param>
     public Embed(Uri? image = null, Uri? thumbnail = null) =>
         (Image, Thumbnail) = (EmbedMedia.CreateOrNull(image), EmbedMedia.CreateOrNull(thumbnail));
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with a <paramref name="url" />.
     /// </summary>
     /// <param name="url">The URL of the content that embed displays</param>
     public Embed(Uri url) =>
         Url = url;
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with colour <paramref name="color" />.
     /// </summary>
     /// <param name="color">The colour of <see cref="Embed">an embed</see></param>
     public Embed(Color color) =>
         Color = color;
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with colour <paramref name="argb" />.
     /// </summary>
     /// <param name="argb">The colour of <see cref="Embed">an embed</see> in RGB format</param>
     public Embed(int argb) : this(System.Drawing.Color.FromArgb(argb)) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with channels
     /// <paramref name="red" />, <paramref name="green" /> and <paramref name="blue" /> of <see cref="Color" /> property.
@@ -196,12 +212,14 @@ public class Embed : BaseObject
     /// <param name="green">The green channel of <see cref="Color">colour</see></param>
     /// <param name="blue">The blue channel of <see cref="Color">colour</see></param>
     public Embed(int red, int green, int blue) : this(System.Drawing.Color.FromArgb(red, green, blue)) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with a <paramref name="description" />.
     /// </summary>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     public Embed(string description) =>
         Description = description;
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with title <paramref name="title" />.
     /// </summary>
@@ -209,6 +227,7 @@ public class Embed : BaseObject
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     public Embed(string title, string description) : this(description) =>
         Title = title;
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with a <paramref name="title" /> and a <paramref name="url" />.
     /// </summary>
@@ -217,6 +236,7 @@ public class Embed : BaseObject
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     public Embed(string title, Uri url, string description) : this(title, description) =>
         Url = url;
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with an <paramref name="image" />.
     /// </summary>
@@ -224,10 +244,12 @@ public class Embed : BaseObject
     /// <param name="image">The image of <see cref="Embed">an embed</see></param>
     public Embed(string description, EmbedMedia image) : this(description) =>
         Image = image;
+
     /// <inheritdoc cref="Embed(string, EmbedMedia)" />
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="image">The image of <see cref="Embed">an embed</see></param>
     public Embed(string description, Uri image) : this(description, new EmbedMedia(image)) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with an <paramref name="image" /> and a <paramref name="title" />.
     /// </summary>
@@ -236,6 +258,7 @@ public class Embed : BaseObject
     /// <param name="image">The image of <see cref="Embed">an embed</see></param>
     public Embed(string title, string description, EmbedMedia image) : this(title, description) =>
         Image = image;
+
     /// <inheritdoc cref="Embed(string, string, EmbedMedia)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="url">The URL of <see cref="Embed">an embed</see></param>
@@ -243,35 +266,42 @@ public class Embed : BaseObject
     /// <param name="image">The image of <see cref="Embed">an embed</see></param>
     public Embed(string title, Uri url, string description, EmbedMedia image) : this(title, description, image) =>
         Url = url;
+
     /// <inheritdoc cref="Embed(string, string, EmbedMedia)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="image">The image of <see cref="Embed">an embed</see></param>
     public Embed(string title, string description, Uri image) : this(title, description, new EmbedMedia(image)) { }
+
     /// <inheritdoc cref="Embed(string, string, EmbedMedia)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="url">The URL of <see cref="Embed">an embed</see></param>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="image">The image of <see cref="Embed">an embed</see></param>
     public Embed(string title, Uri url, string description, Uri image) : this(title, url, description, new EmbedMedia(image)) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with its <paramref name="fields" />.
     /// </summary>
     /// <param name="fields">The list of fields in this embed</param>
     public Embed(IList<EmbedField> fields) =>
         Fields = fields;
+
     /// <inheritdoc cref="Embed(IList{EmbedField})" />
     /// <param name="fields">The array of fields in this embed</param>
     public Embed(params EmbedField[] fields) : this(fields.ToList()) { }
+
     /// <inheritdoc cref="Embed(IList{EmbedField})" />
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="fields">The list of fields in this embed</param>
     public Embed(string description, IList<EmbedField> fields) : this(description) =>
         Fields = fields;
+
     /// <inheritdoc cref="Embed(IList{EmbedField})" />
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="fields">The array of fields in this embed</param>
     public Embed(string description, params EmbedField[] fields) : this(description, fields.ToList()) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with its <paramref name="fields" /> and a <paramref name="title" />.
     /// </summary>
@@ -280,11 +310,13 @@ public class Embed : BaseObject
     /// <param name="fields">The list of fields in this embed</param>
     public Embed(string title, string description, IList<EmbedField> fields) : this(title, description) =>
         Fields = fields;
+
     /// <inheritdoc cref="Embed(string, string, IList{EmbedField})" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="fields">The array of fields in this embed</param>
     public Embed(string title, string description, params EmbedField[] fields) : this(title, description, fields.ToList()) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with a <paramref name="footer" /> and a <paramref name="title" />.
     /// </summary>
@@ -293,11 +325,13 @@ public class Embed : BaseObject
     /// <param name="footer">The footer of <see cref="Embed">an embed</see></param>
     public Embed(string title, string description, EmbedFooter footer) : this(title, description) =>
         Footer = footer;
+
     /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="footer">The text of <see cref="Embed">an embed</see> footer</param>
     public Embed(string title, string description, string footer) : this(title, description, new EmbedFooter(footer)) { }
+
     /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="url">The URL of <see cref="Embed">an embed</see></param>
@@ -305,12 +339,14 @@ public class Embed : BaseObject
     /// <param name="footer">The footer of <see cref="Embed">an embed</see></param>
     public Embed(string title, Uri url, string description, EmbedFooter footer) : this(title, description, footer) =>
         Url = url;
+
     /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="url">The URL of <see cref="Embed">an embed</see></param>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
     /// <param name="footer">The text of <see cref="Embed">an embed</see> footer</param>
     public Embed(string title, Uri url, string description, string footer) : this(title, url, description, new EmbedFooter(footer)) { }
+
     /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="description">The description text of <see cref="Embed">an embed</see></param>
@@ -318,6 +354,7 @@ public class Embed : BaseObject
     /// <param name="timestamp">The timestamp of <see cref="Embed">an embed</see> footer</param>
     public Embed(string title, string description, EmbedFooter footer, DateTime timestamp) : this(title, description, footer) =>
         Timestamp = timestamp;
+
     /// <inheritdoc cref="Embed(string, string, EmbedFooter)" />
     /// <param name="title">The title of <see cref="Embed">an embed</see></param>
     /// <param name="url">The URL of <see cref="Embed">an embed</see></param>
@@ -328,9 +365,9 @@ public class Embed : BaseObject
         Url = url;
     #endregion
 
-    #region Additional
+    #region Methods
 
-    #region Title
+    #region Methods Title
     /// <summary>
     /// Sets the <see cref="Title">title</see> as the given <paramref name="value" />.
     /// </summary>
@@ -341,6 +378,7 @@ public class Embed : BaseObject
         Title = value;
         return this;
     }
+
     /// <summary>
     /// Sets the <see cref="Url">url</see> as the given <paramref name="value" />.
     /// </summary>
@@ -351,6 +389,7 @@ public class Embed : BaseObject
         Url = value;
         return this;
     }
+
     /// <summary>
     /// Sets the <see cref="Url">url</see> as the given <paramref name="value" />.
     /// </summary>
@@ -365,7 +404,7 @@ public class Embed : BaseObject
         SetUrl(new Uri(value));
     #endregion
 
-    #region Description
+    #region Method SetDescription
     /// <summary>
     /// Sets the <see cref="Description">description</see> as the given <paramref name="content">text</paramref>.
     /// </summary>
@@ -380,6 +419,7 @@ public class Embed : BaseObject
         Description = content;
         return this;
     }
+
     /// <summary>
     /// Sets the <see cref="Description">description</see> as the given <paramref name="value" />.
     /// </summary>
@@ -392,7 +432,7 @@ public class Embed : BaseObject
         SetDescription(value?.ToString() ?? string.Empty);
     #endregion
 
-    #region Author
+    #region Method SetAuthor
     /// <summary>
     /// Sets the <see cref="Author">author</see> as the given <paramref name="value" />.
     /// </summary>
@@ -403,6 +443,7 @@ public class Embed : BaseObject
         Author = value;
         return this;
     }
+
     /// <summary>
     /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
     /// </summary>
@@ -413,6 +454,7 @@ public class Embed : BaseObject
     /// <returns>Current <see cref="Embed" /> instance</returns>
     public Embed SetAuthor(string name) =>
         SetAuthor(new EmbedAuthor(name));
+
     /// <summary>
     /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
     /// </summary>
@@ -425,6 +467,7 @@ public class Embed : BaseObject
     /// <returns>Current <see cref="Embed" /> instance</returns>
     public Embed SetAuthor(string name, Uri? iconUrl = null, Uri? url = null) =>
         SetAuthor(new EmbedAuthor(name, iconUrl, url));
+
     /// <summary>
     /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
     /// </summary>
@@ -439,7 +482,7 @@ public class Embed : BaseObject
         SetAuthor(new EmbedAuthor(name, iconUrl, url));
     #endregion
 
-    #region Fields
+    #region Method AddField(s)
     /// <summary>
     /// Adds new <paramref name="fields" /> to the <see cref="Fields">current set of fields</see>.
     /// </summary>
@@ -457,9 +500,11 @@ public class Embed : BaseObject
             Fields = Fields.Concat(fields).ToList();
         return this;
     }
+
     /// <inheritdoc cref="AddFields(IEnumerable{EmbedField})" />
     public Embed AddFields(params EmbedField[] fields) =>
         AddFields((IList<EmbedField>)fields);
+
     /// <summary>
     /// Adds a new <paramref name="field" /> to the <see cref="Fields">current set of fields</see>.
     /// </summary>
@@ -468,6 +513,7 @@ public class Embed : BaseObject
     /// <returns>Current <see cref="Embed" /> instance</returns>
     public Embed AddField(EmbedField field) =>
         AddFields(field);
+
     /// <summary>
     /// Adds a new field to the <see cref="Fields">current set of fields</see>.
     /// </summary>
@@ -478,6 +524,7 @@ public class Embed : BaseObject
     /// <returns>Current <see cref="Embed" /> instance</returns>
     public Embed AddField(string name, string value, bool inline = false) =>
         AddField(new EmbedField(name, value, inline));
+
     /// <inheritdoc cref="AddField(string, string, bool)" />
     /// <remarks>
     /// <para>The given <paramref name="value" /> will be converted to string</para>
@@ -486,7 +533,7 @@ public class Embed : BaseObject
         AddField(name, value?.ToString() ?? string.Empty, inline);
     #endregion
 
-    #region Media
+    #region Methods Media
     /// <summary>
     /// Sets the <see cref="Image">image</see> as the given <paramref name="value" />.
     /// </summary>
@@ -497,6 +544,7 @@ public class Embed : BaseObject
         Image = value;
         return this;
     }
+
     /// <inheritdoc cref="SetImage(EmbedMedia)" />
     /// <remarks>
     /// <para>The given <paramref name="url" /> will be used to display an image.</para>
@@ -504,9 +552,11 @@ public class Embed : BaseObject
     /// <param name="url">The URL to the <see cref="Embed">embed's</see> image</param>
     public Embed SetImage(Uri url) =>
         SetImage(new EmbedMedia(url));
+
     /// <inheritdoc cref="SetImage(Uri)" />
     public Embed SetImage(string url) =>
         SetImage(new Uri(url));
+
     /// <summary>
     /// Sets the <see cref="Thumbnail">thumbnail</see> as the given <paramref name="value" />.
     /// </summary>
@@ -517,6 +567,7 @@ public class Embed : BaseObject
         Thumbnail = value;
         return this;
     }
+
     /// <inheritdoc cref="SetThumbnail(EmbedMedia)" />
     /// <remarks>
     /// <para>The given <paramref name="url" /> will be used to display a thumbnail.</para>
@@ -527,12 +578,13 @@ public class Embed : BaseObject
         Thumbnail = new EmbedMedia(url);
         return this;
     }
+
     /// <inheritdoc cref="SetThumbnail(Uri)" />
     public Embed SetThumbnail(string url) =>
         SetThumbnail(new Uri(url));
     #endregion
 
-    #region Footer
+    #region Method SetFooter
     /// <summary>
     /// Sets the <see cref="Footer">footer</see> as the given <paramref name="value" />.
     /// </summary>
@@ -543,6 +595,7 @@ public class Embed : BaseObject
         Footer = value;
         return this;
     }
+
     /// <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" />.</para>
@@ -555,6 +608,7 @@ public class Embed : BaseObject
 
         return SetFooter(new EmbedFooter(text));
     }
+
     /// <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="text" /> and <paramref name="icon" />.</para>
@@ -563,9 +617,11 @@ public class Embed : BaseObject
     /// <param name="icon">URL to the icon's image that will be displayed in the left side of the footer</param>
     public Embed SetFooter(string text, Uri? icon = null) =>
         SetFooter(new EmbedFooter(text, icon));
+
     /// <inheritdoc cref="SetFooter(string, Uri?)" />
     public Embed SetFooter(string text, string? icon = null) =>
         SetFooter(text, icon is null ? null : new Uri(icon));
+
     // <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref>.</para>
@@ -574,6 +630,7 @@ public class Embed : BaseObject
     /// <param name="value">The text contents of the footer</param>
     public Embed SetFooter(object? value) =>
         SetFooter(value?.ToString() ?? string.Empty);
+
     // <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
     /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref> and <paramref name="icon" />.</para>
@@ -583,9 +640,12 @@ public class Embed : BaseObject
     /// <param name="icon">URL to the icon's image that will be displayed in the left side of the footer</param>
     public Embed SetFooter(object? value, Uri? icon = null) =>
         SetFooter(value?.ToString() ?? string.Empty, icon);
+
     /// <inheritdoc cref="SetFooter(object?, Uri?)" />
     public Embed SetFooter(object? text, string? icon = null) =>
         SetFooter(text, icon is null ? null : new Uri(icon));
+    #endregion
+
     /// <summary>
     /// Sets the <see cref="Timestamp">timestamp</see> as the given <paramref name="value" />.
     /// </summary>
@@ -596,15 +656,15 @@ public class Embed : BaseObject
         Timestamp = value;
         return this;
     }
+
     /// <summary>
     /// Sets the <see cref="Timestamp">timestamp</see> as the <see cref="DateTime.UtcNow">current UTC time</see>.
     /// </summary>
     /// <returns>Current <see cref="Embed" /> instance</returns>
     public Embed SetTimestamp() =>
         SetTimestamp(DateTime.UtcNow);
-    #endregion
 
-    #region Parameters
+    #region Method SetColor
     /// <summary>
     /// Sets the <see cref="Color">left-side colour</see> as the given <paramref name="value" />.
     /// </summary>
@@ -615,6 +675,7 @@ public class Embed : BaseObject
         Color = value;
         return this;
     }
+
     /// <inheritdoc cref="SetColor(Color)" />
     /// <remarks>
     /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="argb">argb value</paramref>.</para>
@@ -628,6 +689,7 @@ public class Embed : BaseObject
     /// <param name="argb">The ARGB value of the <see cref="Color">embed's colour</see>.</param>
     public Embed SetColor(int argb) =>
         SetColor(System.Drawing.Color.FromArgb(argb));
+
     /// <inheritdoc cref="SetColor(Color)" />
     /// <remarks>
     /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="red">red channel</paramref>, <paramref name="green">green channel</paramref> and <paramref name="blue">blue channel</paramref> values.</para>

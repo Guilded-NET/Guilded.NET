@@ -16,7 +16,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="Member" />
 public class WebhookEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets <see cref="Servers.Webhook">the webhook</see> that has been created or updated.
     /// </summary>
@@ -25,6 +25,7 @@ public class WebhookEvent : BaseObject, IServerEvent
     /// <seealso cref="Name" />
     /// <seealso cref="ServerId" />
     public Webhook Webhook { get; }
+
     /// <summary>
     /// Gets the identifier of the server where <see cref="Servers.Webhook">the webhook</see> has been created/updated.
     /// </summary>
@@ -38,12 +39,16 @@ public class WebhookEvent : BaseObject, IServerEvent
     #region Properties
     /// <inheritdoc cref="Webhook.Name" />
     public string Name => Webhook.Name;
+
     /// <inheritdoc cref="Webhook.Token" />
     public string? Token => Webhook.Token;
+
     /// <inheritdoc cref="Webhook.ChannelId" />
     public Guid ChannelId => Webhook.ChannelId;
+
     /// <inheritdoc cref="Webhook.CreatedAt" />
     public DateTime CreatedAt => Webhook.CreatedAt;
+
     /// <inheritdoc cref="Webhook.CreatedBy" />
     public HashId CreatedBy => Webhook.CreatedBy;
     #endregion
@@ -67,28 +72,38 @@ public class WebhookEvent : BaseObject, IServerEvent
         (ServerId, Webhook) = (serverId, webhook);
     #endregion
 
-    #region Additional
+    #region Methods
+
+    #region Method CreateMessageAsync
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, MessageContent)" />
     public async Task CreateMessageAsync(MessageContent message) =>
         await Webhook.CreateMessageAsync(message).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
     public async Task CreateMessageAsync(string message) =>
         await CreateMessageAsync(new MessageContent { Content = message }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
     public async Task CreateMessageAsync(string message, params Embed[] embeds) =>
         await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
     public async Task CreateMessageAsync(string message, IList<Embed> embeds) =>
         await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
     public async Task CreateMessageAsync(params Embed[] embeds) =>
         await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
     public async Task CreateMessageAsync(IList<Embed> embeds) =>
         await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    #endregion
+
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />
     public async Task<Webhook> UpdateAsync(string name) =>
         await Webhook.UpdateAsync(name).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.DeleteWebhookAsync(HashId, Guid)" />
     public async Task DeleteAsync() =>
         await Webhook.DeleteAsync().ConfigureAwait(false);

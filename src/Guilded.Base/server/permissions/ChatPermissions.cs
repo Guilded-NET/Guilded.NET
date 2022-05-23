@@ -29,34 +29,42 @@ public enum ChatPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to send chat messages
     /// </summary>
     SendMessages = 1,
+
     /// <summary>
     /// Allows you to read chat messages
     /// </summary>
     ReadMessages = 2,
+
     /// <summary>
     /// Allows you to delete chat messages by other members or pin any message
     /// </summary>
     ManageMessages = 4,
+
     /// <summary>
     /// Allows you to create threads in the channel
     /// </summary>
     CreateThreads = 16,
+
     /// <summary>
     /// Allows you to reply to threads in the channel
     /// </summary>
     SendThreadMessages = 32,
+
     /// <summary>
     /// Allows you to archive and restore threads
     /// </summary>
     ManageThreads = 64,
+
     /// <summary>
     /// Allows you to send messages with images and videos
     /// </summary>
     UploadMedia = 128,
+
     /// <summary>
     /// Allows you to send private mentions and replies
     /// </summary>
@@ -67,6 +75,7 @@ public enum ChatPermissions
     /// All of the permissions combined.
     /// </summary>
     All = SendMessages | ReadMessages | ManageMessages | CreateThreads | SendThreadMessages | ManageThreads,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>
@@ -85,6 +94,7 @@ public enum ChatPermissions
     /// </list>
     /// </remarks>
     Manage = ManageMessages | CreateThreads | ManageThreads,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
     /// </summary>

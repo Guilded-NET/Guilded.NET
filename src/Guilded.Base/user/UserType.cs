@@ -22,6 +22,7 @@ public enum UserType
     /// <seealso cref="Bot" />
     /// <seealso cref="UserType" />
     User,
+
     /// <summary>
     /// <see cref="Users.User">The user</see> is an API bot.
     /// </summary>

@@ -28,7 +28,7 @@ namespace Guilded.Base.Embeds;
 /// <seealso cref="EmbedMedia" />
 public class EmbedAuthor : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the name of an embed author.
     /// </summary>

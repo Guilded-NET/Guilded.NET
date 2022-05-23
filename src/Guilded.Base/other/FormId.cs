@@ -27,15 +27,27 @@ namespace Guilded.Base;
 [JsonConverter(typeof(IdConverter))]
 public readonly struct FormId : IEquatable<FormId>
 {
-    internal readonly string _;
-    private const int partLength = 7;
-    private const string partChars = "0123456789";
+    #region Static fields & Constants
     private static readonly Random random = new();
+
+    private const int partLength = 7;
+
+    private const string partChars = "0123456789";
+    #endregion
+
+    #region Fields
+    internal readonly string _;
+    #endregion
+
+    #region Properties
     /// <summary>
     /// Creates a random value of <see cref="FormId" />.
     /// </summary>
     /// <value>New form ID</value>
     public static FormId Random => new($"r-{random.Next(1000000, 9999999)}-{random.Next(1000000, 9999999)}");
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// The identifier for forms and media uploads.
     /// </summary>
@@ -49,20 +61,23 @@ public readonly struct FormId : IEquatable<FormId>
 
         _ = id;
     }
+    #endregion
 
-    #region Overrides
+    #region Methods
     /// <summary>
     /// Returns the string representation of this <see cref="FormId" /> instance.
     /// </summary>
     /// <returns><see cref="FormId" /> as string</returns>
     public override string ToString() =>
         _;
+
     /// <summary>
     /// Gets a hashcode of this object.
     /// </summary>
     /// <returns>HashCode</returns>
     public override int GetHashCode() =>
         HashCode.Combine(_, 1);
+
     /// <summary>
     /// Returns whether this <see cref="FormId" /> instance and <paramref name="other" /> are equal.
     /// </summary>
@@ -70,6 +85,7 @@ public readonly struct FormId : IEquatable<FormId>
     /// <returns>Both are equal</returns>
     public bool Equals(FormId other) =>
         other == this;
+
     /// <summary>
     /// Returns whether this <see cref="FormId" /> instance and <paramref name="obj" /> are equal.
     /// </summary>
@@ -88,6 +104,7 @@ public readonly struct FormId : IEquatable<FormId>
     /// <returns>Both are equal</returns>
     public static bool operator ==(FormId id0, FormId id1) =>
         id0._ == id1._;
+
     /// <summary>
     /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
     /// </summary>
@@ -117,6 +134,7 @@ public readonly struct FormId : IEquatable<FormId>
         // r-(1000000)-(1000000)
         return split.Count == 2 && !split.Any(IsFormIdPart);
     }
+
     /// <summary>
     /// Returns whether <paramref name="part" /> is in 7 digits.
     /// </summary>

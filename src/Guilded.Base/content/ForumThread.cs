@@ -15,7 +15,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="ListItem" />
 public class ForumThread : TitledContent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="Servers.Webhook">the webhook</see> that created <see cref="ForumThread">the forum thread</see>.
     /// </summary>

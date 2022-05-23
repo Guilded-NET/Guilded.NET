@@ -17,6 +17,7 @@ namespace Guilded.Base;
 [Serializable]
 public sealed class GuildedPermissionException : GuildedException
 {
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedPermissionException" />.
     /// </summary>
@@ -27,6 +28,7 @@ public sealed class GuildedPermissionException : GuildedException
     /// <seealso cref="GuildedPermissionException(string, Exception)" />
     /// <seealso cref="GuildedPermissionException(string, string, RestResponse)" />
     public GuildedPermissionException(string message) : base(message) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedPermissionException" /> with information from given parameters.
     /// </summary>
@@ -39,6 +41,7 @@ public sealed class GuildedPermissionException : GuildedException
     /// <seealso cref="GuildedPermissionException(string)" />
     /// <seealso cref="GuildedPermissionException(string, Exception)" />
     public GuildedPermissionException(string code, string message, RestResponse response) : base(code, message, response) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedPermissionException" /> with default message.
     /// </summary>
@@ -52,6 +55,7 @@ public sealed class GuildedPermissionException : GuildedException
     /// <seealso cref="GuildedPermissionException(string, Exception)" />
     /// <seealso cref="GuildedPermissionException(string, string, RestResponse)" />
     public GuildedPermissionException() : this("Forbidden. Guilded client is missing permissions.") { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedPermissionException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
@@ -63,4 +67,5 @@ public sealed class GuildedPermissionException : GuildedException
     /// <seealso cref="GuildedPermissionException(string)" />
     /// <seealso cref="GuildedPermissionException(string, string, RestResponse)" />
     public GuildedPermissionException(string message, Exception inner) : base(message, inner) { }
+    #endregion
 }

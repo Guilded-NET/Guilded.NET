@@ -14,7 +14,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MessageEvent" />
 public class ChannelEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets <see cref="ServerChannel">the channel</see> received from the event.
     /// </summary>
@@ -24,39 +24,52 @@ public class ChannelEvent : BaseObject, IServerEvent
     /// <seealso cref="Type" />
     /// <seealso cref="ServerId" />
     public ServerChannel Channel { get; }
+
     /// <inheritdoc />
     public HashId ServerId { get; }
-    #endregion
 
-    #region Properties
     /// <inheritdoc cref="ServerChannel.GroupId" />
     public HashId? GroupId => Channel.GroupId;
+
     /// <inheritdoc cref="ServerChannel.CategoryId" />
     public uint? CategoryId => Channel.CategoryId;
+
     /// <inheritdoc cref="ServerChannel.ParentId" />
     public Guid? ParentId => Channel.ParentId;
+
     /// <inheritdoc cref="ServerChannel.Name" />
     public string Name => Channel.Name;
+
     /// <inheritdoc cref="ServerChannel.Topic" />
     public string? Topic => Channel.Topic;
+
     /// <inheritdoc cref="ServerChannel.ParentId" />
     public ChannelType Type => Channel.Type;
+
     /// <inheritdoc cref="ServerChannel.CreatedBy" />
     public HashId CreatedBy => Channel.CreatedBy;
+
     /// <inheritdoc cref="ServerChannel.CreatedAt" />
     public DateTime CreatedAt => Channel.CreatedAt;
+
     /// <inheritdoc cref="ServerChannel.UpdatedAt" />
     public DateTime? UpdatedAt => Channel.UpdatedAt;
+
     /// <inheritdoc cref="ServerChannel.ArchivedBy" />
     public HashId? ArchivedBy => Channel.ArchivedBy;
+
     /// <inheritdoc cref="ServerChannel.ArchivedAt" />
     public DateTime? ArchivedAt => Channel.ArchivedAt;
+
     /// <inheritdoc cref="ServerChannel.IsArchived" />
     public bool IsArchived => Channel.IsArchived;
+
     /// <inheritdoc cref="ServerChannel.IsThread" />
     public bool IsThread => Channel.IsThread;
+
     /// <inheritdoc cref="ServerChannel.IsCategorized" />
     public bool IsCategorized => Channel.IsCategorized;
+
     /// <inheritdoc cref="ServerChannel.IsPublic" />
     public bool IsPublic => Channel.IsPublic;
     #endregion
@@ -84,6 +97,7 @@ public class ChannelEvent : BaseObject, IServerEvent
     /// <inheritdoc cref="ServerChannel.DeleteAsync" />
     public async Task DeleteAsync() =>
         await Channel.DeleteAsync().ConfigureAwait(false);
+
     /// <inheritdoc cref="ServerChannel.CreateWebhookAsync(string)" />
     public async Task<Webhook> CreateWebhookAsync(string name) =>
         await Channel.CreateWebhookAsync(name).ConfigureAwait(false);

@@ -9,16 +9,19 @@ namespace Guilded.Base.Events;
 /// </summary>
 /// <seealso cref="MessageDeleted" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="Content.Message" />
+/// <seealso cref="Message" />
 public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDeleted>
 {
     #region Properties
     /// <inheritdoc cref="MessageDeleted.Id" />
     public Guid Id => Message.Id;
+
     /// <inheritdoc cref="MessageDeleted.ChannelId" />
     public Guid ChannelId => Message.ChannelId;
+
     /// <inheritdoc cref="MessageDeleted.DeletedAt" />
     public DateTime DeletedAt => Message.DeletedAt;
+
     /// <inheritdoc cref="MessageDeleted.IsPrivate" />
     public bool IsPrivate => Message.IsPrivate;
     #endregion
@@ -48,27 +51,31 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// <seealso cref="MessageDeletedEvent" />
     public class MessageDeleted : BaseObject
     {
-        #region JSON properties
+        #region Properties
         /// <summary>
         /// Gets the identifier of the message.
         /// </summary>
         /// <value>Message ID</value>
         public Guid Id { get; }
+
         /// <summary>
         /// Gets the identifier of the channel where the message was.
         /// </summary>
         /// <value><see cref="Servers.ServerChannel.Id">Channel ID</see></value>
         public Guid ChannelId { get; }
+
         /// <summary>
         /// Gets the identifier of the server where the message was.
         /// </summary>
         /// <value>Server ID?</value>
         public HashId? ServerId { get; }
+
         /// <summary>
         /// Gets the date when the message was deleted.
         /// </summary>
         /// <value>Date</value>
         public DateTime DeletedAt { get; }
+
         /// <summary>
         /// Gets whether the deleted message was <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see>.
         /// </summary>
@@ -107,13 +114,14 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
             (Id, ChannelId, ServerId, DeletedAt, IsPrivate) = (id, channelId, serverId, deletedAt, isPrivate);
         #endregion
 
-        #region Overrides
+        #region Methods
         /// <summary>
         /// Creates string equivalent of the message.
         /// </summary>
         /// <returns>Message as string</returns>
         public override string ToString() =>
             $"Content {Id}";
+
         /// <summary>
         /// Returns whether this and <paramref name="obj" /> are equal to each other.
         /// </summary>
@@ -121,6 +129,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// <returns>Are equal</returns>
         public override bool Equals(object? obj) =>
             obj is MessageDeleted message && message.ChannelId == ChannelId && message.Id == Id;
+
         /// <summary>
         /// Gets a hashcode of this object.
         /// </summary>

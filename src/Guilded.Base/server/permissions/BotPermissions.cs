@@ -29,6 +29,7 @@ public enum BotPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to create and edit bots for automated workflows.
     /// NOTE: For now, bots do not enforce permissions. Anyone with this permission

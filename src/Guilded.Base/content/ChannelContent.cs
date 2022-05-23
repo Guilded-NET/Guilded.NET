@@ -17,7 +17,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Doc" />
 public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableContent where TId : notnull
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="ChannelContent{TId, TServer}">the content</see>.
     /// </summary>
@@ -26,6 +26,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
     public TId Id { get; }
+
     /// <summary>
     /// Gets the identifier of the channel where <see cref="ChannelContent{TId, TServer}">the content</see> are.
     /// </summary>
@@ -34,6 +35,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
     /// <seealso cref="Id" />
     /// <seealso cref="ServerId" />
     public Guid ChannelId { get; }
+
     /// <summary>
     /// Gets the identifier of the server where <see cref="ChannelContent{TId, TServer}">the content</see> are.
     /// </summary>
@@ -55,6 +57,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     public HashId CreatedBy { get; }
+
     /// <summary>
     /// Gets the date when <see cref="ChannelContent{TId, TServer}">the content</see> were created.
     /// </summary>
@@ -82,7 +85,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
         (Id, ChannelId, ServerId, CreatedBy, CreatedAt) = (id, channelId, serverId, createdBy, createdAt);
     #endregion
 
-    #region Overrides
+    #region Methods
     /// <summary>
     /// Returns whether this instance and the <paramref name="other">specified instance</paramref> are equal to each other.
     /// </summary>
@@ -92,6 +95,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
     /// <seealso cref="string" />
     public override bool Equals(object? other) =>
         other is ChannelContent<TId, TServer> content && content.ChannelId == ChannelId && content.Id.Equals(Id);
+
     /// <summary>
     /// Returns a hashcode of this instance.
     /// </summary>
@@ -100,6 +104,7 @@ public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableCon
     /// <seealso cref="string" />
     public override int GetHashCode() =>
         HashCode.Combine(ChannelId, Id);
+
     /// <summary>
     /// Returns string equivalent to this instance.
     /// </summary>

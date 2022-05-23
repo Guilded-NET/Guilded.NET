@@ -10,7 +10,7 @@
 //     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore, MissingMemberHandling = MissingMemberHandling.Ignore)]
 //     public class PermissionList : BaseObject
 //     {
-//         #region JSON properties
+//         #region Properties
 //         /// <summary>
 //         /// Represents chat/text channel permissions.
 //         /// </summary>

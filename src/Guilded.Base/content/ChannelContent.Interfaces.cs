@@ -14,6 +14,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="IReactibleContent" />
 public interface ICreatableContent
 {
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> creator of the content.
     /// </summary>
@@ -26,6 +27,7 @@ public interface ICreatableContent
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     HashId CreatedBy { get; }
+
     /// <summary>
     /// Gets the date when <see cref="ChannelContent{TId, TServer}">the content</see> was created.
     /// </summary>
@@ -35,6 +37,7 @@ public interface ICreatableContent
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     DateTime CreatedAt { get; }
+    #endregion
 }
 /// <summary>
 /// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be edited.
@@ -45,6 +48,7 @@ public interface ICreatableContent
 /// <seealso cref="IReactibleContent" />
 public interface IUpdatableContent
 {
+    #region Properties
     /// <summary>
     /// Gets the date when <see cref="ChannelContent{TId, TServer}">the content</see> were edited.
     /// </summary>
@@ -57,6 +61,7 @@ public interface IUpdatableContent
     /// <seealso cref="ICreatableContent.CreatedBy" />
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     DateTime? UpdatedAt { get; }
+    #endregion
 }
 /// <summary>
 /// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be created by <see cref="Webhook">a webhook</see>.
@@ -67,6 +72,7 @@ public interface IUpdatableContent
 /// <seealso cref="IReactibleContent" />
 public interface IWebhookCreatable
 {
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="Webhook">the webhook</see> that created <see cref="ChannelContent{TId, TServer}">the content</see>.
     /// </summary>
@@ -76,6 +82,7 @@ public interface IWebhookCreatable
     /// <seealso cref="ICreatableContent.CreatedBy" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     Guid? CreatedByWebhook { get; }
+    #endregion
 }
 /// <summary>
 /// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be <see cref="Reaction">reacted</see> on.
@@ -86,10 +93,13 @@ public interface IWebhookCreatable
 /// <seealso cref="IWebhookCreatable" />
 public interface IReactibleContent
 {
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
     /// <param name="emoteId">The identifier of the emote to add</param>
     Task<Reaction> AddReactionAsync(uint emoteId);
+
     // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
     // /// <param name="emoteId">The identifier of the emote to remove</param>
     // Task RemoveReactionAsync(uint emoteId);
+    #endregion
 }

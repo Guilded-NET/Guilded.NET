@@ -13,6 +13,7 @@ namespace Guilded.Base;
 /// <seealso cref="BaseGuildedClient" />
 public abstract class BaseObject
 {
+    #region Methods
     /// <summary>
     /// Returns serialized <see cref="BaseObject" /> instance.
     /// </summary>
@@ -31,6 +32,7 @@ public abstract class BaseObject
         serializer.Serialize(writer, this);
         return strWriter.ToString();
     }
+
     /// <summary>
     /// Returns the serialized <see cref="BaseObject" /> instance.
     /// </summary>
@@ -40,4 +42,5 @@ public abstract class BaseObject
     /// <seealso cref="BaseGuildedClient" />
     public virtual string Serialize(params JsonConverter[] converters) =>
         JsonConvert.SerializeObject(this, converters);
+    #endregion
 }

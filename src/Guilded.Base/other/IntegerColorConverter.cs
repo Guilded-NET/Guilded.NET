@@ -10,7 +10,11 @@ namespace Guilded.Base;
 /// </summary>
 public class DecimalColorConverter : JsonConverter
 {
+    #region Static fields
     internal static readonly Type colour = typeof(Color);
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Writes given object as JSON.
     /// </summary>
@@ -25,6 +29,7 @@ public class DecimalColorConverter : JsonConverter
         else
             writer.WriteNull();
     }
+
     /// <summary>
     /// Reads the given JSON object as <see cref="Color" />.
     /// </summary>
@@ -41,6 +46,7 @@ public class DecimalColorConverter : JsonConverter
             return Color.FromArgb(token.ToObject<int>());
         else return default(Color);
     }
+
     /// <summary>
     /// Returns whether the converter supports converting the given type.
     /// </summary>
@@ -48,4 +54,5 @@ public class DecimalColorConverter : JsonConverter
     /// <returns>Type can be converted</returns>
     public override bool CanConvert(Type objectType) =>
         objectType == colour;
+    #endregion
 }

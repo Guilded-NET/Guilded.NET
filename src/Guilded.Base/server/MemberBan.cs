@@ -13,27 +13,30 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Users.User" />
 public class MemberBan : BaseObject, ICreatableContent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the banned user.
     /// </summary>
     /// <value>User's summary</value>
-    public UserSummary User { get; set; }
+    public UserSummary User { get; }
+
     /// <summary>
     /// Gets the reason why the <see cref="User">user</see> has been banned, if the reason was specified.
     /// </summary>
     /// <value>Text?</value>
-    public string? Reason { get; set; }
+    public string? Reason { get; }
+
     /// <summary>
     /// Gets the date when the <see cref="User">user</see> was banned
     /// </summary>
     /// <value>Date</value>
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; }
+
     /// <summary>
     /// Gets the identifier of the staff who banned.
     /// </summary>
     /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
-    public HashId CreatedBy { get; set; }
+    public HashId CreatedBy { get; }
     #endregion
 
     /// <summary>

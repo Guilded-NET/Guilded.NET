@@ -12,6 +12,7 @@ namespace Guilded.Commands;
 [AttributeUsage(AttributeTargets.Parameter, Inherited = true, AllowMultiple = false)]
 public class CommandParamAttribute : Attribute
 {
+    #region Properties
     /// <summary>
     /// Gets the displayed name of the parameter.
     /// </summary>
@@ -21,14 +22,19 @@ public class CommandParamAttribute : Attribute
     /// </remarks>
     /// <value>Name?</value>
     public string? Name { get; set; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Declares a command parameter with the display name as the parameter's name.
     /// </summary>
     public CommandParamAttribute() { }
+
     /// <summary>
     /// Declares a command parameter with the specified <paramref name="name">name</paramref>.
     /// </summary>
     /// <param name="name">The displayed name of the parameter</param>
     public CommandParamAttribute(string name) =>
         Name = name;
+    #endregion
 }

@@ -31,6 +31,7 @@ namespace Guilded.Base;
 [Serializable]
 public sealed class GuildedRequestException : GuildedException
 {
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedRequestException" />.
     /// </summary>
@@ -41,6 +42,7 @@ public sealed class GuildedRequestException : GuildedException
     /// <seealso cref="GuildedRequestException(string, Exception)" />
     /// <seealso cref="GuildedRequestException(string, string, RestResponse)" />
     public GuildedRequestException(string message) : base(message) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedRequestException" /> with information from given parameters.
     /// </summary>
@@ -53,6 +55,7 @@ public sealed class GuildedRequestException : GuildedException
     /// <seealso cref="GuildedRequestException(string)" />
     /// <seealso cref="GuildedRequestException(string, Exception)" />
     public GuildedRequestException(string code, string message, RestResponse response) : base(code, message, response) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedRequestException" /> with default message.
     /// </summary>
@@ -66,6 +69,7 @@ public sealed class GuildedRequestException : GuildedException
     /// <seealso cref="GuildedRequestException(string, Exception)" />
     /// <seealso cref="GuildedRequestException(string, string, RestResponse)" />
     public GuildedRequestException() : this("Bad request. The request was unacceptable. Invalid/bad parameters?") { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedRequestException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
@@ -77,4 +81,5 @@ public sealed class GuildedRequestException : GuildedException
     /// <seealso cref="GuildedRequestException(string)" />
     /// <seealso cref="GuildedRequestException(string, string, RestResponse)" />
     public GuildedRequestException(string message, Exception inner) : base(message, inner) { }
+    #endregion
 }

@@ -8,6 +8,7 @@ namespace Guilded.Commands;
 
 internal static class CommandUtil
 {
+    #region Methods
     public static void SubscribeToFailedCommands(CommandBase command, Type type)
     {
         Type commandEventType = typeof(CommandEvent);
@@ -101,4 +102,5 @@ internal static class CommandUtil
                     }
                 }
             );
+    #endregion
 }

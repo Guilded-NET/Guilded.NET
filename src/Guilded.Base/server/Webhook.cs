@@ -17,7 +17,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="MemberSummary{T}" />
 public class Webhook : ClientObject, ICreatableContent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="Webhook">the webhook</see>.
     /// </summary>
@@ -27,7 +27,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Token" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
-    public Guid Id { get; set; }
+    public Guid Id { get; }
+
     /// <summary>
     /// Gets the name of <see cref="Webhook">the webhook</see>.
     /// </summary>
@@ -37,7 +38,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Token" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
-    public string Name { get; set; }
+    public string Name { get; }
+
     /// <summary>
     /// Gets the token of <see cref="Webhook">the webhook</see>.
     /// </summary>
@@ -50,7 +52,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Id" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
-    public string? Token { get; set; }
+    public string? Token { get; }
+
     /// <summary>
     /// Gets the identifier of the channel where <see cref="Webhook">the webhook</see> is.
     /// </summary>
@@ -60,7 +63,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Id" />
     /// <seealso cref="Token" />
     /// <seealso cref="Name" />
-    public Guid ChannelId { get; set; }
+    public Guid ChannelId { get; }
+
     /// <summary>
     /// Gets the identifier of the server where <see cref="Webhook">the webhook</see> is.
     /// </summary>
@@ -70,7 +74,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Id" />
     /// <seealso cref="Token" />
     /// <seealso cref="Name" />
-    public HashId ServerId { get; set; }
+    public HashId ServerId { get; }
+
     /// <summary>
     /// Gets the date when <see cref="Webhook">the webhook</see> was created.
     /// </summary>
@@ -78,7 +83,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Webhook" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="DeletedAt" />
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created <see cref="Webhook">the webhook</see>.
     /// </summary>
@@ -86,7 +92,8 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Webhook" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="DeletedAt" />
-    public HashId CreatedBy { get; set; }
+    public HashId CreatedBy { get; }
+
     /// <summary>
     /// Gets the date when <see cref="Webhook">the webhook</see> was deleted.
     /// </summary>
@@ -97,7 +104,7 @@ public class Webhook : ClientObject, ICreatableContent
     /// <seealso cref="Webhook" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="CreatedAt" />
-    public DateTime? DeletedAt { get; set; }
+    public DateTime? DeletedAt { get; }
     #endregion
 
     #region Constructors
@@ -143,7 +150,9 @@ public class Webhook : ClientObject, ICreatableContent
         (Id, Name, Token, ChannelId, ServerId, CreatedAt, CreatedBy, DeletedAt) = (id, name, token, channelId, serverId, createdAt, createdBy, deletedAt);
     #endregion
 
-    #region Additional
+    #region Methods
+
+    #region Method CreateMessageAsync
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, MessageContent)" />
     public async Task CreateMessageAsync(MessageContent message)
     {
@@ -153,21 +162,28 @@ public class Webhook : ClientObject, ICreatableContent
             throw new InvalidOperationException("Cannot execute deleted webhook");
         else await ParentClient.CreateHookMessageAsync(Id, Token, message).ConfigureAwait(false);
     }
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
     public async Task CreateMessageAsync(string message) =>
         await CreateMessageAsync(new MessageContent { Content = message }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
     public async Task CreateMessageAsync(string message, params Embed[] embeds) =>
         await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
     public async Task CreateMessageAsync(string message, IList<Embed> embeds) =>
         await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
     public async Task CreateMessageAsync(params Embed[] embeds) =>
         await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
     public async Task CreateMessageAsync(IList<Embed> embeds) =>
         await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    #endregion
+
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />
     public async Task<Webhook> UpdateAsync(string name)
     {
@@ -175,6 +191,7 @@ public class Webhook : ClientObject, ICreatableContent
             return await ParentClient.UpdateWebhookAsync(ServerId, Id, name).ConfigureAwait(false);
         else throw new InvalidOperationException("Cannot update deleted webhook");
     }
+
     /// <inheritdoc cref="BaseGuildedClient.DeleteWebhookAsync(HashId, Guid)" />
     public async Task DeleteAsync()
     {

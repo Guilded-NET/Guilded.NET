@@ -46,6 +46,7 @@ namespace Guilded;
 /// <seealso cref="AbstractGuildedClient.MessageUpdated" />
 public class GuildedBotClient : AbstractGuildedClient
 {
+    #region Properties
     /// <summary>
     /// An authentication token used to log into a bot in Guilded.
     /// </summary>
@@ -59,6 +60,9 @@ public class GuildedBotClient : AbstractGuildedClient
     /// <seealso cref="ConnectAsync(string)" />
     /// <seealso cref="GuildedBotClient(string)" />
     protected string? AuthToken { get; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Creates a new <see cref="GuildedBotClient" /> instance without authentication token.
     /// </summary>
@@ -71,6 +75,7 @@ public class GuildedBotClient : AbstractGuildedClient
     /// <seealso cref="GuildedBotClient(string)" />
     /// <seealso cref="AuthToken" />
     public GuildedBotClient() { }
+
     /// <summary>
     /// Creates a new <see cref="GuildedBotClient" /> instance with given <paramref name="auth" />.
     /// </summary>
@@ -93,6 +98,9 @@ public class GuildedBotClient : AbstractGuildedClient
 
         AuthToken = auth;
     }
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Connects to Guilded bot using parameter as an auth.
     /// </summary>
@@ -116,6 +124,7 @@ public class GuildedBotClient : AbstractGuildedClient
 
         await base.ConnectAsync().ConfigureAwait(false);
     }
+
     /// <summary>
     /// Connects to Guilded using defined auth.
     /// </summary>
@@ -127,4 +136,5 @@ public class GuildedBotClient : AbstractGuildedClient
     /// <seealso cref="AbstractGuildedClient.DisconnectAsync" />
     public override Task ConnectAsync() =>
         ConnectAsync(AuthToken ?? throw new NullReferenceException("Expected AuthToken to have a value"));
+    #endregion
 }

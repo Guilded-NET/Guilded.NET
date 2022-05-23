@@ -23,6 +23,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="Name" />
     /// <seealso cref="TopicLimit" />
     public const short NameLimit = 4000;
+
     /// <summary>
     /// The count of how many <see cref="char">characters</see> there can be in <see cref="Topic">channel's topic</see>.
     /// </summary>
@@ -33,7 +34,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     public const short TopicLimit = 4000;
     #endregion
 
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of the channel.
     /// </summary>
@@ -44,6 +45,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="GroupId" />
     /// <seealso cref="ServerId" />
     public Guid Id { get; }
+
     /// <summary>
     /// Gets the identifier of the parent channel of this channel.
     /// </summary>
@@ -57,6 +59,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="GroupId" />
     /// <seealso cref="ServerId" />
     public Guid? ParentId { get; }
+
     /// <summary>
     /// Gets the identifier of the parent category of this channel.
     /// </summary>
@@ -67,6 +70,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="GroupId" />
     /// <seealso cref="ServerId" />
     public uint? CategoryId { get; }
+
     /// <summary>
     /// Gets the identifier of the parent group of this channel.
     /// </summary>
@@ -77,6 +81,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="CategoryId" />
     /// <seealso cref="ServerId" />
     public HashId GroupId { get; }
+
     /// <summary>
     /// Gets the identifier of the parent server of this channel.
     /// </summary>
@@ -87,6 +92,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="CategoryId" />
     /// <seealso cref="GroupId" />
     public HashId ServerId { get; }
+
     /// <summary>
     /// Gets the type of content the channel holds.
     /// </summary>
@@ -94,6 +100,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="IsPublic" />
     public ChannelType Type { get; }
+
     /// <summary>
     /// Gets the name of the channel.
     /// </summary>
@@ -101,6 +108,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Topic" />
     public string Name { get; }
+
     /// <summary>
     /// Gets the topic describing what the channel is about.
     /// </summary>
@@ -108,6 +116,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Name" />
     public string? Topic { get; }
+
     /// <summary>
     /// Gets whether the channel is globally viewable.
     /// </summary>
@@ -115,6 +124,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Type" />
     public bool IsPublic { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created the channel.
     /// </summary>
@@ -125,6 +135,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ArchivedBy" />
     /// <seealso cref="ArchivedAt" />
     public HashId CreatedBy { get; }
+
     /// <summary>
     /// Gets the date when the channel was created.
     /// </summary>
@@ -135,6 +146,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ArchivedBy" />
     /// <seealso cref="ArchivedAt" />
     public DateTime CreatedAt { get; }
+
     /// <summary>
     /// Gets the date when the channel was edited.
     /// </summary>
@@ -145,6 +157,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="ArchivedBy" />
     /// <seealso cref="ArchivedAt" />
     public DateTime? UpdatedAt { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that archived the channel.
     /// </summary>
@@ -155,6 +168,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="UpdatedAt" />
     public HashId? ArchivedBy { get; }
+
     /// <summary>
     /// Gets the date when the channel was archived.
     /// </summary>
@@ -165,9 +179,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="UpdatedAt" />
     public DateTime? ArchivedAt { get; }
-    #endregion
 
-    #region Properties
     /// <summary>
     /// Gets whether the channel is a thread of <see cref="ChannelContent{TId, TServer}">a channel content</see>.
     /// </summary>
@@ -177,6 +189,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="IsArchived" />
     /// <seealso cref="IsCategorized" />
     public bool IsThread => ParentId is not null;
+
     /// <summary>
     /// Gets whether the channel has been archived.
     /// </summary>
@@ -187,6 +200,7 @@ public class ServerChannel : ClientObject, ICreatableContent
     /// <seealso cref="IsThread" />
     /// <seealso cref="IsCategorized" />
     public bool IsArchived => ArchivedAt is not null;
+
     /// <summary>
     /// Gets whether the channel is in a category.
     /// </summary>
@@ -261,13 +275,15 @@ public class ServerChannel : ClientObject, ICreatableContent
         (Id, ParentId, CategoryId, GroupId, ServerId, Type, Name, Topic, CreatedBy, CreatedAt, UpdatedAt, ArchivedBy, ArchivedAt) = (id, parentId, categoryId, groupId, serverId, type, name, topic, createdBy, createdAt, updatedAt, archivedBy, archivedAt);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)" />
     public async Task<ServerChannel> UpdateAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
         await ParentClient.UpdateChannelAsync(Id, name, topic, isPublic).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)" />
     public async Task DeleteAsync() =>
         await ParentClient.DeleteChannelAsync(Id).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CreateWebhookAsync(HashId, Guid, string)" />
     /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
     public async Task<Webhook> CreateWebhookAsync(string name) =>

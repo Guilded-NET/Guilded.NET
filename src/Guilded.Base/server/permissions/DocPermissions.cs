@@ -29,18 +29,22 @@ public enum DocPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to create docs
     /// </summary>
     CreateDocs = 1,
+
     /// <summary>
     /// Allows you to view docs
     /// </summary>
     ViewDocs = 2,
+
     /// <summary>
     /// Allows you to update docs created by others and move them to other channels
     /// </summary>
     ManageDocs = 4,
+
     /// <summary>
     /// Allows you to remove docs created by others
     /// </summary>
@@ -51,6 +55,7 @@ public enum DocPermissions
     /// All of the permissions combined.
     /// </summary>
     All = CreateDocs | ViewDocs | ManageDocs | RemoveDocs,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>
@@ -66,6 +71,7 @@ public enum DocPermissions
     /// </list>
     /// </remarks>
     Manage = ManageDocs | RemoveDocs,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
     /// </summary>

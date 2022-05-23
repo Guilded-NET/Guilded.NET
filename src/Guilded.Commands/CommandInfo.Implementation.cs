@@ -12,7 +12,8 @@ namespace Guilded.Commands;
 /// </summary>
 public class CommandInfo : AbstractCommandInfo<MethodInfo>
 {
-    private static readonly Type[] _allowedTypes = new Type[]
+    #region Static
+    private static readonly Type[] s_allowedTypes = new Type[]
     {
         typeof(string), typeof(bool),
         typeof(int), typeof(long), typeof(short), typeof(sbyte),
@@ -20,16 +21,23 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
         typeof(float), typeof(double), typeof(decimal), typeof(DateTime),
         typeof(Guid), typeof(HashId)
     };
+    #endregion
+
+    #region Properties
     /// <summary>
     /// Gets the enumerable of command arguments that can be specified by users.
     /// </summary>
     /// <value>Enumerable of command arguments</value>
     public AbstractCommandArgument[] Arguments { get; }
+
     /// <summary>
     /// Gets whether there is a rest argument for the command.
     /// </summary>
     /// <value>Command has rest argument</value>
     public bool HasRestArgument { get; private set; } = false;
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="CommandInfo" /> from the <paramref name="method">command method</paramref>.
     /// </summary>
@@ -54,12 +62,14 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                     HasRestArgument = true;
                     return new CommandRestInfo(arg);
                 }
-            else if (!_allowedTypes.Contains(arg.ParameterType))
+            else if (!s_allowedTypes.Contains(arg.ParameterType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");
 
             return new CommandArgumentInfo(arg);
         }).ToArray();
+    #endregion
 
+    #region Methods
     internal bool HasCorrectCount(int count) =>
         HasRestArgument ? count >= Arguments.Count() : count == Arguments.Count();
 
@@ -71,6 +81,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     internal IEnumerable<object>? GenerateMethodParameters(IEnumerable<string> arguments) =>
         // (CommandEvent invokation, string arg0, int arg1)
         Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
+
     /// <summary>
     /// Invokes the command.
     /// </summary>
@@ -80,19 +91,25 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// <returns>Whether the command was properly invoked</returns>
     public Task InvokeAsync(CommandBase parent, CommandEvent commandEvent, IEnumerable<object> arguments) =>
         Task.Run(() => Member.Invoke(parent, new object[] { commandEvent }.Concat(arguments.ToArray()).ToArray()));
+    #endregion
 }
 /// <summary>
 /// Represents the information about types that were declared as <see cref="CommandAttribute">commands</see>.
 /// </summary>
 public class CommandContainerInfo : AbstractCommandInfo<Type>
 {
+    #region Properties
     /// <summary>
     /// Gets the created instance of <see cref="CommandAttribute">the command</see> type for this command.
     /// </summary>
     /// <value>Command instance</value>
     public CommandBase Instance { get; }
+
     /// <inheritdoc cref="CommandBase.Commands" />
     public IEnumerable<ICommandInfo<MemberInfo>> SubCommands => Instance.Commands;
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="CommandContainerInfo" /> from the <paramref name="type">command type</paramref>.
     /// </summary>
@@ -101,4 +118,5 @@ public class CommandContainerInfo : AbstractCommandInfo<Type>
     /// <param name="instance">Other reflection members that were declared as commands</param>
     public CommandContainerInfo(Type type, CommandAttribute attribute, CommandBase instance) : base(attribute, type) =>
         Instance = instance;
+    #endregion
 }

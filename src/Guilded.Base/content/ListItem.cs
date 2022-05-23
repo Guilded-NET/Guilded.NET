@@ -21,7 +21,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Doc" />
 public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable where T : ListItemNoteSummary
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the text contents of the message in <see cref="ListItem">the item</see>.
     /// </summary>
@@ -31,44 +31,49 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// </remarks>
     /// <value>Single-line markdown string</value>
     public string Message { get; }
+
     /// <summary>
     /// Gets the note of <see cref="ListItem">the item</see>.
     /// </summary>
     /// <value>List item note?</value>
     public T? Note { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="Servers.Webhook">the webhook</see> that created the list item.
     /// </summary>
     /// <value><see cref="Servers.Webhook.Id">Webhook ID</see>?</value>
     public Guid? CreatedByWebhook { get; }
+
     /// <summary>
     /// Gets the date when <see cref="ListItem">the item</see> was edited.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? UpdatedAt { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> who updated <see cref="ListItem">the list item</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     public HashId? UpdatedBy { get; }
+
     /// <summary>
     /// Gets the date when <see cref="ListItem">the item</see> was completed.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? CompletedAt { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> who ticked off <see cref="ListItem">the item</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     public HashId? CompletedBy { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="ListItem">the parent item</see> of <see cref="ListItem">the item</see>.
     /// </summary>
     /// <value><see cref="ChannelContent{TId, TServer}.Id">List item ID</see>?</value>
     public Guid? ParentId { get; }
-    #endregion
 
-    #region Properties
     /// <summary>
     /// Gets whether the list item was ticked off
     /// </summary>
@@ -145,17 +150,21 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
     public async Task<ListItem> UpdateAsync(string message, string? note = null) =>
         await ParentClient.UpdateListItemAsync(ChannelId, Id, message, note).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.DeleteListItemAsync(Guid, Guid)" />
     public async Task DeleteAsync() =>
         await ParentClient.DeleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.CompleteListItemAsync(Guid, Guid)" />
     public async Task CompleteAsync() =>
         await ParentClient.CompleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.UncompleteListItemAsync(Guid, Guid)" />
     public async Task UncompleteAsync() =>
         await ParentClient.UncompleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
     #endregion
 }
+
 /// <summary>
 /// Represents an item in a list channel.
 /// </summary>
@@ -171,6 +180,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
 /// <seealso cref="Doc" />
 public class ListItem : ListItemBase<ListItemNote>
 {
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="ListItem" /> from the specified JSON properties.
     /// </summary>
@@ -230,7 +240,9 @@ public class ListItem : ListItemBase<ListItemNote>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
     ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
+    #endregion
 }
+
 /// <summary>
 /// Represents an item in a list channel.
 /// </summary>
@@ -246,6 +258,7 @@ public class ListItem : ListItemBase<ListItemNote>
 /// <seealso cref="Doc" />
 public class ListItemSummary : ListItemBase<ListItemNote>
 {
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="ListItemSummary" /> from the specified JSON properties.
     /// </summary>
@@ -305,31 +318,37 @@ public class ListItemSummary : ListItemBase<ListItemNote>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
     ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
+    #endregion
 }
 /// <summary>
 /// Represents the summary of <see cref="ListItemSummary">the list item's</see> note.
 /// </summary>
 public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableContent
 {
+    #region Properties
+
     #region Who, when
     /// <summary>
     /// The identifier of <see cref="User">user</see> that created the note.
     /// </summary>
     /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
     public HashId CreatedBy { get; }
+
     /// <summary>
     /// the date when the note was created.
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
+
     /// <summary>
     /// The identifier of <see cref="User">user</see> that updated the note.
     /// </summary>
     /// <remarks>
     /// <para>The identifier of <see cref="User">user</see> that most recently updated this note.</para>
     /// </remarks>
-    /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId? UpdatedBy { get; }
+
     /// <summary>
     /// the date when the note was edited.
     /// </summary>
@@ -338,6 +357,8 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
     /// </remarks>
     /// <value>Date</value>
     public DateTime? UpdatedAt { get; }
+    #endregion
+
     #endregion
 
     #region Constructors
@@ -372,7 +393,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
 /// </summary>
 public class ListItemNote : ListItemNoteSummary
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// The contents of the note in the item.
     /// </summary>

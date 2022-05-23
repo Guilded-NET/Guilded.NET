@@ -14,7 +14,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ChannelEvent" />
 public class DocEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the document received from the event.
     /// </summary>
@@ -23,6 +23,7 @@ public class DocEvent : BaseObject, IServerEvent
     /// <seealso cref="Title" />
     /// <seealso cref="ServerId" />
     public Doc Doc { get; }
+
     /// <inheritdoc />
     public HashId ServerId { get; }
     #endregion
@@ -30,16 +31,22 @@ public class DocEvent : BaseObject, IServerEvent
     #region Properties
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Doc.ChannelId;
+
     /// <inheritdoc cref="TitledContent.Title" />
     public string Title => Doc.Title;
+
     /// <inheritdoc cref="TitledContent.Content" />
     public string Content => Doc.Content;
+
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Doc.CreatedBy;
+
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
     public DateTime CreatedAt => Doc.CreatedAt;
+
     /// <inheritdoc cref="Doc.UpdatedBy" />
     public HashId? UpdatedBy => Doc.UpdatedBy;
+
     /// <inheritdoc cref="TitledContent.UpdatedAt" />
     public DateTime? UpdatedAt => Doc.UpdatedAt;
     #endregion
@@ -63,16 +70,19 @@ public class DocEvent : BaseObject, IServerEvent
         (ServerId, Doc) = (serverId, doc);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="Doc.UpdateAsync(string, string)" />
     public async Task<Doc> UpdateAsync(string title, string content) =>
         await Doc.UpdateAsync(title, content).ConfigureAwait(false);
+
     /// <inheritdoc cref="Doc.DeleteAsync" />
     public async Task DeleteAsync() =>
         await Doc.DeleteAsync().ConfigureAwait(false);
+
     /// <inheritdoc cref="TitledContent.AddReactionAsync(uint)" />
     public async Task<Reaction> AddReactionAsync(uint emoteId) =>
         await Doc.AddReactionAsync(emoteId).ConfigureAwait(false);
+
     // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)" />
     // public async Task RemoveReactionAsync(uint emoteId) =>
     //     await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);

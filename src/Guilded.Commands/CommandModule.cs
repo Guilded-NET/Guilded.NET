@@ -26,6 +26,7 @@ public delegate string ContextPrefix(MessageEvent msgCreated);
 /// <seealso cref="ContextPrefix" />
 public class CommandModule : CommandBase
 {
+    #region Static & Constants
     /// <summary>
     /// The default argument separator characters.
     /// </summary>
@@ -34,6 +35,7 @@ public class CommandModule : CommandBase
     /// </remarks>
     /// <value>Argument separator characters</value>
     public static readonly char[] DefaultSeparators = new char[] { ' ', '\t', '\v', '\n', '\r' };
+
     /// <summary>
     /// The default splitting options for command arguments.
     /// </summary>
@@ -42,25 +44,35 @@ public class CommandModule : CommandBase
     /// </remarks>
     /// <value>Split options</value>
     public const StringSplitOptions DefaultSplitOptions = StringSplitOptions.RemoveEmptyEntries;
+    #endregion
 
+    #region Fields
     private AbstractGuildedClient? _subscribedClient;
-    private IDisposable? _commandSubscription;
 
+    private IDisposable? _commandSubscription;
+    #endregion
+
+    #region Properties
     /// <summary>
     /// Gets the method that will be used to get prefix based on <see cref="MessageEvent">the current context</see>.
     /// </summary>
     /// <value>Context-based prefix</value>
     public ContextPrefix Prefix { get; set; }
+
     /// <summary>
     /// Gets the characters that separate command arguments.
     /// </summary>
     /// <value>Separator characters</value>
     public char[] Separators { get; set; }
+
     /// <summary>
     /// Gets the splitting options that will be used while splitting command arguments.
     /// </summary>
     /// <value>Splitting options</value>
     public StringSplitOptions SplitOptions { get; set; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="CommandModule" /> with context-based <paramref name="prefix" />.
     /// </summary>
@@ -69,12 +81,14 @@ public class CommandModule : CommandBase
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(ContextPrefix prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) =>
         (Prefix, Separators, SplitOptions) = (prefix, separators, splitOptions);
+
     /// <summary>
     /// Initializes a new instance of <see cref="CommandModule" /> with context-based <paramref name="prefix" />.
     /// </summary>
     /// <param name="prefix">The context-based prefix method for commands</param>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(ContextPrefix prefix, StringSplitOptions splitOptions = DefaultSplitOptions) : this(prefix, DefaultSeparators, splitOptions) { }
+
     /// <summary>
     /// Creates a new instance of <see cref="CommandModule" /> with static <paramref name="prefix" />.
     /// </summary>
@@ -82,18 +96,22 @@ public class CommandModule : CommandBase
     /// <param name="separators">The separators that split the command's arguments</param>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(string prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) : this(_ => prefix, separators, splitOptions) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="CommandModule" /> with static <paramref name="prefix" />.
     /// </summary>
     /// <param name="prefix">The context-based prefix method for commands</param>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(string prefix, StringSplitOptions splitOptions = DefaultSplitOptions) : this(_ => prefix, DefaultSeparators, splitOptions) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="CommandModule" /> with no prefix.
     /// </summary>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(StringSplitOptions splitOptions = DefaultSplitOptions) : this(string.Empty, splitOptions) { }
+    #endregion
 
+    #region Methods
     /// <summary>
     /// Adds the command module to the specified <paramref name="client" /> with the given settings.
     /// </summary>
@@ -134,6 +152,7 @@ public class CommandModule : CommandBase
                 });
         _subscribedClient = client;
     }
+
     /// <summary>
     /// Removes the command module from the subscribed client.
     /// </summary>
@@ -145,4 +164,5 @@ public class CommandModule : CommandBase
         _commandSubscription!.Dispose();
         _subscribedClient = null;
     }
+    #endregion
 }

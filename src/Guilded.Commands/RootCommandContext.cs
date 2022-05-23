@@ -17,26 +17,33 @@ namespace Guilded.Commands;
 /// </example>
 public struct RootCommandContext
 {
+    #region Properties
     /// <summary>
     /// Gets the prefix that was fetched for the command.
     /// </summary>
     /// <value>Prefix</value>
     public string Prefix { get; }
+
     /// <summary>
     /// Gets the name of the original command that was used.
     /// </summary>
     /// <value>Name</value>
     public string RootCommandName { get; }
+
     /// <summary>
     /// Gets the given arguments to the original command.
     /// </summary>
     /// <value>Arguments</value>
     public IEnumerable<string> RootArguments { get; }
+
     /// <summary>
     /// Gets the message event that invoked the command.
     /// </summary>
     /// <value>Message event</value>
     public MessageEvent MessageEvent { get; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="RootCommandContext" />.
     /// </summary>
@@ -46,4 +53,5 @@ public struct RootCommandContext
     /// <param name="arguments">The given arguments to the original command</param>
     public RootCommandContext(MessageEvent messageEvent, string prefix, string commandName, IEnumerable<string> arguments) =>
         (MessageEvent, Prefix, RootCommandName, RootArguments) = (messageEvent, prefix, commandName, arguments);
+    #endregion
 }

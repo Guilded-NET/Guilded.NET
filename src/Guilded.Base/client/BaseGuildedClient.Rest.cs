@@ -15,6 +15,7 @@ namespace Guilded.Base;
 
 public abstract partial class BaseGuildedClient : IDisposable
 {
+    #region Static fields
     private static readonly Dictionary<string, string> contentType = new()
     {
         // Text/Document
@@ -30,6 +31,7 @@ public abstract partial class BaseGuildedClient : IDisposable
         { "webp", "image/webp" },
         { "tiff", MediaTypeNames.Image.Tiff }
     };
+    #endregion
 
     #region Properties
     /// <summary>
@@ -43,7 +45,9 @@ public abstract partial class BaseGuildedClient : IDisposable
     protected internal RestClient Rest { get; set; }
     #endregion
 
-    #region Serialization
+    #region Methods
+
+    #region Methods Serialization
     /// <summary>
     /// Serializes object with client's Guilded serializer.
     /// </summary>
@@ -61,6 +65,7 @@ public abstract partial class BaseGuildedClient : IDisposable
         GuildedSerializer!.Serialize(writer, obj);
         return strWriter.ToString();
     }
+
     /// <summary>
     /// Deserializes JSON with client's Guilded serializer.
     /// </summary>
@@ -80,7 +85,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     }
     #endregion
 
-    #region Requests
+    #region Methods Requests
     /// <summary>
     /// Uploads a file to Guilded.
     /// </summary>
@@ -109,6 +114,7 @@ public abstract partial class BaseGuildedClient : IDisposable
 
         return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
     }
+
     /// <summary>
     /// Uploads a file to Guilded.
     /// </summary>
@@ -132,6 +138,7 @@ public abstract partial class BaseGuildedClient : IDisposable
 
         return await UploadFileAsync(filename, filedata, contentType).ConfigureAwait(false);
     }
+
     /// <summary>
     /// Uploads a file to Guilded.
     /// </summary>
@@ -160,6 +167,7 @@ public abstract partial class BaseGuildedClient : IDisposable
 
         return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
     }
+
     /// <summary>
     /// Executes a request and receives a response or an error.
     /// </summary>
@@ -170,6 +178,7 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <returns>Guilded request response</returns>
     protected async Task<RestResponse<object>> ExecuteRequestAsync(RestRequest request) =>
         await ExecuteRequestAsync<object>(request).ConfigureAwait(false);
+
     /// <summary>
     /// Executes a request and receives response or an error.
     /// </summary>
@@ -217,5 +226,7 @@ public abstract partial class BaseGuildedClient : IDisposable
         }
         return response;
     }
+    #endregion
+
     #endregion
 }

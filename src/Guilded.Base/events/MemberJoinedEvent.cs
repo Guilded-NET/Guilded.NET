@@ -15,7 +15,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="Servers.Member" />
 public class MemberJoinedEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the member who has joined.
     /// </summary>
@@ -24,6 +24,7 @@ public class MemberJoinedEvent : BaseObject, IServerEvent
     /// <seealso cref="Name" />
     /// <seealso cref="ServerId" />
     public Member Member { get; }
+
     /// <summary>
     /// Gets the identifier of the server where the member has joined.
     /// </summary>
@@ -31,17 +32,19 @@ public class MemberJoinedEvent : BaseObject, IServerEvent
     /// <seealso cref="MemberJoinedEvent" />
     /// <seealso cref="Member" />
     public HashId ServerId { get; }
-    #endregion
 
-    #region Properties
     /// <inheritdoc cref="MemberSummary{User}.Id" />
     public HashId UserId => Member.Id;
+
     /// <inheritdoc cref="MemberSummary{User}.Name" />
     public string Name => Member.Name;
+
     /// <inheritdoc cref="MemberSummary{User}.Type" />
     public UserType Type => Member.Type;
+
     /// <inheritdoc cref="MemberSummary{User}.IsBot" />
     public bool IsBot => Member.IsBot;
+
     /// <inheritdoc cref="Member.JoinedAt" />
     public DateTime JoinedAt => Member.JoinedAt;
     #endregion

@@ -14,7 +14,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="GuildedWebsocketException" />
 public class WelcomeEvent : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the time duration between heartbeats in milliseconds.
     /// </summary>
@@ -26,6 +26,7 @@ public class WelcomeEvent : BaseObject
     /// <seealso cref="LastMessageId" />
     /// <seealso cref="User" />
     public int HeartbeatInterval { get; }
+
     /// <summary>
     /// Gets the identifier of the last received WebSocket message.
     /// </summary>
@@ -34,6 +35,7 @@ public class WelcomeEvent : BaseObject
     /// <seealso cref="HeartbeatInterval" />
     /// <seealso cref="User" />
     public string? LastMessageId { get; }
+
     /// <summary>
     /// Gets the currently logged in user.
     /// </summary>
@@ -41,7 +43,7 @@ public class WelcomeEvent : BaseObject
     /// <seealso cref="WelcomeEvent" />
     /// <seealso cref="LastMessageId" />
     /// <seealso cref="HeartbeatInterval" />
-    public Me User { get; set; }
+    public Me User { get; }
     #endregion
 
     #region Constructors

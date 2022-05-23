@@ -29,14 +29,17 @@ public enum SchedulingPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to let server know your available schedule
     /// </summary>
     CreateSchedule = 1,
+
     /// <summary>
     /// Allows you to view server member's schedule
     /// </summary>
     ViewSchedules = 2,
+
     /// <summary>
     /// Allows you to remove availabilities created by others
     /// </summary>
@@ -47,6 +50,7 @@ public enum SchedulingPermissions
     /// All of the permissions combined.
     /// </summary>
     All = CreateSchedule | ViewSchedules | DeleteSchedule,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>
@@ -59,6 +63,7 @@ public enum SchedulingPermissions
     /// </list>
     /// </remarks>
     Manage = DeleteSchedule,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions/
     /// </summary>

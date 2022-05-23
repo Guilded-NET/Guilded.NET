@@ -18,7 +18,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ResumeEvent" />
 public class GuildedSocketMessage : ClientObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets an operation code that tells about the message.
     /// </summary>
@@ -53,6 +53,7 @@ public class GuildedSocketMessage : ClientObject
     /// <seealso cref="EventName" />
     /// <seealso cref="RawData" />
     public byte Opcode { get; }
+
     /// <summary>
     /// Gets the name of the event received.
     /// </summary>
@@ -65,6 +66,7 @@ public class GuildedSocketMessage : ClientObject
     /// <seealso cref="RawData" />
     /// <seealso cref="MessageId" />
     public string? EventName { get; }
+
     /// <summary>
     /// Gets the data associated with the event.
     /// </summary>
@@ -73,6 +75,7 @@ public class GuildedSocketMessage : ClientObject
     /// </remarks>
     /// <value>Data?</value>
     public JObject? RawData { get; }
+
     /// <summary>
     /// Gets an identifier that allows the event to be replayed.
     /// </summary>

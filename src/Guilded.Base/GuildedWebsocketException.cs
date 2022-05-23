@@ -26,6 +26,7 @@ namespace Guilded.Base;
 [Serializable]
 public class GuildedWebsocketException : Exception
 {
+    #region Properties
     /// <summary>
     /// Gets the response message from Guilded WebSocket.
     /// </summary>
@@ -38,15 +39,20 @@ public class GuildedWebsocketException : Exception
     /// <seealso cref="Events.WelcomeEvent" />
     /// <seealso cref="Events.ResumeEvent" />
     public ResponseMessage? Response { get; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new empty instance of <see cref="GuildedWebsocketException" />.
     /// </summary>
     public GuildedWebsocketException() { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedWebsocketException" /> with a <paramref name="message" />.
     /// </summary>
     /// <param name="message">The message that was received from Guilded Websocket</param>
     public GuildedWebsocketException(string message) : base(message) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedWebsocketException" /> from WebSocket <paramref name="message">response message</paramref>.
     /// </summary>
@@ -54,10 +60,12 @@ public class GuildedWebsocketException : Exception
     /// <param name="message">The message that was received from Guilded Websocket</param>
     public GuildedWebsocketException(ResponseMessage response, string message) : this(message) =>
         Response = response;
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedWebsocketException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
     /// <param name="message">The message that was received from Guilded Websocket</param>
     /// <param name="inner">The inner exception of this error</param>
     public GuildedWebsocketException(string message, Exception inner) : base(message, inner) { }
+    #endregion
 }

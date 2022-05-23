@@ -10,7 +10,11 @@ namespace Guilded.Base;
 /// </summary>
 public class IdConverter : JsonConverter
 {
+    #region Static fields
     internal static readonly Type hashId = typeof(HashId), formId = typeof(FormId), nullableFormId = typeof(FormId?);
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Writes given object as JSON.
     /// </summary>
@@ -19,6 +23,7 @@ public class IdConverter : JsonConverter
     /// <param name="serializer">The serializer that is serializing the object</param>
     public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer) =>
         writer.WriteValue(value?.ToString());
+
     /// <summary>
     /// Reads the given JSON object as <see cref="HashId" /> or <see cref="FormId" />.
     /// </summary>
@@ -35,6 +40,7 @@ public class IdConverter : JsonConverter
         // Is Guilded Hash ID
         : new HashId(str)
         : null;
+
     /// <summary>
     /// Returns whether the converter supports converting the given type.
     /// </summary>
@@ -42,12 +48,15 @@ public class IdConverter : JsonConverter
     /// <returns>Type can be converted</returns>
     public override bool CanConvert(Type objectType) =>
         objectType == hashId || objectType == formId;
+    #endregion
 }
+
 /// <summary>
 /// Converts a value to <see cref="HashId" /> where it is expected.
 /// </summary>
 public class HashIdConverter : TypeConverter
 {
+    #region Methods
     /// <summary>
     /// Whether the type can be converted to <see cref="HashId" />.
     /// </summary>
@@ -56,6 +65,7 @@ public class HashIdConverter : TypeConverter
     /// <returns>Can convert</returns>
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) =>
         sourceType == typeof(string);
+
     /// <summary>
     /// Converts string to <see cref="HashId" />.
     /// </summary>
@@ -65,12 +75,14 @@ public class HashIdConverter : TypeConverter
     /// <returns><see cref="HashId" /> from string</returns>
     public override object ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) =>
         new HashId((string)value);
+    #endregion
 }
 /// <summary>
 /// Converts a value to <see cref="FormId" /> where it is expected.
 /// </summary>
 public class FormIdConverter : TypeConverter
 {
+    #region Methods
     /// <summary>
     /// Whether the type can be converted to <see cref="FormId" />.
     /// </summary>
@@ -79,6 +91,7 @@ public class FormIdConverter : TypeConverter
     /// <returns>Can convert</returns>
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) =>
         sourceType == typeof(string);
+
     /// <summary>
     /// Converts string to <see cref="FormId" />.
     /// </summary>
@@ -88,4 +101,5 @@ public class FormIdConverter : TypeConverter
     /// <returns><see cref="FormId" /> from string</returns>
     public override object ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value) =>
         new FormId((string)value);
+    #endregion
 }

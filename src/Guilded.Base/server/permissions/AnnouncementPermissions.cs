@@ -29,14 +29,17 @@ public enum AnnouncementPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to create and remove announcements
     /// </summary>
     CreateAnnouncements = 1,
+
     /// <summary>
     /// Allows you to view announcements
     /// </summary>
     ViewAnnouncements = 2,
+
     /// <summary>
     /// Allows you to delete announcements by other members or pin any announcement
     /// </summary>
@@ -47,6 +50,7 @@ public enum AnnouncementPermissions
     /// All of the permissions combined.
     /// </summary>
     All = CreateAnnouncements | ViewAnnouncements | ManageAnnouncements,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>
@@ -59,6 +63,7 @@ public enum AnnouncementPermissions
     /// </list>
     /// </remarks>
     Manage = ManageAnnouncements,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
     /// </summary>

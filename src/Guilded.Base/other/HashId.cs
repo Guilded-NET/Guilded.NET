@@ -42,10 +42,19 @@ namespace Guilded.Base;
 [JsonConverter(typeof(IdConverter))]
 public readonly struct HashId : IEquatable<HashId>
 {
-    internal readonly string _;
-    private const int idMinLength = 8;
-    private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    #region Static fields & Constants
     internal static readonly FormatException FormatError = new("The given ID string is in incorrect format.");
+
+    private const int idMinLength = 8;
+
+    private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    #endregion
+
+    #region Fields
+    internal readonly string _;
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="HashId" />.
     /// </summary>
@@ -59,8 +68,9 @@ public readonly struct HashId : IEquatable<HashId>
 
         _ = id!;
     }
+    #endregion
 
-    #region Overrides
+    #region Methods
     /// <summary>
     /// Returns the string representation of <see cref="HashId" /> instance.
     /// </summary>
@@ -70,12 +80,14 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns><see cref="HashId" /> as string</returns>
     public override string ToString() =>
         _;
+
     /// <summary>
     /// Gets a hashcode of this object.
     /// </summary>
     /// <returns>HashCode</returns>
     public override int GetHashCode() =>
         HashCode.Combine(_, 2);
+
     /// <summary>
     /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
     /// </summary>
@@ -83,6 +95,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both are equal</returns>
     public bool Equals(HashId other) =>
         Equals(other._);
+
     /// <summary>
     /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
     /// </summary>
@@ -90,6 +103,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both are equal</returns>
     public bool Equals(string other) =>
         other == _;
+
     /// <summary>
     /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
     /// </summary>
@@ -108,6 +122,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both are equal</returns>
     public static bool operator ==(string id0, HashId id1) =>
         id0 == id1._;
+
     /// <summary>
     /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are equal.
     /// </summary>
@@ -116,6 +131,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both are equal</returns>
     public static bool operator ==(HashId id0, string id1) =>
         id0._ == id1;
+
     /// <summary>
     /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are equal.
     /// </summary>
@@ -124,6 +140,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both are equal</returns>
     public static bool operator ==(HashId id0, HashId id1) =>
         id0._ == id1._;
+
     /// <summary>
     /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
     /// </summary>
@@ -132,6 +149,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both aren't equal</returns>
     public static bool operator !=(HashId id0, HashId id1) =>
         !(id0 == id1);
+
     /// <summary>
     /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
     /// </summary>
@@ -140,6 +158,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Both aren't equal</returns>
     public static bool operator !=(string id0, HashId id1) =>
         !(id0 == id1);
+
     /// <summary>
     /// Returns whether <paramref name="id0" /> and <paramref name="id1" /> are not equal.
     /// </summary>

@@ -13,7 +13,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 public class Doc : TitledContent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="Servers.Member">the member</see> who updated <see cref="Doc">the document</see>.
     /// </summary>
@@ -81,6 +81,7 @@ public class Doc : TitledContent
     /// <param name="content">The Markdown content of the document</param>
     public async Task<Doc> UpdateAsync(string title, string content) =>
         await ParentClient.UpdateDocAsync(ChannelId, Id, title, content);
+
     /// <inheritdoc cref="BaseGuildedClient.DeleteDocAsync(Guid, uint)" />
     public async Task DeleteAsync() =>
         await ParentClient.DeleteDocAsync(ChannelId, Id);

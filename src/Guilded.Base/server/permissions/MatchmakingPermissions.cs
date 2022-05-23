@@ -29,14 +29,17 @@ public enum MatchmakingPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to create matchmaking scrims
     /// </summary>
     CreateScrims = 1,
+
     /// <summary>
     /// Allows you to use the server to create and manage tournaments
     /// </summary>
     RegisterForTournaments = 4,
+
     /// <summary>
     /// Allows you to register the server for tournaments
     /// </summary>

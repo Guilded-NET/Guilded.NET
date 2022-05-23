@@ -13,11 +13,15 @@ namespace Guilded.Commands;
 /// <seealso cref="CommandAttribute" />
 public class FailedCommandEvent : CommandEvent
 {
+    #region Properties
     /// <summary>
     /// Gets the type of the error that occurred.
     /// </summary>
     /// <value>Event type</value>
     public FallbackType Type { get; set; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="FailedCommandEvent" />.
     /// </summary>
@@ -27,7 +31,9 @@ public class FailedCommandEvent : CommandEvent
     /// <param name="type">The type of the event that occurred</param>
     public FailedCommandEvent(RootCommandContext context, string commandName, IEnumerable<string> arguments, FallbackType type) : base(context, commandName, arguments) =>
         Type = type;
+    #endregion
 }
+
 /// <summary>
 /// Represents the type of <see cref="FailedCommandEvent">sub command failure</see>.
 /// </summary>

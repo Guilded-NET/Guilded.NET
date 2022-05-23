@@ -14,7 +14,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Webhook" />
 public class MemberSummary<T> : BaseObject where T : UserSummary
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets <see cref="Users.User">the user</see> they are.
     /// </summary>
@@ -24,7 +24,8 @@ public class MemberSummary<T> : BaseObject where T : UserSummary
     /// <seealso cref="Id" />
     /// <seealso cref="Users.User" />
     /// <seealso cref="UserSummary" />
-    public T User { get; set; }
+    public T User { get; }
+
     /// <summary>
     /// Gets the list of roles <see cref="Member">member</see> holds.
     /// </summary>
@@ -32,16 +33,17 @@ public class MemberSummary<T> : BaseObject where T : UserSummary
     /// <seealso cref="MemberSummary{T}" />
     /// <seealso cref="Member" />
     /// <seealso cref="Id" />
-    public IList<uint> RoleIds { get; set; }
-    #endregion
+    public IList<uint> RoleIds { get; }
 
-    #region Properties
     /// <inheritdoc cref="UserSummary.Id" />
     public HashId Id => User.Id;
+
     /// <inheritdoc cref="UserSummary.Name" />
     public string Name => User.Name;
+
     /// <inheritdoc cref="UserSummary.Type" />
     public UserType Type => User.Type;
+
     /// <inheritdoc cref="UserSummary.IsBot" />
     public bool IsBot => User.IsBot;
     #endregion

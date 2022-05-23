@@ -27,6 +27,7 @@ namespace Guilded.Base;
 [Serializable]
 public sealed class GuildedResourceException : GuildedException
 {
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedResourceException" />.
     /// </summary>
@@ -37,6 +38,7 @@ public sealed class GuildedResourceException : GuildedException
     /// <seealso cref="GuildedResourceException(string, Exception)" />
     /// <seealso cref="GuildedResourceException(string, string, RestResponse)" />
     public GuildedResourceException(string message) : base(message) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedResourceException" /> with information from given parameters.
     /// </summary>
@@ -48,6 +50,7 @@ public sealed class GuildedResourceException : GuildedException
     /// <seealso cref="GuildedResourceException(string)" />
     /// <seealso cref="GuildedResourceException(string, Exception)" />
     public GuildedResourceException(string code, string message, RestResponse response) : base(code, message, response) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedResourceException" /> with default message.
     /// </summary>
@@ -60,6 +63,7 @@ public sealed class GuildedResourceException : GuildedException
     /// <seealso cref="GuildedResourceException(string, Exception)" />
     /// <seealso cref="GuildedResourceException(string, string, RestResponse)" />
     public GuildedResourceException() : this("Not found. Given item has not been found.") { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedResourceException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
@@ -70,4 +74,5 @@ public sealed class GuildedResourceException : GuildedException
     /// <seealso cref="GuildedResourceException(string)" />
     /// <seealso cref="GuildedResourceException(string, string, RestResponse)" />
     public GuildedResourceException(string message, Exception inner) : base(message, inner) { }
+    #endregion
 }

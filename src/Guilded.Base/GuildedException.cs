@@ -19,21 +19,27 @@ namespace Guilded.Base;
 [Serializable]
 public class GuildedException : Exception
 {
+    #region Properties
     /// <summary>
     /// Gets the code name of Guilded error.
     /// </summary>
     /// <value>Code name</value>
     public string? Code { get; }
+
     /// <summary>
     /// Gets the response that was received from Guilded API.
     /// </summary>
     /// <value>REST Response</value>
     public RestResponse? Response { get; }
+
     /// <summary>
     /// Gets the HTTP status that was found in the response.
     /// </summary>
     /// <value>HTTP status</value>
     public HttpStatusCode? StatusCode => Response?.StatusCode;
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedException" /> with only a <paramref name="message" />.
     /// </summary>
@@ -44,6 +50,7 @@ public class GuildedException : Exception
     /// <seealso cref="GuildedException(string, Exception)" />
     /// <seealso cref="GuildedException(string, string, RestResponse)" />
     public GuildedException(string message) : base(message) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedException" /> from a <paramref name="response" />.
     /// </summary>
@@ -57,6 +64,7 @@ public class GuildedException : Exception
     /// <seealso cref="GuildedException(string, Exception)" />
     public GuildedException(string code, string message, RestResponse response) : this(message) =>
         (Code, Response) = (code, response);
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedException" /> with a default message.
     /// </summary>
@@ -70,6 +78,7 @@ public class GuildedException : Exception
     /// <seealso cref="GuildedException(string, Exception)" />
     /// <seealso cref="GuildedException(string, string, RestResponse)" />
     public GuildedException() : this("Guilded exception was thrown.") { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
@@ -81,6 +90,7 @@ public class GuildedException : Exception
     /// <seealso cref="GuildedException(string)" />
     /// <seealso cref="GuildedException(string, string, RestResponse)" />
     public GuildedException(string message, Exception inner) : base(message, inner) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="GuildedException" /> with serialization information.
     /// </summary>
@@ -95,11 +105,14 @@ public class GuildedException : Exception
     protected GuildedException(
         SerializationInfo info,
         StreamingContext context) : base(info, context) { }
+    #endregion
 
+    #region Methods
     /// <summary>
     /// Returns string representation of the exception thrown.
     /// </summary>
     /// <returns><see cref="GuildedException" /> as string</returns>
     public override string ToString() =>
         $"Guilded API has thrown an error:\n[{Code}:{StatusCode}]: {Message}\n{StackTrace}";
+    #endregion
 }

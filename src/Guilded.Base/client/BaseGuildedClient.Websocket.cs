@@ -11,11 +11,19 @@ namespace Guilded.Base;
 
 public abstract partial class BaseGuildedClient
 {
+    #region Constants
     internal const int welcome_opcode = 1, close_opcode = 8;
     /// <summary>
     /// The default timespan between each interval in milliseconds.
     /// </summary>
     private const double DefaultHeartbeatInterval = 22500;
+    #endregion
+
+    #region Fields
+    private readonly Subject<GuildedSocketMessage> OnWebsocketMessage = new();
+    #endregion
+
+    #region Properties
     /// <summary>
     /// The WebSocket that will be used by the client.
     /// </summary>
@@ -25,6 +33,7 @@ public abstract partial class BaseGuildedClient
     /// <seealso cref="Rest" />
     /// <value>Main WebSocket</value>
     public WebsocketClient Websocket { get; set; }
+
     /// <summary>
     /// The identifier of the last WebSocket message.
     /// </summary>
@@ -34,7 +43,6 @@ public abstract partial class BaseGuildedClient
     /// <value>WebSocket Message ID?</value>
     public string? LastMessageId { get; set; }
 
-    private readonly Subject<GuildedSocketMessage> OnWebsocketMessage = new();
     /// <summary>
     /// An event when WebSocket receives a message.
     /// </summary>
@@ -44,6 +52,9 @@ public abstract partial class BaseGuildedClient
     /// </remarks>
     /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{T}.OnError(Exception)" />.</exception>
     protected IObservable<GuildedSocketMessage> WebsocketMessage => OnWebsocketMessage.AsObservable();
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Used for when any WebSocket receives a message.
     /// </summary>
@@ -73,4 +84,5 @@ public abstract partial class BaseGuildedClient
         }
         OnWebsocketMessage.OnNext(@event);
     }
+    #endregion
 }

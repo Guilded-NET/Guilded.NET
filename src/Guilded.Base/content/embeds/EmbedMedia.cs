@@ -12,7 +12,7 @@ namespace Guilded.Base.Embeds;
 /// <seealso cref="EmbedField" />
 public class EmbedMedia : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// The source URL to the image.
     /// </summary>

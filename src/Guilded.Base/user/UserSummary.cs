@@ -14,7 +14,7 @@ namespace Guilded.Base.Users;
 /// <seealso cref="SocialLink" />
 public class UserSummary : ClientObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see>.
     /// </summary>
@@ -24,6 +24,7 @@ public class UserSummary : ClientObject
     /// <seealso cref="Type" />
     /// <seealso cref="Name" />
     public HashId Id { get; }
+
     /// <summary>
     /// Gets the type of <see cref="Users.User">the user</see> they are.
     /// </summary>
@@ -33,6 +34,7 @@ public class UserSummary : ClientObject
     /// <seealso cref="Id" />
     /// <seealso cref="Name" />
     public UserType Type { get; }
+
     /// <summary>
     /// Gets the global username of <see cref="Users.User">the user</see>.
     /// </summary>
@@ -41,7 +43,8 @@ public class UserSummary : ClientObject
     /// <seealso cref="UserSummary" />
     /// <seealso cref="Avatar" />
     /// <seealso cref="User.Banner" />
-    public string Name { get; set; }
+    public string Name { get; }
+
     /// <summary>
     /// Gets the global avatar of <see cref="Users.User">the user</see>.
     /// </summary>
@@ -50,10 +53,8 @@ public class UserSummary : ClientObject
     /// <seealso cref="UserSummary" />
     /// <seealso cref="User.Banner" />
     /// <seealso cref="Name" />
-    public Uri? Avatar { get; set; }
-    #endregion
+    public Uri? Avatar { get; }
 
-    #region Properties
     /// <summary>
     /// Gets whether <see cref="Users.User">the user</see> is a <see cref="UserType.Bot">bot</see>.
     /// </summary>
@@ -63,7 +64,6 @@ public class UserSummary : ClientObject
     /// <seealso cref="Type" />
     /// <seealso cref="Id" />
     public bool IsBot => Type == UserType.Bot;
-
     #endregion
 
     #region Constructors

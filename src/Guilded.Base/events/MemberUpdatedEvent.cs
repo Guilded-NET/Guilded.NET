@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="Member" />
 public class MemberUpdatedEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the properties that have been updated in the member.
     /// </summary>
@@ -25,6 +25,7 @@ public class MemberUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="UserId" />
     /// <seealso cref="ServerId" />
     public MemberUpdate UserInfo { get; }
+
     /// <summary>
     /// The identifier of the server where the <see cref="UserInfo">member</see> has been updated.
     /// </summary>
@@ -33,9 +34,7 @@ public class MemberUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="UserId" />
     /// <seealso cref="UserInfo" />
     public HashId ServerId { get; }
-    #endregion
 
-    #region Properties
     /// <summary>
     /// Gets the identifier of the <see cref="UserInfo">member</see>.
     /// </summary>
@@ -74,10 +73,15 @@ public class MemberUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="Member" />
     public class MemberUpdate : BaseObject
     {
+        #region Properties
         /// <inheritdoc cref="Users.UserSummary.Id" />
         public HashId Id { get; set; }
+
         /// <inheritdoc cref="Member.Nickname" />
         public string? Nickname { get; set; }
+        #endregion
+
+        #region Constructors
         /// <summary>
         /// Initializes a new instance of <see cref="MemberUpdate" /> from the specified JSON properties.
         /// </summary>
@@ -94,5 +98,6 @@ public class MemberUpdatedEvent : BaseObject, IServerEvent
             string? nickname = null
         ) =>
             (Id, Nickname) = (id, nickname);
+        #endregion
     }
 }

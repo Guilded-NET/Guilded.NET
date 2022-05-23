@@ -29,10 +29,12 @@ public enum BracketPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to report match scores on behalf of your server
     /// </summary>
     ReportScores = 1,
+
     /// <summary>
     /// Allows you to view tournament brackets
     /// </summary>

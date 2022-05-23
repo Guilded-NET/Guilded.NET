@@ -11,7 +11,7 @@ namespace Guilded.Base.Users;
 /// <seealso cref="Me" />
 public class User : UserSummary
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the date when <see cref="Users.User">the user</see> has registered their account.
     /// </summary>
@@ -19,6 +19,7 @@ public class User : UserSummary
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     public DateTime CreatedAt { get; }
+
     /// <summary>
     /// Gets the global banner of <see cref="Users.User">the user</see>.
     /// </summary>

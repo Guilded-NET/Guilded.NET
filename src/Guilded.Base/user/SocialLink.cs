@@ -12,7 +12,7 @@ namespace Guilded.Base.Users;
 /// <seealso cref="SocialLinkType" />
 public class SocialLink : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the type of social link it is.
     /// </summary>
@@ -21,6 +21,7 @@ public class SocialLink : BaseObject
     /// <seealso cref="ServiceId" />
     /// <seealso cref="Handle" />
     public SocialLinkType Type { get; }
+
     /// <summary>
     /// Gets the name, unique identifier or unique tag of the <see cref="User">user</see> in this social link.
     /// </summary>
@@ -29,6 +30,7 @@ public class SocialLink : BaseObject
     /// <seealso cref="ServiceId" />
     /// <seealso cref="Type" />
     public string? Handle { get; }
+
     /// <summary>
     /// Gets the unique identifier of the <see cref="User">user</see> in this social link.
     /// </summary>

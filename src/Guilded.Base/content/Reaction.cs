@@ -13,7 +13,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="ForumThread" />
 public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of the emote that was reacted with.
     /// </summary>
@@ -21,6 +21,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <seealso cref="Reaction" />
     /// <seealso cref="ServerId" />
     public uint Id { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="Reaction">the reaction</see> where the content is.
     /// </summary>
@@ -31,6 +32,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <seealso cref="Reaction" />
     /// <seealso cref="Id" />
     public HashId? ServerId { get; }
+
     /// <summary>
     /// Gets the date when <see cref="Reaction">the reaction</see> was created.
     /// </summary>
@@ -39,6 +41,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="CreatedByWebhook" />
     public DateTime CreatedAt { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created <see cref="Reaction">the reaction</see>.
     /// </summary>
@@ -50,6 +53,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="CreatedByWebhook" />
     public HashId CreatedBy { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="Webhook">the webhook</see> that created <see cref="Reaction">the reaction</see>.
     /// </summary>
@@ -99,6 +103,7 @@ public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
     /// <returns>Are equal</returns>
     public override bool Equals(object? obj) =>
         obj is Reaction reaction && Id == reaction.Id;
+
     /// <summary>
     /// Gets a hashcode of this object.
     /// </summary>

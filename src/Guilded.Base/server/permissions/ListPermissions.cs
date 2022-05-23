@@ -29,26 +29,32 @@ public enum ListPermissions
     /// No given permissions.
     /// </summary>
     None = 0,
+
     /// <summary>
     /// Allows you to create list items
     /// </summary>
     CreateListItem = 1,
+
     /// <summary>
     /// Allows you to view list items
     /// </summary>
     ViewListItems = 2,
+
     /// <summary>
     /// Allows you to edit list item messages by others and move list items to other channels
     /// </summary>
     ManageListItems = 4,
+
     /// <summary>
     /// Allows you to remove list items created by others
     /// </summary>
     RemoveListItems = 8,
+
     /// <summary>
     /// Allows you to complete list items created by others
     /// </summary>
     CompleteListItems = 16,
+
     /// <summary>
     /// Allows you to reorder list items
     /// </summary>
@@ -59,6 +65,7 @@ public enum ListPermissions
     /// All of the permissions combined.
     /// </summary>
     All = CreateListItem | ViewListItems | ManageListItems | RemoveListItems | CompleteListItems | ReorderListItems,
+
     /// <summary>
     /// All of the manage permissions combined.
     /// </summary>
@@ -77,6 +84,7 @@ public enum ListPermissions
     /// </list>
     /// </remarks>
     Manage = ManageListItems | RemoveListItems | ReorderListItems,
+
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
     /// </summary>

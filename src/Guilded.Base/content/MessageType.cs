@@ -17,6 +17,7 @@ public enum MessageType
     /// <seealso cref="MessageType" />
     /// <seealso cref="System" />
     Default,
+
     /// <summary>
     /// <para>A system event that is created once an action is done.</para>
     /// <para>This can't be created by anyone and only occurs if certain actions happen.</para>

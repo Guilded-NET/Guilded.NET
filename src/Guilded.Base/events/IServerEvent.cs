@@ -7,6 +7,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ChannelEvent" />
 public interface IServerEvent
 {
+    #region Properties
     /// <summary>
     /// Gets the identifier of the server where the event occurred.
     /// </summary>
@@ -14,4 +15,5 @@ public interface IServerEvent
     /// <seealso cref="IServerEvent" />
     /// <seealso cref="MessageEvent{T}.ServerId" />
     HashId ServerId { get; }
+    #endregion
 }

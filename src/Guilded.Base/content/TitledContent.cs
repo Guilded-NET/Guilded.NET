@@ -13,7 +13,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent
 {
-    #region JSON properties
+    #region Properties
 
     #region Content
     /// <summary>
@@ -26,6 +26,7 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <seealso cref="TitledContent" />
     /// <seealso cref="Content" />
     public string Title { get; }
+
     /// <summary>
     /// Gets the text contents of <see cref="TitledContent">the titled content</see>.
     /// </summary>
@@ -96,6 +97,7 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <param name="emoteId">The identifier of the emote to add</param>
     public async Task<Reaction> AddReactionAsync(uint emoteId) =>
         await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+
     // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
     // /// <param name="emoteId">The identifier of the emote to remove</param>
     // public async Task RemoveReactionAsync(uint emoteId) =>

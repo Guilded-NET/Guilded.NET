@@ -9,6 +9,7 @@ namespace Guilded.Commands;
 /// </summary>
 public abstract class AbstractCommandArgument
 {
+    #region Properties
     /// <summary>
     /// Gets the type of <see cref="Parameter">the parameter</see>.
     /// </summary>
@@ -29,6 +30,9 @@ public abstract class AbstractCommandArgument
     /// </summary>
     /// <value>Name</value>
     public string Name => Attribute?.Name ?? Parameter.Name ?? "";
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="AbstractCommandArgument" /> from a <paramref name="parameter">method parameter</paramref>.
     /// </summary>
@@ -38,6 +42,9 @@ public abstract class AbstractCommandArgument
             parameter.GetCustomAttribute<CommandParamAttribute>(),
             parameter
         );
+    #endregion
+
+    #region Methods
     /// <summary>
     /// Gets the value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index.
     /// </summary>
@@ -45,4 +52,5 @@ public abstract class AbstractCommandArgument
     /// <param name="index">The index this argument is at</param>
     /// <returns>Value</returns>
     public abstract object GetValueFrom(IEnumerable<string> arguments, int index);
+    #endregion
 }

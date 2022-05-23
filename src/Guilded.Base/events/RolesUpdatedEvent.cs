@@ -17,7 +17,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="Member" />
 public class RolesUpdatedEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the list of receiving/losing member and current roles.
     /// </summary>
@@ -29,6 +29,7 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="UpdatedUsers" />
     /// <seealso cref="ServerId" />
     public IList<RolesUpdated> MemberRoleIds { get; }
+
     /// <summary>
     /// Gets the identifier of the server where user's roles were given or removed.
     /// </summary>
@@ -37,9 +38,7 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="MemberRoleIds" />
     /// <seealso cref="UpdatedUsers" />
     public HashId ServerId { get; }
-    #endregion
 
-    #region Properties
     /// <summary>
     /// Gets the array of updated users that either lost or received roles.
     /// </summary>
@@ -79,12 +78,13 @@ public class RolesUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="Member" />
     public class RolesUpdated
     {
-        #region JSON properties
+        #region Properties
         /// <summary>
         /// Gets the identifier of <see cref="User">user</see> that lost or received <see cref="RoleIds">roles</see>.
         /// </summary>
-        /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
+        /// <value><see cref="UserSummary.Id">User ID</see></value>
         public HashId UserId { get; }
+
         /// <summary>
         /// Gets the list of roles that <see cref="UserId">member</see> is currently holding.
         /// </summary>

@@ -9,7 +9,7 @@ namespace Guilded.Commands;
 /// <seealso cref="CommandModule" />
 public static class ClientCommandExtensions
 {
-    #region AddCommands
+    #region Methods
     /// <summary>
     /// Adds a command module to the client.
     /// </summary>

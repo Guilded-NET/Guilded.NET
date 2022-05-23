@@ -11,7 +11,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="BaseGuildedClient.LastMessageId" />
 public class ResumeEvent : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of the last received event.
     /// </summary>

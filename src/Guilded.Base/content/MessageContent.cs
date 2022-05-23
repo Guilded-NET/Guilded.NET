@@ -18,11 +18,27 @@ public class MessageContent : BaseObject
 {
     #region Fields
     private string? _content;
+
     private IList<Embed>? _embeds;
+
     private IList<Guid>? _replyMessageIds;
     #endregion
 
-    #region JSON properties
+    #region Properties
+    /// <inheritdoc cref="Message.IsPrivate" />
+    public bool? IsPrivate { get; set; }
+
+    /// <summary>
+    /// Gets whether <see cref="Message.IsReply">the reply</see> or the mention is silent and does not ping anyone.
+    /// </summary>
+    /// <value><see cref="Message" /> is silent</value>
+    /// <seealso cref="MessageContent" />
+    /// <seealso cref="IsPrivate" />
+    /// <seealso cref="Content" />
+    /// <seealso cref="ReplyMessageIds" />
+    /// <seealso cref="Embeds" />
+    public bool? IsSilent { get; set; }
+
     /// <inheritdoc cref="Message.Content" />
     public string? Content
     {
@@ -35,6 +51,7 @@ public class MessageContent : BaseObject
             _content = value;
         }
     }
+
     /// <inheritdoc cref="Message.Embeds" />
     public IList<Embed>? Embeds
     {
@@ -47,6 +64,7 @@ public class MessageContent : BaseObject
             _embeds = value;
         }
     }
+
     /// <inheritdoc cref="Message.ReplyMessageIds" />
     public IList<Guid>? ReplyMessageIds
     {
@@ -59,21 +77,7 @@ public class MessageContent : BaseObject
             _replyMessageIds = value;
         }
     }
-    /// <inheritdoc cref="Message.IsPrivate" />
-    public bool? IsPrivate { get; set; }
-    /// <summary>
-    /// Gets whether <see cref="Message.IsReply">the reply</see> or the mention is silent and does not ping anyone.
-    /// </summary>
-    /// <value><see cref="Message" /> is silent</value>
-    /// <seealso cref="MessageContent" />
-    /// <seealso cref="IsPrivate" />
-    /// <seealso cref="Content" />
-    /// <seealso cref="ReplyMessageIds" />
-    /// <seealso cref="Embeds" />
-    public bool? IsSilent { get; set; }
-    #endregion
 
-    #region Properties
     /// <summary>
     /// Gets whether the message is <see cref="Content">text-only</see> and has no other content.
     /// </summary>
@@ -88,10 +92,12 @@ public class MessageContent : BaseObject
     /// <param name="content">The content of the message</param>
     public MessageContent(string? content) =>
         Content = content;
+
     /// <summary>
     /// Creates an instance of <see cref="MessageContent" /> with no content.
     /// </summary>
     public MessageContent() { }
+
     /// <summary>
     /// Creates an instance of <see cref="MessageContent" /> with no content.
     /// </summary>

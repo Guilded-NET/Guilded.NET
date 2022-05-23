@@ -27,6 +27,7 @@ namespace Guilded.Commands;
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Module | AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
 public class CommandAttribute : Attribute
 {
+    #region Properties
     /// <summary>
     /// Gets the overriden name of the command.
     /// </summary>
@@ -35,11 +36,13 @@ public class CommandAttribute : Attribute
     /// </remarks>
     /// <value>Name?</value>
     public string? Name { get; set; }
+
     /// <summary>
     /// Gets the alternative names of the command.
     /// </summary>
     /// <value>Array of names?</value>
     public string[]? Aliases { get; set; }
+
     /// <summary>
     /// Gets the description of the command.
     /// </summary>
@@ -48,6 +51,7 @@ public class CommandAttribute : Attribute
     /// </remarks>
     /// <value>Text?</value>
     public string? Description { get; set; }
+
     /// <summary>
     /// Gets the examples of how to use the command.
     /// </summary>
@@ -56,14 +60,19 @@ public class CommandAttribute : Attribute
     /// </remarks>
     /// <value>Array of text?</value>
     public string[]? Examples { get; set; }
+    #endregion
+
+    #region Constructors
     /// <summary>
     /// Declares a method as a command with no aliases.
     /// </summary>
     public CommandAttribute() { }
+
     /// <summary>
     /// Declares a method as a command with given <paramref name="name" />
     /// </summary>
     /// <param name="name">The overriden name of the command</param>
     public CommandAttribute(string name) =>
         Name = name;
+    #endregion
 }

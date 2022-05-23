@@ -12,7 +12,7 @@ namespace Guilded.Base.Embeds;
 /// <seealso cref="EmbedMedia" />
 public class EmbedField : BaseObject
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the title of an <see cref="Embed">embed's</see> field.
     /// </summary>

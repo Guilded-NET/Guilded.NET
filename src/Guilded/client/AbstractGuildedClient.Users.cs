@@ -9,9 +9,13 @@ namespace Guilded;
 
 public abstract partial class AbstractGuildedClient
 {
-    #region Profile info
+    #region Methods
+
+    #region Methods Profile info
     /// <inheritdoc />
     public override async Task<SocialLink> GetSocialLinkAsync(HashId server, HashId member, SocialLinkType linkType) =>
         await GetResponseProperty<SocialLink>(new RestRequest($"servers/{server}/members/{member}/social-links/{linkType.ToString().ToLower()}", Method.Get), "socialLink").ConfigureAwait(false);
+    #endregion
+
     #endregion
 }

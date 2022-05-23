@@ -15,7 +15,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Webhook" />
 public class Member : MemberSummary<User>
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the set nickname of <see cref="Member">the member</see> in the server.
     /// </summary>
@@ -23,20 +23,22 @@ public class Member : MemberSummary<User>
     /// <seealso cref="Member" />
     /// <seealso cref="MemberSummary{T}.Name" />
     /// <seealso cref="MemberSummary{T}.RoleIds" />
-    public string? Nickname { get; set; }
+    public string? Nickname { get; }
+
     /// <summary>
     /// Gets the date when <see cref="Member">the member</see> joined.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="Member" />
     /// <seealso cref="MemberSummary{T}.Id" />
-    public DateTime JoinedAt { get; set; }
+    public DateTime JoinedAt { get; }
+
     /// <summary>
     /// Gets whether <see cref="Member">the member</see> is the owner of the server.
     /// </summary>
     /// <value>Member is owner</value>
     /// <seealso cref="Member" />
-    public bool IsOwner { get; set; }
+    public bool IsOwner { get; }
     #endregion
 
     #region Constructors

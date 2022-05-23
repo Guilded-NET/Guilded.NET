@@ -14,7 +14,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="Member" />
 public class MemberRemovedEvent : BaseObject, IServerEvent
 {
-    #region JSON properties
+    #region Properties
     /// <summary>
     /// Gets the identifier of the member who has been kicked or has left.
     /// </summary>
@@ -24,6 +24,7 @@ public class MemberRemovedEvent : BaseObject, IServerEvent
     /// <seealso cref="IsKick" />
     /// <seealso cref="IsBan" />
     public HashId UserId { get; }
+
     /// <summary>
     /// Gets the identifier of the server where the member has been kicked or has left.
     /// </summary>
@@ -31,6 +32,7 @@ public class MemberRemovedEvent : BaseObject, IServerEvent
     /// <seealso cref="MemberRemovedEvent" />
     /// <seealso cref="UserId" />
     public HashId ServerId { get; }
+
     /// <summary>
     /// Gets whether <see cref="Users.User">the user</see> has been kicked.
     /// </summary>
@@ -40,6 +42,7 @@ public class MemberRemovedEvent : BaseObject, IServerEvent
     /// <seealso cref="IsBan" />
     /// <seealso cref="ServerId" />
     public bool IsKick { get; }
+
     /// <summary>
     /// Gets whether <see cref="Users.User">the user</see> has been banned.
     /// </summary>

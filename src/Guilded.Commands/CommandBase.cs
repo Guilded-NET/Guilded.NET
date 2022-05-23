@@ -14,7 +14,9 @@ namespace Guilded.Commands;
 /// </summary>
 public class CommandBase
 {
+    #region Field
     private readonly Subject<FailedCommandEvent> onFailedCommand = new();
+    #endregion
 
     #region Properties
     /// <summary>
@@ -22,11 +24,13 @@ public class CommandBase
     /// </summary>
     /// <value>Commands</value>
     public IEnumerable<ICommandInfo<MemberInfo>> Commands { get; protected internal set; }
+
     /// <summary>
     /// Gets the lookup of <see cref="Commands">commands or sub-commands</see> based on their <see cref="ICommandInfo{T}.Name">name</see>.
     /// </summary>
     /// <returns><see cref="ILookup{TKey, TElement}">Lookup</see> of <see cref="ICommandInfo{T}.Name">names</see> to <see cref="Commands">commands</see></returns>
     public ILookup<string, ICommandInfo<MemberInfo>> CommandLookup => Commands.ToLookup(command => command.Name);
+
     /// <summary>
     /// Gets the event for failed command invokation.
     /// </summary>
@@ -82,14 +86,14 @@ public class CommandBase
     protected async Task InvokeAnyCommandAsync(RootCommandContext context, string commandName, IEnumerable<string> arguments)
     {
         // Filter by parameters and names
-        var filteredSubCommands =
+        IEnumerable<ICommandInfo<MemberInfo>> filteredSubCommands =
             FilterCommandsByName(commandName)
                 .Where(command =>
                     command is CommandContainerInfo commandContainer || ((CommandInfo)command).HasCorrectCount(arguments.Count())
                 );
 
         // Wait for one of them to be correctly invoked
-        foreach (var filteredCommand in filteredSubCommands)
+        foreach (ICommandInfo<MemberInfo> filteredCommand in filteredSubCommands)
         {
             if (filteredCommand is CommandContainerInfo commandContainer)
             {
@@ -102,7 +106,7 @@ public class CommandBase
 
                 try
                 {
-                    var commandArgs = command.GenerateMethodParameters(arguments);
+                    IEnumerable<object>? commandArgs = command.GenerateMethodParameters(arguments);
 
                     // Check if all commands have correct arguments
                     if (commandArgs is not null)
