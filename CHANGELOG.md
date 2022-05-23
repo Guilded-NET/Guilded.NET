@@ -1,3 +1,8 @@
+# v0.8.1-beta
+
+- Added `CommandLookup` property in `CommandBase`
+- Added `Description` and `Examples` getters in `ICommandInfo<T>`
+
 # v0.8.0-beta
 
 - Added the ability to execute webhooks using URLs (not only using tokens and webhook IDs independently)

@@ -17,11 +17,6 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
     /// <value>Name</value>
     string Name { get; }
     /// <summary>
-    /// Gets the array of <see cref="CommandAttribute.Aliases">alternative names</see> of the command.
-    /// </summary>
-    /// <value>Array of names</value>
-    string[]? Aliases { get; }
-    /// <summary>
     /// Gets the member who was declared as a command.
     /// </summary>
     /// <value>Reflection member</value>
@@ -31,6 +26,8 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
     /// </summary>
     /// <value>Command attribute</value>
     CommandAttribute Attribute { get; }
+    /// <inheritdoc cref="CommandAttribute.Aliases" />
+    string[]? Aliases { get; }
     /// <inheritdoc cref="CommandAttribute.Description" />
     public string? Description { get; }
     /// <inheritdoc cref="CommandAttribute.Examples" />
@@ -61,7 +58,7 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
     #region Properties
     /// <inheritdoc />
     public string Name { get; }
-    /// <inheritdoc />
+    /// <inheritdoc cref="CommandAttribute.Aliases" />
     public string[]? Aliases => Attribute.Aliases;
     /// <inheritdoc cref="CommandAttribute.Description" />
     public string? Description => Attribute.Description;
