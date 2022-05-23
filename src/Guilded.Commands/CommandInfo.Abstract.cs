@@ -31,7 +31,10 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
     /// </summary>
     /// <value>Command attribute</value>
     CommandAttribute Attribute { get; }
-
+    /// <inheritdoc cref="CommandAttribute.Description" />
+    public string? Description { get; }
+    /// <inheritdoc cref="CommandAttribute.Examples" />
+    public string[]? Examples { get; }
     #endregion
 
     #region Additional

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 using Guilded.Base.Events;
 
 namespace Guilded.Commands;
@@ -109,11 +110,12 @@ public class CommandModule : CommandBase
         _commandSubscription =
             client
                 .MessageCreated
+                .Where(msgCreated => msgCreated.Content is not null)
                 .Subscribe(async msgCreated =>
                 {
                     string prefix = Prefix(msgCreated);
 
-                    if (msgCreated.Content is null || !msgCreated.Content.StartsWith(prefix)) return;
+                    if (!msgCreated.Content!.StartsWith(prefix)) return;
 
                     string[] splitContent = msgCreated
                         .Content[prefix.Length..]
@@ -128,7 +130,7 @@ public class CommandModule : CommandBase
 
                     RootCommandContext context = new(msgCreated, prefix, commandName, args);
 
-                    await InvokeAsync(string.Empty, context, splitContent).ConfigureAwait(false);
+                    await InvokeAnyCommandAsync(context, commandName, splitContent).ConfigureAwait(false);
                 });
         _subscribedClient = client;
     }
