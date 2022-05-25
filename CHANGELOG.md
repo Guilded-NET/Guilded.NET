@@ -2,6 +2,9 @@
 
 - Added `CommandLookup` property in `CommandBase`
 - Added `Description` and `Examples` getters in `ICommandInfo<T>`
+- Added `Mentions` property to `Message`, `ListItemSummary` and `Doc` types
+- Added `IModelHasId<T>`
+- Renamed `BaseObject` to `BaseModel` and `ClientObject` to `ContentModel`
 
 # v0.8.0-beta
 
