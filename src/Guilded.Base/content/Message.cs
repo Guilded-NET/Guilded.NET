@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using Guilded.Base.Embeds;
 using Guilded.Base.Permissions;
@@ -21,7 +22,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="ForumThread" />
-public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent
+public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent, IContentBlockMarkdown
 {
     #region Constants
     /// <summary>
@@ -98,6 +99,12 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     public IList<Embed>? Embeds { get; }
 
     /// <summary>
+    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="Content">the content</see>.
+    /// </summary>
+    /// <value><see cref="Mentions" />?</value>
+    public Mentions? Mentions { get; }
+
+    /// <summary>
     /// Gets whether <see cref="IsReply">the reply</see> or mention is private.
     /// </summary>
     /// <remarks>
@@ -141,7 +148,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <summary>
     /// Gets the identifier of <see cref="Webhook">the webhook</see> that created the message.
     /// </summary>
-    /// <value><see cref="Servers.Webhook.Id">Webhook ID</see>?</value>
+    /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="Message" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />

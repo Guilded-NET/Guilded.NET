@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Threading.Tasks;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
@@ -11,9 +12,15 @@ namespace Guilded.Base.Content;
 /// <seealso cref="ForumThread" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Message" />
-public class Doc : TitledContent
+public class Doc : TitledContent, IContentMarkdown
 {
     #region Properties
+    /// <summary>
+    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="TitledContent.Content">the content</see>.
+    /// </summary>
+    /// <value><see cref="Mentions" />?</value>
+    public Mentions? Mentions { get; }
+
     /// <summary>
     /// Gets the identifier of <see cref="Servers.Member">the member</see> who updated <see cref="Doc">the document</see>.
     /// </summary>

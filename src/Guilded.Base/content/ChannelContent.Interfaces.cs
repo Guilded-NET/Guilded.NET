@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Guilded.Base.Embeds;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 
@@ -39,6 +41,7 @@ public interface ICreatableContent
     DateTime CreatedAt { get; }
     #endregion
 }
+
 /// <summary>
 /// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be edited.
 /// </summary>
@@ -63,6 +66,7 @@ public interface IUpdatableContent
     DateTime? UpdatedAt { get; }
     #endregion
 }
+
 /// <summary>
 /// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be created by <see cref="Webhook">a webhook</see>.
 /// </summary>
@@ -84,6 +88,7 @@ public interface IWebhookCreatable
     Guid? CreatedByWebhook { get; }
     #endregion
 }
+
 /// <summary>
 /// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be <see cref="Reaction">reacted</see> on.
 /// </summary>
@@ -101,5 +106,33 @@ public interface IReactibleContent
     // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
     // /// <param name="emoteId">The identifier of the emote to remove</param>
     // Task RemoveReactionAsync(uint emoteId);
+    #endregion
+}
+
+/// <summary>
+/// Represents <see cref="ChannelContent{TId, TServer}">the channel content</see> that allow inline formatting.
+/// </summary>
+public interface IContentMarkdown
+{
+    #region Properties
+    /// <summary>
+    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="Message.Content">the content</see>.
+    /// </summary>
+    /// <value><see cref="Mentions" />?</value>
+    Mentions? Mentions { get; }
+    #endregion
+}
+
+/// <summary>
+/// Represents <see cref="ChannelContent{TId, TServer}">the channel content</see> that allow block formatting.
+/// </summary>
+public interface IContentBlockMarkdown : IContentMarkdown
+{
+    #region Properties
+    /// <summary>
+    /// Gets the list of <see cref="Embed">custom embeds</see> that <see cref="ChannelContent{TId, TServer}">the channel content</see> contain.
+    /// </summary>
+    /// <value>List of <see cref="Embed">embeds</see></value>
+    IList<Embed>? Embeds { get; }
     #endregion
 }

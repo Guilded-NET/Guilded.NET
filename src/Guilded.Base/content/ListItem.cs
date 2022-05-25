@@ -19,7 +19,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Content.Message" />
 /// <seealso cref="ForumThread" />
 /// <seealso cref="Doc" />
-public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable where T : ListItemNoteSummary
+public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown where T : ListItemNoteSummary
 {
     #region Properties
     /// <summary>
@@ -31,6 +31,12 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// </remarks>
     /// <value>Single-line markdown string</value>
     public string Message { get; }
+
+    /// <summary>
+    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="Message">the content</see>.
+    /// </summary>
+    /// <value><see cref="Mentions" />?</value>
+    public Mentions? Mentions { get; }
 
     /// <summary>
     /// Gets the note of <see cref="ListItem">the item</see>.
@@ -331,11 +337,11 @@ public class ListItemNoteSummary : BaseModel, ICreatableContent, IUpdatableConte
     /// <summary>
     /// The identifier of <see cref="User">user</see> that created the note.
     /// </summary>
-    /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// the date when the note was created.
+    /// Gets the date when the note was created.
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
