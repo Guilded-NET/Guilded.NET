@@ -12,7 +12,7 @@ namespace Guilded.Base.Users;
 /// </remarks>
 /// <seealso cref="User" />
 /// <seealso cref="SocialLink" />
-public class UserSummary : ClientObject
+public class UserSummary : ContentModel, IModelHasId<HashId>
 {
     #region Properties
     /// <summary>

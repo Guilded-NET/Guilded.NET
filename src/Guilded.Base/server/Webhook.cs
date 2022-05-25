@@ -15,7 +15,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="ServerChannel" />
 /// <seealso cref="MemberSummary{T}" />
-public class Webhook : ClientObject, ICreatableContent
+public class Webhook : ContentModel, ICreatableContent
 {
     #region Properties
     /// <summary>

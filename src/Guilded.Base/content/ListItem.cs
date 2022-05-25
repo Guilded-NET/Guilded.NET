@@ -323,7 +323,7 @@ public class ListItemSummary : ListItemBase<ListItemNote>
 /// <summary>
 /// Represents the summary of <see cref="ListItemSummary">the list item's</see> note.
 /// </summary>
-public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableContent
+public class ListItemNoteSummary : BaseModel, ICreatableContent, IUpdatableContent
 {
     #region Properties
 
@@ -363,7 +363,7 @@ public class ListItemNoteSummary : BaseObject, ICreatableContent, IUpdatableCont
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItemNoteSummary" /> with provided details.
+    /// Initializes a new instance of <see cref="ListItemNoteSummary" /> from the specified JSON properties.
     /// </summary>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the note</param>
     /// <param name="createdAt">the date when the note was created</param>
@@ -406,7 +406,7 @@ public class ListItemNote : ListItemNoteSummary
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItemNote" /> with provided details.
+    /// Initializes a new instance of <see cref="ListItemNote" /> from the specified JSON properties.
     /// </summary>
     /// <param name="content">The contents of the note</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item's note</param>

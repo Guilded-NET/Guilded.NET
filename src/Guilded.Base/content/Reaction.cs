@@ -11,7 +11,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 /// <seealso cref="Doc" />
 /// <seealso cref="ForumThread" />
-public class Reaction : ClientObject, IWebhookCreatable, ICreatableContent
+public class Reaction : ContentModel, IModelHasId<uint>, IWebhookCreatable, ICreatableContent
 {
     #region Properties
     /// <summary>

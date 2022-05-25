@@ -12,7 +12,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="ChannelType" />
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
-public class ServerChannel : ClientObject, ICreatableContent
+public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent
 {
     #region Constants
     /// <summary>

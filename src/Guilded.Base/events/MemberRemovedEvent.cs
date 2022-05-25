@@ -12,7 +12,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="MemberBanEvent" />
 /// <seealso cref="Member" />
-public class MemberRemovedEvent : BaseObject, IServerEvent
+public class MemberRemovedEvent : BaseModel, IServerEvent
 {
     #region Properties
     /// <summary>

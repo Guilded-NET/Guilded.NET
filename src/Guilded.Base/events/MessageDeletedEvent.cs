@@ -49,7 +49,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// </summary>
     /// <seealso cref="Content.Message" />
     /// <seealso cref="MessageDeletedEvent" />
-    public class MessageDeleted : BaseObject
+    public class MessageDeleted : BaseModel
     {
         #region Properties
         /// <summary>

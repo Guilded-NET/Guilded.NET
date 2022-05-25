@@ -11,7 +11,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberRemovedEvent" />
 /// <seealso cref="Member" />
-public class MemberUpdatedEvent : BaseObject, IServerEvent
+public class MemberUpdatedEvent : BaseModel, IServerEvent
 {
     #region Properties
     /// <summary>
@@ -71,7 +71,7 @@ public class MemberUpdatedEvent : BaseObject, IServerEvent
     /// <seealso cref="MemberSummary{T}" />
     /// <seealso cref="Users.User" />
     /// <seealso cref="Member" />
-    public class MemberUpdate : BaseObject
+    public class MemberUpdate : BaseModel
     {
         #region Properties
         /// <inheritdoc cref="Users.UserSummary.Id" />

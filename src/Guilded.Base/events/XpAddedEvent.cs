@@ -11,7 +11,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="Servers.Member" />
-public class XpAddedEvent : BaseObject
+public class XpAddedEvent : BaseModel
 {
     #region Properties
     /// <summary>

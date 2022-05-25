@@ -9,7 +9,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="GuildedSocketMessage" />
 /// <seealso cref="GuildedWebsocketException" />
 /// <seealso cref="BaseGuildedClient.LastMessageId" />
-public class ResumeEvent : BaseObject
+public class ResumeEvent : BaseModel
 {
     #region Properties
     /// <summary>

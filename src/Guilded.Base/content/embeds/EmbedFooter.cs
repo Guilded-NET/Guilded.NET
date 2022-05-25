@@ -11,7 +11,7 @@ namespace Guilded.Base.Embeds;
 /// <seealso cref="EmbedAuthor" />
 /// <seealso cref="EmbedField" />
 /// <seealso cref="EmbedMedia" />
-public class EmbedFooter : BaseObject
+public class EmbedFooter : BaseModel
 {
     #region Properties
     /// <summary>

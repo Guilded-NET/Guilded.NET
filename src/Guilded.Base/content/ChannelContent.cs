@@ -15,7 +15,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="ForumThread" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Doc" />
-public abstract class ChannelContent<TId, TServer> : ClientObject, ICreatableContent where TId : notnull
+public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<TId>, ICreatableContent where TId : notnull
 {
     #region Properties
     /// <summary>

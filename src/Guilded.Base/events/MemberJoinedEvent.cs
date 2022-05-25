@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="WebhookEvent" />
 /// <seealso cref="Servers.Member" />
-public class MemberJoinedEvent : BaseObject, IServerEvent
+public class MemberJoinedEvent : BaseModel, IServerEvent
 {
     #region Properties
     /// <summary>

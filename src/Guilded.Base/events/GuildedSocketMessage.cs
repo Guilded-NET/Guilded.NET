@@ -16,7 +16,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="XpAddedEvent" />
 /// <seealso cref="WelcomeEvent" />
 /// <seealso cref="ResumeEvent" />
-public class GuildedSocketMessage : ClientObject
+public class GuildedSocketMessage : BaseModel
 {
     #region Properties
     /// <summary>

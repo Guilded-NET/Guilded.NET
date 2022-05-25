@@ -10,7 +10,7 @@ namespace Guilded.Base.Users;
 /// <seealso cref="Servers.Member" />
 /// <seealso cref="UserSummary" />
 /// <seealso cref="SocialLinkType" />
-public class SocialLink : BaseObject
+public class SocialLink : BaseModel
 {
     #region Properties
     /// <summary>
