@@ -4,7 +4,6 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Guilded.Commands;
@@ -46,8 +45,8 @@ public class CommandBase
         // Because it sucks having to use constructors everywhere
         // Allows nested types as well
         // [Command] type within [Command] type within [Command] type...
-        // CommandContainers first for invokation optimization reasons
-        Commands = CommandUtil.GetCommandsOf(GetType()).OrderByDescending(command => command is CommandContainerInfo);
+        // CommandInfo first, in-case there are there are method-based commands that match the arguments
+        Commands = CommandUtil.GetCommandsOf(GetType()).OrderBy(command => command is CommandContainerInfo);
     #endregion
 
     #region Methods
@@ -59,7 +58,7 @@ public class CommandBase
     /// <param name="usedBaseName">The specified name of this command</param>
     /// <param name="context">The information about the original command</param>
     /// <param name="arguments">The arguments given to this command</param>
-    public async Task InvokeAsync(string usedBaseName, RootCommandContext context, IEnumerable<string> arguments)
+    public async Task InvokeAsync(string usedBaseName, RootCommandEvent context, IEnumerable<string> arguments)
     {
         if (!arguments.Any())
         {
@@ -68,8 +67,9 @@ public class CommandBase
             return;
         }
 
-        await InvokeAnyCommandAsync(context, commandName: arguments.First(), arguments: arguments.Skip(1)).ConfigureAwait(false);
+        await InvokeCommandByNameAsync(context, commandName: arguments.First(), arguments: arguments.Skip(1)).ConfigureAwait(false);
     }
+
     /// <summary>
     /// Filters out <see cref="Commands">commands</see> that do not have <paramref name="name">the specified name</paramref>.
     /// </summary>
@@ -77,13 +77,14 @@ public class CommandBase
     /// <returns>Filtered commands</returns>
     public IEnumerable<ICommandInfo<MemberInfo>> FilterCommandsByName(string name) =>
         Commands.Where(command => command.HasName(name));
+
     /// <summary>
     /// Filters <see cref="Commands">commands</see> and invokes any commands that were found. If none are found, <see cref="FailedCommand">failed command event</see> is invoked.
     /// </summary>
-    /// <param name="context">The information about the original command</param>
+    /// <param name="rootInvokation">The information about the original command</param>
     /// <param name="commandName">The name of the current command used</param>
     /// <param name="arguments">The arguments of the current command used</param>
-    protected async Task InvokeAnyCommandAsync(RootCommandContext context, string commandName, IEnumerable<string> arguments)
+    protected async Task InvokeCommandByNameAsync(RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments)
     {
         // Filter by parameters and names
         IEnumerable<ICommandInfo<MemberInfo>> filteredSubCommands =
@@ -97,7 +98,7 @@ public class CommandBase
         {
             if (filteredCommand is CommandContainerInfo commandContainer)
             {
-                await commandContainer.Instance.InvokeAsync(commandName, context, arguments).ConfigureAwait(false);
+                await commandContainer.Instance.InvokeAsync(commandName, rootInvokation, arguments).ConfigureAwait(false);
                 return;
             }
             else
@@ -106,17 +107,13 @@ public class CommandBase
 
                 try
                 {
-                    IEnumerable<object>? commandArgs = command.GenerateMethodParameters(arguments);
+                    IEnumerable<object> commandArgs = command.GenerateMethodParameters(arguments);
 
-                    // Check if all commands have correct arguments
-                    if (commandArgs is not null)
-                    {
-                        // Context
-                        CommandEvent commandEvent = new(context, commandName, arguments);
+                    // Context
+                    CommandEvent commandEvent = new(rootInvokation, commandName, arguments);
 
-                        await command.InvokeAsync(this, commandEvent, commandArgs).ConfigureAwait(false);
-                        return;
-                    }
+                    await InvokeCommandAsync(command, rootInvokation, commandName, arguments, commandArgs).ConfigureAwait(false);
+                    return;
                 }
 #pragma warning disable CS0168
                 catch (FormatException _)
@@ -127,8 +124,33 @@ public class CommandBase
             }
         }
 
-        onFailedCommand.OnNext(new FailedCommandEvent(context, commandName, arguments, FallbackType.NoCommandFound));
+        onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.NoCommandFound));
     }
+
+    /// <summary>
+    /// Invokes <paramref name="command">the provided command</paramref> as a child of <see cref="CommandBase">this command base</see>.
+    /// </summary>
+    /// <param name="command">The <see cref="CommandAttribute">command</see> to invoke</param>
+    /// <param name="rootInvokation">The unnested first-most command that has been invoked</param>
+    /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
+    /// <param name="rawArguments">The unparsed arguments that were given to the command</param>
+    /// <param name="arguments">The parsed arguments that were given to the command</param>
+    protected virtual async Task InvokeCommandAsync(CommandInfo command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object> arguments)
+    {
+        CommandEvent commandInvokation = new(rootInvokation, commandName, rawArguments);
+
+        await command.InvokeAsync(this, commandInvokation, arguments).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Invokes <paramref name="command">the provided command</paramref> as a child of <see cref="CommandBase">this command base</see>.
+    /// </summary>
+    /// <param name="command">The <see cref="CommandAttribute">command</see> to invoke</param>
+    /// <param name="rootInvokation">The unnested first-most command that has been invoked</param>
+    /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
+    /// <param name="arguments">The unparsed arguments and sub-command names that were given to the command</param>
+    protected virtual async Task InvokeCommandAsync(CommandContainerInfo command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments) =>
+        await command.Instance.InvokeAsync(commandName, rootInvokation, arguments).ConfigureAwait(false);
     #endregion
 
     #endregion

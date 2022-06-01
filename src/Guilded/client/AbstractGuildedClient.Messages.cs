@@ -243,8 +243,9 @@ public abstract partial class AbstractGuildedClient
     protected void OnSocketMessage(GuildedSocketMessage message)
     {
         object eventName = message.EventName ?? (object)message.Opcode;
+
         // Checks if this event is supported by Guilded.NET
-        if (GuildedEvents?.ContainsKey(eventName) ?? false)
+        if (GuildedEvents.ContainsKey(eventName))
         {
             IEventInfo<object> ev = GuildedEvents[eventName];
 

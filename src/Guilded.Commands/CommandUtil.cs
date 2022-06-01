@@ -28,7 +28,7 @@ internal static class CommandUtil
             command
                 .FailedCommand
                 .Where(failedCommand =>
-                    failedCommand.Type == attr.Type
+                    failedCommand.FailType == attr.Type
                 )
                 .Subscribe(failedCommand =>
                     method.Invoke(command, new object[] { failedCommand })

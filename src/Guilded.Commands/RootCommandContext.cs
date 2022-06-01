@@ -15,7 +15,7 @@ namespace Guilded.Commands;
 /// </code>
 /// <para>Even if we invoke <q>config items add</q> command, the root command will always remain <q>config</q>.</para>
 /// </example>
-public struct RootCommandContext
+public struct RootCommandEvent
 {
     #region Properties
     /// <summary>
@@ -45,13 +45,13 @@ public struct RootCommandContext
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="RootCommandContext" />.
+    /// Initializes a new instance of <see cref="RootCommandEvent" />.
     /// </summary>
     /// <param name="messageEvent">The message event that invoked the command</param>
     /// <param name="prefix">The prefix that was fetched for the command</param>
     /// <param name="commandName">The name of the original command that was used</param>
     /// <param name="arguments">The given arguments to the original command</param>
-    public RootCommandContext(MessageEvent messageEvent, string prefix, string commandName, IEnumerable<string> arguments) =>
+    public RootCommandEvent(MessageEvent messageEvent, string prefix, string commandName, IEnumerable<string> arguments) =>
         (MessageEvent, Prefix, RootCommandName, RootArguments) = (messageEvent, prefix, commandName, arguments);
     #endregion
 }

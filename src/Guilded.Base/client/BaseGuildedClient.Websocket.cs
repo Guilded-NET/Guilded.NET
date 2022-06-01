@@ -66,6 +66,7 @@ public abstract partial class BaseGuildedClient
     protected virtual void OnWebsocketResponse(ResponseMessage response)
     {
         GuildedSocketMessage? @event = Deserialize<GuildedSocketMessage>(response.Text);
+
         if (@event is null)
         {
             return;
@@ -78,10 +79,11 @@ public abstract partial class BaseGuildedClient
         else if (@event.Opcode == close_opcode)
         {
             OnWebsocketMessage.OnError(
-                new GuildedWebsocketException(response, @event!.RawData?.Value<string>("message")!)
+                new GuildedWebsocketException(response, @event.RawData?.Value<string>("message")!)
             );
             return;
         }
+
         OnWebsocketMessage.OnNext(@event);
     }
     #endregion

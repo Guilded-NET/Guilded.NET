@@ -4,7 +4,14 @@
 - Added `Description` and `Examples` getters in `ICommandInfo<T>`
 - Added `Mentions` property to `Message`, `ListItemSummary` and `Doc` types
 - Added `IModelHasId<T>`
+- Added `CommandBase.InvokeCommandAsync` virtual methods for overriding
+- Added `char` and `TimeSpan` types to the command argument type list
 - Renamed `BaseObject` to `BaseModel` and `ClientObject` to `ContentModel`
+- Renamed `RootCommandContext` to `RootCommandEvent` for consistency
+- Renamed `FailedCommandEvent.Type` to `FailedCommandEvent.FailType` (since `MessageEvent.Type` is now inherited)
+- Renamed `CommandBase.InvokeAnyCommandAsync` to `CommandBase.InvokeCommandByNameAsync`
+- Made `CommandEvent` extend `MessageEvent`
+- Removed `CommandEvent.MessageEvent`
 
 # v0.8.0-beta
 

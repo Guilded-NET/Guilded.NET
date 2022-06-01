@@ -16,20 +16,25 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
     /// </summary>
     /// <value>Name</value>
     string Name { get; }
+
     /// <summary>
     /// Gets the member who was declared as a command.
     /// </summary>
     /// <value>Reflection member</value>
     TMember Member { get; }
+
     /// <summary>
     /// Gets the <see cref="CommandAttribute">command attribute</see> that was given to the <see cref="Member">member</see>.
     /// </summary>
     /// <value>Command attribute</value>
     CommandAttribute Attribute { get; }
+
     /// <inheritdoc cref="CommandAttribute.Aliases" />
     string[]? Aliases { get; }
+
     /// <inheritdoc cref="CommandAttribute.Description" />
     public string? Description { get; }
+
     /// <inheritdoc cref="CommandAttribute.Examples" />
     public string[]? Examples { get; }
     #endregion

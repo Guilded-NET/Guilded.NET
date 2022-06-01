@@ -81,7 +81,7 @@ public abstract partial class BaseGuildedClient : IDisposable
         using StringReader strReader = new(json);
         using JsonReader reader = new JsonTextReader(strReader);
 
-        return GuildedSerializer!.Deserialize<T>(reader);
+        return GuildedSerializer.Deserialize<T>(reader);
     }
     #endregion
 

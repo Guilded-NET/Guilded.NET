@@ -17,19 +17,21 @@ public class CommandArgumentInfo : AbstractCommandArgument
     private static readonly Dictionary<Type, Func<string, object>> _converters =
         new()
         {
-            { typeof(string), x => x },
-            { typeof(int), x => int.Parse(x) },
-            { typeof(bool), x => bool.Parse(x) },
-            { typeof(Guid), x => Guid.Parse(x) },
-            { typeof(HashId), x => new HashId(x) },
-            { typeof(long), x => long.Parse(x) },
-            { typeof(float), x => float.Parse(x) },
-            { typeof(short), x => short.Parse(x) },
-            { typeof(sbyte), x => sbyte.Parse(x) },
-            { typeof(byte), x => byte.Parse(x) },
-            { typeof(double), x => double.Parse(x) },
-            { typeof(decimal), x => decimal.Parse(x) },
-            { typeof(DateTime), x => DateTime.Parse(x) }
+            { typeof(string),   x => x },
+            { typeof(int),      x => int.Parse(x) },
+            { typeof(bool),     x => bool.Parse(x) },
+            { typeof(Guid),     x => Guid.Parse(x) },
+            { typeof(HashId),   x => new HashId(x) },
+            { typeof(long),     x => long.Parse(x) },
+            { typeof(float),    x => float.Parse(x) },
+            { typeof(short),    x => short.Parse(x) },
+            { typeof(sbyte),    x => sbyte.Parse(x) },
+            { typeof(byte),     x => byte.Parse(x) },
+            { typeof(double),   x => double.Parse(x) },
+            { typeof(decimal),  x => decimal.Parse(x) },
+            { typeof(char),     x => decimal.Parse(x) },
+            { typeof(DateTime), x => DateTime.Parse(x) },
+            { typeof(TimeSpan), x => TimeSpan.Parse(x) }
         };
     #endregion
 

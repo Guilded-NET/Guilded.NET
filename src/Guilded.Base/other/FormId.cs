@@ -57,7 +57,7 @@ public readonly struct FormId : IEquatable<FormId>
     {
         // Make sure it's in correct format
         if (!Check(id))
-            throw HashId.FormatError;
+            throw new FormatException("The given form ID string is not in correct format");
 
         _ = id;
     }

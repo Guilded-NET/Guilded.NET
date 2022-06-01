@@ -15,10 +15,10 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     #region Static
     private static readonly Type[] s_allowedTypes = new Type[]
     {
-        typeof(string), typeof(bool),
-        typeof(int), typeof(long), typeof(short), typeof(sbyte),
-        typeof(uint), typeof(ulong), typeof(ushort), typeof(byte),
-        typeof(float), typeof(double), typeof(decimal), typeof(DateTime),
+        typeof(string), typeof(bool), typeof(int), typeof(long),
+        typeof(short), typeof(sbyte), typeof(uint), typeof(ulong),
+        typeof(ushort), typeof(byte), typeof(float), typeof(double),
+        typeof(decimal), typeof(char), typeof(DateTime), typeof(TimeSpan),
         typeof(Guid), typeof(HashId)
     };
     #endregion
@@ -78,7 +78,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// </summary>
     /// <param name="arguments">The given arguments of the command</param>
     /// <returns>Enumerable of parameters</returns>
-    internal IEnumerable<object>? GenerateMethodParameters(IEnumerable<string> arguments) =>
+    internal IEnumerable<object> GenerateMethodParameters(IEnumerable<string> arguments) =>
         // (CommandEvent invokation, string arg0, int arg1)
         Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
 

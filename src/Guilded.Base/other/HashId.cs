@@ -43,8 +43,6 @@ namespace Guilded.Base;
 public readonly struct HashId : IEquatable<HashId>
 {
     #region Static fields & Constants
-    internal static readonly FormatException FormatError = new("The given ID string is in incorrect format.");
-
     private const int idMinLength = 8;
 
     private const string allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -64,7 +62,7 @@ public readonly struct HashId : IEquatable<HashId>
     {
         // Make sure it's in correct format
         if (!Check(id))
-            throw FormatError;
+            throw new FormatException("The given hash ID string is not in correct format");
 
         _ = id!;
     }

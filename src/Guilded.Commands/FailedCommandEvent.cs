@@ -18,7 +18,7 @@ public class FailedCommandEvent : CommandEvent
     /// Gets the type of the error that occurred.
     /// </summary>
     /// <value>Event type</value>
-    public FallbackType Type { get; set; }
+    public FallbackType FailType { get; set; }
     #endregion
 
     #region Constructors
@@ -29,8 +29,8 @@ public class FailedCommandEvent : CommandEvent
     /// <param name="commandName">The name of the command that was used</param>
     /// <param name="arguments">The array of string arguments that were given to the command</param>
     /// <param name="type">The type of the event that occurred</param>
-    public FailedCommandEvent(RootCommandContext context, string commandName, IEnumerable<string> arguments, FallbackType type) : base(context, commandName, arguments) =>
-        Type = type;
+    public FailedCommandEvent(RootCommandEvent context, string commandName, IEnumerable<string> arguments, FallbackType type) : base(context, commandName, arguments) =>
+        FailType = type;
     #endregion
 }
 

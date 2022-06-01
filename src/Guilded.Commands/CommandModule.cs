@@ -34,7 +34,7 @@ public class CommandModule : CommandBase
     /// <para>By default, <c> </c>, <c>\t</c>, <c>\v</c>, <c>\n</c> and <c>\r</c> will be used.</para>
     /// </remarks>
     /// <value>Argument separator characters</value>
-    public static readonly char[] DefaultSeparators = new char[] { ' ', '\t', '\v', '\n', '\r' };
+    public static readonly char[] DefaultSeparators = new char[] { ' ', '\t', '\n' };
 
     /// <summary>
     /// The default splitting options for command arguments.
@@ -146,9 +146,9 @@ public class CommandModule : CommandBase
                     // First one is the name of the command
                     IEnumerable<string> args = splitContent.Skip(1);
 
-                    RootCommandContext context = new(msgCreated, prefix, commandName, args);
+                    RootCommandEvent context = new(msgCreated, prefix, commandName, args);
 
-                    await InvokeAnyCommandAsync(context, commandName, splitContent).ConfigureAwait(false);
+                    await InvokeCommandByNameAsync(context, commandName, splitContent).ConfigureAwait(false);
                 });
         _subscribedClient = client;
     }
