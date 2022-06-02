@@ -12,7 +12,6 @@ namespace Guilded.Base;
 public abstract partial class BaseGuildedClient
 {
     #region Constants
-    internal const int welcome_opcode = 1, close_opcode = 8;
     /// <summary>
     /// The default timespan between each interval in milliseconds.
     /// </summary>
@@ -76,7 +75,7 @@ public abstract partial class BaseGuildedClient
         // {
         //     Websocket.NativeClient.Options.KeepAliveInterval = TimeSpan.FromMilliseconds(@event.RawData.Value<double>("heartbeatIntervalMs"));
         // }
-        else if (@event.Opcode == close_opcode)
+        else if (@event.Opcode == SocketOpcode.InvalidCursor || @event.Opcode == SocketOpcode.InternalError)
         {
             OnWebsocketMessage.OnError(
                 new GuildedWebsocketException(response, @event.RawData?.Value<string>("message")!)
