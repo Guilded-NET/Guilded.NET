@@ -9,7 +9,6 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamWebhookCreated</c> or <c>TeamWebhookUpdated</c> and opcode <c>0</c> that occurs once <see cref="Webhook">webhook</see> gets created or updated.
 /// </summary>
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />

@@ -1,13 +1,12 @@
 using System;
 using System.Threading.Tasks;
-using Guilded.Base.Content;
 using Guilded.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamChannelCreated</c>, <c>TeamChannelUpdated</c> or <c>TeamChannelDeleted</c> and opcode <c>0</c> that occurs once someone creates, edits or deletes a <see cref="ChannelEvent.Channel">channel</see>.
+/// Represents an event that occurs when someone creates, updates or deletes <see cref="ServerChannel">a channel</see>.
 /// </summary>
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />

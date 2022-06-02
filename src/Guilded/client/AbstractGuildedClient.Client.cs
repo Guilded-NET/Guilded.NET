@@ -62,8 +62,9 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         GuildedEvents = new Dictionary<object, IEventInfo<object>>
         {
             // Event messages
-            { (byte)1,                  new EventInfo<WelcomeEvent>() },
-            { (byte)2,                  new EventInfo<ResumeEvent>() },
+            { SocketOpcode.Welcome,     new EventInfo<WelcomeEvent>() },
+            { SocketOpcode.Resume,      new EventInfo<ResumeEvent>() },
+
             // Team events
             { "TeamMemberJoined",       new EventInfo<MemberJoinedEvent>() },
             { "TeamMemberUpdated",      new EventInfo<MemberUpdatedEvent>() },
@@ -77,16 +78,19 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { "TeamChannelDeleted",     new EventInfo<ChannelEvent>() },
             { "TeamWebhookCreated",     new EventInfo<WebhookEvent>() },
             { "TeamWebhookUpdated",     new EventInfo<WebhookEvent>() },
+
             // Chat messages
             { "ChatMessageCreated",     new EventInfo<MessageEvent>() },
             { "ChatMessageUpdated",     new EventInfo<MessageEvent>() },
             { "ChatMessageDeleted",     new EventInfo<MessageDeletedEvent>() },
+
             // List items
             { "ListItemCreated",     new EventInfo<ListItemEvent>() },
             { "ListItemUpdated",     new EventInfo<ListItemEvent>() },
             { "ListItemDeleted",     new EventInfo<ListItemEvent>() },
             { "ListItemCompleted",     new EventInfo<ListItemEvent>() },
             { "ListItemUncompleted",     new EventInfo<ListItemEvent>() },
+
             // Docs
             { "DocCreated",     new EventInfo<DocEvent>() },
             { "DocUpdated",     new EventInfo<DocEvent>() },

@@ -6,6 +6,7 @@
 - Added `IModelHasId<T>`
 - Added `CommandBase.InvokeCommandAsync` virtual methods for overriding
 - Added `char` and `TimeSpan` types to the command argument type list
+- Fixed event property's documentation
 - Renamed `BaseObject` to `BaseModel` and `ClientObject` to `ContentModel`
 - Renamed `RootCommandContext` to `RootCommandEvent` for consistency
 - Renamed `FailedCommandEvent.Type` to `FailedCommandEvent.FailType` (since `MessageEvent.Type` is now inherited)

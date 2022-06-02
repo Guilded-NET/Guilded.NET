@@ -55,7 +55,7 @@ public abstract class MessageEvent<T> : BaseModel where T : BaseModel
 }
 
 /// <summary>
-/// Represents an event with the name <c>ChatMessageCreated</c> or <c>ChatMessageUpdated</c> and opcode <c>0</c> that occurs once someone posts or edits a <see cref="MessageEvent{T}.Message">message</see> in <see cref="ChannelId">a channel</see>.
+/// Represents an event that occurs when someone creates or edits <see cref="Message">a message</see>.
 /// </summary>
 /// <seealso cref="MessageDeletedEvent" />
 /// <seealso cref="Message" />

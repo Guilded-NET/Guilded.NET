@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamMemberRemoved</c> and opcode <c>0</c> that occurs once member leaves or gets <see cref="IsKick">kicked</see>.
+/// Represents an event that occurs when <see cref="Member">a member</see> leaves a server or gets removed from it.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="XpAddedEvent" />

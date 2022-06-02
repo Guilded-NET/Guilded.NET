@@ -4,9 +4,10 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the opcode <c>1</c> that is received once WebSocket connects or reconnects.
+/// Represents an event that occurs when WebSocket connects or reconnects.
 /// </summary>
 /// <remarks>
+/// <para>An event with the opcode <c>1</c>.</para>
 /// <para><see cref="WelcomeEvent" /> can be used to ensure that WebSocket has connected to Guilded or that the events from Guilded are being received.</para>
 /// </remarks>
 /// <seealso cref="ResumeEvent" />

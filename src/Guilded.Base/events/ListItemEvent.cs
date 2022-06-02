@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>ListItemCreated</c>, <c>ListItemUpdated</c>, <c>ListItemCompleted</c>, <c>ListItemUncompleted</c> or <c>ListItemDeleted</c> and opcode <c>0</c> that occurs once someone posts, edits or deletes a <see cref="DocEvent.Doc">doc</see> in <see cref="ChannelId">a channel</see>.
+/// Represents an event that occurs when someone creates, updates, completes, uncompletes or deletes <see cref="Content.ListItem">a list item</see>.
 /// </summary>
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="MessageEvent" />

@@ -1,7 +1,10 @@
 using System;
 using System.Collections.Generic;
-
+using Guilded.Base;
+using Guilded.Base.Content;
 using Guilded.Base.Events;
+using Guilded.Base.Servers;
+using Guilded.Base.Users;
 
 namespace Guilded;
 
@@ -26,17 +29,32 @@ public abstract partial class AbstractGuildedClient
     protected Dictionary<object, IEventInfo<object>> GuildedEvents { get; set; }
 
     #region WebSocket
-    /// <inheritdoc cref="WelcomeEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="BaseGuildedClient.Websocket">WebSocket</see> is connected.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the opcode <c>1</c>.</para>
+    /// </remarks>
     /// <seealso cref="Resume" />
-    public IObservable<WelcomeEvent> Welcome => ((IEventInfo<WelcomeEvent>)GuildedEvents[(byte)1]).Observable;
+    public IObservable<WelcomeEvent> Welcome => ((IEventInfo<WelcomeEvent>)GuildedEvents[SocketOpcode.Welcome]).Observable;
 
-    /// <inheritdoc cref="ResumeEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when all lost <see cref="GuildedSocketMessage">WebSocket messages</see> get re-sent.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with an event opcode of <c>2</c>.</para>
+    /// </remarks>
     /// <seealso cref="Welcome" />
-    public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[(byte)2]).Observable;
+    public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[SocketOpcode.Resume]).Observable;
     #endregion
 
     #region Properties Teams
-    /// <inheritdoc cref="XpAddedEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">members</see> receive <see cref="XpAddedEvent.Amount">XP</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamXpAdded</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -47,7 +65,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["TeamXpAdded"]).Observable;
 
-    /// <inheritdoc cref="RolesUpdatedEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>teamRolesUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="XpAdded" />
@@ -60,7 +83,12 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Members
-    /// <inheritdoc cref="MemberUpdatedEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when server-wide profile of <see cref="Member">a member</see> gets changed.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamMemberUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="RolesUpdated" />
     /// <seealso cref="XpAdded" />
@@ -71,7 +99,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     public IObservable<MemberUpdatedEvent> MemberUpdated => ((IEventInfo<MemberUpdatedEvent>)GuildedEvents["TeamMemberUpdated"]).Observable;
 
-    /// <inheritdoc cref="MemberJoinedEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> joins a server.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamMemberJoined</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
     /// <seealso cref="XpAdded" />
@@ -82,7 +115,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     public IObservable<MemberJoinedEvent> MemberJoined => ((IEventInfo<MemberJoinedEvent>)GuildedEvents["TeamMemberJoined"]).Observable;
 
-    /// <inheritdoc cref="MemberRemovedEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> leaves a server, gets kicked or gets banned from a server.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamMemberRemoved</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -93,7 +131,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     public IObservable<MemberRemovedEvent> MemberRemoved => ((IEventInfo<MemberRemovedEvent>)GuildedEvents["TeamMemberRemoved"]).Observable;
 
-    /// <inheritdoc cref="MemberBanEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> gets banned from the server.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamMemberBanned</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -104,7 +147,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     public IObservable<MemberBanEvent> MemberBanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberBanned"]).Observable;
 
-    /// <inheritdoc cref="MemberBanEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="User">user</see> gets unbanned in a server.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamMemberUnbanned</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -117,7 +165,12 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Channels
-    /// <inheritdoc cref="WebhookEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Webhook">a new webhook</see> is created.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamWebhookCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -128,28 +181,48 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     public IObservable<WebhookEvent> WebhookCreated => ((IEventInfo<WebhookEvent>)GuildedEvents["TeamWebhookCreated"]).Observable;
 
-    /// <inheritdoc cref="WebhookEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Webhook">a webhook</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamWebhookUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelUpdated" />
     /// <seealso cref="ChannelDeleted" />
     public IObservable<WebhookEvent> WebhookUpdated => ((IEventInfo<WebhookEvent>)GuildedEvents["TeamWebhookUpdated"]).Observable;
 
-    /// <inheritdoc cref="ChannelEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ServerChannel">a new channel</see> is created.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamChannelCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelUpdated" />
     /// <seealso cref="ChannelDeleted" />
     public IObservable<ChannelEvent> ChannelCreated => ((IEventInfo<ChannelEvent>)GuildedEvents["TeamChannelCreated"]).Observable;
 
-    /// <inheritdoc cref="ChannelEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ServerChannel">a channel</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamChannelUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelDeleted" />
     public IObservable<ChannelEvent> ChannelUpdated => ((IEventInfo<ChannelEvent>)GuildedEvents["TeamChannelUpdated"]).Observable;
 
-    /// <inheritdoc cref="ChannelEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ServerChannel">a channel</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>TeamChannelDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
@@ -158,52 +231,92 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Chat channels
-    /// <inheritdoc cref="MessageEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Message">a new message</see> is sent.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChatMessageUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MessageUpdated" />
     /// <seealso cref="MessageDeleted" />
     public IObservable<MessageEvent> MessageCreated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
 
-    /// <inheritdoc cref="MessageEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Message">a message</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChatMessageUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MessageCreated" />
     /// <seealso cref="MessageDeleted" />
     public IObservable<MessageEvent> MessageUpdated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
 
-    /// <inheritdoc cref="MessageDeletedEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Message">a message</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChatMessageDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="MessageCreated" />
     /// <seealso cref="MessageUpdated" />
     public IObservable<MessageDeletedEvent> MessageDeleted => ((IEventInfo<MessageDeletedEvent>)GuildedEvents["ChatMessageDeleted"]).Observable;
     #endregion
 
     #region Properties List channels
-    /// <inheritdoc cref="ListItemEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ListItem">a new list item</see> is posted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ListItemCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="ListItemUpdated" />
     /// <seealso cref="ListItemDeleted" />
     /// <seealso cref="ListItemCompleted" />
     /// <seealso cref="ListItemUncompleted" />
     public IObservable<ListItemEvent> ListItemCreated => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemCreated"]).Observable;
 
-    /// <inheritdoc cref="ListItemEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ListItem">a list item</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ListItemUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="ListItemCreated" />
     /// <seealso cref="ListItemDeleted" />
     /// <seealso cref="ListItemCompleted" />
     /// <seealso cref="ListItemUncompleted" />
     public IObservable<ListItemEvent> ListItemUpdated => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemUpdated"]).Observable;
 
-    /// <inheritdoc cref="ListItemEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ListItem">a list item</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ListItemDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="ListItemCreated" />
     /// <seealso cref="ListItemUpdated" />
     /// <seealso cref="ListItemCompleted" />
     /// <seealso cref="ListItemUncompleted" />
     public IObservable<ListItemEvent> ListItemDeleted => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemDeleted"]).Observable;
 
-    /// <inheritdoc cref="ListItemEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ListItem">a list item</see> is set as completed.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ListItemCompleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="ListItemUpdated" />
     /// <seealso cref="ListItemUpdated" />
     /// <seealso cref="ListItemCompleted" />
     /// <seealso cref="ListItemUncompleted" />
     public IObservable<ListItemEvent> ListItemCompleted => ((IEventInfo<ListItemEvent>)GuildedEvents["ListItemDeleted"]).Observable;
 
-    /// <inheritdoc cref="ListItemEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="ListItem">a list item</see> is set as not completed.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ListItemUncompleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="ListItemUpdated" />
     /// <seealso cref="ListItemDeleted" />
     /// <seealso cref="ListItemCompleted" />
@@ -212,17 +325,32 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Docs channels
-    /// <inheritdoc cref="DocEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a new document</see> is posted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>DocCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="DocUpdated" />
     /// <seealso cref="DocDeleted" />
     public IObservable<DocEvent> DocCreated => ((IEventInfo<DocEvent>)GuildedEvents["DocCreated"]).Observable;
 
-    /// <inheritdoc cref="DocEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a new document</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>DocUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="DocCreated" />
     /// <seealso cref="DocDeleted" />
     public IObservable<DocEvent> DocUpdated => ((IEventInfo<DocEvent>)GuildedEvents["DocUpdated"]).Observable;
 
-    /// <inheritdoc cref="DocEvent" />
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a new document</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>DocDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
     /// <seealso cref="DocCreated" />
     /// <seealso cref="DocUpdated" />
     public IObservable<DocEvent> DocDeleted => ((IEventInfo<DocEvent>)GuildedEvents["DocDeleted"]).Observable;

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with an event opcode of <c>2</c> that occurs when the client passes last event message identifier.
+/// Represents an event that occurs once all missed events were <see cref="BaseGuildedClient.LastMessageId">resumed</see>.
 /// </summary>
 /// <seealso cref="WelcomeEvent" />
 /// <seealso cref="GuildedSocketMessage" />

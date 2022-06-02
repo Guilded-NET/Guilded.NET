@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>teamRolesUpdated</c> and opcode <c>0</c> that occurs once <see cref="RolesUpdated.UserId">role holder</see> either loses a <see cref="RolesUpdated.RoleIds">role</see> or receives it.
+/// Represents an event that occurs when <see cref="Member">a member</see> receives a role or loses it.
 /// </summary>
 /// <remarks>
 /// <para>This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>

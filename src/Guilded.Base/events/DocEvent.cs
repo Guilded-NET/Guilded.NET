@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>DocCreated</c>, <c>DocUpdated</c> or <c>DocDeleted</c> and opcode <c>0</c> that occurs once someone posts, edits or deletes a <see cref="DocEvent.Doc">doc</see> in <see cref="ChannelId">a channel</see>.
+/// Represents an event that occurs when someone creates, updates or deletes <see cref="Content.Doc">a document</see>.
 /// </summary>
 /// <seealso cref="Content.Doc" />
 /// <seealso cref="MessageEvent" />

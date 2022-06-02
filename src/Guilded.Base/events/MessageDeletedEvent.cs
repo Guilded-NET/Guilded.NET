@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>ChatMessageDeleted</c> and opcode <c>0</c> that occurs once someone creates/posts a message in the chat.
+/// Represents an event that occurs when someone deletes <see cref="Message">a message</see>.
 /// </summary>
 /// <seealso cref="MessageDeleted" />
 /// <seealso cref="MessageEvent" />
@@ -47,7 +47,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// <summary>
     /// Represents a message that was recently deleted/removed.
     /// </summary>
-    /// <seealso cref="Content.Message" />
+    /// <seealso cref="Message" />
     /// <seealso cref="MessageDeletedEvent" />
     public class MessageDeleted : BaseModel
     {

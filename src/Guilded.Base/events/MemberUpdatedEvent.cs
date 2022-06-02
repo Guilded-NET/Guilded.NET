@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamMemberUpdated</c> and opcode <c>0</c> that occurs once member receives any update, apart from <see cref="RolesUpdatedEvent">role update</see>.
+/// Represents an event that occurs when member's server profile receives any kind of change, besides <see cref="RolesUpdatedEvent">change in their role list</see>.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="XpAddedEvent" />

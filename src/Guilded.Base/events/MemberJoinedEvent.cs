@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamMemberJoined</c> and opcode <c>0</c> that occurs once <see cref="Member">member</see> joins a <see cref="ServerId">server</see>.
+/// Represents an event that occurs once <see cref="Servers.Member">a member</see> joins a server.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="XpAddedEvent" />

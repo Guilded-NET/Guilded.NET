@@ -1,16 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Guilded.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamXpAdded</c> and opcode <c>0</c> that occurs once <see cref="Amount" /> XP is given to <see cref="Users" />. This can be given to a couple users, instead of it being restricted to one user.
+/// Represents an event that occurs when <see cref="Member">a member</see> receives <see cref="Amount">XP</see>.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
-/// <seealso cref="Servers.Member" />
+/// <seealso cref="Member" />
 public class XpAddedEvent : BaseModel
 {
     #region Properties

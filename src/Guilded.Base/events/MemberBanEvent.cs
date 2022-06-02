@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event with the name <c>TeamMemberBanned</c> or <c>TeamMemberUnbanned</c> and opcode <c>0</c> that occurs once <see cref="MemberBan.User">member</see> gets banned or unbanned.
+/// Represents an event that occurs when <see cref="Member">a memner</see> gets banned or unbanned.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="XpAddedEvent" />

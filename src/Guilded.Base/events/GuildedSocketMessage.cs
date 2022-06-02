@@ -23,36 +23,13 @@ public class GuildedSocketMessage : BaseModel
     /// Gets an operation code that tells about the message.
     /// </summary>
     /// <remarks>
-    /// <para>Opcodes are defined as following:</para>
-    /// <list type="table">
-    ///     <listheader>
-    ///         <term>Opcode</term>
-    ///         <description>Description</description>
-    ///     </listheader>
-    ///     <item>
-    ///         <term>0</term>
-    ///         <description>An event with data associated.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term>1</term>
-    ///         <description>An event that occurs once WebSocket connection is established.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term>2</term>
-    ///         <description>An event that occurs once connection is re-established with passed last event.</description>
-    ///     </item>
-    ///     <item>
-    ///         <term>8</term>
-    ///         <description>Error</description>
-    ///     </item>
-    /// </list>
     /// <para>If <see cref="Opcode" /> is received as <c>8</c>, <see cref="GuildedWebsocketException" /> will be received instead of a typical event.</para>
     /// </remarks>
-    /// <value>Opcode</value>
+    /// <value><see cref="SocketOpcode">Opcode</see></value>
     /// <seealso cref="GuildedSocketMessage" />
     /// <seealso cref="EventName" />
     /// <seealso cref="RawData" />
-    public byte Opcode { get; }
+    public SocketOpcode Opcode { get; }
 
     /// <summary>
     /// Gets the name of the event received.
@@ -98,7 +75,7 @@ public class GuildedSocketMessage : BaseModel
     [JsonConstructor]
     public GuildedSocketMessage(
         [JsonProperty(Required = Required.Always)]
-        byte op,
+        SocketOpcode op,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         string? t = null,
