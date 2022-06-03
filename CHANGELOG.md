@@ -12,6 +12,7 @@
 - Renamed `FailedCommandEvent.Type` to `FailedCommandEvent.FailType` (since `MessageEvent.Type` is now inherited)
 - Renamed `CommandBase.InvokeAnyCommandAsync` to `CommandBase.InvokeCommandByNameAsync`
 - Made `CommandEvent` extend `MessageEvent`
+    - **NOTE:** `FailedCommandEvent` extends `CommandEvent`, so it appplies to `FailedCommandEvent` as well
 - Removed `CommandEvent.MessageEvent`
 
 # v0.8.0-beta
