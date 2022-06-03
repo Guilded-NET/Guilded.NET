@@ -100,7 +100,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<MemberUpdatedEvent> MemberUpdated => ((IEventInfo<MemberUpdatedEvent>)GuildedEvents["TeamMemberUpdated"]).Observable;
 
     /// <summary>
-    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> joins a server.
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> joins <see cref="Server">a server</see>.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>TeamMemberJoined</c> and opcode <c>0</c>.</para>
@@ -116,7 +116,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<MemberJoinedEvent> MemberJoined => ((IEventInfo<MemberJoinedEvent>)GuildedEvents["TeamMemberJoined"]).Observable;
 
     /// <summary>
-    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> leaves a server, gets kicked or gets banned from a server.
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> leaves <see cref="Server">a server</see>, gets kicked or gets banned from <see cref="Server">a server</see>.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>TeamMemberRemoved</c> and opcode <c>0</c>.</para>
@@ -132,7 +132,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<MemberRemovedEvent> MemberRemoved => ((IEventInfo<MemberRemovedEvent>)GuildedEvents["TeamMemberRemoved"]).Observable;
 
     /// <summary>
-    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> gets banned from the server.
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Member">a member</see> gets banned from <see cref="Server">the server</see>.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>TeamMemberBanned</c> and opcode <c>0</c>.</para>
@@ -148,7 +148,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<MemberBanEvent> MemberBanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberBanned"]).Observable;
 
     /// <summary>
-    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="User">user</see> gets unbanned in a server.
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="User">user</see> gets unbanned in <see cref="Server">a server</see>.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>TeamMemberUnbanned</c> and opcode <c>0</c>.</para>

@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Events;
 
 /// <summary>
-/// Represents an event that occurs once <see cref="Servers.Member">a member</see> joins a server.
+/// Represents an event that occurs once <see cref="Servers.Member">a member</see> joins <see cref="Server">a server</see>.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="XpAddedEvent" />
@@ -26,7 +26,7 @@ public class MemberJoinedEvent : BaseModel, IServerEvent
     public Member Member { get; }
 
     /// <summary>
-    /// Gets the identifier of the server where the member has joined.
+    /// Gets the identifier of <see cref="Server">the server</see> where the member has joined.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="MemberJoinedEvent" />
@@ -53,7 +53,7 @@ public class MemberJoinedEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="MemberJoinedEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the member joined</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the member joined</param>
     /// <param name="member">The member who has joined</param>
     /// <returns>New <see cref="MemberJoinedEvent" /> JSON instance</returns>
     /// <seealso cref="MemberJoinedEvent" />

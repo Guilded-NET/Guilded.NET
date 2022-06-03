@@ -1,6 +1,6 @@
 using System;
-using System.Data;
 using System.Threading.Tasks;
+using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
 
@@ -41,7 +41,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// </summary>
     /// <param name="id">The identifier of the document</param>
     /// <param name="channelId">The identifier of the channel where the document is</param>
-    /// <param name="serverId">The identifier of the server where the document is</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the document is</param>
     /// <param name="title">The title of the document</param>
     /// <param name="content">The text contents of the document</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the document</param>

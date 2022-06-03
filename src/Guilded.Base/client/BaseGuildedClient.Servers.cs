@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
 using Guilded.Base.Permissions;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
@@ -54,7 +53,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>List of <see cref="Member">members</see></returns>
-    public abstract Task<IList<MemberSummary<UserSummary>>> GetMembersAsync(HashId server);
+    public abstract Task<IList<MemberSummary>> GetMembersAsync(HashId server);
 
     /// <summary>
     /// Gets full information about the <paramref name="member">specified member</paramref>.
@@ -237,7 +236,7 @@ public abstract partial class BaseGuildedClient
     /// Unbans the <paramref name="member">specified member</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>Allows them to join the server again.</para>
+    /// <para>Allows them to join <see cref="Server">the server</see> again.</para>
     /// </remarks>
     /// <param name="server">The server to unban <see cref="Member">member</see> in</param>
     /// <param name="member">The identifier of <see cref="Member">the member</see> to unban</param>
@@ -257,7 +256,7 @@ public abstract partial class BaseGuildedClient
     /// <remarks>
     /// <para>If <paramref name="channel" /> parameter is given, it gets all of <see cref="Webhook">the channel webhooks</see> instead.</para>
     /// </remarks>
-    /// <param name="server">The identifier of the server to get <see cref="Webhook">webhooks</see> from</param>
+    /// <param name="server">The identifier of <see cref="Server">the server</see> to get <see cref="Webhook">webhooks</see> from</param>
     /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get webhooks from</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -270,7 +269,7 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Gets the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server <see cref="Webhook">the webhook</see> is</param>
+    /// <param name="server">The identifier of <see cref="Server">the server</see> <see cref="Webhook">the webhook</see> is</param>
     /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to get</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -283,7 +282,7 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Creates a <see cref="Webhook">new webhook</see> in the <paramref name="channel">specified channel</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where <see cref="Webhook">the webhook</see> will be created</param>
+    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> will be created</param>
     /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Webhook">the webhook</see> will be created</param>
     /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
     /// <exception cref="GuildedException" />
@@ -302,7 +301,7 @@ public abstract partial class BaseGuildedClient
     /// <remarks>
     /// <para><see cref="Webhook" /> can moved between <see cref="ServerChannel">channels</see> using '<paramref name="newChannel" />' parameter.</para>
     /// </remarks>
-    /// <param name="server">The identifier of the server where <see cref="Webhook">the webhook</see> is</param>
+    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> is</param>
     /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to update</param>
     /// <param name="name">The new name of <see cref="Webhook">the webhook</see></param>
     /// <param name="newChannel">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Webhook">the webhook</see> will be moved to</param>
@@ -319,7 +318,7 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Deletes the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where <see cref="Webhook">the webhook</see> is</param>
+    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> is</param>
     /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -346,7 +345,7 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Creates a new channel in the <paramref name="server">specified server</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of the server where <see cref="ServerChannel">the channel</see> will be created</param>
+    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="ServerChannel">the channel</see> will be created</param>
     /// <param name="name">The name of <see cref="ServerChannel">the channel</see> (max — <c>100</c>)</param>
     /// <param name="type">The type of the content that <see cref="ServerChannel">the channel</see> will hold</param>
     /// <param name="topic">The topic describing what <see cref="ServerChannel">the channel</see> is about (max — <c>512</c>)</param>

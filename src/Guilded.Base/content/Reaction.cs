@@ -69,7 +69,7 @@ public class Reaction : ContentModel, IModelHasId<uint>, IWebhookCreatable, ICre
     /// Initializes a new instance of <see cref="Reaction" /> with provided details.
     /// </summary>
     /// <param name="id">The identifier of the emote reacted with</param>
-    /// <param name="serverId">The identifier of the server where the reaction is</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the reaction is</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the reaction</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> creator of the reaction</param>
     /// <param name="createdAt">the date when the reaction was created</param>

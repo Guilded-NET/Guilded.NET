@@ -31,7 +31,7 @@ public class RolesUpdatedEvent : BaseModel, IServerEvent
     public IList<RolesUpdated> MemberRoleIds { get; }
 
     /// <summary>
-    /// Gets the identifier of the server where user's roles were given or removed.
+    /// Gets the identifier of <see cref="Server">the server</see> where user's roles were given or removed.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="RolesUpdatedEvent" />
@@ -53,7 +53,7 @@ public class RolesUpdatedEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="RolesUpdatedEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where roles were updated</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where roles were updated</param>
     /// <param name="memberRoleIds">The list of roles and role holders</param>
     /// <returns>New <see cref="RolesUpdatedEvent" /> JSON instance</returns>
     /// <seealso cref="RolesUpdatedEvent" />

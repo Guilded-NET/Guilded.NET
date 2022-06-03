@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Servers;
 
 namespace Guilded.Base.Permissions;
 
@@ -36,12 +37,12 @@ public enum GeneralPermissions
     UpdateServer = 4,
 
     /// <summary>
-    /// Allows you to directly invite members to the server
+    /// Allows you to directly invite members to <see cref="Server">the server</see>
     /// </summary>
     InviteMembers = 16,
 
     /// <summary>
-    /// Allows you to kick or ban members from the server
+    /// Allows you to kick or ban members from <see cref="Server">the server</see>
     /// </summary>
     KickBanMembers = 32,
 
@@ -66,7 +67,7 @@ public enum GeneralPermissions
     MentionEveryoneHere = 8192,
 
     /// <summary>
-    /// Allows you to update the server's roles
+    /// Allows you to update <see cref="Server">the server's</see> roles
     /// </summary>
     ManageRoles = 16384,
 

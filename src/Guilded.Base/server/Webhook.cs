@@ -66,7 +66,7 @@ public class Webhook : ContentModel, ICreatableContent
     public Guid ChannelId { get; }
 
     /// <summary>
-    /// Gets the identifier of the server where <see cref="Webhook">the webhook</see> is.
+    /// Gets the identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> is.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="Webhook" />
@@ -115,7 +115,7 @@ public class Webhook : ContentModel, ICreatableContent
     /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
     /// <param name="token">The token of <see cref="Webhook">the webhook</see></param>
     /// <param name="channelId">The identifier of the channel where webhook is</param>
-    /// <param name="serverId">The identifier of the server where webhook is</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where webhook is</param>
     /// <param name="createdAt">the date when <see cref="Webhook">the webhook</see> was created</param>
     /// <param name="createdBy">The identifier of <see cref="User">the user</see> that created <see cref="Webhook">the webhook</see></param>
     /// <param name="deletedAt">the date when <see cref="Webhook">the webhook</see> was deleted</param>

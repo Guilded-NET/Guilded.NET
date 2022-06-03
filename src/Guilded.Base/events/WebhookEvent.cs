@@ -26,7 +26,7 @@ public class WebhookEvent : BaseModel, IServerEvent
     public Webhook Webhook { get; }
 
     /// <summary>
-    /// Gets the identifier of the server where <see cref="Servers.Webhook">the webhook</see> has been created/updated.
+    /// Gets the identifier of <see cref="Server">the server</see> where <see cref="Servers.Webhook">the webhook</see> has been created/updated.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="WebhookEvent" />
@@ -56,7 +56,7 @@ public class WebhookEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="WebhookEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where <see cref="Servers.Webhook">the webhook</see> got created/updated</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where <see cref="Servers.Webhook">the webhook</see> got created/updated</param>
     /// <param name="webhook"><see cref="Servers.Webhook">The webhook</see> that got created or updated</param>
     /// <returns>New <see cref="WebhookEvent" /> JSON instance</returns>
     /// <seealso cref="WebhookEvent" />

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Servers;
 
 /// <summary>
-/// Represents the summary of <see cref="Member">a member</see>.
+/// Represents the base type for <see cref="Member">member models</see>.
 /// </summary>
 /// <typeparam name="T">The type of <see cref="Users.User">the user</see> object</typeparam>
 /// <seealso cref="Member" />
@@ -52,18 +52,43 @@ public class MemberSummary<T> : BaseModel where T : UserSummary
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user"><see cref="Users.User">The user</see> who is present in the server</param>
+    /// <param name="user"><see cref="Users.User">The user</see> who is present in <see cref="Server">the server</see></param>
+    /// <param name="roleIds">The list of roles user holds</param>
+    /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>
+    /// <seealso cref="MemberSummary{T}" />
+    public MemberSummary(
+        T user,
+
+        IList<uint> roleIds
+    ) =>
+        (User, RoleIds) = (user, roleIds);
+    #endregion
+}
+
+/// <summary>
+/// Represents the summary of <see cref="Member">a member</see>.
+/// </summary>
+/// <seealso cref="Member" />
+/// <seealso cref="MemberBan" />
+/// <seealso cref="UserSummary" />
+/// <seealso cref="Webhook" />
+public class MemberSummary : MemberSummary<UserSummary>
+{
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of <see cref="MemberSummary{T}" />.
+    /// </summary>
+    /// <param name="user"><see cref="Users.User">The user</see> who is present in <see cref="Server">the server</see></param>
     /// <param name="roleIds">The list of roles user holds</param>
     /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>
     /// <seealso cref="MemberSummary{T}" />
     [JsonConstructor]
     public MemberSummary(
         [JsonProperty(Required = Required.Always)]
-        T user,
+        UserSummary user,
 
         [JsonProperty(Required = Required.Always)]
         IList<uint> roleIds
-    ) =>
-        (User, RoleIds) = (user, roleIds);
+    ) : base(user, roleIds) { }
     #endregion
 }

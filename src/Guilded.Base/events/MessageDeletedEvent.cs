@@ -1,5 +1,6 @@
 using System;
 using Guilded.Base.Content;
+using Guilded.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -30,7 +31,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// <summary>
     /// Initializes a new instance of <see cref="MessageDeletedEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the message was deleted</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message was deleted</param>
     /// <param name="message">The minimal information about the deleted message</param>
     /// <returns>New <see cref="MessageDeletedEvent" /> JSON instance</returns>
     /// <seealso cref="MessageDeletedEvent" />
@@ -65,7 +66,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         public Guid ChannelId { get; }
 
         /// <summary>
-        /// Gets the identifier of the server where the message was.
+        /// Gets the identifier of <see cref="Server">the server</see> where the message was.
         /// </summary>
         /// <value>Server ID?</value>
         public HashId? ServerId { get; }
@@ -89,7 +90,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// </summary>
         /// <param name="id">The identifier of the message</param>
         /// <param name="channelId">The identifier of the channel where the message was</param>
-        /// <param name="serverId">The identifier of the server where the message was</param>
+        /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message was</param>
         /// <param name="isPrivate">Whether the deleted message was <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></param>
         /// <param name="deletedAt">the date when the message was deleted</param>
         /// <returns>New <see cref="MessageDeleted" /> JSON instance</returns>

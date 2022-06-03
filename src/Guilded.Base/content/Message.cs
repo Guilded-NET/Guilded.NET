@@ -201,7 +201,7 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// </summary>
     /// <param name="id">The identifier of the message</param>
     /// <param name="channelId">The identifier of the channel where the message is</param>
-    /// <param name="serverId">The identifier of the server where the message is</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message is</param>
     /// <param name="content">The text contents of the message</param>
     /// <param name="replyMessageIds">Gets the list of <see cref="Message">messages</see> being replied to</param>
     /// <param name="embeds">Gets the list of <see cref="Embed">custom embeds</see> that this message contains</param>

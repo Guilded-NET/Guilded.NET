@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
 
@@ -33,7 +34,7 @@ public class ForumThread : TitledContent
     /// </summary>
     /// <param name="id">The identifier of the forum thread</param>
     /// <param name="channelId">The identifier of the channel where the forum thread is</param>
-    /// <param name="serverId">The identifier of the server where the forum thread is</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the forum thread is</param>
     /// <param name="title">The title of the forum thread</param>
     /// <param name="content">The text contents of the forum thread</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>

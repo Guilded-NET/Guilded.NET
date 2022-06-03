@@ -27,7 +27,7 @@ public class MemberBanEvent : BaseModel, IServerEvent
     public MemberBan MemberBan { get; }
 
     /// <summary>
-    /// Gets the identifier of the server where member has been banned/unbanned.
+    /// Gets the identifier of <see cref="Server">the server</see> where member has been banned/unbanned.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="MemberBanEvent" />
@@ -53,7 +53,7 @@ public class MemberBanEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="MemberBanEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where member got banned/unbanned</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where member got banned/unbanned</param>
     /// <param name="serverMemberBan">The information about the member's ban</param>
     /// <returns>New <see cref="MemberBanEvent" /> JSON instance</returns>
     /// <seealso cref="MemberBanEvent" />

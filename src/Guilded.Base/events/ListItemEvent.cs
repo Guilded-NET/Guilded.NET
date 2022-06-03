@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Guilded.Base.Content;
+using Guilded.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -67,7 +68,7 @@ public class ListItemEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="ListItemEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the list item event occurred</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the list item event occurred</param>
     /// <param name="listItem">The list item received from the event</param>
     /// <returns>New <see cref="ListItemEvent" /> JSON instance</returns>
     /// <seealso cref="ListItemEvent" />

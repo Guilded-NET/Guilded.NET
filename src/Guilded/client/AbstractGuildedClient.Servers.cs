@@ -25,8 +25,8 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods Members
     /// <inheritdoc />
-    public override async Task<IList<MemberSummary<UserSummary>>> GetMembersAsync(HashId server) =>
-        await GetResponseProperty<IList<MemberSummary<UserSummary>>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
+    public override async Task<IList<MemberSummary>> GetMembersAsync(HashId server) =>
+        await GetResponseProperty<IList<MemberSummary>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
 
     /// <inheritdoc />
     public override async Task<Member> GetMemberAsync(HashId server, HashId member) =>

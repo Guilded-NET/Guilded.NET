@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Guilded.Base.Content;
+using Guilded.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -55,7 +56,7 @@ public class DocEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="DocEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the doc event occurred</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the doc event occurred</param>
     /// <param name="doc">The doc received from the event</param>
     /// <returns>New <see cref="DocEvent" /> JSON instance</returns>
     /// <seealso cref="DocEvent" />

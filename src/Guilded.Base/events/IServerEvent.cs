@@ -1,3 +1,5 @@
+using Guilded.Base.Servers;
+
 namespace Guilded.Base.Events;
 
 /// <summary>
@@ -9,7 +11,7 @@ public interface IServerEvent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the server where the event occurred.
+    /// Gets the identifier of <see cref="Server">the server</see> where the event occurred.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="IServerEvent" />

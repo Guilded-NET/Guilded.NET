@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
+using Guilded.Base.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;
@@ -28,7 +29,7 @@ public abstract class MessageEvent<T> : BaseModel where T : BaseModel
     public T Message { get; }
 
     /// <summary>
-    /// Gets the identifier of the server where the event occurred.
+    /// Gets the identifier of <see cref="Server">the server</see> where the event occurred.
     /// </summary>
     /// <value>Server ID?</value>
     /// <seealso cref="MessageEvent" />
@@ -41,7 +42,7 @@ public abstract class MessageEvent<T> : BaseModel where T : BaseModel
     /// <summary>
     /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the message event occurred</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
     /// <returns>New <see cref="MessageEvent{T}" /> JSON instance</returns>
     /// <seealso cref="MessageEvent{T}" />
@@ -106,7 +107,7 @@ public class MessageEvent : MessageEvent<Message>
     /// <summary>
     /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the server where the message event occurred</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
     /// <returns>New <see cref="MessageEvent" /> JSON instance</returns>
     /// <seealso cref="MessageEvent" />

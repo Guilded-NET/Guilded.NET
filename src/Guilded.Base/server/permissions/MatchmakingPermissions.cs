@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Servers;
 
 namespace Guilded.Base.Permissions;
 
@@ -36,12 +37,12 @@ public enum MatchmakingPermissions
     CreateScrims = 1,
 
     /// <summary>
-    /// Allows you to use the server to create and manage tournaments
+    /// Allows you to use <see cref="Server">the server</see> to create and manage tournaments
     /// </summary>
     RegisterForTournaments = 4,
 
     /// <summary>
-    /// Allows you to register the server for tournaments
+    /// Allows you to register <see cref="Server">the server</see> for tournaments
     /// </summary>
     CreateTournaments = 16,
 
