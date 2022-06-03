@@ -50,19 +50,19 @@ public class Mentions : BaseModel
     /// Gets the identifiers of <see cref="User">the users</see> that have been <see cref="Mentions">mentioned</see>.
     /// </summary>
     /// <returns><see cref="UserSummary.Id">User IDs</see></returns>
-    public IEnumerable<HashId> UserIds => Users.Select(x => x.Id);
+    public IEnumerable<HashId>? UserIds => Users?.Select(x => x.Id);
 
     /// <summary>
     /// Gets the identifiers of <see cref="ServerChannel">the channels</see> that have been <see cref="Mentions">mentioned</see>.
     /// </summary>
     /// <returns><see cref="ServerChannel.Id">Channel IDs</see></returns>
-    public IEnumerable<Guid> ChannelIds => Channels.Select(x => x.Id);
+    public IEnumerable<Guid>? ChannelIds => Channels?.Select(x => x.Id);
 
     /// <summary>
     /// Gets the identifiers of <see cref="ServerChannel">the channels</see> that have been <see cref="Mentions">mentioned</see>.
     /// </summary>
     /// <returns>Role IDs</returns>
-    public IEnumerable<uint> RoleIds => Roles.Select(x => x.Id);
+    public IEnumerable<uint>? RoleIds => Roles?.Select(x => x.Id);
     #endregion
 
     #region Constructors
