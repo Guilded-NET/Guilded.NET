@@ -164,7 +164,7 @@ public class CommandModule : CommandBase
 
                     RootCommandEvent context = new(msgCreated, prefix, commandName, args);
 
-                    await InvokeCommandByNameAsync(context, commandName, splitContent).ConfigureAwait(false);
+                    await InvokeCommandByNameAsync(context, commandName, args).ConfigureAwait(false);
                 });
         _subscribedClient = client;
     }

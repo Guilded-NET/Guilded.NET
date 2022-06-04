@@ -1,3 +1,7 @@
+# v0.8.3-beta (Guilded.Commands package)
+
+Minor bug fix
+
 # v0.8.2-beta
 
 - Fixed commands not being able to have `uint`, `ulong` or `ushort` types as their arguments
