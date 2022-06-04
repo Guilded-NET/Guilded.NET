@@ -147,7 +147,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// Disconnects <see cref="AbstractGuildedClient">this client</see> from Guilded.
     /// </summary>
     /// <seealso cref="ConnectAsync" />
-    /// <seealso cref="Dispose" />
     /// <seealso cref="GuildedBotClient.ConnectAsync()" />
     /// <seealso cref="GuildedBotClient.ConnectAsync(string)" />
     public override async Task DisconnectAsync()
@@ -156,13 +155,11 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "DisconnectAsync invoked").ConfigureAwait(false);
     }
 
-    /// <summary>
-    /// Disposes <see cref="AbstractGuildedClient">this client</see>.
-    /// </summary>
-    /// <seealso cref="DisconnectAsync" />
-    public override void Dispose()
+    /// <inheritdoc />
+    public override async ValueTask DisposeAsync()
     {
-        DisconnectAsync().GetAwaiter().GetResult();
+        await DisconnectAsync().ConfigureAwait(false);
+
         // They aren't disposed by DisconnectAsync, only shut down
         Websocket.Dispose();
     }

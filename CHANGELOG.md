@@ -1,3 +1,10 @@
+# v0.8.2-beta
+
+- Fixed commands not being able to have `uint`, `ulong` or `ushort` types as their arguments
+- Fixed arguments of `char` type being parsed as `decimal` type instead
+- Made `BaseGuildedClient`, `AbstractGuildedClient` and `GuildedBotClient` implement `IAsyncDisposable`
+    - It is recommended to use `await using var client = ...;`, but `using var client = ...;` is still suppported
+
 # v0.8.1-beta
 
 - Added `CommandLookup` property in `CommandBase`

@@ -44,7 +44,7 @@ using Guilded;
 string auth   = "your_bots_auth_token",
        prefix = "!";
 
-using var client = new GuildedBotClient(auth);
+await using var client = new GuildedBotClient(auth);
 
 client.Prepared
       .Subscribe(me =>
