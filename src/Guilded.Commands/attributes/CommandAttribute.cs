@@ -42,24 +42,6 @@ public class CommandAttribute : Attribute
     /// </summary>
     /// <value>Array of names?</value>
     public string[]? Aliases { get; set; }
-
-    /// <summary>
-    /// Gets the description of the command.
-    /// </summary>
-    /// <remarks>
-    /// <para>This is not used anywhere, so you can use it for command lists.</para>
-    /// </remarks>
-    /// <value>Text?</value>
-    public string? Description { get; set; }
-
-    /// <summary>
-    /// Gets the examples of how to use the command.
-    /// </summary>
-    /// <remarks>
-    /// <para>This is not used anywhere, so you can use it for command lists.</para>
-    /// </remarks>
-    /// <value>Array of text?</value>
-    public string[]? Examples { get; set; }
     #endregion
 
     #region Constructors

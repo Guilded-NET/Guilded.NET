@@ -5,6 +5,8 @@ using System.Linq;
 using Guilded.Base.Content;
 using Newtonsoft.Json;
 
+using SystemColor = System.Drawing.Color;
+
 namespace Guilded.Base.Embeds;
 
 /// <summary>
@@ -103,7 +105,7 @@ public class Embed : BaseModel
     /// <seealso cref="Timestamp" />
     /// <seealso cref="Description" />
     [JsonConverter(typeof(DecimalColorConverter))]
-    public Color? Color { get; set; }
+    public SystemColor? Color { get; set; }
 
     /// <summary>
     /// Gets the thumbnail image of the <see cref="Embed">embed</see>.
@@ -459,27 +461,27 @@ public class Embed : BaseModel
     /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
     /// </summary>
     /// <remarks>
-    /// <para>The given <paramref name="name" />, <paramref name="iconUrl" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
+    /// <para>The given <paramref name="name" />, <paramref name="icon" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
     /// </remarks>
     /// <param name="name">The name of the <see cref="Embed">embed</see>'s author</param>
-    /// <param name="iconUrl">The URL to icon of the <see cref="Embed">embed</see>'s author</param>
     /// <param name="url">The URL of the <see cref="Embed">embed</see>'s author</param>
+    /// <param name="icon">The URL to icon of the <see cref="Embed">embed</see>'s author</param>
     /// <returns>Current <see cref="Embed" /> instance</returns>
-    public Embed SetAuthor(string name, Uri? iconUrl = null, Uri? url = null) =>
-        SetAuthor(new EmbedAuthor(name, iconUrl, url));
+    public Embed SetAuthor(string name, Uri? url = null, Uri? icon = null) =>
+        SetAuthor(new EmbedAuthor(name, url, icon));
 
     /// <summary>
     /// Sets the <see cref="Author">author</see> as the given author with the given <paramref name="name" />.
     /// </summary>
     /// <remarks>
-    /// <para>The given <paramref name="name" />, <paramref name="iconUrl" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
+    /// <para>The given <paramref name="name" />, <paramref name="icon" /> and <paramref name="url" /> will be converted to <see cref="EmbedAuthor" />.</para>
     /// </remarks>
     /// <param name="name">The name of the <see cref="Embed">embed</see>'s author</param>
-    /// <param name="iconUrl">The URL to icon of the <see cref="Embed">embed</see>'s author</param>
     /// <param name="url">The URL of the <see cref="Embed">embed</see>'s author</param>
+    /// <param name="icon">The URL to icon of the <see cref="Embed">embed</see>'s author</param>
     /// <returns>Current <see cref="Embed" /> instance</returns>
-    public Embed SetAuthor(string name, string? iconUrl = null, string? url = null) =>
-        SetAuthor(new EmbedAuthor(name, iconUrl, url));
+    public Embed SetAuthor(string name, string? url = null, string? icon = null) =>
+        SetAuthor(new EmbedAuthor(name, url, icon));
     #endregion
 
     #region Method AddField(s)
@@ -670,13 +672,13 @@ public class Embed : BaseModel
     /// </summary>
     /// <param name="value">The left-side colour of the <see cref="Embed">embed</see></param>
     /// <returns>Current <see cref="Embed" /> instance</returns>
-    public Embed SetColor(Color value)
+    public Embed SetColor(SystemColor value)
     {
         Color = value;
         return this;
     }
 
-    /// <inheritdoc cref="SetColor(Color)" />
+    /// <inheritdoc cref="SetColor(SystemColor)" />
     /// <remarks>
     /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="argb">argb value</paramref>.</para>
     /// </remarks>
@@ -688,9 +690,9 @@ public class Embed : BaseModel
     /// </example>
     /// <param name="argb">The ARGB value of the <see cref="Color">embed's colour</see>.</param>
     public Embed SetColor(int argb) =>
-        SetColor(System.Drawing.Color.FromArgb(argb));
+        SetColor(SystemColor.FromArgb(argb));
 
-    /// <inheritdoc cref="SetColor(Color)" />
+    /// <inheritdoc cref="SetColor(SystemColor)" />
     /// <remarks>
     /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="red">red channel</paramref>, <paramref name="green">green channel</paramref> and <paramref name="blue">blue channel</paramref> values.</para>
     /// </remarks>
@@ -703,7 +705,7 @@ public class Embed : BaseModel
     /// <param name="green">The green channel's strength of the <see cref="Color">colour</see>.</param>
     /// <param name="blue">The blue channel's strength of the <see cref="Color">colour</see>.</param>
     public Embed SetColor(int red, int green, int blue) =>
-        SetColor(System.Drawing.Color.FromArgb(red, green, blue));
+        SetColor(SystemColor.FromArgb(red, green, blue));
     #endregion
 
     #endregion

@@ -37,6 +37,7 @@ public class EmbedAuthor : BaseModel
     /// </remarks>
     /// <value>Name</value>
     public string Name { get; set; }
+
     /// <summary>
     /// Gets the URL that author links.
     /// </summary>
@@ -44,7 +45,9 @@ public class EmbedAuthor : BaseModel
     /// <para>Can be used to open up author's profile or link to the content of the embed.</para>
     /// </remarks>
     /// <value>URL?</value>
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Uri? Url { get; set; }
+
     /// <summary>
     /// Gets the URL to author's icon.
     /// </summary>
@@ -52,6 +55,7 @@ public class EmbedAuthor : BaseModel
     /// <para>Used to display the icon of the content's author.</para>
     /// </remarks>
     /// <value>URL?</value>
+    [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
     public Uri? IconUrl { get; set; }
     #endregion
 
@@ -62,12 +66,16 @@ public class EmbedAuthor : BaseModel
     /// <param name="name">The name of the embed author</param>
     public EmbedAuthor(string name) =>
         Name = name;
+
+    /// <inheritdoc cref="EmbedAuthor(string)" />
+    public EmbedAuthor(object name) : this(name.ToString()) { }
+
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedAuthor" /> with an optional <paramref name="url" />.
     /// </summary>
     /// <param name="name">The name of the embed author</param>
     /// <param name="url">The URL that author links</param>
-    /// <param name="iconUrl">The URL to author's icon</param>
+    /// <param name="icon">The URL to author's icon</param>
     /// <returns>New <see cref="EmbedAuthor" /> instance</returns>
     /// <seealso cref="EmbedAuthor" />
     /// <seealso cref="EmbedAuthor(string, string, string)" />
@@ -80,13 +88,25 @@ public class EmbedAuthor : BaseModel
         Uri? url = null,
 
         [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
-        Uri? iconUrl = null
+        Uri? icon = null
     ) : this(name) =>
-        (IconUrl, Url) = (iconUrl, url);
+        (IconUrl, Url) = (icon, url);
+
     /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
-    /// <exception cref="UriFormatException"><paramref name="url" /> or <paramref name="iconUrl" /> have bad <see cref="Uri" /> formatting</exception>
+    /// <exception cref="UriFormatException"><paramref name="url" /> or <paramref name="icon" /> have bad <see cref="Uri" /> formatting</exception>
     /// <seealso cref="EmbedAuthor" />
     /// <seealso cref="EmbedAuthor(string, Uri, Uri)" />
-    public EmbedAuthor(string name, string? url = null, string? iconUrl = null) : this(name, url is null ? null : new Uri(url), iconUrl is null ? null : new Uri(iconUrl)) { }
+    public EmbedAuthor(string name, string? url = null, string? icon = null) : this(name, url is null ? null : new Uri(url), icon is null ? null : new Uri(icon)) { }
+
+    /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
+    /// <seealso cref="EmbedAuthor" />
+    /// <seealso cref="EmbedAuthor(string, Uri, Uri)" />
+    public EmbedAuthor(object name, Uri? url = null, Uri? icon = null) : this(name.ToString(), url, icon) { }
+
+    /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
+    /// <exception cref="UriFormatException"><paramref name="url" /> or <paramref name="icon" /> have bad <see cref="Uri" /> formatting</exception>
+    /// <seealso cref="EmbedAuthor" />
+    /// <seealso cref="EmbedAuthor(string, Uri, Uri)" />
+    public EmbedAuthor(object name, string? url = null, string? icon = null) : this(name.ToString(), url, icon) { }
     #endregion
 }

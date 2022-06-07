@@ -21,6 +21,7 @@ public class EmbedField : BaseModel
     /// </remarks>
     /// <value>Title</value>
     public string Name { get; set; }
+
     /// <summary>
     /// Gets the text contents of an <see cref="Embed">embed's</see> field.
     /// </summary>
@@ -29,6 +30,7 @@ public class EmbedField : BaseModel
     /// </remarks>
     /// <value>Markdown string</value>
     public string Value { get; set; }
+
     /// <summary>
     /// Gets whether the field should be inline with other fields.
     /// </summary>
@@ -49,6 +51,8 @@ public class EmbedField : BaseModel
     /// <exception cref="ArgumentNullException">Either <paramref name="name" /> or <paramref name="value" /> are <see langword="null" /></exception>
     /// <returns>New <see cref="EmbedField" /> instance</returns>
     /// <seealso cref="EmbedField" />
+    /// <see cref="EmbedField(object, object, bool)" />
+    /// <see cref="EmbedField(object, bool)" />
     [JsonConstructor]
     public EmbedField(
         [JsonProperty(Required = Required.Always)]
@@ -68,5 +72,15 @@ public class EmbedField : BaseModel
 
         (Name, Value, Inline) = (name, value, inline);
     }
+
+    /// <inheritdoc cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(object, bool)" />
+    public EmbedField(object? name, object? value, bool inline = false) : this(name?.ToString() ?? string.Empty, value?.ToString() ?? string.Empty, inline) { }
+
+    /// <inheritdoc cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(object, object, bool)" />
+    public EmbedField(object? value, bool inline = false) : this(string.Empty, value?.ToString() ?? string.Empty, inline) { }
     #endregion
 }

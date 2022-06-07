@@ -87,6 +87,11 @@ public class MessageContent : BaseModel
 
     #region Constructors
     /// <summary>
+    /// Creates an instance of <see cref="MessageContent" /> with no content.
+    /// </summary>
+    public MessageContent() { }
+
+    /// <summary>
     /// Creates an instance of <see cref="MessageContent" />.
     /// </summary>
     /// <param name="content">The content of the message</param>
@@ -96,13 +101,11 @@ public class MessageContent : BaseModel
     /// <summary>
     /// Creates an instance of <see cref="MessageContent" /> with no content.
     /// </summary>
-    public MessageContent() { }
-
-    /// <summary>
-    /// Creates an instance of <see cref="MessageContent" /> with no content.
-    /// </summary>
     [JsonConstructor]
     public MessageContent(
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? content = null,
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         IList<Embed>? embeds = null,
 
@@ -114,7 +117,7 @@ public class MessageContent : BaseModel
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         bool? isSilent = null
-    ) =>
+    ) : this(content) =>
         (Embeds, ReplyMessageIds, IsPrivate, IsSilent) = (embeds, replyMessageIds, isPrivate, isSilent);
     #endregion
 }

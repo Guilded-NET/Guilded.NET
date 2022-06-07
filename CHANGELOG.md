@@ -1,3 +1,12 @@
+# v0.8.4-beta
+
+- Added `DescriptionAttribute`, `ExampleAttribute` attributes for commands
+- Added `UsageAreaAttribute` attribute for commands, but it isn't used anywhere yet
+- Added more `EmbedField`, `EmbedAuthor` and `EmbedFooter` constructors
+- Fixed bugs related to commands
+- Fixed embeds not being sent if author does not contain an icon and URL
+- Removed `CommandAttribute.Description` and `CommandAttribute.Examples` properties
+
 # v0.8.3-beta (Guilded.Commands package)
 
 Minor bug fix

@@ -22,6 +22,7 @@ public class EmbedFooter : BaseModel
     /// </remarks>
     /// <value>String</value>
     public string Text { get; set; }
+
     /// <summary>
     /// The URL to the footer's icon.
     /// </summary>
@@ -29,6 +30,7 @@ public class EmbedFooter : BaseModel
     /// <para>Usually displayed before the footer text.</para>
     /// </remarks>
     /// <value>Image URL?</value>
+    [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
     public Uri? IconUrl { get; set; }
     #endregion
 
@@ -37,26 +39,47 @@ public class EmbedFooter : BaseModel
     /// Initializes a new instance of <see cref="EmbedFooter" /> with text <paramref name="text" />.
     /// </summary>
     /// <param name="text">The text contents of the footer</param>
-    /// <param name="iconUrl">The URL to footer's icon</param>
+    /// <param name="icon">The URL to footer's icon</param>
     /// <exception cref="ArgumentNullException">When <paramref name="text" /> is <see langword="null" /></exception>
     /// <returns>New <see cref="EmbedFooter" /> instance</returns>
     /// <seealso cref="EmbedFooter" />
     /// <seealso cref="EmbedFooter(string, string)" />
+    /// <seealso cref="EmbedFooter(object, Uri)" />
+    /// <seealso cref="EmbedFooter(object, string)" />
     [JsonConstructor]
     public EmbedFooter(
         [JsonProperty(Required = Required.Always)]
         string text,
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        Uri? iconUrl = null
+        [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
+        Uri? icon = null
     ) =>
-        (Text, IconUrl) = (text, iconUrl);
+        (Text, IconUrl) = (text, icon);
+
     /// <inheritdoc cref="EmbedFooter(string, Uri?)" />
-    /// <exception cref="ArgumentNullException"><paramref name="iconUrl" /> is <see langword="null" />, empty or whitespace</exception>
-    /// <exception cref="UriFormatException"><paramref name="iconUrl" /> has bad <see cref="Uri" /> formatting</exception>
+    /// <exception cref="ArgumentNullException"><paramref name="icon" /> is <see langword="null" />, empty or whitespace</exception>
+    /// <exception cref="UriFormatException"><paramref name="icon" /> has bad <see cref="Uri" /> formatting</exception>
     /// <returns>New <see cref="EmbedFooter" /> instance</returns>
     /// <seealso cref="EmbedFooter" />
     /// <seealso cref="EmbedFooter(string, Uri)" />
-    public EmbedFooter(string text, string iconUrl) : this(text, new Uri(iconUrl)) { }
+    /// <seealso cref="EmbedFooter(object, Uri)" />
+    /// <seealso cref="EmbedFooter(object, string)" />
+    public EmbedFooter(string text, string icon) : this(text, new Uri(icon)) { }
+
+    /// <inheritdoc cref="EmbedFooter(string, Uri?)" />
+    /// <returns>New <see cref="EmbedFooter" /> instance</returns>
+    /// <seealso cref="EmbedFooter" />
+    /// <seealso cref="EmbedFooter(string, Uri)" />
+    /// <seealso cref="EmbedFooter(string, string)" />
+    /// <seealso cref="EmbedFooter(object, string)" />
+    public EmbedFooter(object text, Uri? icon = null) : this(text.ToString(), icon) { }
+
+    /// <inheritdoc cref="EmbedFooter(string, Uri?)" />
+    /// <returns>New <see cref="EmbedFooter" /> instance</returns>
+    /// <seealso cref="EmbedFooter" />
+    /// <seealso cref="EmbedFooter(string, Uri)" />
+    /// <seealso cref="EmbedFooter(string, string)" />
+    /// <seealso cref="EmbedFooter(object, Uri)" />
+    public EmbedFooter(object text, string icon) : this(text.ToString(), icon) { }
     #endregion
 }

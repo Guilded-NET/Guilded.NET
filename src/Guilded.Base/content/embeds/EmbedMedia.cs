@@ -37,6 +37,7 @@ public class EmbedMedia : BaseModel
         Uri url
     ) =>
         Url = url;
+
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedMedia" /> with optional size parameters.
     /// </summary>

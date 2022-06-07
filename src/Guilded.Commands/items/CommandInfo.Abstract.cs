@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using RestSharp.Extensions;
 
 namespace Guilded.Commands;
 
@@ -32,11 +34,11 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
     /// <inheritdoc cref="CommandAttribute.Aliases" />
     string[]? Aliases { get; }
 
-    /// <inheritdoc cref="CommandAttribute.Description" />
-    public string? Description { get; }
+    /// <inheritdoc cref="DescriptionAttribute.Text" />
+    string? Description { get; }
 
-    /// <inheritdoc cref="CommandAttribute.Examples" />
-    public string[]? Examples { get; }
+    /// <inheritdoc cref="ExampleAttribute.Content" />
+    IEnumerable<ExampleAttribute>? Examples { get; }
     #endregion
 
     #region Additional
@@ -49,6 +51,7 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
         Name == name || (Aliases?.Contains(name) ?? false);
     #endregion
 }
+
 /// <summary>
 /// Represents the base for information about any type of Guilded.NET command.
 /// </summary>
@@ -73,11 +76,11 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
     /// <inheritdoc cref="CommandAttribute.Aliases" />
     public string[]? Aliases => Attribute.Aliases;
 
-    /// <inheritdoc cref="CommandAttribute.Description" />
-    public string? Description => Attribute.Description;
+    /// <inheritdoc cref="DescriptionAttribute.Text" />
+    public string? Description => Member.GetAttribute<DescriptionAttribute>()?.Text;
 
-    /// <inheritdoc cref="CommandAttribute.Examples" />
-    public string[]? Examples => Attribute.Examples;
+    /// <inheritdoc cref="ExampleAttribute.Content" />
+    public IEnumerable<ExampleAttribute> Examples => Member.GetCustomAttributes<ExampleAttribute>();
     #endregion
 
     #region Constructors
@@ -87,6 +90,23 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
     /// <param name="attribute">The command attribute that was given to the member</param>
     /// <param name="member">The member who was declared as a command</param>
     protected AbstractCommandInfo(CommandAttribute attribute, TMember member) =>
-        (Name, Member, Attribute) = (attribute.Name ?? member.Name.ToLowerInvariant(), member, attribute);
+        (Name, Member, Attribute) = (attribute.Name ?? TransformMethodName(member.Name), member, attribute);
+    #endregion
+
+    #region Methods
+    private static string TransformMethodName(string name)
+    {
+        // Trim XCommandAsync(), XCommand(), XAsync()
+        string unsuffixedName = TrimSuffix(TrimSuffix(name, "Async"), "Command");
+
+        return unsuffixedName.ToLowerInvariant();
+    }
+
+    private static string TrimSuffix(string str, string substring)
+    {
+        int suffixIndex = str.LastIndexOf(substring);
+
+        return suffixIndex > -1 ? str[..suffixIndex] : str;
+    }
     #endregion
 }
