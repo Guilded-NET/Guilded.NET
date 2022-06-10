@@ -51,6 +51,6 @@ public abstract class AbstractCommandArgument
     /// <param name="arguments"><see cref="CommandEvent.Arguments">The arguments</see> fetched from <see cref="CommandEvent">the command invokation</see></param>
     /// <param name="index">The index this argument is at</param>
     /// <returns>Value</returns>
-    public abstract object GetValueFrom(IEnumerable<string> arguments, int index);
+    public abstract object? GetValueFrom(IEnumerable<string> arguments, int index);
     #endregion
 }

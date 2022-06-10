@@ -14,7 +14,7 @@ public class CommandArgumentInfo : AbstractCommandArgument
     #region Static
     // FIXME: Cast int.Parse, bool.Parse, etc. to Func<string, object> somehow or something like that
     // I hate this
-    private static readonly Dictionary<Type, Func<string, object>> _converters =
+    internal static readonly Dictionary<Type, Func<string, object>> _converters =
         new()
         {
             { typeof(string),   x => x },
@@ -56,7 +56,6 @@ public class CommandArgumentInfo : AbstractCommandArgument
     #endregion
 
     #region Methods
-    // TODO: Nullability
     /// <inheritdoc />
     public override object GetValueFrom(IEnumerable<string> arguments, int index) =>
         Converter(arguments.ElementAt(index));
@@ -70,6 +69,45 @@ public class CommandArgumentInfo : AbstractCommandArgument
 
         return _converters[parameterType];
     }
+    #endregion
+}
+
+/// <summary>
+/// Represents the information about one-value command argument in <see name="CommandInfo">a command method</see>.
+/// </summary>
+public class CommandOptionalArgumentInfo : AbstractCommandArgument
+{
+    #region Properties
+    /// <summary>
+    /// Gets the converter to convert string values to the <see cref="AbstractCommandArgument.ArgumentType">argument's type</see>.
+    /// </summary>
+    /// <value>String to Object Converter</value>
+    internal Func<string, object> Converter { get; }
+    #endregion
+
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of <see cref="CommandArgumentInfo" /> from a <paramref name="parameter">method parameter</paramref>.
+    /// </summary>
+    /// <param name="parameter">The parameter that was declared as a command parameter</param>
+    /// <param name="type">The type of the argument</param>
+    public CommandOptionalArgumentInfo(ParameterInfo parameter, Type type) : base(parameter) =>
+        Converter = CommandArgumentInfo.GetParametersParser(type);
+    #endregion
+
+    #region Methods
+    /// <inheritdoc />
+    public override object? GetValueFrom(IEnumerable<string> arguments, int index) =>
+        // Convert properly
+        arguments.Count() > index
+        ? Converter(arguments.ElementAt(index))
+        // = xyz or `null`
+        // This could be minimized to just .Value, but at this point maybe RAM would suffer and it's
+        // obsession over micro-optimizations
+        // need to check RAM usage of the commands first
+        : Parameter.HasDefaultValue
+        ? Parameter.DefaultValue
+        : null;
     #endregion
 }
 

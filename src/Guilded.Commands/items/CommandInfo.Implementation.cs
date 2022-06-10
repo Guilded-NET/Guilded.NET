@@ -96,21 +96,21 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
             if (!s_allowedTypes.Contains(argumentType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");
 
-            return new CommandArgumentInfo(arg);
+            return isDefaultable ? new CommandOptionalArgumentInfo(arg, argumentType) : new CommandArgumentInfo(arg);
         }).ToArray();
     }
     #endregion
 
     #region Methods
     internal bool HasCorrectCount(int count) =>
-        HasRestArgument ? count >= RequiredCount : count == RequiredCount;
+        HasRestArgument ? count >= RequiredCount : count >= RequiredCount && count <= Arguments.Count();
 
     /// <summary>
     /// Returns the enumerable of runtime method parameter values.
     /// </summary>
     /// <param name="arguments">The given arguments of the command</param>
     /// <returns>Enumerable of parameters</returns>
-    internal IEnumerable<object> GenerateMethodParameters(IEnumerable<string> arguments) =>
+    internal IEnumerable<object?> GenerateMethodParameters(IEnumerable<string> arguments) =>
         // (CommandEvent invokation, string arg0, int arg1)
         Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
 
@@ -121,7 +121,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// <param name="commandEvent">The command event that invoked the command</param>
     /// <param name="arguments">The arguments that have been used to invoke the command</param>
     /// <returns>Whether the command was properly invoked</returns>
-    public Task InvokeAsync(CommandBase parent, CommandEvent commandEvent, IEnumerable<object> arguments) =>
+    public Task InvokeAsync(CommandBase parent, CommandEvent commandEvent, IEnumerable<object?> arguments) =>
         Task.Run(() => Member.Invoke(parent, new object[] { commandEvent }.Concat(arguments.ToArray()).ToArray()));
     #endregion
 }

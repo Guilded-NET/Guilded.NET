@@ -107,7 +107,7 @@ public class CommandBase
 
                 try
                 {
-                    IEnumerable<object> commandArgs = command.GenerateMethodParameters(arguments);
+                    IEnumerable<object?> commandArgs = command.GenerateMethodParameters(arguments);
 
                     // Context
                     CommandEvent commandEvent = new(rootInvokation, commandName, arguments);
@@ -135,7 +135,7 @@ public class CommandBase
     /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
     /// <param name="rawArguments">The unparsed arguments that were given to the command</param>
     /// <param name="arguments">The parsed arguments that were given to the command</param>
-    protected virtual async Task InvokeCommandAsync(CommandInfo command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object> arguments)
+    protected virtual async Task InvokeCommandAsync(CommandInfo command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object?> arguments)
     {
         CommandEvent commandInvokation = new(rootInvokation, commandName, rawArguments);
 

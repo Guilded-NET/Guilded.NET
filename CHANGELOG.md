@@ -4,6 +4,7 @@
 - Added `UsageAreaAttribute` attribute for commands, but it isn't used anywhere yet
 - Added more `EmbedField`, `EmbedAuthor` and `EmbedFooter` constructors
 - Added `Mentions` property to `ListItemNote`
+- Added support for nullable command arguments
 - Renamed `ForumThread` and `CreateForumThreadAsync` to `ForumTopic` and `CreateForumTopicAsync`
 - Fixed bugs related to commands
 - Fixed embeds not being sent if author does not contain an icon and URL
