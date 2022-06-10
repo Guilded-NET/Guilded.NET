@@ -76,12 +76,12 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods Forum channels
     /// <inheritdoc />
-    public override async Task<ForumTopic> CreateForumTopicAsync(Guid channel, string title, string content)
+    public override async Task<Topic> CreateTopicAsync(Guid channel, string title, string content)
     {
         if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
         else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
 
-        return await GetResponseProperty<ForumTopic>(new RestRequest($"channels/{channel}/topics", Method.Post)
+        return await GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics", Method.Post)
             .AddJsonBody(new
             {
                 title,

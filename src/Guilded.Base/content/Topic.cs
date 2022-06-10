@@ -6,22 +6,22 @@ using Newtonsoft.Json;
 namespace Guilded.Base.Content;
 
 /// <summary>
-/// Represents a thread or a post in <see cref="Servers.ChannelType.Forums">a forum channel</see>.
+/// Represents a topic in <see cref="ChannelType.Forums">a forum channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Currently can only be found as a return value from forum thread creation methods.</para>
+/// <para>Currently can only be found as a return value from forum topic creation methods.</para>
 /// </remarks>
 /// <seealso cref="Message" />
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItem" />
-public class ForumTopic : TitledContent
+public class Topic : TitledContent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Servers.Webhook">the webhook</see> that created <see cref="ForumTopic">the forum thread</see>.
+    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created <see cref="Topic">the forum thread</see>.
     /// </summary>
-    /// <value><see cref="Servers.Webhook.Id">Webhook ID</see>?</value>
-    /// <seealso cref="ForumTopic" />
+    /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
+    /// <seealso cref="Topic" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     /// <seealso cref="TitledContent.UpdatedAt" />
@@ -30,7 +30,7 @@ public class ForumTopic : TitledContent
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ForumTopic" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="Topic" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the forum thread</param>
     /// <param name="channelId">The identifier of the channel where the forum thread is</param>
@@ -41,10 +41,10 @@ public class ForumTopic : TitledContent
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
     /// <param name="createdAt">the date when the forum thread was created</param>
     /// <param name="updatedAt">the date when the forum thread was edited</param>
-    /// <returns>New <see cref="ForumTopic" /> JSON instance</returns>
-    /// <seealso cref="ForumTopic" />
+    /// <returns>New <see cref="Topic" /> JSON instance</returns>
+    /// <seealso cref="Topic" />
     [JsonConstructor]
-    public ForumTopic(
+    public Topic(
         [JsonProperty(Required = Required.Always)]
         uint id,
 

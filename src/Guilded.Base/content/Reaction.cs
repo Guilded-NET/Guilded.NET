@@ -10,7 +10,7 @@ namespace Guilded.Base.Content;
 /// </summary>
 /// <seealso cref="Message" />
 /// <seealso cref="Doc" />
-/// <seealso cref="ForumTopic" />
+/// <seealso cref="Topic" />
 public class Reaction : ContentModel, IModelHasId<uint>, IWebhookCreatable, ICreatableContent
 {
     #region Properties

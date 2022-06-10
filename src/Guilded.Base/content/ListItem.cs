@@ -18,7 +18,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="ListItemNote" />
 /// <seealso cref="ListItemNoteSummary" />
 /// <seealso cref="Content.Message" />
-/// <seealso cref="ForumTopic" />
+/// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown where T : ListItemNoteSummary
 {
@@ -183,7 +183,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
 /// <seealso cref="ListItemNoteSummary" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-/// <seealso cref="ForumTopic" />
+/// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 public class ListItem : ListItemBase<ListItemNote>
 {
@@ -261,7 +261,7 @@ public class ListItem : ListItemBase<ListItemNote>
 /// <seealso cref="ListItemNoteSummary" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-/// <seealso cref="ForumTopic" />
+/// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 public class ListItemSummary : ListItemBase<ListItemNote>
 {

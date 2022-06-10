@@ -13,7 +13,7 @@ namespace Guilded.Base.Content;
 /// <typeparam name="TId">The type of <see cref="ChannelContent{TId, TServer}">the content</see> identifier (property <see cref="Id" />)</typeparam>
 /// <typeparam name="TServer">The type of <see cref="Server">the server</see> identifier (property <see cref="ServerId" />)</typeparam>
 /// <seealso cref="Message" />
-/// <seealso cref="ForumTopic" />
+/// <seealso cref="Topic" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Doc" />
 public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<TId>, ICreatableContent where TId : notnull
