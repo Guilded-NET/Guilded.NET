@@ -9,7 +9,7 @@ namespace Guilded.Base.Content;
 /// <summary>
 /// Represents a document in a document channel.
 /// </summary>
-/// <seealso cref="ForumThread" />
+/// <seealso cref="ForumTopic" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
 public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent

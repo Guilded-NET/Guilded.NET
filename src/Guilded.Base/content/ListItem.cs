@@ -18,7 +18,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="ListItemNote" />
 /// <seealso cref="ListItemNoteSummary" />
 /// <seealso cref="Content.Message" />
-/// <seealso cref="ForumThread" />
+/// <seealso cref="ForumTopic" />
 /// <seealso cref="Doc" />
 public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown where T : ListItemNoteSummary
 {
@@ -82,9 +82,9 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     public Guid? ParentId { get; }
 
     /// <summary>
-    /// Gets whether the list item was ticked off
+    /// Gets whether <see cref="ListItem">the list item</see> was ticked off
     /// </summary>
-    /// <returns>List item is completed</returns>
+    /// <returns><see cref="ListItem">List item</see> is completed</returns>
     public bool IsCompleted => CompletedAt is not null;
     #endregion
 
@@ -183,7 +183,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
 /// <seealso cref="ListItemNoteSummary" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-/// <seealso cref="ForumThread" />
+/// <seealso cref="ForumTopic" />
 /// <seealso cref="Doc" />
 public class ListItem : ListItemBase<ListItemNote>
 {
@@ -261,7 +261,7 @@ public class ListItem : ListItemBase<ListItemNote>
 /// <seealso cref="ListItemNoteSummary" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-/// <seealso cref="ForumThread" />
+/// <seealso cref="ForumTopic" />
 /// <seealso cref="Doc" />
 public class ListItemSummary : ListItemBase<ListItemNote>
 {
@@ -336,32 +336,26 @@ public class ListItemNoteSummary : BaseModel, ICreatableContent, IUpdatableConte
 
     #region Who, when
     /// <summary>
-    /// The identifier of <see cref="User">user</see> that created the note.
+    /// Gets the identifier of <see cref="User">the user</see> who created <see cref="ListItemNote">the note</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the date when the note was created.
+    /// Gets the date when <see cref="ListItemNote">the note</see> was created.
     /// </summary>
     /// <value>Date</value>
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// The identifier of <see cref="User">user</see> that updated the note.
+    /// The identifier of <see cref="User">the user</see> who updated <see cref="ListItemNote">the note</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>The identifier of <see cref="User">user</see> that most recently updated this note.</para>
-    /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId? UpdatedBy { get; }
 
     /// <summary>
-    /// the date when the note was edited.
+    /// Gets the date when <see cref="ListItemNote">the note</see> was edited.
     /// </summary>
-    /// <remarks>
-    /// <para>the date when the note was most recently updated.</para>
-    /// </remarks>
     /// <value>Date</value>
     public DateTime? UpdatedAt { get; }
     #endregion
@@ -402,13 +396,16 @@ public class ListItemNote : ListItemNoteSummary
 {
     #region Properties
     /// <summary>
-    /// The contents of the note in the item.
+    /// Gets the contents of <see cref="ListItemNote">the note</see> in <see cref="ListItem">the item</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>The contents of the list item's note formatted in Markdown.</para>
-    /// </remarks>
     /// <value>Markdown string</value>
     public string Content { get; set; }
+
+    /// <summary>
+    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="Content">the content</see>.
+    /// </summary>
+    /// <value><see cref="Content.Mentions" />?</value>
+    public Mentions? Mentions { get; set; }
     #endregion
 
     #region Constructors

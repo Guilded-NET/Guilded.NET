@@ -426,20 +426,20 @@ public abstract partial class BaseGuildedClient
 
     #region Methods Forum channels
     /// <summary>
-    /// Creates a <see cref="ForumThread">new forum post</see>.
+    /// Creates a <see cref="ForumTopic">new forum post</see>.
     /// </summary>
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
-    /// <param name="title">The title of <see cref="ForumThread">the forum post</see></param>
-    /// <param name="content">The content of <see cref="ForumThread">the forum post</see></param>
+    /// <param name="title">The title of <see cref="ForumTopic">the forum post</see></param>
+    /// <param name="content">The content of <see cref="ForumTopic">the forum post</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="ForumPermissions.CreateTopics" />
-    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="ForumThread">a forum thread</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Created <see cref="ForumThread">forum thread</see></returns>
-    public abstract Task<ForumThread> CreateForumThreadAsync(Guid channel, string title, string content);
+    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="ForumTopic">a forum thread</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>Created <see cref="ForumTopic">forum thread</see></returns>
+    public abstract Task<ForumTopic> CreateForumTopicAsync(Guid channel, string title, string content);
     #endregion
 
     #region Methods List channels

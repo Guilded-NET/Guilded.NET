@@ -14,14 +14,14 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItem" />
-public class ForumThread : TitledContent
+public class ForumTopic : TitledContent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Servers.Webhook">the webhook</see> that created <see cref="ForumThread">the forum thread</see>.
+    /// Gets the identifier of <see cref="Servers.Webhook">the webhook</see> that created <see cref="ForumTopic">the forum thread</see>.
     /// </summary>
     /// <value><see cref="Servers.Webhook.Id">Webhook ID</see>?</value>
-    /// <seealso cref="ForumThread" />
+    /// <seealso cref="ForumTopic" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     /// <seealso cref="TitledContent.UpdatedAt" />
@@ -30,7 +30,7 @@ public class ForumThread : TitledContent
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ForumThread" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="ForumTopic" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the forum thread</param>
     /// <param name="channelId">The identifier of the channel where the forum thread is</param>
@@ -41,10 +41,10 @@ public class ForumThread : TitledContent
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
     /// <param name="createdAt">the date when the forum thread was created</param>
     /// <param name="updatedAt">the date when the forum thread was edited</param>
-    /// <returns>New <see cref="ForumThread" /> JSON instance</returns>
-    /// <seealso cref="ForumThread" />
+    /// <returns>New <see cref="ForumTopic" /> JSON instance</returns>
+    /// <seealso cref="ForumTopic" />
     [JsonConstructor]
-    public ForumThread(
+    public ForumTopic(
         [JsonProperty(Required = Required.Always)]
         uint id,
 

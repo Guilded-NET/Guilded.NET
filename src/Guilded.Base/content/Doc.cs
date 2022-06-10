@@ -9,7 +9,7 @@ namespace Guilded.Base.Content;
 /// <summary>
 /// Represents a document in <see cref="Servers.ChannelType.Docs">a document channel</see>.
 /// </summary>
-/// <seealso cref="ForumThread" />
+/// <seealso cref="ForumTopic" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Message" />
 public class Doc : TitledContent, IContentMarkdown

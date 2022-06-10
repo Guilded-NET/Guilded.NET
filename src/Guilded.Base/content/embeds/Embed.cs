@@ -34,7 +34,7 @@ namespace Guilded.Base.Embeds;
 /// </code>
 /// </example>
 /// <seealso cref="Message" />
-/// <seealso cref="ForumThread" />
+/// <seealso cref="ForumTopic" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Doc" />
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
