@@ -35,6 +35,12 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// </summary>
     /// <value>Command has rest argument</value>
     public bool HasRestArgument { get; private set; } = false;
+
+    /// <summary>
+    /// Gets whether there is a rest argument for the command.
+    /// </summary>
+    /// <value>Command has rest argument</value>
+    public int RequiredCount { get; private set; }
     #endregion
 
     #region Constructors
@@ -44,7 +50,10 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// <param name="method">The method that was declared as a command</param>
     /// <param name="attribute">The command attribute it was given</param>
     /// <param name="parameters">The parameters that will be used as command arguments</param>
-    public CommandInfo(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method) =>
+    public CommandInfo(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method)
+    {
+        bool defaultInList = false;
+
         Arguments = parameters.Select<ParameterInfo, AbstractCommandArgument>((arg, argIndex) =>
         {
             // Honestly, I don't know what I am doing. I don't want to do repetitive ifs,
@@ -62,16 +71,39 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                     HasRestArgument = true;
                     return new CommandRestInfo(arg);
                 }
-            else if (!s_allowedTypes.Contains(arg.ParameterType))
+
+            Type nullableType = Nullable.GetUnderlyingType(arg.ParameterType);
+
+            bool isDefaultable = nullableType is not null || arg.HasDefaultValue;
+
+            // Prevent (uint? x, uint y)
+            if (defaultInList)
+            {
+                if (!isDefaultable)
+                    throw new InvalidOperationException($"Command cannot contain a non-nullable argument after a nullable argument type");
+            }
+            else
+            {
+                // Whether to increment required count
+                if (isDefaultable)
+                    defaultInList = true;
+                else RequiredCount++;
+            }
+
+            // uint? and uint to be treated the same
+            Type argumentType = nullableType ?? arg.ParameterType;
+
+            if (!s_allowedTypes.Contains(argumentType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");
 
             return new CommandArgumentInfo(arg);
         }).ToArray();
+    }
     #endregion
 
     #region Methods
     internal bool HasCorrectCount(int count) =>
-        HasRestArgument ? count >= Arguments.Count() : count == Arguments.Count();
+        HasRestArgument ? count >= RequiredCount : count == RequiredCount;
 
     /// <summary>
     /// Returns the enumerable of runtime method parameter values.
