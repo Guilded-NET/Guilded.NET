@@ -11,6 +11,9 @@ namespace Guilded.Commands;
 /// <summary>
 /// Represents the module that adds <see cref="CommandAttribute">commands</see> to <see cref="BaseGuildedClient">Guilded clients</see>.
 /// </summary>
+/// <seealso cref="CommandBase" />
+/// <seealso cref="CommandAttribute" />
+/// <seealso cref="CommandFallbackAttribute" />
 public class CommandModule : CommandBase
 {
     #region Static & Constants

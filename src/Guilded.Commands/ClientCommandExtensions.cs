@@ -3,9 +3,6 @@ namespace Guilded.Commands;
 /// <summary>
 /// Extensions for Guilded clients related to commands.
 /// </summary>
-/// <remarks>
-/// <para>Adds command-related extensions to clients.</para>
-/// </remarks>
 /// <seealso cref="CommandModule" />
 public static class ClientCommandExtensions
 {

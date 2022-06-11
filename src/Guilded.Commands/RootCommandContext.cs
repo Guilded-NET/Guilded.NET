@@ -15,6 +15,8 @@ namespace Guilded.Commands;
 /// </code>
 /// <para>Even if we invoke <q>config items add</q> command, the root command will always remain <q>config</q>.</para>
 /// </example>
+/// <seealso cref="CommandEvent" />
+/// <seealso cref="FailedCommandEvent" />
 public struct RootCommandEvent
 {
     #region Properties

@@ -11,6 +11,24 @@ namespace Guilded.Commands;
 /// <summary>
 /// Represents the base for all <see cref="CommandAttribute">command types</see>.
 /// </summary>
+/// <example>
+/// <para>The following shows an example of a command with a sub-command:</para>
+/// <code language="csharp">
+/// [Command]
+/// public class Config : CommandBase
+/// {
+///     [Command]
+///     public async Task Prefix(CommandEvent invokation, [CommandParam] string prefix)
+///     {
+///         // ...
+///         await invokation.ReplyAsync($"Set prefix as '{prefix}'");
+///     }
+/// }
+/// </code>
+/// </example>
+/// <seealso cref="CommandModule" />
+/// <seealso cref="CommandAttribute" />
+/// <seealso cref="CommandFallbackAttribute" />
 public class CommandBase
 {
     #region Field
