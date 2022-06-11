@@ -72,7 +72,7 @@ public class EmbedFooter : BaseModel
     /// <seealso cref="EmbedFooter(string, Uri)" />
     /// <seealso cref="EmbedFooter(string, string)" />
     /// <seealso cref="EmbedFooter(object, string)" />
-    public EmbedFooter(object text, Uri? icon = null) : this(text.ToString(), icon) { }
+    public EmbedFooter(object? value, Uri? icon = null) : this(value?.ToString() ?? string.Empty, icon) { }
 
     /// <inheritdoc cref="EmbedFooter(string, Uri?)" />
     /// <returns>New <see cref="EmbedFooter" /> instance</returns>
@@ -80,6 +80,6 @@ public class EmbedFooter : BaseModel
     /// <seealso cref="EmbedFooter(string, Uri)" />
     /// <seealso cref="EmbedFooter(string, string)" />
     /// <seealso cref="EmbedFooter(object, Uri)" />
-    public EmbedFooter(object text, string icon) : this(text.ToString(), icon) { }
+    public EmbedFooter(object? value, string icon) : this(value?.ToString() ?? string.Empty, icon) { }
     #endregion
 }

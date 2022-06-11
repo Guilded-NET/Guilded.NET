@@ -68,7 +68,7 @@ public class EmbedAuthor : BaseModel
         Name = name;
 
     /// <inheritdoc cref="EmbedAuthor(string)" />
-    public EmbedAuthor(object name) : this(name.ToString()) { }
+    public EmbedAuthor(object? name) : this(name?.ToString() ?? string.Empty) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedAuthor" /> with an optional <paramref name="url" />.
@@ -101,12 +101,12 @@ public class EmbedAuthor : BaseModel
     /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
     /// <seealso cref="EmbedAuthor" />
     /// <seealso cref="EmbedAuthor(string, Uri, Uri)" />
-    public EmbedAuthor(object name, Uri? url = null, Uri? icon = null) : this(name.ToString(), url, icon) { }
+    public EmbedAuthor(object? name, Uri? url = null, Uri? icon = null) : this(name?.ToString() ?? string.Empty, url, icon) { }
 
     /// <inheritdoc cref="EmbedAuthor(string, Uri?, Uri?)" />
     /// <exception cref="UriFormatException"><paramref name="url" /> or <paramref name="icon" /> have bad <see cref="Uri" /> formatting</exception>
     /// <seealso cref="EmbedAuthor" />
     /// <seealso cref="EmbedAuthor(string, Uri, Uri)" />
-    public EmbedAuthor(object name, string? url = null, string? icon = null) : this(name.ToString(), url, icon) { }
+    public EmbedAuthor(object? name, string? url = null, string? icon = null) : this(name?.ToString() ?? string.Empty, url, icon) { }
     #endregion
 }
