@@ -5,6 +5,20 @@ namespace Guilded.Commands;
 /// <summary>
 /// Defines a description for a command.
 /// </summary>
+/// <example>
+/// <para>The code below demonstrates a command with a description in C#11 preview:</para>
+/// <code language="csharp">
+/// [Description(
+///     """
+///     Makes the bot respond with `Pong!`
+///     There isn't much else to it.
+///     """
+/// )]
+/// [Command]
+/// public async Task Ping(CommandEvent invokation) =>
+///     await invokation.ReplyAsync("Pong!");
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 public sealed class DescriptionAttribute : Attribute
 {

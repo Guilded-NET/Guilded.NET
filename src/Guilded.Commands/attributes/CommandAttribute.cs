@@ -9,7 +9,8 @@ namespace Guilded.Commands;
 /// <para>By default, all the parameters will be seen as context parameters, unless a parameter has <see cref="CommandParamAttribute" />. Parameters with <see cref="CommandParamAttribute" /> will be declared as command's parameters.</para>
 /// </remarks>
 /// <example>
-/// <para>Example of a command with its own subcommands:</para>
+/// <para>Example of a command with its own subcommands.</para>
+/// <para>This results in a command <c>config</c> with sub-command <c>prefix</c>. <c>prefix</c> command will not be invokable without any arguments.</para>
 /// <code lang="csharp">
 /// [Command]
 /// public static class ConfigCommand
@@ -22,6 +23,7 @@ namespace Guilded.Commands;
 ///     }
 /// }
 /// </code>
+/// <para>Writing <q>!config prefix ?</q> will result in bot responding with <q>Set server's prefix to <c>?</c></q> message.</para>
 /// </example>
 /// <seealso cref="CommandParamAttribute" />
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Module | AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
@@ -32,7 +34,7 @@ public class CommandAttribute : Attribute
     /// Gets the overriden name of the command.
     /// </summary>
     /// <remarks>
-    /// <para>By default, lowercase name of the method will be used.</para>
+    /// <para>By default, lowercase name of the method will be used. <c>Async</c> and <c>Command</c> will also be trimmed from the end if the name comes from the method.</para>
     /// </remarks>
     /// <value>Name?</value>
     public string? Name { get; set; }

@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using Guilded.Base;
 using Guilded.Base.Events;
 
 namespace Guilded.Commands;
 
 /// <summary>
-/// The module that adds commands to Guilded clients.
+/// Represents the module that adds <see cref="CommandAttribute">commands</see> to <see cref="BaseGuildedClient">Guilded clients</see>.
 /// </summary>
-/// <remarks>
-/// <para>Adds customizable commands to selected clients.</para>
-/// </remarks>
 public class CommandModule : CommandBase
 {
     #region Static & Constants
@@ -83,6 +81,11 @@ public class CommandModule : CommandBase
     /// </summary>
     /// <param name="splitOptions">The splitting options of the command's arguments</param>
     public CommandModule(StringSplitOptions splitOptions = DefaultSplitOptions) : this(string.Empty, splitOptions) { }
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="CommandModule" /> with no prefix.
+    /// </summary>
+    public CommandModule() : this(string.Empty) { }
     #endregion
 
     #region Methods

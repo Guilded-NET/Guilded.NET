@@ -5,6 +5,17 @@ namespace Guilded.Commands;
 /// <summary>
 /// Defines an example for a command.
 /// </summary>
+/// <example>
+/// <para>The following example demonstrates a command with 3 examples attached to it. The last command example uses the command's alias <c>plus</c>.</para>
+/// <code language="csharp">
+/// [Command(Aliases = new string[] { "plus" })]
+/// [Example("2 + 2")]
+/// [Example("-2 + 5")]
+/// [Example("plus", "-2 + 5")]
+/// public async Task Add(CommandEvent invokation, [CommandParam] int x, [CommandParam] int y) =>
+///     await invokation.ReplyAsync($"{x} + {y} = {x + y}");
+/// </code>
+/// </example>
 [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
 public sealed class ExampleAttribute : Attribute
 {

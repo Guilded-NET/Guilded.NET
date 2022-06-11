@@ -5,9 +5,20 @@ namespace Guilded.Commands;
 /// <summary>
 /// Declares a parameter as a <see cref="CommandAttribute">command's</see> parameter.
 /// </summary>
-/// <remarks>
-/// <para>Any parameter that does not have this parameter will be seen as a context parameter.</para>
-/// </remarks>
+/// <example>
+/// <para>Here's an example of a parameter being declared as a command parameter:</para>
+/// <code language="csharp">
+/// [Command(Aliases = new string[] { "plus" })]
+/// public async Task Add(CommandEvent invokation, [CommandParam] int x, [CommandParam] int y) =>
+///     await invokation.ReplyAsync($"{x} + {y} = {x + y}");
+/// </code>
+/// <para>The following showcases a command parameter with an overriden name:</para>
+/// <code language="csharp">
+/// [Command]
+/// public async Task Say(CommandEvent invokation, [CommandParam("text to say")] params string[] args) =>
+///     await invokation.ReplyAsync(string.Join(" ", args));
+/// </code>
+/// </example>
 /// <seealso cref="CommandAttribute" />
 [AttributeUsage(AttributeTargets.Parameter, Inherited = true, AllowMultiple = false)]
 public class CommandParamAttribute : Attribute
