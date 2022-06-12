@@ -72,7 +72,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                     return new CommandRestInfo(arg);
                 }
 
-            Type nullableType = Nullable.GetUnderlyingType(arg.ParameterType);
+            Type? nullableType = Nullable.GetUnderlyingType(arg.ParameterType);
 
             bool isDefaultable = nullableType is not null || arg.HasDefaultValue;
 
