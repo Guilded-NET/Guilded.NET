@@ -121,7 +121,7 @@ public class MessageEvent : MessageEvent<Message>
     ) : base(serverId, message) { }
     #endregion
 
-    #region Additional
+    #region Methods
 
     #region Method CreateMessageAsync
     /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)" />
@@ -192,11 +192,11 @@ public class MessageEvent : MessageEvent<Message>
         await Message.DeleteAsync().ConfigureAwait(false);
 
     /// <inheritdoc cref="Message.AddReactionAsync(uint)" />
-    public async Task<Reaction> AddReactionAsync(uint emoteId) =>
+    public async Task AddReactionAsync(uint emoteId) =>
         await Message.AddReactionAsync(emoteId).ConfigureAwait(false);
 
-    // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)" />
-    // public async Task RemoveReactionAsync(uint emoteId) =>
-    //     await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
+    /// <inheritdoc cref="Message.RemoveReactionAsync(uint)" />
+    public async Task RemoveReactionAsync(uint emoteId) =>
+        await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
     #endregion
 }

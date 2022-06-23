@@ -40,7 +40,7 @@ public enum FormPermissions
     /// </summary>
     PollResults = 16,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

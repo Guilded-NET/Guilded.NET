@@ -101,11 +101,11 @@ public interface IReactibleContent
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
     /// <param name="emoteId">The identifier of the emote to add</param>
-    Task<Reaction> AddReactionAsync(uint emoteId);
+    Task AddReactionAsync(uint emoteId);
 
-    // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
-    // /// <param name="emoteId">The identifier of the emote to remove</param>
-    // Task RemoveReactionAsync(uint emoteId);
+    /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
+    /// <param name="emoteId">The identifier of the emote to remove</param>
+    Task RemoveReactionAsync(uint emoteId);
     #endregion
 }
 

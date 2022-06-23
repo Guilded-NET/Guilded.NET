@@ -31,7 +31,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <summary>
     /// Gets the identifier of the channel where <see cref="ChannelContent{TId, TServer}">the content</see> are.
     /// </summary>
-    /// <value><see cref="Servers.ServerChannel.Id">Channel ID</see></value>
+    /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="Id" />
     /// <seealso cref="ServerId" />
@@ -53,7 +53,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <remarks>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
-    /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />

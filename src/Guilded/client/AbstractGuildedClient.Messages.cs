@@ -336,7 +336,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<DocEvent> DocCreated => ((IEventInfo<DocEvent>)GuildedEvents["DocCreated"]).Observable;
 
     /// <summary>
-    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a new document</see> is edited.
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a document</see> is edited.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>DocUpdated</c> and opcode <c>0</c>.</para>
@@ -346,7 +346,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<DocEvent> DocUpdated => ((IEventInfo<DocEvent>)GuildedEvents["DocUpdated"]).Observable;
 
     /// <summary>
-    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a new document</see> is deleted.
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Doc">a document</see> is deleted.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>DocDeleted</c> and opcode <c>0</c>.</para>
@@ -354,6 +354,38 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="DocCreated" />
     /// <seealso cref="DocUpdated" />
     public IObservable<DocEvent> DocDeleted => ((IEventInfo<DocEvent>)GuildedEvents["DocDeleted"]).Observable;
+    #endregion
+
+    #region Properties Calendar channels
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="CalendarEvent">a new calendar event</see> is posted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="EventUpdated" />
+    /// <seealso cref="EventDeleted" />
+    public IObservable<CalendarEventEvent> EventCreated => ((IEventInfo<CalendarEventEvent>)GuildedEvents["CalendarEventCreated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="CalendarEvent">a calendar event</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="EventCreated" />
+    /// <seealso cref="EventDeleted" />
+    public IObservable<CalendarEventEvent> EventUpdated => ((IEventInfo<CalendarEventEvent>)GuildedEvents["CalendarEventUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="CalendarEvent">a calendar event</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="EventCreated" />
+    /// <seealso cref="EventUpdated" />
+    public IObservable<CalendarEventEvent> EventDeleted => ((IEventInfo<CalendarEventEvent>)GuildedEvents["CalendarEventDeleted"]).Observable;
     #endregion
 
     #endregion

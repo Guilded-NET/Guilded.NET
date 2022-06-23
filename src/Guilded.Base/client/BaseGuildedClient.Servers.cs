@@ -185,7 +185,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers" />
-    public abstract Task KickMemberAsync(HashId server, HashId member);
+    public abstract Task RemoveMemberAsync(HashId server, HashId member);
 
     /// <summary>
     /// Gets the list of <paramref name="server">server's</paramref> bans.
@@ -218,7 +218,7 @@ public abstract partial class BaseGuildedClient
     /// Bans the <paramref name="member">specified member</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>Disallows them from joining again, until they receive an unban with <see cref="UnbanMemberAsync" /> method.</para>
+    /// <para>Disallows them from joining again, until they receive an unban with <see cref="RemoveMemberBanAsync" /> method.</para>
     /// </remarks>
     /// <param name="server">The server to ban member from</param>
     /// <param name="member">The identifier of <see cref="Member">the member</see> to ban</param>
@@ -230,7 +230,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers" />
     /// <returns>Created <see cref="MemberBan">member's ban</see></returns>
-    public abstract Task<MemberBan> BanMemberAsync(HashId server, HashId member, string? reason = null);
+    public abstract Task<MemberBan> AddMemberBanAsync(HashId server, HashId member, string? reason = null);
 
     /// <summary>
     /// Unbans the <paramref name="member">specified member</paramref>.
@@ -246,7 +246,22 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers" />
-    public abstract Task UnbanMemberAsync(HashId server, HashId member);
+    public abstract Task RemoveMemberBanAsync(HashId server, HashId member);
+
+    /// <inheritdoc cref="RemoveMemberAsync(HashId, HashId)" />
+    [Obsolete("Use `RemoveMemberAsync` (this is for consistency reason)")]
+    public async Task KickMemberAsync(HashId server, HashId member) =>
+        await RemoveMemberAsync(server, member).ConfigureAwait(false);
+
+    /// <inheritdoc cref="AddMemberBanAsync(HashId, HashId, string)" />
+    [Obsolete("Use `AddMemberBanAsync` (this is for consistency reason)")]
+    public async Task BanMemberAsync(HashId server, HashId member, string? reason = null) =>
+        await AddMemberBanAsync(server, member, reason).ConfigureAwait(false);
+
+    /// <inheritdoc cref="RemoveMemberBanAsync(HashId, HashId)" />
+    [Obsolete("Use `RemoveMemberBanAsync` (this is for consistency reason)")]
+    public async Task UnbanMemberAsync(HashId server, HashId member) =>
+        await RemoveMemberBanAsync(server, member).ConfigureAwait(false);
     #endregion
 
     #region Webhooks

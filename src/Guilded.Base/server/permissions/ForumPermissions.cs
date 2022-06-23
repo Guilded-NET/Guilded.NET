@@ -60,7 +60,7 @@ public enum ForumPermissions
     /// </summary>
     CreateTopicReplies = 64,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

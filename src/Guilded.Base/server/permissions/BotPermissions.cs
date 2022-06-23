@@ -37,7 +37,7 @@ public enum BotPermissions
     /// </summary>
     ManageBots = 1,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

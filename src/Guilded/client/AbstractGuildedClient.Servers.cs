@@ -85,7 +85,7 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods Server-wide Moderation
     /// <inheritdoc />
-    public override async Task KickMemberAsync(HashId server, HashId member) =>
+    public override async Task RemoveMemberAsync(HashId server, HashId member) =>
         await ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}", Method.Delete)).ConfigureAwait(false);
 
     /// <inheritdoc />
@@ -97,7 +97,7 @@ public abstract partial class AbstractGuildedClient
         await GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Get), "serverMemberBan").ConfigureAwait(false);
 
     /// <inheritdoc />
-    public override async Task<MemberBan> BanMemberAsync(HashId server, HashId member, string? reason = null) =>
+    public override async Task<MemberBan> AddMemberBanAsync(HashId server, HashId member, string? reason = null) =>
         await GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Post)
             .AddJsonBody(new
             {
@@ -106,7 +106,7 @@ public abstract partial class AbstractGuildedClient
         , "serverMemberBan").ConfigureAwait(false);
 
     /// <inheritdoc />
-    public override async Task UnbanMemberAsync(HashId server, HashId member) =>
+    public override async Task RemoveMemberBanAsync(HashId server, HashId member) =>
         await ExecuteRequestAsync(new RestRequest($"servers/{server}/bans/{member}", Method.Delete)).ConfigureAwait(false);
     #endregion
 

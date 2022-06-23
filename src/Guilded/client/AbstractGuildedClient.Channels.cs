@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using Guilded.Base.Content;
 
@@ -66,12 +67,12 @@ public abstract partial class AbstractGuildedClient
         await ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}", Method.Delete)).ConfigureAwait(false);
 
     /// <inheritdoc />
-    public override async Task<Reaction> AddReactionAsync(Guid channel, Guid message, uint emote) =>
-        await GetResponseProperty<Reaction>(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Put), "emote").ConfigureAwait(false);
+    public override async Task AddReactionAsync(Guid channel, Guid message, uint emote) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Put)).ConfigureAwait(false);
 
-    // /// <inheritdoc />
-    // public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
-    //     await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.Delete)).ConfigureAwait(false);
+    /// <inheritdoc />
+    public override async Task RemoveReactionAsync(Guid channelId, Guid messageId, uint emoteId) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{messageId}/emotes/{emoteId}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
     #region Methods Forum channels
@@ -159,8 +160,8 @@ public abstract partial class AbstractGuildedClient
         , "docs").ConfigureAwait(false);
 
     /// <inheritdoc />
-    public override async Task<Doc> GetDocAsync(Guid channelId, uint docId) =>
-        await GetResponseProperty<Doc>(new RestRequest($"channels/{channelId}/docs/{docId}", Method.Get), "doc").ConfigureAwait(false);
+    public override async Task<Doc> GetDocAsync(Guid channel, uint doc) =>
+        await GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Get), "doc").ConfigureAwait(false);
 
     /// <inheritdoc />
     public override async Task<Doc> CreateDocAsync(Guid channel, string title, string content)
@@ -197,13 +198,68 @@ public abstract partial class AbstractGuildedClient
         await ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
+    #region Calendar channels
+    /// <inheritdoc />
+    public override async Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
+        await GetResponseProperty<IList<CalendarEvent>>(
+            new RestRequest($"channels/{channel}/events", Method.Get)
+                .AddOptionalQuery("limit", limit, encode: false)
+                .AddOptionalQuery("before", before)
+        , "calendarEvents").ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task<CalendarEvent> GetEventAsync(Guid channel, uint calendarEvent) =>
+        await GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Get), "calendarEvent").ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool isPrivate = false)
+    {
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+
+        return await GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events", Method.Post)
+            .AddJsonBody(new
+            {
+                name,
+                description,
+                location,
+                startsAt,
+                url,
+                color,
+                duration,
+                isPrivate
+            })
+        , "calendarEvent").ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public override async Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
+        await GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Put)
+            .AddJsonBody(new
+            {
+                name,
+                description,
+                location,
+                startsAt,
+                url,
+                color,
+                duration,
+                isPrivate
+            })
+        , "calendarEvent").ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task DeleteEventAsync(Guid channel, uint calendarEvent) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Delete)).ConfigureAwait(false);
+    #endregion
+
     #region Methods Content
     /// <inheritdoc />
-    public override async Task<Reaction> AddReactionAsync(Guid channel, uint content, uint emote) =>
-        await GetResponseProperty<Reaction>(new RestRequest($"channels/{channel}/content/{content}/emotes/{emote}", Method.Put), "emote").ConfigureAwait(false);
-    // /// <inheritdoc />
-    // public override async Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
-    //     await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.Delete)).ConfigureAwait(false);
+    public override async Task AddReactionAsync(Guid channel, uint content, uint emote) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{content}/emotes/{emote}", Method.Put)).ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
     #endregion

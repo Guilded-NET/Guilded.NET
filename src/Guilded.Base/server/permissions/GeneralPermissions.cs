@@ -81,7 +81,7 @@ public enum GeneralPermissions
     /// </summary>
     AccessModeratorView = 32768,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

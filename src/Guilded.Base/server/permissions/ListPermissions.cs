@@ -60,7 +60,7 @@ public enum ListPermissions
     /// </summary>
     ReorderListItems = 32,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

@@ -50,7 +50,7 @@ public enum MediaPermissions
     /// </summary>
     RemoveMedia = 8,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

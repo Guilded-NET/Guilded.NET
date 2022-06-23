@@ -205,7 +205,9 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
     /// <param name="content">The text contents of the message</param>
     /// <param name="replyMessageIds">Gets the list of <see cref="Message">messages</see> being replied to</param>
     /// <param name="embeds">Gets the list of <see cref="Embed">custom embeds</see> that this message contains</param>
-    /// <param name="isPrivate">Whether <see cref="ReplyMessageIds">the reply</see> is private</param>
+    /// <param name="isPrivate">Whether <see cref="IsReply">the reply</see> or mention is private</param>
+    /// <param name="isSilent">Whether <see cref="IsReply">the reply</see> or mention is silent</param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Content">the content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> that created the message</param>
     /// <param name="createdAt">the date when the message was created</param>
@@ -246,15 +248,21 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
         bool isPrivate = false,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isSilent = false,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? createdByWebhookId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Content, ReplyMessageIds, Embeds, IsPrivate, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, embeds, isPrivate, createdByWebhookId, updatedAt, type);
+        (Content, ReplyMessageIds, Embeds, IsPrivate, IsSilent, Mentions, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, embeds, isPrivate, isSilent, mentions, createdByWebhookId, updatedAt, type);
     #endregion
 
-    #region Additional
+    #region Methods
 
     #region Method CreateMessageAsync
     /// <summary>
@@ -438,12 +446,12 @@ public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhoo
 
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)" />
     /// <param name="emote">The identifier of the emote to add</param>
-    public async Task<Reaction> AddReactionAsync(uint emote) =>
+    public async Task AddReactionAsync(uint emote) =>
         await ParentClient.AddReactionAsync(ChannelId, Id, emote).ConfigureAwait(false);
 
-    // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
-    // /// <param name="emoteId">The identifier of the emote to remove</param>
-    // public async Task RemoveReactionAsync(uint emoteId) =>
-    //     await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
+    /// <param name="emoteId">The identifier of the emote to remove</param>
+    public async Task RemoveReactionAsync(uint emoteId) =>
+        await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
     #endregion
 }

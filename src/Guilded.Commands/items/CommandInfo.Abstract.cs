@@ -41,7 +41,7 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
     IEnumerable<ExampleAttribute>? Examples { get; }
     #endregion
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// Gets whether the <paramref name="name">given name</paramref> matches command's <see cref="Name">name</see> or its <see cref="Aliases">aliases</see>.
     /// </summary>

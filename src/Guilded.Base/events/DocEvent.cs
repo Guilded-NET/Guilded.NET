@@ -17,9 +17,9 @@ public class DocEvent : BaseModel, IServerEvent
 {
     #region Properties
     /// <summary>
-    /// Gets the document received from the event.
+    /// Gets <see cref="Content.Doc">the document</see> received from the event.
     /// </summary>
-    /// <value>Doc</value>
+    /// <value><see cref="Content.Doc" /></value>
     /// <seealso cref="DocEvent" />
     /// <seealso cref="Title" />
     /// <seealso cref="ServerId" />
@@ -57,7 +57,7 @@ public class DocEvent : BaseModel, IServerEvent
     /// Initializes a new instance of <see cref="DocEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the doc event occurred</param>
-    /// <param name="doc">The doc received from the event</param>
+    /// <param name="doc"><see cref="Content.Doc">The doc</see> received from the event</param>
     /// <returns>New <see cref="DocEvent" /> JSON instance</returns>
     /// <seealso cref="DocEvent" />
     [JsonConstructor]
@@ -81,11 +81,11 @@ public class DocEvent : BaseModel, IServerEvent
         await Doc.DeleteAsync().ConfigureAwait(false);
 
     /// <inheritdoc cref="TitledContent.AddReactionAsync(uint)" />
-    public async Task<Reaction> AddReactionAsync(uint emoteId) =>
+    public async Task AddReactionAsync(uint emoteId) =>
         await Doc.AddReactionAsync(emoteId).ConfigureAwait(false);
 
-    // /// <inheritdoc cref="Message.RemoveReactionAsync(uint)" />
-    // public async Task RemoveReactionAsync(uint emoteId) =>
-    //     await Message.RemoveReactionAsync(emoteId).ConfigureAwait(false);
+    /// <inheritdoc cref="TitledContent.RemoveReactionAsync(uint)" />
+    public async Task RemoveReactionAsync(uint emoteId) =>
+        await Doc.RemoveReactionAsync(emoteId).ConfigureAwait(false);
     #endregion
 }

@@ -46,7 +46,7 @@ public enum MatchmakingPermissions
     /// </summary>
     CreateTournaments = 16,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

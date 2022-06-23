@@ -1,3 +1,11 @@
+# v0.8.5-beta
+
+- Added calendar event support
+- Renamed `KickMemberAsync` and `member.KickAsync` to `RemoveMemberAsync`
+- Renamed `BanMemberAsync` and `member.BanAsync` to `AddMemberBanAsync`
+- Renamed `UnbanMemberAsync` and `member.UnbanAsync` to `RemoveMemberBanAsync`
+- Fixed mentions always being `null` in messages
+
 # v0.8.4-beta
 
 - Added `DescriptionAttribute`, `ExampleAttribute` attributes for commands

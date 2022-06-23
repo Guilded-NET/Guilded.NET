@@ -23,7 +23,7 @@ namespace Guilded;
 /// </code>
 /// <para>An example of a Guilded bot client with <c>!ping</c> command</para>
 /// <code language="csharp">
-/// using var client = new GuildedBotClient("...auth...");
+/// await using var client = new GuildedBotClient("...auth...");
 ///
 /// client.Prepared
 ///       .Subscribe(me =>

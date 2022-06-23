@@ -92,7 +92,7 @@ public class ChannelEvent : BaseModel, IServerEvent
         (ServerId, Channel) = (serverId, channel);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="ServerChannel.DeleteAsync" />
     public async Task DeleteAsync() =>
         await Channel.DeleteAsync().ConfigureAwait(false);

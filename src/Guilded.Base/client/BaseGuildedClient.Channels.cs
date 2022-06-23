@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 
 using Guilded.Base.Content;
@@ -413,15 +414,27 @@ public abstract partial class BaseGuildedClient
     /// Adds <paramref name="emote">a reaction</paramref> to the <paramref name="message">specified message</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
-    /// <param name="message">The identifier of <see cref="Message">the message</see> to add <see cref="Reaction">a reaction</see> on</param>
+    /// <param name="message">The identifier of <see cref="Message">the message</see> to add <see cref="Reaction">a reaction</see> to</param>
     /// <param name="emote">The identifier of the emote to add</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ChatPermissions.ReadMessages" />
-    /// <returns>Added <see cref="Reaction">reaction</see></returns>
-    public abstract Task<Reaction> AddReactionAsync(Guid channel, Guid message, uint emote);
+    public abstract Task AddReactionAsync(Guid channel, Guid message, uint emote);
+
+    /// <summary>
+    /// Removes <paramref name="emote">a reaction</paramref> from the <paramref name="message">specified message</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="message">The identifier of <see cref="Message">the message</see> to remove <see cref="Reaction">a reaction</see> from</param>
+    /// <param name="emote">The identifier of the emote to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ChatPermissions.ReadMessages" />
+    public abstract Task RemoveReactionAsync(Guid channel, Guid message, uint emote);
     #endregion
 
     #region Methods Forum channels
@@ -619,12 +632,107 @@ public abstract partial class BaseGuildedClient
     public abstract Task DeleteDocAsync(Guid channel, uint doc);
     #endregion
 
+    #region Methods Docs channel
+    /// <summary>
+    /// Gets a list of <see cref="CalendarEvent">calendar events</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="limit">The limit of how many <see cref="CalendarEvent">calendar events</see> to get (default — <c>25</c>, values — <c>(0, 100]</c>)</param>
+    /// <param name="before">The max limit of the creation date of <see cref="CalendarEvent">fetched calendar events</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <returns>List of <see cref="CalendarEvent">calendar events</see></returns>
+    public abstract Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null);
+
+    /// <summary>
+    /// Gets the <paramref name="calendarEvent">specified calendar event</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="DocPermissions.ViewDocs" />
+    /// <returns>Specified <see cref="CalendarEvent">calendar event</see></returns>
+    public abstract Task<CalendarEvent> GetEventAsync(Guid channel, uint calendarEvent);
+
+    /// <summary>
+    /// Creates a <see cref="CalendarEvent">new calendar event</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="name">The title of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="description">The description of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="location">The physical or non-physical location of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="url">The URL to <see cref="CalendarEvent">the calendar event's</see> services, place or anything related</param>
+    /// <param name="color">The colour of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="duration">The duration of <see cref="CalendarEvent">the calendar event</see> in minutes</param>
+    /// <param name="isPrivate">Whether <see cref="CalendarEvent">the calendar event</see> is private</param>
+    /// <param name="startsAt">The date when <see cref="CalendarEvent">the calendar event</see> starts</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <permission cref="CalendarPermissions.CreateEvents" />
+    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="Doc">a document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>Created <see cref="CalendarEvent">calendar event</see></returns>
+    public abstract Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool isPrivate = false);
+
+    /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, bool)" />
+    public async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool isPrivate = false) =>
+        await CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate).ConfigureAwait(false);
+
+    /// <summary>
+    /// Edits the <paramref name="calendarEvent">specified calendar event</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="description">The new description of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="location">The new location of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="startsAt">The new starting date of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="url">The new URL of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="color">The new colour of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="duration">The new length/duration of <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="isPrivate">Whether <see cref="CalendarEvent">the calendar event</see> is now private or not private anymore</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <permission cref="CalendarPermissions.ManageEvents">Required when editing <see cref="CalendarEvent">calendar events</see> that <see cref="BaseGuildedClient">the client</see> doesn't own</permission>
+    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="CalendarEvent.Description">the calendar event's description</see></permission>
+    /// <returns>Updated <see cref="CalendarEvent">calendar event</see></returns>
+    public abstract Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null);
+
+    /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, bool?)" />
+    public async Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
+        await UpdateEventAsync(channel, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate).ConfigureAwait(false);
+
+    /// <summary>
+    /// Deletes the <paramref name="calendarEvent">specified calendar event</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <permission cref="CalendarPermissions.RemoveEvents">Required when deleting <see cref="Doc">documents</see> that <see cref="BaseGuildedClient">the client</see> doesn't own</permission>
+    public abstract Task DeleteEventAsync(Guid channel, uint calendarEvent);
+    #endregion
+
     #region Methods Any Content
     /// <summary>
     /// Adds <paramref name="emote">a reaction</paramref> to the <paramref name="content">specified content</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
-    /// <param name="content">The identifier of <see cref="ChannelContent{TId, TServer}">the content</see> to add <see cref="Reaction">a reaction</see> on</param>
+    /// <param name="content">The identifier of <see cref="ChannelContent{TId, TServer}">the content</see> to add <see cref="Reaction">a reaction</see> to</param>
     /// <param name="emote">The identifier of the emote to add</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -635,6 +743,23 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
     /// <returns>Added <see cref="Reaction">reaction</see></returns>
-    public abstract Task<Reaction> AddReactionAsync(Guid channel, uint content, uint emote);
+    public abstract Task AddReactionAsync(Guid channel, uint content, uint emote);
+
+    /// <summary>
+    /// Removes <paramref name="emote">a reaction</paramref> from the <paramref name="content">specified content</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="content">The identifier of <see cref="ChannelContent{TId, TServer}">the content</see> to remove <see cref="Reaction">a reaction</see> from</param>
+    /// <param name="emote">The identifier of the emote to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="DocPermissions.ViewDocs" />
+    /// <permission cref="MediaPermissions.SeeMedia" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <returns>Added <see cref="Reaction">reaction</see></returns>
+    public abstract Task RemoveReactionAsync(Guid channel, uint content, uint emote);
     #endregion
 }

@@ -55,7 +55,7 @@ public enum RecruitmentPermissions
     /// </summary>
     ModifyStatus = 32,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

@@ -55,7 +55,7 @@ public enum CalendarPermissions
     /// </summary>
     EditRSVPs = 16,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

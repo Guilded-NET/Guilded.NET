@@ -16,13 +16,13 @@ public class Doc : TitledContent, IContentMarkdown
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="TitledContent.Content">the content</see>.
+    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="TitledContent.Content">the content</see>.
     /// </summary>
-    /// <value><see cref="Mentions" />?</value>
+    /// <value><see cref="Content.Mentions" />?</value>
     public Mentions? Mentions { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Servers.Member">the member</see> who updated <see cref="Doc">the document</see>.
+    /// Gets the identifier of <see cref="Member">the member</see> who updated <see cref="Doc">the document</see>.
     /// </summary>
     /// <remarks>
     /// <para>Only includes <see cref="User">the user</see> who updated <see cref="Doc">the document</see> most recently.</para>
@@ -48,6 +48,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// <param name="createdAt">the date when the document was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
     /// <param name="updatedAt">the date when the document was recently updated</param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="TitledContent.Content">the content</see></param>
     /// <returns>New <see cref="Doc" /> JSON instance</returns>
     /// <seealso cref="Doc" />
     [JsonConstructor]
@@ -77,12 +78,15 @@ public class Doc : TitledContent, IContentMarkdown
         HashId? updatedBy = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        DateTime? updatedAt = null
+        DateTime? updatedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null
     ) : base(id, channelId, serverId, title, content, createdBy, createdAt, updatedAt) =>
-        UpdatedBy = updatedBy;
+        (Mentions, UpdatedBy) = (mentions, updatedBy);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.UpdateDocAsync(Guid, uint, string, string)" />
     /// <param name="title">The new title of the document</param>
     /// <param name="content">The Markdown content of the document</param>

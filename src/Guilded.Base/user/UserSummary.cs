@@ -93,37 +93,64 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
         (Id, Type, Name, Avatar) = (id, type, name, avatar);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.GetSocialLinkAsync(HashId, HashId, SocialLinkType)" />
     public async Task<SocialLink> GetSocialLinkAsync(HashId server, SocialLinkType linkType) =>
         await ParentClient.GetSocialLinkAsync(server, Id, linkType).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
     public async Task<string> UpdateNicknameAsync(HashId server, string nickname) =>
         await ParentClient.UpdateNicknameAsync(server, Id, nickname).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     public async Task DeleteNicknameAsync(HashId server) =>
         await ParentClient.DeleteNicknameAsync(server, Id).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)" />
     public async Task AddRoleAsync(HashId server, uint role) =>
         await ParentClient.AddRoleAsync(server, Id, role).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(HashId, HashId, uint)" />
     public async Task RemoveRoleAsync(HashId server, uint role) =>
         await ParentClient.RemoveRoleAsync(server, Id, role).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, long)" />
     public async Task<long> AddXpAsync(HashId server, short amount) =>
         await ParentClient.AddXpAsync(server, Id, amount).ConfigureAwait(false);
-    /// <inheritdoc cref="BaseGuildedClient.KickMemberAsync(HashId, HashId)" />
-    public async Task KickAsync(HashId server) =>
-        await ParentClient.KickMemberAsync(server, Id).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.RemoveMemberAsync(HashId, HashId)" />
+    public async Task RemoveMemberAsync(HashId server) =>
+        await ParentClient.RemoveMemberAsync(server, Id).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
+    public async Task AddMemberBanAsync(HashId server, string? reason = null) =>
+        await ParentClient.AddMemberBanAsync(server, Id, reason).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.RemoveMemberBanAsync(HashId, HashId)" />
+    public async Task RemoveMemberBanAsync(HashId server) =>
+        await ParentClient.RemoveMemberBanAsync(server, Id).ConfigureAwait(false);
+
     /// <inheritdoc cref="BaseGuildedClient.GetBanAsync(HashId, HashId)" />
     public async Task GetBanAsync(HashId server) =>
         await ParentClient.GetBanAsync(server, Id).ConfigureAwait(false);
-    /// <inheritdoc cref="BaseGuildedClient.BanMemberAsync(HashId, HashId, string?)" />
+
+    #region Methods Obsolete
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
+    [Obsolete("Use `RemoveMemberAsync` (this is for consistency)")]
+    public async Task KickAsync(HashId server) =>
+        await RemoveMemberAsync(server).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
+    [Obsolete("Use `AddMemberBanAsync` (this is for consistency)")]
     public async Task BanAsync(HashId server, string? reason = null) =>
-        await ParentClient.BanMemberAsync(server, Id, reason).ConfigureAwait(false);
-    /// <inheritdoc cref="BaseGuildedClient.UnbanMemberAsync(HashId, HashId)" />
+        await AddMemberBanAsync(server, reason).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
+    [Obsolete("Use `RemoveMemberBanAsync` (this is for consistency)")]
     public async Task UnbanAsync(HashId server) =>
-        await ParentClient.UnbanMemberAsync(server, Id).ConfigureAwait(false);
+        await RemoveMemberBanAsync(server).ConfigureAwait(false);
+    #endregion
+
     #endregion
 
     #region Overrides

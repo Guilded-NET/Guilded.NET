@@ -10,6 +10,7 @@ namespace Guilded.Base.Content;
 /// Represents a document in a document channel.
 /// </summary>
 /// <seealso cref="Topic" />
+/// <seealso cref="Doc" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
 public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent
@@ -41,7 +42,7 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     #endregion
 
     /// <summary>
-    /// Gets the date when the content were updated.
+    /// Gets the date when <see cref="TitledContent">the titled content</see> were updated.
     /// </summary>
     /// <value>Date?</value>
     /// <seealso cref="TitledContent" />
@@ -54,14 +55,14 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <summary>
     /// Initializes a new instance of <see cref="TitledContent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the channel content</param>
+    /// <param name="id">The identifier of <see cref="TitledContent">the titled content</see></param>
     /// <param name="channelId">The identifier of the channel where the channel content are</param>
     /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the channel content are</param>
-    /// <param name="title">The title of the channel content</param>
-    /// <param name="content">The text contents of the channel content</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the channel content</param>
-    /// <param name="createdAt">the date when the channel content were created</param>
-    /// <param name="updatedAt">the date when the channel content were recently updated</param>
+    /// <param name="title">The title of <see cref="TitledContent">the titled content</see></param>
+    /// <param name="content">The text contents of <see cref="TitledContent">the titled content</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created <see cref="ChannelContent{TId, TServer}">the content</see></param>
+    /// <param name="createdAt">The date when <see cref="ChannelContent{TId, TServer}">the content</see> were created</param>
+    /// <param name="updatedAt">The date when <see cref="TitledContent">the titled content</see> were updated</param>
     /// <returns>New <see cref="TitledContent" /> JSON instance</returns>
     /// <seealso cref="TitledContent" />
     [JsonConstructor]
@@ -93,15 +94,15 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
         (Title, Content, UpdatedAt) = (title, content, updatedAt);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
     /// <param name="emoteId">The identifier of the emote to add</param>
-    public async Task<Reaction> AddReactionAsync(uint emoteId) =>
+    public async Task AddReactionAsync(uint emoteId) =>
         await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
 
-    // /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
-    // /// <param name="emoteId">The identifier of the emote to remove</param>
-    // public async Task RemoveReactionAsync(uint emoteId) =>
-    //     await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+    /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
+    /// <param name="emoteId">The identifier of the emote to remove</param>
+    public async Task RemoveReactionAsync(uint emoteId) =>
+        await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
     #endregion
 }

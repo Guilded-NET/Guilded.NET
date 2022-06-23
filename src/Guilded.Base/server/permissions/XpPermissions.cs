@@ -35,7 +35,7 @@ public enum XpPermissions
     /// </summary>
     ManageServerXp = 1,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

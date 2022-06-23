@@ -99,6 +99,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// <param name="note">The note of the list item</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> creator of the list item</param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
     /// <param name="createdAt">the date when the list item was created</param>
     /// <param name="updatedAt">the date when the list item was edited</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> updater of the list item</param>
@@ -131,6 +132,9 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
         Guid? createdByWebhookId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         T? note = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -148,10 +152,10 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Message, Note, CreatedByWebhook, UpdatedAt, UpdatedBy, CompletedAt, CompletedBy, ParentId) = (message, note, createdByWebhookId, updatedAt, updatedBy, completedAt, completedBy, parentListItemId);
+        (Message, Note, Mentions, CreatedByWebhook, UpdatedAt, UpdatedBy, CompletedAt, CompletedBy, ParentId) = (message, note, mentions, createdByWebhookId, updatedAt, updatedBy, completedAt, completedBy, parentListItemId);
     #endregion
 
-    #region Additional
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
     /// <param name="message">The new contents of the list item's message in Markdown plain text</param>
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
@@ -196,6 +200,7 @@ public class ListItem : ListItemBase<ListItemNote>
     /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the list item is</param>
     /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> creator of the list item</param>
     /// <param name="createdAt">the date when the list item was created</param>
@@ -230,6 +235,9 @@ public class ListItem : ListItemBase<ListItemNote>
         Guid? createdByWebhookId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         ListItemNote? note = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -246,7 +254,7 @@ public class ListItem : ListItemBase<ListItemNote>
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
-    ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
+    ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, mentions, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
     #endregion
 }
 
@@ -274,6 +282,7 @@ public class ListItemSummary : ListItemBase<ListItemNote>
     /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the list item is</param>
     /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> creator of the list item</param>
     /// <param name="createdAt">the date when the list item was created</param>
@@ -308,6 +317,9 @@ public class ListItemSummary : ListItemBase<ListItemNote>
         Guid? createdByWebhookId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         ListItemNote? note = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -324,7 +336,7 @@ public class ListItemSummary : ListItemBase<ListItemNote>
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
-    ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
+    ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, mentions, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
     #endregion
 }
 /// <summary>
@@ -417,6 +429,7 @@ public class ListItemNote : ListItemNoteSummary
     /// <param name="createdAt">the date when the list item's note was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
     /// <param name="updatedAt">the date when the note was edited</param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
     /// <returns>New <see cref="ListItemNote" /> JSON instance</returns>
     /// <seealso cref="ListItemNote" />
     [JsonConstructor]
@@ -434,8 +447,11 @@ public class ListItemNote : ListItemNoteSummary
         HashId? updatedBy = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        DateTime? updatedAt = null
+        DateTime? updatedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null
     ) : base(createdBy, createdAt, updatedBy, updatedAt) =>
-        Content = content;
+        (Content, Mentions) = (content, mentions);
     #endregion
 }

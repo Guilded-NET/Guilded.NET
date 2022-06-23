@@ -45,7 +45,7 @@ public enum SchedulingPermissions
     /// </summary>
     DeleteSchedule = 8,
 
-    #region Additional
+    #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
