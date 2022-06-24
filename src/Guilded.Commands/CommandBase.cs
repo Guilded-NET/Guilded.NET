@@ -76,16 +76,16 @@ public class CommandBase
     /// <param name="usedBaseName">The specified name of this command</param>
     /// <param name="context">The information about the original command</param>
     /// <param name="arguments">The arguments given to this command</param>
-    public async Task InvokeAsync(string usedBaseName, RootCommandEvent context, IEnumerable<string> arguments)
+    public async Task<bool> InvokeAsync(string usedBaseName, RootCommandEvent context, IEnumerable<string> arguments)
     {
         if (!arguments.Any())
         {
             // Command index
             onFailedCommand.OnNext(new FailedCommandEvent(context, usedBaseName, arguments, FallbackType.Unspecified));
-            return;
+            return false;
         }
 
-        await InvokeCommandByNameAsync(context, commandName: arguments.First(), arguments: arguments.Skip(1)).ConfigureAwait(false);
+        return await InvokeCommandByNameAsync(context, commandName: arguments.First(), arguments: arguments.Skip(1)).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ public class CommandBase
     /// <param name="rootInvokation">The information about the original command</param>
     /// <param name="commandName">The name of the current command used</param>
     /// <param name="arguments">The arguments of the current command used</param>
-    protected async Task InvokeCommandByNameAsync(RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments)
+    protected async Task<bool> InvokeCommandByNameAsync(RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments)
     {
         // Filter by parameters and names
         IEnumerable<ICommandInfo<MemberInfo>> filteredSubCommands =
@@ -117,7 +117,7 @@ public class CommandBase
             if (filteredCommand is CommandContainerInfo commandContainer)
             {
                 await commandContainer.Instance.InvokeAsync(commandName, rootInvokation, arguments).ConfigureAwait(false);
-                return;
+                return true;
             }
             else
             {
@@ -131,7 +131,7 @@ public class CommandBase
                     CommandEvent commandEvent = new(rootInvokation, commandName, arguments);
 
                     await InvokeCommandAsync(command, rootInvokation, commandName, arguments, commandArgs).ConfigureAwait(false);
-                    return;
+                    return true;
                 }
 #pragma warning disable CS0168
                 catch (FormatException _)
@@ -143,6 +143,8 @@ public class CommandBase
         }
 
         onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.NoCommandFound));
+
+        return false;
     }
 
     /// <summary>

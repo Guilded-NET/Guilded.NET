@@ -16,79 +16,10 @@ namespace Guilded.Commands;
 /// <seealso cref="CommandFallbackAttribute" />
 public class CommandModule : CommandBase
 {
-    #region Static & Constants
-    /// <summary>
-    /// The default argument separator characters.
-    /// </summary>
-    /// <remarks>
-    /// <para>By default, <c> </c>, <c>\t</c>, <c>\v</c>, <c>\n</c> and <c>\r</c> will be used.</para>
-    /// </remarks>
-    /// <value>Argument separator characters</value>
-    public static readonly char[] DefaultSeparators = new char[] { ' ', '\t', '\n' };
-
-    /// <summary>
-    /// The default splitting options for command arguments.
-    /// </summary>
-    /// <remarks>
-    /// <para>By default, it uses <see cref="StringSplitOptions.RemoveEmptyEntries" />.</para>
-    /// </remarks>
-    /// <value>Split options</value>
-    public const StringSplitOptions DefaultSplitOptions = StringSplitOptions.RemoveEmptyEntries;
-    #endregion
-
     #region Fields
     private AbstractGuildedClient? _subscribedClient;
 
     private IDisposable? _commandSubscription;
-    #endregion
-
-    #region Properties
-    /// <summary>
-    /// Gets the piece of text with which commands need to start with.
-    /// </summary>
-    /// <value>Prefix</value>
-    public string Prefix { get; set; }
-
-    /// <summary>
-    /// Gets the characters that separate command arguments.
-    /// </summary>
-    /// <value>Separator characters</value>
-    public char[] Separators { get; set; }
-
-    /// <summary>
-    /// Gets the splitting options that will be used while splitting command arguments.
-    /// </summary>
-    /// <value>Splitting options</value>
-    public StringSplitOptions SplitOptions { get; set; }
-    #endregion
-
-    #region Constructors
-    /// <summary>
-    /// Initializes a new instance of <see cref="CommandModule" /> with context-based <paramref name="prefix" />.
-    /// </summary>
-    /// <param name="prefix">The context-based prefix method for commands</param>
-    /// <param name="separators">The separators that split the command's arguments</param>
-    /// <param name="splitOptions">The splitting options of the command's arguments</param>
-    public CommandModule(string prefix, char[] separators, StringSplitOptions splitOptions = DefaultSplitOptions) =>
-        (Prefix, Separators, SplitOptions) = (prefix, separators, splitOptions);
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="CommandModule" /> with context-based <paramref name="prefix" />.
-    /// </summary>
-    /// <param name="prefix">The context-based prefix method for commands</param>
-    /// <param name="splitOptions">The splitting options of the command's arguments</param>
-    public CommandModule(string prefix, StringSplitOptions splitOptions = DefaultSplitOptions) : this(prefix, DefaultSeparators, splitOptions) { }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="CommandModule" /> with no prefix.
-    /// </summary>
-    /// <param name="splitOptions">The splitting options of the command's arguments</param>
-    public CommandModule(StringSplitOptions splitOptions = DefaultSplitOptions) : this(string.Empty, splitOptions) { }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="CommandModule" /> with no prefix.
-    /// </summary>
-    public CommandModule() : this(string.Empty) { }
     #endregion
 
     #region Methods
@@ -97,31 +28,34 @@ public class CommandModule : CommandBase
     /// </summary>
     /// <param name="msgCreated">The supposed command message</param>
     /// <param name="prefix">The current prefix used for the command</param>
-    public virtual async Task DoCommandsAsync(MessageEvent msgCreated, string prefix)
+    /// <param name="config">The configuration of client's commands</param>
+    /// <returns>Any <see cref="CommandAttribute">command</see> has been invoked</returns>
+    public virtual async Task<bool> DoCommandsAsync(MessageEvent msgCreated, string prefix, CommandConfiguration config)
     {
-        if (!msgCreated.Content!.StartsWith(prefix)) return;
+        if (!msgCreated.Content!.StartsWith(prefix)) return false;
 
         string[] splitContent = msgCreated
             .Content[prefix.Length..]
-            .Split(Separators, SplitOptions);
+            .Split(config.Separators, config.SplitOptions);
 
         string commandName = splitContent.First();
 
-        if (string.IsNullOrEmpty(commandName)) return;
+        if (string.IsNullOrEmpty(commandName)) return false;
 
         // First one is the name of the command
         IEnumerable<string> args = splitContent.Skip(1);
 
         RootCommandEvent context = new(msgCreated, prefix, commandName, args);
 
-        await InvokeCommandByNameAsync(context, commandName, args).ConfigureAwait(false);
+        return await InvokeCommandByNameAsync(context, commandName, args).ConfigureAwait(false);
     }
 
     /// <summary>
     /// Adds the command module to the specified <paramref name="client" /> with the given settings.
     /// </summary>
     /// <param name="client">The client to add command module to</param>
-    public void AddTo(AbstractGuildedClient client)
+    /// <param name="config">The configuration of the client's commands</param>
+    public void AddTo(AbstractGuildedClient client, CommandConfiguration config)
     {
         if (_subscribedClient == client)
             throw new InvalidOperationException("Cannot add the same command module to the client");
@@ -134,7 +68,7 @@ public class CommandModule : CommandBase
             client
                 .MessageCreated
                 .Where(msgCreated => msgCreated.Content is not null)
-                .Subscribe(async msgCreated => await DoCommandsAsync(msgCreated, Prefix).ConfigureAwait(false));
+                .Subscribe(async msgCreated => await DoCommandsAsync(msgCreated, config.Prefix, config).ConfigureAwait(false));
         _subscribedClient = client;
     }
 
