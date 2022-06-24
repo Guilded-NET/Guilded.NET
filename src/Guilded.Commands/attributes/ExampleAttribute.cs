@@ -16,7 +16,7 @@ namespace Guilded.Commands;
 ///     await invokation.ReplyAsync($"{x} + {y} = {x + y}");
 /// </code>
 /// </example>
-[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+[AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false, AllowMultiple = true)]
 public sealed class ExampleAttribute : Attribute
 {
     #region Properties

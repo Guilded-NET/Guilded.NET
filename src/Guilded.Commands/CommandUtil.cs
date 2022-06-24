@@ -49,8 +49,8 @@ internal static class CommandUtil
                 return
                     attribute is not null &&
                     (
-                        (memberType == MemberTypes.Method && !((MethodInfo)member).IsStatic) ||
-                        memberType == MemberTypes.NestedType || memberType == MemberTypes.TypeInfo
+                        (memberType == MemberTypes.Method && !((MethodInfo)member).IsAbstract) ||
+                        (memberType == MemberTypes.NestedType && !((TypeInfo)member).IsAbstract)
                     );
             })
             // Looks really ugly

@@ -1,3 +1,9 @@
+# v0.8.6-beta
+
+- Added support for static methods to be commands too
+- Fixed having the ability to declare abstract types and abstract methods as commands
+- Fixed not being able to use multiple `Example` attributes
+
 # v0.8.5-beta
 
 - Added calendar event support
