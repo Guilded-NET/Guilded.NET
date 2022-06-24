@@ -239,6 +239,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MessageUpdated" />
     /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="ReactionRemoved" />
     public IObservable<MessageEvent> MessageCreated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
 
     /// <summary>
@@ -249,6 +251,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MessageCreated" />
     /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="ReactionRemoved" />
     public IObservable<MessageEvent> MessageUpdated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
 
     /// <summary>
@@ -259,7 +263,33 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MessageCreated" />
     /// <seealso cref="MessageUpdated" />
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="ReactionRemoved" />
     public IObservable<MessageDeletedEvent> MessageDeleted => ((IEventInfo<MessageDeletedEvent>)GuildedEvents["ChatMessageDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Reaction">a reaction</see> on <see cref="Message">a message</see> is added.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelMessageReactionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MessageCreated" />
+    /// <seealso cref="MessageUpdated" />
+    /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="ReactionRemoved" />
+    public IObservable<MessageReactionEvent> ReactionAdded => ((IEventInfo<MessageReactionEvent>)GuildedEvents["ChannelMessageReactionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Reaction">a reaction</see> on <see cref="Message">a message</see> is removed.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelMessageReactionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MessageCreated" />
+    /// <seealso cref="MessageUpdated" />
+    /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="ReactionAdded" />
+    public IObservable<MessageReactionEvent> ReactionRemoved => ((IEventInfo<MessageReactionEvent>)GuildedEvents["ChannelMessageReactionCreated"]).Observable;
     #endregion
 
     #region Properties List channels

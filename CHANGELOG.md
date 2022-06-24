@@ -3,6 +3,8 @@
 - Added support for static methods to be commands too
 - Added `CommandConfiguration`
 - Added new `AddCommands` arguments, which either require `CommandConfiguration` or its constructor's arguments
+- Added `Emote` model
+- Added `ReactionAdded` and `ReactionRemoved` event
 - Fixed having the ability to declare abstract types and abstract methods as commands
 - Fixed not being able to use multiple `Example` attributes
 - Removed `Prefix`, `Separators` and `SplitOptions` in `CommandModule`

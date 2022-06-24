@@ -43,7 +43,7 @@ public class Reaction : ContentModel, IModelHasId<uint>, IWebhookCreatable, ICre
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that created <see cref="Reaction">the reaction</see>.
+    /// Gets the identifier of <see cref="User">the user</see> that reacted.
     /// </summary>
     /// <remarks>
     /// <para>If <see cref="Webhook">a webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
@@ -55,7 +55,7 @@ public class Reaction : ContentModel, IModelHasId<uint>, IWebhookCreatable, ICre
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created <see cref="Reaction">the reaction</see>.
+    /// Gets the identifier of <see cref="Webhook">the webhook</see> that reacted.
     /// </summary>
     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="Reaction" />

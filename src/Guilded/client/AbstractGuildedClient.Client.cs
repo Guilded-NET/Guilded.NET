@@ -62,44 +62,46 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         GuildedEvents = new Dictionary<object, IEventInfo<object>>
         {
             // Event messages
-            { SocketOpcode.Welcome,       new EventInfo<WelcomeEvent>() },
-            { SocketOpcode.Resume,        new EventInfo<ResumeEvent>() },
+            { SocketOpcode.Welcome,            new EventInfo<WelcomeEvent>() },
+            { SocketOpcode.Resume,             new EventInfo<ResumeEvent>() },
 
             // Team events
-            { "TeamMemberJoined",         new EventInfo<MemberJoinedEvent>() },
-            { "TeamMemberUpdated",        new EventInfo<MemberUpdatedEvent>() },
-            { "teamRolesUpdated",         new EventInfo<RolesUpdatedEvent>() },
-            { "TeamXpAdded",              new EventInfo<XpAddedEvent>() },
-            { "TeamMemberRemoved",        new EventInfo<MemberRemovedEvent>() },
-            { "TeamMemberBanned",         new EventInfo<MemberBanEvent>() },
-            { "TeamMemberUnbanned",       new EventInfo<MemberBanEvent>() },
-            { "TeamChannelCreated",       new EventInfo<ChannelEvent>() },
-            { "TeamChannelUpdated",       new EventInfo<ChannelEvent>() },
-            { "TeamChannelDeleted",       new EventInfo<ChannelEvent>() },
-            { "TeamWebhookCreated",       new EventInfo<WebhookEvent>() },
-            { "TeamWebhookUpdated",       new EventInfo<WebhookEvent>() },
+            { "TeamMemberJoined",              new EventInfo<MemberJoinedEvent>() },
+            { "TeamMemberUpdated",             new EventInfo<MemberUpdatedEvent>() },
+            { "teamRolesUpdated",              new EventInfo<RolesUpdatedEvent>() },
+            { "TeamXpAdded",                   new EventInfo<XpAddedEvent>() },
+            { "TeamMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
+            { "TeamMemberBanned",              new EventInfo<MemberBanEvent>() },
+            { "TeamMemberUnbanned",            new EventInfo<MemberBanEvent>() },
+            { "TeamChannelCreated",            new EventInfo<ChannelEvent>() },
+            { "TeamChannelUpdated",            new EventInfo<ChannelEvent>() },
+            { "TeamChannelDeleted",            new EventInfo<ChannelEvent>() },
+            { "TeamWebhookCreated",            new EventInfo<WebhookEvent>() },
+            { "TeamWebhookUpdated",            new EventInfo<WebhookEvent>() },
 
             // Chat messages
-            { "ChatMessageCreated",       new EventInfo<MessageEvent>() },
-            { "ChatMessageUpdated",       new EventInfo<MessageEvent>() },
-            { "ChatMessageDeleted",       new EventInfo<MessageDeletedEvent>() },
+            { "ChatMessageCreated",            new EventInfo<MessageEvent>() },
+            { "ChatMessageUpdated",            new EventInfo<MessageEvent>() },
+            { "ChatMessageDeleted",            new EventInfo<MessageDeletedEvent>() },
+            { "ChannelMessageReactionCreated", new EventInfo<MessageReactionEvent>() },
+            { "ChannelMessageReactionDeleted", new EventInfo<MessageReactionEvent>() },
 
             // List items
-            { "ListItemCreated",          new EventInfo<ListItemEvent>() },
-            { "ListItemUpdated",          new EventInfo<ListItemEvent>() },
-            { "ListItemDeleted",          new EventInfo<ListItemEvent>() },
-            { "ListItemCompleted",        new EventInfo<ListItemEvent>() },
-            { "ListItemUncompleted",      new EventInfo<ListItemEvent>() },
+            { "ListItemCreated",               new EventInfo<ListItemEvent>() },
+            { "ListItemUpdated",               new EventInfo<ListItemEvent>() },
+            { "ListItemDeleted",               new EventInfo<ListItemEvent>() },
+            { "ListItemCompleted",             new EventInfo<ListItemEvent>() },
+            { "ListItemUncompleted",           new EventInfo<ListItemEvent>() },
 
             // Docs
-            { "DocCreated",               new EventInfo<DocEvent>() },
-            { "DocUpdated",               new EventInfo<DocEvent>() },
-            { "DocDeleted",               new EventInfo<DocEvent>() },
+            { "DocCreated",                    new EventInfo<DocEvent>() },
+            { "DocUpdated",                    new EventInfo<DocEvent>() },
+            { "DocDeleted",                    new EventInfo<DocEvent>() },
 
             // Calendar events
-            { "CalendarEventCreated",     new EventInfo<CalendarEventEvent>() },
-            { "CalendarEventUpdated",     new EventInfo<CalendarEventEvent>() },
-            { "CalendarEventDeleted",     new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventCreated",          new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventUpdated",          new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventDeleted",          new EventInfo<CalendarEventEvent>() },
         };
         #endregion
 
