@@ -3,6 +3,7 @@
 - Add rate-limiting handling (rejects)
 - Add automatic resuming
 - Add `ResponseReceived` observable
+- Add `ToString` to `GuildedSocketMessage`
 - Change `LastMessageId`'s access from `public` to `protected`
 - Change `WebsocketMessage`'s access from `protected` to `public`
 

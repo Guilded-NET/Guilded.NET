@@ -75,7 +75,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <remarks>
     /// <para>The raw string that makes up <see cref="HashId" /> will be returned.</para>
     /// </remarks>
-    /// <returns><see cref="HashId" /> as string</returns>
+    /// <returns><see cref="HashId" /> as a <see cref="string" /></returns>
     public override string ToString() =>
         _;
 

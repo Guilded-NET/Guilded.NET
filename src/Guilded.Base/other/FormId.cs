@@ -67,7 +67,7 @@ public readonly struct FormId : IEquatable<FormId>
     /// <summary>
     /// Returns the string representation of this <see cref="FormId" /> instance.
     /// </summary>
-    /// <returns><see cref="FormId" /> as string</returns>
+    /// <returns><see cref="FormId" /> as <see cref="string" /></returns>
     public override string ToString() =>
         _;
 

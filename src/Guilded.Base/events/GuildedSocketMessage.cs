@@ -1,3 +1,6 @@
+using System.CodeDom.Compiler;
+using System.Data.Common;
+using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -87,5 +90,64 @@ public class GuildedSocketMessage : BaseModel
         string? s = null
     ) =>
         (Opcode, EventName, RawData, MessageId) = (op, t, d, s);
+    #endregion
+
+    #region Methods
+    /// <summary>
+    /// Returns the string representation of <see cref="GuildedSocketMessage">the socket message</see>.
+    /// </summary>
+    /// <returns><see cref="GuildedSocketMessage" /> as a <see cref="string" /></returns>
+    public override string ToString() =>
+        ToString(Formatting.Indented);
+
+    /// <summary>
+    /// Returns the string representation of <see cref="GuildedSocketMessage">the socket message</see>.
+    /// </summary>
+    /// <returns><see cref="GuildedSocketMessage" /> as a <see cref="string" /></returns>
+    public string ToString(Formatting formatting)
+    {
+        var (indent, final) = formatting == Formatting.Indented ? ("\n  ", '\n') : (" ", ' ');
+
+        // Might have to make it a field instead
+        StringBuilder builder =
+            new StringBuilder("GuildedSocketMessage {")
+                .Append(indent)
+                // Opcode(op) = Welcome (1)
+                .Append("Opcode(op) = ")
+                .Append(Opcode)
+                .Append(" (")
+                .Append(Opcode.ToString("d"))
+                .Append(')');
+
+        // , EventName(t) = "...",
+        if (EventName is not null)
+            builder
+                .Append(',')
+                .Append(indent)
+                .Append("EventName(t) = \"")
+                .Append(EventName)
+                .Append('"');
+
+        // , MessageId(s) = "..."
+        if (MessageId is not null)
+            builder
+                .Append(',')
+                .Append(indent)
+                .Append("MessageId(s) = \"")
+                .Append(MessageId)
+                .Append('"');
+
+        // , Data(d) = { ... }
+        if (RawData is not null)
+            builder
+                .Append(',')
+                .Append(indent)
+                .Append("Data(d) = ")
+                .Append(RawData?.ToString(formatting));
+
+        builder.Append(final).Append('}');
+
+        return builder.ToString();
+    }
     #endregion
 }
