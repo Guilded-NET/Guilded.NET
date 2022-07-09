@@ -1,3 +1,11 @@
+# v0.9.0-beta
+
+- Add rate-limiting handling (rejects)
+- Add automatic resuming
+- Add `ResponseReceived` observable
+- Change `LastMessageId`'s access from `public` to `protected`
+- Change `WebsocketMessage`'s access from `protected` to `public`
+
 # v0.8.6-beta
 
 - Added support for static methods to be commands too

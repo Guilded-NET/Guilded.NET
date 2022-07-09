@@ -19,7 +19,7 @@ public abstract partial class BaseGuildedClient
     #endregion
 
     #region Fields
-    private readonly Subject<GuildedSocketMessage> OnWebsocketMessage = new();
+    private readonly Subject<GuildedSocketMessage> _onWebsocketMessage = new();
     #endregion
 
     #region Properties
@@ -34,23 +34,22 @@ public abstract partial class BaseGuildedClient
     public WebsocketClient Websocket { get; set; }
 
     /// <summary>
-    /// The identifier of the last WebSocket message.
+    /// Gets the identifier of the last WebSocket message.
     /// </summary>
     /// <remarks>
     /// <para>Allows you to set the identifier of the last message to get events that weren't received.</para>
     /// </remarks>
     /// <value>WebSocket Message ID?</value>
-    public string? LastMessageId { get; set; }
+    protected string? LastMessageId { get; set; }
 
     /// <summary>
     /// An event when WebSocket receives a message.
     /// </summary>
     /// <remarks>
-    /// <para>An event when WebSocket receives any kind of message from Guilded.</para>
     /// <para>If event with opcode <c>8</c> is received, it is given as an exception instead.</para>
     /// </remarks>
     /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{T}.OnError(Exception)" />.</exception>
-    protected IObservable<GuildedSocketMessage> WebsocketMessage => OnWebsocketMessage.AsObservable();
+    public IObservable<GuildedSocketMessage> WebsocketMessage => _onWebsocketMessage.AsObservable();
     #endregion
 
     #region Methods
@@ -70,20 +69,23 @@ public abstract partial class BaseGuildedClient
         {
             return;
         }
-        // // Check for a welcome message to change heartbeat interval
-        // else if (@event.Opcode == welcome_opcode)
-        // {
-        //     Websocket.NativeClient.Options.KeepAliveInterval = TimeSpan.FromMilliseconds(@event.RawData.Value<double>("heartbeatIntervalMs"));
-        // }
         else if (@event.Opcode == SocketOpcode.InvalidCursor || @event.Opcode == SocketOpcode.InternalError)
         {
-            OnWebsocketMessage.OnError(
+            _onWebsocketMessage.OnError(
                 new GuildedWebsocketException(response, @event.RawData?.Value<string>("message")!)
             );
+
+            // If the error is related to the last message
+            LastMessageId = default;
+
             return;
         }
+        else if (@event.MessageId is not null)
+        {
+            LastMessageId = @event.MessageId;
+        }
 
-        OnWebsocketMessage.OnNext(@event);
+        _onWebsocketMessage.OnNext(@event);
     }
     #endregion
 }

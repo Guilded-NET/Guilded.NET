@@ -4,7 +4,11 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
+
+using Guilded.Base.Servers;
 
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -33,16 +37,26 @@ public abstract partial class BaseGuildedClient : IDisposable
     };
     #endregion
 
+    #region Field
+    private readonly Subject<RestResponse> _onResponseReceived = new();
+
+    private DateTime? _globalRateLimit;
+
+    private readonly Dictionary<Guid, DateTime> _channelCooldowns = new();
+    #endregion
+
     #region Properties
     /// <summary>
-    /// The REST client for Guilded.
+    /// Gets the REST client for Guilded.
     /// </summary>
-    /// <remarks>
-    /// <para>The REST client that is used to send requests to Guilded API.</para>
-    /// </remarks>
     /// <value>Rest client</value>
     /// <seealso cref="Websocket" />
     protected internal RestClient Rest { get; set; }
+
+    /// <summary>
+    /// Gets the response received from a request that was made with <see cref="Rest">Guilded's REST client</see>.
+    /// </summary>
+    public IObservable<RestResponse> ResponseReceived => _onResponseReceived.AsObservable();
     #endregion
 
     #region Methods
@@ -110,7 +124,11 @@ public abstract partial class BaseGuildedClient : IDisposable
             .AddParameter("uploadTrackingId", FormId.Random, ParameterType.GetOrPost)
             .AddParameter("Content-Type", "multipart/form-data");
 
-        JObject obj = (await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false)).Data!;
+        RestResponse<JObject> response = await ExecuteRequestAsync<JObject>(req).ConfigureAwait(false);
+
+        _onResponseReceived.OnNext(response);
+
+        JObject obj = response.Data!;
 
         return obj.ContainsKey("url") ? obj.Value<Uri>("url") : null;
     }
@@ -182,15 +200,69 @@ public abstract partial class BaseGuildedClient : IDisposable
     /// <summary>
     /// Executes a request and receives response or an error.
     /// </summary>
+    /// <remarks>
+    /// <para>Does additional checks on channel slowmode cooldowns.</para>
+    /// </remarks>
+    /// <param name="request">The request to send to execute</param>
+    /// <param name="channel"><see cref="ServerChannel">The channel</see> where <paramref name="request">the request</paramref> is being executed</param>
+    /// <returns>Guilded API's request's response</returns>
+    protected async Task<RestResponse<T>> ExecuteRequestAsync<T>(RestRequest request, Guid channel)
+    {
+        DateTime? cooldown = _channelCooldowns.GetValueOrDefault(channel);
+
+        // Could just do `_channelCooldowns.Remove(channel);` everytime, but why?
+        // Would rather have this mess
+        if (cooldown is not null)
+        {
+            if (DateTime.Now < cooldown)
+            {
+                throw new GuildedTooManyRequestsException($"The slowmode cooldown in channel by id '{channel}' has not been exhausted yet", (DateTime)cooldown - DateTime.Now, true);
+            }
+            else _channelCooldowns.Remove(channel);
+        }
+
+        return await InternalExecuteRequestAsync<T>(request, (code, errorMessage, response, afterSeconds) =>
+        {
+            bool isSlowmode = response.Headers!.Any(x => x.Name == "x-slowmode-cooldown");
+
+            DateTime elapsesOn = DateTime.Now.AddSeconds(afterSeconds);
+
+            if (isSlowmode) _channelCooldowns.Add(channel, elapsesOn);
+            else _globalRateLimit = elapsesOn;
+
+            throw new GuildedTooManyRequestsException(code, errorMessage, response, TimeSpan.FromSeconds(afterSeconds), isSlowmode);
+        }).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Executes a request and receives response or an error.
+    /// </summary>
     /// <param name="request">The request to send to execute</param>
     /// <typeparam name="T">Type of the response to get</typeparam>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException">When <paramref name="request" />'s URL refers to an invalid endpoint</exception>
-    /// <returns>Guilded request response</returns>
-    protected async Task<RestResponse<T>> ExecuteRequestAsync<T>(RestRequest request)
+    /// <returns>Guilded API's request's response</returns>
+    protected async Task<RestResponse<T>> ExecuteRequestAsync<T>(RestRequest request) =>
+        await InternalExecuteRequestAsync<T>(request, (code, errorMessage, response, afterSeconds) =>
+        {
+            _globalRateLimit = DateTime.Now.AddSeconds(afterSeconds);
+
+            throw new GuildedTooManyRequestsException(code, errorMessage, response, TimeSpan.FromSeconds(afterSeconds), false);
+        }).ConfigureAwait(false);
+
+    private async Task<RestResponse<T>> InternalExecuteRequestAsync<T>(RestRequest request, Action<string, string, RestResponse<T>, double> onRateLimit)
     {
+        // Rate-limiting
+        if (_globalRateLimit is not null && DateTime.Now < _globalRateLimit)
+            throw new GuildedTooManyRequestsException("The global cooldown has not been exhausted yet", (DateTime)_globalRateLimit - DateTime.Now, false);
+
+        _globalRateLimit = null;
+
         RestResponse<T> response = await Rest.ExecuteAsync<T>(request).ConfigureAwait(false);
+
+        // For logging
+        _onResponseReceived.OnNext(response);
 
         if (!response.IsSuccessful)
         {
@@ -200,6 +272,14 @@ public abstract partial class BaseGuildedClient : IDisposable
             // For giving Guilded exception more information
             string code = obj.Value<string>("code")!,
                     errorMessage = obj.Value<string>("message")!;
+
+            if (response.StatusCode == HttpStatusCode.TooManyRequests)
+            {
+                HeaderParameter? retryAfterHeader = response.Headers!.FirstOrDefault(x => x.Name == "Retry-After");
+                double afterSeconds = retryAfterHeader?.Value is null ? 5 : double.Parse((string)retryAfterHeader.Value!);
+
+                onRateLimit(code, errorMessage, response, afterSeconds);
+            }
 
             JArray? missingPerms = obj.Value<JObject>("meta")?.Value<JArray>("missingPermissions");
 

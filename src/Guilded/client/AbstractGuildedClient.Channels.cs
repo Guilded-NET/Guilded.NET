@@ -50,7 +50,12 @@ public abstract partial class AbstractGuildedClient
             throw new ArgumentNullException(nameof(message.Content));
         }
 
-        return await GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message), "message").ConfigureAwait(false);
+        return await GetResponseProperty<Message>(
+            new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message),
+            "message",
+            // For slowmode handling
+            channel
+        ).ConfigureAwait(false);
     }
 
     /// <inheritdoc />

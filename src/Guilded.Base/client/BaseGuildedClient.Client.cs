@@ -108,8 +108,6 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable, IDisposable
             // Set any required headers, such as auth token
             foreach (KeyValuePair<string, string> header in AdditionalHeaders)
                 socket.Options.SetRequestHeader(header.Key, header.Value);
-            if (LastMessageId is not null)
-                socket.Options.SetRequestHeader("guilded-last-message-id", LastMessageId);
 
             return socket;
         });
@@ -119,6 +117,11 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable, IDisposable
         Websocket.MessageReceived
             .Where(msg => msg.MessageType == WebSocketMessageType.Text)
             .Subscribe(OnWebsocketResponse);
+        Websocket
+            .DisconnectionHappened
+            .Subscribe(_ =>
+                Websocket.NativeClient.Options.SetRequestHeader("guilded-last-message-id", LastMessageId)
+            );
 
         // For REST client
         SerializerSettings = new JsonSerializerSettings
@@ -134,6 +137,8 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable, IDisposable
 
         Rest = new RestClient(apiUrl ?? throw new ArgumentNullException(nameof(apiUrl)))
             .AddDefaultHeader("Origin", "https://www.guilded.gg/")
+            // Guilded.NET, Guilded.NET's version, Common Language Runtime version
+            .AddDefaultHeader("User-Agent", $"Guilded-NET GNET-{typeof(BaseGuildedClient).Assembly.GetName().Version} CLR-{Environment.Version}")
             .UseNewtonsoftJson(SerializerSettings);
     }
 

@@ -184,5 +184,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
 
     private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>
         (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;
+
+    private async Task<T> GetResponseProperty<T>(RestRequest request, object key, Guid channel) =>
+        (await ExecuteRequestAsync<JContainer>(request, channel).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;
     #endregion
 }

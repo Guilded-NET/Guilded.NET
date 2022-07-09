@@ -62,7 +62,7 @@ public class GuildedException : Exception
     /// <seealso cref="GuildedException()" />
     /// <seealso cref="GuildedException(string)" />
     /// <seealso cref="GuildedException(string, Exception)" />
-    public GuildedException(string code, string message, RestResponse response) : this(message) =>
+    public GuildedException(string code, string message, RestResponse? response) : this(message) =>
         (Code, Response) = (code, response);
 
     /// <summary>

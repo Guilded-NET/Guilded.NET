@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 
 using Guilded.Base;
 using Guilded.Base.Servers;
-using Guilded.Base.Users;
 using RestSharp;
 
 namespace Guilded;
