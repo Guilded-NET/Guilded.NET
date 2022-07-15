@@ -632,7 +632,9 @@ public abstract partial class BaseGuildedClient
     public abstract Task DeleteDocAsync(Guid channel, uint doc);
     #endregion
 
-    #region Methods Docs channel
+    #region Methods Calendar channel
+
+    #region Methods Calendar channel > Event
     /// <summary>
     /// Gets a list of <see cref="CalendarEvent">calendar events</see>.
     /// </summary>
@@ -656,7 +658,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.ViewDocs" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
     /// <returns>Specified <see cref="CalendarEvent">calendar event</see></returns>
     public abstract Task<CalendarEvent> GetEventAsync(Guid channel, uint calendarEvent);
 
@@ -670,6 +672,7 @@ public abstract partial class BaseGuildedClient
     /// <param name="url">The URL to <see cref="CalendarEvent">the calendar event's</see> services, place or anything related</param>
     /// <param name="color">The colour of <see cref="CalendarEvent">the calendar event</see></param>
     /// <param name="duration">The duration of <see cref="CalendarEvent">the calendar event</see> in minutes</param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="Users.User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isPrivate">Whether <see cref="CalendarEvent">the calendar event</see> is private</param>
     /// <param name="startsAt">The date when <see cref="CalendarEvent">the calendar event</see> starts</param>
     /// <exception cref="GuildedException" />
@@ -678,13 +681,13 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
     /// <permission cref="CalendarPermissions.CreateEvents" />
-    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="Doc">a document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="CalendarEvent.Description">the calendar event's description</see></permission>
     /// <returns>Created <see cref="CalendarEvent">calendar event</see></returns>
-    public abstract Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool isPrivate = false);
+    public abstract Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false);
 
-    /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, bool)" />
-    public async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool isPrivate = false) =>
-        await CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate).ConfigureAwait(false);
+    /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool)" />
+    public async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
+        await CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate).ConfigureAwait(false);
 
     /// <summary>
     /// Edits the <paramref name="calendarEvent">specified calendar event</paramref>.
@@ -723,8 +726,69 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <permission cref="CalendarPermissions.RemoveEvents">Required when deleting <see cref="Doc">documents</see> that <see cref="BaseGuildedClient">the client</see> doesn't own</permission>
+    /// <permission cref="CalendarPermissions.RemoveEvents">Required when deleting <see cref="CalendarEvent">calendar event</see> that <see cref="BaseGuildedClient">the client</see> doesn't own</permission>
     public abstract Task DeleteEventAsync(Guid channel, uint calendarEvent);
+    #endregion
+
+    #region Methods Calendar channel > Rsvp
+    /// <summary>
+    /// Gets a list of <see cref="CalendarEvent">calendar events</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> to get <see cref="CalendarRsvp">RSVPs</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <returns>List of <see cref="CalendarRsvp">calendar event RSVPs</see></returns>
+    public abstract Task<IList<CalendarRsvp>> GetRsvpsAsync(Guid channel, uint calendarEvent);
+
+    /// <summary>
+    /// Gets the <paramref name="calendarEvent">specified calendar event</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
+    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <returns>Specified <see cref="CalendarRsvp">calendar event RSVP</see></returns>
+    public abstract Task<CalendarRsvp> GetRsvpAsync(Guid channel, uint calendarEvent, HashId user);
+
+    /// <summary>
+    /// Creates or edits a <see cref="CalendarEvent">calendar event</see> <see cref="CalendarRsvp">RSVP</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
+    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <permission cref="CalendarPermissions.EditRSVPs">Required when setting <see cref="CalendarRsvp">calendar event RSVPs</see> that aren't for <see cref="BaseGuildedClient">the client</see></permission>
+    /// <returns>Set <see cref="CalendarRsvp">calendar event RSVP</see></returns>
+    public abstract Task<CalendarRsvp> SetRsvpAsync(Guid channel, uint calendarEvent, HashId user, CalendarRsvpStatus status);
+
+    /// <summary>
+    /// Deletes the specified <see cref="CalendarRsvp">calendar event RSVP</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
+    /// <param name="calendarEvent">The identifier of <see cref="CalendarEvent">the calendar event</see> where <see cref="CalendarRsvp">the RSVP</see> is</param>
+    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.ViewEvents" />
+    /// <permission cref="CalendarPermissions.EditRSVPs">Required when removing <see cref="CalendarRsvp">calendar event RSVPs</see> that aren't for <see cref="BaseGuildedClient">the client</see></permission>
+    public abstract Task RemoveRsvpAsync(Guid channel, uint calendarEvent, HashId user);
+    #endregion
+
     #endregion
 
     #region Methods Any Content

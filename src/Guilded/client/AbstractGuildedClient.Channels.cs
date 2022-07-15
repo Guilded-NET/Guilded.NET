@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
+using Guilded.Base;
 using Guilded.Base.Content;
 
 using RestSharp;
@@ -203,7 +204,9 @@ public abstract partial class AbstractGuildedClient
         await ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}", Method.Delete)).ConfigureAwait(false);
     #endregion
 
-    #region Calendar channels
+    #region Methods Calendar channels
+
+    #region Methods Calendar channels > Events
     /// <inheritdoc />
     public override async Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
         await GetResponseProperty<IList<CalendarEvent>>(
@@ -217,7 +220,7 @@ public abstract partial class AbstractGuildedClient
         await GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Get), "calendarEvent").ConfigureAwait(false);
 
     /// <inheritdoc />
-    public override async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool isPrivate = false)
+    public override async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false)
     {
         if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
 
@@ -231,6 +234,7 @@ public abstract partial class AbstractGuildedClient
                 url,
                 color,
                 duration,
+                rsvpLimit,
                 isPrivate
             })
         , "calendarEvent").ConfigureAwait(false);
@@ -255,6 +259,31 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc />
     public override async Task DeleteEventAsync(Guid channel, uint calendarEvent) =>
         await ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Delete)).ConfigureAwait(false);
+    #endregion
+
+    #region Methods Calendar channels > Rsvp
+    /// <inheritdoc />
+    public override async Task<IList<CalendarRsvp>> GetRsvpsAsync(Guid channel, uint calendarEvent) =>
+        await GetResponseProperty<IList<CalendarRsvp>>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps", Method.Get), "calendarEventRsvps").ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task<CalendarRsvp> GetRsvpAsync(Guid channel, uint calendarEvent, HashId user) =>
+        await GetResponseProperty<CalendarRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Get), "calendarEventRsvp").ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task<CalendarRsvp> SetRsvpAsync(Guid channel, uint calendarEvent, HashId user, CalendarRsvpStatus status) =>
+        await GetResponseProperty<CalendarRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Put)
+            .AddJsonBody(new
+            {
+                status
+            })
+        , "calendarEventRsvp").ConfigureAwait(false);
+
+    /// <inheritdoc />
+    public override async Task RemoveRsvpAsync(Guid channel, uint calendarEvent, HashId user) =>
+        await ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Delete)).ConfigureAwait(false);
+    #endregion
+
     #endregion
 
     #region Methods Content

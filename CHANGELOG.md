@@ -1,11 +1,12 @@
 # v0.9.0-beta
 
-- Add rate-limiting handling (rejects)
-- Add automatic resuming
-- Add `ResponseReceived` observable
-- Add `ToString` to `GuildedSocketMessage`
-- Change `LastMessageId`'s access from `public` to `protected`
-- Change `WebsocketMessage`'s access from `protected` to `public`
+- Added rate-limiting handling (rejects)
+- Added automatic resuming
+- Added `ResponseReceived` observable
+- Added `ToString` to `GuildedSocketMessage`
+- Added Calendar event RSVPs
+- Changed `LastMessageId`'s access from `public` to `protected`
+- Changed `WebsocketMessage`'s access from `protected` to `public`
 
 # v0.8.6-beta
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
@@ -8,9 +9,10 @@ using SystemColor = System.Drawing.Color;
 namespace Guilded.Base.Content;
 
 /// <summary>
-/// Represents a document in a document channel.
+/// Represents a calendar event in <see cref="ChannelType.Calendar">a calendar channel</see>.
 /// </summary>
 /// <seealso cref="CalendarCancellation" />
+/// <seealso cref="CalendarRsvp" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItemBase{T}" />
@@ -122,6 +124,14 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent
     public bool IsPrivate { get; }
 
     /// <summary>
+    /// Gets the limit of how many <see cref="User">users</see> can join <see cref="CalendarEvent">the calendar event</see>.
+    /// </summary>
+    /// <value><see cref="CalendarRsvp">RSVP</see> limit?</value>
+    /// <seealso cref="CalendarEvent" />
+    /// <seealso cref="CalendarRsvp" />
+    public uint? RsvpLimit { get; }
+
+    /// <summary>
     /// Gets the information about <see cref="CalendarEvent">the calendar event's</see> cancellation.
     /// </summary>
     /// <value><see cref="CalendarEvent">Calendar event</see>'s <see cref="CalendarCancellation">cancellation info</see></value>
@@ -212,6 +222,8 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent
     #endregion
 
     #region Methods
+
+    #region Methods Event
     /// <inheritdoc cref="BaseGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, uint?, bool?)" />
     public async Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, uint? duration = null, bool? isPrivate = null) =>
         await ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate).ConfigureAwait(false);
@@ -233,6 +245,30 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent
     /// <param name="emoteId">The identifier of the emote to remove</param>
     public async Task RemoveReactionAsync(uint emoteId) =>
         await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+    #endregion
+
+    #region Methods RSVP
+    /// <inheritdoc cref="BaseGuildedClient.GetRsvpsAsync(Guid, uint)" />
+    public async Task<IList<CalendarRsvp>> GetRsvpsAsync() =>
+        await ParentClient.GetRsvpsAsync(ChannelId, Id).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
+    /// <param name="user">The identifier of <see cref="User">the user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
+    public async Task<CalendarRsvp> GetRsvpAsync(HashId user) =>
+        await ParentClient.GetRsvpAsync(ChannelId, Id, user).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
+    /// <param name="user">The identifier of <see cref="User">the user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
+    public async Task<CalendarRsvp> SetRsvpAsync(HashId user, CalendarRsvpStatus status) =>
+        await ParentClient.SetRsvpAsync(ChannelId, Id, user, status).ConfigureAwait(false);
+
+    /// <inheritdoc cref="BaseGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
+    /// <param name="user">The identifier of <see cref="User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
+    public async Task RemoveRsvpAsync(HashId user) =>
+        await ParentClient.RemoveRsvpAsync(ChannelId, Id, user).ConfigureAwait(false);
+    #endregion
+
     #endregion
 }
 
