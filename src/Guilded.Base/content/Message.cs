@@ -22,7 +22,9 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Topic" />
-public class Message : ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent, IContentBlockMarkdown
+public class Message :
+    ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent,
+    IContentBlockMarkdown, IGlobalContent
 {
     #region Constants
     /// <summary>

@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class ListItemEvent : BaseModel, IServerEvent
+public class ListItemEvent : BaseModel
 {
     #region Properties
     /// <summary>

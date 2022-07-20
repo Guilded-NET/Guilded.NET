@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent
+public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent, IServerBased
 {
     #region Properties
 

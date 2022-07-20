@@ -12,12 +12,13 @@ namespace Guilded.Base.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes <see cref="Content.CalendarEvent">a calendar event</see>.
 /// </summary>
+/// <seealso cref="CalendarRsvpEvent" />
 /// <seealso cref="Content.CalendarEvent" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class CalendarEventEvent : BaseModel, IServerEvent
+public class CalendarEventEvent : BaseModel
 {
     #region Properties
     /// <summary>
@@ -87,7 +88,7 @@ public class CalendarEventEvent : BaseModel, IServerEvent
     /// <summary>
     /// Initializes a new instance of <see cref="CalendarEventEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the doc event occurred</param>
+    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the <see cref="CalendarEventEvent">calendar event event</see> occurred</param>
     /// <param name="calendarEvent"><see cref="Content.CalendarEvent">The calendar event</see> received from the event</param>
     /// <returns>New <see cref="CalendarEventEvent" /> JSON instance</returns>
     /// <seealso cref="CalendarEventEvent" />

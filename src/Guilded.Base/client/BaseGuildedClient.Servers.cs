@@ -11,7 +11,16 @@ public abstract partial class BaseGuildedClient
 {
     #region Methods
 
-    #region Groups
+    #region Methods Servers specifically
+    /// <summary>
+    /// Gets the specified <see cref="Server">server</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get</param>
+    /// <returns><see cref="Server" /></returns>
+    public abstract Task<Server> GetServerAsync(HashId server);
+    #endregion
+
+    #region Methods Groups
     /// <summary>
     /// Adds <paramref name="user">the member</paramref> to <paramref name="group">the group</paramref>.
     /// </summary>
@@ -43,7 +52,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task RemoveMembershipAsync(HashId group, HashId user);
     #endregion
 
-    #region Members
+    #region Methods Members
     /// <summary>
     /// Gets the list of all <paramref name="server" /> <see cref="Member">members</see>.
     /// </summary>
@@ -173,7 +182,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task AddXpAsync(HashId server, uint role, long amount);
     #endregion
 
-    #region Server-wide Moderation
+    #region Methods Server-wide Moderation
     /// <summary>
     /// Removes the <paramref name="member">specified member</paramref> from the <paramref name="server" />.
     /// </summary>
@@ -264,7 +273,7 @@ public abstract partial class BaseGuildedClient
         await RemoveMemberBanAsync(server, member).ConfigureAwait(false);
     #endregion
 
-    #region Webhooks
+    #region Methods Webhooks
     /// <summary>
     /// Gets a list of <see cref="Webhook">webhooks</see>.
     /// </summary>
@@ -344,7 +353,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task DeleteWebhookAsync(HashId server, Guid webhook);
     #endregion
 
-    #region Channels
+    #region Methods Channels
     /// <summary>
     /// Gets the <paramref name="channel">specified webhook</paramref>.
     /// </summary>

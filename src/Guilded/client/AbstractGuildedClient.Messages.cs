@@ -387,6 +387,8 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Calendar channels
+
+    #region Properties Calendar channels > Events
     /// <summary>
     /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="CalendarEvent">a new calendar event</see> is posted.
     /// </summary>
@@ -416,6 +418,47 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="EventCreated" />
     /// <seealso cref="EventUpdated" />
     public IObservable<CalendarEventEvent> EventDeleted => ((IEventInfo<CalendarEventEvent>)GuildedEvents["CalendarEventDeleted"]).Observable;
+    #endregion
+
+    #region Properties Calendar channels > RSVPs
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when a <see cref="CalendarRsvp">RSVP</see> of a <see cref="CalendarEvent">calendar event</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>This may include deletion as well. This hasn't been checked yet.</para>
+    /// <para>An event with the name <c>CalendarEventRssvpUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="RsvpManyUpdated" />
+    /// <seealso cref="RsvpDeleted" />
+    /// <seealso cref="EventUpdated" />
+    /// <seealso cref="EventDeleted" />
+    public IObservable<CalendarRsvpEvent> RsvpUpdated => ((IEventInfo<CalendarRsvpEvent>)GuildedEvents["CalendarEventRsvpUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when multiple <see cref="CalendarRsvp">RSVPs</see> of a <see cref="CalendarEvent">calendar event</see> are edited or created.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventRsvpManyUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="RsvpUpdated" />
+    /// <seealso cref="RsvpDeleted" />
+    /// <seealso cref="EventCreated" />
+    /// <seealso cref="EventDeleted" />
+    public IObservable<CalendarRsvpManyEvent> RsvpManyUpdated => ((IEventInfo<CalendarRsvpManyEvent>)GuildedEvents["CalendarEventRsvpManyUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when a <see cref="CalendarRsvp">RSVP</see> of a <see cref="CalendarEvent">calendar event</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventRsvpDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="RsvpUpdated" />
+    /// <seealso cref="RsvpManyUpdated" />
+    /// <seealso cref="EventCreated" />
+    /// <seealso cref="EventUpdated" />
+    public IObservable<CalendarRsvpEvent> RsvpDeleted => ((IEventInfo<CalendarRsvpEvent>)GuildedEvents["CalendarEventRsvpDeleted"]).Observable;
+    #endregion
+
     #endregion
 
     #endregion

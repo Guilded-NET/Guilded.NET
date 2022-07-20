@@ -13,7 +13,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="CalendarCancellation" />
 /// <seealso cref="User" />
 /// <seealso cref="Member" />
-public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent
+public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, IServerBased, IChannelBased
 {
     #region Properties
     /// <summary>

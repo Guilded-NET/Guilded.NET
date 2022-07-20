@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
@@ -20,7 +21,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Content.Message" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown where T : ListItemNoteSummary
+public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown, IServerBased where T : ListItemNoteSummary
 {
     #region Properties
     /// <summary>

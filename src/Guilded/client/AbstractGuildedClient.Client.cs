@@ -102,6 +102,9 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { "CalendarEventCreated",          new EventInfo<CalendarEventEvent>() },
             { "CalendarEventUpdated",          new EventInfo<CalendarEventEvent>() },
             { "CalendarEventDeleted",          new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventRsvpUpdated",      new EventInfo<CalendarRsvpEvent>() },
+            { "CalendarEventRsvpManyUpdated",  new EventInfo<CalendarRsvpManyEvent>() },
+            { "CalendarEventRsvpDeleted",      new EventInfo<CalendarRsvpEvent>() },
         };
         #endregion
 

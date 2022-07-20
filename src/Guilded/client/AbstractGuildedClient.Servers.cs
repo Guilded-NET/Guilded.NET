@@ -12,6 +12,12 @@ public abstract partial class AbstractGuildedClient
 {
     #region Methods
 
+    #region Methods Servers specifically
+    /// <inheritdoc />
+    public override async Task<Server> GetServerAsync(HashId server) =>
+        await GetResponseProperty<Server>(new RestRequest($"servers/{server}", Method.Get), "server").ConfigureAwait(false);
+    #endregion
+
     #region Methods Groups
     /// <inheritdoc />
     public override async Task AddMembershipAsync(HashId group, HashId member) =>

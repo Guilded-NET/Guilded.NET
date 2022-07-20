@@ -5,8 +5,12 @@
 - Added `ResponseReceived` observable
 - Added `ToString` to `GuildedSocketMessage`
 - Added Calendar event RSVPs
+- Added `IChannelBased` and `IGlobalContent` interfaces
+- Added `client.GetServerAsync(HashId)`, because I forgot to do that for some reason
+- Renamed `IServerEvent` to `IServerBased`
 - Changed `LastMessageId`'s access from `public` to `protected`
 - Changed `WebsocketMessage`'s access from `protected` to `public`
+- Removed `IServerEvent` from all events
 
 # v0.8.6-beta
 

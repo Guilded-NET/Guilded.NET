@@ -4,6 +4,20 @@ using Newtonsoft.Json;
 namespace Guilded.Base;
 
 /// <summary>
+/// Represents an object that uses parent <see cref="BaseGuildedClient">Guilded client</see> for its methods.
+/// </summary>
+public interface IHasParentClient
+{
+    /// <summary>
+    /// Gets <see cref="BaseGuildedClient">the parent client</see> that adopts <see cref="ContentModel">this object</see>.
+    /// </summary>
+    /// <value>Client</value>
+    /// <seealso cref="ContentModel.OnDeserialized" />
+    /// <seealso cref="BaseGuildedClient" />
+    BaseGuildedClient ParentClient { get; }
+}
+
+/// <summary>
 /// Represents a base for Guilded models that require a <see cref="ParentClient">client</see>.
 /// </summary>
 /// <remarks>
@@ -11,17 +25,12 @@ namespace Guilded.Base;
 /// </remarks>
 /// <seealso cref="BaseGuildedClient" />
 /// <seealso cref="BaseModel" />
-public abstract class ContentModel : BaseModel
+public abstract class ContentModel : BaseModel, IHasParentClient
 {
 #nullable disable
 
     #region Properties
-    /// <summary>
-    /// Gets <see cref="BaseGuildedClient">the parent client</see> that adopts <see cref="ContentModel">this object</see>.
-    /// </summary>
-    /// <value>Client</value>
-    /// <seealso cref="OnDeserialized" />
-    /// <seealso cref="BaseGuildedClient" />
+    /// <inheritdoc />
     [JsonIgnore]
     public BaseGuildedClient ParentClient { get; private set; }
     #endregion

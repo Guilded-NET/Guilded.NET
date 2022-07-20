@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 
@@ -16,7 +17,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Topic" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Doc" />
-public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<TId>, ICreatableContent where TId : notnull
+public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<TId>, ICreatableContent, IChannelBased where TId : notnull
 {
     #region Properties
     /// <summary>
