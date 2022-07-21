@@ -48,7 +48,7 @@ public abstract partial class AbstractGuildedClient
             // Whitespace content
             (message.Content is not null && string.IsNullOrWhiteSpace(message.Content)))
         {
-            throw new ArgumentNullException(nameof(message.Content));
+            throw new NullReferenceException("Message content cannot be null if there are no embeds");
         }
 
         return await GetResponseProperty<Message>(

@@ -1,7 +1,10 @@
 # v0.9.0-beta
 
+Important:
 - !!! Bumped framework version from .NET Standard 2.1 to .NET 5
+- Removed `IDisposable` from the client (that means you now have to do `await using var client = ...;` instead)
 
+Other stuff:
 - Added rate-limiting handling (rejects)
 - Added automatic resuming
 - Added `ResponseReceived` observable
@@ -13,6 +16,7 @@
 - Changed `LastMessageId`'s access from `public` to `protected`
 - Changed `WebsocketMessage`'s access from `protected` to `public`
 - Removed `IServerEvent` from all events
+- Removed `IDisposable` from the client
 
 # v0.8.6-beta
 

@@ -103,7 +103,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
 
     #region Methods
     internal bool HasCorrectCount(int count) =>
-        HasRestArgument ? count >= RequiredCount : count >= RequiredCount && count <= Arguments.Count();
+        HasRestArgument ? count >= RequiredCount : count >= RequiredCount && count <= Arguments.Length;
 
     /// <summary>
     /// Returns the enumerable of runtime method parameter values.

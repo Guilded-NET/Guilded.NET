@@ -22,7 +22,7 @@ namespace Guilded.Base;
 /// <remarks>
 /// <para>The base that adds a layer to Guilded API wrapping. This is used in all Guilded.NET clients.</para>
 /// </remarks>
-public abstract partial class BaseGuildedClient : IAsyncDisposable, IDisposable
+public abstract partial class BaseGuildedClient : IAsyncDisposable
 {
     #region Fields
     /// <summary>
@@ -171,15 +171,8 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable, IDisposable
     /// <note type="tip">See documentation of child types for more information.</note>
     /// </remarks>
     /// <seealso cref="ConnectAsync" />
-    /// <seealso cref="Dispose" />
+    /// <seealso cref="DisposeAsync" />
     public abstract Task DisconnectAsync();
-
-    /// <summary>
-    /// Disposes <see cref="BaseGuildedClient" /> instance.
-    /// </summary>
-    /// <seealso cref="DisconnectAsync" />
-    public void Dispose() =>
-        DisposeAsync().ConfigureAwait(false).GetAwaiter().GetResult();
 
     /// <summary>
     /// Disposes <see cref="BaseGuildedClient" /> instance.
