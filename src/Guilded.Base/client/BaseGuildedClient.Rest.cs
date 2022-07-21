@@ -17,7 +17,7 @@ using RestSharp;
 
 namespace Guilded.Base;
 
-public abstract partial class BaseGuildedClient : IDisposable
+public abstract partial class BaseGuildedClient
 {
     #region Static fields
     private static readonly Dictionary<string, string> contentType = new()
