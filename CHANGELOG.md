@@ -1,5 +1,7 @@
 # v0.9.0-beta
 
+- !!! Bumped framework version from .NET Standard 2.1 to .NET 5
+
 - Added rate-limiting handling (rejects)
 - Added automatic resuming
 - Added `ResponseReceived` observable
