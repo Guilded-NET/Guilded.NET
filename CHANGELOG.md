@@ -1,6 +1,7 @@
 # Latest
 
 - Added forum CRUD and events
+- Renamed `ReactionAdded`/`ReactionRemoved` to `MessageReactionAdded`/`MessageReactionRemoved`
 - Fixed update calendar event method
 
 # v0.9.0-beta
