@@ -75,6 +75,9 @@ public class MessageEvent : MessageEvent<Message>
     /// <inheritdoc cref="Message.Embeds" />
     public IList<Embed>? Embeds => Message.Embeds;
 
+    /// <inheritdoc cref="Message.Mentions" />
+    public Mentions? Mentions => Message.Mentions;
+
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Message.CreatedBy;
 

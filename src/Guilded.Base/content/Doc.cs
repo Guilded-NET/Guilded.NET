@@ -10,13 +10,25 @@ namespace Guilded.Base.Content;
 /// Represents a document in <see cref="Servers.ChannelType.Docs">a document channel</see>.
 /// </summary>
 /// <seealso cref="Topic" />
+/// <seealso cref="CalendarEvent" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="Message" />
 public class Doc : TitledContent, IContentMarkdown
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="TitledContent.Content">the content</see>.
+    /// Gets the text contents of the <see cref="Doc">document</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
+    /// </remarks>
+    /// <value>Markdown string</value>
+    /// <seealso cref="Doc" />
+    /// <seealso cref="TitledContent.Title" />
+    public string Content { get; }
+
+    /// <summary>
+    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="Content">the content</see>.
     /// </summary>
     /// <value><see cref="Content.Mentions" />?</value>
     public Mentions? Mentions { get; }
@@ -48,7 +60,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// <param name="createdAt">the date when the document was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
     /// <param name="updatedAt">the date when the document was recently updated</param>
-    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="TitledContent.Content">the content</see></param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Content">the content</see></param>
     /// <returns>New <see cref="Doc" /> JSON instance</returns>
     /// <seealso cref="Doc" />
     [JsonConstructor]
@@ -82,14 +94,14 @@ public class Doc : TitledContent, IContentMarkdown
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Mentions? mentions = null
-    ) : base(id, channelId, serverId, title, content, createdBy, createdAt, updatedAt) =>
-        (Mentions, UpdatedBy) = (mentions, updatedBy);
+    ) : base(id, channelId, serverId, title, createdBy, createdAt, updatedAt) =>
+        (Content, Mentions, UpdatedBy) = (content, mentions, updatedBy);
     #endregion
 
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.UpdateDocAsync(Guid, uint, string, string)" />
-    /// <param name="title">The new title of the document</param>
-    /// <param name="content">The Markdown content of the document</param>
+    /// <param name="title">The new title of the <see cref="Doc">document</see></param>
+    /// <param name="content">The Markdown content of the <see cref="Doc">document</see></param>
     public async Task<Doc> UpdateAsync(string title, string content) =>
         await ParentClient.UpdateDocAsync(ChannelId, Id, title, content);
 

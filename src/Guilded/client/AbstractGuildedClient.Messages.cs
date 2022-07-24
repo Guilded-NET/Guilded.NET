@@ -235,7 +235,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets <see cref="IObservable{T}">the observable</see> for an event when <see cref="Message">a new message</see> is sent.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>ChatMessageUpdated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ChatMessageCreated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MessageUpdated" />
     /// <seealso cref="MessageDeleted" />
@@ -290,6 +290,38 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MessageDeleted" />
     /// <seealso cref="ReactionAdded" />
     public IObservable<MessageReactionEvent> ReactionRemoved => ((IEventInfo<MessageReactionEvent>)GuildedEvents["ChannelMessageReactionCreated"]).Observable;
+    #endregion
+
+    #region Properties Forum channels
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when a new <see cref="Topic">forum topic</see> is posted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicUpdated" />
+    /// <seealso cref="TopicDeleted" />
+    public IObservable<TopicEvent> TopicCreated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicCreated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when a <see cref="Topic">forum topic</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicCreated" />
+    /// <seealso cref="TopicDeleted" />
+    public IObservable<TopicEvent> TopicUpdated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets <see cref="IObservable{T}">the observable</see> for an event when a <see cref="Topic">forum topic</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicCreated" />
+    /// <seealso cref="TopicUpdated" />
+    public IObservable<TopicEvent> TopicDeleted => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicDeleted"]).Observable;
     #endregion
 
     #region Properties List channels

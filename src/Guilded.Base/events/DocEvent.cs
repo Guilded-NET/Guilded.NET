@@ -10,8 +10,10 @@ namespace Guilded.Base.Events;
 /// Represents an event that occurs when someone creates, updates or deletes <see cref="Content.Doc">a document</see>.
 /// </summary>
 /// <seealso cref="Content.Doc" />
+/// <seealso cref="TopicEvent" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="ListItemEvent" />
+/// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
 public class DocEvent : BaseModel
 {
@@ -36,8 +38,11 @@ public class DocEvent : BaseModel
     /// <inheritdoc cref="TitledContent.Title" />
     public string Title => Doc.Title;
 
-    /// <inheritdoc cref="TitledContent.Content" />
+    /// <inheritdoc cref="Doc.Content" />
     public string Content => Doc.Content;
+
+    /// <inheritdoc cref="Doc.Mentions" />
+    public Mentions? Mentions => Doc.Mentions;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Doc.CreatedBy;

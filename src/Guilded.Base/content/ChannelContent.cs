@@ -1,5 +1,4 @@
 using System;
-using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 

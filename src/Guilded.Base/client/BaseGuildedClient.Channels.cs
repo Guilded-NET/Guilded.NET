@@ -439,7 +439,34 @@ public abstract partial class BaseGuildedClient
 
     #region Methods Forum channels
     /// <summary>
-    /// Creates a <see cref="Topic">new forum post</see>.
+    /// Gets a list of <see cref="Topic">forum topics</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="limit">The limit of how many <see cref="Topic">topics</see> to get (default — <c>25</c>, values — <c>(0, 100]</c>)</param>
+    /// <param name="before">The max limit of the creation date of fetched <see cref="Topic">topics</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    /// <returns>List of <see cref="Topic">forum topics</see></returns>
+    public abstract Task<IList<TopicSummary>> GetTopicsAsync(Guid channel, uint? limit = null, DateTime? before = null);
+
+    /// <summary>
+    /// Gets the <paramref name="topic">specified topic</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    /// <returns>Specified <see cref="Topic">topic</see></returns>
+    public abstract Task<Topic> GetTopicAsync(Guid channel, uint topic);
+
+    /// <summary>
+    /// Creates a new <see cref="Topic">forum post</see>.
     /// </summary>
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="title">The title of <see cref="Topic">the forum post</see></param>
@@ -450,9 +477,39 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="ForumPermissions.CreateTopics" />
-    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="Topic">a forum thread</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Created <see cref="Topic">forum thread</see></returns>
+    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting a <see cref="Topic">forum topic</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>Created <see cref="Topic">forum topic</see></returns>
     public abstract Task<Topic> CreateTopicAsync(Guid channel, string title, string content);
+
+    /// <summary>
+    /// Edits <see cref="Topic">forum post's</see> <paramref name="title" /> and <paramref name="content">contents</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to update</param>
+    /// <param name="title">The new title of the <see cref="Topic">forum topic</see></param>
+    /// <param name="content">The new contents of the <see cref="Topic">forum topic</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    /// <permission cref="ForumPermissions.CreateTopics" />
+    /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>Updated <see cref="Topic">forum topic</see></returns>
+    public abstract Task<Topic> UpdateTopicAsync(Guid channel, uint topic, string title, string content);
+
+    /// <summary>
+    /// Deletes a <see cref="Topic">forum post</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    /// <permission cref="DocPermissions.RemoveDocs">Required when deleting <see cref="Topic">forum topic</see> that the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
+    public abstract Task DeleteTopicAsync(Guid channel, uint topic);
     #endregion
 
     #region Methods List channels

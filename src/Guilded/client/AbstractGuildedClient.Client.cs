@@ -86,6 +86,11 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { "ChannelMessageReactionCreated", new EventInfo<MessageReactionEvent>() },
             { "ChannelMessageReactionDeleted", new EventInfo<MessageReactionEvent>() },
 
+            // Forum topics
+            { "ForumTopicCreated",             new EventInfo<TopicEvent>() },
+            { "ForumTopicUpdated",             new EventInfo<TopicEvent>() },
+            { "ForumTopicDeleted",             new EventInfo<TopicEvent>() },
+
             // List items
             { "ListItemCreated",               new EventInfo<ListItemEvent>() },
             { "ListItemUpdated",               new EventInfo<ListItemEvent>() },

@@ -36,6 +36,9 @@ public class ListItemEvent : BaseModel
     /// <inheritdoc cref="ListItemBase{T}.Message" />
     public string Message => ListItem.Message;
 
+    /// <inheritdoc cref="ListItemBase{T}.Mentions" />
+    public Mentions? Mentions => ListItem.Mentions;
+
     /// <inheritdoc cref="ListItemBase{T}.Note" />
     public ListItemNote? Note => ListItem.Note;
 

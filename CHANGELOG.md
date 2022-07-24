@@ -1,3 +1,8 @@
+# Latest
+
+- Added forum CRUD and events
+- Fixed update calendar event method
+
 # v0.9.0-beta
 
 Important:

@@ -14,7 +14,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent, IServerBased
+public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent, IServerBased
 {
     #region Properties
 
@@ -29,17 +29,6 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <seealso cref="TitledContent" />
     /// <seealso cref="Content" />
     public string Title { get; }
-
-    /// <summary>
-    /// Gets the text contents of <see cref="TitledContent">the titled content</see>.
-    /// </summary>
-    /// <remarks>
-    /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
-    /// </remarks>
-    /// <value>Markdown string</value>
-    /// <seealso cref="TitledContent" />
-    /// <seealso cref="Title" />
-    public string Content { get; }
     #endregion
 
     /// <summary>
@@ -60,7 +49,6 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
     /// <param name="channelId">The identifier of the channel where the channel content are</param>
     /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the channel content are</param>
     /// <param name="title">The title of <see cref="TitledContent">the titled content</see></param>
-    /// <param name="content">The text contents of <see cref="TitledContent">the titled content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created <see cref="ChannelContent{TId, TServer}">the content</see></param>
     /// <param name="createdAt">The date when <see cref="ChannelContent{TId, TServer}">the content</see> were created</param>
     /// <param name="updatedAt">The date when <see cref="TitledContent">the titled content</see> were updated</param>
@@ -81,9 +69,6 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
         string title,
 
         [JsonProperty(Required = Required.Always)]
-        string content,
-
-        [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
         [JsonProperty(Required = Required.Always)]
@@ -92,7 +77,7 @@ public class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IR
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Title, Content, UpdatedAt) = (title, content, updatedAt);
+        (Title, UpdatedAt) = (title, updatedAt);
     #endregion
 
     #region Methods
