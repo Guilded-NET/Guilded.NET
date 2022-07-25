@@ -1,8 +1,9 @@
-# Latest
+# v0.9.1-beta
 
 - Added forum CRUD and events
 - Renamed `ReactionAdded`/`ReactionRemoved` to `MessageReactionAdded`/`MessageReactionRemoved`
 - Fixed update calendar event method
+- Fixed error related to `Websocket.NativeClient`
 
 # v0.9.0-beta
 
