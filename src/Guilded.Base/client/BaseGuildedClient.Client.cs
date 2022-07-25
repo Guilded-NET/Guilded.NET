@@ -120,8 +120,10 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable
         Websocket
             .DisconnectionHappened
             .Subscribe(_ =>
-                Websocket.NativeClient.Options.SetRequestHeader("guilded-last-message-id", LastMessageId)
-            );
+            {
+                if (Websocket.NativeClient is not null)
+                    Websocket.NativeClient.Options.SetRequestHeader("guilded-last-message-id", LastMessageId);
+            });
 
         // For REST client
         SerializerSettings = new JsonSerializerSettings
