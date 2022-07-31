@@ -59,8 +59,8 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
             // Honestly, I don't know what I am doing. I don't want to do repetitive ifs,
             // especially since it can be a bit slower (see branchless programming). But it
             // still looks bad
-            // REVIEW, FIXME: Code below
             if (arg.ParameterType == typeof(string[]))
+            {
                 // We could probably do it backwards, but eh, better errors?
                 if (argIndex + 1 != parameters.Count())
                 {
@@ -71,6 +71,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                     HasRestArgument = true;
                     return new CommandRestInfo(arg);
                 }
+            }
 
             Type? nullableType = Nullable.GetUnderlyingType(arg.ParameterType);
 
@@ -121,7 +122,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     /// <param name="commandEvent">The command event that invoked the command</param>
     /// <param name="arguments">The arguments that have been used to invoke the command</param>
     /// <returns>Whether the command was properly invoked</returns>
-    public Task InvokeAsync(CommandBase parent, CommandEvent commandEvent, IEnumerable<object?> arguments) =>
+    public Task InvokeAsync(CommandParent parent, CommandEvent commandEvent, IEnumerable<object?> arguments) =>
         Task.Run(() => Member.Invoke(parent, new object[] { commandEvent }.Concat(arguments.ToArray()).ToArray()));
     #endregion
 }
@@ -131,13 +132,15 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
 public class CommandContainerInfo : AbstractCommandInfo<Type>
 {
     #region Properties
+
+#nullable disable
     /// <summary>
     /// Gets the created instance of <see cref="CommandAttribute">the command</see> type for this command.
     /// </summary>
     /// <value>Command instance</value>
-    public CommandBase Instance { get; }
+    public CommandParent Instance { get; }
 
-    /// <inheritdoc cref="CommandBase.Commands" />
+    /// <inheritdoc cref="CommandParent.Commands" />
     public IEnumerable<ICommandInfo<MemberInfo>> SubCommands => Instance.Commands;
     #endregion
 
@@ -148,7 +151,7 @@ public class CommandContainerInfo : AbstractCommandInfo<Type>
     /// <param name="type">The type that was declared as a command</param>
     /// <param name="attribute">The command attribute it was given</param>
     /// <param name="instance">Other reflection members that were declared as commands</param>
-    public CommandContainerInfo(Type type, CommandAttribute attribute, CommandBase instance) : base(attribute, type) =>
+    public CommandContainerInfo(Type type, CommandAttribute attribute, CommandParent instance) : base(attribute, type) =>
         Instance = instance;
     #endregion
 }

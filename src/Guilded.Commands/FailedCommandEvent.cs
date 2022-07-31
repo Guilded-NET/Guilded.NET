@@ -9,7 +9,7 @@ namespace Guilded.Commands;
 /// </summary>
 /// <seealso cref="Message" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="FailedCommandEvent" />
+/// <seealso cref="CommandEvent" />
 /// <seealso cref="CommandAttribute" />
 public class FailedCommandEvent : CommandEvent
 {
@@ -47,5 +47,9 @@ public enum FallbackType
     /// <summary>
     /// The <see cref="FailedCommandEvent">sub-command/command</see> with the specified name or arguments does not exist.
     /// </summary>
-    NoCommandFound
+    NoCommandFound,
+    /// <summary>
+    /// The <see cref="FailedCommandEvent">sub-command/command</see> was being invoked with bad arguments.
+    /// </summary>
+    BadArguments
 }

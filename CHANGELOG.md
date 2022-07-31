@@ -1,3 +1,10 @@
+# v0.9.2-beta
+
+- Added `Mentions` property to `Topic` class
+- Added `ParentClient` to `MessageEvent` (for `CommandEvent`)
+- Added different `CommandBase` class that extends older `CommandBase` (`CommandParent`), now with `InstanceInfo`, `Name`, `Description`, `Examples` and `Aliases` properties
+- Renamed `CommandBase` to `CommandParent` (`CommandBase` still exists)
+
 # v0.9.1-beta
 
 - Added forum CRUD and events

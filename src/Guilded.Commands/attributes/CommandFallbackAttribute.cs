@@ -3,7 +3,7 @@ using System;
 namespace Guilded.Commands;
 
 /// <summary>
-/// Declares a method as a <see cref="CommandBase.FailedCommand">failed command</see> handler.
+/// Declares a method as a <see cref="CommandParent.FailedCommand">failed command</see> handler.
 /// </summary>
 /// <example>
 /// <para>The code below demonstrates a command with unknown sub-command handling.</para>
@@ -25,7 +25,7 @@ public sealed class CommandFallbackAttribute : Attribute
 {
     #region Properties
     /// <summary>
-    /// Gets the type of <see cref="CommandBase.FailedCommand">failed command</see> event to handle.
+    /// Gets the type of <see cref="CommandParent.FailedCommand">failed command</see> event to handle.
     /// </summary>
     /// <value>Failed command type</value>
     public FallbackType Type { get; set; }
@@ -35,7 +35,7 @@ public sealed class CommandFallbackAttribute : Attribute
     /// <summary>
     /// Declares a method as a failed command handler based on <paramref name="type">the given type</paramref>.
     /// </summary>
-    /// <param name="type">The type of <see cref="CommandBase.FailedCommand">failed command</see> event to handle</param>
+    /// <param name="type">The type of <see cref="CommandParent.FailedCommand">failed command</see> event to handle</param>
     public CommandFallbackAttribute(FallbackType type) =>
         Type = type;
     #endregion

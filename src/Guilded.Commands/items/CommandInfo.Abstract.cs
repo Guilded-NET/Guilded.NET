@@ -77,7 +77,7 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
     public string[]? Aliases => Attribute.Aliases;
 
     /// <inheritdoc cref="DescriptionAttribute.Text" />
-    public string? Description => Member.GetAttribute<DescriptionAttribute>()?.Text;
+    public string? Description => Member.GetCustomAttribute<DescriptionAttribute>()?.Text;
 
     /// <inheritdoc cref="ExampleAttribute.Content" />
     public IEnumerable<ExampleAttribute> Examples => Member.GetCustomAttributes<ExampleAttribute>();
@@ -94,7 +94,7 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
     #endregion
 
     #region Methods
-    private static string TransformMethodName(string name)
+    internal static string TransformMethodName(string name)
     {
         // Trim XCommandAsync(), XCommand(), XAsync()
         string unsuffixedName = TrimSuffix(TrimSuffix(name, "Async"), "Command");

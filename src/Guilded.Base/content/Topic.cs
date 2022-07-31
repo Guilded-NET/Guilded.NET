@@ -17,7 +17,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="CalendarEvent" />
-public class TopicSummary : TitledContent
+public class TopicSummary : TitledContent, IContentMarkdown
 {
     #region Properties
     /// <summary>
@@ -38,6 +38,9 @@ public class TopicSummary : TitledContent
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     /// <seealso cref="TitledContent.UpdatedAt" />
     public DateTime BumpedAt { get; }
+
+    /// <inheritdoc />
+    public Mentions? Mentions { get; }
     #endregion
 
     #region Constructors
@@ -53,6 +56,7 @@ public class TopicSummary : TitledContent
     /// <param name="createdAt">The date when the forum thread was created</param>
     /// <param name="bumpedAt">The date when the <see cref="TopicSummary">topic</see> was bumped</param>
     /// <param name="updatedAt">The date when the forum thread was edited</param>
+    /// <param name="mentions">The <see cref="Mentions">mentions</see> found in <see cref="Message.Content">the content</see></param>
     /// <returns>New <see cref="TopicSummary" /> JSON instance</returns>
     /// <seealso cref="TopicSummary" />
     [JsonConstructor]
@@ -82,9 +86,12 @@ public class TopicSummary : TitledContent
         Guid? createdByWebhookId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        DateTime? updatedAt = null
+        DateTime? updatedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null
     ) : base(id, channelId, serverId, title, createdBy, createdAt, updatedAt) =>
-        (BumpedAt, CreatedByWebhook) = (bumpedAt, createdByWebhookId);
+        (Mentions, BumpedAt, CreatedByWebhook) = (mentions, bumpedAt, createdByWebhookId);
     #endregion
 
     #region Methods

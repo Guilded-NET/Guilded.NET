@@ -116,9 +116,9 @@ public interface IContentMarkdown
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="Message.Content">the content</see>.
+    /// Gets the <see cref="Content.Mentions">mentions</see> found in <see cref="Message.Content">the content</see>.
     /// </summary>
-    /// <value><see cref="Mentions" />?</value>
+    /// <value><see cref="Content.Mentions" />?</value>
     Mentions? Mentions { get; }
     #endregion
 }

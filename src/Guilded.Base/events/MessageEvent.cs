@@ -16,7 +16,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public abstract class MessageEvent<T> : BaseModel where T : BaseModel
+public abstract class MessageEvent<T> : ContentModel where T : BaseModel
 {
     #region Properties
     /// <summary>

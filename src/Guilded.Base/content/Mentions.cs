@@ -10,6 +10,7 @@ namespace Guilded.Base.Content;
 /// <summary>
 /// Represents a collection of mentions of certain element or user.
 /// </summary>
+/// <seealso cref="Embeds.Embed" />
 public class Mentions : BaseModel
 {
     #region Properties

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Guilded.Base;
 using Guilded.Base.Content;
 using Guilded.Base.Events;
 
@@ -11,7 +12,7 @@ namespace Guilded.Commands;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="FailedCommandEvent" />
 /// <seealso cref="CommandAttribute" />
-public class CommandEvent : MessageEvent
+public class CommandEvent : MessageEvent, IHasParentClient
 {
     #region Properties
 

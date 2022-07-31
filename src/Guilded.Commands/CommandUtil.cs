@@ -9,7 +9,7 @@ namespace Guilded.Commands;
 internal static class CommandUtil
 {
     #region Methods
-    public static void SubscribeToFailedCommands(CommandBase command, Type type)
+    public static void SubscribeToFailedCommands(CommandParent command, Type type)
     {
         Type commandEventType = typeof(CommandEvent);
 
@@ -98,7 +98,7 @@ internal static class CommandUtil
 
                         SubscribeToFailedCommands(instance, type);
 
-                        return new CommandContainerInfo(type, attribute, instance);
+                        return instance.InstanceInfo;
                     }
                 }
             );
