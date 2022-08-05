@@ -126,7 +126,7 @@ public abstract class CommandParent
         {
             if (filteredCommand is CommandContainerInfo commandContainer)
             {
-                await commandContainer.Instance.InvokeAsync(commandName, rootInvokation, arguments).ConfigureAwait(false);
+                await InvokeCommandAsync(commandContainer, rootInvokation, commandName, arguments).ConfigureAwait(false);
                 return true;
             }
             else
@@ -136,9 +136,6 @@ public abstract class CommandParent
                 try
                 {
                     IEnumerable<object?> commandArgs = command.GenerateMethodParameters(arguments);
-
-                    // Context
-                    CommandEvent commandEvent = new(rootInvokation, commandName, arguments);
 
                     await InvokeCommandAsync(command, rootInvokation, commandName, arguments, commandArgs).ConfigureAwait(false);
                     return true;

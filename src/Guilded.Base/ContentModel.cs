@@ -32,7 +32,7 @@ public abstract class ContentModel : BaseModel, IHasParentClient
     #region Properties
     /// <inheritdoc />
     [JsonIgnore]
-    public BaseGuildedClient ParentClient { get; private set; }
+    public BaseGuildedClient ParentClient { get; protected set; }
     #endregion
 
     #region Methods

@@ -73,6 +73,6 @@ public class CommandEvent : MessageEvent, IHasParentClient
     /// <param name="commandName">The name of the command that was used</param>
     /// <param name="arguments">The array of string arguments that were given to the command</param>
     public CommandEvent(RootCommandEvent context, string commandName, IEnumerable<string> arguments) : base(context.MessageEvent.Message, context.MessageEvent.ServerId) =>
-        (RootCommand, CommandName, Arguments) = (context, commandName, arguments);
+        (RootCommand, CommandName, Arguments, ParentClient) = (context, commandName, arguments, context.MessageEvent.ParentClient);
     #endregion
 }
