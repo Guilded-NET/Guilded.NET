@@ -70,7 +70,7 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Delete));
 
     /// <inheritdoc />
-    public override Task<long> AddXpAsync(HashId server, HashId member, long amount) =>
+    public override Task<long> AddXpAsync(HashId server, HashId member, short amount) =>
         GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
             .AddJsonBody(new
             {
@@ -79,13 +79,13 @@ public abstract partial class AbstractGuildedClient
         , "total");
 
     /// <inheritdoc />
-    public override Task AddXpAsync(HashId server, uint role, long amount) =>
-        GetResponseProperty<long>(new RestRequest($"servers/{server}/roles/{role}/xp", Method.Post)
+    public override Task AddXpAsync(HashId server, uint role, short amount) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/roles/{role}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
             })
-        , "total");
+        );
     #endregion
 
     #region Methods Server-wide Moderation

@@ -16,19 +16,19 @@ public abstract partial class BaseGuildedClient
     /// Gets the specified <see cref="Server">server</see>.
     /// </summary>
     /// <param name="server">The identifier of the <see cref="Server">server</see> to get</param>
-    /// <returns><see cref="Server" /></returns>
+    /// <returns>Specified <see cref="Server">server</see></returns>
     public abstract Task<Server> GetServerAsync(HashId server);
     #endregion
 
     #region Methods Groups
     /// <summary>
-    /// Adds <paramref name="user">the member</paramref> to <paramref name="group">the group</paramref>.
+    /// Adds the <paramref name="user">member</paramref> to the <paramref name="group">group</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>This allows <paramref name="user">the member</paramref> to interact or see the specified group.</para>
+    /// <para>This allows the <paramref name="user">member</paramref> to interact or see the specified group.</para>
     /// </remarks>
     /// <param name="group">The identifier of the parent group</param>
-    /// <param name="user">The identifier of <see cref="Member">the member</see> to add</param>
+    /// <param name="user">The identifier of the <see cref="Member">member</see> to add</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -37,13 +37,13 @@ public abstract partial class BaseGuildedClient
     public abstract Task AddMembershipAsync(HashId group, HashId user);
 
     /// <summary>
-    /// Removes <paramref name="user">the member</paramref> from <paramref name="group">the group</paramref>.
+    /// Removes the <paramref name="user">member</paramref> from the <paramref name="group">group</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>This disallows <paramref name="user">the member</paramref> to interact or see the specified group.</para>
+    /// <para>This disallows the <paramref name="user">member</paramref> to interact or see the specified group.</para>
     /// </remarks>
     /// <param name="group">The identifier of the parent group</param>
-    /// <param name="user">The identifier of <see cref="Member">the member</see> to remove</param>
+    /// <param name="user">The identifier of the <see cref="Member">member</see> to remove</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -65,10 +65,10 @@ public abstract partial class BaseGuildedClient
     public abstract Task<IList<MemberSummary>> GetMembersAsync(HashId server);
 
     /// <summary>
-    /// Gets full information about the <paramref name="member">specified member</paramref>.
+    /// Gets full information about the specified <paramref name="member" />.
     /// </summary>
-    /// <param name="server">The server where <see cref="Member">the member</see> is</param>
-    /// <param name="member">The identifier of <see cref="Member">the member</see> to get</param>
+    /// <param name="server">The server where the <see cref="Member">member</see> is</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to get</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -92,7 +92,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<IList<uint>> GetMemberRolesAsync(HashId server, HashId member);
 
     /// <summary>
-    /// Changes <see cref="Member.Nickname">the nickname</see> of the <paramref name="member">specified member</paramref>.
+    /// Changes <see cref="Member.Nickname">the nickname</see> of the specified <paramref name="member" />.
     /// </summary>
     /// <param name="server">The server to modify member in</param>
     /// <param name="member">The identifier of the member to update</param>
@@ -108,10 +108,10 @@ public abstract partial class BaseGuildedClient
     public abstract Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname);
 
     /// <summary>
-    /// Removes <see cref="Member.Nickname">the nickname</see> of the <paramref name="member">specified member</paramref>.
+    /// Removes <see cref="Member.Nickname">the nickname</see> of the specified <paramref name="member" />.
     /// </summary>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
-    /// <param name="member">The identifier of <see cref="Member">the member</see> to update</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to update</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -125,7 +125,7 @@ public abstract partial class BaseGuildedClient
     /// Adds a <paramref name="role" /> to <see cref="User">the user</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If they hold the <paramref name="role">specified role</paramref>, then nothing happens.</para>
+    /// <para>If they hold the specified <paramref name="role">role</paramref>, then nothing happens.</para>
     /// </remarks>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
     /// <param name="member">The identifier of <see cref="Member">the receiving member</see></param>
@@ -138,10 +138,10 @@ public abstract partial class BaseGuildedClient
     public abstract Task AddRoleAsync(HashId server, HashId member, uint role);
 
     /// <summary>
-    /// Removes <paramref name="role">the specified role</paramref> from <see cref="User">the user</see>.
+    /// Removes the specified <paramref name="role">role</paramref> from <see cref="User">the user</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If they don't hold the <paramref name="role">specified role</paramref>, then nothing happens.</para>
+    /// <para>If they don't hold the specified <paramref name="role">role</paramref>, then nothing happens.</para>
     /// </remarks>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
     /// <param name="member">The identifier of <see cref="Member">the losing member</see></param>
@@ -166,7 +166,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
     /// <permission cref="XpPermissions.ManageServerXp" />
     /// <returns>Total XP</returns>
-    public abstract Task<long> AddXpAsync(HashId server, HashId member, long amount);
+    public abstract Task<long> AddXpAsync(HashId server, HashId member, short amount);
 
     /// <summary>
     /// Gives <paramref name="amount">XP</paramref> to the <paramref name="role">specified role's</paramref> members.
@@ -179,15 +179,15 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="XpPermissions.ManageServerXp" />
-    public abstract Task AddXpAsync(HashId server, uint role, long amount);
+    public abstract Task AddXpAsync(HashId server, uint role, short amount);
     #endregion
 
     #region Methods Server-wide Moderation
     /// <summary>
-    /// Removes the <paramref name="member">specified member</paramref> from the <paramref name="server" />.
+    /// Removes the specified <paramref name="member" /> from the <paramref name="server" />.
     /// </summary>
-    /// <param name="server">The server to kick <see cref="Member">the member</see> from</param>
-    /// <param name="member">The identifier of <see cref="Member">the member</see> to kick</param>
+    /// <param name="server">The server to kick the <see cref="Member">member</see> from</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to kick</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -199,38 +199,38 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Gets the list of <paramref name="server">server's</paramref> bans.
     /// </summary>
-    /// <param name="server">The server to get bans of</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get bans of</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers" />
-    /// <returns>List of <see cref="MemberBan">Member ban information</see></returns>
+    /// <returns>List of <see cref="MemberBan">member bans</see></returns>
     public abstract Task<IList<MemberBan>> GetBansAsync(HashId server);
 
     /// <summary>
-    /// Gets <see cref="MemberBan">the information</see> about the ban of <paramref name="member">the member</paramref>.
+    /// Gets <see cref="MemberBan">the information</see> about the ban of the <paramref name="member">member</paramref>.
     /// </summary>
-    /// <param name="server">The server where <see cref="User">the user</see> has been banned</param>
-    /// <param name="member">The identifier of <see cref="Member">the member</see> to get ban information of</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where <see cref="User">the user</see> has been banned</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to get ban information of</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers" />
-    /// <returns><paramref name="member">Specified member's</paramref> ban</returns>
+    /// <returns>Specified <see cref="MemberBan">member's ban</see></returns>
     public abstract Task<MemberBan> GetBanAsync(HashId server, HashId member);
 
     /// <summary>
-    /// Bans the <paramref name="member">specified member</paramref>.
+    /// Bans the specified <paramref name="member" />.
     /// </summary>
     /// <remarks>
     /// <para>Disallows them from joining again, until they receive an unban with <see cref="RemoveMemberBanAsync" /> method.</para>
     /// </remarks>
-    /// <param name="server">The server to ban member from</param>
-    /// <param name="member">The identifier of <see cref="Member">the member</see> to ban</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to ban member from</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to ban</param>
     /// <param name="reason">The reason for a ban</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -242,13 +242,13 @@ public abstract partial class BaseGuildedClient
     public abstract Task<MemberBan> AddMemberBanAsync(HashId server, HashId member, string? reason = null);
 
     /// <summary>
-    /// Unbans the <paramref name="member">specified member</paramref>.
+    /// Unbans the specified <paramref name="member" />.
     /// </summary>
     /// <remarks>
-    /// <para>Allows them to join <see cref="Server">the server</see> again.</para>
+    /// <para>Allows them to join the <see cref="Server">server</see> again.</para>
     /// </remarks>
-    /// <param name="server">The server to unban <see cref="Member">member</see> in</param>
-    /// <param name="member">The identifier of <see cref="Member">the member</see> to unban</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to unban <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to unban</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -280,8 +280,8 @@ public abstract partial class BaseGuildedClient
     /// <remarks>
     /// <para>If <paramref name="channel" /> parameter is given, it gets all of <see cref="Webhook">the channel webhooks</see> instead.</para>
     /// </remarks>
-    /// <param name="server">The identifier of <see cref="Server">the server</see> to get <see cref="Webhook">webhooks</see> from</param>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get webhooks from</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Webhook">webhooks</see> from</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get webhooks from</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -293,8 +293,8 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Gets the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of <see cref="Server">the server</see> <see cref="Webhook">the webhook</see> is</param>
-    /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to get</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> the <see cref="Webhook">webhook</see> is</param>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to get</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -304,11 +304,11 @@ public abstract partial class BaseGuildedClient
     public abstract Task<Webhook> GetWebhookAsync(HashId server, Guid webhook);
 
     /// <summary>
-    /// Creates a <see cref="Webhook">new webhook</see> in the <paramref name="channel">specified channel</paramref>.
+    /// Creates a new <see cref="Webhook">webhook</see> in the specified <paramref name="channel" />.
     /// </summary>
-    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> will be created</param>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Webhook">the webhook</see> will be created</param>
-    /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> will be created</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Webhook">webhook</see> will be created</param>
+    /// <param name="name">The name of the <see cref="Webhook">webhook</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -325,10 +325,10 @@ public abstract partial class BaseGuildedClient
     /// <remarks>
     /// <para><see cref="Webhook" /> can moved between <see cref="ServerChannel">channels</see> using '<paramref name="newChannel" />' parameter.</para>
     /// </remarks>
-    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> is</param>
-    /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to update</param>
-    /// <param name="name">The new name of <see cref="Webhook">the webhook</see></param>
-    /// <param name="newChannel">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Webhook">the webhook</see> will be moved to</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> is</param>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to update</param>
+    /// <param name="name">The new name of the <see cref="Webhook">webhook</see></param>
+    /// <param name="newChannel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Webhook">webhook</see> will be moved to</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -342,8 +342,8 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Deletes the <paramref name="webhook">specified webhook</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="Webhook">the webhook</see> is</param>
-    /// <param name="webhook">The identifier of <see cref="Webhook">the webhook</see> to delete</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> is</param>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -357,24 +357,24 @@ public abstract partial class BaseGuildedClient
     /// <summary>
     /// Gets the <paramref name="channel">specified webhook</paramref>.
     /// </summary>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <returns><paramref name="channel">Specified channel</paramref></returns>
+    /// <returns>Specified <see cref="ServerChannel">channel</see></returns>
     public abstract Task<ServerChannel> GetChannelAsync(Guid channel);
 
     /// <summary>
     /// Creates a new channel in the <paramref name="server">specified server</paramref>.
     /// </summary>
-    /// <param name="server">The identifier of <see cref="Server">the server</see> where <see cref="ServerChannel">the channel</see> will be created</param>
-    /// <param name="name">The name of <see cref="ServerChannel">the channel</see> (max — <c>100</c>)</param>
-    /// <param name="type">The type of the content that <see cref="ServerChannel">the channel</see> will hold</param>
-    /// <param name="topic">The topic describing what <see cref="ServerChannel">the channel</see> is about (max — <c>512</c>)</param>
-    /// <param name="group">The identifier of the group where <see cref="ServerChannel">the channel</see> will be created</param>
-    /// <param name="category">The identifier of the category where <see cref="ServerChannel">the channel</see> will be created</param>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> will be created</param>
+    /// <param name="name">The name of the <see cref="ServerChannel">channel</see> (max — <c>100</c>)</param>
+    /// <param name="type">The type of the content that the <see cref="ServerChannel">channel</see> will hold</param>
+    /// <param name="topic">The topic describing what the <see cref="ServerChannel">channel</see> is about (max — <c>512</c>)</param>
+    /// <param name="group">The identifier of the group where the <see cref="ServerChannel">channel</see> will be created</param>
+    /// <param name="category">The identifier of the category where the <see cref="ServerChannel">channel</see> will be created</param>
     /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -387,11 +387,11 @@ public abstract partial class BaseGuildedClient
     public abstract Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null);
 
     /// <summary>
-    /// Updates the <paramref name="channel">specified channel</paramref>.
+    /// Updates the specified <paramref name="channel" />.
     /// </summary>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to update</param>
-    /// <param name="name">A new name of <see cref="ServerChannel">the channel</see> (max — <c>100</c>)</param>
-    /// <param name="topic">A new topic describing what <see cref="ServerChannel">the channel</see> is about (max — <c>512</c>)</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to update</param>
+    /// <param name="name">A new name of the <see cref="ServerChannel">channel</see> (max — <c>100</c>)</param>
+    /// <param name="topic">A new topic describing what the <see cref="ServerChannel">channel</see> is about (max — <c>512</c>)</param>
     /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -403,7 +403,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<ServerChannel> UpdateChannelAsync(Guid channel, string? name = null, string? topic = null, bool? isPublic = null);
 
     /// <summary>
-    /// Deletes the <paramref name="channel">specified channel</paramref>.
+    /// Deletes the specified <paramref name="channel" />.
     /// </summary>
     /// <param name="channel">The identifier of the channel to delete</param>
     /// <exception cref="GuildedException" />

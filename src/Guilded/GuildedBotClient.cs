@@ -37,9 +37,9 @@ namespace Guilded;
 /// </code>
 /// </example>
 /// <seealso cref="AbstractGuildedClient" />
-/// <seealso cref="Base.BaseGuildedClient" />
+/// <seealso cref="BaseGuildedClient" />
 /// <seealso cref="AbstractGuildedClient.Prepared" />
-/// <seealso cref="Base.BaseGuildedClient.Connected" />
+/// <seealso cref="BaseGuildedClient.Connected" />
 /// <seealso cref="ConnectAsync()" />
 /// <seealso cref="ConnectAsync(string)" />
 /// <seealso cref="AbstractGuildedClient.MessageCreated" />
