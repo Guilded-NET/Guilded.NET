@@ -1,5 +1,11 @@
 # v0.9.3-beta
 
+Important:
+
+- Renamed `AddRoleAsync` and `RemoveRoleAsync` to `AddMemberRoleAsync` and `RemoveMemberRoleAsync` respectively
+
+Other changes:
+
 - Added `Url` and `IsExecutable` properties to `Webhook` model
 - Added `WebhookSkeleton`, `BaseGuildedService` and `GuildedWebhookClient` (extends `BaseGuildedService`)
 - Fixed `ParentClient` in `CommandEvent` always being null

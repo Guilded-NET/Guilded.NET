@@ -135,7 +135,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageRoles" />
-    public abstract Task AddRoleAsync(HashId server, HashId member, uint role);
+    public abstract Task AddMemberRoleAsync(HashId server, HashId member, uint role);
 
     /// <summary>
     /// Removes the specified <paramref name="role">role</paramref> from <see cref="User">the user</see>.
@@ -151,7 +151,17 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageRoles" />
-    public abstract Task RemoveRoleAsync(HashId server, HashId member, uint role);
+    public abstract Task RemoveMemberRoleAsync(HashId server, HashId member, uint role);
+
+    /// <inheritdoc cref="AddMemberRoleAsync(HashId, HashId, uint)" />
+    [Obsolete("Use `AddMemberRoleAsync` instead")]
+    public Task AddRoleAsync(HashId server, HashId member, uint role) =>
+        AddMemberRoleAsync(server, member, role);
+
+    /// <inheritdoc cref="RemoveMemberRoleAsync(HashId, HashId, uint)" />
+    [Obsolete("Use `RemoveMemberRoleAsync` instead")]
+    public Task RemoveRoleAsync(HashId server, HashId member, uint role) =>
+        RemoveMemberRoleAsync(server, member, role);
 
     /// <summary>
     /// Gives <paramref name="amount">XP</paramref> to the specified <paramref name="member" />.
