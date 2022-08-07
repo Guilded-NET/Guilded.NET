@@ -259,18 +259,18 @@ public abstract partial class BaseGuildedClient
 
     /// <inheritdoc cref="RemoveMemberAsync(HashId, HashId)" />
     [Obsolete("Use `RemoveMemberAsync` (this is for consistency reason)")]
-    public async Task KickMemberAsync(HashId server, HashId member) =>
-        await RemoveMemberAsync(server, member).ConfigureAwait(false);
+    public Task KickMemberAsync(HashId server, HashId member) =>
+        RemoveMemberAsync(server, member);
 
     /// <inheritdoc cref="AddMemberBanAsync(HashId, HashId, string)" />
     [Obsolete("Use `AddMemberBanAsync` (this is for consistency reason)")]
-    public async Task BanMemberAsync(HashId server, HashId member, string? reason = null) =>
-        await AddMemberBanAsync(server, member, reason).ConfigureAwait(false);
+    public Task BanMemberAsync(HashId server, HashId member, string? reason = null) =>
+        AddMemberBanAsync(server, member, reason);
 
     /// <inheritdoc cref="RemoveMemberBanAsync(HashId, HashId)" />
     [Obsolete("Use `RemoveMemberBanAsync` (this is for consistency reason)")]
-    public async Task UnbanMemberAsync(HashId server, HashId member) =>
-        await RemoveMemberBanAsync(server, member).ConfigureAwait(false);
+    public Task UnbanMemberAsync(HashId server, HashId member) =>
+        RemoveMemberBanAsync(server, member);
     #endregion
 
     #region Methods Webhooks

@@ -29,7 +29,7 @@ public abstract partial class BaseGuildedClient
     /// <remarks>
     /// <para>The WebSocket that will be used by the client to receive all Guilded events and event messages.</para>
     /// </remarks>
-    /// <seealso cref="Rest" />
+    /// <seealso cref="BaseGuildedService.Rest" />
     /// <value>Main WebSocket</value>
     public WebsocketClient Websocket { get; set; }
 

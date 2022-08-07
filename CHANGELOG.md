@@ -1,3 +1,12 @@
+# v0.9.3-beta
+
+- Added `Url` and `IsExecutable` properties to `Webhook` model
+- Added `WebhookSkeleton`, `BaseGuildedService` and `GuildedWebhookClient` (extends `BaseGuildedService`)
+- Fixed `ParentClient` in `CommandEvent` always being null
+- Fixed `InvokeCommandAsync` in `CommandParent` not being used at all (now it is used for command invokation, useful for permission stuff)
+- Moved REST stuff to `BaseGuildedService`
+- Made `BaseGuildedClient` extend `BaseGuildedService`
+
 # v0.9.2-beta
 
 - Added `Mentions` property to `Topic` class

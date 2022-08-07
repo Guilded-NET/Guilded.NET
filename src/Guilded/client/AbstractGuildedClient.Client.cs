@@ -142,7 +142,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <summary>
     /// Connects <see cref="AbstractGuildedClient">this client</see> to Guilded.
     /// </summary>
-    /// <seealso cref="DisconnectAsync" />
+    /// <seealso cref="BaseGuildedClient.DisconnectAsync" />
     /// <seealso cref="GuildedBotClient.ConnectAsync()" />
     /// <seealso cref="GuildedBotClient.ConnectAsync(string)" />
     public override async Task ConnectAsync()
@@ -156,28 +156,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         {
             ConnectedSubject.OnError(e);
         }
-    }
-
-    /// <summary>
-    /// Disconnects <see cref="AbstractGuildedClient">this client</see> from Guilded.
-    /// </summary>
-    /// <seealso cref="ConnectAsync" />
-    /// <seealso cref="GuildedBotClient.ConnectAsync()" />
-    /// <seealso cref="GuildedBotClient.ConnectAsync(string)" />
-    public override async Task DisconnectAsync()
-    {
-        if (Websocket.IsRunning)
-            await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "DisconnectAsync invoked").ConfigureAwait(false);
-    }
-
-    /// <inheritdoc />
-    public override async ValueTask DisposeAsync()
-    {
-        await DisconnectAsync().ConfigureAwait(false);
-
-        // They aren't disposed by DisconnectAsync, only shut down
-        Websocket.Dispose();
-        GC.SuppressFinalize(this);
     }
 
     private static void EnforceLimit(string name, string value, short limit)

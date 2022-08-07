@@ -15,7 +15,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="ServerChannel" />
 /// <seealso cref="MemberSummary{T}" />
-public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBased
+public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBased, IWebhook
 {
     #region Properties
     /// <summary>
@@ -105,6 +105,15 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="CreatedAt" />
     public DateTime? DeletedAt { get; }
+
+    /// <inheritdoc />
+    public Uri Url => new(GuildedUrl.Media, $"/webhooks/{Id}/{Token}");
+
+    /// <summary>
+    /// Gets whether the <see cref="Webhook">webhook</see> can be executed.
+    /// </summary>
+    /// <returns><see cref="Webhook" /> is executable</returns>
+    public bool IsExecutable => Token is not null;
     #endregion
 
     #region Constructors

@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-
+using Guilded.Base;
 using RestSharp;
 
 namespace Guilded;
@@ -106,13 +106,12 @@ public class GuildedBotClient : AbstractGuildedClient
     /// </summary>
     /// <remarks>
     /// <para>Creates a new connection to Guilded using argument <paramref name="auth" />. This does not use <see cref="AuthToken" />.</para>
-    /// <para>To disconnect from Guilded, use <see cref="AbstractGuildedClient.DisconnectAsync" /></para>
+    /// <para>To disconnect from Guilded, use <see cref="BaseGuildedClient.DisconnectAsync" /></para>
     /// </remarks>
     /// <param name="auth">The token to be used for authorization</param>
     /// <exception cref="ArgumentNullException">When passed argument <paramref name="auth" /> is <see langword="null" />, empty or whitespace</exception>
     /// <seealso cref="ConnectAsync()" />
     /// <seealso cref="GuildedBotClient()" />
-    /// <seealso cref="AbstractGuildedClient.DisconnectAsync" />
     public async Task ConnectAsync(string auth)
     {
         if (string.IsNullOrWhiteSpace(auth))
@@ -133,7 +132,6 @@ public class GuildedBotClient : AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="ConnectAsync(string)" />
     /// <seealso cref="GuildedBotClient(string)" />
-    /// <seealso cref="AbstractGuildedClient.DisconnectAsync" />
     public override Task ConnectAsync() =>
         ConnectAsync(AuthToken ?? throw new NullReferenceException("Expected AuthToken to have a value"));
     #endregion

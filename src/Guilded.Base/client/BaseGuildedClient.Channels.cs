@@ -36,8 +36,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Uri webhookUrl, string content) =>
-        await CreateHookMessageAsync(webhookUrl, new MessageContent(content)).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Uri webhookUrl, string content) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content));
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
@@ -51,8 +51,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds) =>
-        await CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds });
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
@@ -66,8 +66,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Uri webhookUrl, string content, params Embed[] embeds) =>
-        await CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Uri webhookUrl, string content, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds });
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
@@ -77,8 +77,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds) =>
-        await CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds });
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> using <paramref name="webhookUrl">the specified webhook</paramref>.
@@ -88,8 +88,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Uri webhookUrl, params Embed[] embeds) =>
-        await CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Uri webhookUrl, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds });
     #endregion
 
     #region Methods CreateHookMessageAsync with webhookId + token
@@ -102,8 +102,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Guid webhook, string token, MessageContent message) =>
-        await CreateHookMessageAsync(new Uri(GuildedUrl.Media, $"webhooks/{webhook}/{token}"), message).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Guid webhook, string token, MessageContent message) =>
+        CreateHookMessageAsync(new Uri(GuildedUrl.Media, $"webhooks/{webhook}/{token}"), message);
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> with content containing only <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
@@ -117,8 +117,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Guid webhook, string token, string content) =>
-        await CreateHookMessageAsync(webhook, token, new MessageContent { Content = content }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Guid webhook, string token, string content) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content });
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> with content containing <paramref name="embeds" /> and <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
@@ -133,8 +133,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Guid webhook, string token, string content, IList<Embed> embeds) =>
-        await CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Guid webhook, string token, string content, IList<Embed> embeds) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Embeds = embeds });
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> with content containing <paramref name="embeds" /> and <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
@@ -149,8 +149,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Guid webhook, string token, string content, params Embed[] embeds) =>
-        await CreateHookMessageAsync(webhook, token, content, (IList<Embed>)embeds).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Guid webhook, string token, string content, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhook, token, content, (IList<Embed>)embeds);
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook">webhook</paramref>.
@@ -161,8 +161,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Guid webhook, string token, IList<Embed> embeds) =>
-        await CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Guid webhook, string token, IList<Embed> embeds) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds });
 
     /// <summary>
     /// Creates <see cref="Message">a message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook">webhook</paramref>.
@@ -173,8 +173,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public async Task CreateHookMessageAsync(Guid webhook, string token, params Embed[] embeds) =>
-        await CreateHookMessageAsync(webhook, token, (IList<Embed>)embeds).ConfigureAwait(false);
+    public Task CreateHookMessageAsync(Guid webhook, string token, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhook, token, (IList<Embed>)embeds);
     #endregion
 
     #endregion
@@ -243,30 +243,30 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="null" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
     /// <returns>Created <see cref="Message">message</see></returns>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content) =>
-        await CreateMessageAsync(channel, new MessageContent(content)).ConfigureAwait(false);
+    public Task<Message> CreateMessageAsync(Guid channel, string content) =>
+        CreateMessageAsync(channel, new MessageContent(content));
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false) =>
-        await CreateMessageAsync(channel, new MessageContent(content)
+    public Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false) =>
+        CreateMessageAsync(channel, new MessageContent(content)
         {
             IsPrivate = isPrivate,
             IsSilent = isSilent
-        }).ConfigureAwait(false);
+        });
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, params Guid[] replyTo) =>
-        await CreateMessageAsync(channel, new MessageContent(content)
+    public Task<Message> CreateMessageAsync(Guid channel, string content, params Guid[] replyTo) =>
+        CreateMessageAsync(channel, new MessageContent(content)
         {
             ReplyMessageIds = replyTo
-        }).ConfigureAwait(false);
+        });
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
@@ -274,22 +274,22 @@ public abstract partial class BaseGuildedClient
     /// <param name="isPrivate">Whether <see cref="Message.ReplyMessageIds">the reply</see> is private</param>
     /// <param name="isSilent">Whether <see cref="Message.ReplyMessageIds">the reply</see> is silent and does not ping</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
-        await CreateMessageAsync(channel, new MessageContent(content)
+    public Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
+        CreateMessageAsync(channel, new MessageContent(content)
         {
             IsPrivate = isPrivate,
             IsSilent = isSilent,
             ReplyMessageIds = replyTo
-        }).ConfigureAwait(false);
+        });
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, params Embed[] embeds) =>
-        await CreateMessageAsync(channel, new MessageContent
+    public Task<Message> CreateMessageAsync(Guid channel, params Embed[] embeds) =>
+        CreateMessageAsync(channel, new MessageContent
         {
             Embeds = embeds
-        }).ConfigureAwait(false);
+        });
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, Embed[])" />
     /// <remarks>
@@ -300,14 +300,14 @@ public abstract partial class BaseGuildedClient
     /// <param name="isSilent">Whether the mention or <see cref="Message.ReplyMessageIds">the reply</see> is silent and does not ping</param>
     /// <param name="replyTo">The array of all messages it is replying to (max — <c>5</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
-        await CreateMessageAsync(channel, new MessageContent
+    public Task<Message> CreateMessageAsync(Guid channel, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
+        CreateMessageAsync(channel, new MessageContent
         {
             Embeds = embeds,
             IsPrivate = isPrivate,
             IsSilent = isSilent,
             ReplyMessageIds = replyTo
-        }).ConfigureAwait(false);
+        });
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
     /// <remarks>
@@ -317,12 +317,12 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, params Embed[] embeds) =>
-        await CreateMessageAsync(channel, new MessageContent
+    public Task<Message> CreateMessageAsync(Guid channel, string content, params Embed[] embeds) =>
+        CreateMessageAsync(channel, new MessageContent
         {
             Content = content,
             Embeds = embeds
-        }).ConfigureAwait(false);
+        });
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, string, Embed[])" />
     /// <remarks>
@@ -335,15 +335,15 @@ public abstract partial class BaseGuildedClient
     /// <param name="isSilent">Whether the mention or <see cref="Message.ReplyMessageIds">the reply</see> is silent and does not ping</param>
     /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>
-    public async Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
-        await CreateMessageAsync(channel, new MessageContent
+    public Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
+        CreateMessageAsync(channel, new MessageContent
         {
             Content = content,
             Embeds = embeds,
             IsPrivate = isPrivate,
             IsSilent = isSilent,
             ReplyMessageIds = replyTo
-        }).ConfigureAwait(false);
+        });
 
     /// <summary>
     /// Edits the <paramref name="content">text contents</paramref> of a <paramref name="message">message</paramref>.
@@ -368,8 +368,8 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="message">The identifier of <see cref="Message">the message</see> to edit</param>
     /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
-    public async Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content) =>
-        await UpdateMessageAsync(channel, message, new MessageContent
+    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content) =>
+        UpdateMessageAsync(channel, message, new MessageContent
         {
             Content = content
         });
@@ -378,8 +378,8 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of <see cref="ServerChannel">the parent channel</see></param>
     /// <param name="message">The identifier of <see cref="Message">the message</see> to edit</param>
     /// <param name="embeds">The <see cref="Embed">new custom embeds</see> of <see cref="Message">the message</see> in Markdown (max — <c>1</c>)</param>
-    public async Task<Message> UpdateMessageAsync(Guid channel, Guid message, params Embed[] embeds) =>
-        await UpdateMessageAsync(channel, message, new MessageContent
+    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, params Embed[] embeds) =>
+        UpdateMessageAsync(channel, message, new MessageContent
         {
             Embeds = embeds
         });
@@ -389,8 +389,8 @@ public abstract partial class BaseGuildedClient
     /// <param name="message">The identifier of <see cref="Message">the message</see> to edit</param>
     /// <param name="content">The <see cref="Message.Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The <see cref="Embed">new custom embeds</see> of <see cref="Message">the message</see> in Markdown (max — <c>1</c>)</param>
-    public async Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content, params Embed[] embeds) =>
-        await UpdateMessageAsync(channel, message, new MessageContent
+    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content, params Embed[] embeds) =>
+        UpdateMessageAsync(channel, message, new MessageContent
         {
             Content = content,
             Embeds = embeds
@@ -743,8 +743,8 @@ public abstract partial class BaseGuildedClient
     public abstract Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false);
 
     /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool)" />
-    public async Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
-        await CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate).ConfigureAwait(false);
+    public Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
+        CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate);
 
     /// <summary>
     /// Edits the <paramref name="calendarEvent">specified calendar event</paramref>.
@@ -770,8 +770,8 @@ public abstract partial class BaseGuildedClient
     public abstract Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null);
 
     /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, bool?)" />
-    public async Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        await UpdateEventAsync(channel, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate).ConfigureAwait(false);
+    public Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
+        UpdateEventAsync(channel, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate);
 
     /// <summary>
     /// Deletes the <paramref name="calendarEvent">specified calendar event</paramref>.

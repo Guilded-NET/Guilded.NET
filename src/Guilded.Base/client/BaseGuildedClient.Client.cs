@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using System.Net.WebSockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-
-using RestSharp;
-using RestSharp.Serializers.NewtonsoftJson;
+using Guilded.Base.Servers;
 using Websocket.Client;
 using Websocket.Client.Models;
 
@@ -22,7 +16,7 @@ namespace Guilded.Base;
 /// <remarks>
 /// <para>The base that adds a layer to Guilded API wrapping. This is used in all Guilded.NET clients.</para>
 /// </remarks>
-public abstract partial class BaseGuildedClient : IAsyncDisposable
+public abstract partial class BaseGuildedClient : BaseGuildedService, IAsyncDisposable
 {
     #region Fields
     /// <summary>
@@ -61,29 +55,6 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable
     /// <seealso cref="DisconnectAsync" />
     /// <seealso cref="Connected" />
     public IObservable<DisconnectionInfo> Disconnected => Websocket.DisconnectionHappened;
-
-    /// <summary>
-    /// Settings for <see cref="Rest" /> client's JSON (de)serialization.
-    /// </summary>
-    /// <remarks>
-    /// <para>JSON settings that are used in <see cref="GuildedSerializer" /> and <see cref="Rest" />.</para>
-    /// </remarks>
-    /// <value>Serializer Settings</value>
-    /// <seealso cref="Rest" />
-    /// <seealso cref="GuildedSerializer" />
-    public JsonSerializerSettings SerializerSettings { get; set; }
-
-    /// <summary>
-    /// A serializer to (de)serialize for JSON from Guilded API.
-    /// </summary>
-    /// <value>Serializer from <see cref="SerializerSettings" /></value>
-    public JsonSerializer GuildedSerializer { get; set; }
-
-    /// <summary>
-    /// Headers that will be used for REST and WebSocket clients.
-    /// </summary>
-    /// <value>Dictionary of headers</value>
-    protected Dictionary<string, string> AdditionalHeaders { get; set; } = new();
     #endregion
 
     #region Constructors
@@ -95,7 +66,7 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable
     /// </remarks>
     /// <param name="apiUrl">The URL to Guilded-like API</param>
     /// <param name="websocketUrl">The URL to Guilded-like WebSocket client</param>
-    protected BaseGuildedClient(Uri apiUrl, Uri websocketUrl)
+    protected BaseGuildedClient(Uri apiUrl, Uri websocketUrl) : base(apiUrl)
     {
         Func<ClientWebSocket> factory = new(() =>
         {
@@ -124,24 +95,6 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable
                 if (Websocket.NativeClient is not null)
                     Websocket.NativeClient.Options.SetRequestHeader("guilded-last-message-id", LastMessageId);
             });
-
-        // For REST client
-        SerializerSettings = new JsonSerializerSettings
-        {
-            // For CientObject to receive this client
-            Context = new StreamingContext(StreamingContextStates.Persistence, this),
-            ContractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
-            }
-        };
-        GuildedSerializer = JsonSerializer.Create(SerializerSettings);
-
-        Rest = new RestClient(apiUrl ?? throw new ArgumentNullException(nameof(apiUrl)))
-            .AddDefaultHeader("Origin", "https://www.guilded.gg/")
-            // Guilded.NET, Guilded.NET's version, Common Language Runtime version
-            .AddDefaultHeader("User-Agent", $"Guilded-NET GNET-{typeof(BaseGuildedClient).Assembly.GetName().Version} CLR-{Environment.Version}")
-            .UseNewtonsoftJson(SerializerSettings);
     }
 
     /// <summary>
@@ -170,16 +123,26 @@ public abstract partial class BaseGuildedClient : IAsyncDisposable
     /// </summary>
     /// <remarks>
     /// <para>Stops any connections this client has with Guilded.</para>
-    /// <note type="tip">See documentation of child types for more information.</note>
     /// </remarks>
     /// <seealso cref="ConnectAsync" />
     /// <seealso cref="DisposeAsync" />
-    public abstract Task DisconnectAsync();
+    public virtual async Task DisconnectAsync()
+    {
+        if (Websocket.IsRunning)
+            await Websocket.StopOrFail(WebSocketCloseStatus.NormalClosure, "DisconnectAsync invoked").ConfigureAwait(false);
+    }
 
     /// <summary>
     /// Disposes <see cref="BaseGuildedClient" /> instance.
     /// </summary>
     /// <seealso cref="DisconnectAsync" />
-    public abstract ValueTask DisposeAsync();
+    public virtual async ValueTask DisposeAsync()
+    {
+        await DisconnectAsync();
+
+        Rest.Dispose();
+        Websocket.Dispose();
+        GC.SuppressFinalize(this);
+    }
     #endregion
 }
