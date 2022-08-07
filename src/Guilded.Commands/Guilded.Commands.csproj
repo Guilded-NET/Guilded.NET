@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- Library -->
     <Product>Guilded.NET Commands</Product>
-    <Version>0.9.2</Version>
+    <Version>0.9.3</Version>
     <Description>Command library for Guilded.NET</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -37,7 +37,7 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded" Version="0.9.2" />
+    <PackageReference Include="Guilded" Version="0.9.3" />
   </ItemGroup>
 
   <!-- For testing purposes -->
