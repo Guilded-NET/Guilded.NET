@@ -62,11 +62,11 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Delete));
 
     /// <inheritdoc />
-    public override Task AddRoleAsync(HashId server, HashId member, uint role) =>
+    public override Task AddMemberRoleAsync(HashId server, HashId member, uint role) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Put));
 
     /// <inheritdoc />
-    public override Task RemoveRoleAsync(HashId server, HashId member, uint role) =>
+    public override Task RemoveMemberRoleAsync(HashId server, HashId member, uint role) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Delete));
 
     /// <inheritdoc />

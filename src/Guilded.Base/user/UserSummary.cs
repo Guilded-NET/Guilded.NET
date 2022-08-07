@@ -108,13 +108,13 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
 
     /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)" />
     public async Task AddRoleAsync(HashId server, uint role) =>
-        await ParentClient.AddRoleAsync(server, Id, role).ConfigureAwait(false);
+        await ParentClient.AddMemberRoleAsync(server, Id, role).ConfigureAwait(false);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(HashId, HashId, uint)" />
     public async Task RemoveRoleAsync(HashId server, uint role) =>
-        await ParentClient.RemoveRoleAsync(server, Id, role).ConfigureAwait(false);
+        await ParentClient.RemoveMemberRoleAsync(server, Id, role).ConfigureAwait(false);
 
-    /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, long)" />
+    /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, short)" />
     public async Task<long> AddXpAsync(HashId server, short amount) =>
         await ParentClient.AddXpAsync(server, Id, amount).ConfigureAwait(false);
 
