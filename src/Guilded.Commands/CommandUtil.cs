@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
@@ -22,7 +23,7 @@ internal static class CommandUtil
             ParameterInfo[] parameters = method.GetParameters();
 
             // (CommandEvent invokation)
-            if (parameters.Length != 1 || parameters.First().ParameterType != commandEventType)
+            if (parameters.Length != 1 || !(parameters.First().ParameterType == commandEventType || parameters.First().ParameterType.IsSubclassOf(commandEventType)))
                 continue;
 
             command
@@ -36,9 +37,9 @@ internal static class CommandUtil
         }
     }
 
-    public static IEnumerable<ICommandInfo<MemberInfo>> GetCommandsOf(Type type) =>
+    public static IEnumerable<ICommand<MemberInfo>> GetCommandsOf(Type type) =>
         type.GetMembers()
-            .Select(member => (member, attribute: (CommandAttribute?)member.GetCustomAttribute<CommandAttribute>()))
+            .Select(member => (member, attribute: member.GetCustomAttribute<CommandAttribute>()))
             // Ignore misc and instance methods
             .Where(memberInfo =>
             {
@@ -54,7 +55,7 @@ internal static class CommandUtil
                     );
             })
             // Looks really ugly
-            .Select<(MemberInfo member, CommandAttribute? attribute), ICommandInfo<MemberInfo>>(
+            .Select<(MemberInfo member, CommandAttribute? attribute), ICommand<MemberInfo>>(
                 methodInfo =>
                 {
                     MemberInfo member = methodInfo.member;
@@ -73,7 +74,7 @@ internal static class CommandUtil
                         if (contextParameter.ParameterType != typeof(CommandEvent))
                             throw new FormatException("Expected method with [Command] attribute to have first parameter with CommandEvent type");
 
-                        return new CommandInfo(method, attribute, parameters[1..]);
+                        return new Command(method, attribute, parameters[1..]);
                     }
                     else
                     {

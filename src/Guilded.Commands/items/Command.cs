@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Base.Content;
 
 namespace Guilded.Commands;
 
 /// <summary>
 /// Represents the information about methods that were declared as <see cref="CommandAttribute">commands</see>.
 /// </summary>
-public class CommandInfo : AbstractCommandInfo<MethodInfo>
+public class Command : AbstractCommand<MethodInfo>
 {
     #region Static
     private static readonly Type[] s_allowedTypes = new Type[]
@@ -45,12 +47,12 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandInfo" /> from the <paramref name="method">command method</paramref>.
+    /// Initializes a new instance of <see cref="Command" /> from the <paramref name="method">command method</paramref>.
     /// </summary>
     /// <param name="method">The method that was declared as a command</param>
     /// <param name="attribute">The command attribute it was given</param>
     /// <param name="parameters">The parameters that will be used as command arguments</param>
-    public CommandInfo(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method)
+    public Command(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method)
     {
         bool defaultInList = false;
 
@@ -69,7 +71,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
                 else
                 {
                     HasRestArgument = true;
-                    return new CommandRestInfo(arg);
+                    return new CommandRest(argIndex, arg, this);
                 }
             }
 
@@ -97,7 +99,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
             if (!s_allowedTypes.Contains(argumentType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");
 
-            return isDefaultable ? new CommandOptionalArgumentInfo(arg, argumentType) : new CommandArgumentInfo(arg);
+            return isDefaultable ? new CommandOptionalArgument(argIndex, arg, argumentType, this) : new CommandArgument(argIndex, arg, this);
         }).ToArray();
     }
     #endregion
@@ -106,14 +108,29 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
     internal bool HasCorrectCount(int count) =>
         HasRestArgument ? count >= RequiredCount : count >= RequiredCount && count <= Arguments.Length;
 
-    /// <summary>
-    /// Returns the enumerable of runtime method parameter values.
-    /// </summary>
-    /// <param name="arguments">The given arguments of the command</param>
-    /// <returns>Enumerable of parameters</returns>
-    internal IEnumerable<object?> GenerateMethodParameters(IEnumerable<string> arguments) =>
-        // (CommandEvent invokation, string arg0, int arg1)
-        Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
+    internal bool GenerateMethodParameters(IEnumerable<string> arguments, [NotNullWhen(true)] out List<object?> parsed, [NotNullWhen(false)] out AbstractCommandArgument? badArgument)
+    {
+        parsed = new();
+        badArgument = null;
+
+        int i = 0;
+        foreach (AbstractCommandArgument arg in Arguments)
+        {
+            // Find bad argument
+            if (!arg.TryGetValueFrom(arguments, i, out var value))
+            {
+                badArgument = arg;
+                return false;
+            }
+
+            // Add good argument
+            parsed.Add(value);
+            i++;
+        }
+        return true;
+    }
+    // (CommandEvent invokation, string arg0, int arg1)
+    //Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
 
     /// <summary>
     /// Invokes the command.
@@ -129,7 +146,7 @@ public class CommandInfo : AbstractCommandInfo<MethodInfo>
 /// <summary>
 /// Represents the information about types that were declared as <see cref="CommandAttribute">commands</see>.
 /// </summary>
-public class CommandContainerInfo : AbstractCommandInfo<Type>
+public class CommandContainer : AbstractCommand<Type>
 {
     #region Properties
 
@@ -141,17 +158,17 @@ public class CommandContainerInfo : AbstractCommandInfo<Type>
     public CommandParent Instance { get; }
 
     /// <inheritdoc cref="CommandParent.Commands" />
-    public IEnumerable<ICommandInfo<MemberInfo>> SubCommands => Instance.Commands;
+    public IEnumerable<ICommand<MemberInfo>> SubCommands => Instance.Commands;
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandContainerInfo" /> from the <paramref name="type">command type</paramref>.
+    /// Initializes a new instance of <see cref="CommandContainer" /> from the <paramref name="type">command type</paramref>.
     /// </summary>
     /// <param name="type">The type that was declared as a command</param>
     /// <param name="attribute">The command attribute it was given</param>
     /// <param name="instance">Other reflection members that were declared as commands</param>
-    public CommandContainerInfo(Type type, CommandAttribute attribute, CommandParent instance) : base(attribute, type) =>
+    public CommandContainer(Type type, CommandAttribute attribute, CommandParent instance) : base(attribute, type) =>
         Instance = instance;
     #endregion
 }

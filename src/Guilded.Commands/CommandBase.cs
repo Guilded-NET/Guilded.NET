@@ -26,16 +26,16 @@ namespace Guilded.Commands;
 /// <seealso cref="CommandFallbackAttribute" />
 public abstract class CommandBase : CommandParent
 {
-    /// <inheritdoc cref="ICommandInfo{T}.Name" />
+    /// <inheritdoc cref="ICommand{T}.Name" />
     public string Name => InstanceInfo.Name;
 
-    /// <inheritdoc cref="ICommandInfo{T}.Aliases" />
+    /// <inheritdoc cref="ICommand{T}.Aliases" />
     public string[]? Aliases => InstanceInfo.Aliases;
 
-    /// <inheritdoc cref="ICommandInfo{T}.Description" />
+    /// <inheritdoc cref="ICommand{T}.Description" />
     public string? Description => InstanceInfo.Description;
 
-    /// <inheritdoc cref="ICommandInfo{T}.Examples" />
+    /// <inheritdoc cref="ICommand{T}.Examples" />
     public IEnumerable<ExampleAttribute> Examples => InstanceInfo.Examples;
 
     /// <summary>
@@ -45,12 +45,12 @@ public abstract class CommandBase : CommandParent
     /// <seealso cref="CommandBase" />
     /// <seealso cref="Examples" />
     /// <seealso cref="Description" />
-    public CommandContainerInfo InstanceInfo { get; }
+    public CommandContainer InstanceInfo { get; }
 
     /// <summary>
     /// Initializes a new instance of <see cref="CommandBase" />.
     /// </summary>
     /// <seealso cref="CommandBase" />
     public CommandBase() =>
-        InstanceInfo = new CommandContainerInfo(GetType(), GetType().GetCustomAttribute<CommandAttribute>()!, this);
+        InstanceInfo = new CommandContainer(GetType(), GetType().GetCustomAttribute<CommandAttribute>()!, this);
 }

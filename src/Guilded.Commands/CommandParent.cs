@@ -27,16 +27,16 @@ public abstract class CommandParent
     /// <seealso cref="CommandParent" />
     /// <seealso cref="CommandLookup" />
     /// <seealso cref="CommandNames" />
-    public IEnumerable<ICommandInfo<MemberInfo>> Commands { get; protected internal set; }
+    public IEnumerable<ICommand<MemberInfo>> Commands { get; protected internal set; }
 
     /// <summary>
-    /// Gets the lookup of <see cref="Commands">commands or sub-commands</see> based on their <see cref="ICommandInfo{T}.Name">name</see>.
+    /// Gets the lookup of <see cref="Commands">commands or sub-commands</see> based on their <see cref="ICommand{T}.Name">name</see>.
     /// </summary>
-    /// <returns><see cref="ILookup{TKey, TElement}">Lookup</see> of <see cref="ICommandInfo{T}.Name">names</see> to <see cref="Commands">commands</see></returns>
+    /// <returns><see cref="ILookup{TKey, TElement}">Lookup</see> of <see cref="ICommand{T}.Name">names</see> to <see cref="Commands">commands</see></returns>
     /// <seealso cref="CommandParent" />
     /// <seealso cref="Commands" />
     /// <seealso cref="CommandNames" />
-    public ILookup<string, ICommandInfo<MemberInfo>> CommandLookup => Commands.ToLookup(command => command.Name);
+    public ILookup<string, ICommand<MemberInfo>> CommandLookup => Commands.ToLookup(command => command.Name);
 
     /// <summary>
     /// Gets the list of the <see cref="CommandAttribute.Name">names</see> of all <see cref="Commands">commands or sub-commands</see> .
@@ -65,7 +65,7 @@ public abstract class CommandParent
         // Allows nested types as well
         // [Command] type within [Command] type within [Command] type...
         // CommandInfo first, in-case there are there are method-based commands that match the arguments
-        Commands = CommandUtil.GetCommandsOf(GetType()).OrderBy(command => command is CommandContainerInfo);
+        Commands = CommandUtil.GetCommandsOf(GetType()).OrderBy(command => command is CommandContainer);
     #endregion
 
     #region Methods
@@ -94,7 +94,7 @@ public abstract class CommandParent
     /// </summary>
     /// <param name="name">The name of the commands to get</param>
     /// <returns>Filtered commands</returns>
-    public IEnumerable<ICommandInfo<MemberInfo>> FilterCommandsByName(string name) =>
+    public IEnumerable<ICommand<MemberInfo>> FilterCommandsByName(string name) =>
         Commands.Where(command => command.HasName(name));
 
     /// <summary>
@@ -105,7 +105,7 @@ public abstract class CommandParent
     /// <param name="arguments">The arguments of the current command used</param>
     protected async Task<bool> InvokeCommandByNameAsync(RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments)
     {
-        IEnumerable<ICommandInfo<MemberInfo>> commandsByName = FilterCommandsByName(commandName);
+        IEnumerable<ICommand<MemberInfo>> commandsByName = FilterCommandsByName(commandName);
 
         // Can't find it
         if (!commandsByName.Any())
@@ -115,41 +115,45 @@ public abstract class CommandParent
         }
 
         // Filter by parameters and names
-        IEnumerable<ICommandInfo<MemberInfo>> filteredSubCommands =
+        IEnumerable<ICommand<MemberInfo>> filteredSubCommands =
             commandsByName
                 .Where(command =>
-                    command is CommandContainerInfo commandContainer || ((CommandInfo)command).HasCorrectCount(arguments.Count())
+                    command is CommandContainer commandContainer || ((Command)command).HasCorrectCount(arguments.Count())
                 );
 
-        // Wait for one of them to be correctly invoked
-        foreach (ICommandInfo<MemberInfo> filteredCommand in filteredSubCommands)
+        if (!filteredSubCommands.Any())
         {
-            if (filteredCommand is CommandContainerInfo commandContainer)
+            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.BadArgumentCount));
+            return false;
+        }
+
+        List<AbstractCommandArgument> badArguments = new();
+
+        // Wait for one of them to be correctly invoked
+        foreach (ICommand<MemberInfo> filteredCommand in filteredSubCommands)
+        {
+            if (filteredCommand is CommandContainer commandContainer)
             {
                 await InvokeCommandAsync(commandContainer, rootInvokation, commandName, arguments).ConfigureAwait(false);
                 return true;
             }
             else
             {
-                CommandInfo command = (CommandInfo)filteredCommand;
+                Command command = (Command)filteredCommand;
 
-                try
+                if (command.GenerateMethodParameters(arguments, out var commandArgs, out var badArgument))
                 {
-                    IEnumerable<object?> commandArgs = command.GenerateMethodParameters(arguments);
-
                     await InvokeCommandAsync(command, rootInvokation, commandName, arguments, commandArgs).ConfigureAwait(false);
                     return true;
                 }
-#pragma warning disable CS0168
-                catch (FormatException _)
+                else
                 {
-                    continue;
+                    badArguments.Add(badArgument);
                 }
-#pragma warning restore CS0168
             }
         }
 
-        onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.BadArguments));
+        onFailedCommand.OnNext(new BadCommandArgumentEvent(rootInvokation, commandName, arguments, badArguments));
 
         return false;
     }
@@ -162,7 +166,7 @@ public abstract class CommandParent
     /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
     /// <param name="rawArguments">The unparsed arguments that were given to the command</param>
     /// <param name="arguments">The parsed arguments that were given to the command</param>
-    protected virtual async Task InvokeCommandAsync(CommandInfo command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object?> arguments)
+    protected virtual async Task InvokeCommandAsync(Command command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object?> arguments)
     {
         CommandEvent commandInvokation = new(rootInvokation, commandName, rawArguments);
 
@@ -176,7 +180,7 @@ public abstract class CommandParent
     /// <param name="rootInvokation">The unnested first-most command that has been invoked</param>
     /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
     /// <param name="arguments">The unparsed arguments and sub-command names that were given to the command</param>
-    protected virtual async Task InvokeCommandAsync(CommandContainerInfo command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments) =>
+    protected virtual async Task InvokeCommandAsync(CommandContainer command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments) =>
         await command.Instance.InvokeAsync(commandName, rootInvokation, arguments).ConfigureAwait(false);
     #endregion
 

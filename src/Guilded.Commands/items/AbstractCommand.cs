@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using RestSharp.Extensions;
 
 namespace Guilded.Commands;
 
@@ -10,7 +9,7 @@ namespace Guilded.Commands;
 /// Represents the interface for all commands.
 /// </summary>
 /// <typeparam name="TMember">The type of the reflection member</typeparam>
-public interface ICommandInfo<out TMember> where TMember : MemberInfo
+public interface ICommand<out TMember> where TMember : MemberInfo
 {
     #region Abstract members
     /// <summary>
@@ -58,10 +57,10 @@ public interface ICommandInfo<out TMember> where TMember : MemberInfo
 /// <typeparam name="TMember">The type of the member it uses for commands</typeparam>
 /// <seealso cref="CommandAttribute" />
 /// <seealso cref="CommandParamAttribute" />
-/// <seealso cref="ICommandInfo{TMember}" />
-/// <seealso cref="CommandInfo" />
-/// <seealso cref="CommandContainerInfo" />
-public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where TMember : MemberInfo
+/// <seealso cref="ICommand{TMember}" />
+/// <seealso cref="Command" />
+/// <seealso cref="CommandContainer" />
+public abstract class AbstractCommand<TMember> : ICommand<TMember> where TMember : MemberInfo
 {
     #region Properties
     /// <inheritdoc />
@@ -85,11 +84,11 @@ public abstract class AbstractCommandInfo<TMember> : ICommandInfo<TMember> where
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="AbstractCommandInfo{TMember}" />.
+    /// Initializes a new instance of <see cref="AbstractCommand{TMember}" />.
     /// </summary>
     /// <param name="attribute">The command attribute that was given to the member</param>
     /// <param name="member">The member who was declared as a command</param>
-    protected AbstractCommandInfo(CommandAttribute attribute, TMember member) =>
+    protected AbstractCommand(CommandAttribute attribute, TMember member) =>
         (Name, Member, Attribute) = (attribute.Name ?? TransformMethodName(member.Name), member, attribute);
     #endregion
 

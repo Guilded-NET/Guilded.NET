@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -64,8 +65,11 @@ public readonly struct HashId : IEquatable<HashId>
         if (!Check(id))
             throw new FormatException("The given hash ID string is not in correct format");
 
-        _ = id!;
+        _ = id;
     }
+
+    private HashId(ref string id) =>
+        _ = id;
     #endregion
 
     #region Methods
@@ -175,5 +179,22 @@ public readonly struct HashId : IEquatable<HashId>
     /// <returns>Correct formatting</returns>
     public static bool Check(string? str) =>
         str is not null && str.Length >= idMinLength && str.All(ch => allowedChars.Contains(ch));
+
+    /// <summary>
+    /// Converts <see cref="string" /> to a <see cref="HashId" /> and returns whether the it was correctly converted.
+    /// </summary>
+    /// <param name="input">The <see cref="string" /> to convert to <see cref="HashId" /></param>
+    /// <param name="value">The converted value</param>
+    /// <returns>Whether the <paramref name="value" /> was parsed</returns>
+    public static bool TryParse([NotNullWhen(true)] string? input, out HashId value)
+    {
+        // Bad
+        value = default;
+        if (!Check(input)) return false;
+
+        // Good
+        value = new HashId(ref input!);
+        return true;
+    }
     #endregion
 }
