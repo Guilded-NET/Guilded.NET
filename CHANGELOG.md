@@ -1,3 +1,13 @@
+# v0.10.0-beta
+
+- Added `Banner` and `CreatedAt` to `Member` type (not `User`, which already had them)
+- Added `AddReactionAsync(..., Emote emote)` and `RemoveReactionAsync(..., Emote emote)`
+- Added `Mentions` to `TopicEvent`
+- Added `Webhook.CreateUrl(webhookId, token)`
+- Moved `GuildedWebhookClient` and `WebhookSkeleton` to `Guilded.Webhook` package
+- Fixed client hanging on reconnect
+- Removed/commented out `FormId` (might come back in the future, but not now)
+
 # v0.9.3-beta
 
 Important:

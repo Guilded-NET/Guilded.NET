@@ -107,7 +107,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public DateTime? DeletedAt { get; }
 
     /// <inheritdoc />
-    public Uri Url => new(GuildedUrl.Media, $"/webhooks/{Id}/{Token}");
+    public Uri Url => IsExecutable ? CreateUrl(Id, Token!) : throw new InvalidOperationException("Cannot execute a webhook without knowing its token. Use `IsExecutable` property to know if a token exists");
 
     /// <summary>
     /// Gets whether the <see cref="Webhook">webhook</see> can be executed.
@@ -208,5 +208,22 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
             await ParentClient.DeleteWebhookAsync(ServerId, Id).ConfigureAwait(false);
         else throw new InvalidOperationException("Cannot delete already deleted webhook");
     }
+    #endregion
+
+    #region Static methods
+    /// <summary>
+    /// Generates a URL from given <see cref="Webhook">webhook</see> credentials.
+    /// </summary>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see></param>
+    /// <param name="token">The secret token of the <see cref="Webhook">webhook</see></param>
+    /// <returns><see cref="Url">Webhook URL</see></returns>
+    public static Uri CreateUrl(Guid webhook, string token) =>
+        new(GuildedUrl.Media, $"/webhooks/{webhook}/{token}");
+
+    /// <inheritdoc cref="CreateUrl(Guid, string)" />
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see></param>
+    /// <param name="token">The secret token of the <see cref="Webhook">webhook</see></param>
+    public static Uri CreateUrl(string webhook, string token) =>
+        CreateUrl(new Guid(webhook), token);
     #endregion
 }

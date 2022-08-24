@@ -75,11 +75,19 @@ public class EmbedField : BaseModel
 
     /// <inheritdoc cref="EmbedField(string, string, bool)" />
     /// <see cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(object, object, bool)" />
+    /// <see cref="EmbedField(object, bool)" />
+    public EmbedField(string value, bool inline = false) : this(string.Empty, value, inline) { }
+
+    /// <inheritdoc cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(string, bool)" />
     /// <see cref="EmbedField(object, bool)" />
     public EmbedField(object? name, object? value, bool inline = false) : this(name?.ToString() ?? string.Empty, value?.ToString() ?? string.Empty, inline) { }
 
     /// <inheritdoc cref="EmbedField(string, string, bool)" />
     /// <see cref="EmbedField(string, string, bool)" />
+    /// <see cref="EmbedField(string, bool)" />
     /// <see cref="EmbedField(object, object, bool)" />
     public EmbedField(object? value, bool inline = false) : this(string.Empty, value?.ToString() ?? string.Empty, inline) { }
     #endregion

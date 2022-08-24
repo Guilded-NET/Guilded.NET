@@ -197,14 +197,14 @@ public class Embed : BaseModel
     /// Initializes a new instance of <see cref="Embed" /> with colour <paramref name="color" />.
     /// </summary>
     /// <param name="color">The colour of <see cref="Embed">an embed</see></param>
-    public Embed(Color color) =>
+    public Embed(SystemColor color) =>
         Color = color;
 
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with colour <paramref name="argb" />.
     /// </summary>
     /// <param name="argb">The colour of <see cref="Embed">an embed</see> in RGB format</param>
-    public Embed(int argb) : this(System.Drawing.Color.FromArgb(argb)) { }
+    public Embed(int argb) : this(SystemColor.FromArgb(argb)) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with channels
@@ -213,7 +213,7 @@ public class Embed : BaseModel
     /// <param name="red">The red channel of the <see cref="Color">colour</see></param>
     /// <param name="green">The green channel of <see cref="Color">colour</see></param>
     /// <param name="blue">The blue channel of <see cref="Color">colour</see></param>
-    public Embed(int red, int green, int blue) : this(System.Drawing.Color.FromArgb(red, green, blue)) { }
+    public Embed(int red, int green, int blue) : this(SystemColor.FromArgb(red, green, blue)) { }
 
     /// <summary>
     /// Initializes a new instance of <see cref="Embed" /> with a <paramref name="description" />.

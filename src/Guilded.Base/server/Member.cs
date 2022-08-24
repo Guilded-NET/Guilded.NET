@@ -39,6 +39,12 @@ public class Member : MemberSummary<User>
     /// <value>Member is owner</value>
     /// <seealso cref="Member" />
     public bool IsOwner { get; }
+
+    /// <inheritdoc cref="User.CreatedAt" />
+    public DateTime CreatedAt => User.CreatedAt;
+
+    /// <inheritdoc cref="User.Banner" />
+    public Uri? Banner => User.Banner;
     #endregion
 
     #region Constructors

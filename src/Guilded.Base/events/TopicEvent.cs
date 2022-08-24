@@ -41,6 +41,9 @@ public class TopicEvent : BaseModel
     /// <inheritdoc cref="Topic.Content" />
     public string Content => Topic.Content;
 
+    /// <inheritdoc cref="TopicSummary.Mentions" />
+    public Mentions? Mentions => Topic.Mentions;
+
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Topic.CreatedBy;
 

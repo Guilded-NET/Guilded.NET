@@ -100,12 +100,20 @@ public interface IReactibleContent
 {
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
-    /// <param name="emoteId">The identifier of the emote to add</param>
-    Task AddReactionAsync(uint emoteId);
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    Task AddReactionAsync(uint emote);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
-    /// <param name="emoteId">The identifier of the emote to remove</param>
-    Task RemoveReactionAsync(uint emoteId);
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    Task RemoveReactionAsync(uint emote);
+
+    /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    Task AddReactionAsync(Emote emote) => AddReactionAsync(emote.Id);
+
+    /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    Task RemoveReactionAsync(Emote emote) => RemoveReactionAsync(emote.Id);
     #endregion
 }
 

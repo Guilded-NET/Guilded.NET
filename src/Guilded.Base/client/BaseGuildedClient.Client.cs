@@ -4,7 +4,6 @@ using System.Net.WebSockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
-using Guilded.Base.Servers;
 using Websocket.Client;
 using Websocket.Client.Models;
 

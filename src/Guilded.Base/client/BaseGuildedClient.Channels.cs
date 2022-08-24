@@ -423,6 +423,13 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ChatPermissions.ReadMessages" />
     public abstract Task AddReactionAsync(Guid channel, Guid message, uint emote);
 
+    /// <inheritdoc cref="AddReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(Guid channel, Guid message, Emote emote) =>
+        AddReactionAsync(channel, message, emote.Id);
+
     /// <summary>
     /// Removes <paramref name="emote">a reaction</paramref> from the <paramref name="message">specified message</paramref>.
     /// </summary>
@@ -435,6 +442,13 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ChatPermissions.ReadMessages" />
     public abstract Task RemoveReactionAsync(Guid channel, Guid message, uint emote);
+
+    /// <inheritdoc cref="RemoveReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(Guid channel, Guid message, Emote emote) =>
+        AddReactionAsync(channel, message, emote.Id);
     #endregion
 
     #region Methods Forum channels
@@ -863,8 +877,14 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="MediaPermissions.SeeMedia" />
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <returns>Added <see cref="Reaction">reaction</see></returns>
     public abstract Task AddReactionAsync(Guid channel, uint content, uint emote);
+
+    /// <inheritdoc cref="AddReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(Guid channel, uint content, Emote emote) =>
+        AddReactionAsync(channel, content, emote.Id);
 
     /// <summary>
     /// Removes <paramref name="emote">a reaction</paramref> from the <paramref name="content">specified content</paramref>.
@@ -880,7 +900,13 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="MediaPermissions.SeeMedia" />
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <returns>Added <see cref="Reaction">reaction</see></returns>
     public abstract Task RemoveReactionAsync(Guid channel, uint content, uint emote);
+
+    /// <inheritdoc cref="RemoveReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(Guid channel, uint content, Emote emote) =>
+        RemoveReactionAsync(channel, content, emote.Id);
     #endregion
 }
