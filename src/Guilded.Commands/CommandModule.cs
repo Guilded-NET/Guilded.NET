@@ -38,7 +38,7 @@ public abstract class CommandModule : CommandParent
             .Content[prefix.Length..]
             .Split(config.Separators, config.SplitOptions);
 
-        string commandName = splitContent.First();
+        string? commandName = splitContent.FirstOrDefault();
 
         if (string.IsNullOrEmpty(commandName)) return false;
 

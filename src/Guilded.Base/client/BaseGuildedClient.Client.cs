@@ -80,6 +80,8 @@ public abstract partial class BaseGuildedClient : BaseGuildedService, IAsyncDisp
             foreach (KeyValuePair<string, string> header in AdditionalHeaders)
                 socket.Options.SetRequestHeader(header.Key, header.Value);
 
+            if (LastMessageId is not null) socket.Options.SetRequestHeader("guilded-last-message-id", LastMessageId);
+
             return socket;
         });
         Websocket = new(websocketUrl ?? GuildedUrl.Websocket, factory);
@@ -88,13 +90,6 @@ public abstract partial class BaseGuildedClient : BaseGuildedService, IAsyncDisp
         Websocket.MessageReceived
             .Where(msg => msg.MessageType == WebSocketMessageType.Text)
             .Subscribe(OnWebsocketResponse);
-        Websocket
-            .DisconnectionHappened
-            .Subscribe(_ =>
-            {
-                if (Websocket.NativeClient is not null)
-                    Websocket.NativeClient.Options.SetRequestHeader("guilded-last-message-id", LastMessageId);
-            });
     }
 
     /// <summary>
