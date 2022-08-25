@@ -66,9 +66,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { SocketOpcode.Resume,             new EventInfo<ResumeEvent>() },
 
             // Team events
-            { "TeamMemberJoined",              new EventInfo<MemberJoinedEvent>() },
-            { "TeamMemberUpdated",             new EventInfo<MemberUpdatedEvent>() },
-            { "teamRolesUpdated",              new EventInfo<RolesUpdatedEvent>() },
             { "TeamXpAdded",                   new EventInfo<XpAddedEvent>() },
             { "TeamMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
             { "TeamMemberBanned",              new EventInfo<MemberBanEvent>() },
@@ -78,6 +75,21 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { "TeamChannelDeleted",            new EventInfo<ChannelEvent>() },
             { "TeamWebhookCreated",            new EventInfo<WebhookEvent>() },
             { "TeamWebhookUpdated",            new EventInfo<WebhookEvent>() },
+            { "TeamMemberUpdated",             new EventInfo<MemberUpdatedEvent>() },
+            { "teamRolesUpdated",              new EventInfo<RolesUpdatedEvent>() },
+            { "TeamMemberJoined",
+                new EventInfo<MemberJoinedEvent>((type, serializer, message) =>
+                {
+                    // Add `serverId` to member
+                    JObject data = message.RawData!;
+                    JToken? serverId = data["serverId"];
+                    JObject? member = data["member"] as JObject;
+                    member?.Add("serverId", serverId);
+
+                    // Transform modified value
+                    return data.ToObject(type, serializer)!;
+                })
+            },
 
             // Chat messages
             { "ChatMessageCreated",            new EventInfo<MessageEvent>() },

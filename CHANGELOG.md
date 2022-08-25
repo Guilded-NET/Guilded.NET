@@ -4,6 +4,7 @@
 - Added `AddReactionAsync(..., Emote emote)` and `RemoveReactionAsync(..., Emote emote)`
 - Added `Mentions` to `TopicEvent`
 - Added `Webhook.CreateUrl(webhookId, token)`
+- Added `ServerId` to `Member` and `MemberSummary` (this gets set in the behind the scenes of Guilded.NET, so bugs may occur)
 - Moved `GuildedWebhookClient` and `WebhookSkeleton` to `Guilded.Webhook` package
 - Fixed client hanging on reconnect
 - Removed/commented out `FormId` (might come back in the future, but not now)

@@ -39,6 +39,12 @@ public class MemberJoinedEvent : BaseModel
     /// <inheritdoc cref="MemberSummary{User}.Name" />
     public string Name => Member.Name;
 
+    /// <inheritdoc cref="MemberSummary{User}.Avatar" />
+    public Uri? Avatar => Member.Avatar;
+
+    /// <inheritdoc cref="Member.Banner" />
+    public Uri? Banner => Member.Banner;
+
     /// <inheritdoc cref="MemberSummary{User}.Type" />
     public UserType Type => Member.Type;
 

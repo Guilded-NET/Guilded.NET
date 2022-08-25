@@ -522,7 +522,7 @@ public abstract partial class AbstractGuildedClient
         {
             IEventInfo<object> ev = GuildedEvents[eventName];
 
-            object data = message.RawData!.ToObject(ev.ArgumentType, GuildedSerializer)!;
+            object data = ev.Transform(ev.ArgumentType, GuildedSerializer, message);
 
             ev.OnNext(data);
         }

@@ -53,9 +53,10 @@ public class Member : MemberSummary<User>
     /// </summary>
     /// <param name="user"><see cref="User">the user</see> who is a member of <see cref="Server">the server</see></param>
     /// <param name="roleIds">The list of roles that member holds</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
+    /// <param name="joinedAt">the date when the member joined</param>
     /// <param name="nickname">The nickname that member has</param>
     /// <param name="isOwner">Whether <see cref="Member">the member</see> is the owner of <see cref="Server">the server</see></param>
-    /// <param name="joinedAt">the date when the member joined</param>
     /// <returns>New <see cref="Member" /> JSON instance</returns>
     /// <seealso cref="Member" />
     [JsonConstructor]
@@ -67,6 +68,9 @@ public class Member : MemberSummary<User>
         IList<uint> roleIds,
 
         [JsonProperty(Required = Required.Always)]
+        HashId serverId,
+
+        [JsonProperty(Required = Required.Always)]
         DateTime joinedAt,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -74,7 +78,7 @@ public class Member : MemberSummary<User>
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         bool isOwner = false
-    ) : base(user, roleIds) =>
+    ) : base(user, roleIds, serverId) =>
         (Nickname, JoinedAt, IsOwner) = (nickname, joinedAt, isOwner);
     #endregion
 }

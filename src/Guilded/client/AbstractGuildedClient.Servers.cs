@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using Guilded.Base;
 using Guilded.Base.Servers;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace Guilded;
@@ -30,12 +32,27 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods Members
     /// <inheritdoc />
-    public override Task<IList<MemberSummary>> GetMembersAsync(HashId server) =>
-        GetResponseProperty<IList<MemberSummary>>(new RestRequest($"servers/{server}/members", Method.Get), "members");
+    public override async Task<IList<MemberSummary>> GetMembersAsync(HashId server)
+    {
+        var response = await GetResponseProperty<IList<JObject>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
+
+        return response.Select(x =>
+        {
+            // Add serverId property to them
+            x.Add("serverId", JValue.CreateString(server.ToString()));
+            return x.ToObject<MemberSummary>(GuildedSerializer)!;
+        }).ToList();
+    }
 
     /// <inheritdoc />
-    public override Task<Member> GetMemberAsync(HashId server, HashId member) =>
-        GetResponseProperty<Member>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member");
+    public override async Task<Member> GetMemberAsync(HashId server, HashId member)
+    {
+        var response = await GetResponseProperty<JObject>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member").ConfigureAwait(false);
+
+        response.Add("serverId", JValue.CreateString(server.ToString()));
+
+        return response.ToObject<Member>(GuildedSerializer)!;
+    }
 
     /// <inheritdoc />
     public override Task<IList<uint>> GetMemberRolesAsync(HashId server, HashId member) =>

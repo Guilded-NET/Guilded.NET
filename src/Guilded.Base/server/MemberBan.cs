@@ -35,7 +35,7 @@ public class MemberBan : BaseModel, ICreatableContent
     /// <summary>
     /// Gets the identifier of the staff who banned.
     /// </summary>
-    /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId CreatedBy { get; }
     #endregion
 

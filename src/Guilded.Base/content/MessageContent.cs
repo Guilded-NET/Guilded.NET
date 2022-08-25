@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Guilded.Base.Embeds;
 using Newtonsoft.Json;
 
@@ -27,15 +28,7 @@ public class MessageContent : BaseModel
     /// <inheritdoc cref="Message.IsPrivate" />
     public bool? IsPrivate { get; set; }
 
-    /// <summary>
-    /// Gets whether <see cref="Message.IsReply">the reply</see> or the mention is silent and does not ping anyone.
-    /// </summary>
-    /// <value><see cref="Message" /> is silent</value>
-    /// <seealso cref="MessageContent" />
-    /// <seealso cref="IsPrivate" />
-    /// <seealso cref="Content" />
-    /// <seealso cref="ReplyMessageIds" />
-    /// <seealso cref="Embeds" />
+    /// <inheritdoc cref="Message.IsSilent" />
     public bool? IsSilent { get; set; }
 
     /// <inheritdoc cref="Message.Content" />
@@ -93,13 +86,24 @@ public class MessageContent : BaseModel
     /// <summary>
     /// Creates an instance of <see cref="MessageContent" />.
     /// </summary>
-    /// <param name="content">The content of the message</param>
+    /// <param name="content">The text contents of the <see cref="Message">message</see></param>
     public MessageContent(string? content) =>
         Content = content;
 
     /// <summary>
-    /// Creates an instance of <see cref="MessageContent" /> with no content.
+    /// Creates an instance of <see cref="MessageContent" />.
     /// </summary>
+    /// <param name="content">The text contents of the <see cref="Message">message</see></param>
+    public MessageContent(object content) : this(content.ToString()) { }
+
+    /// <summary>
+    /// Creates an instance of <see cref="MessageContent" /> from the JSON properties.
+    /// </summary>
+    /// <param name="content">The text contents of the <see cref="Message">message</see></param>
+    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that <see cref="Message">the message</see> contains</param>
+    /// <param name="replyMessageIds">The list of <see cref="Message">messages</see> being replied to</param>
+    /// <param name="isPrivate">Whether the <see cref="Message.IsReply">reply</see> or mention is private</param>
+    /// <param name="isSilent">Whether the <see cref="Message.IsReply">reply</see> or mention is silent and doesn't ping any user</param>
     [JsonConstructor]
     public MessageContent(
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

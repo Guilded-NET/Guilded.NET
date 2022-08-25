@@ -18,7 +18,7 @@ public interface ICreatableContent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> creator of the content.
+    /// Gets the identifier of <see cref="User">user</see> that created the content.
     /// </summary>
     /// <remarks>
     /// <para>If <see cref="Webhook">a webhook</see> created <see cref="ChannelContent{TId, TServer}">the content</see>, the value of this property will be <c>Ann6LewA</c>.</para>

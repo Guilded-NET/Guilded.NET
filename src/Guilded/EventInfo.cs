@@ -1,6 +1,9 @@
 using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Guilded.Base.Events;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Guilded;
 
@@ -30,6 +33,12 @@ public interface IEventInfo<out T>
     /// </remarks>
     /// <value>Type</value>
     Type ArgumentType { get; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <value></value>
+    Func<Type, JsonSerializer, GuildedSocketMessage, object> Transform { get; }
     #endregion
 
     #region Methods
@@ -63,6 +72,10 @@ public interface IEventInfo<out T>
 /// <seealso cref="AbstractGuildedClient" />
 public class EventInfo<T> : IEventInfo<T>
 {
+    #region Static fields
+    private static readonly Func<Type, JsonSerializer, GuildedSocketMessage, object> DefaultTransform = (type, serializer, message) => message.RawData!.ToObject(type, serializer)!;
+    #endregion
+
     #region Fields
     /// <summary>
     /// The subject that will be used for subscribing to this event.
@@ -78,18 +91,25 @@ public class EventInfo<T> : IEventInfo<T>
     /// <value><see cref="Subject" /> as observable</value>
     public IObservable<T> Observable => Subject.AsObservable();
 
-    /// <summary>
-    /// Gets the type of the observer's argument.
-    /// </summary>
-    /// <value>Type</value>
+    /// <inheritdoc />
     public Type ArgumentType => typeof(T);
+
+    /// <inheritdoc />
+    public Func<Type, JsonSerializer, GuildedSocketMessage, object> Transform { get; }
     #endregion
 
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="EventInfo{T}" />.
     /// </summary>
-    public EventInfo() { }
+    /// <param name="transform"></param>
+    public EventInfo(Func<Type, JsonSerializer, GuildedSocketMessage, object> transform) =>
+        Transform = transform;
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="EventInfo{T}" />.
+    /// </summary>
+    public EventInfo() : this(DefaultTransform) { }
     #endregion
 
     #region Methods
