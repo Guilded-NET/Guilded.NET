@@ -104,15 +104,15 @@ public class MemberSummary<T> : BaseModel where T : UserSummary
         User.AddXpAsync(ServerId, amount);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveMemberAsync(HashId, HashId)" />
-    public Task RemoveMemberAsync() =>
+    public Task RemoveAsync() =>
         User.RemoveMemberAsync(ServerId);
 
     /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
-    public Task AddMemberBanAsync(string? reason = null) =>
+    public Task AddBanAsync(string? reason = null) =>
         User.AddMemberBanAsync(ServerId, reason);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveMemberBanAsync(HashId, HashId)" />
-    public Task RemoveMemberBanAsync() =>
+    public Task RemoveBanAsync() =>
         User.RemoveMemberBanAsync(ServerId);
 
     /// <inheritdoc cref="BaseGuildedClient.GetBanAsync(HashId, HashId)" />
