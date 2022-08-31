@@ -6,7 +6,7 @@ namespace Guilded.Base.Servers;
 /// <summary>
 /// /// Represents a team or a guild in Guilded.
 /// </summary>
-public class Server : ContentModel
+public class Server : ContentModel, IModelHasId<HashId>
 {
     #region Properties
     /// <summary>

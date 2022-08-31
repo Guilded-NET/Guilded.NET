@@ -6,7 +6,7 @@ namespace Guilded.Base.Content;
 /// <summary>
 /// Represents an emoticon on Guilded. Either placed in <see cref="Message">some kind of content</see> or as <see cref="Reaction">a reaction</see>.
 /// </summary>
-public class Emote : BaseModel
+public class Emote : BaseModel, IModelHasId<uint>
 {
     #region Properties
     /// <summary>
