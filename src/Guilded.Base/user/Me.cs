@@ -9,7 +9,7 @@ namespace Guilded.Base.Users;
 /// </summary>
 /// <seealso cref="User" />
 /// <seealso cref="Servers.Member" />
-public class Me : BaseModel, IModelHasId<HashId>, ICreatableContent
+public class Me : IModelHasId<HashId>, ICreatableContent
 {
     #region Properties
     /// <summary>

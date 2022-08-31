@@ -60,13 +60,10 @@ public abstract partial class AbstractGuildedClient
     }
 
     /// <inheritdoc />
-    public override Task<Message> UpdateMessageAsync(Guid channel, Guid message, MessageContent content)
-    {
-        if (content is null)
-            throw new ArgumentNullException(nameof(content));
-        else
-            return GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(content), "message");
-    }
+    public override Task<Message> UpdateMessageAsync(Guid channel, Guid message, MessageContent content) =>
+        content is null
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(content), "message");
 
     /// <inheritdoc />
     public override Task DeleteMessageAsync(Guid channel, Guid message) =>
@@ -95,34 +92,32 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Get), "forumTopic");
 
     /// <inheritdoc />
-    public override Task<Topic> CreateTopicAsync(Guid channel, string title, string content)
-    {
-        if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
-        else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
-
-        return GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics", Method.Post)
+    public override Task<Topic> CreateTopicAsync(Guid channel, string title, string content) =>
+        string.IsNullOrWhiteSpace(title)
+        ? throw new ArgumentNullException(nameof(title))
+        : string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics", Method.Post)
             .AddJsonBody(new
             {
                 title,
                 content
             })
         , "forumTopic");
-    }
 
     /// <inheritdoc />
-    public override Task<Topic> UpdateTopicAsync(Guid channel, uint topic, string title, string content)
-    {
-        if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
-        else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
-
-        return GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Patch)
+    public override Task<Topic> UpdateTopicAsync(Guid channel, uint topic, string title, string content) =>
+        string.IsNullOrWhiteSpace(title)
+        ? throw new ArgumentNullException(nameof(title))
+        : string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Patch)
             .AddJsonBody(new
             {
                 title,
                 content
             })
         , "forumTopic");
-    }
 
     /// <inheritdoc />
     public override Task DeleteTopicAsync(Guid channel, uint topic) =>
@@ -139,12 +134,10 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem");
 
     /// <inheritdoc />
-    public override Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null)
-    {
-        if (string.IsNullOrWhiteSpace(message))
-            throw new ArgumentNullException(nameof(message));
-
-        return GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items", Method.Post)
+    public override Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null) =>
+        string.IsNullOrWhiteSpace(message)
+        ? throw new ArgumentNullException(nameof(message))
+        : GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items", Method.Post)
             .AddJsonBody(new
             {
                 message,
@@ -154,15 +147,12 @@ public abstract partial class AbstractGuildedClient
                 }
             })
         , "listItem");
-    }
 
     /// <inheritdoc />
-    public override Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null)
-    {
-        if (string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note))
-            throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified");
-
-        return GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
+    public override Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
+        string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note)
+        ? throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified")
+        : GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
             .AddJsonBody(new
             {
                 message,
@@ -172,7 +162,6 @@ public abstract partial class AbstractGuildedClient
                 }
             })
         , "listItem");
-    }
 
     /// <inheritdoc />
     public override Task DeleteListItemAsync(Guid channel, Guid listItem) =>
@@ -201,34 +190,32 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Get), "doc");
 
     /// <inheritdoc />
-    public override Task<Doc> CreateDocAsync(Guid channel, string title, string content)
-    {
-        if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
-        else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
-
-        return GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs", Method.Post)
+    public override Task<Doc> CreateDocAsync(Guid channel, string title, string content) =>
+        string.IsNullOrWhiteSpace(title)
+        ? throw new ArgumentNullException(nameof(title))
+        : string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs", Method.Post)
             .AddJsonBody(new
             {
                 title,
                 content
             })
         , "doc");
-    }
 
     /// <inheritdoc />
-    public override Task<Doc> UpdateDocAsync(Guid channel, uint doc, string title, string content)
-    {
-        if (string.IsNullOrWhiteSpace(title)) throw new ArgumentNullException(nameof(title));
-        else if (string.IsNullOrWhiteSpace(content)) throw new ArgumentNullException(nameof(content));
-
-        return GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Put)
+    public override Task<Doc> UpdateDocAsync(Guid channel, uint doc, string title, string content) =>
+        string.IsNullOrWhiteSpace(title)
+        ? throw new ArgumentNullException(nameof(title))
+        : string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Put)
             .AddJsonBody(new
             {
                 title,
                 content
             })
         , "doc");
-    }
 
     /// <inheritdoc />
     public override Task DeleteDocAsync(Guid channel, uint doc) =>
@@ -251,11 +238,10 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Get), "calendarEvent");
 
     /// <inheritdoc />
-    public override Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false)
-    {
-        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
-
-        return GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events", Method.Post)
+    public override Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
+        string.IsNullOrWhiteSpace(name)
+        ? throw new ArgumentNullException(nameof(name))
+        : GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events", Method.Post)
             .AddJsonBody(new
             {
                 name,
@@ -269,7 +255,6 @@ public abstract partial class AbstractGuildedClient
                 isPrivate
             })
         , "calendarEvent");
-    }
 
     /// <inheritdoc />
     public override Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>

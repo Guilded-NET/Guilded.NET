@@ -15,7 +15,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class CalendarRsvpEvent : BaseModel
+public class CalendarRsvpEvent
 {
     #region Properties
     /// <summary>
@@ -79,11 +79,11 @@ public class CalendarRsvpEvent : BaseModel
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
     /// <param name="status">The new status of <see cref="CalendarEvent">the RSVP</see></param>
-    public async Task<CalendarRsvp> SetAsync(CalendarRsvpStatus status) =>
-        await CalendarRsvp.SetAsync(status);
+    public Task<CalendarRsvp> SetAsync(CalendarRsvpStatus status) =>
+        CalendarRsvp.SetAsync(status);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
-    public async Task RemoveAsync() =>
-        await CalendarRsvp.RemoveAsync();
+    public Task RemoveAsync() =>
+        CalendarRsvp.RemoveAsync();
     #endregion
 }

@@ -98,12 +98,12 @@ public class TopicSummary : TitledContent, IContentMarkdown
     /// <inheritdoc cref="BaseGuildedClient.UpdateTopicAsync(Guid, uint, string, string)" />
     /// <param name="title">The new title of the <see cref="Topic">topic</see></param>
     /// <param name="content">The Markdown content of the <see cref="Topic">topic</see></param>
-    public async Task<Topic> UpdateAsync(string title, string content) =>
-        await ParentClient.UpdateTopicAsync(ChannelId, Id, title, content);
+    public Task<Topic> UpdateAsync(string title, string content) =>
+        ParentClient.UpdateTopicAsync(ChannelId, Id, title, content);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteTopicAsync(Guid, uint)" />
-    public async Task DeleteAsync() =>
-        await ParentClient.DeleteTopicAsync(ChannelId, Id);
+    public Task DeleteAsync() =>
+        ParentClient.DeleteTopicAsync(ChannelId, Id);
     #endregion
 }
 

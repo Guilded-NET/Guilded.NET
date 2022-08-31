@@ -15,7 +15,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
-public class TopicEvent : BaseModel
+public class TopicEvent
 {
     #region Properties
     /// <summary>
@@ -81,19 +81,19 @@ public class TopicEvent : BaseModel
 
     #region Methods
     /// <inheritdoc cref="TopicSummary.UpdateAsync(string, string)" />
-    public async Task<Topic> UpdateAsync(string title, string content) =>
-        await Topic.UpdateAsync(title, content).ConfigureAwait(false);
+    public Task<Topic> UpdateAsync(string title, string content) =>
+        Topic.UpdateAsync(title, content);
 
     /// <inheritdoc cref="TopicSummary.DeleteAsync" />
-    public async Task DeleteAsync() =>
-        await Topic.DeleteAsync().ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        Topic.DeleteAsync();
 
     /// <inheritdoc cref="TitledContent.AddReactionAsync(uint)" />
-    public async Task AddReactionAsync(uint emoteId) =>
-        await Topic.AddReactionAsync(emoteId).ConfigureAwait(false);
+    public Task AddReactionAsync(uint emoteId) =>
+        Topic.AddReactionAsync(emoteId);
 
     /// <inheritdoc cref="TitledContent.RemoveReactionAsync(uint)" />
-    public async Task RemoveReactionAsync(uint emoteId) =>
-        await Topic.RemoveReactionAsync(emoteId).ConfigureAwait(false);
+    public Task RemoveReactionAsync(uint emoteId) =>
+        Topic.RemoveReactionAsync(emoteId);
     #endregion
 }

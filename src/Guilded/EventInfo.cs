@@ -81,7 +81,7 @@ public class EventInfo<T> : IEventInfo<T>
     /// The subject that will be used for subscribing to this event.
     /// </summary>
     /// <returns>Subject</returns>
-    protected internal Subject<T> Subject = new();
+    protected internal Subject<T> Subject { get; } = new();
     #endregion
 
     #region Properties

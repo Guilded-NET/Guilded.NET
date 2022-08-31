@@ -38,7 +38,7 @@ namespace Guilded.Base.Embeds;
 /// <seealso cref="ListItem" />
 /// <seealso cref="Doc" />
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
-public class Embed : BaseModel
+public class Embed
 {
     #region Constants
     /// <summary>

@@ -34,7 +34,7 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc />
     public override async Task<IList<MemberSummary>> GetMembersAsync(HashId server)
     {
-        var response = await GetResponseProperty<IList<JObject>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
+        IList<JObject>? response = await GetResponseProperty<IList<JObject>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
 
         return response.Select(x =>
         {
@@ -47,7 +47,7 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc />
     public override async Task<Member> GetMemberAsync(HashId server, HashId member)
     {
-        var response = await GetResponseProperty<JObject>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member").ConfigureAwait(false);
+        JObject? response = await GetResponseProperty<JObject>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member").ConfigureAwait(false);
 
         response.Add("serverId", JValue.CreateString(server.ToString()));
 
@@ -59,20 +59,17 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<IList<uint>>(new RestRequest($"servers/{server}/members/{member}/roles", Method.Get), "roleIds");
 
     /// <inheritdoc />
-    public override Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname)
-    {
-        if (string.IsNullOrWhiteSpace(nickname))
-            throw new ArgumentNullException(nameof(nickname));
-        else if (nickname.Length > 32)
-            throw new ArgumentOutOfRangeException(nameof(nickname), nickname, $"Argument {nameof(nickname)} must be 32 characters in length max");
-
-        return GetResponseProperty<string>(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Put)
+    public override Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname) =>
+        string.IsNullOrWhiteSpace(nickname)
+        ? throw new ArgumentNullException(nameof(nickname))
+        : nickname.Length > 32
+        ? throw new ArgumentOutOfRangeException(nameof(nickname), nickname, $"Argument {nameof(nickname)} must be 32 characters in length max")
+        : GetResponseProperty<string>(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Put)
             .AddJsonBody(new
             {
                 nickname
             })
         , "nickname");
-    }
 
     /// <inheritdoc />
     public override Task DeleteNicknameAsync(HashId server, HashId member) =>
@@ -88,7 +85,9 @@ public abstract partial class AbstractGuildedClient
 
     /// <inheritdoc />
     public override Task<long> AddXpAsync(HashId server, HashId member, short amount) =>
-        GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
+        amount is > 1000 or < -1000
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
+        : GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
@@ -96,8 +95,21 @@ public abstract partial class AbstractGuildedClient
         , "total");
 
     /// <inheritdoc />
+    public override Task<long> SetXpAsync(HashId server, HashId member, long total) =>
+        total is > 1000 or < -1000
+        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1000000000 and less than -1000000000 XP")
+        : GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Put)
+            .AddJsonBody(new
+            {
+                total
+            })
+        , "total");
+
+    /// <inheritdoc />
     public override Task AddXpAsync(HashId server, uint role, short amount) =>
-        ExecuteRequestAsync(new RestRequest($"servers/{server}/roles/{role}/xp", Method.Post)
+        amount is > 1000 or < -1000
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
+        : ExecuteRequestAsync(new RestRequest($"servers/{server}/roles/{role}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
@@ -144,34 +156,28 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Get), "webhook");
 
     /// <inheritdoc />
-    public override Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentNullException(nameof(name));
-
-        return GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks", Method.Post)
+    public override Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name) =>
+        string.IsNullOrWhiteSpace(name)
+        ? throw new ArgumentNullException(nameof(name))
+        : GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks", Method.Post)
             .AddJsonBody(new
             {
                 name,
                 channelId = channel
             })
         , "webhook");
-    }
 
     /// <inheritdoc />
-    public override Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null)
-    {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentNullException(nameof(name));
-
-        return GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Put)
+    public override Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null) =>
+        string.IsNullOrWhiteSpace(name)
+        ? throw new ArgumentNullException(nameof(name))
+        : GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Put)
             .AddJsonBody(new
             {
                 name,
                 channelId = newChannel
             })
         , "webhook");
-    }
 
     /// <inheritdoc />
     public override Task DeleteWebhookAsync(HashId server, Guid webhook) =>

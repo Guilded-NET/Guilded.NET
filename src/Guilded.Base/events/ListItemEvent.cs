@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class ListItemEvent : BaseModel
+public class ListItemEvent
 {
     #region Properties
     /// <summary>
@@ -23,7 +23,11 @@ public class ListItemEvent : BaseModel
     /// <seealso cref="ListItemEvent" />
     /// <seealso cref="Message" />
     /// <seealso cref="ServerId" />
-    public ListItem ListItem { get; }
+    public ListItem Item { get; }
+
+    /// <inheritdoc cref="Item" />
+    [Obsolete($"Use `{nameof(Item)}` instead")]
+    public ListItem ListItem => Item;
 
     /// <inheritdoc />
     public HashId ServerId { get; }
@@ -31,40 +35,40 @@ public class ListItemEvent : BaseModel
 
     #region Properties
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
-    public Guid ChannelId => ListItem.ChannelId;
+    public Guid ChannelId => Item.ChannelId;
 
     /// <inheritdoc cref="ListItemBase{T}.Message" />
-    public string Message => ListItem.Message;
+    public string Message => Item.Message;
 
     /// <inheritdoc cref="ListItemBase{T}.Mentions" />
-    public Mentions? Mentions => ListItem.Mentions;
+    public Mentions? Mentions => Item.Mentions;
 
     /// <inheritdoc cref="ListItemBase{T}.Note" />
-    public ListItemNote? Note => ListItem.Note;
+    public ListItemNote? Note => Item.Note;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
-    public HashId CreatedBy => ListItem.CreatedBy;
+    public HashId CreatedBy => Item.CreatedBy;
 
     /// <inheritdoc cref="ListItemBase{T}.CreatedByWebhook" />
-    public Guid? CreatedByWebhook => ListItem.CreatedByWebhook;
+    public Guid? CreatedByWebhook => Item.CreatedByWebhook;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
-    public DateTime CreatedAt => ListItem.CreatedAt;
+    public DateTime CreatedAt => Item.CreatedAt;
 
     /// <inheritdoc cref="ListItemBase{T}.UpdatedAt" />
-    public DateTime? UpdatedAt => ListItem.UpdatedAt;
+    public DateTime? UpdatedAt => Item.UpdatedAt;
 
     /// <inheritdoc cref="ListItemBase{T}.CompletedBy" />
-    public HashId? CompletedBy => ListItem.CompletedBy;
+    public HashId? CompletedBy => Item.CompletedBy;
 
     /// <inheritdoc cref="ListItemBase{T}.CompletedAt" />
-    public DateTime? CompletedAt => ListItem.CompletedAt;
+    public DateTime? CompletedAt => Item.CompletedAt;
 
     /// <inheritdoc cref="ListItemBase{T}.IsCompleted" />
-    public bool IsCompleted => ListItem.IsCompleted;
+    public bool IsCompleted => Item.IsCompleted;
 
     /// <inheritdoc cref="ListItemBase{T}.ParentId" />
-    public Guid? ParentId => ListItem.ParentId;
+    public Guid? ParentId => Item.ParentId;
     #endregion
 
     #region Constructors
@@ -83,24 +87,24 @@ public class ListItemEvent : BaseModel
         [JsonProperty(Required = Required.Always)]
         HashId serverId
     ) =>
-        (ServerId, ListItem) = (serverId, listItem);
+        (ServerId, Item) = (serverId, listItem);
     #endregion
 
     #region Methods
     /// <inheritdoc cref="ListItemBase{T}.UpdateAsync(string, string?)" />
-    public async Task<ListItem> UpdateAsync(string message, string? note) =>
-        await ListItem.UpdateAsync(message, note).ConfigureAwait(false);
+    public Task<ListItem> UpdateAsync(string message, string? note) =>
+        Item.UpdateAsync(message, note);
 
     /// <inheritdoc cref="ListItemBase{T}.DeleteAsync" />
-    public async Task DeleteAsync() =>
-        await ListItem.DeleteAsync().ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        Item.DeleteAsync();
 
     /// <inheritdoc cref="ListItemBase{T}.CompleteAsync" />
-    public async Task CompleteAsync() =>
-        await ListItem.CompleteAsync().ConfigureAwait(false);
+    public Task CompleteAsync() =>
+        Item.CompleteAsync();
 
     /// <inheritdoc cref="ListItemBase{T}.UncompleteAsync" />
-    public async Task UncompleteAsync() =>
-        await ListItem.UncompleteAsync().ConfigureAwait(false);
+    public Task UncompleteAsync() =>
+        Item.UncompleteAsync();
     #endregion
 }

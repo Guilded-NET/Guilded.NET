@@ -277,16 +277,16 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent
 
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)" />
-    public async Task<ServerChannel> UpdateAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
-        await ParentClient.UpdateChannelAsync(Id, name, topic, isPublic).ConfigureAwait(false);
+    public Task<ServerChannel> UpdateAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
+        ParentClient.UpdateChannelAsync(Id, name, topic, isPublic);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)" />
-    public async Task DeleteAsync() =>
-        await ParentClient.DeleteChannelAsync(Id).ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        ParentClient.DeleteChannelAsync(Id);
 
     /// <inheritdoc cref="BaseGuildedClient.CreateWebhookAsync(HashId, Guid, string)" />
     /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
-    public async Task<Webhook> CreateWebhookAsync(string name) =>
-        await ParentClient.CreateWebhookAsync(ServerId, Id, name).ConfigureAwait(false);
+    public Task<Webhook> CreateWebhookAsync(string name) =>
+        ParentClient.CreateWebhookAsync(ServerId, Id, name);
     #endregion
 }

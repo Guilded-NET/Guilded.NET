@@ -1,3 +1,12 @@
+# v0.11.0-beta
+
+- Added `GuildedListExtensions` with extension methods for `IList<T>` for Guilded objects. These include:
+    - `IList<TModel>.ById(TId)` (e.g., `members.ById(new HashId("..."))`)
+    - `IList<TModel>.ByIdOrDefault(TId)` (e.g., `messages.ByIdOrDefault(new Guid("..."))`)
+    - `IList<TModel>.Contains(TId)` (e.g., `bans.Contains(new HashId("..."))`)
+- Renamed `CreateListItemAsync`, `UpdateListItemAsync`, `CompleteListItemAsync`, etc. to `CreateItemAsync`, `UpdateItemAsync`, `CompleteItemAsync`, etc.
+- Fixed docs (to make more sense/a bit more consistent with .NET)
+
 # v0.10.0-beta
 
 - Added `Banner` and `CreatedAt` to `Member` type (not `User`, which already had them)

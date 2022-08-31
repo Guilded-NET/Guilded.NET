@@ -270,10 +270,7 @@ public abstract class BaseGuildedService
         // Would rather have this mess
         if (cooldown is not null)
         {
-            if (DateTime.Now < cooldown)
-            {
-                throw new GuildedTooManyRequestsException($"The slowmode cooldown in channel by id '{channel}' has not been exhausted yet", (DateTime)cooldown - DateTime.Now, true);
-            }
+            if (DateTime.Now < cooldown) throw new GuildedTooManyRequestsException($"The slowmode cooldown in channel by id '{channel}' has not been exhausted yet", (DateTime)cooldown - DateTime.Now, true);
             else _channelCooldowns.Remove(channel);
         }
 

@@ -29,7 +29,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <summary>
     /// An observable event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
-    protected Subject<Me> PreparedSubject = new();
+    /// <returns>Prepared subject</returns>
+    protected Subject<Me> PreparedSubject { get; } = new();
     #endregion
 
     #region Properties

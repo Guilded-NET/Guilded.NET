@@ -61,7 +61,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <returns>List of <see cref="Member">members</see></returns>
+    /// <returns>The list of fetched <see cref="Member">members</see> in the specified <paramref name="server" /></returns>
     public abstract Task<IList<MemberSummary>> GetMembersAsync(HashId server);
 
     /// <summary>
@@ -167,7 +167,7 @@ public abstract partial class BaseGuildedClient
     /// Gives <paramref name="amount">XP</paramref> to the specified <paramref name="member" />.
     /// </summary>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
-    /// <param name="member">The identifier of <see cref="Member">the receiving member</see></param>
+    /// <param name="member">The identifier of the receiving <see cref="Member">member</see></param>
     /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -179,7 +179,22 @@ public abstract partial class BaseGuildedClient
     public abstract Task<long> AddXpAsync(HashId server, HashId member, short amount);
 
     /// <summary>
-    /// Gives <paramref name="amount">XP</paramref> to the <paramref name="role">specified role's</paramref> members.
+    /// Sets how much <paramref name="total">XP</paramref> the specified <paramref name="member" /> will have.
+    /// </summary>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> who is being modified</param>
+    /// <param name="total">The amount of XP the <see cref="Member">member</see> should have (values — <c>[-1000000000, 1000000000]</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
+    /// <permission cref="XpPermissions.ManageServerXp" />
+    /// <returns>Total XP</returns>
+    public abstract Task<long> SetXpAsync(HashId server, HashId member, long total);
+
+    /// <summary>
+    /// Gives <paramref name="amount">XP</paramref> to the specified <paramref name="role">role's</paramref> members.
     /// </summary>
     /// <param name="server">The server where the role is</param>
     /// <param name="role">The identifier of the receiving role</param>
@@ -216,7 +231,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.KickBanMembers" />
-    /// <returns>List of <see cref="MemberBan">member bans</see></returns>
+    /// <returns>The list of fetched <see cref="MemberBan">member bans</see> in the specified <paramref name="server" /></returns>
     public abstract Task<IList<MemberBan>> GetBansAsync(HashId server);
 
     /// <summary>
@@ -297,7 +312,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <returns>List of <see cref="Webhook">webhooks</see></returns>
+    /// <returns>The list of fetched <see cref="Webhook">webhooks</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid? channel = null);
 
     /// <summary>
@@ -326,7 +341,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
     /// <permission cref="GeneralPermissions.ManageWebhooks" />
-    /// <returns>Created <see cref="Webhook">webhook</see></returns>
+    /// <returns>The <see cref="Webhook">webhook</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name);
 
     /// <summary>
@@ -346,7 +361,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="GeneralPermissions.ManageWebhooks" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
-    /// <returns>Updated <see cref="Webhook">webhook</see></returns>
+    /// <returns>The <see cref="Webhook">webhook</see> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null);
 
     /// <summary>
@@ -393,7 +408,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
     /// <permission cref="GeneralPermissions.ManageChannels" />
-    /// <returns>Created <see cref="ServerChannel">channel</see></returns>
+    /// <returns>The <see cref="ServerChannel">channel</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null);
 
     /// <summary>

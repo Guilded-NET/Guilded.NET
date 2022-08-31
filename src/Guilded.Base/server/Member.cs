@@ -15,6 +15,28 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Webhook" />
 public class Member : MemberSummary<User>
 {
+    #region Fields
+    /// <summary>
+    /// The highest number of XP you can give to a <see cref="Member">member</see>.
+    /// </summary>
+    public const short MaxAddXp = 1000;
+
+    /// <summary>
+    /// The lowest number of XP you can give to a <see cref="Member">member</see>.
+    /// </summary>
+    public const short MinAddXp = -1000;
+
+    /// <summary>
+    /// The highest number of XP you can set to a <see cref="Member">member</see>.
+    /// </summary>
+    public const long MaxSetXp = 1000000000;
+
+    /// <summary>
+    /// The lowest number of XP you can set to a <see cref="Member">member</see>.
+    /// </summary>
+    public const long MinSetXp = -1000000000;
+    #endregion
+
     #region Properties
     /// <summary>
     /// Gets the set nickname of <see cref="Member">the member</see> in <see cref="Server">the server</see>.

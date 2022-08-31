@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ResumeEvent" />
 /// <seealso cref="GuildedSocketMessage" />
 /// <seealso cref="GuildedWebsocketException" />
-public class WelcomeEvent : BaseModel
+public class WelcomeEvent
 {
     #region Properties
     /// <summary>

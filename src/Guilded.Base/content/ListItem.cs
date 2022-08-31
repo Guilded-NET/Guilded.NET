@@ -160,20 +160,20 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
     /// <param name="message">The new contents of the list item's message in Markdown plain text</param>
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
-    public async Task<ListItem> UpdateAsync(string message, string? note = null) =>
-        await ParentClient.UpdateListItemAsync(ChannelId, Id, message, note).ConfigureAwait(false);
+    public Task<ListItem> UpdateAsync(string message, string? note = null) =>
+        ParentClient.UpdateListItemAsync(ChannelId, Id, message, note);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteListItemAsync(Guid, Guid)" />
-    public async Task DeleteAsync() =>
-        await ParentClient.DeleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        ParentClient.DeleteListItemAsync(ChannelId, Id);
 
     /// <inheritdoc cref="BaseGuildedClient.CompleteListItemAsync(Guid, Guid)" />
-    public async Task CompleteAsync() =>
-        await ParentClient.CompleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+    public Task CompleteAsync() =>
+        ParentClient.CompleteListItemAsync(ChannelId, Id);
 
     /// <inheritdoc cref="BaseGuildedClient.UncompleteListItemAsync(Guid, Guid)" />
-    public async Task UncompleteAsync() =>
-        await ParentClient.UncompleteListItemAsync(ChannelId, Id).ConfigureAwait(false);
+    public Task UncompleteAsync() =>
+        ParentClient.UncompleteListItemAsync(ChannelId, Id);
     #endregion
 }
 
@@ -343,7 +343,7 @@ public class ListItemSummary : ListItemBase<ListItemNote>
 /// <summary>
 /// Represents the summary of <see cref="ListItemSummary">the list item's</see> note.
 /// </summary>
-public class ListItemNoteSummary : BaseModel, ICreatableContent, IUpdatableContent
+public class ListItemNoteSummary : ICreatableContent, IUpdatableContent
 {
     #region Properties
 

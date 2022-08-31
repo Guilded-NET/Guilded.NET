@@ -11,7 +11,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
-public class ChannelEvent : BaseModel
+public class ChannelEvent
 {
     #region Properties
     /// <summary>
@@ -93,12 +93,16 @@ public class ChannelEvent : BaseModel
     #endregion
 
     #region Methods
+    /// <inheritdoc cref="BaseGuildedClient.DeleteChannelAsync(Guid)" />
+    public Task<ServerChannel> UpdateAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
+        Channel.UpdateAsync(name, topic, isPublic);
+
     /// <inheritdoc cref="ServerChannel.DeleteAsync" />
-    public async Task DeleteAsync() =>
-        await Channel.DeleteAsync().ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        Channel.DeleteAsync();
 
     /// <inheritdoc cref="ServerChannel.CreateWebhookAsync(string)" />
-    public async Task<Webhook> CreateWebhookAsync(string name) =>
-        await Channel.CreateWebhookAsync(name).ConfigureAwait(false);
+    public Task<Webhook> CreateWebhookAsync(string name) =>
+        Channel.CreateWebhookAsync(name);
     #endregion
 }

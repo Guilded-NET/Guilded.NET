@@ -102,11 +102,11 @@ public class Doc : TitledContent, IContentMarkdown
     /// <inheritdoc cref="BaseGuildedClient.UpdateDocAsync(Guid, uint, string, string)" />
     /// <param name="title">The new title of the <see cref="Doc">document</see></param>
     /// <param name="content">The Markdown content of the <see cref="Doc">document</see></param>
-    public async Task<Doc> UpdateAsync(string title, string content) =>
-        await ParentClient.UpdateDocAsync(ChannelId, Id, title, content);
+    public Task<Doc> UpdateAsync(string title, string content) =>
+        ParentClient.UpdateDocAsync(ChannelId, Id, title, content);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteDocAsync(Guid, uint)" />
-    public async Task DeleteAsync() =>
-        await ParentClient.DeleteDocAsync(ChannelId, Id);
+    public Task DeleteAsync() =>
+        ParentClient.DeleteDocAsync(ChannelId, Id);
     #endregion
 }

@@ -1,5 +1,6 @@
 using System;
 using Guilded.Base.Content;
+using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
 
@@ -11,7 +12,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="MemberSummary{T}" />
 /// <seealso cref="Users.User" />
-public class MemberBan : BaseModel, ICreatableContent
+public class MemberBan : ICreatableContent
 {
     #region Properties
     /// <summary>

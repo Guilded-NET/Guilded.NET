@@ -18,7 +18,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class CalendarEventEvent : BaseModel
+public class CalendarEventEvent
 {
     #region Properties
     /// <summary>
@@ -105,23 +105,23 @@ public class CalendarEventEvent : BaseModel
 
     #region Methods
     /// <inheritdoc cref="CalendarEvent.UpdateAsync(string?, string?, string?, DateTime?, Uri?, Color?, uint?, bool?)" />
-    public async Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
-        await CalendarEvent.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate).ConfigureAwait(false);
+    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
+        CalendarEvent.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
 
     /// <inheritdoc cref="CalendarEvent.UpdateAsync(string?, string?, string?, DateTime?, Uri?, Color?, TimeSpan?, bool?)" />
-    public async Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        await CalendarEvent.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate).ConfigureAwait(false);
+    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
+        CalendarEvent.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
 
     /// <inheritdoc cref="CalendarEvent.DeleteAsync" />
-    public async Task DeleteAsync() =>
-        await CalendarEvent.DeleteAsync().ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        CalendarEvent.DeleteAsync();
 
     /// <inheritdoc cref="CalendarEvent.AddReactionAsync(uint)" />
-    public async Task AddReactionAsync(uint emoteId) =>
-        await CalendarEvent.AddReactionAsync(emoteId).ConfigureAwait(false);
+    public Task AddReactionAsync(uint emoteId) =>
+        CalendarEvent.AddReactionAsync(emoteId);
 
     /// <inheritdoc cref="CalendarEvent.RemoveReactionAsync(uint)" />
-    public async Task RemoveReactionAsync(uint emoteId) =>
-        await CalendarEvent.RemoveReactionAsync(emoteId).ConfigureAwait(false);
+    public Task RemoveReactionAsync(uint emoteId) =>
+        CalendarEvent.RemoveReactionAsync(emoteId);
     #endregion
 }

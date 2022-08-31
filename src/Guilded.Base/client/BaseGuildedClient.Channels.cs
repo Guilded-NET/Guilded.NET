@@ -197,7 +197,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ChatPermissions.ReadMessages" />
     /// <permission cref="GeneralPermissions.AccessModeratorView">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="BaseGuildedClient">client</see> if <paramref name="includePrivate">asked</paramref> by the <see cref="BaseGuildedClient">client</see></permission>
-    /// <returns>List of <see cref="Message">messages</see></returns>
+    /// <returns>The list of fetched <see cref="Message">messages</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null);
 
     /// <summary>
@@ -231,7 +231,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ChatPermissions.SendPrivateMessages">Required when sending a <see cref="Message">message</see> that is set as <see cref="Message.IsPrivate">private</see></permission>
     /// <permission cref="ChatPermissions.UploadMedia">Required when sending a <see cref="Message">message</see> that contains an image or a video</permission>
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when sending a <see cref="Message">message</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Created <see cref="Message">message</see></returns>
+    /// <returns>The <see cref="Message">message</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Message> CreateMessageAsync(Guid channel, MessageContent message);
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
@@ -242,7 +242,7 @@ public abstract partial class BaseGuildedClient
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="null" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
-    /// <returns>Created <see cref="Message">message</see></returns>
+    /// <returns>The <see cref="Message">message</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public Task<Message> CreateMessageAsync(Guid channel, string content) =>
         CreateMessageAsync(channel, new MessageContent(content));
 
@@ -361,7 +361,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ChatPermissions.SendThreadMessages">Required when editing a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
     /// <permission cref="ChatPermissions.UploadMedia">Required when adding an image or a video to a <see cref="Message">message</see></permission>
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Message">message</see></permission>
-    /// <returns>Updated <paramref name="message">message</paramref></returns>
+    /// <returns>The <paramref name="message" /> that was updated</returns>
     public abstract Task<Message> UpdateMessageAsync(Guid channel, Guid message, MessageContent content);
 
     /// <inheritdoc cref="UpdateMessageAsync(Guid, Guid, MessageContent)" />
@@ -463,7 +463,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ForumPermissions.ReadForums" />
-    /// <returns>List of <see cref="Topic">forum topics</see></returns>
+    /// <returns>The list of fetched <see cref="Topic">forum topics</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<TopicSummary>> GetTopicsAsync(Guid channel, uint? limit = null, DateTime? before = null);
 
     /// <summary>
@@ -492,7 +492,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="ForumPermissions.CreateTopics" />
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting a <see cref="Topic">forum topic</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Created <see cref="Topic">forum topic</see></returns>
+    /// <returns>The <see cref="Topic">forum topic</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Topic> CreateTopicAsync(Guid channel, string title, string content);
 
     /// <summary>
@@ -509,7 +509,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ForumPermissions.ReadForums" />
     /// <permission cref="ForumPermissions.CreateTopics" />
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Updated <see cref="Topic">forum topic</see></returns>
+    /// <returns>The <paramref name="topic">forum topic</paramref> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Topic> UpdateTopicAsync(Guid channel, uint topic, string title, string content);
 
     /// <summary>
@@ -536,8 +536,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.ViewListItems" />
-    /// <returns>List of <see cref="ListItem">list items</see></returns>
-    public abstract Task<IList<ListItemSummary>> GetListItemsAsync(Guid channel);
+    /// <returns>The list of fetched <see cref="ListItem">list items</see> in the specified <paramref name="channel" /></returns>
+    public abstract Task<IList<ListItemSummary>> GetItemsAsync(Guid channel);
+
+    /// <inheritdoc cref="GetItemsAsync(Guid)" />
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get list items from</param>
+    [Obsolete($"Use `{nameof(GetItemsAsync)}` instead")]
+    public Task<IList<ListItemSummary>> GetListItemsAsync(Guid channel) =>
+        GetItemsAsync(channel);
 
     /// <summary>
     /// Gets the specified <paramref name="listItem">list item</paramref> from a <paramref name="channel">list channel</paramref>.
@@ -550,7 +556,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.ViewListItems" />
     /// <returns>Specified <paramref name="listItem">list item</paramref></returns>
-    public abstract Task<ListItem> GetListItemAsync(Guid channel, Guid listItem);
+    public abstract Task<ListItem> GetItemAsync(Guid channel, Guid listItem);
+
+    /// <inheritdoc cref="GetItemAsync(Guid, Guid)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to get</param>
+    [Obsolete($"Use `{nameof(GetItemAsync)}` instead")]
+    public Task<ListItem> GetListItemAsync(Guid channel, Guid listItem) =>
+        GetItemAsync(channel, listItem);
 
     /// <summary>
     /// Creates a new <see cref="ListItem">list item</see>.
@@ -565,8 +578,16 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems" />
     /// <permission cref="ListPermissions.CreateListItem" />
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="ListItem">a list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Created <see cref="ListItem">list item</see></returns>
-    public abstract Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null);
+    /// <returns>The <see cref="ListItem">list item</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
+    public abstract Task<ListItem> CreateItemAsync(Guid channel, string message, string? note = null);
+
+    /// <inheritdoc cref="CreateItemAsync(Guid, string, string)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The text content of the <see cref="ListItem">list item</see></param>
+    /// <param name="note">The text content of an <see cref="ListItemNote">optional note</see> in the <see cref="ListItem">list item</see></param>
+    [Obsolete($"Use `{nameof(CreateItemAsync)}` instead")]
+    public Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null) =>
+        CreateItemAsync(channel, message, note);
 
     /// <summary>
     /// Edits the <paramref name="message">text contents</paramref> of the specified <paramref name="listItem">list item</paramref>.
@@ -582,8 +603,17 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.ViewListItems" />
     /// <permission cref="ListPermissions.ManageListItems">Required when updating <see cref="ListItem">list items</see> the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="ListItem">a list item</see></permission>
-    /// <returns>Updated <see cref="ListItem">list item</see></returns>
-    public abstract Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null);
+    /// <returns>The <paramref name="listItem">list item</paramref> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
+    public abstract Task<ListItem> UpdateItemAsync(Guid channel, Guid listItem, string message, string? note = null);
+
+    /// <inheritdoc cref="UpdateItemAsync(Guid, Guid, string, string)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to edit</param>
+    /// <param name="message">The new text content of the <see cref="ListItem">list item</see></param>
+    /// <param name="note">The new text content of the note in the <see cref="ListItem">list item</see></param>
+    [Obsolete($"Use `{nameof(UpdateItemAsync)}` instead")]
+    public Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
+        UpdateItemAsync(channel, listItem, message, note);
 
     /// <summary>
     /// Deletes the specified <paramref name="listItem">list item</paramref>.
@@ -596,7 +626,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.ViewListItems" />
     /// <permission cref="ListPermissions.RemoveListItems">Required when deleting <see cref="ListItem">list items</see> you don't own</permission>
-    public abstract Task DeleteListItemAsync(Guid channel, Guid listItem);
+    public abstract Task DeleteItemAsync(Guid channel, Guid listItem);
+
+    /// <inheritdoc cref="DeleteItemAsync(Guid, Guid)" />
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
+    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to delete</param>
+    [Obsolete($"Use `{nameof(DeleteItemAsync)}` instead")]
+    public Task DeleteListItemAsync(Guid channel, Guid listItem) =>
+        DeleteItemAsync(channel, listItem);
 
     /// <summary>
     /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">completed</see>.
@@ -609,7 +646,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.ViewListItems" />
     /// <permission cref="ListPermissions.CompleteListItems" />
-    public abstract Task CompleteListItemAsync(Guid channel, Guid listItem);
+    public abstract Task CompleteItemAsync(Guid channel, Guid listItem);
+
+    /// <inheritdoc cref="CompleteItemAsync(Guid, Guid)" />
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
+    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
+    [Obsolete($"Use `{nameof(CompleteItemAsync)}` instead")]
+    public Task CompleteListItemAsync(Guid channel, Guid listItem) =>
+        DeleteItemAsync(channel, listItem);
 
     /// <summary>
     /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">not completed</see>.
@@ -622,7 +666,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.ViewListItems" />
     /// <permission cref="ListPermissions.CompleteListItems" />
-    public abstract Task UncompleteListItemAsync(Guid channel, Guid listItem);
+    public abstract Task UncompleteItemAsync(Guid channel, Guid listItem);
+
+    /// <inheritdoc cref="UncompleteItemAsync(Guid, Guid)" />
+    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
+    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
+    [Obsolete($"Use `{nameof(UncompleteItemAsync)}` instead")]
+    public Task UncompleteListItemAsync(Guid channel, Guid listItem) =>
+        DeleteItemAsync(channel, listItem);
     #endregion
 
     #region Methods Docs channel
@@ -637,7 +688,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="DocPermissions.ViewDocs" />
-    /// <returns>List of <see cref="Doc">documents</see></returns>
+    /// <returns>The list of fetched <see cref="Doc">documents</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<Doc>> GetDocsAsync(Guid channel, uint? limit = null, DateTime? before = null);
 
     /// <summary>
@@ -666,7 +717,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="DocPermissions.ViewDocs" />
     /// <permission cref="DocPermissions.CreateDocs" />
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when posting <see cref="Doc">a document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>Created <see cref="Doc">document</see></returns>
+    /// <returns>The <see cref="Doc">document</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Doc> CreateDocAsync(Guid channel, string title, string content);
 
     /// <summary>
@@ -686,7 +737,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="DocPermissions.ViewDocs" />
     /// <permission cref="DocPermissions.ManageDocs">Required when editing <see cref="Doc">documents</see> that the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="Doc">a document</see></permission>
-    /// <returns>Updated <see cref="Doc">document</see></returns>
+    /// <returns>The <see cref="Doc">document</see> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Doc> UpdateDocAsync(Guid channel, uint doc, string title, string content);
 
     /// <summary>
@@ -717,7 +768,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <returns>List of <see cref="CalendarEvent">calendar events</see></returns>
+    /// <returns>The list of fetched <see cref="CalendarEvent">calendar events</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null);
 
     /// <summary>
@@ -753,7 +804,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="CalendarPermissions.ViewEvents" />
     /// <permission cref="CalendarPermissions.CreateEvents" />
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="CalendarEvent.Description">the calendar event's description</see></permission>
-    /// <returns>Created <see cref="CalendarEvent">calendar event</see></returns>
+    /// <returns>The <see cref="CalendarEvent">calendar event</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false);
 
     /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool)" />
@@ -780,7 +831,7 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="CalendarPermissions.ViewEvents" />
     /// <permission cref="CalendarPermissions.ManageEvents">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
     /// <permission cref="GeneralPermissions.MentionEveryoneHere">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="CalendarEvent.Description">the calendar event's description</see></permission>
-    /// <returns>Updated <see cref="CalendarEvent">calendar event</see></returns>
+    /// <returns>The <see cref="CalendarEvent">calendar event</see> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null);
 
     /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, bool?)" />
@@ -812,7 +863,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <returns>List of <see cref="CalendarRsvp">calendar event RSVPs</see></returns>
+    /// <returns>The list of fetched <see cref="CalendarRsvp">calendar event RSVPs</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<CalendarRsvp>> GetRsvpsAsync(Guid channel, uint calendarEvent);
 
     /// <summary>

@@ -35,14 +35,14 @@
     <PackageReference Include="Websocket.Client" Version="4.4.43" />
   </ItemGroup>
 
-  <!-- For NuGet package -->
-  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Base" Version="0.10.0" />
-  </ItemGroup>
-
   <!-- For testing purposes -->
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">
     <ProjectReference Include="../Guilded.Base/Guilded.Base.csproj" />
+  </ItemGroup>
+
+  <!-- For NuGet package -->
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PackageReference Include="Guilded.Base" Version="0.10.0" />
   </ItemGroup>
 
   <!-- Files to include in Guilded.NET -->

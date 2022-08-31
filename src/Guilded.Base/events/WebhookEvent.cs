@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="Member" />
-public class WebhookEvent : BaseModel
+public class WebhookEvent
 {
     #region Properties
     /// <summary>
@@ -75,36 +75,36 @@ public class WebhookEvent : BaseModel
 
     #region Method CreateMessageAsync
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, MessageContent)" />
-    public async Task CreateMessageAsync(MessageContent message) =>
-        await Webhook.CreateMessageAsync(message).ConfigureAwait(false);
+    public Task CreateMessageAsync(MessageContent message) =>
+        Webhook.CreateMessageAsync(message);
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
-    public async Task CreateMessageAsync(string message) =>
-        await CreateMessageAsync(new MessageContent { Content = message }).ConfigureAwait(false);
+    public Task CreateMessageAsync(string message) =>
+        CreateMessageAsync(new MessageContent { Content = message });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
-    public async Task CreateMessageAsync(string message, params Embed[] embeds) =>
-        await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(string message, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
-    public async Task CreateMessageAsync(string message, IList<Embed> embeds) =>
-        await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(string message, IList<Embed> embeds) =>
+        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
-    public async Task CreateMessageAsync(params Embed[] embeds) =>
-        await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent { Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
-    public async Task CreateMessageAsync(IList<Embed> embeds) =>
-        await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(IList<Embed> embeds) =>
+        CreateMessageAsync(new MessageContent { Embeds = embeds });
     #endregion
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />
-    public async Task<Webhook> UpdateAsync(string name) =>
-        await Webhook.UpdateAsync(name).ConfigureAwait(false);
+    public Task<Webhook> UpdateAsync(string name) =>
+        Webhook.UpdateAsync(name);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteWebhookAsync(HashId, Guid)" />
-    public async Task DeleteAsync() =>
-        await Webhook.DeleteAsync().ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        Webhook.DeleteAsync();
     #endregion
 }

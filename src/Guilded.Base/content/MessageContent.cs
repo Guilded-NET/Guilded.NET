@@ -14,7 +14,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="MessageType" />
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
             ItemNullValueHandling = NullValueHandling.Ignore)]
-public class MessageContent : BaseModel
+public class MessageContent
 {
     #region Fields
     private string? _content;

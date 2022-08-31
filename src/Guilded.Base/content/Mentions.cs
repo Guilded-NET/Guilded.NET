@@ -11,7 +11,7 @@ namespace Guilded.Base.Content;
 /// Represents a collection of mentions of certain element or user.
 /// </summary>
 /// <seealso cref="Embeds.Embed" />
-public class Mentions : BaseModel
+public class Mentions
 {
     #region Properties
 
@@ -99,7 +99,7 @@ public class Mentions : BaseModel
     /// <summary>
     /// Represents a mention of <see cref="User">a user</see>.
     /// </summary>
-    public class UserMention : BaseModel, IModelHasId<HashId>
+    public class UserMention : IModelHasId<HashId>
     {
         #region Properties
         /// <summary>
@@ -126,7 +126,7 @@ public class Mentions : BaseModel
     /// <summary>
     /// Represents a mention of <see cref="ServerChannel">a channel</see>.
     /// </summary>
-    public class ChannelMention : BaseModel, IModelHasId<Guid>
+    public class ChannelMention : IModelHasId<Guid>
     {
         #region Properties
         /// <summary>
@@ -153,7 +153,7 @@ public class Mentions : BaseModel
     /// <summary>
     /// Represents a mention of a role.
     /// </summary>
-    public class RoleMention : BaseModel, IModelHasId<uint>
+    public class RoleMention : IModelHasId<uint>
     {
         #region Properties
         /// <summary>

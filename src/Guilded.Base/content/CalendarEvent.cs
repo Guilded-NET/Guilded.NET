@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
@@ -279,7 +278,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="ListItemNote" />
 /// <seealso cref="ListItemNoteSummary" />
-public class CalendarCancellation : BaseModel
+public class CalendarCancellation
 {
     #region Properties
     /// <summary>

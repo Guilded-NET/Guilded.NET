@@ -163,51 +163,46 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
 
     #region Method CreateMessageAsync
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, MessageContent)" />
-    public async Task CreateMessageAsync(MessageContent message)
-    {
-        if (Token is null)
-            throw new InvalidOperationException("Cannot execute a webhook without a token: possibly missing manage webhooks permission");
-        else if (DeletedAt is not null)
-            throw new InvalidOperationException("Cannot execute deleted webhook");
-        else await ParentClient.CreateHookMessageAsync(Id, Token, message).ConfigureAwait(false);
-    }
+    public Task CreateMessageAsync(MessageContent message) =>
+        // Not executable
+        Token is null
+        ? throw new InvalidOperationException("Cannot execute a webhook without a token: possibly missing manage webhooks permission")
+        : DeletedAt is not null
+        ? throw new InvalidOperationException("Cannot execute deleted webhook")
+        : ParentClient.CreateHookMessageAsync(Id, Token, message);
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
-    public async Task CreateMessageAsync(string message) =>
-        await CreateMessageAsync(new MessageContent { Content = message }).ConfigureAwait(false);
+    public Task CreateMessageAsync(string message) =>
+        CreateMessageAsync(new MessageContent { Content = message });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
-    public async Task CreateMessageAsync(string message, params Embed[] embeds) =>
-        await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(string message, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
-    public async Task CreateMessageAsync(string message, IList<Embed> embeds) =>
-        await CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(string message, IList<Embed> embeds) =>
+        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
-    public async Task CreateMessageAsync(params Embed[] embeds) =>
-        await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent { Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
-    public async Task CreateMessageAsync(IList<Embed> embeds) =>
-        await CreateMessageAsync(new MessageContent { Embeds = embeds }).ConfigureAwait(false);
+    public Task CreateMessageAsync(IList<Embed> embeds) =>
+        CreateMessageAsync(new MessageContent { Embeds = embeds });
     #endregion
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />
-    public async Task<Webhook> UpdateAsync(string name)
-    {
-        if (DeletedAt is not null)
-            return await ParentClient.UpdateWebhookAsync(ServerId, Id, name).ConfigureAwait(false);
-        else throw new InvalidOperationException("Cannot update deleted webhook");
-    }
+    public Task<Webhook> UpdateAsync(string name) =>
+        DeletedAt is not null
+            ? ParentClient.UpdateWebhookAsync(ServerId, Id, name)
+            : throw new InvalidOperationException("Cannot update deleted webhook");
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteWebhookAsync(HashId, Guid)" />
-    public async Task DeleteAsync()
-    {
-        if (DeletedAt is null)
-            await ParentClient.DeleteWebhookAsync(ServerId, Id).ConfigureAwait(false);
-        else throw new InvalidOperationException("Cannot delete already deleted webhook");
-    }
+    public Task DeleteAsync() =>
+        DeletedAt is null
+            ? ParentClient.DeleteWebhookAsync(ServerId, Id)
+            : throw new InvalidOperationException("Cannot delete already deleted webhook");
     #endregion
 
     #region Static methods

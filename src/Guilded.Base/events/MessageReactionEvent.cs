@@ -13,7 +13,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="MessageDeletedEvent" />
 /// <seealso cref="Content.Reaction" />
-public class MessageReactionEvent : BaseModel
+public class MessageReactionEvent
 {
     #region Properties
     /// <summary>
@@ -72,12 +72,12 @@ public class MessageReactionEvent : BaseModel
 
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)" />
-    public async Task AddAsync() =>
-        await Reaction.AddAsync().ConfigureAwait(false);
+    public Task AddAsync() =>
+        Reaction.AddAsync();
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
-    public async Task RemoveAsync() =>
-        await Reaction.RemoveAsync().ConfigureAwait(false);
+    public Task RemoveAsync() =>
+        Reaction.RemoveAsync();
     #endregion
 
     /// <summary>
@@ -146,12 +146,12 @@ public class MessageReactionEvent : BaseModel
 
         #region Methods
         /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)" />
-        public async Task AddAsync() =>
-            await ParentClient.AddReactionAsync(ChannelId, MessageId, Emote.Id).ConfigureAwait(false);
+        public Task AddAsync() =>
+            ParentClient.AddReactionAsync(ChannelId, MessageId, Emote.Id);
 
         /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
-        public async Task RemoveAsync() =>
-            await ParentClient.RemoveReactionAsync(ChannelId, MessageId, Emote.Id).ConfigureAwait(false);
+        public Task RemoveAsync() =>
+            ParentClient.RemoveReactionAsync(ChannelId, MessageId, Emote.Id);
         #endregion
     }
 }

@@ -17,7 +17,7 @@ namespace Guilded.Base.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class CalendarRsvpManyEvent : BaseModel
+public class CalendarRsvpManyEvent
 {
     #region Properties
     /// <summary>

@@ -24,8 +24,7 @@ public interface IHasParentClient
 /// <para>This allows having methods like <see cref="Content.Message.CreateMessageAsync(string)" />, where it requires to call the parent client's methods.</para>
 /// </remarks>
 /// <seealso cref="BaseGuildedClient" />
-/// <seealso cref="BaseModel" />
-public abstract class ContentModel : BaseModel, IHasParentClient
+public abstract class ContentModel : IHasParentClient
 {
 #nullable disable
 
