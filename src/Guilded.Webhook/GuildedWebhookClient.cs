@@ -90,7 +90,7 @@ public class GuildedWebhookClient : BaseGuildedService
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
     public Task CreateMessageAsync(Uri webhook, MessageContent message) =>
-        ExecuteRequestAsync(new RestRequest(webhook).AddBody(message));
+        ExecuteRequestAsync(new RestRequest(webhook, Method.Post).AddBody(message));
 
     /// <inheritdoc cref="CreateMessageAsync(Uri, MessageContent)" />
     /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
