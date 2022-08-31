@@ -3,7 +3,7 @@ using System.Drawing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Json;
 
 /// <summary>
 /// Converts <see cref="Color" /> to an integer in RGB format.

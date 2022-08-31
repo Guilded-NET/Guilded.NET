@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Websocket.Client;
 using Websocket.Client.Models;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Client;
 
 /// <summary>
 /// An API wrapping layer for all Guilded client.

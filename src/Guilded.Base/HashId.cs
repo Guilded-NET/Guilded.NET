@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using Guilded.Base.Json;
 using Newtonsoft.Json;
 
 namespace Guilded.Base;

@@ -6,7 +6,7 @@ using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 
-namespace Guilded;
+namespace Guilded.Client;
 
 public abstract partial class AbstractGuildedClient
 {

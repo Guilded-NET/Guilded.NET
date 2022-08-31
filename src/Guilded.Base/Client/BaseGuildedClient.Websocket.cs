@@ -4,7 +4,7 @@ using System.Reactive.Subjects;
 using Guilded.Base.Events;
 using Websocket.Client;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Client;
 
 public abstract partial class BaseGuildedClient
 {

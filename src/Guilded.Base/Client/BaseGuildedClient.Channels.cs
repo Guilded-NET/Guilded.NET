@@ -8,7 +8,7 @@ using Guilded.Base.Embeds;
 using Guilded.Base.Permissions;
 using Guilded.Base.Servers;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Client;
 
 public abstract partial class BaseGuildedClient
 {

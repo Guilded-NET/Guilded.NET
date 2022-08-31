@@ -15,7 +15,7 @@ using Newtonsoft.Json.Serialization;
 using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Client;
 
 /// <summary>
 /// Represents the base for any kinds of <see cref="BaseGuildedClient">Guilded clients</see>.

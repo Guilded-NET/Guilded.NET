@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using Newtonsoft.Json;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Json;
 
 /// <summary>
 /// Converts <see cref="HashId" /> to string or vice versa in a JSON.

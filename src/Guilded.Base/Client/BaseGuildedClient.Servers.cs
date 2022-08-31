@@ -5,7 +5,7 @@ using Guilded.Base.Permissions;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 
-namespace Guilded.Base;
+namespace Guilded.Base.Client;
 
 public abstract partial class BaseGuildedClient
 {
