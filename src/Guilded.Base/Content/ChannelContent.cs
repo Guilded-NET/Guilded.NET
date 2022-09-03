@@ -88,7 +88,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
 
     #region Methods
     /// <summary>
-    /// Returns whether this instance and the <paramref name="other">specified instance</paramref> are equal to each other.
+    /// Returns whether this instance and the <paramref name="other" /> specified instance are equal to each other.
     /// </summary>
     /// <param name="other">Another instance to compare</param>
     /// <returns>Instances are equal</returns>

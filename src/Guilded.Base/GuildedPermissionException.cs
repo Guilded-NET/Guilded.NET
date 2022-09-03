@@ -58,7 +58,7 @@ public sealed class GuildedPermissionException : GuildedException
     public GuildedPermissionException() : this("Forbidden. Guilded client is missing permissions.") { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedPermissionException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
+    /// Initializes a new instance of <see cref="GuildedPermissionException" /> with an <paramref name="inner" /> exception explaining more.
     /// </summary>
     /// <param name="message">The description of the error from Guilded API</param>
     /// <param name="inner">Inner exception explaining more</param>

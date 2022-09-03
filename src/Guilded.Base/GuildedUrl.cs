@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Client;
 
 namespace Guilded.Base;
 

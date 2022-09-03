@@ -36,7 +36,7 @@ public class WebhookSkeleton : IWebhook
     public WebhookSkeleton(string url) : this(new Uri(url)) { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="WebhookSkeleton" /> from given <paramref name="token" /> and <paramref name="webhook">webhook ID</paramref>.
+    /// Initializes a new instance of <see cref="WebhookSkeleton" /> from given <paramref name="token" /> and <paramref name="webhook" /> identifier.
     /// </summary>
     /// <param name="webhook">The ID of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
     /// <param name="token">The secret token of the <see cref="Base.Servers.Webhook">webhook</see> to use for execution</param>
@@ -47,7 +47,7 @@ public class WebhookSkeleton : IWebhook
     public WebhookSkeleton(Guid webhook, string token) : this(new Uri(GuildedUrl.Media, $"/webhooks/{webhook}/{token}")) { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="WebhookSkeleton" /> from given <paramref name="token" /> and <paramref name="webhook">webhook ID</paramref>.
+    /// Initializes a new instance of <see cref="WebhookSkeleton" /> from given <paramref name="token" /> and <paramref name="webhook" /> identifier.
     /// </summary>
     /// <param name="webhook">The ID of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
     /// <param name="token">The secret token of the <see cref="Base.Servers.Webhook">webhook</see> to use for execution</param>

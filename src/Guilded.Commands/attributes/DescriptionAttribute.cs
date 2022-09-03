@@ -32,7 +32,7 @@ public sealed class DescriptionAttribute : Attribute
 
     #region Constructors
     /// <summary>
-    /// Defines a description for <see cref="CommandAttribute">a command</see> with <paramref name="text">the provided text</paramref>.
+    /// Defines a description for a <see cref="CommandAttribute">command</see> with the provided <paramref name="text" />.
     /// </summary>
     /// <param name="text">The description of <see cref="CommandAttribute">command</see></param>
     public DescriptionAttribute(string text) =>

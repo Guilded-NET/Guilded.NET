@@ -47,7 +47,7 @@ public class Command : AbstractCommand<MethodInfo>
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="Command" /> from the <paramref name="method">command method</paramref>.
+    /// Initializes a new instance of <see cref="Command" /> from the command <paramref name="method" />.
     /// </summary>
     /// <param name="method">The method that was declared as a command</param>
     /// <param name="attribute">The command attribute it was given</param>
@@ -163,7 +163,7 @@ public class CommandContainer : AbstractCommand<Type>
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandContainer" /> from the <paramref name="type">command type</paramref>.
+    /// Initializes a new instance of <see cref="CommandContainer" /> from the command <paramref name="type" />.
     /// </summary>
     /// <param name="type">The type that was declared as a command</param>
     /// <param name="attribute">The command attribute it was given</param>

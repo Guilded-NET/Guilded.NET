@@ -1,4 +1,5 @@
 using System;
+using Guilded.Base.Client;
 using Guilded.Base.Content;
 using Newtonsoft.Json;
 

@@ -260,7 +260,7 @@ public abstract class BaseGuildedService
     /// <para>Does additional checks on channel slowmode cooldowns.</para>
     /// </remarks>
     /// <param name="request">The request to send to execute</param>
-    /// <param name="channel"><see cref="ServerChannel">The channel</see> where <paramref name="request">the request</paramref> is being executed</param>
+    /// <param name="channel"><see cref="ServerChannel">The channel</see> where the <paramref name="request" /> is being executed</param>
     /// <returns>Guilded API's request's response</returns>
     protected Task<RestResponse<T>> ExecuteRequestAsync<T>(RestRequest request, Guid channel)
     {

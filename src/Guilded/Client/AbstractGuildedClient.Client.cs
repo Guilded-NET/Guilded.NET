@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Net.WebSockets;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 
-using Guilded.Base;
+using Guilded.Base.Client;
 using Guilded.Base.Events;
 using Guilded.Base.Users;
 using Newtonsoft.Json.Linq;
@@ -41,9 +40,9 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     public Me? Me { get; protected set; }
 
     /// <summary>
-    /// Whether the client is <see cref="Prepared">prepared</see>.
+    /// Gets whether the client is <see cref="Prepared">prepared</see>.
     /// </summary>
-    /// <value>Client is prepared</value>
+    /// <value>Whether the client is <see cref="Prepared">prepared</see></value>
     public bool IsPrepared { get; protected set; }
     #endregion
 

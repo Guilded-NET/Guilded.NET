@@ -7,7 +7,6 @@ namespace Guilded.Base;
 /// Adds extensions to <see cref="IList{T}">lists</see> with <see cref="IModelHasId{T}">Guilded models with IDs</see>.
 /// </summary>
 /// <seealso cref="IModelHasId{T}" />
-/// <seealso cref="" />
 /// <seealso cref="ContentModel" />
 public static class GuildedListExtensions
 {

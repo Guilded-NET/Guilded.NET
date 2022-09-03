@@ -1,4 +1,5 @@
 using System;
+using Guilded.Client;
 
 namespace Guilded.Commands;
 

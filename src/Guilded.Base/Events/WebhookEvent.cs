@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Guilded.Base.Client;
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
 using Guilded.Base.Servers;

@@ -1,3 +1,4 @@
+using Guilded.Base.Client;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Events;

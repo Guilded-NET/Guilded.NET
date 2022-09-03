@@ -92,7 +92,7 @@ public readonly struct HashId : IEquatable<HashId>
         HashCode.Combine(_, 2);
 
     /// <summary>
-    /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
+    /// Returns whether this <see cref="HashId" /> instance and the <paramref name="other" /> given value are equal.
     /// </summary>
     /// <param name="other">Another identifier to compare</param>
     /// <returns>Both are equal</returns>
@@ -100,7 +100,7 @@ public readonly struct HashId : IEquatable<HashId>
         Equals(other._);
 
     /// <summary>
-    /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
+    /// Returns whether this <see cref="HashId" /> instance and the <paramref name="other" /> given value are equal.
     /// </summary>
     /// <param name="other">Another identifier to compare</param>
     /// <returns>Both are equal</returns>
@@ -108,7 +108,7 @@ public readonly struct HashId : IEquatable<HashId>
         other == _;
 
     /// <summary>
-    /// Returns whether this <see cref="HashId" /> instance and <paramref name="other">the given value</paramref> are equal.
+    /// Returns whether this <see cref="HashId" /> instance and the <paramref name="other" /> given value are equal.
     /// </summary>
     /// <param name="other">Another object to compare</param>
     /// <returns>Both are equal</returns>

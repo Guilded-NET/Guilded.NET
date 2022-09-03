@@ -61,6 +61,9 @@ public class CommandEvent : MessageEvent, IHasParentClient
     /// </summary>
     /// <value>Enumerable of arguments</value>
     public IEnumerable<string> Arguments { get; }
+
+    /// <inheritdoc cref="RootCommandEvent.AdditionalContext" />
+    public object? AdditionalContext => RootCommand.AdditionalContext;
     #endregion
 
     #endregion

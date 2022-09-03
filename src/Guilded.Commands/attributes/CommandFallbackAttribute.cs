@@ -33,7 +33,7 @@ public sealed class CommandFallbackAttribute : Attribute
 
     #region Constructors
     /// <summary>
-    /// Declares a method as a failed command handler based on <paramref name="type">the given type</paramref>.
+    /// Declares a method as a failed command handler based on the given <paramref name="type" />.
     /// </summary>
     /// <param name="type">The type of <see cref="CommandParent.FailedCommand">failed command</see> event to handle</param>
     public CommandFallbackAttribute(FallbackType type) =>

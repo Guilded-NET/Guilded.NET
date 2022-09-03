@@ -1,6 +1,6 @@
 using System;
 using System.Threading.Tasks;
-using Guilded.Base.Events;
+using Guilded.Base.Client;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;

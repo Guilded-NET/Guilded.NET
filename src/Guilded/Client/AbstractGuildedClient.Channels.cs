@@ -48,7 +48,7 @@ public abstract partial class AbstractGuildedClient
             // Whitespace content
             (message.Content is not null && string.IsNullOrWhiteSpace(message.Content)))
         {
-            throw new NullReferenceException("Message content cannot be null if there are no embeds");
+            throw new ArgumentNullException(nameof(message.Content), "Message content cannot be null if there are no embeds");
         }
 
         return GetResponseProperty<Message>(
@@ -126,15 +126,15 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods List channels
     /// <inheritdoc />
-    public override Task<IList<ListItemSummary>> GetListItemsAsync(Guid channel) =>
+    public override Task<IList<ListItemSummary>> GetItemsAsync(Guid channel) =>
         GetResponseProperty<IList<ListItemSummary>>(new RestRequest($"channels/{channel}/items", Method.Get), "listItems");
 
     /// <inheritdoc />
-    public override Task<ListItem> GetListItemAsync(Guid channel, Guid listItem) =>
+    public override Task<ListItem> GetItemAsync(Guid channel, Guid listItem) =>
         GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem");
 
     /// <inheritdoc />
-    public override Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null) =>
+    public override Task<ListItem> CreateItemAsync(Guid channel, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message)
         ? throw new ArgumentNullException(nameof(message))
         : GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items", Method.Post)
@@ -149,7 +149,7 @@ public abstract partial class AbstractGuildedClient
         , "listItem");
 
     /// <inheritdoc />
-    public override Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
+    public override Task<ListItem> UpdateItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note)
         ? throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified")
         : GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
@@ -164,15 +164,15 @@ public abstract partial class AbstractGuildedClient
         , "listItem");
 
     /// <inheritdoc />
-    public override Task DeleteListItemAsync(Guid channel, Guid listItem) =>
+    public override Task DeleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}", Method.Delete));
 
     /// <inheritdoc />
-    public override Task CompleteListItemAsync(Guid channel, Guid listItem) =>
+    public override Task CompleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Post));
 
     /// <inheritdoc />
-    public override Task UncompleteListItemAsync(Guid channel, Guid listItem) =>
+    public override Task UncompleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Delete));
     #endregion
 

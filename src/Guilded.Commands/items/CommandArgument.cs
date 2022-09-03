@@ -58,7 +58,7 @@ public class CommandArgument : AbstractCommandArgument
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandArgument" /> from a <paramref name="parameter">method parameter</paramref>.
+    /// Initializes a new instance of <see cref="CommandArgument" /> from a method <paramref name="parameter" />.
     /// </summary>
     /// <param name="index">The index of the parameter in a command </param>
     /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>
@@ -109,7 +109,7 @@ public class CommandOptionalArgument : AbstractCommandArgument
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandArgument" /> from a <paramref name="parameter">method parameter</paramref>.
+    /// Initializes a new instance of <see cref="CommandArgument" /> from a method <paramref name="parameter" />.
     /// </summary>
     /// <param name="index">The index of the parameter in a command </param>
     /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>
@@ -142,7 +142,7 @@ public class CommandRest : AbstractCommandArgument
 {
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CommandRest" /> from a <paramref name="parameter">method parameter</paramref>.
+    /// Initializes a new instance of <see cref="CommandRest" /> from a method <paramref name="parameter" />.
     /// </summary>
     /// <param name="index">The index of the parameter in a command </param>
     /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>

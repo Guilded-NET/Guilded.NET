@@ -74,14 +74,17 @@ public enum FallbackType
     /// The parent command was called with the name of <see cref="FailedCommandEvent">sub-command</see> not given.
     /// </summary>
     Unspecified,
+
     /// <summary>
     /// The <see cref="FailedCommandEvent">sub-command/command</see> with the specified name or arguments does not exist.
     /// </summary>
     NoCommandFound,
+
     /// <summary>
     /// The <see cref="FailedCommandEvent">sub-command/command</see> was found, but it had incorrect argument count and argument integrity wasn't checked.
     /// </summary>
     BadArgumentCount,
+
     /// <summary>
     /// The <see cref="FailedCommandEvent">sub-command/command</see> was being invoked with bad arguments.
     /// </summary>

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Threading.Tasks;
+using Guilded.Base.Client;
 using Guilded.Base.Embeds;
 using Guilded.Base.Permissions;
 using Guilded.Base.Servers;
@@ -287,7 +287,7 @@ public class Message :
 
     /// <inheritdoc cref="CreateMessageAsync(MessageContent)" />
     /// <remarks>
-    /// <para>The <paramref name="content">text contents</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     public Task<Message> CreateMessageAsync(string content) =>
@@ -334,9 +334,9 @@ public class Message :
     /// Creates a message in the parent channel (from <see cref="ChannelContent{T, S}.ChannelId" />).
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text contents</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// <para>This does not automatically include the message in the reply list.</para>
-    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside <paramref name="content">text content</paramref>.</para>
+    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside text <paramref name="content" />.</para>
     /// </remarks>
     /// <param name="content">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The array of <see cref="Embed">all custom embeds</see> in <see cref="Message">the message</see> (max — <c>1</c>)</param>

@@ -54,7 +54,7 @@ public class GuildedWebsocketException : Exception
     public GuildedWebsocketException(string message) : base(message) { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedWebsocketException" /> from WebSocket <paramref name="message">response message</paramref>.
+    /// Initializes a new instance of <see cref="GuildedWebsocketException" /> from WebSocket response <paramref name="message" />.
     /// </summary>
     /// <param name="response">The response message from Guilded WebSocket</param>
     /// <param name="message">The message that was received from Guilded Websocket</param>
@@ -62,7 +62,7 @@ public class GuildedWebsocketException : Exception
         Response = response;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedWebsocketException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
+    /// Initializes a new instance of <see cref="GuildedWebsocketException" /> with an <paramref name="inner" /> exception explaining more.
     /// </summary>
     /// <param name="message">The message that was received from Guilded Websocket</param>
     /// <param name="inner">The inner exception of this error</param>

@@ -42,10 +42,10 @@ public interface ICommand<out TMember> where TMember : MemberInfo
 
     #region Methods
     /// <summary>
-    /// Gets whether the <paramref name="name">given name</paramref> matches command's <see cref="Name">name</see> or its <see cref="Aliases">aliases</see>.
+    /// Gets whether the given <paramref name="name" /> matches command's <see cref="Name">name</see> or its <see cref="Aliases">aliases</see>.
     /// </summary>
     /// <param name="name">The name to check whether the command contains</param>
-    /// <returns>Command has <paramref name="name">given name</paramref></returns>
+    /// <returns>Command has given <paramref name="name" /></returns>
     public bool HasName(string name) =>
         Name == name || (Aliases?.Contains(name) ?? false);
     #endregion

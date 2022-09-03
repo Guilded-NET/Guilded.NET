@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Guilded.Base.Content;
+using Guilded.Base.Json;
 using Newtonsoft.Json;
 
 using SystemColor = System.Drawing.Color;
@@ -408,17 +408,17 @@ public class Embed
 
     #region Method SetDescription
     /// <summary>
-    /// Sets the <see cref="Description">description</see> as the given <paramref name="content">text</paramref>.
+    /// Sets the <see cref="Description">description</see> as the given <paramref name="value" />.
     /// </summary>
-    /// <param name="content">The text contents of the <see cref="Embed">embed's</see> description</param>
-    /// <exception cref="ArgumentNullException"><paramref name="content" /> is <see langword="null" />, empty or whitespace</exception>
-    /// <exception cref="OverflowException"><paramref name="content" /> exceeds 4000 character limit</exception>
+    /// <param name="value">The text contents of the <see cref="Embed">embed's</see> description</param>
+    /// <exception cref="ArgumentNullException"><paramref name="value" /> is <see langword="null" />, empty or whitespace</exception>
+    /// <exception cref="OverflowException"><paramref name="value" /> exceeds 4000 character limit</exception>
     /// <returns>Current <see cref="Embed" /> instance</returns>
-    public Embed SetDescription(string content)
+    public Embed SetDescription(string value)
     {
-        if (content?.Length > 4000)
-            throw new OverflowException($"Argument {nameof(content)} cannot be more than 4'000 characters.");
-        Description = content;
+        if (value?.Length > 4000)
+            throw new OverflowException($"Argument {nameof(value)} cannot be more than 4'000 characters.");
+        Description = value;
         return this;
     }
 
@@ -626,7 +626,7 @@ public class Embed
 
     // <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
-    /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref>.</para>
+    /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value" />.</para>
     /// <para><paramref name="value" /> parameter will be converted to string.</para>
     /// </remarks>
     /// <param name="value">The text contents of the footer</param>
@@ -635,7 +635,7 @@ public class Embed
 
     // <inheritdoc cref="SetFooter(EmbedFooter)" />
     /// <remarks>
-    /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value">text</paramref> and <paramref name="icon" />.</para>
+    /// <para>A <see cref="EmbedFooter">footer</see> will be generated from the given <paramref name="value" /> and <paramref name="icon" />.</para>
     /// <para><paramref name="value" /> parameter will be converted to string.</para>
     /// </remarks>
     /// <param name="value">The text contents of the footer</param>
@@ -680,7 +680,7 @@ public class Embed
 
     /// <inheritdoc cref="SetColor(SystemColor)" />
     /// <remarks>
-    /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="argb">argb value</paramref>.</para>
+    /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="argb" /> value.</para>
     /// </remarks>
     /// <example>
     /// <code language="csharp">
@@ -694,7 +694,7 @@ public class Embed
 
     /// <inheritdoc cref="SetColor(SystemColor)" />
     /// <remarks>
-    /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="red">red channel</paramref>, <paramref name="green">green channel</paramref> and <paramref name="blue">blue channel</paramref> values.</para>
+    /// <para>A new <see cref="Color" /> instance will be created from the given <paramref name="red" /> channels, <paramref name="green" /> channels and <paramref name="blue" /> channel values.</para>
     /// </remarks>
     /// <example>
     /// <code language="csharp">

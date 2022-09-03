@@ -106,7 +106,7 @@ public sealed class GuildedTooManyRequestsException : GuildedException
     public GuildedTooManyRequestsException() : this("Too many requests has been sent from this client.") { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedTooManyRequestsException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
+    /// Initializes a new instance of <see cref="GuildedTooManyRequestsException" /> with an <paramref name="inner" /> explaining more.
     /// </summary>
     /// <param name="message">The description of the error from Guilded API</param>
     /// <param name="inner">Inner exception explaining more</param>

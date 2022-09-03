@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Client;
 using Newtonsoft.Json;
 
 namespace Guilded.Base.Users;

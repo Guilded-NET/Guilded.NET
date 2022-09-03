@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Guilded.Base;
+using Guilded.Base.Client;
 using Guilded.Base.Content;
 using Guilded.Base.Events;
 using Guilded.Base.Servers;

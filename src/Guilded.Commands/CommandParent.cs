@@ -90,7 +90,7 @@ public abstract class CommandParent
     }
 
     /// <summary>
-    /// Filters out <see cref="Commands">commands</see> that do not have <paramref name="name">the specified name</paramref>.
+    /// Filters out <see cref="Commands">commands</see> that do not have the specified <paramref name="name" />.
     /// </summary>
     /// <param name="name">The name of the commands to get</param>
     /// <returns>Filtered commands</returns>
@@ -159,29 +159,29 @@ public abstract class CommandParent
     }
 
     /// <summary>
-    /// Invokes <paramref name="command">the provided command</paramref> as a child of <see cref="CommandParent">this command base</see>.
+    /// Invokes the provided <paramref name="command" /> as a child of <see cref="CommandParent">this command base</see>.
     /// </summary>
     /// <param name="command">The <see cref="CommandAttribute">command</see> to invoke</param>
     /// <param name="rootInvokation">The unnested first-most command that has been invoked</param>
-    /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
+    /// <param name="commandName">The used name of the invoking <paramref name="command" /></param>
     /// <param name="rawArguments">The unparsed arguments that were given to the command</param>
     /// <param name="arguments">The parsed arguments that were given to the command</param>
-    protected virtual async Task InvokeCommandAsync(Command command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object?> arguments)
+    protected virtual Task InvokeCommandAsync(Command command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object?> arguments)
     {
         CommandEvent commandInvokation = new(rootInvokation, commandName, rawArguments);
 
-        await command.InvokeAsync(this, commandInvokation, arguments).ConfigureAwait(false);
+        return command.InvokeAsync(this, commandInvokation, arguments);
     }
 
     /// <summary>
-    /// Invokes <paramref name="command">the provided command</paramref> as a child of <see cref="CommandParent">this command base</see>.
+    /// Invokes the provided <paramref name="command" /> as a child of <see cref="CommandParent">this command base</see>.
     /// </summary>
     /// <param name="command">The <see cref="CommandAttribute">command</see> to invoke</param>
     /// <param name="rootInvokation">The unnested first-most command that has been invoked</param>
-    /// <param name="commandName">The used name of <paramref name="command">the invoking command</paramref></param>
+    /// <param name="commandName">The used name of the invoking <paramref name="command" /></param>
     /// <param name="arguments">The unparsed arguments and sub-command names that were given to the command</param>
-    protected virtual async Task InvokeCommandAsync(CommandContainer command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments) =>
-        await command.Instance.InvokeAsync(commandName, rootInvokation, arguments).ConfigureAwait(false);
+    protected virtual Task InvokeCommandAsync(CommandContainer command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments) =>
+        command.Instance.InvokeAsync(commandName, rootInvokation, arguments);
     #endregion
 
     #endregion

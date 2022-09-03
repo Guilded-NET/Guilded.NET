@@ -57,7 +57,7 @@ public sealed class GuildedAuthorizationException : GuildedException
     public GuildedAuthorizationException() : this("Invalid. Provided authentication token is invalid or expired.") { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedAuthorizationException" /> with <paramref name="inner">inner exception</paramref> explaining more.
+    /// Initializes a new instance of <see cref="GuildedAuthorizationException" /> with <paramref name="inner" /> exception explaining more.
     /// </summary>
     /// <param name="message">The description of the error from Guilded API</param>
     /// <param name="inner">Inner exception explaining more</param>

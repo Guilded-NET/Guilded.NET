@@ -4,8 +4,10 @@
     - `IList<TModel>.ById(TId)` (e.g., `memberList.ById(new HashId("..."))`)
     - `IList<TModel>.ByIdOrDefault(TId)` (e.g., `messageList.ByIdOrDefault(new Guid("..."))`)
     - `IList<TModel>.Contains(TId)` (e.g., `topicList.Contains(12345678)`)
+- Added `DoCommandsAsync(MessageEvent, CommandConfig)` that will now be invoked by the client instead. This will still invoke previous `DoCommandsAsync`
+- Added `object? additionalContext` argument to `DoCommandsAsync(MessageEvent, string, CommandConfig)`. This allows you to pass anything you need to pass down to commands or something you don't want to re-fetch.
 - Renamed `CreateListItemAsync`, `UpdateListItemAsync`, `CompleteListItemAsync`, etc. to `CreateItemAsync`, `UpdateItemAsync`, `CompleteItemAsync`, etc.
-- Fixed docs (to make more sense/a bit more consistent with .NET)
+- Fixed docs (to make more sense/a bit more consistent with .NET, especially `<returns>`)
 - Removed `BaseModel` and all types no longer have it
 
 # v0.10.0-beta

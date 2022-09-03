@@ -60,7 +60,7 @@ public abstract class AbstractCommandArgument
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="AbstractCommandArgument" /> from a <paramref name="parameter">method parameter</paramref>.
+    /// Initializes a new instance of <see cref="AbstractCommandArgument" /> from a method <paramref name="parameter" />.
     /// </summary>
     /// <param name="index">The index of the parameter in a command </param>
     /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>

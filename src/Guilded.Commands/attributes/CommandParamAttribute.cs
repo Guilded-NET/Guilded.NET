@@ -67,7 +67,7 @@ public class CommandParamAttribute : Attribute
     public CommandParamAttribute() { }
 
     /// <summary>
-    /// Declares a command parameter with the specified <paramref name="name">name</paramref>.
+    /// Declares a command parameter with the specified <paramref name="name" />.
     /// </summary>
     /// <param name="name">The displayed name of the parameter</param>
     public CommandParamAttribute(string name) =>

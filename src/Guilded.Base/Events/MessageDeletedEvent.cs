@@ -50,7 +50,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// </summary>
     /// <seealso cref="Message" />
     /// <seealso cref="MessageDeletedEvent" />
-    public class MessageDeleted :
+    public class MessageDeleted
     {
         #region Properties
         /// <summary>

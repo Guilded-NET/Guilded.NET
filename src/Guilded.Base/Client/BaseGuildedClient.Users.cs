@@ -21,7 +21,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <returns><see cref="SocialLink">Social Link</see></returns>
+    /// <returns>The <see cref="SocialLink">social link</see> of the specified <see cref="Servers.Member">member</see></returns>
     public abstract Task<SocialLink> GetSocialLinkAsync(HashId server, HashId member, SocialLinkType linkType);
     #endregion
 

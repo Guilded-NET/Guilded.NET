@@ -43,6 +43,12 @@ public struct RootCommandEvent
     /// </summary>
     /// <value>Message event</value>
     public MessageEvent MessageEvent { get; }
+
+    /// <summary>
+    /// Gets any additional context that were passed manually by the bot developer (you).
+    /// </summary>
+    /// <value>Any object</value>
+    public object? AdditionalContext { get; }
     #endregion
 
     #region Constructors
@@ -53,7 +59,8 @@ public struct RootCommandEvent
     /// <param name="prefix">The prefix that was fetched for the command</param>
     /// <param name="commandName">The name of the original command that was used</param>
     /// <param name="arguments">The given arguments to the original command</param>
-    public RootCommandEvent(MessageEvent messageEvent, string prefix, string commandName, IEnumerable<string> arguments) =>
-        (MessageEvent, Prefix, RootCommandName, RootArguments) = (messageEvent, prefix, commandName, arguments);
+    /// <param name="additionalContext">The additional context that were passed</param>
+    public RootCommandEvent(MessageEvent messageEvent, string prefix, string commandName, IEnumerable<string> arguments, object? additionalContext) =>
+        (MessageEvent, Prefix, RootCommandName, RootArguments, AdditionalContext) = (messageEvent, prefix, commandName, arguments, additionalContext);
     #endregion
 }

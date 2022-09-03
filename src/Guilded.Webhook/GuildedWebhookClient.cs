@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Base.Client;
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
 using Guilded.Base.Servers;
@@ -102,7 +103,7 @@ public class GuildedWebhookClient : BaseGuildedService
     /// Creates a <see cref="Message">message</see> for every <see cref="Webhooks">webhook</see> in the <see cref="GuildedWebhookClient">client</see>.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown</param>
     /// <exception cref="GuildedException" />
@@ -115,7 +116,7 @@ public class GuildedWebhookClient : BaseGuildedService
     /// Creates a <see cref="Message">message</see> for the specified <see cref="Base.Servers.Webhook">webhook</see>.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of <see cref="Message">the message</see> in Markdown</param>

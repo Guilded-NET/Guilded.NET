@@ -71,7 +71,7 @@ public class MemberUpdatedEvent
     /// <seealso cref="MemberSummary{T}" />
     /// <seealso cref="Users.User" />
     /// <seealso cref="Member" />
-    public class MemberUpdate :
+    public class MemberUpdate
     {
         #region Properties
         /// <inheritdoc cref="Users.UserSummary.Id" />

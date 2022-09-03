@@ -16,7 +16,7 @@ public abstract partial class BaseGuildedClient
 
     #region Methods CreateHookMessageAsync with URL
     /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> using the webhook specified by its <paramref name="webhookUrl">webhook URL</paramref>.
     /// </summary>
     /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
     /// <param name="message">The message to send</param>
@@ -26,10 +26,10 @@ public abstract partial class BaseGuildedClient
     public abstract Task CreateHookMessageAsync(Uri webhookUrl, MessageContent message);
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> using the specified the webhook specified by its <paramref name="webhookUrl">webhook URL</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
@@ -43,7 +43,7 @@ public abstract partial class BaseGuildedClient
     /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
@@ -58,7 +58,7 @@ public abstract partial class BaseGuildedClient
     /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
@@ -94,7 +94,7 @@ public abstract partial class BaseGuildedClient
 
     #region Methods CreateHookMessageAsync with webhookId + token
     /// <summary>
-    /// Creates a <see cref="Message">message</see> using <paramref name="webhook">the specified webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhook" />.
     /// </summary>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
@@ -106,10 +106,10 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(new Uri(GuildedUrl.Media, $"webhooks/{webhook}/{token}"), message);
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing only <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> with content containing only text <paramref name="content" /> using a <paramref name="webhook" />.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
@@ -121,10 +121,10 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(webhook, token, new MessageContent { Content = content });
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
@@ -137,10 +137,10 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Embeds = embeds });
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and <paramref name="content">text</paramref> using a <paramref name="webhook">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="content">text content</paramref> will be formatted in Markdown.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
@@ -153,7 +153,7 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(webhook, token, content, (IList<Embed>)embeds);
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.
     /// </summary>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
@@ -165,7 +165,7 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds });
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook">webhook</paramref>.
+    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.
     /// </summary>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
@@ -196,12 +196,12 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ChatPermissions.ReadMessages" />
-    /// <permission cref="GeneralPermissions.AccessModeratorView">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="BaseGuildedClient">client</see> if <paramref name="includePrivate">asked</paramref> by the <see cref="BaseGuildedClient">client</see></permission>
+    /// <permission cref="GeneralPermissions.AccessModeratorView">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="BaseGuildedClient">client</see> if <paramref name="includePrivate" /> is set as true</permission>
     /// <returns>The list of fetched <see cref="Message">messages</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null);
 
     /// <summary>
-    /// Gets the <paramref name="message">specified message</paramref>.
+    /// Gets the specified <paramref name="message" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the message it should get</param>
@@ -211,7 +211,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ChatPermissions.ReadMessages" />
     /// <permission cref="GeneralPermissions.AccessModeratorView">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="BaseGuildedClient">client</see></permission>
-    /// <returns>Specified <see cref="Message">message</see></returns>
+    /// <returns>The <see cref="Message">message</see> that was specified in the arguments</returns>
     public abstract Task<Message> GetMessageAsync(Guid channel, Guid message);
 
     /// <summary>
@@ -311,8 +311,8 @@ public abstract partial class BaseGuildedClient
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
     /// <remarks>
-    /// <para>The <paramref name="content">text contents</paramref> will be formatted in Markdown.</para>
-    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside <paramref name="content">text content</paramref>.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
+    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside text <paramref name="content" />.</para>
     /// </remarks>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
@@ -326,8 +326,8 @@ public abstract partial class BaseGuildedClient
 
     /// <inheritdoc cref="CreateMessageAsync(Guid, string, Embed[])" />
     /// <remarks>
-    /// <para>The <paramref name="content">text contents</paramref> will be formatted in Markdown.</para>
-    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside <paramref name="content">text content</paramref>.</para>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
+    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside text <paramref name="content" />.</para>
     /// </remarks>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
@@ -346,7 +346,7 @@ public abstract partial class BaseGuildedClient
         });
 
     /// <summary>
-    /// Edits the <paramref name="content">text contents</paramref> of a <paramref name="message">message</paramref>.
+    /// Edits the text <paramref name="content" /> of a <paramref name="message" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to edit</param>
@@ -397,7 +397,7 @@ public abstract partial class BaseGuildedClient
         });
 
     /// <summary>
-    /// Deletes the <paramref name="message">specified message</paramref>.
+    /// Deletes the specified <paramref name="message" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to delete</param>
@@ -411,7 +411,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task DeleteMessageAsync(Guid channel, Guid message);
 
     /// <summary>
-    /// Adds <paramref name="emote">a reaction</paramref> to the <paramref name="message">specified message</paramref>.
+    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="message" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
@@ -431,7 +431,7 @@ public abstract partial class BaseGuildedClient
         AddReactionAsync(channel, message, emote.Id);
 
     /// <summary>
-    /// Removes <paramref name="emote">a reaction</paramref> from the <paramref name="message">specified message</paramref>.
+    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="message" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
@@ -467,7 +467,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<IList<TopicSummary>> GetTopicsAsync(Guid channel, uint? limit = null, DateTime? before = null);
 
     /// <summary>
-    /// Gets the <paramref name="topic">specified topic</paramref>.
+    /// Gets the specified <paramref name="topic" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to get</param>
@@ -476,15 +476,15 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ForumPermissions.ReadForums" />
-    /// <returns>Specified <see cref="Topic">topic</see></returns>
+    /// <returns>The <see cref="Topic">topic</see> that was specified in the arguments</returns>
     public abstract Task<Topic> GetTopicAsync(Guid channel, uint topic);
 
     /// <summary>
-    /// Creates a new <see cref="Topic">forum post</see>.
+    /// Creates a new <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="title">The title of <see cref="Topic">the forum post</see></param>
-    /// <param name="content">The content of <see cref="Topic">the forum post</see></param>
+    /// <param name="title">The title of <see cref="Topic">the forum topic</see></param>
+    /// <param name="content">The content of <see cref="Topic">the forum topic</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -496,7 +496,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<Topic> CreateTopicAsync(Guid channel, string title, string content);
 
     /// <summary>
-    /// Edits <see cref="Topic">forum post's</see> <paramref name="title" /> and <paramref name="content">contents</paramref>.
+    /// Edits <see cref="Topic">forum topic's</see> <paramref name="title" /> and <paramref name="content" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to update</param>
@@ -513,7 +513,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<Topic> UpdateTopicAsync(Guid channel, uint topic, string title, string content);
 
     /// <summary>
-    /// Deletes a <see cref="Topic">forum post</see>.
+    /// Deletes a <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to delete</param>
@@ -555,7 +555,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.ViewListItems" />
-    /// <returns>Specified <paramref name="listItem">list item</paramref></returns>
+    /// <returns>The <see cref="ListItem">list item</see> that was specified in the arguments</returns>
     public abstract Task<ListItem> GetItemAsync(Guid channel, Guid listItem);
 
     /// <inheritdoc cref="GetItemAsync(Guid, Guid)" />
@@ -692,7 +692,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<IList<Doc>> GetDocsAsync(Guid channel, uint? limit = null, DateTime? before = null);
 
     /// <summary>
-    /// Gets the <paramref name="doc">specified document</paramref>.
+    /// Gets the specified <paramref name="doc">document</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="doc">The identifier of <see cref="Doc">the document</see> to get</param>
@@ -701,7 +701,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="DocPermissions.ViewDocs" />
-    /// <returns>Specified <see cref="Doc">document</see></returns>
+    /// <returns>The <see cref="Doc">document</see> that was specified in the arguments</returns>
     public abstract Task<Doc> GetDocAsync(Guid channel, uint doc);
 
     /// <summary>
@@ -721,10 +721,10 @@ public abstract partial class BaseGuildedClient
     public abstract Task<Doc> CreateDocAsync(Guid channel, string title, string content);
 
     /// <summary>
-    /// Edits <paramref name="content">the text contents</paramref> or <paramref name="title">the title</paramref> of the <paramref name="doc">specified document</paramref>.
+    /// Edits the text <paramref name="content" /> or the <paramref name="title" /> of the specified <paramref name="doc">document</paramref>.
     /// </summary>
     /// <remarks>
-    /// <para>The <paramref name="doc">updated document</paramref> will be bumped to the top.</para>
+    /// <para>The updated <paramref name="doc">document</paramref> will be bumped to the top.</para>
     /// </remarks>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="doc">The identifier of the document to update/edit</param>
@@ -741,7 +741,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<Doc> UpdateDocAsync(Guid channel, uint doc, string title, string content);
 
     /// <summary>
-    /// Deletes the <paramref name="doc">specified document</paramref>.
+    /// Deletes the specified <paramref name="doc">document</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="doc">The identifier of <see cref="Doc">the document</see> to delete</param>
@@ -781,7 +781,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <returns>Specified <see cref="CalendarEvent">calendar event</see></returns>
+    /// <returns>The <see cref="CalendarEvent">calendar event</see> that was specified in the arguments</returns>
     public abstract Task<CalendarEvent> GetEventAsync(Guid channel, uint calendarEvent);
 
     /// <summary>
@@ -877,7 +877,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.ViewEvents" />
-    /// <returns>Specified <see cref="CalendarRsvp">calendar event RSVP</see></returns>
+    /// <returns>The <see cref="CalendarRsvp">calendar event RSVP</see> that was specified in the arguments</returns>
     public abstract Task<CalendarRsvp> GetRsvpAsync(Guid channel, uint calendarEvent, HashId user);
 
     /// <summary>
@@ -915,7 +915,7 @@ public abstract partial class BaseGuildedClient
 
     #region Methods Any Content
     /// <summary>
-    /// Adds <paramref name="emote">a reaction</paramref> to the <paramref name="content">specified content</paramref>.
+    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="content" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to add a <see cref="Reaction">reaction</see> to</param>
@@ -938,7 +938,7 @@ public abstract partial class BaseGuildedClient
         AddReactionAsync(channel, content, emote.Id);
 
     /// <summary>
-    /// Removes <paramref name="emote">a reaction</paramref> from the <paramref name="content">specified content</paramref>.
+    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="content" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to remove a <see cref="Reaction">reaction</see> from</param>

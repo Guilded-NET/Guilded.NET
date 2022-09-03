@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Base.Client;
 using Guilded.Base.Servers;
 
 namespace Guilded.Base;
