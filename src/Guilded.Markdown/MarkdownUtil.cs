@@ -282,8 +282,10 @@ public static class GuildedMarkdown
     /// <param name="user">The identifier of the <see cref="User">user</see> to <see cref="Mentions">mention</see></param>
     /// <returns>The <see cref="Mentions">mention</see> of the specified <paramref name="user" /></returns>
     /// <seealso cref="Mention(UserSummary)" />
+    /// <seealso cref="Mention(Mentions.UserMention)" />
     /// <seealso cref="Mention{T}(MemberSummary{T})" />
     /// <seealso cref="Mention(uint)" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
     /// <seealso cref="Hyperlink(string, Uri)" />
     /// <seealso cref="Hyperlink(string, string)" />
     /// <seealso cref="Hyperlink(object, Uri)" />
@@ -299,8 +301,10 @@ public static class GuildedMarkdown
     /// <param name="user">The <see cref="User">user</see> to <see cref="Mentions">mention</see></param>
     /// <returns>The <see cref="Mentions">mention</see> of the specified <paramref name="user" /></returns>
     /// <seealso cref="Mention(HashId)" />
+    /// <seealso cref="Mention(Mentions.UserMention)" />
     /// <seealso cref="Mention{T}(MemberSummary{T})" />
     /// <seealso cref="Mention(uint)" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
     /// <seealso cref="Hyperlink(string, Uri)" />
     /// <seealso cref="Hyperlink(string, string)" />
     /// <seealso cref="Hyperlink(object, Uri)" />
@@ -311,6 +315,25 @@ public static class GuildedMarkdown
         Mention(user.Id);
 
     /// <summary>
+    /// Returns the <see cref="Mentions">mention</see> of the specified <paramref name="user" />.
+    /// </summary>
+    /// <param name="user">The <see cref="User">user</see> to <see cref="Mentions">mention</see></param>
+    /// <returns>The <see cref="Mentions">mention</see> of the specified <paramref name="user" /></returns>
+    /// <seealso cref="Mention(HashId)" />
+    /// <seealso cref="Mention(UserSummary)" />
+    /// <seealso cref="Mention{T}(MemberSummary{T})" />
+    /// <seealso cref="Mention(uint)" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
+    /// <seealso cref="Hyperlink(string, Uri)" />
+    /// <seealso cref="Hyperlink(string, string)" />
+    /// <seealso cref="Hyperlink(object, Uri)" />
+    /// <seealso cref="Hyperlink(object, string)" />
+    /// <seealso cref="Media(Uri)" />
+    /// <seealso cref="Media(string)" />
+    public static string Mention(Mentions.UserMention user) =>
+        Mention(user.Id);
+
+    /// <summary>
     /// Returns the <see cref="Mentions">mention</see> of the specified <paramref name="member" />.
     /// </summary>
     /// <param name="member">The <see cref="Member">member</see> to <see cref="Mentions">mention</see></param>
@@ -318,6 +341,7 @@ public static class GuildedMarkdown
     /// <seealso cref="Mention(HashId)" />
     /// <seealso cref="Mention(UserSummary)" />
     /// <seealso cref="Mention(uint)" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
     /// <seealso cref="Hyperlink(string, Uri)" />
     /// <seealso cref="Hyperlink(string, string)" />
     /// <seealso cref="Hyperlink(object, Uri)" />
@@ -334,7 +358,9 @@ public static class GuildedMarkdown
     /// <returns>The <see cref="Mentions">mention</see> of the specified <paramref name="role" /></returns>
     /// <seealso cref="Mention(HashId)" />
     /// <seealso cref="Mention(UserSummary)" />
+    /// <seealso cref="Mention(Mentions.UserMention)" />
     /// <seealso cref="Mention{T}(MemberSummary{T})" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
     /// <seealso cref="Hyperlink(string, Uri)" />
     /// <seealso cref="Hyperlink(string, string)" />
     /// <seealso cref="Hyperlink(object, Uri)" />
@@ -345,11 +371,10 @@ public static class GuildedMarkdown
         $"<@{role}>";
 
     /// <summary>
-    /// Returns the specified <paramref name="value" /> hyperlinked with the specified <paramref name="url" />.
+    /// Returns the <see cref="Mentions">mention</see> of the specified <paramref name="role" />.
     /// </summary>
-    /// <param name="value">The value to hyperlink</param>
-    /// <param name="url">The URL to hyperlink the <paramref name="value" /> with</param>
-    /// <returns><paramref name="value">Value</paramref> hyperlinked with <paramref name="url" /></returns>
+    /// <param name="role">The identifier of the role to <see cref="Mentions">mention</see></param>
+    /// <returns>The <see cref="Mentions">mention</see> of the specified <paramref name="role" /></returns>
     /// <seealso cref="Mention(HashId)" />
     /// <seealso cref="Mention(UserSummary)" />
     /// <seealso cref="Mention{T}(MemberSummary{T})" />
@@ -360,8 +385,29 @@ public static class GuildedMarkdown
     /// <seealso cref="Hyperlink(object, string)" />
     /// <seealso cref="Media(Uri)" />
     /// <seealso cref="Media(string)" />
+    public static string Mention(Mentions.RoleMention role) =>
+        Mention(role.Id);
+
+    /// <summary>
+    /// Returns the specified <paramref name="value" /> hyperlinked with the specified <paramref name="url" />.
+    /// </summary>
+    /// <param name="value">The value to hyperlink</param>
+    /// <param name="url">The URL to hyperlink the <paramref name="value" /> with</param>
+    /// <returns><paramref name="value">Value</paramref> hyperlinked with <paramref name="url" /></returns>
+    /// <seealso cref="Mention(HashId)" />
+    /// <seealso cref="Mention(UserSummary)" />
+    /// <seealso cref="Mention(Mentions.UserMention)" />
+    /// <seealso cref="Mention{T}(MemberSummary{T})" />
+    /// <seealso cref="Mention(uint)" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
+    /// <seealso cref="Hyperlink(string, Uri)" />
+    /// <seealso cref="Hyperlink(string, string)" />
+    /// <seealso cref="Hyperlink(object, Uri)" />
+    /// <seealso cref="Hyperlink(object, string)" />
+    /// <seealso cref="Media(Uri)" />
+    /// <seealso cref="Media(string)" />
     public static string Hyperlink(string? value, Uri url) =>
-        $"[{value?.Replace("]", "\\]") ?? " "}]({url})";
+        $"[{value?.Replace("](", "\\]\\(") ?? " "}]({url})";
 
     /// <inheritdoc cref="Hyperlink(string, Uri)" />
     /// <param name="value">The value to hyperlink</param>
@@ -388,8 +434,10 @@ public static class GuildedMarkdown
     /// <returns>The image from the specified <paramref name="url" /></returns>
     /// <seealso cref="Mention(HashId)" />
     /// <seealso cref="Mention(UserSummary)" />
+    /// <seealso cref="Mention(Mentions.UserMention)" />
     /// <seealso cref="Mention{T}(MemberSummary{T})" />
     /// <seealso cref="Mention(uint)" />
+    /// <seealso cref="Mention(Mentions.RoleMention)" />
     /// <seealso cref="Hyperlink(string, Uri)" />
     /// <seealso cref="Hyperlink(string, string)" />
     /// <seealso cref="Hyperlink(object, Uri)" />

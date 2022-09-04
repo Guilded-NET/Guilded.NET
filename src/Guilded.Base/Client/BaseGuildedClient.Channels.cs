@@ -415,7 +415,7 @@ public abstract partial class BaseGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
-    /// <param name="emote">The identifier of the emote to add</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />

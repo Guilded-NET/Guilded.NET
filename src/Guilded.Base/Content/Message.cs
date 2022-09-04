@@ -447,12 +447,12 @@ public class Message :
         ParentClient.DeleteMessageAsync(ChannelId, Id);
 
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, Guid, uint)" />
-    /// <param name="emote">The identifier of the emote to add</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
     public Task AddReactionAsync(uint emote) =>
         ParentClient.AddReactionAsync(ChannelId, Id, emote);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
-    /// <param name="emoteId">The identifier of the emote to remove</param>
+    /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to remove</param>
     public Task RemoveReactionAsync(uint emoteId) =>
         ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId);
     #endregion

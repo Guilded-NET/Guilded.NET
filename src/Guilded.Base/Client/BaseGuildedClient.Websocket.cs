@@ -68,12 +68,12 @@ public abstract partial class BaseGuildedClient
         }
         else if (@event.Opcode == SocketOpcode.InvalidCursor || @event.Opcode == SocketOpcode.InternalError)
         {
+            // If the error is related to the last message
+            LastMessageId = null;
+
             _onWebsocketMessage.OnError(
                 new GuildedWebsocketException(response, @event.RawData?.Value<string>("message")!)
             );
-
-            // If the error is related to the last message
-            LastMessageId = default;
 
             return;
         }

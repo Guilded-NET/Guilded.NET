@@ -82,12 +82,12 @@ public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableCo
 
     #region Methods
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
-    /// <param name="emoteId">The identifier of the emote to add</param>
+    /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to add</param>
     public async Task AddReactionAsync(uint emoteId) =>
         await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
-    /// <param name="emoteId">The identifier of the emote to remove</param>
+    /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to remove</param>
     public async Task RemoveReactionAsync(uint emoteId) =>
         await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
     #endregion

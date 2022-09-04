@@ -85,8 +85,15 @@ public abstract partial class BaseGuildedClient : BaseGuildedService, IAsyncDisp
         });
         Websocket = new(websocketUrl ?? GuildedUrl.Websocket, factory);
 
+        // Don't keep on erroring
+        Websocket
+            .DisconnectionHappened
+            .Where(x => x.CloseStatus == WebSocketCloseStatus.InvalidPayloadData)
+            .Subscribe(_ => LastMessageId = null);
+
         // Event stuff
-        Websocket.MessageReceived
+        Websocket
+            .MessageReceived
             .Where(msg => msg.MessageType == WebSocketMessageType.Text)
             .Subscribe(OnWebsocketResponse);
     }

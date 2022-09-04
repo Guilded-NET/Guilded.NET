@@ -121,6 +121,15 @@ public class Mentions
         ) =>
             Id = id;
         #endregion
+
+        #region Overrides
+        /// <summary>
+        /// Returns the Markdown equivalent to the <see cref="UserMention">mention</see>.
+        /// </summary>
+        /// <returns>Markdown role <see cref="UserMention">mention</see></returns>
+        public override string ToString() =>
+            $"<@{Id}>";
+        #endregion
     }
 
     /// <summary>
@@ -148,6 +157,15 @@ public class Mentions
         ) =>
             Id = id;
         #endregion
+
+        #region Overrides
+        /// <summary>
+        /// Returns the Markdown equivalent to the <see cref="ChannelMention">mention</see>.
+        /// </summary>
+        /// <returns>Markdown role <see cref="ChannelMention">mention</see></returns>
+        public override string ToString() =>
+            $"<#{Id}>";
+        #endregion
     }
 
     /// <summary>
@@ -174,6 +192,15 @@ public class Mentions
             uint id
         ) =>
             Id = id;
+        #endregion
+
+        #region Overrides
+        /// <summary>
+        /// Returns the Markdown equivalent to the <see cref="RoleMention">mention</see>.
+        /// </summary>
+        /// <returns>Markdown role <see cref="RoleMention">mention</see></returns>
+        public override string ToString() =>
+            $"<@{Id}>";
         #endregion
     }
     #endregion
