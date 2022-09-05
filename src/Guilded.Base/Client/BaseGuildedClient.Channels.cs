@@ -522,8 +522,32 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ForumPermissions.ReadForums" />
-    /// <permission cref="DocPermissions.RemoveDocs">Required when deleting <see cref="Topic">forum topic</see> that the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="ForumPermissions.ManageTopics">Required when deleting <see cref="Topic">forum topic</see> that the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
     public abstract Task DeleteTopicAsync(Guid channel, uint topic);
+
+    /// <summary>
+    /// Pins a <see cref="Topic">forum topic</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to pin</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    public abstract Task AddTopicPinAsync(Guid channel, uint topic);
+
+    /// <summary>
+    /// Unpins a <see cref="Topic">forum topic</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to unpin</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.ReadForums" />
+    public abstract Task RemoveTopicPinAsync(Guid channel, uint topic);
     #endregion
 
     #region Methods List channels

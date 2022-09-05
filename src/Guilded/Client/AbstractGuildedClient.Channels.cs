@@ -121,7 +121,11 @@ public abstract partial class AbstractGuildedClient
 
     /// <inheritdoc />
     public override Task DeleteTopicAsync(Guid channel, uint topic) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}", Method.Delete));
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/pin", Method.Put));
+
+    /// <inheritdoc />
+    public override Task AddTopicPinAsync(Guid channel, uint topic) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/pin", Method.Delete));
     #endregion
 
     #region Methods List channels

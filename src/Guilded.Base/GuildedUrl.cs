@@ -77,6 +77,6 @@ public static class GuildedUrl
     /// <seealso cref="MediaFileUpload" />
     /// <seealso cref="MediaUrlUpload" />
     /// <seealso cref="ImageCdn" />
-    public static readonly Uri Websocket = new("wss://api.guilded.gg/v1/websocket");
+    public static readonly Uri Websocket = new("wss://www.guilded.gg/websocket/v1");
     #endregion
 }
