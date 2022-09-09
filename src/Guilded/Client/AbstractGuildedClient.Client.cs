@@ -10,7 +10,6 @@ using Guilded.Base.Users;
 using Newtonsoft.Json.Linq;
 
 using RestSharp;
-using Serilog;
 using Websocket.Client;
 
 namespace Guilded.Client;
