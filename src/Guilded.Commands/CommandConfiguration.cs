@@ -9,7 +9,7 @@ namespace Guilded.Commands;
 /// <seealso cref="CommandParent" />
 /// <seealso cref="CommandAttribute" />
 /// <seealso cref="CommandFallbackAttribute" />
-public class CommandConfiguration
+public record CommandConfiguration
 {
     #region Static & Constants
     /// <summary>
@@ -87,5 +87,10 @@ public class CommandConfiguration
     /// Initializes the configuration of Guilded.NET's commands with <c>/</c> prefix.
     /// </summary>
     public CommandConfiguration() : this(DefaultPrefix) { }
+    #endregion
+
+    #region Methods
+    internal string[] SplitWithConfig(string text) =>
+        text.Split(Separators, SplitOptions);
     #endregion
 }

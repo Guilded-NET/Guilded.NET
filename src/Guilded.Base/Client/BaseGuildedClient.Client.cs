@@ -19,15 +19,14 @@ public abstract partial class BaseGuildedClient : BaseGuildedService, IAsyncDisp
 {
     #region Fields
     /// <summary>
-    /// An event when the client gets connected.
+    /// Gets an event that occurs when the client gets connected.
     /// </summary>
     /// <remarks>
-    /// <para>An event that occurs once Guilded client connects to Guilded.</para>
     /// <para>This usually occurs once <see cref="ConnectAsync" /> is called and no errors get thrown.</para>
     /// </remarks>
     /// <seealso cref="ConnectAsync" />
     /// <seealso cref="Disconnected" />
-    protected Subject<BaseGuildedClient> ConnectedSubject = new();
+    protected Subject<BaseGuildedClient> ConnectedSubject { get; } = new();
     #endregion
 
     #region Properties

@@ -77,16 +77,21 @@ public abstract class CommandParent
     /// <param name="usedBaseName">The specified name of this command</param>
     /// <param name="context">The information about the original command</param>
     /// <param name="arguments">The arguments given to this command</param>
-    public async Task<bool> InvokeAsync(string usedBaseName, RootCommandEvent context, IEnumerable<string> arguments)
+    /// <param name="count">The count of split arguments in the command used</param>
+    public async Task<bool> InvokeAsync(string usedBaseName, RootCommandEvent context, string arguments, int count)
     {
-        if (!arguments.Any())
+        if (string.IsNullOrEmpty(arguments))
         {
             // Command index
-            onFailedCommand.OnNext(new FailedCommandEvent(context, usedBaseName, arguments, FallbackType.Unspecified));
+            onFailedCommand.OnNext(new FailedCommandEvent(context, usedBaseName, context.Configuration.SplitWithConfig(arguments), FallbackType.Unspecified));
             return false;
         }
 
-        return await InvokeCommandByNameAsync(context, commandName: arguments.First(), arguments: arguments.Skip(1)).ConfigureAwait(false);
+        string[] split = arguments.Split(context.Configuration.Separators, 2, context.Configuration.SplitOptions);
+
+        string subCommandName = split.First(), subCommandArgs = split.ElementAtOrDefault(2) ?? string.Empty;
+
+        return await InvokeCommandByNameAsync(context, subCommandName, subCommandArgs, count - 1).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -103,14 +108,15 @@ public abstract class CommandParent
     /// <param name="rootInvokation">The information about the original command</param>
     /// <param name="commandName">The name of the current command used</param>
     /// <param name="arguments">The arguments of the current command used</param>
-    protected async Task<bool> InvokeCommandByNameAsync(RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments)
+    /// <param name="count">The count of split arguments in the command used</param>
+    protected async Task<bool> InvokeCommandByNameAsync(RootCommandEvent rootInvokation, string commandName, string arguments, int count)
     {
         IEnumerable<ICommand<MemberInfo>> commandsByName = FilterCommandsByName(commandName);
 
         // Can't find it
         if (!commandsByName.Any())
         {
-            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.NoCommandFound));
+            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, rootInvokation.Configuration.SplitWithConfig(arguments), FallbackType.NoCommandFound));
             return false;
         }
 
@@ -118,12 +124,12 @@ public abstract class CommandParent
         IEnumerable<ICommand<MemberInfo>> filteredSubCommands =
             commandsByName
                 .Where(command =>
-                    command is CommandContainer commandContainer || ((Command)command).HasCorrectCount(arguments.Count())
+                    command is CommandContainer commandContainer || ((Command)command).HasCorrectCount(count)
                 );
 
         if (!filteredSubCommands.Any())
         {
-            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.BadArgumentCount));
+            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, rootInvokation.Configuration.SplitWithConfig(arguments), FallbackType.BadArgumentCount));
             return false;
         }
 
@@ -134,16 +140,18 @@ public abstract class CommandParent
         {
             if (filteredCommand is CommandContainer commandContainer)
             {
-                await InvokeCommandAsync(commandContainer, rootInvokation, commandName, arguments).ConfigureAwait(false);
+                await InvokeCommandAsync(commandContainer, rootInvokation, commandName, arguments, count).ConfigureAwait(false);
                 return true;
             }
             else
             {
                 Command command = (Command)filteredCommand;
 
-                if (command.GenerateMethodParameters(arguments, out var commandArgs, out var badArgument))
+                string[] splitArgs = arguments.Split(rootInvokation.Configuration.Separators, command.Arguments.Length, rootInvokation.Configuration.SplitOptions);
+
+                if (command.GenerateMethodParameters(rootInvokation.Configuration, splitArgs, out List<object?> commandArgs, out AbstractCommandArgument? badArgument))
                 {
-                    await InvokeCommandAsync(command, rootInvokation, commandName, arguments, commandArgs).ConfigureAwait(false);
+                    await InvokeCommandAsync(command, rootInvokation, commandName, splitArgs, commandArgs).ConfigureAwait(false);
                     return true;
                 }
                 else
@@ -153,7 +161,7 @@ public abstract class CommandParent
             }
         }
 
-        onFailedCommand.OnNext(new BadCommandArgumentEvent(rootInvokation, commandName, arguments, badArguments));
+        onFailedCommand.OnNext(new BadCommandArgumentEvent(rootInvokation, commandName, rootInvokation.Configuration.SplitWithConfig(arguments), badArguments));
 
         return false;
     }
@@ -180,8 +188,9 @@ public abstract class CommandParent
     /// <param name="rootInvokation">The unnested first-most command that has been invoked</param>
     /// <param name="commandName">The used name of the invoking <paramref name="command" /></param>
     /// <param name="arguments">The unparsed arguments and sub-command names that were given to the command</param>
-    protected virtual Task InvokeCommandAsync(CommandContainer command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> arguments) =>
-        command.Instance.InvokeAsync(commandName, rootInvokation, arguments);
+    /// <param name="count">The count of split arguments in the command used</param>
+    protected virtual Task InvokeCommandAsync(CommandContainer command, RootCommandEvent rootInvokation, string commandName, string arguments, int count) =>
+        command.Instance.InvokeAsync(commandName, rootInvokation, arguments, count);
     #endregion
 
     #endregion

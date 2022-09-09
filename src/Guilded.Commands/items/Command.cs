@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Guilded.Base;
-using Guilded.Base.Content;
 
 namespace Guilded.Commands;
 
@@ -21,27 +21,33 @@ public class Command : AbstractCommand<MethodInfo>
         typeof(short), typeof(sbyte), typeof(uint), typeof(ulong),
         typeof(ushort), typeof(byte), typeof(float), typeof(double),
         typeof(decimal), typeof(char), typeof(DateTime), typeof(TimeSpan),
-        typeof(Guid), typeof(HashId)
+        typeof(Guid), typeof(HashId),
+        typeof(string[]), typeof(Match), typeof(MatchCollection)
+    };
+
+    private static readonly Type[] s_allowedRestTypes = new Type[]
+    {
+        typeof(string[]), typeof(string)
     };
     #endregion
 
     #region Properties
     /// <summary>
-    /// Gets the enumerable of command arguments that can be specified by users.
+    /// Gets the sequence of <see cref="CommandArgument">command argument</see> that can be specified by users.
     /// </summary>
-    /// <value>Enumerable of command arguments</value>
-    public AbstractCommandArgument[] Arguments { get; }
+    /// <value>Sequence of <see cref="CommandArgument">command argument</see></value>
+    public CommandArgument[] Arguments { get; }
 
     /// <summary>
-    /// Gets whether there is a rest argument for the command.
+    /// Gets whether there is a <see cref="CommandArgument.IsRest">command rest argument</see> for the command.
     /// </summary>
-    /// <value>Command has rest argument</value>
-    public bool HasRestArgument { get; private set; } = false;
+    /// <value><see cref="CommandAttribute">Command</see> has <see cref="CommandArgument.IsRest">rest argument</see></value>
+    public bool HasRestArgument { get; private set; }
 
     /// <summary>
-    /// Gets whether there is a rest argument for the command.
+    /// Gets the count of total mandatory <see cref="CommandArgument">command arguments</see>.
     /// </summary>
-    /// <value>Command has rest argument</value>
+    /// <value>Count of required <see cref="CommandArgument">command arguments</see></value>
     public int RequiredCount { get; private set; }
     #endregion
 
@@ -54,25 +60,23 @@ public class Command : AbstractCommand<MethodInfo>
     /// <param name="parameters">The parameters that will be used as command arguments</param>
     public Command(MethodInfo method, CommandAttribute attribute, IEnumerable<ParameterInfo> parameters) : base(attribute, method)
     {
+        HasRestArgument = false;
+
         bool defaultInList = false;
 
-        Arguments = parameters.Select<ParameterInfo, AbstractCommandArgument>((arg, argIndex) =>
+        Arguments = parameters.Select<ParameterInfo, CommandArgument>((arg, argIndex) =>
         {
             // Honestly, I don't know what I am doing. I don't want to do repetitive ifs,
             // especially since it can be a bit slower (see branchless programming). But it
             // still looks bad
-            if (arg.ParameterType == typeof(string[]))
+            bool hasRestAttribute = arg.GetCustomAttribute<CommandRestAttribute>() is not null;
+
+            if (arg.ParameterType == typeof(string[]) || arg.GetCustomAttribute<CommandRestAttribute>() is not null)
             {
                 // We could probably do it backwards, but eh, better errors?
-                if (argIndex + 1 != parameters.Count())
-                {
-                    throw new InvalidOperationException("String array can only be the last command parameter");
-                }
-                else
-                {
-                    HasRestArgument = true;
-                    return new CommandRest(argIndex, arg, this);
-                }
+                if (!s_allowedRestTypes.Contains(arg.ParameterType)) throw new InvalidOperationException("You can only have string or string array types as command rest arguments.");
+                else if (argIndex + 1 != parameters.Count()) throw new InvalidOperationException("String array or rest command argument can only be the last command parameters");
+                else HasRestArgument = true;
             }
 
             Type? nullableType = Nullable.GetUnderlyingType(arg.ParameterType);
@@ -82,14 +86,12 @@ public class Command : AbstractCommand<MethodInfo>
             // Prevent (uint? x, uint y)
             if (defaultInList)
             {
-                if (!isDefaultable)
-                    throw new InvalidOperationException($"Command cannot contain a non-nullable argument after a nullable argument type");
+                if (!isDefaultable) throw new InvalidOperationException("Command cannot contain a non-nullable argument after a nullable argument type");
             }
             else
             {
                 // Whether to increment required count
-                if (isDefaultable)
-                    defaultInList = true;
+                if (isDefaultable) defaultInList = true;
                 else RequiredCount++;
             }
 
@@ -99,7 +101,7 @@ public class Command : AbstractCommand<MethodInfo>
             if (!s_allowedTypes.Contains(argumentType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");
 
-            return isDefaultable ? new CommandOptionalArgument(argIndex, arg, argumentType, this) : new CommandArgument(argIndex, arg, this);
+            return new CommandArgument(isDefaultable, argIndex, arg, argumentType, this);
         }).ToArray();
     }
     #endregion
@@ -108,7 +110,7 @@ public class Command : AbstractCommand<MethodInfo>
     internal bool HasCorrectCount(int count) =>
         HasRestArgument ? count >= RequiredCount : count >= RequiredCount && count <= Arguments.Length;
 
-    internal bool GenerateMethodParameters(IEnumerable<string> arguments, [NotNullWhen(true)] out List<object?> parsed, [NotNullWhen(false)] out AbstractCommandArgument? badArgument)
+    internal bool GenerateMethodParameters(CommandConfiguration config, IEnumerable<string> arguments, [NotNullWhen(true)] out List<object?> parsed, [NotNullWhen(false)] out AbstractCommandArgument? badArgument)
     {
         parsed = new();
         badArgument = null;
@@ -117,7 +119,7 @@ public class Command : AbstractCommand<MethodInfo>
         foreach (AbstractCommandArgument arg in Arguments)
         {
             // Find bad argument
-            if (!arg.TryGetValueFrom(arguments, i, out var value))
+            if (!arg.TryGetValueFrom(config, arguments.ElementAtOrDefault(i), out object? value))
             {
                 badArgument = arg;
                 return false;
@@ -129,8 +131,6 @@ public class Command : AbstractCommand<MethodInfo>
         }
         return true;
     }
-    // (CommandEvent invokation, string arg0, int arg1)
-    //Arguments.Select((arg, argIndex) => arg.GetValueFrom(arguments, argIndex));
 
     /// <summary>
     /// Invokes the command.
@@ -150,15 +150,16 @@ public class CommandContainer : AbstractCommand<Type>
 {
     #region Properties
 
-#nullable disable
     /// <summary>
     /// Gets the created instance of <see cref="CommandAttribute">the command</see> type for this command.
     /// </summary>
     /// <value>Command instance</value>
     public CommandParent Instance { get; }
 
+#nullable disable
     /// <inheritdoc cref="CommandParent.Commands" />
     public IEnumerable<ICommand<MemberInfo>> SubCommands => Instance.Commands;
+#nullable enable
     #endregion
 
     #region Constructors

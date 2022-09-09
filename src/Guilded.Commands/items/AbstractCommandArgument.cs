@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Guilded.Commands;
@@ -7,10 +6,12 @@ namespace Guilded.Commands;
 /// <summary>
 /// The type of the <see cref="CommandArgument.Converter">command argument converter</see>.
 /// </summary>
+/// <param name="argument">The <see cref="CommandArgument">command argument</see> that is being used for conversion</param>
+/// <param name="config">The given <see cref="CommandConfiguration">configuration</see> for the <see cref="CommandAttribute">commands</see></param>
 /// <param name="raw">The given unparsed value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <param name="value">The value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <returns>Whether the argument was parsed</returns>
-public delegate bool ConverterDelegate(string raw, out object value);
+public delegate bool ArgumentConverter(CommandArgument argument, CommandConfiguration config, string raw, out object value);
 
 /// <summary>
 /// Represents the information about any command argument in <see name="CommandInfo">a command method</see>.
@@ -78,10 +79,10 @@ public abstract class AbstractCommandArgument
     /// <summary>
     /// Gets the value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index.
     /// </summary>
-    /// <param name="arguments"><see cref="CommandEvent.Arguments">The arguments</see> fetched from <see cref="CommandEvent">the command invokation</see></param>
-    /// <param name="index">The index this argument is at</param>
+    /// <param name="config">The <see cref="CommandConfiguration">configuration</see> used for <see cref="CommandModule">commands</see></param>
+    /// <param name="argument">The convertable <see cref="CommandEvent.Arguments">argument</see> fetched from <see cref="CommandEvent">the command invokation</see></param>
     /// <param name="value">The converted value</param>
     /// <returns>Properly converted/parssed</returns>
-    public abstract bool TryGetValueFrom(IEnumerable<string> arguments, int index, out object? value);
+    public abstract bool TryGetValueFrom(CommandConfiguration config, string? argument, out object? value);
     #endregion
 }

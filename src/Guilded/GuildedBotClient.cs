@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
-using Guilded.Base;
+using Guilded.Base.Client;
+using Guilded.Client;
 using RestSharp;
+using Serilog;
 
 namespace Guilded;
 

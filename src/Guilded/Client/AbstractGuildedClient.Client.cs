@@ -10,6 +10,7 @@ using Guilded.Base.Users;
 using Newtonsoft.Json.Linq;
 
 using RestSharp;
+using Serilog;
 using Websocket.Client;
 
 namespace Guilded.Client;
@@ -127,11 +128,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
         };
         #endregion
 
-        WebsocketMessage.Subscribe(
-            OnSocketMessage,
-            // Relay the error onto welcome observable
-            e => GuildedEvents[(byte)1].OnError(e)
-        );
+        WebsocketMessage.Subscribe(OnSocketMessage);
 
         // Prepare state
         Welcome.Subscribe(welcome =>

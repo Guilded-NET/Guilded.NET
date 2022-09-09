@@ -39,19 +39,22 @@ public abstract class CommandModule : CommandParent
 
         string[] splitContent = msgCreated
             .Content[prefix.Length..]
-            .Split(config.Separators, config.SplitOptions);
+            .Split(config.Separators, 2, config.SplitOptions);
 
         string? commandName = splitContent.FirstOrDefault();
 
         if (string.IsNullOrEmpty(commandName))
             return false;
 
+        string? nullableArgs = splitContent.ElementAtOrDefault(1);
+        string args = nullableArgs ?? string.Empty;
+
         // First one is the name of the command
-        IEnumerable<string> args = splitContent.Skip(1);
+        int totalArgCount = nullableArgs?.Split(config.Separators, config.SplitOptions).Length ?? 0;
 
-        RootCommandEvent context = new(msgCreated, prefix, commandName, args, additionalContext);
+        RootCommandEvent context = new(msgCreated, config, prefix, commandName, args, additionalContext);
 
-        return await InvokeCommandByNameAsync(context, commandName, args).ConfigureAwait(false);
+        return await InvokeCommandByNameAsync(context, commandName, args, totalArgCount).ConfigureAwait(false);
     }
 
     /// <summary>

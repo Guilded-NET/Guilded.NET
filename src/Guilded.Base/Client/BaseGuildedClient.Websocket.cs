@@ -2,6 +2,7 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Guilded.Base.Events;
+using Microsoft.VisualBasic;
 using Websocket.Client;
 
 namespace Guilded.Base.Client;
@@ -17,6 +18,8 @@ public abstract partial class BaseGuildedClient
 
     #region Fields
     private readonly Subject<GuildedSocketMessage> _onWebsocketMessage = new();
+
+    private readonly Subject<GuildedWebsocketException> _onWebsocketError = new();
     #endregion
 
     #region Properties
@@ -40,13 +43,17 @@ public abstract partial class BaseGuildedClient
     protected string? LastMessageId { get; set; }
 
     /// <summary>
-    /// An event when WebSocket receives a message.
+    /// Gets an <see cref="IObservable{T}">observable</see> that is invoked when <see cref="Websocket" /> receives a <see cref="GuildedSocketMessage">message</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If event with opcode <c>8</c> is received, it is given as an exception instead.</para>
+    /// <para>If event with opcode <c>8</c> or <c>9</c> is received, <see cref="WebsocketError" /> is invoked instead.</para>
     /// </remarks>
-    /// <exception cref="GuildedWebsocketException">Received when any kind of error is received. Handled through <see cref="Subject{T}.OnError(Exception)" />.</exception>
     public IObservable<GuildedSocketMessage> WebsocketMessage => _onWebsocketMessage.AsObservable();
+
+    /// <summary>
+    /// Gets an <see cref="IObservable{T}">observable</see> that is invoked when <see cref="Websocket" /> receives an <see cref="GuildedWebsocketException">error</see>.
+    /// </summary>
+    public IObservable<GuildedWebsocketException> WebsocketError => _onWebsocketError.AsObservable();
     #endregion
 
     #region Methods
@@ -71,8 +78,11 @@ public abstract partial class BaseGuildedClient
             // If the error is related to the last message
             LastMessageId = null;
 
-            _onWebsocketMessage.OnError(
-                new GuildedWebsocketException(response, @event.RawData?.Value<string>("message")!)
+            string? message = @event.RawData?.Value<string>("message");
+
+            // To not stop operations we use different observable instead of OnError. Might change back to OnError at some point.
+            _onWebsocketError.OnNext(
+                new GuildedWebsocketException(response, message!)
             );
 
             return;

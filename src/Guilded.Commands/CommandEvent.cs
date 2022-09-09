@@ -42,13 +42,13 @@ public class CommandEvent : MessageEvent, IHasParentClient
     /// Gets the name of the root-level command that was used in <see cref="Message">the message</see>.
     /// </summary>
     /// <value>Name</value>
-    public string RootCommandName => RootCommand.RootCommandName;
+    public string RootCommandName => RootCommand.CommandName;
 
     /// <summary>
     /// Gets the enumerable of string arguments that were given to the root-level command in <see cref="Message">the message</see>.
     /// </summary>
     /// <value>Enumerable of arguments</value>
-    public IEnumerable<string> RootArguments => RootCommand.RootArguments;
+    public string RootArguments => RootCommand.Arguments;
 
     /// <summary>
     /// Gets the name of that was used in the command.

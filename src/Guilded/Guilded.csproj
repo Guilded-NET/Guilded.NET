@@ -41,7 +41,9 @@
   </ItemGroup>
 
   <!-- For NuGet package -->
-  <!-- <ItemGroup Condition=" '$(Configuration)' == 'Release' "> <PackageReference Include="Guilded.Base" Version="0.10.0" /> </ItemGroup> -->
+  <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
+    <PackageReference Include="Guilded.Base" Version="0.10.0" />
+  </ItemGroup>
 
   <!-- Files to include in Guilded.NET -->
   <ItemGroup>
