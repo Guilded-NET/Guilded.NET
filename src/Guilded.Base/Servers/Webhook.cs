@@ -18,6 +18,13 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="MemberSummary{T}" />
 public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBased, IWebhook
 {
+    #region Fields
+    /// <summary>
+    /// The max characters a <see cref="Webhook">webhook</see> <see cref="Name">name</see> can have.
+    /// </summary>
+    public const int NameLimit = 128;
+    #endregion
+
     #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="Webhook">the webhook</see>.
@@ -173,37 +180,65 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
         : ParentClient.CreateHookMessageAsync(Id, Token, message);
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
-    public Task CreateMessageAsync(string message) =>
-        CreateMessageAsync(new MessageContent { Content = message });
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    public Task CreateMessageAsync(string content) =>
+        CreateMessageAsync(new MessageContent { Content = content });
+
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    public Task CreateMessageAsync(string content, string? username = null, Uri? avatar = null) =>
+        CreateMessageAsync(new MessageContent { Content = content, Username = username, Avatar = avatar });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
-    public Task CreateMessageAsync(string message, params Embed[] embeds) =>
-        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateMessageAsync(string content, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent { Content = content, Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
-    public Task CreateMessageAsync(string message, IList<Embed> embeds) =>
-        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
+    public Task CreateMessageAsync(string content, IList<Embed> embeds) =>
+        CreateMessageAsync(new MessageContent { Content = content, Embeds = embeds });
+
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    public Task CreateMessageAsync(string content, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
+        CreateMessageAsync(new MessageContent { Content = content, Embeds = embeds, Username = username, Avatar = avatar });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent { Embeds = embeds });
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(IList<Embed> embeds) =>
         CreateMessageAsync(new MessageContent { Embeds = embeds });
+
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    public Task CreateMessageAsync(IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
+        CreateMessageAsync(new MessageContent { Embeds = embeds, Username = username, Avatar = avatar });
     #endregion
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />
+    /// <param name="name">The new name of the <see cref="Webhook">webhook</see></param>
     public Task<Webhook> UpdateAsync(string name) =>
         DeletedAt is not null
-            ? ParentClient.UpdateWebhookAsync(ServerId, Id, name)
-            : throw new InvalidOperationException("Cannot update deleted webhook");
+        ? ParentClient.UpdateWebhookAsync(ServerId, Id, name)
+        : throw new InvalidOperationException("Cannot update deleted webhook");
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteWebhookAsync(HashId, Guid)" />
     public Task DeleteAsync() =>
         DeletedAt is null
-            ? ParentClient.DeleteWebhookAsync(ServerId, Id)
-            : throw new InvalidOperationException("Cannot delete already deleted webhook");
+        ? ParentClient.DeleteWebhookAsync(ServerId, Id)
+        : throw new InvalidOperationException("Cannot delete already deleted webhook");
     #endregion
 
     #region Static methods

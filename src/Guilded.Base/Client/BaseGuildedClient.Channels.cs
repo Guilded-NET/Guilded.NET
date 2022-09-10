@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-
 using Guilded.Base.Content;
 using Guilded.Base.Embeds;
 using Guilded.Base.Permissions;
 using Guilded.Base.Servers;
+using Guilded.Base.Users;
 
 namespace Guilded.Base.Client;
 
@@ -40,6 +40,22 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(webhookUrl, new MessageContent(content));
 
     /// <summary>
+    /// Creates a <see cref="Message">message</see> using the specified the webhook specified by its <paramref name="webhookUrl">webhook URL</paramref>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public Task CreateHookMessageAsync(Uri webhookUrl, string content, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Username = username, Avatar = avatar });
+
+    /// <summary>
     /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
     /// </summary>
     /// <remarks>
@@ -53,6 +69,23 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     public Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds) =>
         CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds });
+
+    /// <summary>
+    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds, Username = username, Avatar = avatar });
 
     /// <summary>
     /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
@@ -79,6 +112,19 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     public Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds) =>
         CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds });
+
+    /// <summary>
+    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
+    /// </summary>
+    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds, Username = username, Avatar = avatar });
 
     /// <summary>
     /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
@@ -121,6 +167,23 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(webhook, token, new MessageContent { Content = content });
 
     /// <summary>
+    /// Creates a <see cref="Message">message</see> with content containing only text <paramref name="content" /> using a <paramref name="webhook" />.
+    /// </summary>
+    /// <remarks>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
+    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public Task CreateHookMessageAsync(Guid webhook, string token, string content, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Username = username, Avatar = avatar });
+
+    /// <summary>
     /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
     /// </summary>
     /// <remarks>
@@ -145,6 +208,24 @@ public abstract partial class BaseGuildedClient
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public Task CreateHookMessageAsync(Guid webhook, string token, string content, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Embeds = embeds, Username = username, Avatar = avatar });
+
+    /// <summary>
+    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
+    /// </summary>
+    /// <remarks>
+    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
+    /// </remarks>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
+    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
@@ -157,12 +238,26 @@ public abstract partial class BaseGuildedClient
     /// </summary>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
     public Task CreateHookMessageAsync(Guid webhook, string token, IList<Embed> embeds) =>
         CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds });
+
+    /// <summary>
+    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.
+    /// </summary>
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
+    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedResourceException" />
+    public Task CreateHookMessageAsync(Guid webhook, string token, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds, Username = username, Avatar = avatar });
 
     /// <summary>
     /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.

@@ -2,7 +2,6 @@ using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Guilded.Base.Events;
-using Microsoft.VisualBasic;
 using Websocket.Client;
 
 namespace Guilded.Base.Client;
