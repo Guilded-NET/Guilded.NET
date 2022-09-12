@@ -1,5 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Guilded.Base.Client;
+using Guilded.Base.Embeds;
 using Newtonsoft.Json;
 
 namespace Guilded.Base;
@@ -22,7 +25,7 @@ public interface IHasParentClient
 /// Represents a base for Guilded models that require a <see cref="ParentClient">client</see>.
 /// </summary>
 /// <remarks>
-/// <para>This allows having methods like <see cref="Content.Message.CreateMessageAsync(string)" />, where it requires to call the parent client's methods.</para>
+/// <para>This allows having methods like <see cref="Content.Message.CreateMessageAsync(string, IList{Embed}, IList{Guid}, bool, bool)" />, where it requires to call the parent client's methods.</para>
 /// </remarks>
 /// <seealso cref="BaseGuildedClient" />
 public abstract class ContentModel : IHasParentClient

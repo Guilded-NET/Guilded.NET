@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Guilded.Base.Client;
 using Guilded.Base.Content;
+using Guilded.Base.Json;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
 
@@ -13,6 +14,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="ChannelType" />
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
+[JsonConverter(typeof(ServerChannelConverter))]
 public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel
 {
     #region Constants

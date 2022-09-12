@@ -554,7 +554,7 @@ public abstract partial class BaseGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="limit">The limit of how many <see cref="Doc">documents</see> to get (default — <c>25</c>, values — <c>(0, 100]</c>)</param>
-    /// <param name="before">The max limit of the creation date of <see cref="Doc">fetched documents</see></param>
+    /// <param name="before">The max limit of the creation date of the fetched <see cref="Doc">documents</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -567,7 +567,7 @@ public abstract partial class BaseGuildedClient
     /// Gets the specified <paramref name="doc">document</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="doc">The identifier of <see cref="Doc">the document</see> to get</param>
+    /// <param name="doc">The identifier of the <see cref="Doc">document</see> to get</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -580,8 +580,8 @@ public abstract partial class BaseGuildedClient
     /// Creates a <see cref="Doc">new document</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="title">The title of <see cref="Doc">the document</see></param>
-    /// <param name="content">The Markdown content of <see cref="Doc">the document</see></param>
+    /// <param name="title">The title of the <see cref="Doc">document</see></param>
+    /// <param name="content">The Markdown content of the <see cref="Doc">document</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -599,9 +599,9 @@ public abstract partial class BaseGuildedClient
     /// <para>The updated <paramref name="doc">document</paramref> will be bumped to the top.</para>
     /// </remarks>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="doc">The identifier of the document to update/edit</param>
-    /// <param name="title">The new title of this document</param>
-    /// <param name="content">The new Markdown content of this document</param>
+    /// <param name="doc">The identifier of the <see cref="Doc">document</see> to update/edit</param>
+    /// <param name="title">The new title of this <see cref="Doc">document</see></param>
+    /// <param name="content">The new Markdown content of this <see cref="Doc">document</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -616,7 +616,7 @@ public abstract partial class BaseGuildedClient
     /// Deletes the specified <paramref name="doc">document</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="doc">The identifier of <see cref="Doc">the document</see> to delete</param>
+    /// <param name="doc">The identifier of the <see cref="Doc">document</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
