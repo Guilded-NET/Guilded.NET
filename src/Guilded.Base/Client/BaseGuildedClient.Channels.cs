@@ -33,109 +33,23 @@ public abstract partial class BaseGuildedClient
     /// </remarks>
     /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, string content) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent(content));
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified the webhook specified by its <paramref name="webhookUrl">webhook URL</paramref>.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
-    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, string content, string? username = null, Uri? avatar = null) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Username = username, Avatar = avatar });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
-    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
-    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
     /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, string content, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds, Username = username, Avatar = avatar });
+    public Task CreateHookMessageAsync(Uri webhookUrl, string? content = null, IList<Embed>? embeds = null, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content, embeds, username: username, avatar: avatar));
 
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
+    /// <inheritdoc cref="CreateHookMessageAsync(Uri, string, IList{Embed}, string, Uri?)" />
     /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, string content, params Embed[] embeds) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent(content) { Embeds = embeds });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
-    /// </summary>
-    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
-    /// </summary>
-    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds, Username = username, Avatar = avatar });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> using the specified <paramref name="webhookUrl">webhook</paramref>.
-    /// </summary>
-    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Uri webhookUrl, params Embed[] embeds) =>
-        CreateHookMessageAsync(webhookUrl, new MessageContent { Embeds = embeds });
+    public Task CreateHookMessageAsync(Uri webhookUrl, string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content, embeds, username: username, avatar: avatar));
     #endregion
 
     #region Methods CreateHookMessageAsync with webhookId + token
@@ -152,55 +66,7 @@ public abstract partial class BaseGuildedClient
         CreateHookMessageAsync(new Uri(GuildedUrl.Media, $"webhooks/{webhook}/{token}"), message);
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing only text <paramref name="content" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
-    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
-    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, string content) =>
-        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing only text <paramref name="content" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
-    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
-    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, string content, string? username = null, Uri? avatar = null) =>
-        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Username = username, Avatar = avatar });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
-    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
-    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, string content, IList<Embed> embeds) =>
-        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Embeds = embeds });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
+    /// Creates a <see cref="Message">message</see> using using the specified <paramref name="webhook" />.
     /// </summary>
     /// <remarks>
     /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
@@ -214,62 +80,18 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, string content, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
-        CreateHookMessageAsync(webhook, token, new MessageContent { Content = content, Embeds = embeds, Username = username, Avatar = avatar });
+    public Task CreateHookMessageAsync(Guid webhook, string token, string? content = null, IList<Embed>? embeds = null, string? username = null, Uri? avatar = null) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent(content, embeds, username: username, avatar: avatar));
 
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> and text <paramref name="content" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// </remarks>
+    /// <inheritdoc cref="CreateHookMessageAsync(Uri, string, IList{Embed}, string, Uri?)" />
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
     /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, string content, params Embed[] embeds) =>
-        CreateHookMessageAsync(webhook, token, content, (IList<Embed>)embeds);
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
-    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, IList<Embed> embeds) =>
-        CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
-    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
     /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
-        CreateHookMessageAsync(webhook, token, new MessageContent { Embeds = embeds, Username = username, Avatar = avatar });
-
-    /// <summary>
-    /// Creates a <see cref="Message">message</see> with content containing <paramref name="embeds" /> using a <paramref name="webhook" />.
-    /// </summary>
-    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
-    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedRequestException" />
-    /// <exception cref="GuildedResourceException" />
-    public Task CreateHookMessageAsync(Guid webhook, string token, params Embed[] embeds) =>
-        CreateHookMessageAsync(webhook, token, (IList<Embed>)embeds);
+    public Task CreateHookMessageAsync(Guid webhook, string token, string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent(content, embeds, username: username, avatar: avatar));
     #endregion
 
     #endregion
@@ -310,7 +132,7 @@ public abstract partial class BaseGuildedClient
     public abstract Task<Message> GetMessageAsync(Guid channel, Guid message);
 
     /// <summary>
-    /// Creates a <see cref="Message">new message</see>.
+    /// Creates a new <see cref="Message">message</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The message to send</param>
@@ -329,116 +151,56 @@ public abstract partial class BaseGuildedClient
     /// <returns>The <see cref="Message">message</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Message> CreateMessageAsync(Guid channel, MessageContent message);
 
-    /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
+    /// <summary>
+    /// Creates a new <see cref="Message">message</see>.
+    /// </summary>
     /// <remarks>
     /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
+    /// <param name="isPrivate">Whether the mention is private</param>
+    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="null" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
     /// <returns>The <see cref="Message">message</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
-    public Task<Message> CreateMessageAsync(Guid channel, string content) =>
-        CreateMessageAsync(channel, new MessageContent(content));
+    public Task<Message> CreateMessageAsync(Guid channel, string? content = null, IList<Embed>? embeds = null, IList<Guid>? replyTo = null, bool isPrivate = false, bool isSilent = false) =>
+        CreateMessageAsync(channel, new MessageContent(content, embeds, replyTo, isPrivate, isSilent));
 
-    /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
+    /// <inheritdoc cref="CreateMessageAsync(Guid, string, IList{Embed}?, IList{Guid}?, bool, bool)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
-    public Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false) =>
-        CreateMessageAsync(channel, new MessageContent(content)
-        {
-            IsPrivate = isPrivate,
-            IsSilent = isSilent
-        });
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task<Message> CreateMessageAsync(Guid channel, string? content = null, IList<Guid>? replyTo = null, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        CreateMessageAsync(channel, new MessageContent(content, embeds, replyTo, isPrivate, isSilent));
 
-    /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
+    /// <inheritdoc cref="CreateMessageAsync(Guid, string, IList{Embed}?, IList{Guid}?, bool, bool)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="isPrivate">Whether the mention is private</param>
+    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
     /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
-    public Task<Message> CreateMessageAsync(Guid channel, string content, params Guid[] replyTo) =>
-        CreateMessageAsync(channel, new MessageContent(content)
-        {
-            ReplyMessageIds = replyTo
-        });
+    public Task<Message> CreateMessageAsync(Guid channel, string? content = null, IList<Embed>? embeds = null, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
+        CreateMessageAsync(channel, new MessageContent(content, embeds, replyTo, isPrivate, isSilent));
 
-    /// <inheritdoc cref="CreateMessageAsync(Guid, string)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the <see cref="Message.ReplyMessageIds">reply</see> is private</param>
-    /// <param name="isSilent">Whether the <see cref="Message.ReplyMessageIds">reply</see> is silent and does not ping</param>
-    /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
-    public Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
-        CreateMessageAsync(channel, new MessageContent(content)
-        {
-            IsPrivate = isPrivate,
-            IsSilent = isSilent,
-            ReplyMessageIds = replyTo
-        });
-
-    /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(Guid channel, params Embed[] embeds) =>
-        CreateMessageAsync(channel, new MessageContent
-        {
-            Embeds = embeds
-        });
-
-    /// <inheritdoc cref="CreateMessageAsync(Guid, Embed[])" />
-    /// <remarks>
-    /// <para>No text contents of the message will be displayed.</para>
-    /// </remarks>
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="isPrivate">Whether the mention or the <see cref="Message.ReplyMessageIds">reply</see> is private</param>
-    /// <param name="isSilent">Whether the mention or the <see cref="Message.ReplyMessageIds">reply</see> is silent and does not ping</param>
-    /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(Guid channel, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
-        CreateMessageAsync(channel, new MessageContent
-        {
-            Embeds = embeds,
-            IsPrivate = isPrivate,
-            IsSilent = isSilent,
-            ReplyMessageIds = replyTo
-        });
-
-    /// <inheritdoc cref="CreateMessageAsync(Guid, MessageContent)" />
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside text <paramref name="content" />.</para>
-    /// </remarks>
+    /// <inheritdoc cref="CreateMessageAsync(Guid, string, IList{Embed}?, IList{Guid}?, bool, bool)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task<Message> CreateMessageAsync(Guid channel, string content, params Embed[] embeds) =>
-        CreateMessageAsync(channel, new MessageContent
-        {
-            Content = content,
-            Embeds = embeds
-        });
+        CreateMessageAsync(channel, new MessageContent(content, embeds));
 
-    /// <inheritdoc cref="CreateMessageAsync(Guid, string, Embed[])" />
-    /// <remarks>
-    /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
-    /// <para><paramref name="embeds">Embeds</paramref> will be displayed alongside text <paramref name="content" />.</para>
-    /// </remarks>
+    /// <inheritdoc cref="CreateMessageAsync(Guid, string, IList{Embed}?, IList{Guid}?, bool, bool)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the mention or the <see cref="Message.ReplyMessageIds">reply</see> is private</param>
-    /// <param name="isSilent">Whether the mention or the <see cref="Message.ReplyMessageIds">reply</see> is silent and does not ping</param>
-    /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(Guid channel, string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
-        CreateMessageAsync(channel, new MessageContent
-        {
-            Content = content,
-            Embeds = embeds,
-            IsPrivate = isPrivate,
-            IsSilent = isSilent,
-            ReplyMessageIds = replyTo
-        });
+    public Task<Message> CreateMessageAsync(Guid channel, params Embed[] embeds) =>
+        CreateMessageAsync(channel, new MessageContent { Embeds = embeds });
 
     /// <summary>
     /// Edits the text <paramref name="content" /> of a <paramref name="message" />.
@@ -463,33 +225,24 @@ public abstract partial class BaseGuildedClient
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to edit</param>
     /// <param name="content">The new <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
-    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content) =>
-        UpdateMessageAsync(channel, message, new MessageContent
-        {
-            Content = content
-        });
-
-    /// <inheritdoc cref="UpdateMessageAsync(Guid, Guid, MessageContent)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The identifier of the <see cref="Message">message</see> to edit</param>
     /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
-    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, params Embed[] embeds) =>
-        UpdateMessageAsync(channel, message, new MessageContent
-        {
-            Embeds = embeds
-        });
+    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, string? content = null, IList<Embed>? embeds = null) =>
+        UpdateMessageAsync(channel, message, new MessageContent(content, embeds));
 
     /// <inheritdoc cref="UpdateMessageAsync(Guid, Guid, MessageContent)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="message">The identifier of the <see cref="Message">message</see> to edit</param>
     /// <param name="content">The new <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
-    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, string content, params Embed[] embeds) =>
-        UpdateMessageAsync(channel, message, new MessageContent
-        {
-            Content = content,
-            Embeds = embeds
-        });
+    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, string? content = null, params Embed[] embeds) =>
+        UpdateMessageAsync(channel, message, new MessageContent(content, embeds));
+
+    /// <inheritdoc cref="UpdateMessageAsync(Guid, Guid, MessageContent)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to edit</param>
+    /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
+    public Task<Message> UpdateMessageAsync(Guid channel, Guid message, params Embed[] embeds) =>
+        UpdateMessageAsync(channel, message, new MessageContent { Embeds = embeds });
 
     /// <summary>
     /// Deletes the specified <paramref name="message" />.
@@ -543,7 +296,7 @@ public abstract partial class BaseGuildedClient
     /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
     /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
     public Task RemoveReactionAsync(Guid channel, Guid message, Emote emote) =>
-        AddReactionAsync(channel, message, emote.Id);
+        RemoveReactionAsync(channel, message, emote.Id);
     #endregion
 
     #region Methods Forum channels

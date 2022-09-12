@@ -13,7 +13,7 @@ namespace Guilded.Base.Servers;
 /// <seealso cref="ChannelType" />
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
-public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent
+public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel
 {
     #region Constants
     /// <summary>
@@ -36,15 +36,7 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent
     #endregion
 
     #region Properties
-    /// <summary>
-    /// Gets the identifier of the channel.
-    /// </summary>
-    /// <value><see cref="Id">Channel ID</see></value>
-    /// <seealso cref="ServerChannel" />
-    /// <seealso cref="ParentId" />
-    /// <seealso cref="CategoryId" />
-    /// <seealso cref="GroupId" />
-    /// <seealso cref="ServerId" />
+    /// <inheritdoc />
     public Guid Id { get; }
 
     /// <summary>
@@ -217,19 +209,19 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent
     /// <summary>
     /// Initializes a new instance of <see cref="ServerChannel" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the channel</param>
-    /// <param name="groupId">The identifier of the parent group of the channel</param>
-    /// <param name="serverId">The identifier of the parentserver of the channel</param>
-    /// <param name="type">The type of content channel holds</param>
-    /// <param name="name">The name of the channel</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the channel</param>
-    /// <param name="createdAt">The date when the channel was created</param>
-    /// <param name="updatedAt">The date when the channel was edited</param>
-    /// <param name="archivedBy">The identifier of <see cref="User">user</see> that archived the channel</param>
-    /// <param name="archivedAt">The date when the channel was archived</param>
-    /// <param name="topic">The topic describing what the channel is about</param>
-    /// <param name="parentId">The identifier of the parent channel of the channel</param>
-    /// <param name="categoryId">The identifier of the parent category of the channel</param>
+    /// <param name="id">The identifier of the <see cref="ServerChannel">channel</see></param>
+    /// <param name="groupId">The identifier of the parent group of the <see cref="ServerChannel">channel</see></param>
+    /// <param name="serverId">The identifier of the parent <see cref="Server">server</see> of the <see cref="ServerChannel">channel</see></param>
+    /// <param name="type">The type of content <see cref="ServerChannel">channel</see> holds</param>
+    /// <param name="name">The name of the <see cref="ServerChannel">channel</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="ServerChannel">channel</see></param>
+    /// <param name="createdAt">The date when the <see cref="ServerChannel">channel</see> was created</param>
+    /// <param name="updatedAt">The date when the <see cref="ServerChannel">channel</see> was edited</param>
+    /// <param name="archivedBy">The identifier of <see cref="User">user</see> that archived the <see cref="ServerChannel">channel</see></param>
+    /// <param name="archivedAt">The date when the <see cref="ServerChannel">channel</see> was archived</param>
+    /// <param name="topic">The topic describing what the <see cref="ServerChannel">channel</see> is about</param>
+    /// <param name="parentId">The identifier of the parent <see cref="ServerChannel">channel</see> of the <see cref="ServerChannel">channel</see></param>
+    /// <param name="categoryId">The identifier of the parent category of the <see cref="ServerChannel">channel</see></param>
     /// <returns>New <see cref="ServerChannel" /> JSON instance</returns>
     /// <seealso cref="ServerChannel" />
     [JsonConstructor]

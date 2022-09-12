@@ -110,11 +110,11 @@ public interface IReactibleContent
 
     /// <inheritdoc cref="BaseGuildedClient.AddReactionAsync(Guid, uint, uint)" />
     /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
-    Task AddReactionAsync(Emote emote) => AddReactionAsync(emote.Id);
+    public Task AddReactionAsync(Emote emote) => AddReactionAsync(emote.Id);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
     /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
-    Task RemoveReactionAsync(Emote emote) => RemoveReactionAsync(emote.Id);
+    public Task RemoveReactionAsync(Emote emote) => RemoveReactionAsync(emote.Id);
     #endregion
 }
 

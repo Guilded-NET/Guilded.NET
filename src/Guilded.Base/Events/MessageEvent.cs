@@ -60,7 +60,7 @@ public abstract class MessageEvent<T> : ContentModel
 /// </summary>
 /// <seealso cref="MessageDeletedEvent" />
 /// <seealso cref="Message" />
-public class MessageEvent : MessageEvent<Message>
+public class MessageEvent : MessageEvent<Message>, IReactibleContent
 {
     #region Properties
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
@@ -131,75 +131,67 @@ public class MessageEvent : MessageEvent<Message>
     public Task<Message> CreateMessageAsync(MessageContent message) =>
         Message.CreateMessageAsync(message);
 
-    /// <inheritdoc cref="Message.CreateMessageAsync(string)" />
-    public Task<Message> CreateMessageAsync(string content) =>
-        Message.CreateMessageAsync(content);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, IList{Embed}, IList{Guid}, bool, bool)" />
+    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, IList<Guid>? replyTo = null, bool isPrivate = false, bool isSilent = false) =>
+        Message.CreateMessageAsync(content, embeds, replyTo, isPrivate, isSilent);
 
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool)" />
-    public Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false) =>
-        Message.CreateMessageAsync(content, isPrivate, isSilent);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, IList{Guid}, bool, bool, Embed[])" />
+    public Task<Message> CreateMessageAsync(string? content = null, IList<Guid>? replyTo = null, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        Message.CreateMessageAsync(content, replyTo, isPrivate, isSilent, embeds);
 
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, Guid[])" />
-    public Task<Message> CreateMessageAsync(string content, params Guid[] replyMessageIds) =>
-        Message.CreateMessageAsync(content, replyMessageIds);
-
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[])" />
-    public Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
-        Message.CreateMessageAsync(content, isPrivate, isSilent, replyTo);
-
-    /// <inheritdoc cref="Message.CreateMessageAsync(Embed[])" />
-    public Task<Message> CreateMessageAsync(params Embed[] embeds) =>
-        Message.CreateMessageAsync(embeds);
-
-    /// <inheritdoc cref="Message.CreateMessageAsync(bool, bool, Guid[], Embed[])" />
-    public Task<Message> CreateMessageAsync(bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
-        Message.CreateMessageAsync(isPrivate, isSilent, replyTo, embeds);
+    /// <inheritdoc cref="Message.CreateMessageAsync(string, IList{Embed}, bool, bool, Guid[])" />
+    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
+        Message.CreateMessageAsync(content, embeds, replyTo, isPrivate, isSilent);
 
     /// <inheritdoc cref="Message.CreateMessageAsync(string, Embed[])" />
     public Task<Message> CreateMessageAsync(string content, params Embed[] embeds) =>
         Message.CreateMessageAsync(content, embeds);
 
-    /// <inheritdoc cref="Message.CreateMessageAsync(string, bool, bool, Guid[], Embed[])" />
-    public Task<Message> CreateMessageAsync(string content, bool isPrivate = false, bool isSilent = false, Guid[]? replyTo = null, params Embed[] embeds) =>
-        Message.CreateMessageAsync(content, isPrivate, isSilent, replyTo, embeds);
+    /// <inheritdoc cref="Message.CreateMessageAsync(Embed[])" />
+    public Task<Message> CreateMessageAsync(params Embed[] embeds) =>
+        Message.CreateMessageAsync(embeds);
     #endregion
 
     #region Method ReplyAsync
-    /// <inheritdoc cref="Message.ReplyAsync(string)" />
-    public Task<Message> ReplyAsync(string content) =>
-        Message.ReplyAsync(content);
+    /// <inheritdoc cref="Message.ReplyAsync(string, IList{Embed}, bool, bool)" />
+    public Task<Message> ReplyAsync(string? content = null, IList<Embed>? embeds = null, bool isPrivate = false, bool isSilent = false) =>
+        Message.ReplyAsync(content, embeds, isPrivate, isSilent);
 
-    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool)" />
-    public Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false) =>
-        Message.ReplyAsync(content, isPrivate, isSilent);
+    /// <inheritdoc cref="Message.ReplyAsync(string, IList{Embed}, bool, bool)" />
+    public Task<Message> ReplyAsync(string? content = null, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        Message.ReplyAsync(content, isPrivate, isSilent, embeds);
 
-    /// <inheritdoc cref="Message.ReplyAsync(bool, bool, Embed[])" />
-    public Task<Message> ReplyAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
-        Message.ReplyAsync(isPrivate, isSilent, embeds);
+    /// <inheritdoc cref="Message.ReplyAsync(string, Embed[])" />
+    public Task<Message> ReplyAsync(string content, params Embed[] embeds) =>
+        Message.ReplyAsync(content, embeds);
 
     /// <inheritdoc cref="Message.ReplyAsync(Embed[])" />
     public Task<Message> ReplyAsync(params Embed[] embeds) =>
         Message.ReplyAsync(embeds);
-
-    /// <inheritdoc cref="Message.ReplyAsync(string, bool, bool, Embed[])" />
-    public Task<Message> ReplyAsync(string content, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
-        Message.ReplyAsync(content, isPrivate, isSilent, embeds);
     #endregion
 
-    /// <inheritdoc cref="Message.UpdateAsync(string)" />
-    public Task<Message> UpdateAsync(string content) =>
-        Message.UpdateAsync(content);
+    /// <inheritdoc cref="Message.UpdateAsync(string, IList{Embed})" />
+    public Task<Message> UpdateAsync(string? content = null, IList<Embed>? embeds = null) =>
+        Message.UpdateAsync(content, embeds);
+
+    /// <inheritdoc cref="Message.UpdateAsync(string, Embed[])" />
+    public Task<Message> UpdateAsync(string? content = null, params Embed[] embeds) =>
+        Message.UpdateAsync(content, embeds);
+
+    /// <inheritdoc cref="Message.UpdateAsync(Embed[])" />
+    public Task<Message> UpdateAsync(params Embed[] embeds) =>
+        Message.UpdateAsync(embeds);
 
     /// <inheritdoc cref="Message.DeleteAsync" />
     public Task DeleteAsync() =>
         Message.DeleteAsync();
 
     /// <inheritdoc cref="Message.AddReactionAsync(uint)" />
-    public Task AddReactionAsync(uint emoteId) =>
-        Message.AddReactionAsync(emoteId);
+    public Task AddReactionAsync(uint emote) =>
+        Message.AddReactionAsync(emote);
 
     /// <inheritdoc cref="Message.RemoveReactionAsync(uint)" />
-    public Task RemoveReactionAsync(uint emoteId) =>
-        Message.RemoveReactionAsync(emoteId);
+    public Task RemoveReactionAsync(uint emote) =>
+        Message.RemoveReactionAsync(emote);
     #endregion
 }

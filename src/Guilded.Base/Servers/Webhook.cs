@@ -179,52 +179,21 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
         ? throw new InvalidOperationException("Cannot execute deleted webhook")
         : ParentClient.CreateHookMessageAsync(Id, Token, message);
 
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string?, IList{Embed}?, string?, Uri?)" />
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    public Task CreateMessageAsync(string content) =>
-        CreateMessageAsync(new MessageContent { Content = content });
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
+    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    public Task CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, string? username = null, Uri? avatar = null) =>
+        CreateMessageAsync(new MessageContent(content, embeds, username: username, avatar: avatar));
 
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string?, IList{Embed}?, string?, Uri?)" />
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
     /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
     /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    public Task CreateMessageAsync(string content, string? username = null, Uri? avatar = null) =>
-        CreateMessageAsync(new MessageContent { Content = content, Username = username, Avatar = avatar });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task CreateMessageAsync(string content, params Embed[] embeds) =>
-        CreateMessageAsync(new MessageContent { Content = content, Embeds = embeds });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
-    public Task CreateMessageAsync(string content, IList<Embed> embeds) =>
-        CreateMessageAsync(new MessageContent { Content = content, Embeds = embeds });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    public Task CreateMessageAsync(string content, IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
-        CreateMessageAsync(new MessageContent { Content = content, Embeds = embeds, Username = username, Avatar = avatar });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task CreateMessageAsync(params Embed[] embeds) =>
-        CreateMessageAsync(new MessageContent { Embeds = embeds });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task CreateMessageAsync(IList<Embed> embeds) =>
-        CreateMessageAsync(new MessageContent { Embeds = embeds });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    public Task CreateMessageAsync(IList<Embed> embeds, string? username = null, Uri? avatar = null) =>
-        CreateMessageAsync(new MessageContent { Embeds = embeds, Username = username, Avatar = avatar });
+    public Task CreateMessageAsync(string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent(content, embeds, username: username, avatar: avatar));
     #endregion
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />

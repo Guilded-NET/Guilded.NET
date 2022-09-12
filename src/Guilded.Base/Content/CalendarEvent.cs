@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base.Client;
+using Guilded.Base.Json;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 using Newtonsoft.Json;
@@ -84,6 +85,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="Location" />
     /// <seealso cref="Name" />
     /// <seealso cref="Description" />
+    [JsonConverter(typeof(DecimalColorConverter))]
     public SystemColor? Color { get; }
     #endregion
 

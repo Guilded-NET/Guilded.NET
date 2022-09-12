@@ -119,6 +119,13 @@ public class MessageContent
     /// <summary>
     /// Creates an instance of <see cref="MessageContent" />.
     /// </summary>
+    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that <see cref="Message">the message</see> contains</param>
+    public MessageContent(params Embed[] embeds) =>
+        Embeds = embeds;
+
+    /// <summary>
+    /// Creates an instance of <see cref="MessageContent" />.
+    /// </summary>
     /// <param name="content">The text contents of the <see cref="Message">message</see></param>
     public MessageContent(object? content) : this(content?.ToString()) { }
 
