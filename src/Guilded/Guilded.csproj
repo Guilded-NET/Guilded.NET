@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- Library -->
     <Product>Guilded.NET</Product>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Description>API wrapper for Guilded</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -42,7 +42,7 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Base" Version="1.0.0" />
+    <PackageReference Include="Guilded.Base" Version="1.0.1" />
   </ItemGroup>
 
   <!-- Files to include in Guilded.NET -->

@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Guilded.Base.Json;
 using Guilded.Base.Servers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -103,7 +104,8 @@ public abstract class BaseGuildedService
             ContractResolver = new DefaultContractResolver
             {
                 NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
-            }
+            },
+            Converters = new JsonConverter[] { new ServerChannelConverter() }
         };
         GuildedSerializer = JsonSerializer.Create(SerializerSettings);
 

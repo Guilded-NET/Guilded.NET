@@ -1,5 +1,6 @@
 using System;
 using System.Drawing;
+using System.Runtime.Serialization;
 using Guilded.Base.Servers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -38,21 +39,21 @@ public class ServerChannelConverter : JsonConverter
     public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
     {
         JToken token = JToken.Load(reader);
+        ChannelType channelType = token["type"]?.ToObject<ChannelType>(serializer) ?? ChannelType.Chat;
 
-        ChannelType channelType = token.Value<ChannelType>("type");
-
+        Console.WriteLine("Channel type: {0}; Object type: {1}", channelType, objectType);
         return channelType switch
         {
-            ChannelType.Chat => serializer.Deserialize<ChatChannel>(reader),
-            ChannelType.Forums => serializer.Deserialize<ForumChannel>(reader),
-            ChannelType.Calendar => serializer.Deserialize<CalendarChannel>(reader),
-            ChannelType.List => serializer.Deserialize<ListChannel>(reader),
-            ChannelType.Voice => serializer.Deserialize<VoiceChannel>(reader),
-            ChannelType.Stream => serializer.Deserialize<StreamChannel>(reader),
-            ChannelType.Media => serializer.Deserialize<MediaChannel>(reader),
-            ChannelType.Scheduling => serializer.Deserialize<SchedulingChannel>(reader),
-            ChannelType.Announcements => serializer.Deserialize<AnnouncementChannel>(reader),
-            _ => serializer.Deserialize<DocChannel>(reader)
+            ChannelType.Chat => token.ToObject<ChatChannel>(serializer),
+            ChannelType.Forums => token.ToObject<ForumChannel>(serializer),
+            ChannelType.Calendar => token.ToObject<CalendarChannel>(serializer),
+            ChannelType.List => token.ToObject<ListChannel>(serializer),
+            ChannelType.Voice => token.ToObject<VoiceChannel>(serializer),
+            ChannelType.Stream => token.ToObject<StreamChannel>(serializer),
+            ChannelType.Media => token.ToObject<MediaChannel>(serializer),
+            ChannelType.Scheduling => token.ToObject<SchedulingChannel>(serializer),
+            ChannelType.Announcements => token.ToObject<AnnouncementChannel>(serializer),
+            _ => token.ToObject<DocChannel>(serializer)
         };
     }
 
@@ -61,7 +62,10 @@ public class ServerChannelConverter : JsonConverter
     /// </summary>
     /// <param name="objectType">The type of object that potentially can be converted</param>
     /// <returns>Type can be converted</returns>
-    public override bool CanConvert(Type objectType) =>
-        objectType == typeof(ServerChannel);
+    public override bool CanConvert(Type objectType)
+    {
+        Console.WriteLine("Given can convert: {0}", objectType);
+        return objectType == typeof(ServerChannel);
+    }
     #endregion
 }

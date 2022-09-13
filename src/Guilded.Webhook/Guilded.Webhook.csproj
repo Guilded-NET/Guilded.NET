@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Guilded.NET.Webhook</Product>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Description>Provides a way to interact with webhooks more easily</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -24,7 +24,7 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Base" Version="1.0.0" />
+    <PackageReference Include="Guilded.Base" Version="1.0.1" />
   </ItemGroup>
 
   <!-- For testing purposes -->
