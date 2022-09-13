@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reflection;
 using System.Threading.Tasks;
+using Guilded.Commands.Items;
 
 namespace Guilded.Commands;
 
@@ -98,7 +99,7 @@ public abstract class CommandParent
     /// Filters out <see cref="Commands">commands</see> that do not have the specified <paramref name="name" />.
     /// </summary>
     /// <param name="name">The name of the commands to get</param>
-    /// <returns>Filtered commands</returns>
+    /// <returns>The <see cref="Commands">commands</see> that fit the provided <paramref name="name" /></returns>
     public IEnumerable<ICommand<MemberInfo>> FilterCommandsByName(string name) =>
         Commands.Where(command => command.HasName(name));
 

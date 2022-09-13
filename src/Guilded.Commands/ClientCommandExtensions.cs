@@ -1,5 +1,5 @@
 using System;
-using Guilded.Client;
+using Guilded.Abstract;
 
 namespace Guilded.Commands;
 

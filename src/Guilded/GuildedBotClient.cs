@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
+using Guilded.Abstract;
 using Guilded.Base.Client;
-using Guilded.Client;
 using RestSharp;
 
 namespace Guilded;

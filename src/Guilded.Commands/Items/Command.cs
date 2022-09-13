@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Guilded.Base;
 
-namespace Guilded.Commands;
+namespace Guilded.Commands.Items;
 
 /// <summary>
 /// Represents the information about methods that were declared as <see cref="CommandAttribute">commands</see>.
@@ -27,7 +27,7 @@ public class Command : AbstractCommand<MethodInfo>
 
     private static readonly Type[] s_allowedRestTypes = new Type[]
     {
-        typeof(string[]), typeof(string)
+        typeof(string[]), typeof(string), typeof(Match), typeof(MatchCollection)
     };
     #endregion
 
@@ -64,7 +64,7 @@ public class Command : AbstractCommand<MethodInfo>
 
         bool defaultInList = false;
 
-        Arguments = parameters.Select<ParameterInfo, CommandArgument>((arg, argIndex) =>
+        Arguments = parameters.Select((arg, argIndex) =>
         {
             // Honestly, I don't know what I am doing. I don't want to do repetitive ifs,
             // especially since it can be a bit slower (see branchless programming). But it
@@ -74,7 +74,7 @@ public class Command : AbstractCommand<MethodInfo>
             if (arg.ParameterType == typeof(string[]) || arg.GetCustomAttribute<CommandRestAttribute>() is not null)
             {
                 // We could probably do it backwards, but eh, better errors?
-                if (!s_allowedRestTypes.Contains(arg.ParameterType)) throw new InvalidOperationException("You can only have string or string array types as command rest arguments.");
+                if (!s_allowedRestTypes.Contains(arg.ParameterType)) throw new InvalidOperationException($"You can only have string, string array, {nameof(Match)} or {nameof(MatchCollection)} types as command rest arguments.");
                 else if (argIndex + 1 != parameters.Count()) throw new InvalidOperationException("String array or rest command argument can only be the last command parameters");
                 else HasRestArgument = true;
             }
@@ -97,6 +97,9 @@ public class Command : AbstractCommand<MethodInfo>
 
             // uint? and uint to be treated the same
             Type argumentType = nullableType ?? arg.ParameterType;
+
+            if ((argumentType == typeof(Match) || argumentType == typeof(MatchCollection)) && arg.GetCustomAttribute<CommandRegexAttribute>() is null)
+                throw new InvalidOperationException($"Expected to have {nameof(CommandRegexAttribute)} for command arguments with types {nameof(Match)} and {nameof(MatchCollection)}");
 
             if (!s_allowedTypes.Contains(argumentType))
                 throw new InvalidOperationException($"Cannot have a command argument of type {arg.ParameterType}");

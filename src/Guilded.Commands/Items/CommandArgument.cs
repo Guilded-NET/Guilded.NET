@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using Guilded.Base;
 
-namespace Guilded.Commands;
+namespace Guilded.Commands.Items;
 
 /// <summary>
 /// The <see cref="int.TryParse(string?, out int)" /> of various <see cref="Type">types</see>.

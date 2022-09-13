@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Guilded.Base;
 
 namespace Guilded.Commands;
@@ -27,6 +28,8 @@ namespace Guilded.Commands;
 ///     <item><see cref="decimal" /></item>
 ///     <item><see cref="DateTime" /></item>
 ///     <item><see cref="TimeSpan" /></item>
+///     <item><see cref="Match" /></item>
+///     <item><see cref="MatchCollection" /></item>
 /// </list>
 /// <para><see cref="string" /> <see cref="Array" /> is also available, but it will be seen as a rest argument.</para>
 /// </remarks>
@@ -40,8 +43,8 @@ namespace Guilded.Commands;
 /// <para>The following showcases a command parameter with an overriden name:</para>
 /// <code language="csharp">
 /// [Command]
-/// public async Task Say(CommandEvent invokation, [CommandParam("text to say")] params string[] args) =>
-///     await invokation.ReplyAsync(string.Join(" ", args));
+/// public async Task Say(CommandEvent invokation, [CommandParam("word to say")] string word) =>
+///     await invokation.ReplyAsync(word);
 /// </code>
 /// </example>
 /// <seealso cref="CommandAttribute" />

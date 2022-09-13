@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace Guilded.Commands;
+namespace Guilded.Commands.Items;
 
 /// <summary>
 /// The type of the <see cref="CommandArgument.Converter">command argument converter</see>.

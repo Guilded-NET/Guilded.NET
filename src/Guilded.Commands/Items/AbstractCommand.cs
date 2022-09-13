@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace Guilded.Commands;
+namespace Guilded.Commands.Items;
 
 /// <summary>
 /// Represents the interface for all commands.

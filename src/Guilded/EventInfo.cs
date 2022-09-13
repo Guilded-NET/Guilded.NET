@@ -1,8 +1,8 @@
 using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using Guilded.Abstract;
 using Guilded.Base.Events;
-using Guilded.Client;
 using Newtonsoft.Json;
 
 namespace Guilded;
