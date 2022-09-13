@@ -12,7 +12,7 @@ using Newtonsoft.Json.Linq;
 using RestSharp;
 using Websocket.Client;
 
-namespace Guilded.Client;
+namespace Guilded.Abstract;
 
 /// <summary>
 /// Represents the base for all Guilded clients.

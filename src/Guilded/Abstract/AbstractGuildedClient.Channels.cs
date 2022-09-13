@@ -7,7 +7,7 @@ using Guilded.Base.Content;
 
 using RestSharp;
 
-namespace Guilded.Client;
+namespace Guilded.Abstract;
 
 public abstract partial class AbstractGuildedClient
 {

@@ -1,12 +1,25 @@
-# v0.11.0-beta
+# v1.0.0
 
+- Added webhook masquerading
+- Added `ChatChannel`, `ForumChannel`, `MediaChannel`, etc.
+- Added `CommandRestAttribute` for string command arguments with spaces included
+- Added `CommandRegexAttribute` for `MatchCollection` and `Match` arguments
+- Added `object? additionalContext` argument to `DoCommandsAsync(MessageEvent, string, CommandConfig)`. This allows you to pass anything you need to pass down to commands or something you don't want to re-fetch.
+- Added `Guilded.Markdown` package. This includes:
+    - `MarkdownUtil` static class with `InlineCode`, `CodeBlock`, `Bold`, etc. methods
+    - `MarkdownBuilder` static class with `StringBuilder` extension methods like `AppendInlineCode`, `AppendBold`
+    - `GuildedMarkdownExtensions` static class with extension methods like `message.AddReactionAsync('...')` and `message.AddReactionAsync("smile_guilded")`
+    - `Emotes` static class with `ByName` and `BySymbol` dictionaries of emotes
+- Added `AddTopicPinAsync`, `RemoveTopicPinAsync`
 - Added `GuildedListExtensions` with extension methods for `IList<T>` for Guilded objects. These include:
     - `IList<TModel>.ById(TId)` (e.g., `memberList.ById(new HashId("..."))`)
     - `IList<TModel>.ByIdOrDefault(TId)` (e.g., `messageList.ByIdOrDefault(new Guid("..."))`)
     - `IList<TModel>.Contains(TId)` (e.g., `topicList.Contains(12345678)`)
 - Added `DoCommandsAsync(MessageEvent, CommandConfig)` that will now be invoked by the client instead. This will still invoke previous `DoCommandsAsync`
-- Added `object? additionalContext` argument to `DoCommandsAsync(MessageEvent, string, CommandConfig)`. This allows you to pass anything you need to pass down to commands or something you don't want to re-fetch.
 - Renamed `CreateListItemAsync`, `UpdateListItemAsync`, `CompleteListItemAsync`, etc. to `CreateItemAsync`, `UpdateItemAsync`, `CompleteItemAsync`, etc.
+- Changed to new WebSocket URL
+- Moved `AbstractGuildedClient` to `Guilded.Abstract` namespace
+- Moved `BaseGuildedClient` to `Guilded.Base.Client` namespace
 - Fixed docs (to make more sense/a bit more consistent with .NET, especially `<returns>`)
 - Removed `BaseModel` and all types no longer have it
 

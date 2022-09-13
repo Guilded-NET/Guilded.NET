@@ -8,7 +8,7 @@ using Guilded.Base.Servers;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
-namespace Guilded.Client;
+namespace Guilded.Abstract;
 
 public abstract partial class AbstractGuildedClient
 {

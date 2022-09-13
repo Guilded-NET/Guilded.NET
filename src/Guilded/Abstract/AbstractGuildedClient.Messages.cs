@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
 using Guilded.Base.Client;
 using Guilded.Base.Content;
 using Guilded.Base.Events;
 using Guilded.Base.Servers;
 using Guilded.Base.Users;
 
-namespace Guilded.Client;
+namespace Guilded.Abstract;
 
 public abstract partial class AbstractGuildedClient
 {
