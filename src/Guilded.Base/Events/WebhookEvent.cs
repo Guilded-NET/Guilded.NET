@@ -79,25 +79,21 @@ public class WebhookEvent
     public Task CreateMessageAsync(MessageContent message) =>
         Webhook.CreateMessageAsync(message);
 
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string)" />
-    public Task CreateMessageAsync(string message) =>
-        CreateMessageAsync(new MessageContent { Content = message });
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string?, IList{Embed}?, string?, Uri?)" />
+    public Task CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, string? username = null, Uri? avatar = null) =>
+        CreateMessageAsync(new MessageContent(content, embeds, username: username, avatar: avatar));
+
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string?, string?, Uri?, Embed[])" />
+    public Task CreateMessageAsync(string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent(content, embeds, username: username, avatar: avatar));
 
     /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
-    public Task CreateMessageAsync(string message, params Embed[] embeds) =>
-        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
+    public Task CreateMessageAsync(string content, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent(content, embeds));
 
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, IList{Embed})" />
-    public Task CreateMessageAsync(string message, IList<Embed> embeds) =>
-        CreateMessageAsync(new MessageContent { Content = message, Embeds = embeds });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, Embed[])" />
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string, Embed[])" />
     public Task CreateMessageAsync(params Embed[] embeds) =>
-        CreateMessageAsync(new MessageContent { Embeds = embeds });
-
-    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, IList{Embed})" />
-    public Task CreateMessageAsync(IList<Embed> embeds) =>
-        CreateMessageAsync(new MessageContent { Embeds = embeds });
+        CreateMessageAsync(new MessageContent(embeds));
     #endregion
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />

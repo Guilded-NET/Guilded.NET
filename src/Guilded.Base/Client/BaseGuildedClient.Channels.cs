@@ -50,6 +50,19 @@ public abstract partial class BaseGuildedClient
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task CreateHookMessageAsync(Uri webhookUrl, string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
         CreateHookMessageAsync(webhookUrl, new MessageContent(content, embeds, username: username, avatar: avatar));
+
+    /// <inheritdoc cref="CreateHookMessageAsync(Uri, string, IList{Embed}, string, Uri?)" />
+    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateHookMessageAsync(Uri webhookUrl, string content, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(content, embeds));
+
+    /// <inheritdoc cref="CreateHookMessageAsync(Uri, string, IList{Embed}, string, Uri?)" />
+    /// <param name="webhookUrl">The URL of the <see cref="Webhook">webhook</see></param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateHookMessageAsync(Uri webhookUrl, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhookUrl, new MessageContent(embeds));
     #endregion
 
     #region Methods CreateHookMessageAsync with webhookId + token
@@ -92,6 +105,21 @@ public abstract partial class BaseGuildedClient
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task CreateHookMessageAsync(Guid webhook, string token, string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
         CreateHookMessageAsync(webhook, token, new MessageContent(content, embeds, username: username, avatar: avatar));
+
+    /// <inheritdoc cref="CreateHookMessageAsync(Uri, string, IList{Embed}, string, Uri?)" />
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
+    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateHookMessageAsync(Guid webhook, string token, string content, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent(content, embeds));
+
+    /// <inheritdoc cref="CreateHookMessageAsync(Uri, string, IList{Embed}, string, Uri?)" />
+    /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to execute</param>
+    /// <param name="token">The <see cref="Webhook.Token">required token</see> of the <see cref="Webhook">webhook</see> to execute it</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateHookMessageAsync(Guid webhook, string token, params Embed[] embeds) =>
+        CreateHookMessageAsync(webhook, token, new MessageContent(embeds));
     #endregion
 
     #endregion

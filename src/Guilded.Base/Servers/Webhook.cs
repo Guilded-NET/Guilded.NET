@@ -194,6 +194,17 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent(content, embeds, username: username, avatar: avatar));
+
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string?, IList{Embed}?, string?, Uri?)" />
+    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateMessageAsync(string content, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent(content, embeds));
+
+    /// <inheritdoc cref="BaseGuildedClient.CreateHookMessageAsync(Guid, string, string?, IList{Embed}?, string?, Uri?)" />
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task CreateMessageAsync(params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent(embeds));
     #endregion
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />

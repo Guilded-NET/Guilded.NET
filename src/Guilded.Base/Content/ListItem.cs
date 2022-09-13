@@ -157,7 +157,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, string)" />
+    /// <inheritdoc cref="BaseGuildedClient.UpdateItemAsync(Guid, Guid, string, string?)" />
     /// <param name="message">The new contents of the list item's message in Markdown plain text</param>
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
     public Task<ListItem> UpdateAsync(string message, string? note = null) =>
