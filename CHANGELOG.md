@@ -1,3 +1,9 @@
+# v1.0.1-v1.0.2
+
+- Fixed channel conversion (v1.0.1)
+- Fixed `null` being passed to arguments despite
+- Removed overlooked channel conversion `Console.WriteLine` (v1.0.2)
+
 # v1.0.0
 
 - Added webhook masquerading
