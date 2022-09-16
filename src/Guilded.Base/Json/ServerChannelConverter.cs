@@ -41,7 +41,6 @@ public class ServerChannelConverter : JsonConverter
         JToken token = JToken.Load(reader);
         ChannelType channelType = token["type"]?.ToObject<ChannelType>(serializer) ?? ChannelType.Chat;
 
-        Console.WriteLine("Channel type: {0}; Object type: {1}", channelType, objectType);
         return channelType switch
         {
             ChannelType.Chat => token.ToObject<ChatChannel>(serializer),
@@ -62,10 +61,7 @@ public class ServerChannelConverter : JsonConverter
     /// </summary>
     /// <param name="objectType">The type of object that potentially can be converted</param>
     /// <returns>Type can be converted</returns>
-    public override bool CanConvert(Type objectType)
-    {
-        Console.WriteLine("Given can convert: {0}", objectType);
-        return objectType == typeof(ServerChannel);
-    }
+    public override bool CanConvert(Type objectType) =>
+        objectType == typeof(ServerChannel);
     #endregion
 }
