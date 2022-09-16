@@ -88,35 +88,6 @@ public class CommandArgument : AbstractCommandArgument
             { typeof(DateTime), FromParser<DateTime>(DateTime.TryParse) },
             { typeof(TimeSpan), FromParser<TimeSpan>(TimeSpan.TryParse) }
         };
-
-    internal static readonly Dictionary<bool, ParserDelegate> _parsers =
-        new()
-        {
-            {
-                false,
-                (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
-                    commandArg.Converter(commandArg, config, argument!, out value)
-            },
-            {
-                true,
-                (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
-                {
-                    // Convert properly
-                    if (argument is not null) return commandArg.Converter(commandArg, config, argument, out value);
-                    // = xyz or `null`
-                    // This could be minimized to just .Value, but at this point maybe RAM would suffer and it's
-                    // obsession over micro-optimizations
-                    // need to check RAM usage of the commands first
-                    value =
-                        commandArg.Parameter.HasDefaultValue
-                        ? commandArg.Parameter.DefaultValue
-                        : commandArg.ArgumentType == typeof(string[])
-                        ? Array.Empty<string>()
-                        : null;
-                    return true;
-                }
-            }
-        };
     #endregion
 
     #region Properties
@@ -155,7 +126,7 @@ public class CommandArgument : AbstractCommandArgument
     /// <param name="parameterType">The type of the <see cref="ParameterInfo">parameter</see></param>
     /// <param name="command">The parent <see cref="CommandAttribute">command</see> of this <see cref="CommandAttribute">argument</see></param>
     public CommandArgument(bool isOptional, int index, ParameterInfo parameter, Type parameterType, Command command) : base(index, parameter, command) =>
-        (IsOptional, Converter, Parser) = (isOptional, GetParametersConverter(parameterType), _parsers[isOptional]);
+        (IsOptional, Converter, Parser) = (isOptional, GetParametersConverter(parameterType), GetParser(isOptional));
     #endregion
 
     #region Methods
@@ -165,6 +136,27 @@ public class CommandArgument : AbstractCommandArgument
     #endregion
 
     #region Static methods
+    internal static ParserDelegate GetParser(bool isOptional) =>
+        isOptional
+        ? (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
+            {
+                // Convert properly
+                if (argument is not null) return commandArg.Converter(commandArg, config, argument, out value);
+                // = xyz or `null`
+                // This could be minimized to just .Value, but at this point maybe RAM would suffer and it's
+                // obsession over micro-optimizations
+                // need to check RAM usage of the commands first
+                value =
+                    commandArg.Parameter.HasDefaultValue
+                    ? commandArg.Parameter.DefaultValue
+                    : commandArg.ArgumentType == typeof(string[])
+                    ? Array.Empty<string>()
+                    : null;
+                return true;
+            }
+    : (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
+        commandArg.Converter(commandArg, config, argument!, out value);
+
     internal static ArgumentConverter GetParametersConverter(Type parameterType)
     {
         if (!_converters.ContainsKey(parameterType))

@@ -90,7 +90,7 @@ public abstract class CommandParent
 
         string[] split = arguments.Split(context.Configuration.Separators, 2, context.Configuration.SplitOptions);
 
-        string subCommandName = split.First(), subCommandArgs = split.ElementAtOrDefault(2) ?? string.Empty;
+        string subCommandName = split.First(), subCommandArgs = split.ElementAtOrDefault(1) ?? string.Empty;
 
         return await InvokeCommandByNameAsync(context, subCommandName, subCommandArgs, count - 1).ConfigureAwait(false);
     }
