@@ -75,4 +75,4 @@ If you need any help related to Guilded.NET, you can check out the following sou
 
 ## ✅ Goals
 
-Our goal is to provide a library that is consistent and fast, while also maintaining friendliness towards developers. A library that does not bite a developer's hand allows them to focus more heavily on their code, have fun in what they are doing along, and have an easier time making bots. The consistency of code helps increase readability and collaboration.
+Our goal is to provide a library that is consistent and fast, while also maintaining ease of use. A library that does not bite a developer's hand allows them to focus more heavily on their code, have fun in what they are doing along, and have an easier time making bots. The consistency of code helps increase readability and collaboration.
