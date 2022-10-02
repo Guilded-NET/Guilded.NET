@@ -28,13 +28,13 @@ dotnet new guilded.bot
 
 ## ⚙️ Using Guilded.NET
 
-You can check out [Guilded.NET's](https://guilded-net.github.io/docs) guide to get started on your bot. If you want to see everything that Guilded.NET offers, check out [reference page](https://guilded-net.github.io/references).
+You can check out [Guilded.NET's guide](https://guilded-net.github.io/docs) to get started on your bot. If you want to see everything that Guilded.NET offers, check out [reference page](https://guilded-net.github.io/references).
 
-It is recommended to use .NET 6 or above for Guilded.NET. While Guilded.NET supports .NET 5 or similar for now, this will change in the kind-of-late future.
+It is recommended to use .NET 6 or above for Guilded.NET. While Guilded.NET supports .NET 5 or similar for now, this will definitely change in the future.
 
 ## 📙 Example
 
-Here's a quick example of Guilded.NET bot with `!ping` command:
+Here's a quick example of a starter Guilded.NET bot with a `!ping` command:
 
 ```cs
 // Program.cs
@@ -64,15 +64,15 @@ await client.ConnectAsync();
 await Task.Delay(-1);
 ```
 
-(The showcased code uses enabled implicit usings option)
+> **Note**: The code above uses enabled implicit usings option.
 
 ## ⁉️ Support
 
-If you need help related to Guilded.NET, you can check out these places:
+If you need any help related to Guilded.NET, you can check out the following sources:
 
 - [Official Guilded.NET Server](https://guilded.gg/Guilded-NET)
 - [Programming Space](https://guilded.gg/programming)
 
 ## ✅ Goals
 
-Our goal is to provide a library or a framework that is consistent and fast, while also maintaining friendliness towards the bot developers. API library that does not bite bot developer's hand allows bot developers to focus more on their code, have fun in what they are doing and have easier time creating their bots. Consistency helps code be more predictable, easier to rewrite and waste less time. As such, these 3 points are our main goals while maintaining Guilded.NET.
+Our goal is to provide a library that is consistent and fast, while also maintaining friendliness towards developers. A library that does not bite a developer's hand allows them to focus more heavily on their code, have fun in what they are doing along, and have an easier time making bots. The consistency of code helps increase readability and collaboration.
