@@ -47,7 +47,7 @@
 //         /// <value>Permissions</value>
 //         public ForumPermissions? Forums { get; }
 //         /// <summary>
-//         /// General permissions for managing <see cref="Server">the server</see>.
+//         /// General permissions for managing the <see cref="Server">server</see>.
 //         /// </summary>
 //         /// <value>Permissions</value>
 //         public GeneralPermissions? General { get; }

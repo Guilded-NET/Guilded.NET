@@ -33,18 +33,18 @@ public enum FormPermissions
     /// <summary>
     /// Allows you to view all form responses
     /// </summary>
-    FormResponses = 2,
+    GetFormResponse = 2,
 
     /// <summary>
     /// Allows you to view all poll results
     /// </summary>
-    PollResults = 16,
+    GetPollResult = 16,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = FormResponses | PollResults,
+    All = GetFormResponse | GetPollResult,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -53,10 +53,10 @@ public enum FormPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="PollResults" /></description>
+    ///         <description><see cref="GetPollResult" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = PollResults
+    Basic = GetPollResult
     #endregion
 }

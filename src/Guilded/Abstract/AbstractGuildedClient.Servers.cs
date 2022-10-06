@@ -59,7 +59,7 @@ public abstract partial class AbstractGuildedClient
         GetResponseProperty<IList<uint>>(new RestRequest($"servers/{server}/members/{member}/roles", Method.Get), "roleIds");
 
     /// <inheritdoc />
-    public override Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname) =>
+    public override Task<string> SetNicknameAsync(HashId server, HashId member, string nickname) =>
         string.IsNullOrWhiteSpace(nickname)
         ? throw new ArgumentNullException(nameof(nickname))
         : nickname.Length > 32
@@ -72,7 +72,7 @@ public abstract partial class AbstractGuildedClient
         , "nickname");
 
     /// <inheritdoc />
-    public override Task DeleteNicknameAsync(HashId server, HashId member) =>
+    public override Task RemoveNicknameAsync(HashId server, HashId member) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Delete));
 
     /// <inheritdoc />
@@ -123,11 +123,11 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}", Method.Delete));
 
     /// <inheritdoc />
-    public override Task<IList<MemberBan>> GetBansAsync(HashId server) =>
+    public override Task<IList<MemberBan>> GetMemberBansAsync(HashId server) =>
         GetResponseProperty<IList<MemberBan>>(new RestRequest($"servers/{server}/bans", Method.Get), "serverMemberBans");
 
     /// <inheritdoc />
-    public override Task<MemberBan> GetBanAsync(HashId server, HashId member) =>
+    public override Task<MemberBan> GetMemberBanAsync(HashId server, HashId member) =>
         GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Get), "serverMemberBan");
 
     /// <inheritdoc />

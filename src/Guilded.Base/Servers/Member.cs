@@ -39,7 +39,7 @@ public class Member : MemberSummary<User>
 
     #region Properties
     /// <summary>
-    /// Gets the set nickname of <see cref="Member">the member</see> in <see cref="Server">the server</see>.
+    /// Gets the set nickname of <see cref="Member">the member</see> in the <see cref="Server">server</see>.
     /// </summary>
     /// <value>Name?</value>
     /// <seealso cref="Member" />
@@ -56,7 +56,7 @@ public class Member : MemberSummary<User>
     public DateTime JoinedAt { get; }
 
     /// <summary>
-    /// Gets whether <see cref="Member">the member</see> is the owner of <see cref="Server">the server</see>.
+    /// Gets whether <see cref="Member">the member</see> is the owner of the <see cref="Server">server</see>.
     /// </summary>
     /// <value>Member is owner</value>
     /// <seealso cref="Member" />
@@ -73,12 +73,12 @@ public class Member : MemberSummary<User>
     /// <summary>
     /// Initializes a new instance of <see cref="Member" />f rom the specified JSON properties.
     /// </summary>
-    /// <param name="user"><see cref="User">the user</see> who is a member of <see cref="Server">the server</see></param>
+    /// <param name="user"><see cref="User">the user</see> who is a member of the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles that member holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
     /// <param name="joinedAt">the date when the member joined</param>
     /// <param name="nickname">The nickname that member has</param>
-    /// <param name="isOwner">Whether <see cref="Member">the member</see> is the owner of <see cref="Server">the server</see></param>
+    /// <param name="isOwner">Whether <see cref="Member">the member</see> is the owner of the <see cref="Server">server</see></param>
     /// <returns>New <see cref="Member" /> JSON instance</returns>
     /// <seealso cref="Member" />
     [JsonConstructor]

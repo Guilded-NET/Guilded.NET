@@ -31,25 +31,25 @@ public enum SchedulingPermissions
     None = 0,
 
     /// <summary>
+    /// Allows you to view server member's schedule
+    /// </summary>
+    GetSchedule = 2,
+
+    /// <summary>
     /// Allows you to let server know your available schedule
     /// </summary>
     CreateSchedule = 1,
 
     /// <summary>
-    /// Allows you to view server member's schedule
-    /// </summary>
-    ViewSchedules = 2,
-
-    /// <summary>
     /// Allows you to remove availabilities created by others
     /// </summary>
-    DeleteSchedule = 8,
+    RemoveSchedule = 8,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateSchedule | ViewSchedules | DeleteSchedule,
+    All = CreateSchedule | GetSchedule | RemoveSchedule,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -58,11 +58,11 @@ public enum SchedulingPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="DeleteSchedule" /></description>
+    ///         <description><see cref="RemoveSchedule" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = DeleteSchedule,
+    Manage = RemoveSchedule,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions/
@@ -74,10 +74,10 @@ public enum SchedulingPermissions
     ///         <description><see cref="CreateSchedule" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ViewSchedules" /></description>
+    ///         <description><see cref="GetSchedule" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateSchedule | ViewSchedules
+    Basic = CreateSchedule | GetSchedule
     #endregion
 }

@@ -31,14 +31,14 @@ public enum MediaPermissions
     None = 0,
 
     /// <summary>
+    /// Allows you to see media
+    /// </summary>
+    GetMedia = 2,
+
+    /// <summary>
     /// Allows you to create media
     /// </summary>
     CreateMedia = 1,
-
-    /// <summary>
-    /// Allows you to see media
-    /// </summary>
-    SeeMedia = 2,
 
     /// <summary>
     /// Allows you to edit media created by others and move media items to other channels
@@ -54,7 +54,7 @@ public enum MediaPermissions
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateMedia | SeeMedia | ManageMedia | RemoveMedia,
+    All = CreateMedia | GetMedia | ManageMedia | RemoveMedia,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -82,10 +82,10 @@ public enum MediaPermissions
     ///         <description><see cref="CreateMedia" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SeeMedia" /></description>
+    ///         <description><see cref="GetMedia" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateMedia | SeeMedia
+    Basic = CreateMedia | GetMedia
     #endregion
 }

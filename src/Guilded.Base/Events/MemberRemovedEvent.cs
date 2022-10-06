@@ -26,7 +26,7 @@ public class MemberRemovedEvent
     public HashId UserId { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the server</see> where the member has been kicked or has left.
+    /// Gets the identifier of the <see cref="Server">server</see> where the member has been kicked or has left.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="MemberRemovedEvent" />
@@ -58,7 +58,7 @@ public class MemberRemovedEvent
     /// <summary>
     /// Initializes a new instance of <see cref="MemberRemovedEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the member got kicked or left</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the member got kicked or left</param>
     /// <param name="userId">The identifier of the member who got kicked or left</param>
     /// <param name="isKick">Whether <see cref="Users.User">the user</see> has been kicked</param>
     /// <param name="isBan">Whether <see cref="Users.User">the user</see> has been banned</param>

@@ -100,24 +100,28 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
         ParentClient.GetSocialLinkAsync(server, Id, linkType);
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
-    public Task<string> UpdateNicknameAsync(HashId server, string nickname) =>
-        ParentClient.UpdateNicknameAsync(server, Id, nickname);
+    public Task<string> SetNicknameAsync(HashId server, string nickname) =>
+        ParentClient.SetNicknameAsync(server, Id, nickname);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)" />
-    public Task DeleteNicknameAsync(HashId server) =>
-        ParentClient.DeleteNicknameAsync(server, Id);
+    public Task RemoveNicknameAsync(HashId server) =>
+        ParentClient.RemoveNicknameAsync(server, Id);
 
-    /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)" />
-    public Task AddRoleAsync(HashId server, uint role) =>
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberRoleAsync(HashId, HashId, uint)" />
+    public Task AddMemberRoleAsync(HashId server, uint role) =>
         ParentClient.AddMemberRoleAsync(server, Id, role);
 
-    /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(HashId, HashId, uint)" />
-    public Task RemoveRoleAsync(HashId server, uint role) =>
+    /// <inheritdoc cref="BaseGuildedClient.RemoveMemberRoleAsync(HashId, HashId, uint)" />
+    public Task RemoveMemberRoleAsync(HashId server, uint role) =>
         ParentClient.RemoveMemberRoleAsync(server, Id, role);
 
     /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, short)" />
     public Task<long> AddXpAsync(HashId server, short amount) =>
         ParentClient.AddXpAsync(server, Id, amount);
+
+    /// <inheritdoc cref="BaseGuildedClient.SetXpAsync(HashId, HashId, long)" />
+    public Task<long> SetXpAsync(HashId server, long amount) =>
+        ParentClient.SetXpAsync(server, Id, amount);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveMemberAsync(HashId, HashId)" />
     public Task RemoveMemberAsync(HashId server) =>
@@ -131,25 +135,35 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
     public Task RemoveMemberBanAsync(HashId server) =>
         ParentClient.RemoveMemberBanAsync(server, Id);
 
-    /// <inheritdoc cref="BaseGuildedClient.GetBanAsync(HashId, HashId)" />
-    public Task GetBanAsync(HashId server) =>
-        ParentClient.GetBanAsync(server, Id);
+    /// <inheritdoc cref="BaseGuildedClient.GetMemberBanAsync(HashId, HashId)" />
+    public Task GetMemberBanAsync(HashId server) =>
+        ParentClient.GetMemberBanAsync(server, Id);
 
     #region Methods Obsolete
-    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
-    [Obsolete("Use `RemoveMemberAsync` (this is for consistency)")]
-    public Task KickAsync(HashId server) =>
-        RemoveMemberAsync(server);
+    /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
+    [Obsolete("Use `SetNicknameAsync` instead")]
+    public Task<string> UpdateNicknameAsync(HashId server, string nickname) =>
+        SetNicknameAsync(server, nickname);
 
-    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
-    [Obsolete("Use `AddMemberBanAsync` (this is for consistency)")]
-    public Task BanAsync(HashId server, string? reason = null) =>
-        AddMemberBanAsync(server, reason);
+    /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)" />
+    [Obsolete("Use `RemoveNicknameAsync` instead")]
+    public Task DeleteNicknameAsync(HashId server) =>
+        RemoveNicknameAsync(server);
 
-    /// <inheritdoc cref="BaseGuildedClient.AddMemberBanAsync(HashId, HashId, string?)" />
-    [Obsolete("Use `RemoveMemberBanAsync` (this is for consistency)")]
-    public Task UnbanAsync(HashId server) =>
-        RemoveMemberBanAsync(server);
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberRoleAsync(HashId, HashId, uint)" />
+    [Obsolete("Use `AddMemberRoleAsync` instead")]
+    public Task AddRoleAsync(HashId server, uint role) =>
+        AddMemberRoleAsync(server, role);
+
+    /// <inheritdoc cref="BaseGuildedClient.RemoveMemberRoleAsync(HashId, HashId, uint)" />
+    [Obsolete("Use `RemoveMemberRoleAsync` instead")]
+    public Task RemoveRoleAsync(HashId server, uint role) =>
+        RemoveMemberRoleAsync(server, role);
+
+    /// <inheritdoc cref="BaseGuildedClient.GetMemberBanAsync(HashId, HashId)" />
+    [Obsolete("Use `GetMemberBanAsync` instead")]
+    public Task GetBanAsync(HashId server) =>
+        ParentClient.GetMemberBanAsync(server, Id);
     #endregion
 
     #endregion

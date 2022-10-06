@@ -50,7 +50,7 @@ public class TopicSummary : TitledContent, IContentMarkdown
     /// </summary>
     /// <param name="id">The identifier of the forum thread</param>
     /// <param name="channelId">The identifier of the channel where the forum thread is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the forum thread is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the forum thread is</param>
     /// <param name="title">The title of the forum thread</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
@@ -137,7 +137,7 @@ public class Topic : TopicSummary
     /// </summary>
     /// <param name="id">The identifier of the forum thread</param>
     /// <param name="channelId">The identifier of the channel where the forum thread is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the forum thread is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the forum thread is</param>
     /// <param name="title">The title of the forum thread</param>
     /// <param name="content">The text contents of the <see cref="Topic">topic</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>

@@ -27,7 +27,7 @@ public class MemberUpdatedEvent
     public MemberUpdate UserInfo { get; }
 
     /// <summary>
-    /// The identifier of <see cref="Server">the server</see> where the <see cref="UserInfo">member</see> has been updated.
+    /// The identifier of the <see cref="Server">server</see> where the <see cref="UserInfo">member</see> has been updated.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="MemberUpdatedEvent" />
@@ -49,7 +49,7 @@ public class MemberUpdatedEvent
     /// <summary>
     /// Initializes a new instance of <see cref="MemberUpdatedEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the <see cref="UserInfo">member</see> has been updated</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="UserInfo">member</see> has been updated</param>
     /// <param name="userInfo">The properties that have been updated in the member</param>
     /// <returns>New <see cref="MemberUpdatedEvent" /> JSON instance</returns>
     /// <seealso cref="MemberUpdatedEvent" />

@@ -35,12 +35,12 @@ public enum BotPermissions
     /// NOTE: For now, bots do not enforce permissions. Anyone with this permission
     /// can create bots to work around their role's existing permissions.
     /// </summary>
-    ManageBots = 1,
+    ManageBot = 1,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = ManageBots
+    All = ManageBot
     #endregion
 }

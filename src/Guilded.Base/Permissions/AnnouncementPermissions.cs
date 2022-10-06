@@ -31,14 +31,14 @@ public enum AnnouncementPermissions
     None = 0,
 
     /// <summary>
-    /// Allows you to create and remove announcements
-    /// </summary>
-    CreateAnnouncements = 1,
-
-    /// <summary>
     /// Allows you to view announcements
     /// </summary>
     ViewAnnouncements = 2,
+
+    /// <summary>
+    /// Allows you to create and remove announcements
+    /// </summary>
+    CreateAnnouncements = 1,
 
     /// <summary>
     /// Allows you to delete announcements by other members or pin any announcement

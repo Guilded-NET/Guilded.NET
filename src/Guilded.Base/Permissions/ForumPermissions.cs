@@ -31,40 +31,40 @@ public enum ForumPermissions
     None = 0,
 
     /// <summary>
-    /// Allows you to create forum topics
-    /// </summary>
-    CreateTopics = 1,
-
-    /// <summary>
     /// Allows you to read forums
     /// </summary>
-    ReadForums = 2,
+    GetTopic = 2,
+
+    /// <summary>
+    /// Allows you to create forum topics
+    /// </summary>
+    CreateTopic = 1,
 
     /// <summary>
     /// Allows you to remove topics and replies by others, or move them to other channels
     /// </summary>
-    ManageTopics = 8,
+    ManageTopic = 8,
 
     /// <summary>
     /// Allows you to sticky a topic
     /// </summary>
-    StickyTopics = 16,
+    PinTopic = 16,
 
     /// <summary>
     /// Allows you to lock a topic
     /// </summary>
-    LockTopics = 32,
+    LockTopic = 32,
 
     /// <summary>
     /// Allows you to create forum topic replies
     /// </summary>
-    CreateTopicReplies = 64,
+    CreateTopicReply = 64,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateTopics | ReadForums | ManageTopics | StickyTopics | LockTopics | CreateTopicReplies,
+    All = CreateTopic | GetTopic | ManageTopic | PinTopic | LockTopic | CreateTopicReply,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -73,17 +73,17 @@ public enum ForumPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageTopics" /></description>
+    ///         <description><see cref="ManageTopic" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="StickyTopics" /></description>
+    ///         <description><see cref="PinTopic" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="LockTopics" /></description>
+    ///         <description><see cref="LockTopic" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ManageTopics | StickyTopics | LockTopics,
+    Manage = ManageTopic | PinTopic | LockTopic,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -92,16 +92,16 @@ public enum ForumPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateTopics" /></description>
+    ///         <description><see cref="CreateTopic" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ReadForums" /></description>
+    ///         <description><see cref="GetTopic" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="CreateTopicReplies" /></description>
+    ///         <description><see cref="CreateTopicReply" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateTopics | ReadForums | CreateTopicReplies
+    Basic = CreateTopic | GetTopic | CreateTopicReply
     #endregion
 }

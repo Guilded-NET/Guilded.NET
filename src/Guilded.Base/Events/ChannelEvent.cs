@@ -78,7 +78,7 @@ public class ChannelEvent
     /// <summary>
     /// Initializes a new instance of <see cref="ChannelEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the channel event occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the channel event occurred</param>
     /// <param name="channel">The channel received from the event</param>
     /// <returns>New <see cref="ChannelEvent" /> JSON instance</returns>
     /// <seealso cref="ChannelEvent" />

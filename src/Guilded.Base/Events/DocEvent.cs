@@ -61,7 +61,7 @@ public class DocEvent
     /// <summary>
     /// Initializes a new instance of <see cref="DocEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the doc event occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the doc event occurred</param>
     /// <param name="doc"><see cref="Content.Doc">The doc</see> received from the event</param>
     /// <returns>New <see cref="DocEvent" /> JSON instance</returns>
     /// <seealso cref="DocEvent" />

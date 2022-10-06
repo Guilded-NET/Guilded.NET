@@ -64,7 +64,7 @@ public class MemberSummary<T> : IModelHasId<HashId> where T : UserSummary
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user"><see cref="Users.User">The user</see> who is present in <see cref="Server">the server</see></param>
+    /// <param name="user"><see cref="Users.User">The user</see> who is present in the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles user holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
     /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>
@@ -85,24 +85,28 @@ public class MemberSummary<T> : IModelHasId<HashId> where T : UserSummary
         User.GetSocialLinkAsync(ServerId, linkType);
 
     /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
-    public Task<string> UpdateNicknameAsync(string nickname) =>
-        User.UpdateNicknameAsync(ServerId, nickname);
+    public Task<string> SetNicknameAsync(string nickname) =>
+        User.SetNicknameAsync(ServerId, nickname);
 
     /// <inheritdoc cref="BaseGuildedClient.DeleteNicknameAsync(HashId, HashId)" />
-    public Task DeleteNicknameAsync() =>
-        User.DeleteNicknameAsync(ServerId);
+    public Task RemoveNicknameAsync() =>
+        User.RemoveNicknameAsync(ServerId);
 
-    /// <inheritdoc cref="BaseGuildedClient.AddRoleAsync(HashId, HashId, uint)" />
+    /// <inheritdoc cref="BaseGuildedClient.AddMemberRoleAsync(HashId, HashId, uint)" />
     public Task AddRoleAsync(uint role) =>
-        User.AddRoleAsync(ServerId, role);
+        User.AddMemberRoleAsync(ServerId, role);
 
-    /// <inheritdoc cref="BaseGuildedClient.RemoveRoleAsync(HashId, HashId, uint)" />
+    /// <inheritdoc cref="BaseGuildedClient.RemoveMemberRoleAsync(HashId, HashId, uint)" />
     public Task RemoveRoleAsync(uint role) =>
-        User.RemoveRoleAsync(ServerId, role);
+        User.RemoveMemberRoleAsync(ServerId, role);
 
     /// <inheritdoc cref="BaseGuildedClient.AddXpAsync(HashId, HashId, short)" />
     public Task<long> AddXpAsync(short amount) =>
         User.AddXpAsync(ServerId, amount);
+
+    /// <inheritdoc cref="BaseGuildedClient.SetXpAsync(HashId, HashId, long)" />
+    public Task<long> SetXpAsync(long amount) =>
+        User.SetXpAsync(ServerId, amount);
 
     /// <inheritdoc cref="BaseGuildedClient.RemoveMemberAsync(HashId, HashId)" />
     public Task RemoveAsync() =>
@@ -116,9 +120,21 @@ public class MemberSummary<T> : IModelHasId<HashId> where T : UserSummary
     public Task RemoveBanAsync() =>
         User.RemoveMemberBanAsync(ServerId);
 
-    /// <inheritdoc cref="BaseGuildedClient.GetBanAsync(HashId, HashId)" />
+    /// <inheritdoc cref="BaseGuildedClient.GetMemberBanAsync(HashId, HashId)" />
     public Task GetBanAsync() =>
-        User.GetBanAsync(ServerId);
+        User.GetMemberBanAsync(ServerId);
+    #endregion
+
+    #region Methods Obsolete
+    /// <inheritdoc cref="BaseGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
+    [Obsolete("Use `SetNicknameAsync` instead")]
+    public Task<string> UpdateNicknameAsync(string nickname) =>
+        SetNicknameAsync(nickname);
+
+    /// <inheritdoc cref="BaseGuildedClient.DeleteNicknameAsync(HashId, HashId)" />
+    [Obsolete("Use `RemoveNicknameAsync` instead")]
+    public Task DeleteNicknameAsync() =>
+        RemoveNicknameAsync();
     #endregion
 }
 
@@ -135,7 +151,7 @@ public class MemberSummary : MemberSummary<UserSummary>
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user"><see cref="User">The user</see> who is present in <see cref="Server">the server</see></param>
+    /// <param name="user"><see cref="User">The user</see> who is present in the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles user holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
     /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>

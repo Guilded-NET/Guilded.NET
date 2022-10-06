@@ -33,17 +33,17 @@ public enum BracketPermissions
     /// <summary>
     /// Allows you to report match scores on behalf of your server
     /// </summary>
-    ReportScores = 1,
+    ReportScore = 1,
 
     /// <summary>
     /// Allows you to view tournament brackets
     /// </summary>
-    ViewBrackets = 2,
+    GetBracket = 2,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = ReportScores | ViewBrackets
+    All = ReportScore | GetBracket
     #endregion
 }

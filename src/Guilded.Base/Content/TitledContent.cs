@@ -47,7 +47,7 @@ public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableCo
     /// </summary>
     /// <param name="id">The identifier of <see cref="TitledContent">the titled content</see></param>
     /// <param name="channelId">The identifier of the channel where the channel content are</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the channel content are</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the channel content are</param>
     /// <param name="title">The title of <see cref="TitledContent">the titled content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created <see cref="ChannelContent{TId, TServer}">the content</see></param>
     /// <param name="createdAt">The date when <see cref="ChannelContent{TId, TServer}">the content</see> were created</param>

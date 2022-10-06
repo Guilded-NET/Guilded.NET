@@ -65,7 +65,7 @@ public class TopicEvent
     /// <summary>
     /// Initializes a new instance of <see cref="TopicEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the <see cref="TopicEvent">topic event</see> occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicEvent">topic event</see> occurred</param>
     /// <param name="forumTopic">The <see cref="Content.Topic">topic</see> received from the event</param>
     /// <returns>New <see cref="TopicEvent" /> JSON instance</returns>
     /// <seealso cref="TopicEvent" />

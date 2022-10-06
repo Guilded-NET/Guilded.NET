@@ -34,22 +34,22 @@ public enum MatchmakingPermissions
     /// <summary>
     /// Allows you to create matchmaking scrims
     /// </summary>
-    CreateScrims = 1,
+    CreateScrim = 1,
 
     /// <summary>
-    /// Allows you to use <see cref="Server">the server</see> to create and manage tournaments
+    /// Allows you to use the <see cref="Server">server</see> to create and manage tournaments
     /// </summary>
-    RegisterForTournaments = 4,
+    AttendTournament = 4,
 
     /// <summary>
-    /// Allows you to register <see cref="Server">the server</see> for tournaments
+    /// Allows you to register the <see cref="Server">server</see> for tournaments
     /// </summary>
-    CreateTournaments = 16,
+    CreateTournament = 16,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateScrims | RegisterForTournaments | CreateTournaments
+    All = CreateScrim | AttendTournament | CreateTournament
     #endregion
 }

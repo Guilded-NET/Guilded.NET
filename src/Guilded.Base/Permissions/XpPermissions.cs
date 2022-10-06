@@ -33,13 +33,13 @@ public enum XpPermissions
     /// <summary>
     /// Allows you to manage XP on server members
     /// </summary>
-    ManageServerXp = 1,
+    ManageXp = 1,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = ManageServerXp,
+    All = ManageXp,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -48,10 +48,10 @@ public enum XpPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageServerXp" /></description>
+    ///         <description><see cref="ManageXp" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ManageServerXp
+    Manage = ManageXp
     #endregion
 }

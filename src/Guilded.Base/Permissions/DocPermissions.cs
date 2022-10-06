@@ -31,30 +31,30 @@ public enum DocPermissions
     None = 0,
 
     /// <summary>
-    /// Allows you to create docs
-    /// </summary>
-    CreateDocs = 1,
-
-    /// <summary>
     /// Allows you to view docs
     /// </summary>
-    ViewDocs = 2,
+    GetDoc = 2,
+
+    /// <summary>
+    /// Allows you to create docs
+    /// </summary>
+    CreateDoc = 1,
 
     /// <summary>
     /// Allows you to update docs created by others and move them to other channels
     /// </summary>
-    ManageDocs = 4,
+    ManageDoc = 4,
 
     /// <summary>
     /// Allows you to remove docs created by others
     /// </summary>
-    RemoveDocs = 8,
+    RemoveDoc = 8,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateDocs | ViewDocs | ManageDocs | RemoveDocs,
+    All = CreateDoc | GetDoc | ManageDoc | RemoveDoc,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -63,14 +63,14 @@ public enum DocPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageDocs" /></description>
+    ///         <description><see cref="ManageDoc" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="RemoveDocs" /></description>
+    ///         <description><see cref="RemoveDoc" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ManageDocs | RemoveDocs,
+    Manage = ManageDoc | RemoveDoc,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -79,13 +79,13 @@ public enum DocPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateDocs" /></description>
+    ///         <description><see cref="CreateDoc" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ViewDocs" /></description>
+    ///         <description><see cref="GetDoc" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateDocs | ViewDocs
+    Basic = CreateDoc | GetDoc
     #endregion
 }

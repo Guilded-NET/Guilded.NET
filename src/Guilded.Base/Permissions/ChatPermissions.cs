@@ -31,50 +31,50 @@ public enum ChatPermissions
     None = 0,
 
     /// <summary>
-    /// Allows you to send chat messages
-    /// </summary>
-    SendMessages = 1,
-
-    /// <summary>
     /// Allows you to read chat messages
     /// </summary>
-    ReadMessages = 2,
+    GetMessage = 2,
+
+    /// <summary>
+    /// Allows you to send chat messages
+    /// </summary>
+    CreateMessage = 1,
 
     /// <summary>
     /// Allows you to delete chat messages by other members or pin any message
     /// </summary>
-    ManageMessages = 4,
+    ManageMessage = 4,
 
     /// <summary>
     /// Allows you to create threads in the channel
     /// </summary>
-    CreateThreads = 16,
+    CreateThread = 16,
 
     /// <summary>
     /// Allows you to reply to threads in the channel
     /// </summary>
-    SendThreadMessages = 32,
+    CreateThreadMessage = 32,
 
     /// <summary>
     /// Allows you to archive and restore threads
     /// </summary>
-    ManageThreads = 64,
+    ManageThread = 64,
 
     /// <summary>
     /// Allows you to send messages with images and videos
     /// </summary>
-    UploadMedia = 128,
+    AddMedia = 128,
 
     /// <summary>
     /// Allows you to send private mentions and replies
     /// </summary>
-    SendPrivateMessages = 256,
+    CreatePrivateMessage = 256,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = SendMessages | ReadMessages | ManageMessages | CreateThreads | SendThreadMessages | ManageThreads,
+    All = CreateMessage | GetMessage | ManageMessage | CreateThread | CreateThreadMessage | ManageThread,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -83,17 +83,17 @@ public enum ChatPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageMessages" /></description>
+    ///         <description><see cref="ManageMessage" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="CreateThreads" /></description>
+    ///         <description><see cref="CreateThread" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageThreads" /></description>
+    ///         <description><see cref="ManageThread" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ManageMessages | CreateThreads | ManageThreads,
+    Manage = ManageMessage | CreateThread | ManageThread,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -102,16 +102,16 @@ public enum ChatPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="SendMessages" /></description>
+    ///         <description><see cref="CreateMessage" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ReadMessages" /></description>
+    ///         <description><see cref="GetMessage" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SendThreadMessages" /></description>
+    ///         <description><see cref="CreateThreadMessage" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = SendMessages | ReadMessages | SendThreadMessages
+    Basic = CreateMessage | GetMessage | CreateThreadMessage
     #endregion
 }

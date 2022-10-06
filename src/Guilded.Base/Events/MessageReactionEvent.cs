@@ -26,7 +26,7 @@ public class MessageReactionEvent
     public EventReaction Reaction { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the server</see> where the event occurred.
+    /// Gets the identifier of the <see cref="Server">server</see> where the event occurred.
     /// </summary>
     /// <value>Server ID?</value>
     /// <seealso cref="MessageReactionEvent" />
@@ -57,7 +57,7 @@ public class MessageReactionEvent
     /// Initializes a new instance of <see cref="MessageReactionEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="reaction"><see cref="Content.Reaction">The received reaction</see> from the event</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the event occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the event occurred</param>
     /// <returns>New <see cref="MessageReactionEvent" /> JSON instance</returns>
     /// <seealso cref="MessageReactionEvent" />
     [JsonConstructor]

@@ -31,35 +31,35 @@ public enum CalendarPermissions
     None = 0,
 
     /// <summary>
-    /// Allows you to create events
-    /// </summary>
-    CreateEvents = 1,
-
-    /// <summary>
     /// Allows you to view events
     /// </summary>
-    ViewEvents = 2,
+    GetEvent = 2,
+
+    /// <summary>
+    /// Allows you to create events
+    /// </summary>
+    CreateEvent = 1,
 
     /// <summary>
     /// Allows you to update events created by others and move them to other channel
     /// </summary>
-    ManageEvents = 4,
+    ManageEvent = 4,
 
     /// <summary>
     /// Allows you to remove events created by others
     /// </summary>
-    RemoveEvents = 8,
+    RemoveEvent = 8,
 
     /// <summary>
     /// Allows you to edit RSVP status for members in an event
     /// </summary>
-    EditRSVPs = 16,
+    ManageRsvp = 16,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateEvents | ViewEvents | ManageEvents | RemoveEvents | EditRSVPs,
+    All = CreateEvent | GetEvent | ManageEvent | RemoveEvent | ManageRsvp,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -68,17 +68,17 @@ public enum CalendarPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageEvents" /></description>
+    ///         <description><see cref="ManageEvent" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="RemoveEvents" /></description>
+    ///         <description><see cref="RemoveEvent" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="EditRSVPs" /></description>
+    ///         <description><see cref="ManageRsvp" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ManageEvents | RemoveEvents | EditRSVPs,
+    ManageAll = ManageEvent | RemoveEvent | ManageRsvp,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -87,13 +87,13 @@ public enum CalendarPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateEvents" /></description>
+    ///         <description><see cref="CreateEvent" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ViewEvents" /></description>
+    ///         <description><see cref="GetEvent" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateEvents | ViewEvents
+    Basic = CreateEvent | GetEvent
     #endregion
 }

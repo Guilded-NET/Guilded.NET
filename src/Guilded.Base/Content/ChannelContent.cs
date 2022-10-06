@@ -11,7 +11,7 @@ namespace Guilded.Base.Content;
 /// <para>This does not include deleted content.</para>
 /// </remarks>
 /// <typeparam name="TId">The type of <see cref="ChannelContent{TId, TServer}">the content</see> identifier (property <see cref="Id" />)</typeparam>
-/// <typeparam name="TServer">The type of <see cref="Server">the server</see> identifier (property <see cref="ServerId" />)</typeparam>
+/// <typeparam name="TServer">The type of the <see cref="Server">server</see> identifier (property <see cref="ServerId" />)</typeparam>
 /// <seealso cref="Message" />
 /// <seealso cref="Topic" />
 /// <seealso cref="ListItem" />
@@ -38,7 +38,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     public Guid ChannelId { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the server</see> where <see cref="ChannelContent{TId, TServer}">the content</see> are.
+    /// Gets the identifier of the <see cref="Server">server</see> where <see cref="ChannelContent{TId, TServer}">the content</see> are.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
@@ -77,7 +77,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// </summary>
     /// <param name="id">The identifier of <see cref="ChannelContent{TId, TServer}">the content</see></param>
     /// <param name="channelId">The identifier of the channel where <see cref="ChannelContent{TId, TServer}">the content</see> is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where <see cref="ChannelContent{TId, TServer}">the content</see> is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where <see cref="ChannelContent{TId, TServer}">the content</see> is</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of <see cref="ChannelContent{TId, TServer}">the content</see></param>
     /// <param name="createdAt">the date when <see cref="ChannelContent{TId, TServer}">the content</see> was created</param>
     /// <returns>New <see cref="ChannelContent{TId, TServer}" /> JSON instance</returns>

@@ -34,58 +34,58 @@ public enum GeneralPermissions
     /// <summary>
     /// Allows you to update server's settings
     /// </summary>
-    UpdateServer = 4,
+    ManageServer = 4,
 
     /// <summary>
-    /// Allows you to directly invite members to <see cref="Server">the server</see>
+    /// Allows you to directly invite members to the <see cref="Server">server</see>
     /// </summary>
-    InviteMembers = 16,
+    CreateInvite = 16,
 
     /// <summary>
-    /// Allows you to kick or ban members from <see cref="Server">the server</see>
+    /// Allows you to kick or ban members from the <see cref="Server">server</see>
     /// </summary>
-    KickBanMembers = 32,
+    RemoveMember = 32,
 
     /// <summary>
     /// Allows you to create new channels and edit or delete existing ones
     /// </summary>
-    ManageChannels = 1024,
+    ManageChannel = 1024,
 
     /// <summary>
     /// Allows you to create new webhooks and edit or delete existing ones
     /// </summary>
-    ManageWebhooks = 2048,
+    ManageWebhook = 2048,
 
     /// <summary>
     /// Allows you to create new groups and edit or delete existing ones
     /// </summary>
-    ManageGroups = 4096,
+    ManageGroup = 4096,
 
     /// <summary>
     /// Allows you to use @everyone and @here mentions
     /// </summary>
-    MentionEveryoneHere = 8192,
+    AddEveryoneMention = 8192,
 
     /// <summary>
     /// Allows you to update <see cref="Server">the server's</see> roles
     /// </summary>
-    ManageRoles = 16384,
+    ManageRole = 16384,
 
     /// <summary>
     /// Allows you to bypass channel's slowmode settings
     /// </summary>
-    SlowmodeException = 65536,
+    ExcemptSlowmode = 65536,
 
     /// <summary>
     /// Allows you to see private messages
     /// </summary>
-    AccessModeratorView = 32768,
+    GetPrivateMessage = 32768,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = UpdateServer | KickBanMembers | ManageChannels | ManageWebhooks | ManageGroups | MentionEveryoneHere | ManageRoles,
+    All = ManageServer | RemoveMember | ManageChannel | ManageWebhook | ManageGroup | AddEveryoneMention | ManageRole,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -94,25 +94,25 @@ public enum GeneralPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="UpdateServer" /></description>
+    ///         <description><see cref="ManageServer" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="KickBanMembers" /></description>
+    ///         <description><see cref="RemoveMember" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageChannels" /></description>
+    ///         <description><see cref="ManageChannel" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageWebhooks" /></description>
+    ///         <description><see cref="ManageWebhook" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageGroups" /></description>
+    ///         <description><see cref="ManageGroup" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageRoles" /></description>
+    ///         <description><see cref="ManageRole" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = UpdateServer | KickBanMembers | ManageChannels | ManageWebhooks | ManageGroups | ManageRoles
+    Manage = ManageServer | RemoveMember | ManageChannel | ManageWebhook | ManageGroup | ManageRole
     #endregion
 }

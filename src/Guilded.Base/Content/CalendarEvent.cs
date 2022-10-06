@@ -159,7 +159,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// </summary>
     /// <param name="id">The identifier of the channel content</param>
     /// <param name="channelId">The identifier of the channel where the channel content are</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the channel content are</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the channel content are</param>
     /// <param name="name">The title of <see cref="CalendarEvent">the calendar event</see></param>
     /// <param name="description">The description of <see cref="CalendarEvent">the calendar event</see></param>
     /// <param name="mentions"><see cref="Content.Mentions">The mentions</see> found in <see cref="Description">the description</see></param>

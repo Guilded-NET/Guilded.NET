@@ -203,7 +203,7 @@ public class Message :
     /// </summary>
     /// <param name="id">The identifier of the message</param>
     /// <param name="channelId">The identifier of the channel where the message is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message is</param>
     /// <param name="content">The text contents of the message</param>
     /// <param name="replyMessageIds">Gets the list of <see cref="Message">messages</see> being replied to</param>
     /// <param name="embeds">Gets the list of <see cref="Embed">custom embeds</see> that this message contains</param>
@@ -278,9 +278,9 @@ public class Message :
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <see cref="MessageContent.Content">content</see> only consists of whitespace or is <see langword="null" /> and <see cref="MessageContent.Embeds">embeds</see> are also null or its array is empty</exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <see cref="MessageContent.Content" /> is above the message limit of 4000 characters</exception>
-    /// <permission cref="ChatPermissions.ReadMessages">Required for reading all channel and thread messages</permission>
-    /// <permission cref="ChatPermissions.SendMessages">Required for sending a message in a channel</permission>
-    /// <permission cref="ChatPermissions.SendThreadMessages">Required for sending a message in a thread</permission>
+    /// <permission cref="ChatPermissions.GetMessage">Required for reading all channel and thread messages</permission>
+    /// <permission cref="ChatPermissions.CreateMessage">Required for sending a message in a channel</permission>
+    /// <permission cref="ChatPermissions.CreateThreadMessage">Required for sending a message in a thread</permission>
     /// <returns>The <see cref="Message">message</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public Task<Message> CreateMessageAsync(MessageContent message) =>
         ParentClient.CreateMessageAsync(ChannelId, message);
@@ -355,11 +355,11 @@ public class Message :
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="nu" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
-    /// <permission cref="ChatPermissions.ReadMessages" />
-    /// <permission cref="ChatPermissions.SendMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
-    /// <permission cref="ChatPermissions.SendThreadMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a thread</see></permission>
-    /// <permission cref="ChatPermissions.SendPrivateMessages">Required when sending <see cref="Message">a message</see> that is set as <see cref="IsPrivate">private</see></permission>
-    /// <permission cref="ChatPermissions.UploadMedia">Required when sending <see cref="Message">a message</see> that contains an image or a video</permission>
+    /// <permission cref="ChatPermissions.GetMessage" />
+    /// <permission cref="ChatPermissions.CreateMessage">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
+    /// <permission cref="ChatPermissions.CreateThreadMessage">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a thread</see></permission>
+    /// <permission cref="ChatPermissions.CreatePrivateMessage">Required when sending <see cref="Message">a message</see> that is set as <see cref="IsPrivate">private</see></permission>
+    /// <permission cref="ChatPermissions.AddMedia">Required when sending <see cref="Message">a message</see> that contains an image or a video</permission>
     /// <returns>The <see cref="Message">message</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public Task<Message> ReplyAsync(string? content = null, IList<Embed>? embeds = null, bool isPrivate = false, bool isSilent = true) =>
         CreateMessageAsync(content, embeds, new Guid[] { Id }, isPrivate, isSilent);

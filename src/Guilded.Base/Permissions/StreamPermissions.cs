@@ -26,30 +26,30 @@ namespace Guilded.Base.Permissions;
 public enum StreamPermissions
 {
     /// <summary>
+    /// Allows you to view streams
+    /// </summary>
+    GetStream = 2,
+
+    /// <summary>
     /// Allows you to add a stream and also talk in the stream channel
     /// </summary>
     AddStream = 1,
 
     /// <summary>
-    /// Allows you to view streams
-    /// </summary>
-    ViewStreams = 2,
-
-    /// <summary>
     /// Allows you to talk in stream channel
     /// </summary>
-    JoinVoice = 16,
+    AttendVoice = 16,
 
     /// <summary>
     /// Allows you to send message in stream channel
     /// </summary>
-    SendMessages = 32,
+    CreateMessage = 32,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = AddStream | ViewStreams | JoinVoice | SendMessages,
+    All = AddStream | GetStream | AttendVoice | CreateMessage,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -66,16 +66,16 @@ public enum StreamPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ViewStreams" /></description>
+    ///         <description><see cref="GetStream" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="JoinVoice" /></description>
+    ///         <description><see cref="AttendVoice" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SendMessages" /></description>
+    ///         <description><see cref="CreateMessage" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = ViewStreams | JoinVoice | SendMessages
+    Basic = GetStream | AttendVoice | CreateMessage
     #endregion
 }

@@ -38,27 +38,27 @@ public enum VoicePermissions
     /// <summary>
     /// Allows you to listen to voice chat
     /// </summary>
-    HearVoice = 2,
+    AttendVoice = 2,
 
     /// <summary>
     /// Allows you to move members to other voice rooms
     /// </summary>
-    MoveMembers = 16,
+    MoveMember = 16,
 
     /// <summary>
     /// Allows you to prioritize your voice when speaking in voice chat
     /// </summary>
-    PrioritySpeaker = 32,
+    UsePrioritySpeaker = 32,
 
     /// <summary>
     /// Allows you to use voice activity input mode from voice chaats
     /// </summary>
-    VoiceActivity = 64,
+    UseVoiceActivity = 64,
 
     /// <summary>
     /// Allows you to mute members in voice chats
     /// </summary>
-    MuteMembers = 128,
+    MuteMember = 128,
 
     /// <summary>
     /// Allows you to deafen members in voice chat
@@ -68,29 +68,29 @@ public enum VoicePermissions
     /// <summary>
     /// Allows you to create, rename, and delete voice rooms
     /// </summary>
-    ManageVoiceRooms = 512,
+    ManageVoiceRoom = 512,
 
     /// <summary>
     /// Allows you to broadcast your voice to rooms lower in hierarchy when speaking in voice chat
     /// </summary>
-    Broadcast = 1024,
+    UseBroadcast = 1024,
 
     /// <summary>
     /// Allows you to direct your voice to specific users
     /// </summary>
-    Whisper = 2048,
+    UseWhisper = 2048,
 
     /// <summary>
     /// Allows you to send chat messages in the voice channel
     /// </summary>
-    SendMessages = 4096,
+    CreateMessage = 4096,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = AddVoice | HearVoice | MoveMembers | PrioritySpeaker | VoiceActivity |
-            MuteMembers | DeafenMembers | ManageVoiceRooms | Broadcast | Whisper | SendMessages,
+    All = AddVoice | AttendVoice | MoveMember | UsePrioritySpeaker | UseVoiceActivity |
+            MuteMember | DeafenMembers | ManageVoiceRoom | UseBroadcast | UseWhisper | CreateMessage,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -99,20 +99,20 @@ public enum VoicePermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="MoveMembers" /></description>
+    ///         <description><see cref="MoveMember" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="MuteMembers" /></description>
+    ///         <description><see cref="MuteMember" /></description>
     ///     </item>
     ///     <item>
     ///         <description><see cref="DeafenMembers" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ManageVoiceRooms" /></description>
+    ///         <description><see cref="ManageVoiceRoom" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = MoveMembers | MuteMembers | DeafenMembers | ManageVoiceRooms,
+    Manage = MoveMember | MuteMember | DeafenMembers | ManageVoiceRoom,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -124,19 +124,19 @@ public enum VoicePermissions
     ///         <description><see cref="AddVoice" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="HearVoice" /></description>
+    ///         <description><see cref="AttendVoice" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="VoiceActivity" /></description>
+    ///         <description><see cref="UseVoiceActivity" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="Whisper" /></description>
+    ///         <description><see cref="UseWhisper" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="SendMessages" /></description>
+    ///         <description><see cref="CreateMessage" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = AddVoice | HearVoice | VoiceActivity | Whisper | SendMessages
+    Basic = AddVoice | AttendVoice | UseVoiceActivity | UseWhisper | CreateMessage
     #endregion
 }

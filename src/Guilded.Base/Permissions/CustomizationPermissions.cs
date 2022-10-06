@@ -38,17 +38,17 @@ public enum CustomPermissions
     /// <summary>
     /// Members with this permission can change their own nickname.
     /// </summary>
-    ChangeNickname = 16,
+    ManageSelfNickname = 16,
 
     /// <summary>
     /// Members with this permission can change the nickname of others.
     /// </summary>
-    ManageNicknames = 32,
+    ManageMemberNickname = 32,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = ManageEmoji | ChangeNickname | ManageNicknames
+    All = ManageEmoji | ManageSelfNickname | ManageMemberNickname
     #endregion
 }

@@ -87,7 +87,7 @@ public class CalendarRsvpManyEvent
     /// <summary>
     /// Initializes a new instance of <see cref="CalendarEventEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the <see cref="CalendarRsvpManyEvent">calendar RSVP event</see> occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="CalendarRsvpManyEvent">calendar RSVP event</see> occurred</param>
     /// <param name="calendarEventRsvps">The list of <see cref="CalendarRsvp">RSVPs</see> of a <see cref="CalendarEvent">calendar event</see> received from the event</param>
     /// <returns>New <see cref="CalendarEventEvent" /> JSON instance</returns>
     /// <seealso cref="CalendarEventEvent" />

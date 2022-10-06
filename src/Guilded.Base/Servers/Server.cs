@@ -10,7 +10,7 @@ public class Server : ContentModel, IModelHasId<HashId>
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the server</see>.
+    /// Gets the identifier of the <see cref="Server">server</see>.
     /// </summary>
     /// <value><see cref="Id">Server ID</see></value>
     /// <seealso cref="Server" />
@@ -21,7 +21,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public HashId Id { get; }
 
     /// <summary>
-    /// Gets the displayed name of <see cref="Server">the server</see>.
+    /// Gets the displayed name of the <see cref="Server">server</see>.
     /// </summary>
     /// <value>Unique Name</value>
     /// <seealso cref="Server" />
@@ -32,10 +32,10 @@ public class Server : ContentModel, IModelHasId<HashId>
     public string Name { get; }
 
     /// <summary>
-    /// Gets the part of URL to the <see cref="Server">the server</see>.
+    /// Gets the part of URL to the the <see cref="Server">server</see>.
     /// </summary>
     /// <example>
-    /// <para>If <see cref="Url" /> is set as <c>GuildedNET</c>, then URL to <see cref="Server">the server</see> will be <see href="https://guilded.gg/GuildedNET" />.</para>
+    /// <para>If <see cref="Url" /> is set as <c>GuildedNET</c>, then URL to the <see cref="Server">server</see> will be <see href="https://guilded.gg/GuildedNET" />.</para>
     /// </example>
     /// <value><see cref="Uri" /> Directory</value>
     /// <seealso cref="Server" />
@@ -44,7 +44,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public string? Url { get; }
 
     /// <summary>
-    /// Gets the description of <see cref="Server">the server</see>.
+    /// Gets the description of the <see cref="Server">server</see>.
     /// </summary>
     /// <value>Single-line String</value>
     /// <seealso cref="Server" />
@@ -54,7 +54,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public string? About { get; }
 
     /// <summary>
-    /// Gets the selected <see cref="ServerType">type</see> of <see cref="Server">the server</see>.
+    /// Gets the selected <see cref="ServerType">type</see> of the <see cref="Server">server</see>.
     /// </summary>
     /// <value><see cref="ServerType">Server Type</see></value>
     /// <seealso cref="Server" />
@@ -64,7 +64,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public ServerType? Type { get; }
 
     /// <summary>
-    /// Gets <see cref="Uri">the URL</see> to the icon image of <see cref="Server">the server</see>.
+    /// Gets <see cref="Uri">the URL</see> to the icon image of the <see cref="Server">server</see>.
     /// </summary>
     /// <value>Media URL</value>
     /// <seealso cref="Server" />
@@ -74,7 +74,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public Uri? Avatar { get; }
 
     /// <summary>
-    /// Gets <see cref="Uri">the URL</see> to the banner image of <see cref="Server">the server</see>.
+    /// Gets <see cref="Uri">the URL</see> to the banner image of the <see cref="Server">server</see>.
     /// </summary>
     /// <value>Media URL</value>
     /// <seealso cref="Server" />
@@ -84,7 +84,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public Uri? Banner { get; }
 
     /// <summary>
-    /// Gets the set timezone of <see cref="Server">the server</see>.
+    /// Gets the set timezone of the <see cref="Server">server</see>.
     /// </summary>
     /// <value><see cref="Uri">Media URL</see></value>
     /// <seealso cref="Server" />
@@ -94,7 +94,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public string? Timezone { get; }
 
     /// <summary>
-    /// Gets whether <see cref="Server">the server</see> is verified by the Guilded staff team.
+    /// Gets whether the <see cref="Server">server</see> is verified by the Guilded staff team.
     /// </summary>
     /// <value>Server is verified</value>
     /// <seealso cref="Server" />
@@ -104,7 +104,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public bool IsVerified { get; }
 
     /// <summary>
-    /// Gets <see cref="ServerChannel">the channel</see> of <see cref="Server">the server</see> that is the main channel.
+    /// Gets <see cref="ServerChannel">the channel</see> of the <see cref="Server">server</see> that is the main channel.
     /// </summary>
     /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="Server" />
@@ -113,7 +113,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public Guid? DefaultChannelId { get; }
 
     /// <summary>
-    /// Gets <see cref="Users.User">the user</see> that created <see cref="Server">the server</see>.
+    /// Gets <see cref="Users.User">the user</see> that created the <see cref="Server">server</see>.
     /// </summary>
     /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
     /// <seealso cref="Server" />
@@ -123,7 +123,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public HashId OwnerId { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="Server">the server</see> was created.
+    /// Gets the date when the <see cref="Server">server</see> was created.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="Server" />
@@ -135,18 +135,18 @@ public class Server : ContentModel, IModelHasId<HashId>
     /// <summary>
     /// Initializes a new instance of <see cref="Server" /> from specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of <see cref="Server">the server</see></param>
-    /// <param name="ownerId"><see cref="Users.User">The user</see> that created <see cref="Server">the server</see></param>
-    /// <param name="name">The displayed name of <see cref="Server">the server</see></param>
-    /// <param name="createdAt">The date when <see cref="Server">the server</see> was created</param>
-    /// <param name="type">The selected <see cref="ServerType">type</see> of <see cref="Server">the server</see></param>
-    /// <param name="url">The part of URL to the <see cref="Server">the server</see></param>
-    /// <param name="about">The description of <see cref="Server">the server</see></param>
-    /// <param name="avatar"><see cref="Uri">The URL</see> to the icon image of <see cref="Server">the server</see></param>
-    /// <param name="banner"><see cref="Uri">The URL</see> to the banner image of <see cref="Server">the server</see></param>
-    /// <param name="timezone">The set timezone of <see cref="Server">the server</see></param>
-    /// <param name="isVerified">Whether <see cref="Server">the server</see> is verified by the Guilded staff team</param>
-    /// <param name="defaultChannelId"><see cref="ServerChannel">The channel</see> of <see cref="Server">the server</see> that is the main channel</param>
+    /// <param name="id">The identifier of the <see cref="Server">server</see></param>
+    /// <param name="ownerId"><see cref="Users.User">The user</see> that created the <see cref="Server">server</see></param>
+    /// <param name="name">The displayed name of the <see cref="Server">server</see></param>
+    /// <param name="createdAt">The date when the <see cref="Server">server</see> was created</param>
+    /// <param name="type">The selected <see cref="ServerType">type</see> of the <see cref="Server">server</see></param>
+    /// <param name="url">The part of URL to the the <see cref="Server">server</see></param>
+    /// <param name="about">The description of the <see cref="Server">server</see></param>
+    /// <param name="avatar"><see cref="Uri">The URL</see> to the icon image of the <see cref="Server">server</see></param>
+    /// <param name="banner"><see cref="Uri">The URL</see> to the banner image of the <see cref="Server">server</see></param>
+    /// <param name="timezone">The set timezone of the <see cref="Server">server</see></param>
+    /// <param name="isVerified">Whether the <see cref="Server">server</see> is verified by the Guilded staff team</param>
+    /// <param name="defaultChannelId"><see cref="ServerChannel">The channel</see> of the <see cref="Server">server</see> that is the main channel</param>
     /// <returns><see cref="Server" /> from JSON</returns>
     [JsonConstructor]
     public Server(

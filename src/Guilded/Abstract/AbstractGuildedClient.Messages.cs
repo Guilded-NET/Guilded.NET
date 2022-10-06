@@ -132,7 +132,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<MemberRemovedEvent> MemberRemoved => ((IEventInfo<MemberRemovedEvent>)GuildedEvents["TeamMemberRemoved"]).Observable;
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Member">member</see> gets banned from <see cref="Server">the server</see>.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Member">member</see> gets banned from the <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>TeamMemberBanned</c> and opcode <c>0</c>.</para>
@@ -145,7 +145,11 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberUnbanned" />
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
-    public IObservable<MemberBanEvent> MemberBanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberBanned"]).Observable;
+    public IObservable<MemberBanEvent> MemberBanAdded => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberBanned"]).Observable;
+
+    /// <inheritdoc cref="MemberBanAdded" />
+    [Obsolete("Use `MemberBanAdded` instead")]
+    public IObservable<MemberBanEvent> MemberBanned => MemberBanAdded;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="User">user</see> gets unbanned in a <see cref="Server">server</see>.
@@ -161,7 +165,11 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
-    public IObservable<MemberBanEvent> MemberUnbanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberUnbanned"]).Observable;
+    public IObservable<MemberBanEvent> MemberBanRemoved => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberUnbanned"]).Observable;
+
+    /// <inheritdoc cref="MemberBanRemoved" />
+    [Obsolete("Use `MemberBanRemoved` instead")]
+    public IObservable<MemberBanEvent> MemberUnbanned => MemberBanAdded;
     #endregion
 
     #region Properties Channels
@@ -309,6 +317,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicUpdated" />
     /// <seealso cref="TopicDeleted" />
+    /// <seealso cref="TopicPinAdded" />
+    /// <seealso cref="TopicPinRemoved" />
     public IObservable<TopicEvent> TopicCreated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicCreated"]).Observable;
 
     /// <summary>
@@ -319,6 +329,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCreated" />
     /// <seealso cref="TopicDeleted" />
+    /// <seealso cref="TopicPinAdded" />
+    /// <seealso cref="TopicPinRemoved" />
     public IObservable<TopicEvent> TopicUpdated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUpdated"]).Observable;
 
     /// <summary>
@@ -329,7 +341,33 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCreated" />
     /// <seealso cref="TopicUpdated" />
+    /// <seealso cref="TopicPinAdded" />
+    /// <seealso cref="TopicPinRemoved" />
     public IObservable<TopicEvent> TopicDeleted => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Topic">forum topic</see> is pinned.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicPinned</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicCreated" />
+    /// <seealso cref="TopicUpdated" />
+    /// <seealso cref="TopicDeleted" />
+    /// <seealso cref="TopicPinRemoved" />
+    public IObservable<TopicEvent> TopicPinAdded => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicPinned"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Topic">forum topic</see> is unpinned.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicUnpinned</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicCreated" />
+    /// <seealso cref="TopicUpdated" />
+    /// <seealso cref="TopicDeleted" />
+    /// <seealso cref="TopicPinAdded" />
+    public IObservable<TopicEvent> TopicPinRemoved => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUnpinned"]).Observable;
     #endregion
 
     #region Properties List channels
@@ -503,8 +541,6 @@ public abstract partial class AbstractGuildedClient
 
     #endregion
 
-    #region Methods
-
     #region Methods Handling
     /// <summary>
     /// When the socket message event is invoked.
@@ -527,7 +563,5 @@ public abstract partial class AbstractGuildedClient
             ev.OnNext(data);
         }
     }
-    #endregion
-
     #endregion
 }

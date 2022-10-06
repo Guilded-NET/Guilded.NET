@@ -33,33 +33,33 @@ public enum RecruitmentPermissions
     /// <summary>
     /// Allows you to approve server and game applications
     /// </summary>
-    ApproveApplications = 1,
+    AddApproval = 1,
 
     /// <summary>
     /// Allows you to view server and game applications
     /// </summary>
-    ViewApplications = 2,
+    GetApplication = 2,
 
     /// <summary>
     /// Allows you to edit server and game applications, and toggle accepting applications
     /// </summary>
-    EditApplications = 4,
+    ManageApplication = 4,
 
     /// <summary>
     /// Allows you to indicate interest in a player instead of upvote
     /// </summary>
-    IndicateInterest = 16,
+    AddInterest = 16,
 
     /// <summary>
     /// Allows you to modify the Find Player status for server listing card
     /// </summary>
-    ModifyStatus = 32,
+    ManageStatus = 32,
 
     #region Methods
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = ApproveApplications | ViewApplications | EditApplications | IndicateInterest | ModifyStatus,
+    All = AddApproval | GetApplication | ManageApplication | AddInterest | ManageStatus,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -68,16 +68,16 @@ public enum RecruitmentPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ApproveApplications" /></description>
+    ///         <description><see cref="AddApproval" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="EditApplications" /></description>
+    ///         <description><see cref="ManageApplication" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="ModifyStatus" /></description>
+    ///         <description><see cref="ManageStatus" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ApproveApplications | EditApplications | ModifyStatus
+    Manage = AddApproval | ManageApplication | ManageStatus
     #endregion
 }

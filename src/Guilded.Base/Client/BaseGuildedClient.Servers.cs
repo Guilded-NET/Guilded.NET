@@ -33,7 +33,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageGroups" />
+    /// <permission cref="GeneralPermissions.ManageGroup" />
     public abstract Task AddMembershipAsync(HashId group, HashId member);
 
     /// <summary>
@@ -48,7 +48,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageGroups" />
+    /// <permission cref="GeneralPermissions.ManageGroup" />
     public abstract Task RemoveMembershipAsync(HashId group, HashId member);
     #endregion
 
@@ -102,10 +102,15 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CustomPermissions.ManageNicknames">Required when deleting nicknames of <see cref="Member">other members</see></permission>
-    /// <permission cref="CustomPermissions.ChangeNickname">Required when deleting <see cref="BaseGuildedClient">the client's</see> own nickname</permission>
+    /// <permission cref="CustomPermissions.ManageMemberNickname">Required when deleting nicknames of <see cref="Member">other members</see></permission>
+    /// <permission cref="CustomPermissions.ManageSelfNickname">Required when deleting <see cref="BaseGuildedClient">the client's</see> own nickname</permission>
     /// <returns>Updated <see cref="Member.Nickname">nickname</see></returns>
-    public abstract Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname);
+    public abstract Task<string> SetNicknameAsync(HashId server, HashId member, string nickname);
+
+    /// <inheritdoc cref="SetNicknameAsync(HashId, HashId, string)" />
+    [Obsolete("Use `SetNicknameAsync` instead")]
+    public Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname) =>
+        UpdateNicknameAsync(server, member, nickname);
 
     /// <summary>
     /// Removes the <see cref="Member.Nickname">nickname</see> of the specified <paramref name="member" />.
@@ -117,9 +122,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CustomPermissions.ManageNicknames">Required when changing nicknames of <see cref="Member">other members</see></permission>
-    /// <permission cref="CustomPermissions.ChangeNickname">Required when changing <see cref="BaseGuildedClient">the client's</see> own nickname</permission>
-    public abstract Task DeleteNicknameAsync(HashId server, HashId member);
+    /// <permission cref="CustomPermissions.ManageMemberNickname">Required when changing nicknames of <see cref="Member">other members</see></permission>
+    /// <permission cref="CustomPermissions.ManageSelfNickname">Required when changing <see cref="BaseGuildedClient">the client's</see> own nickname</permission>
+    public abstract Task RemoveNicknameAsync(HashId server, HashId member);
+
+    /// <inheritdoc cref="RemoveNicknameAsync(HashId, HashId)" />
+    [Obsolete("Use `SetNicknameAsync` instead")]
+    public Task DeleteNicknameAsync(HashId server, HashId member) =>
+        RemoveNicknameAsync(server, member);
 
     /// <summary>
     /// Adds a <paramref name="role" /> to the <see cref="User">user</see>.
@@ -134,7 +144,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageRoles" />
+    /// <permission cref="GeneralPermissions.ManageRole" />
     public abstract Task AddMemberRoleAsync(HashId server, HashId member, uint role);
 
     /// <summary>
@@ -150,18 +160,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageRoles" />
+    /// <permission cref="GeneralPermissions.ManageRole" />
     public abstract Task RemoveMemberRoleAsync(HashId server, HashId member, uint role);
-
-    /// <inheritdoc cref="AddMemberRoleAsync(HashId, HashId, uint)" />
-    [Obsolete("Use `AddMemberRoleAsync` instead")]
-    public Task AddRoleAsync(HashId server, HashId member, uint role) =>
-        AddMemberRoleAsync(server, member, role);
-
-    /// <inheritdoc cref="RemoveMemberRoleAsync(HashId, HashId, uint)" />
-    [Obsolete("Use `RemoveMemberRoleAsync` instead")]
-    public Task RemoveRoleAsync(HashId server, HashId member, uint role) =>
-        RemoveMemberRoleAsync(server, member, role);
 
     /// <summary>
     /// Gives the specified <paramref name="amount" /> of XP to the specified <paramref name="member" />.
@@ -174,7 +174,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
-    /// <permission cref="XpPermissions.ManageServerXp" />
+    /// <permission cref="XpPermissions.ManageXp" />
     /// <returns>The total amount of XP that the <see cref="Member">member</see> has</returns>
     public abstract Task<long> AddXpAsync(HashId server, HashId member, short amount);
 
@@ -189,7 +189,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
-    /// <permission cref="XpPermissions.ManageServerXp" />
+    /// <permission cref="XpPermissions.ManageXp" />
     /// <returns>The <paramref name="total" /> amount of XP that the <see cref="Member">member</see> has</returns>
     public abstract Task<long> SetXpAsync(HashId server, HashId member, long total);
 
@@ -203,7 +203,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="XpPermissions.ManageServerXp" />
+    /// <permission cref="XpPermissions.ManageXp" />
     public abstract Task AddXpAsync(HashId server, uint role, short amount);
     #endregion
 
@@ -218,7 +218,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.KickBanMembers" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
     public abstract Task RemoveMemberAsync(HashId server, HashId member);
 
     /// <summary>
@@ -230,9 +230,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.KickBanMembers" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>The list of fetched <see cref="MemberBan">member bans</see> in the specified <paramref name="server" /></returns>
-    public abstract Task<IList<MemberBan>> GetBansAsync(HashId server);
+    public abstract Task<IList<MemberBan>> GetMemberBansAsync(HashId server);
+
+    /// <inheritdoc cref="GetMemberBansAsync(HashId)" />
+    [Obsolete("Use `GetMemberBansAsync` instead")]
+    public Task<IList<MemberBan>> GetBansAsync(HashId server) =>
+        GetMemberBansAsync(server);
 
     /// <summary>
     /// Gets the information about the <see cref="MemberBan">ban</see> of the <paramref name="member" />.
@@ -244,9 +249,14 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.KickBanMembers" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>The <see cref="MemberBan">ban</see> of the <see cref="Member">member</see> that was specified in the arguments</returns>
-    public abstract Task<MemberBan> GetBanAsync(HashId server, HashId member);
+    public abstract Task<MemberBan> GetMemberBanAsync(HashId server, HashId member);
+
+    /// <inheritdoc cref="GetMemberBanAsync(HashId, HashId)" />
+    [Obsolete("Use `GetMemberBanAsync` instead")]
+    public Task<IList<MemberBan>> GetBanAsync(HashId server) =>
+        GetMemberBansAsync(server);
 
     /// <summary>
     /// Bans the specified <paramref name="member" />.
@@ -262,7 +272,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.KickBanMembers" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>Created <see cref="MemberBan">member's ban</see></returns>
     public abstract Task<MemberBan> AddMemberBanAsync(HashId server, HashId member, string? reason = null);
 
@@ -279,23 +289,8 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.KickBanMembers" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
     public abstract Task RemoveMemberBanAsync(HashId server, HashId member);
-
-    /// <inheritdoc cref="RemoveMemberAsync(HashId, HashId)" />
-    [Obsolete("Use `RemoveMemberAsync` (this is for consistency reason)")]
-    public Task KickMemberAsync(HashId server, HashId member) =>
-        RemoveMemberAsync(server, member);
-
-    /// <inheritdoc cref="AddMemberBanAsync(HashId, HashId, string)" />
-    [Obsolete("Use `AddMemberBanAsync` (this is for consistency reason)")]
-    public Task BanMemberAsync(HashId server, HashId member, string? reason = null) =>
-        AddMemberBanAsync(server, member, reason);
-
-    /// <inheritdoc cref="RemoveMemberBanAsync(HashId, HashId)" />
-    [Obsolete("Use `RemoveMemberBanAsync` (this is for consistency reason)")]
-    public Task UnbanMemberAsync(HashId server, HashId member) =>
-        RemoveMemberBanAsync(server, member);
     #endregion
 
     #region Methods Webhooks
@@ -340,7 +335,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
-    /// <permission cref="GeneralPermissions.ManageWebhooks" />
+    /// <permission cref="GeneralPermissions.ManageWebhook" />
     /// <returns>The <see cref="Webhook">webhook</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name);
 
@@ -359,7 +354,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageWebhooks" />
+    /// <permission cref="GeneralPermissions.ManageWebhook" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
     /// <returns>The <see cref="Webhook">webhook</see> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null);
@@ -374,7 +369,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageWebhooks" />
+    /// <permission cref="GeneralPermissions.ManageWebhook" />
     public abstract Task DeleteWebhookAsync(HashId server, Guid webhook);
     #endregion
 
@@ -407,7 +402,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
-    /// <permission cref="GeneralPermissions.ManageChannels" />
+    /// <permission cref="GeneralPermissions.ManageChannel" />
     /// <returns>The <see cref="ServerChannel">channel</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null);
 
@@ -423,7 +418,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageChannels" />
+    /// <permission cref="GeneralPermissions.ManageChannel" />
     /// <returns>The <see cref="ServerChannel">channel</see> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<ServerChannel> UpdateChannelAsync(Guid channel, string? name = null, string? topic = null, bool? isPublic = null);
 
@@ -436,7 +431,7 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="GeneralPermissions.ManageChannels" />
+    /// <permission cref="GeneralPermissions.ManageChannel" />
     public abstract Task DeleteChannelAsync(Guid channel);
     #endregion
 

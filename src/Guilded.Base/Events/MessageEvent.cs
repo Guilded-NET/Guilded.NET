@@ -29,7 +29,7 @@ public abstract class MessageEvent<T> : ContentModel
     public T Message { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the server</see> where the event occurred.
+    /// Gets the identifier of the <see cref="Server">server</see> where the event occurred.
     /// </summary>
     /// <value>Server ID?</value>
     /// <seealso cref="MessageEvent" />
@@ -42,7 +42,7 @@ public abstract class MessageEvent<T> : ContentModel
     /// <summary>
     /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message event occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
     /// <returns>New <see cref="MessageEvent{T}" /> JSON instance</returns>
     /// <seealso cref="MessageEvent{T}" />
@@ -110,7 +110,7 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
     /// <summary>
     /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the message event occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message event occurred</param>
     /// <param name="message">The message received from the event</param>
     /// <returns>New <see cref="MessageEvent" /> JSON instance</returns>
     /// <seealso cref="MessageEvent" />

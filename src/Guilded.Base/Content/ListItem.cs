@@ -95,7 +95,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the list item is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the list item is</param>
     /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item</param>
@@ -198,7 +198,7 @@ public class ListItem : ListItemBase<ListItemNote>
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the list item is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the list item is</param>
     /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
     /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
@@ -280,7 +280,7 @@ public class ListItemSummary : ListItemBase<ListItemNote>
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
-    /// <param name="serverId">The identifier of <see cref="Server">the server</see> where the list item is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the list item is</param>
     /// <param name="message">The text contents of the message in list item</param>
     /// <param name="note">The note of the list item</param>
     /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
