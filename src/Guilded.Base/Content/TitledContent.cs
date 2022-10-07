@@ -16,9 +16,7 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent, IServerBased
 {
-    #region Properties
-
-    #region Content
+    #region Properties Content
     /// <summary>
     /// Gets the title of <see cref="TitledContent">the titled content</see>.
     /// </summary>
@@ -31,6 +29,7 @@ public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableCo
     public string Title { get; }
     #endregion
 
+    #region Properties
     /// <summary>
     /// Gets the date when <see cref="TitledContent">the titled content</see> were updated.
     /// </summary>

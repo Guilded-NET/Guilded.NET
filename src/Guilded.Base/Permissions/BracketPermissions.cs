@@ -40,7 +40,7 @@ public enum BracketPermissions
     /// </summary>
     GetBracket = 2,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

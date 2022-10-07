@@ -6,9 +6,7 @@ namespace Guilded.Base.Client;
 
 public abstract partial class BaseGuildedClient
 {
-    #region Methods
-
-    #region Profile info
+    #region Methods Profile
     /// <summary>
     /// Gets the specified <paramref name="member">member's</paramref> social link based on given <paramref name="linkType">social link type</paramref>.
     /// </summary>
@@ -23,7 +21,5 @@ public abstract partial class BaseGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The <see cref="SocialLink">social link</see> of the specified <see cref="Servers.Member">member</see></returns>
     public abstract Task<SocialLink> GetSocialLinkAsync(HashId server, HashId member, SocialLinkType linkType);
-    #endregion
-
     #endregion
 }

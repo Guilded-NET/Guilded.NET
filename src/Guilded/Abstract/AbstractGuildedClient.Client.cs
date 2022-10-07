@@ -104,6 +104,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
             { "ForumTopicDeleted",             new EventInfo<TopicEvent>() },
             { "ForumTopicPinned",              new EventInfo<TopicEvent>() },
             { "ForumTopicUnpinned",            new EventInfo<TopicEvent>() },
+            { "ForumTopicLocked",              new EventInfo<TopicEvent>() },
+            { "ForumTopicUnlocked",            new EventInfo<TopicEvent>() },
 
             // List items
             { "ListItemCreated",               new EventInfo<ListItemEvent>() },

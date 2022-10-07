@@ -58,9 +58,7 @@ public class Message :
     public const short ReplyLimit = 5;
     #endregion
 
-    #region Properties
-
-    #region Content
+    #region Properties Content
     /// <summary>
     /// Gets the text contents of <see cref="Message">the message</see>.
     /// </summary>
@@ -147,6 +145,7 @@ public class Message :
     public bool IsReply => ReplyMessageIds?.Count > 0;
     #endregion
 
+    #region Properties
     /// <summary>
     /// Gets the identifier of <see cref="Webhook">the webhook</see> that created the message.
     /// </summary>
@@ -264,9 +263,7 @@ public class Message :
         (Content, ReplyMessageIds, Embeds, IsPrivate, IsSilent, Mentions, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, embeds, isPrivate, isSilent, mentions, createdByWebhookId, updatedAt, type);
     #endregion
 
-    #region Methods
-
-    #region Method CreateMessageAsync
+    #region Methods CreateMessageAsync
     /// <summary>
     /// Creates a message in the parent channel (from <see cref="ChannelContent{T, S}.ChannelId" />).
     /// </summary>
@@ -336,7 +333,7 @@ public class Message :
         ParentClient.CreateMessageAsync(ChannelId, embeds);
     #endregion
 
-    #region Method ReplyAsync
+    #region Methods ReplyAsync
     /// <summary>
     /// Replies to the message in the parent channel (from <see cref="ChannelContent{T, T}.ChannelId" />).
     /// </summary>
@@ -384,7 +381,7 @@ public class Message :
         CreateMessageAsync(null, embeds, replyTo: new Guid[] { Id });
     #endregion
 
-    #region Method UpdateAsync
+    #region Methods UpdateAsync
     /// <inheritdoc cref="BaseGuildedClient.UpdateMessageAsync(Guid, Guid, MessageContent)" />
     /// <param name="content">The <see cref="MessageContent">new contents</see> of <see cref="Message">the message</see></param>
     public Task<Message> UpdateAsync(MessageContent content) =>
@@ -408,6 +405,7 @@ public class Message :
         ParentClient.UpdateMessageAsync(ChannelId, Id, embeds);
     #endregion
 
+    #region Methods
     /// <inheritdoc cref="BaseGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     public Task DeleteAsync() =>
         ParentClient.DeleteMessageAsync(ChannelId, Id);

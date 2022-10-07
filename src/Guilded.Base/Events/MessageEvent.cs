@@ -124,8 +124,6 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
     ) : base(serverId, message) { }
     #endregion
 
-    #region Methods
-
     #region Method CreateMessageAsync
     /// <inheritdoc cref="Message.CreateMessageAsync(MessageContent)" />
     public Task<Message> CreateMessageAsync(MessageContent message) =>
@@ -170,6 +168,7 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
         Message.ReplyAsync(embeds);
     #endregion
 
+    #region Methods
     /// <inheritdoc cref="Message.UpdateAsync(string, IList{Embed})" />
     public Task<Message> UpdateAsync(string? content = null, IList<Embed>? embeds = null) =>
         Message.UpdateAsync(content, embeds);

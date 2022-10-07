@@ -81,7 +81,7 @@ public enum GeneralPermissions
     /// </summary>
     GetPrivateMessage = 32768,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

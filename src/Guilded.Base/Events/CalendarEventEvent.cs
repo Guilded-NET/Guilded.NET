@@ -34,7 +34,7 @@ public class CalendarEventEvent
     public HashId ServerId { get; }
     #endregion
 
-    #region Properties
+    #region Properties Additional
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => CalendarEvent.ChannelId;
 

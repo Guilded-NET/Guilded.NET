@@ -38,7 +38,9 @@ public class RolesUpdatedEvent
     /// <seealso cref="MemberRoleIds" />
     /// <seealso cref="UpdatedUsers" />
     public HashId ServerId { get; }
+    #endregion
 
+    #region Properties Additional
     /// <summary>
     /// Gets the array of updated users that either lost or received roles.
     /// </summary>

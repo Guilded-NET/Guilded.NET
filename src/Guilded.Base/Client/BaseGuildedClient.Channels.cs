@@ -414,6 +414,11 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ForumPermissions.ManageTopic" />
     public abstract Task PinTopicAsync(Guid channel, uint topic);
 
+    /// <inheritdoc cref="PinTopicAsync(Guid, uint)" />
+    [Obsolete($"Use `{nameof(PinTopicAsync)}` instead")]
+    public Task AddTopicPinAsync(Guid channel, uint topic) =>
+        PinTopicAsync(channel, topic);
+
     /// <summary>
     /// Unpins a <see cref="Topic">forum topic</see>.
     /// </summary>
@@ -426,6 +431,11 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <permission cref="ForumPermissions.ManageTopic" />
     public abstract Task UnpinTopicAsync(Guid channel, uint topic);
+
+    /// <inheritdoc cref="UnpinTopicAsync(Guid, uint)" />
+    [Obsolete($"Use `{nameof(UnpinTopicAsync)}` instead")]
+    public Task RemoveTopicPinAsync(Guid channel, uint topic) =>
+        UnpinTopicAsync(channel, topic);
 
     /// <summary>
     /// Locks a <see cref="Topic">forum topic</see>.
@@ -467,12 +477,6 @@ public abstract partial class BaseGuildedClient
     /// <returns>The list of fetched <see cref="ListItem">list items</see> in the specified <paramref name="channel" /></returns>
     public abstract Task<IList<ListItemSummary>> GetItemsAsync(Guid channel);
 
-    /// <inheritdoc cref="GetItemsAsync(Guid)" />
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get list items from</param>
-    [Obsolete($"Use `{nameof(GetItemsAsync)}` instead")]
-    public Task<IList<ListItemSummary>> GetListItemsAsync(Guid channel) =>
-        GetItemsAsync(channel);
-
     /// <summary>
     /// Gets the specified <paramref name="listItem">list item</paramref> from a <paramref name="channel">list channel</paramref>.
     /// </summary>
@@ -485,13 +489,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.GetItem" />
     /// <returns>The <see cref="ListItem">list item</see> that was specified in the arguments</returns>
     public abstract Task<ListItem> GetItemAsync(Guid channel, Guid listItem);
-
-    /// <inheritdoc cref="GetItemAsync(Guid, Guid)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to get</param>
-    [Obsolete($"Use `{nameof(GetItemAsync)}` instead")]
-    public Task<ListItem> GetListItemAsync(Guid channel, Guid listItem) =>
-        GetItemAsync(channel, listItem);
 
     /// <summary>
     /// Creates a new <see cref="ListItem">list item</see>.
@@ -508,14 +505,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting <see cref="ListItem">a list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="ListItem">list item</see> that was created by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<ListItem> CreateItemAsync(Guid channel, string message, string? note = null);
-
-    /// <inheritdoc cref="CreateItemAsync(Guid, string, string)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The text content of the <see cref="ListItem">list item</see></param>
-    /// <param name="note">The text content of an <see cref="ListItemNote">optional note</see> in the <see cref="ListItem">list item</see></param>
-    [Obsolete($"Use `{nameof(CreateItemAsync)}` instead")]
-    public Task<ListItem> CreateListItemAsync(Guid channel, string message, string? note = null) =>
-        CreateItemAsync(channel, message, note);
 
     /// <summary>
     /// Edits the <paramref name="message">text contents</paramref> of the specified <paramref name="listItem">list item</paramref>.
@@ -534,15 +523,6 @@ public abstract partial class BaseGuildedClient
     /// <returns>The <paramref name="listItem">list item</paramref> that was updated by the <see cref="BaseGuildedClient">client</see></returns>
     public abstract Task<ListItem> UpdateItemAsync(Guid channel, Guid listItem, string message, string? note = null);
 
-    /// <inheritdoc cref="UpdateItemAsync(Guid, Guid, string, string)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to edit</param>
-    /// <param name="message">The new text content of the <see cref="ListItem">list item</see></param>
-    /// <param name="note">The new text content of the note in the <see cref="ListItem">list item</see></param>
-    [Obsolete($"Use `{nameof(UpdateItemAsync)}` instead")]
-    public Task<ListItem> UpdateListItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
-        UpdateItemAsync(channel, listItem, message, note);
-
     /// <summary>
     /// Deletes the specified <paramref name="listItem">list item</paramref>.
     /// </summary>
@@ -555,13 +535,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.GetItem" />
     /// <permission cref="ListPermissions.RemoveItem">Required when deleting <see cref="ListItem">list items</see> you don't own</permission>
     public abstract Task DeleteItemAsync(Guid channel, Guid listItem);
-
-    /// <inheritdoc cref="DeleteItemAsync(Guid, Guid)" />
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to delete</param>
-    [Obsolete($"Use `{nameof(DeleteItemAsync)}` instead")]
-    public Task DeleteListItemAsync(Guid channel, Guid listItem) =>
-        DeleteItemAsync(channel, listItem);
 
     /// <summary>
     /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">completed</see>.
@@ -576,13 +549,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.CompleteItem" />
     public abstract Task CompleteItemAsync(Guid channel, Guid listItem);
 
-    /// <inheritdoc cref="CompleteItemAsync(Guid, Guid)" />
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
-    [Obsolete($"Use `{nameof(CompleteItemAsync)}` instead")]
-    public Task CompleteListItemAsync(Guid channel, Guid listItem) =>
-        DeleteItemAsync(channel, listItem);
-
     /// <summary>
     /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">not completed</see>.
     /// </summary>
@@ -595,13 +561,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="ListPermissions.GetItem" />
     /// <permission cref="ListPermissions.CompleteItem" />
     public abstract Task UncompleteItemAsync(Guid channel, Guid listItem);
-
-    /// <inheritdoc cref="UncompleteItemAsync(Guid, Guid)" />
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
-    [Obsolete($"Use `{nameof(UncompleteItemAsync)}` instead")]
-    public Task UncompleteListItemAsync(Guid channel, Guid listItem) =>
-        DeleteItemAsync(channel, listItem);
     #endregion
 
     #region Methods Docs channel
@@ -681,8 +640,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="DocPermissions.RemoveDoc">Required when deleting <see cref="Doc">documents</see> that the <see cref="BaseGuildedClient">client</see> doesn't own</permission>
     public abstract Task DeleteDocAsync(Guid channel, uint doc);
     #endregion
-
-    #region Methods Calendar channel
 
     #region Methods Calendar channel > Event
     /// <summary>
@@ -837,8 +794,6 @@ public abstract partial class BaseGuildedClient
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <permission cref="CalendarPermissions.ManageRsvp">Required when removing <see cref="CalendarRsvp">calendar event RSVPs</see> that aren't for the <see cref="BaseGuildedClient">client</see></permission>
     public abstract Task RemoveRsvpAsync(Guid channel, uint calendarEvent, HashId user);
-    #endregion
-
     #endregion
 
     #region Methods Any Content

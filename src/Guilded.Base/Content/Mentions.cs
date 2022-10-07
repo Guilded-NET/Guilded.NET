@@ -13,8 +13,6 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Embeds.Embed" />
 public class Mentions
 {
-    #region Properties
-
     #region Properties JSON
     /// <summary>
     /// Gets whether <c>@everyone</c> has been <see cref="Mentions">mentioned</see>.
@@ -47,6 +45,7 @@ public class Mentions
     public IList<ChannelMention>? Channels { get; }
     #endregion
 
+    #region Properties
     /// <summary>
     /// Gets the identifiers of <see cref="User">the users</see> that have been <see cref="Mentions">mentioned</see>.
     /// </summary>

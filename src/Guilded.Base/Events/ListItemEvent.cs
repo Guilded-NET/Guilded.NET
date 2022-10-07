@@ -25,15 +25,11 @@ public class ListItemEvent
     /// <seealso cref="ServerId" />
     public ListItem Item { get; }
 
-    /// <inheritdoc cref="Item" />
-    [Obsolete($"Use `{nameof(Item)}` instead")]
-    public ListItem ListItem => Item;
-
     /// <inheritdoc />
     public HashId ServerId { get; }
     #endregion
 
-    #region Properties
+    #region Properties Additional
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Item.ChannelId;
 

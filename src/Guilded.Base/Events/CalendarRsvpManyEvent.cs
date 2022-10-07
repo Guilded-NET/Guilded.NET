@@ -33,7 +33,7 @@ public class CalendarRsvpManyEvent
     public HashId ServerId { get; }
     #endregion
 
-    #region Properties
+    #region Properties Additional
     /// <summary>
     /// Gets the first <see cref="CalendarRsvp">RSVP</see> in a <see cref="CalendarEvent">calendar event</see>.
     /// </summary>

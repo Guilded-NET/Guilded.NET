@@ -36,7 +36,7 @@ public class WebhookEvent
     public HashId ServerId { get; }
     #endregion
 
-    #region Properties
+    #region Properties Additional
     /// <inheritdoc cref="Webhook.Name" />
     public string Name => Webhook.Name;
 

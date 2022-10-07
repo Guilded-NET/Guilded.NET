@@ -45,7 +45,7 @@ public enum CustomPermissions
     /// </summary>
     ManageMemberNickname = 32,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

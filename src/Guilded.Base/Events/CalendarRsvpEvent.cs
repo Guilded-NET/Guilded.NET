@@ -32,7 +32,7 @@ public class CalendarRsvpEvent
     public HashId ServerId { get; }
     #endregion
 
-    #region Properties
+    #region Properties Additional
     /// <inheritdoc cref="CalendarRsvp.ChannelId" />
     public Guid ChannelId => CalendarRsvp.ChannelId;
 

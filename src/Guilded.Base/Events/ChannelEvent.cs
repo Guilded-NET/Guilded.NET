@@ -24,7 +24,9 @@ public class ChannelEvent
     /// <seealso cref="Type" />
     /// <seealso cref="ServerId" />
     public ServerChannel Channel { get; }
+    #endregion
 
+    #region Properties Additional
     /// <inheritdoc />
     public HashId ServerId { get; }
 

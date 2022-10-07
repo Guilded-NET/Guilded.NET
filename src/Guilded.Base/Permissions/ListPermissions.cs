@@ -60,7 +60,7 @@ public enum ListPermissions
     /// </summary>
     MoveItem,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

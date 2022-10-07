@@ -11,8 +11,6 @@ namespace Guilded.Abstract;
 
 public abstract partial class AbstractGuildedClient
 {
-    #region Methods
-
     #region Methods Webhook
     /// <inheritdoc />
     public override Task CreateHookMessageAsync(Uri webhookUrl, MessageContent message) =>
@@ -238,8 +236,6 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}", Method.Delete));
     #endregion
 
-    #region Methods Calendar channels
-
     #region Methods Calendar channels > Events
     /// <inheritdoc />
     public override Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
@@ -316,8 +312,6 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Delete));
     #endregion
 
-    #endregion
-
     #region Methods Content
     /// <inheritdoc />
     public override Task AddReactionAsync(Guid channel, uint content, uint emote) =>
@@ -326,7 +320,5 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc />
     public override Task RemoveReactionAsync(Guid channelId, uint contentId, uint emoteId) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channelId}/content/{contentId}/emotes/{emoteId}", Method.Delete));
-    #endregion
-
     #endregion
 }

@@ -21,8 +21,6 @@ namespace Guilded.Base.Content;
 /// <seealso cref="Message" />
 public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IServerBased
 {
-    #region Properties
-
     #region Properties Content
     /// <summary>
     /// Gets the title of <see cref="CalendarEvent">the titled content</see>.
@@ -118,6 +116,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public DateTime? EndsAt => Duration is null ? null : (StartsAt + Duration);
     #endregion
 
+    #region Properties
     /// <summary>
     /// Gets whether <see cref="CalendarEvent">the calendar event</see> was set as private.
     /// </summary>
@@ -224,8 +223,6 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         (Name, Description, Mentions, Location, Url, Color, StartsAt, Duration, IsPrivate, Cancellation) = (name, description, mentions, location, url, color, startsAt, duration is not null ? TimeSpan.FromMinutes((double)duration) : null, isPrivate, cancellation);
     #endregion
 
-    #region Methods
-
     #region Methods Event
     /// <inheritdoc cref="BaseGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, uint?, bool?)" />
     public async Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, uint? duration = null, bool? isPrivate = null) =>
@@ -270,8 +267,6 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="user">The identifier of <see cref="User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
     public async Task RemoveRsvpAsync(HashId user) =>
         await ParentClient.RemoveRsvpAsync(ChannelId, Id, user).ConfigureAwait(false);
-    #endregion
-
     #endregion
 }
 

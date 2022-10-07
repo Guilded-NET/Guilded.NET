@@ -34,7 +34,9 @@ public class MemberUpdatedEvent
     /// <seealso cref="UserId" />
     /// <seealso cref="UserInfo" />
     public HashId ServerId { get; }
+    #endregion
 
+    #region Properties Additional
     /// <summary>
     /// Gets the identifier of the <see cref="UserInfo">member</see>.
     /// </summary>

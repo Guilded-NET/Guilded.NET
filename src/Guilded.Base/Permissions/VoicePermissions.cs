@@ -85,7 +85,7 @@ public enum VoicePermissions
     /// </summary>
     CreateMessage = 4096,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

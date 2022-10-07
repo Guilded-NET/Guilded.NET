@@ -12,8 +12,6 @@ namespace Guilded.Abstract;
 
 public abstract partial class AbstractGuildedClient
 {
-    #region Methods
-
     #region Methods Servers specifically
     /// <inheritdoc />
     public override Task<Server> GetServerAsync(HashId server) =>
@@ -228,7 +226,5 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc />
     public override Task DeleteChannelAsync(Guid channel) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}", Method.Delete));
-    #endregion
-
     #endregion
 }

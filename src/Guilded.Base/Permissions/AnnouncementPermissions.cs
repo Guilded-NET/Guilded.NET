@@ -45,7 +45,7 @@ public enum AnnouncementPermissions
     /// </summary>
     ManageAnnouncements = 4,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

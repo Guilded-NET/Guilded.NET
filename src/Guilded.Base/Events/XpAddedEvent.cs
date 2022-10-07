@@ -37,7 +37,9 @@ public class XpAddedEvent
     /// <seealso cref="FirstUser" />
     /// <seealso cref="LastUser" />
     public long Amount { get; }
+    #endregion
 
+    #region Properties Additional
     /// <summary>
     /// Gets the first XP receiving <see cref="Users">user</see>.
     /// </summary>

@@ -35,7 +35,7 @@ public class MemberBanEvent
     public HashId ServerId { get; }
     #endregion
 
-    #region Properties
+    #region Properties Additional
     /// <inheritdoc cref="MemberBan.User" />
     public UserSummary User => MemberBan.User;
 

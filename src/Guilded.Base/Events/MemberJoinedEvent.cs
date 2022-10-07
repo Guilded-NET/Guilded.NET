@@ -32,7 +32,9 @@ public class MemberJoinedEvent
     /// <seealso cref="MemberJoinedEvent" />
     /// <seealso cref="Member" />
     public HashId ServerId { get; }
+    #endregion
 
+    #region Properties Additional
     /// <inheritdoc cref="MemberSummary{User}.Id" />
     public HashId UserId => Member.Id;
 

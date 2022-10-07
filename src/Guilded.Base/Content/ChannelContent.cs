@@ -45,8 +45,9 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <seealso cref="Id" />
     /// <seealso cref="ChannelId" />
     public TServer ServerId { get; }
+    #endregion
 
-    #region Who, when
+    #region Properties Who, when
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created <see cref="ChannelContent{TId, TServer}">the content</see>.
     /// </summary>
@@ -67,8 +68,6 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     public DateTime CreatedAt { get; }
-    #endregion
-
     #endregion
 
     #region Constructors

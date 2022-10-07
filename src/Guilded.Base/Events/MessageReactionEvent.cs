@@ -32,7 +32,9 @@ public class MessageReactionEvent
     /// <seealso cref="MessageReactionEvent" />
     /// <seealso cref="Reaction" />
     public HashId? ServerId { get; set; }
+    #endregion
 
+    #region Properties Additional
     /// <inheritdoc cref="EventReaction.Emote" />
     public Emote Emote => Reaction.Emote;
 

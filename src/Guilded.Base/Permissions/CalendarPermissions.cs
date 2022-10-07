@@ -55,7 +55,7 @@ public enum CalendarPermissions
     /// </summary>
     ManageRsvp = 16,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>

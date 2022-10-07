@@ -55,7 +55,7 @@ public enum RecruitmentPermissions
     /// </summary>
     ManageStatus = 32,
 
-    #region Methods
+    #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
