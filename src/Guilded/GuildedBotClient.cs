@@ -1,7 +1,8 @@
 using System;
 using System.Threading.Tasks;
-using Guilded.Abstract;
-using Guilded.Base.Client;
+using Guilded.Base;
+using Guilded.Client;
+using Guilded.Connection;
 using RestSharp;
 
 namespace Guilded;
@@ -38,9 +39,10 @@ namespace Guilded;
 /// </code>
 /// </example>
 /// <seealso cref="AbstractGuildedClient" />
-/// <seealso cref="BaseGuildedClient" />
+/// <seealso cref="BaseGuildedConnection" />
+/// <seealso cref="BaseGuildedService" />
 /// <seealso cref="AbstractGuildedClient.Prepared" />
-/// <seealso cref="BaseGuildedClient.Connected" />
+/// <seealso cref="BaseGuildedConnection.Connected" />
 /// <seealso cref="ConnectAsync()" />
 /// <seealso cref="ConnectAsync(string)" />
 /// <seealso cref="AbstractGuildedClient.MessageCreated" />
@@ -107,13 +109,13 @@ public class GuildedBotClient : AbstractGuildedClient
     /// </summary>
     /// <remarks>
     /// <para>Creates a new connection to Guilded using argument <paramref name="auth" />. This does not use <see cref="AuthToken" />.</para>
-    /// <para>To disconnect from Guilded, use <see cref="BaseGuildedClient.DisconnectAsync" /></para>
+    /// <para>To disconnect from Guilded, use <see cref="BaseGuildedConnection.DisconnectAsync" /></para>
     /// </remarks>
     /// <param name="auth">The token to be used for authorization</param>
     /// <exception cref="ArgumentNullException">When passed argument <paramref name="auth" /> is <see langword="null" />, empty or whitespace</exception>
     /// <seealso cref="ConnectAsync()" />
     /// <seealso cref="GuildedBotClient()" />
-    public async Task ConnectAsync(string auth)
+    public Task ConnectAsync(string auth)
     {
         if (string.IsNullOrWhiteSpace(auth))
             throw new ArgumentNullException(nameof(auth));
@@ -122,7 +124,7 @@ public class GuildedBotClient : AbstractGuildedClient
         // Add all headers to the clients
         Rest.AddDefaultHeaders(AdditionalHeaders);
 
-        await base.ConnectAsync().ConfigureAwait(false);
+        return base.ConnectAsync();
     }
 
     /// <summary>

@@ -1,16 +1,14 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Guilded.Abstract;
-using Guilded.Base.Client;
-using Guilded.Base.Events;
+using Guilded.Client;
+using Guilded.Events;
 
 namespace Guilded.Commands;
 
 /// <summary>
-/// Represents the module that adds <see cref="CommandAttribute">commands</see> to <see cref="BaseGuildedClient">Guilded clients</see>.
+/// Represents the module that adds <see cref="CommandAttribute">commands</see> to <see cref="AbstractGuildedClient">Guilded clients</see>.
 /// </summary>
 /// <seealso cref="CommandParent" />
 /// <seealso cref="CommandAttribute" />

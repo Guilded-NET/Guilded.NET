@@ -3,9 +3,9 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
 using Guilded.Base;
-using Guilded.Base.Content;
-using Guilded.Base.Servers;
-using Guilded.Base.Users;
+using Guilded.Content;
+using Guilded.Servers;
+using Guilded.Users;
 
 namespace Guilded.Markdown;
 

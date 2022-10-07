@@ -24,12 +24,14 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Base" Version="1.0.2" />
+    <PackageReference Include="Guilded" Version="1.0.2" />
   </ItemGroup>
 
   <!-- For testing purposes -->
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">
     <ProjectReference Include="../Guilded.Base/Guilded.Base.csproj" />
+    <ProjectReference Include="../Guilded.Connection/Guilded.Connection.csproj" />
+    <ProjectReference Include="../Guilded/Guilded.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition=" '$(Configuration)' != 'Release' ">

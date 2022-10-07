@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Guilded.Base;
-using Guilded.Base.Content;
-using Guilded.Base.Events;
+using Guilded.Content;
+using Guilded.Events;
 
 namespace Guilded.Commands;
 

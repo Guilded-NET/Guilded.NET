@@ -23,7 +23,6 @@ namespace Guilded.Base;
 /// <seealso cref="GuildedResourceException" />
 /// <seealso cref="GuildedPermissionException" />
 /// <seealso cref="GuildedRequestException" />
-/// <seealso cref="GuildedWebsocketException" />
 [Serializable]
 public sealed class GuildedResourceException : GuildedException
 {

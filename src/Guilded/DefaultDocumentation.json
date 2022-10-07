@@ -1,15 +1,12 @@
 {
-    "AssemblyFilePath": "./bin/Release/net6.0/Guilded.dll",
-    "OutputDirectoryPath": "../Documentation/Guilded",
+    "AssemblyFilePath": "./bin/Debug/net6.0/Guilded.Base.dll",
+    "OutputDirectoryPath": "../Documentation/Guilded.Base",
     "GeneratedAccessModifiers": "Public,ProtectedInternal,Protected",
     "GeneratedPages": "Assembly,Types,Members,Namespaces",
 
     "FileNameFactory": "Name",
     "Markdown.RemoveFileExtensionFromUrl": true,
-    "LinksOutputFilePath": "../Documentation/Guilded.link",
-    "ExternLinksFilePaths": [
-        "../Documentation/Guilded.Base.link"
-    ],
+    "LinksOutputFilePath": "../Documentation/Guilded.Base.link",
 
     "AssemblyPageName": "index",
     "AssemblyDocItem": {

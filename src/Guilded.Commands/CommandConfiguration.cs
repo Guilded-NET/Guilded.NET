@@ -1,10 +1,10 @@
 using System;
-using Guilded.Base.Client;
+using Guilded.Client;
 
 namespace Guilded.Commands;
 
 /// <summary>
-/// Represents the module that adds <see cref="CommandAttribute">commands</see> to <see cref="BaseGuildedClient">Guilded clients</see>.
+/// Represents the module that adds <see cref="CommandAttribute">commands</see> to <see cref="AbstractGuildedClient">Guilded clients</see>.
 /// </summary>
 /// <seealso cref="CommandParent" />
 /// <seealso cref="CommandAttribute" />

@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using RestSharp;
 
 namespace Guilded.Base;
+
 /// <summary>
 /// Represents an exception thrown by Guilded API.
 /// </summary>
@@ -15,7 +16,6 @@ namespace Guilded.Base;
 /// <seealso cref="GuildedRequestException" />
 /// <seealso cref="GuildedResourceException" />
 /// <seealso cref="GuildedRequestException" />
-/// <seealso cref="GuildedWebsocketException" />
 [Serializable]
 public class GuildedException : Exception
 {

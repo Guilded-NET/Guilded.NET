@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Guilded.Base.Events;
+using Guilded.Events;
 
 namespace Guilded.Commands;
 

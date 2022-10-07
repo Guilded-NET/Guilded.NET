@@ -1,12 +1,11 @@
 using System;
-using Guilded.Base.Client;
 
 namespace Guilded.Base;
 
 /// <summary>
 /// Defines a list of URLs to Guilded services.
 /// </summary>
-/// <seealso cref="BaseGuildedClient" />
+/// <seealso cref="BaseGuildedService" />
 public static class GuildedUrl
 {
     #region Fields

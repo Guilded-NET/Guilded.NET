@@ -1,5 +1,4 @@
 using System;
-using Guilded.Base.Servers;
 using RestSharp;
 
 namespace Guilded.Base;
@@ -8,13 +7,12 @@ namespace Guilded.Base;
 /// Represents an exception thrown by Guilded API when the client has no permission to perform a request.
 /// </summary>
 /// <remarks>
-/// <para>This is caused if you are trying to access or do an action that requires permissions, but you don't have them. This can only be fixed by getting said permissions by <see cref="Server">a server</see> staff and is usually not controlled by you.</para>
+/// <para>This is caused if you are trying to access or do an action that requires permissions, but you don't have them. This can only be fixed by getting said permissions by <see cref="T:Guilded.Servers.Server">a server</see> staff and is usually not controlled by you.</para>
 /// </remarks>
 /// <seealso cref="GuildedException" />
 /// <seealso cref="GuildedPermissionException" />
 /// <seealso cref="GuildedRequestException" />
 /// <seealso cref="GuildedResourceException" />
-/// <seealso cref="GuildedWebsocketException" />
 [Serializable]
 public sealed class GuildedPermissionException : GuildedException
 {

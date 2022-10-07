@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
-using Guilded.Base.Client;
-using Guilded.Base.Content;
 using Guilded.Base.Embeds;
-using Guilded.Base.Servers;
-using Guilded.Base.Users;
 using RestSharp;
 
 namespace Guilded.Webhook;
 
 /// <summary>
-/// Represents the <see cref="GuildedWebhookClient">client</see> for <see cref="Base.Servers.Webhook">webhook</see> execution.
+/// Represents the <see cref="GuildedWebhookClient">client</see> for <see cref="T:Guilded.Servers.Webhook">webhook</see> execution.
 /// </summary>
 /// <remarks>
 /// <para>This does not require to be connected. You can use it on a go.</para>
@@ -28,14 +24,13 @@ namespace Guilded.Webhook;
 /// </example>
 /// <seealso cref="T:Guilded.GuildedBotClient" />
 /// <seealso cref="T:Guilded.AbstractGuildedClient" />
-/// <seealso cref="BaseGuildedClient" />
 /// <seealso cref="BaseGuildedService" />
 public class GuildedWebhookClient : BaseGuildedService
 {
     /// <summary>
-    /// Gets the list of all <see cref="Base.Servers.Webhook">webhooks</see> this <see cref="GuildedWebhookClient">client</see> will execute.
+    /// Gets the list of all <see cref="T:Guilded.Servers.Webhook">webhooks</see> this <see cref="GuildedWebhookClient">client</see> will execute.
     /// </summary>
-    /// <value>List of <see cref="Base.Servers.Webhook">webhooks</see></value>
+    /// <value>List of <see cref="T:Guilded.Servers.Webhook">webhooks</see></value>
     public IList<IWebhook> Webhooks { get; }
 
     #region Constructors
@@ -45,7 +40,7 @@ public class GuildedWebhookClient : BaseGuildedService
     /// <remarks>
     /// <para>To execute the webhooks, you can use <see cref="CreateMessageAsync(MessageContent)" /> method.</para>
     /// </remarks>
-    /// <param name="webhooks">The list of <see cref="Base.Servers.Webhook">webhooks</see> that will be executed</param>
+    /// <param name="webhooks">The list of <see cref="T:Guilded.Servers.Webhook">webhooks</see> that will be executed</param>
     /// <returns>New <see cref="GuildedWebhookClient" /> instance</returns>
     /// <seealso cref="GuildedWebhookClient" />
     /// <seealso cref="GuildedWebhookClient(IList{IWebhook})" />
@@ -71,10 +66,10 @@ public class GuildedWebhookClient : BaseGuildedService
 
     #region Methods
     /// <summary>
-    /// Creates a <see cref="Message">message</see> for the specified <see cref="Base.Servers.Webhook">webhook</see>.
+    /// Creates a <see cref="MessageContent">message</see> for the specified <see cref="T:Guilded.Servers.Webhook">webhook</see>.
     /// </summary>
-    /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
-    /// <param name="message">The <see cref="Message">message</see> to send</param>
+    /// <param name="webhook">The <see cref="T:Guilded.Servers.Webhook.Url">url</see> of the <see cref="T:Guilded.Servers.Webhook">webhook</see> to execute</param>
+    /// <param name="message">The <see cref="MessageContent">message</see> to send</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
@@ -82,40 +77,40 @@ public class GuildedWebhookClient : BaseGuildedService
         ExecuteRequestAsync(new RestRequest(webhook, Method.Post).AddBody(message));
 
     /// <inheritdoc cref="CreateMessageAsync(Uri, MessageContent)" />
-    /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <param name="webhook">The <see cref="T:Guilded.Servers.Webhook.Url">url</see> of the <see cref="T:Guilded.Servers.Webhook">webhook</see> to execute</param>
+    /// <param name="content">The <see cref="MessageContent.Content">text contents</see> of the <see cref="MessageContent">message</see> in Markdown</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed name of the webhook</param>
+    /// <param name="avatar">The displayed profile picture of the webhook</param>
     public Task CreateMessageAsync(Uri webhook, string? content = null, IList<Embed>? embeds = null, string? username = null, Uri? avatar = null) =>
         CreateMessageAsync(webhook, new MessageContent(content, embeds, username: username, avatar: avatar));
 
     /// <inheritdoc cref="CreateMessageAsync(Uri, MessageContent)" />
-    /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="webhook">The <see cref="T:Guilded.Servers.Webhook.Url">url</see> of the <see cref="T:Guilded.Servers.Webhook">webhook</see> to execute</param>
+    /// <param name="content">The <see cref="MessageContent.Content">text contents</see> of the <see cref="MessageContent">message</see> in Markdown</param>
+    /// <param name="username">The displayed name of the webhook</param>
+    /// <param name="avatar">The displayed profile picture of the webhook</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(Uri webhook, string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
         CreateMessageAsync(webhook, new MessageContent(content, embeds, username: username, avatar: avatar));
 
     /// <inheritdoc cref="CreateMessageAsync(Uri, MessageContent)" />
-    /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="webhook">The <see cref="T:Guilded.Servers.Webhook.Url">url</see> of the <see cref="T:Guilded.Servers.Webhook">webhook</see> to execute</param>
+    /// <param name="content">The <see cref="MessageContent.Content">text contents</see> of the <see cref="MessageContent">message</see> in Markdown</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(Uri webhook, string content, params Embed[] embeds) =>
         CreateMessageAsync(webhook, new MessageContent(content, embeds));
 
     /// <inheritdoc cref="CreateMessageAsync(Uri, MessageContent)" />
-    /// <param name="webhook">The <see cref="Base.Servers.Webhook.Url">url</see> of the <see cref="Base.Servers.Webhook">webhook</see> to execute</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="webhook">The <see cref="T:Guilded.Servers.Webhook.Url">url</see> of the <see cref="T:Guilded.Servers.Webhook">webhook</see> to execute</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(Uri webhook, params Embed[] embeds) =>
         CreateMessageAsync(webhook, new MessageContent(embeds));
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> for every <see cref="Webhooks">webhook</see> in the <see cref="GuildedWebhookClient">client</see>.
+    /// Creates a <see cref="MessageContent">message</see> for every <see cref="Webhooks">webhook</see> in the <see cref="GuildedWebhookClient">client</see>.
     /// </summary>
-    /// <param name="message">The <see cref="Message">message</see> to send</param>
+    /// <param name="message">The <see cref="MessageContent">message</see> to send</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
@@ -126,15 +121,15 @@ public class GuildedWebhookClient : BaseGuildedService
     }
 
     /// <summary>
-    /// Creates a <see cref="Message">message</see> for every <see cref="Webhooks">webhook</see> in the <see cref="GuildedWebhookClient">client</see>.
+    /// Creates a <see cref="MessageContent">message</see> for every <see cref="Webhooks">webhook</see> in the <see cref="GuildedWebhookClient">client</see>.
     /// </summary>
     /// <remarks>
     /// <para>The text <paramref name="content" /> will be formatted in Markdown.</para>
     /// </remarks>
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
+    /// <param name="content">The <see cref="MessageContent.Content">text contents</see> of the <see cref="MessageContent">message</see> in Markdown</param>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
+    /// <param name="username">The displayed name of the webhook</param>
+    /// <param name="avatar">The displayed profile picture of the webhook</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedResourceException" />
@@ -142,21 +137,21 @@ public class GuildedWebhookClient : BaseGuildedService
         CreateMessageAsync(new MessageContent(content, embeds, null, username: username, avatar: avatar));
 
     /// <inheritdoc cref="CreateMessageAsync(string, IList{Embed}, string, Uri)" />
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="username">The displayed <see cref="UserSummary.Name">name</see> of the webhook</param>
-    /// <param name="avatar">The displayed <see cref="UserSummary.Avatar">profile picture</see> of the webhook</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="content">The <see cref="MessageContent.Content">text contents</see> of the <see cref="MessageContent">message</see> in Markdown</param>
+    /// <param name="username">The displayed name of the webhook</param>
+    /// <param name="avatar">The displayed profile picture of the webhook</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(string? content = null, string? username = null, Uri? avatar = null, params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent(content, embeds, null, username: username, avatar: avatar));
 
     /// <inheritdoc cref="CreateMessageAsync(string, IList{Embed}, string, Uri)" />
-    /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="content">The <see cref="MessageContent.Content">text contents</see> of the <see cref="MessageContent">message</see> in Markdown</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(string content, params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent(content, embeds));
 
     /// <inheritdoc cref="CreateMessageAsync(string, IList{Embed}, string, Uri)" />
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="MessageContent">message</see> (max — <c>1</c>)</param>
     public Task CreateMessageAsync(params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent(embeds));
     #endregion

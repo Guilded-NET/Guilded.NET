@@ -13,7 +13,6 @@ namespace Guilded.Base;
 /// <seealso cref="GuildedPermissionException" />
 /// <seealso cref="GuildedRequestException" />
 /// <seealso cref="GuildedResourceException" />
-/// <seealso cref="GuildedWebsocketException" />
 [Serializable]
 public sealed class GuildedAuthorizationException : GuildedException
 {

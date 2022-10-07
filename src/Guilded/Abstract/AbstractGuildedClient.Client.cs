@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
-
-using Guilded.Base.Client;
-using Guilded.Base.Events;
-using Guilded.Base.Users;
+using Guilded.Base;
+using Guilded.Connection;
+using Guilded.Events;
+using Guilded.Json;
+using Guilded.Users;
 using Newtonsoft.Json.Linq;
-
 using RestSharp;
 using Websocket.Client;
 
-namespace Guilded.Abstract;
+namespace Guilded.Client;
 
 /// <summary>
 /// Represents the base for all Guilded clients.
@@ -21,8 +21,9 @@ namespace Guilded.Abstract;
 /// <para>There is not much to be used here. It is recommended to use <see cref="GuildedBotClient" />.</para>
 /// </remarks>
 /// <seealso cref="GuildedBotClient" />
-/// <seealso cref="BaseGuildedClient" />
-public abstract partial class AbstractGuildedClient : BaseGuildedClient
+/// <seealso cref="BaseGuildedConnection" />
+/// <seealso cref="BaseGuildedService" />
+public abstract partial class AbstractGuildedClient : BaseGuildedConnection
 {
     #region Fields
     /// <summary>
@@ -33,11 +34,11 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     #endregion
 
     #region Properties
-    /// <inheritdoc cref="PreparedSubject" />
-    public IObservable<Me> Prepared => PreparedSubject.AsObservable();
-
     /// <inheritdoc cref="WelcomeEvent.User" />
     public Me? Me { get; protected set; }
+
+    /// <inheritdoc cref="PreparedSubject" />
+    public IObservable<Me> Prepared => PreparedSubject.AsObservable();
 
     /// <summary>
     /// Gets whether the client is <see cref="Prepared">prepared</see>.
@@ -54,6 +55,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     /// <seealso cref="GuildedBotClient(string)" />
     protected AbstractGuildedClient()
     {
+        SerializerSettings.Converters.Add(new ServerChannelConverter());
+
         #region Event list
         // Dictionary of supported events, so we wouldn't need to manually do it.
         // The only manual work to be done is in AbstractGuildedClient.Messages.cs file,
@@ -151,25 +154,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedClient
     #endregion
 
     #region Methods
-    /// <summary>
-    /// Connects <see cref="AbstractGuildedClient">this client</see> to Guilded.
-    /// </summary>
-    /// <seealso cref="BaseGuildedClient.DisconnectAsync" />
-    /// <seealso cref="GuildedBotClient.ConnectAsync()" />
-    /// <seealso cref="GuildedBotClient.ConnectAsync(string)" />
-    public override async Task ConnectAsync()
-    {
-        try
-        {
-            await Websocket.StartOrFail().ConfigureAwait(false);
-            ConnectedSubject.OnNext(this);
-        }
-        catch (Exception e)
-        {
-            ConnectedSubject.OnError(e);
-        }
-    }
-
     private static void EnforceLimit(string name, string value, short limit)
     {
         if (value.Length > limit)

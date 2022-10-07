@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Guilded.Base.Content;
+using Guilded.Content;
 
 namespace Guilded.Markdown;
 

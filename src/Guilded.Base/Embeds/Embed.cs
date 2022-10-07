@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Guilded.Base.Content;
 using Guilded.Base.Json;
 using Newtonsoft.Json;
 
@@ -33,10 +32,6 @@ namespace Guilded.Base.Embeds;
 ///     .SetFooter("Footer text here");
 /// </code>
 /// </example>
-/// <seealso cref="Message" />
-/// <seealso cref="Topic" />
-/// <seealso cref="ListItem" />
-/// <seealso cref="Doc" />
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore, ItemNullValueHandling = NullValueHandling.Ignore)]
 public class Embed
 {
