@@ -23,7 +23,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="CalendarRsvp" />
-    /// <seealso cref="CalendarEventId" />
+    /// <seealso cref="EventId" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
     public HashId UserId { get; }
@@ -34,7 +34,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     /// <value><see cref="CalendarRsvpStatus">RSVP Status</see></value>
     /// <seealso cref="CalendarRsvp" />
     /// <seealso cref="UserId" />
-    /// <seealso cref="CalendarEventId" />
+    /// <seealso cref="EventId" />
     public CalendarRsvpStatus Status { get; }
 
     /// <summary>
@@ -45,25 +45,29 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
     /// <seealso cref="UserId" />
-    public uint CalendarEventId { get; }
+    public uint EventId { get; }
+
+    /// <inheritdoc cref="EventId" />
+    [Obsolete($"Use `{nameof(EventId)}` instead")]
+    public uint CalendarEventId => EventId;
 
     /// <summary>
-    /// Gets the identifier of <see cref="ServerChannel">the parent channel</see> where <see cref="CalendarEventId">the calendar event</see> is.
+    /// Gets the identifier of <see cref="ServerChannel">the parent channel</see> where <see cref="EventId">the calendar event</see> is.
     /// </summary>
     /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="CalendarRsvp" />
     /// <seealso cref="ServerId" />
-    /// <seealso cref="CalendarEventId" />
+    /// <seealso cref="EventId" />
     /// <seealso cref="UserId" />
     public Guid ChannelId { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the parent server</see> where <see cref="CalendarEventId">the calendar event</see> is.
+    /// Gets the identifier of <see cref="Server">the parent server</see> where <see cref="EventId">the calendar event</see> is.
     /// </summary>
     /// <value><see cref="Server.Id">Server ID</see></value>
     /// <seealso cref="CalendarRsvp" />
     /// <seealso cref="ChannelId" />
-    /// <seealso cref="CalendarEventId" />
+    /// <seealso cref="EventId" />
     /// <seealso cref="UserId" />
     public HashId ServerId { get; }
 
@@ -149,17 +153,17 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null
     ) =>
-        (UserId, CalendarEventId, ChannelId, ServerId, Status, CreatedBy, CreatedAt, UpdatedBy, UpdatedAt) = (userId, calendarEventId, channelId, serverId, status, createdBy, createdAt, updatedBy, updatedAt);
+        (UserId, EventId, ChannelId, ServerId, Status, CreatedBy, CreatedAt, UpdatedBy, UpdatedAt) = (userId, calendarEventId, channelId, serverId, status, createdBy, createdAt, updatedBy, updatedAt);
     #endregion
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
     /// <param name="status">The new status of <see cref="CalendarEvent">the RSVP</see></param>
     public Task<CalendarRsvp> SetAsync(CalendarRsvpStatus status) =>
-        ParentClient.SetRsvpAsync(ChannelId, CalendarEventId, UserId, status);
+        ParentClient.SetRsvpAsync(ChannelId, EventId, UserId, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     public Task RemoveAsync() =>
-        ParentClient.RemoveRsvpAsync(ChannelId, CalendarEventId, UserId);
+        ParentClient.RemoveRsvpAsync(ChannelId, EventId, UserId);
     #endregion
 }

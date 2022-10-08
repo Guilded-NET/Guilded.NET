@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Embeds;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
@@ -61,7 +63,7 @@ public class Message :
 
     #region Properties Content
     /// <summary>
-    /// Gets the text contents of <see cref="Message">the message</see>.
+    /// Gets the text contents of the <see cref="Message">message</see>.
     /// </summary>
     /// <remarks>
     /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
@@ -87,7 +89,7 @@ public class Message :
     public IList<Guid>? ReplyMessageIds { get; }
 
     /// <summary>
-    /// Gets the list of <see cref="Embed">custom embeds</see> that <see cref="Message">the message</see> contains.
+    /// Gets the list of <see cref="Embed">custom embeds</see> that the <see cref="Message">message</see> contains.
     /// </summary>
     /// <remarks>
     /// <para>The max <see cref="Embed">embed</see> limit as of now is <see cref="EmbedLimit">1</see>.</para>
@@ -136,7 +138,7 @@ public class Message :
     public bool IsSilent { get; }
 
     /// <summary>
-    /// Gets whether <see cref="Message">the message</see> is <see cref="ReplyMessageIds">a reply</see> to another message.
+    /// Gets whether the <see cref="Message">message</see> is <see cref="ReplyMessageIds">a reply</see> to another message.
     /// </summary>
     /// <value><see cref="Message" /> is <see cref="ReplyMessageIds">a reply</see></value>
     /// <seealso cref="Message" />
@@ -158,7 +160,7 @@ public class Message :
     public Guid? CreatedByWebhook { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="Message">the message</see> was edited.
+    /// Gets the date when the <see cref="Message">message</see> was edited.
     /// </summary>
     /// <remarks>
     /// <para>Only returns the most recent update.</para>
@@ -171,10 +173,10 @@ public class Message :
     public DateTime? UpdatedAt { get; }
 
     /// <summary>
-    /// Gets the type of <see cref="Message">the message</see>.
+    /// Gets the type of the <see cref="Message">message</see>.
     /// </summary>
     /// <remarks>
-    /// <para>Distinguishes <see cref="Message">the message</see> by what content they contain.</para>
+    /// <para>Distinguishes the <see cref="Message">message</see> by what content they contain.</para>
     /// </remarks>
     /// <value><see cref="MessageType">Message type</see></value>
     /// <seealso cref="Message" />
@@ -184,7 +186,7 @@ public class Message :
     public MessageType Type { get; }
 
     /// <summary>
-    /// Gets whether <see cref="Message">the message</see> is <see cref="MessageType.System">a system message</see>.
+    /// Gets whether the <see cref="Message">message</see> is <see cref="MessageType.System">a system message</see>.
     /// </summary>
     /// <remarks>
     /// <para>A <see cref="MessageType.System">a system message</see> is a message that is created automatically on specific events, such as renaming the channel. Usually, it's something like "User has renamed the channel from X to Y"</para>
@@ -195,6 +197,99 @@ public class Message :
     /// <seealso cref="Embeds" />
     /// <seealso cref="Type" />
     public bool IsSystemMessage => Type == MessageType.System;
+    #endregion
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a reaction is added to the <see cref="Message">message</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Message">message</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when a reaction is added to the <see cref="Message">message</see></returns>
+    /// <seealso cref="ReactionRemoved" />
+    /// <seealso cref="Replied" />
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<MessageReactionEvent> ReactionAdded =>
+        ParentClient
+            .MessageReactionAdded
+            .Where(x =>
+                x.ChannelId == ChannelId && x.MessageId == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a reaction is removed from the <see cref="Message">message</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Message">message</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when a reaction is removed from the <see cref="Message">message</see></returns>
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="Replied" />
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<MessageReactionEvent> ReactionRemoved =>
+        ParentClient
+            .MessageReactionRemoved
+            .Where(x =>
+                x.ChannelId == ChannelId && x.MessageId == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a reply <see cref="Message">message</see> gets created to the message.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Message">message</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when a reply <see cref="Message">message</see> gets created to the message</returns>
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="ReactionRemoved" />
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<MessageEvent> Replied =>
+        ParentClient
+            .MessageCreated
+            .Where(x =>
+                x.ChannelId == ChannelId && (x.ReplyMessageIds?.Contains(Id) ?? false)
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Message">message</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Message">message</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Message">message</see> gets edited</returns>
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="ReactionRemoved" />
+    /// <seealso cref="Replied" />
+    /// <seealso cref="Deleted" />
+    public IObservable<MessageEvent> Updated =>
+        ParentClient
+            .MessageUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Message.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Message">message</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Message">message</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Message">message</see> gets deleted</returns>
+    /// <seealso cref="ReactionAdded" />
+    /// <seealso cref="ReactionRemoved" />
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<MessageDeletedEvent> Deleted =>
+        ParentClient
+            .MessageDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Message.Id == Id
+            )
+            .Take(1);
     #endregion
 
     #region Constructor
@@ -268,7 +363,7 @@ public class Message :
     /// <summary>
     /// Creates a message in the parent channel (from <see cref="ChannelContent{T, S}.ChannelId" />).
     /// </summary>
-    /// <param name="message">The <see cref="Content">text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="message">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -384,18 +479,18 @@ public class Message :
 
     #region Methods UpdateAsync
     /// <inheritdoc cref="AbstractGuildedClient.UpdateMessageAsync(Guid, Guid, MessageContent)" />
-    /// <param name="content">The <see cref="MessageContent">new contents</see> of <see cref="Message">the message</see></param>
+    /// <param name="content">The <see cref="MessageContent">new contents</see> of the <see cref="Message">message</see></param>
     public Task<Message> UpdateAsync(MessageContent content) =>
         ParentClient.UpdateMessageAsync(ChannelId, Id, content);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateMessageAsync(Guid, Guid, string, Embed[])" />
-    /// <param name="content">The <see cref="Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">new text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
     public Task<Message> UpdateAsync(string? content = null, IList<Embed>? embeds = null) =>
         ParentClient.UpdateMessageAsync(ChannelId, Id, content, embeds);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateMessageAsync(Guid, Guid, string, Embed[])" />
-    /// <param name="content">The <see cref="Content">new text contents</see> of <see cref="Message">the message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="content">The <see cref="Content">new text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
     public Task<Message> UpdateAsync(string? content = null, params Embed[] embeds) =>
         ParentClient.UpdateMessageAsync(ChannelId, Id, content, embeds);

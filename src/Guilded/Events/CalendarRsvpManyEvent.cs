@@ -28,7 +28,11 @@ public class CalendarRsvpManyEvent
     /// <seealso cref="CalendarEventEvent" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
-    public IList<CalendarRsvp> CalendarRsvps { get; }
+    public IList<CalendarRsvp> Rsvps { get; }
+
+    /// <inheritdoc cref="Rsvps" />
+    [Obsolete($"Use `{nameof(Rsvps)}` instead")]
+    public IList<CalendarRsvp> CalendarRsvps => Rsvps;
 
     /// <inheritdoc />
     public HashId ServerId { get; }
@@ -41,7 +45,7 @@ public class CalendarRsvpManyEvent
     /// <returns>First <see cref="CalendarRsvp">RSVP</see></returns>
     /// <seealso cref="Last" />
     /// <seealso cref="Count" />
-    public CalendarRsvp First => CalendarRsvps.First();
+    public CalendarRsvp First => Rsvps.First();
 
     /// <summary>
     /// Gets the last <see cref="CalendarRsvp">RSVP</see> in a <see cref="CalendarEvent">calendar event</see>.
@@ -49,7 +53,7 @@ public class CalendarRsvpManyEvent
     /// <returns>Last <see cref="CalendarRsvp">RSVP</see></returns>
     /// <seealso cref="First" />
     /// <seealso cref="Count" />
-    public CalendarRsvp Last => CalendarRsvps.Last();
+    public CalendarRsvp Last => Rsvps.Last();
 
     /// <summary>
     /// Gets the count of how many <see cref="CalendarRsvp">RSVPs</see> have been changed.
@@ -57,13 +61,17 @@ public class CalendarRsvpManyEvent
     /// <returns>Count of <see cref="CalendarRsvp">RSVPs</see></returns>
     /// <seealso cref="First" />
     /// <seealso cref="Last" />
-    public int Count => CalendarRsvps.Count;
+    public int Count => Rsvps.Count;
 
     /// <inheritdoc cref="CalendarRsvp.ChannelId" />
     public Guid ChannelId => First.ChannelId;
 
-    /// <inheritdoc cref="CalendarRsvp.CalendarEventId" />
-    public uint CalendarEventId => First.CalendarEventId;
+    /// <inheritdoc cref="CalendarRsvp.EventId" />
+    public uint EventId => First.EventId;
+
+    /// <inheritdoc cref="CalendarRsvp.EventId" />
+    [Obsolete($"Use `{nameof(EventId)}` instead")]
+    public uint CalendarEventId => EventId;
 
     /// <inheritdoc cref="CalendarRsvp.UserId" />
     public HashId UserId => First.UserId;
@@ -100,6 +108,6 @@ public class CalendarRsvpManyEvent
         [JsonProperty(Required = Required.Always)]
         HashId serverId
     ) =>
-        (ServerId, CalendarRsvps) = (serverId, calendarEventRsvps);
+        (ServerId, Rsvps) = (serverId, calendarEventRsvps);
     #endregion
 }

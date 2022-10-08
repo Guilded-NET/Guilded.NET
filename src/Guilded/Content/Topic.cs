@@ -1,7 +1,9 @@
 using System;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -43,6 +45,103 @@ public class TopicSummary : TitledContent, IContentMarkdown
 
     /// <inheritdoc />
     public Mentions? Mentions { get; }
+    #endregion
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<TopicEvent> Updated =>
+        ParentClient
+            .TopicUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Topic.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets deleted</returns>
+    /// <seealso cref="Updated" />
+    public IObservable<TopicEvent> Deleted =>
+        ParentClient
+            .TopicDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Topic.Id == Id
+            )
+            .Take(1);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets locked.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets locked</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<TopicEvent> Locked =>
+        ParentClient
+            .TopicLocked
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Topic.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets unlocked.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets unlocked</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<TopicEvent> Unlocked =>
+        ParentClient
+            .TopicUnlocked
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Topic.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets pinned.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets pinned</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<TopicEvent> Pinned =>
+        ParentClient
+            .TopicPinned
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Topic.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets unpinned.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Topic">forum topic</see> gets unpinned</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<TopicEvent> Unpinned =>
+        ParentClient
+            .TopicUnpinned
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Topic.Id == Id
+            );
     #endregion
 
     #region Constructors

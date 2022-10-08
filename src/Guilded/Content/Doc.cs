@@ -1,7 +1,9 @@
 using System;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -47,6 +49,39 @@ public class Doc : TitledContent, IContentMarkdown
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     public HashId? UpdatedBy { get; }
+    #endregion
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Doc">document</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Doc">document</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Doc">document</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<DocEvent> Updated =>
+        ParentClient
+            .DocUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Doc.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Doc">document</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Doc">document</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Doc">document</see> gets deleted</returns>
+    /// <seealso cref="Updated" />
+    public IObservable<DocEvent> Deleted =>
+        ParentClient
+            .DocDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Doc.Id == Id
+            )
+            .Take(1);
     #endregion
 
     #region Constructors

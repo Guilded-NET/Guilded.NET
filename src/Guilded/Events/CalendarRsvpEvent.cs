@@ -27,7 +27,11 @@ public class CalendarRsvpEvent
     /// <seealso cref="CalendarEventEvent" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
-    public CalendarRsvp CalendarRsvp { get; }
+    public CalendarRsvp Rsvp { get; }
+
+    /// <inheritdoc cref="Rsvp" />
+    [Obsolete($"Use `{nameof(Rsvp)}` instead")]
+    public CalendarRsvp CalendarRsvp => Rsvp;
 
     /// <inheritdoc />
     public HashId ServerId { get; }
@@ -35,28 +39,32 @@ public class CalendarRsvpEvent
 
     #region Properties Additional
     /// <inheritdoc cref="CalendarRsvp.ChannelId" />
-    public Guid ChannelId => CalendarRsvp.ChannelId;
+    public Guid ChannelId => Rsvp.ChannelId;
 
-    /// <inheritdoc cref="CalendarRsvp.CalendarEventId" />
-    public uint CalendarEventId => CalendarRsvp.CalendarEventId;
+    /// <inheritdoc cref="CalendarRsvp.EventId" />
+    public uint EventId => Rsvp.EventId;
+
+    /// <inheritdoc cref="CalendarRsvp.EventId" />
+    [Obsolete($"Use `{nameof(EventId)}` instead")]
+    public uint CalendarEventId => EventId;
 
     /// <inheritdoc cref="CalendarRsvp.UserId" />
-    public HashId UserId => CalendarRsvp.UserId;
+    public HashId UserId => Rsvp.UserId;
 
     /// <inheritdoc cref="CalendarRsvp.Status" />
-    public CalendarRsvpStatus Status => CalendarRsvp.Status;
+    public CalendarRsvpStatus Status => Rsvp.Status;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
-    public HashId CreatedBy => CalendarRsvp.CreatedBy;
+    public HashId CreatedBy => Rsvp.CreatedBy;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
-    public DateTime CreatedAt => CalendarRsvp.CreatedAt;
+    public DateTime CreatedAt => Rsvp.CreatedAt;
 
     /// <inheritdoc cref="CalendarRsvp.UpdatedBy" />
-    public HashId? UpdatedBy => CalendarRsvp.UpdatedBy;
+    public HashId? UpdatedBy => Rsvp.UpdatedBy;
 
     /// <inheritdoc cref="CalendarRsvp.UpdatedAt" />
-    public DateTime? UpdatedAt => CalendarRsvp.UpdatedAt;
+    public DateTime? UpdatedAt => Rsvp.UpdatedAt;
     #endregion
 
     #region Constructors
@@ -75,17 +83,17 @@ public class CalendarRsvpEvent
         [JsonProperty(Required = Required.Always)]
         HashId serverId
     ) =>
-        (ServerId, CalendarRsvp) = (serverId, calendarEventRsvp);
+        (ServerId, Rsvp) = (serverId, calendarEventRsvp);
     #endregion
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
     /// <param name="status">The new status of <see cref="CalendarEvent">the RSVP</see></param>
     public Task<CalendarRsvp> SetAsync(CalendarRsvpStatus status) =>
-        CalendarRsvp.SetAsync(status);
+        Rsvp.SetAsync(status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     public Task RemoveAsync() =>
-        CalendarRsvp.RemoveAsync();
+        Rsvp.RemoveAsync();
     #endregion
 }

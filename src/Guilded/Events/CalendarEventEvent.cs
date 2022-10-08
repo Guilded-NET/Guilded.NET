@@ -29,7 +29,7 @@ public class CalendarEventEvent
     /// <seealso cref="CalendarEventEvent" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
-    public CalendarEvent CalendarEvent { get; }
+    public CalendarEvent Event { get; }
 
     /// <inheritdoc />
     public HashId ServerId { get; }
@@ -37,52 +37,52 @@ public class CalendarEventEvent
 
     #region Properties Additional
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
-    public Guid ChannelId => CalendarEvent.ChannelId;
+    public Guid ChannelId => Event.ChannelId;
 
     /// <inheritdoc cref="CalendarEvent.Name" />
-    public string Name => CalendarEvent.Name;
+    public string Name => Event.Name;
 
     /// <inheritdoc cref="CalendarEvent.Description" />
-    public string? Description => CalendarEvent.Description;
+    public string? Description => Event.Description;
 
     /// <inheritdoc cref="CalendarEvent.Mentions" />
-    public Mentions? Mentions => CalendarEvent.Mentions;
+    public Mentions? Mentions => Event.Mentions;
 
     /// <inheritdoc cref="CalendarEvent.Description" />
-    public string? Location => CalendarEvent.Location;
+    public string? Location => Event.Location;
 
     /// <inheritdoc cref="CalendarEvent.Url" />
-    public Uri? Url => CalendarEvent.Url;
+    public Uri? Url => Event.Url;
 
     /// <inheritdoc cref="CalendarEvent.Color" />
-    public Color? Color => CalendarEvent.Color;
+    public Color? Color => Event.Color;
 
     /// <inheritdoc cref="CalendarEvent.StartsAt" />
-    public DateTime StartsAt => CalendarEvent.StartsAt;
+    public DateTime StartsAt => Event.StartsAt;
 
     /// <inheritdoc cref="CalendarEvent.Duration" />
-    public TimeSpan? Duration => CalendarEvent.Duration;
+    public TimeSpan? Duration => Event.Duration;
 
     /// <inheritdoc cref="CalendarEvent.EndsAt" />
-    public DateTime? EndsAt => CalendarEvent.EndsAt;
+    public DateTime? EndsAt => Event.EndsAt;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
-    public HashId CreatedBy => CalendarEvent.CreatedBy;
+    public HashId CreatedBy => Event.CreatedBy;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
-    public DateTime CreatedAt => CalendarEvent.CreatedAt;
+    public DateTime CreatedAt => Event.CreatedAt;
 
     /// <inheritdoc cref="CalendarEvent.Cancellation" />
-    public CalendarCancellation? Cancellation => CalendarEvent.Cancellation;
+    public CalendarCancellation? Cancellation => Event.Cancellation;
 
     /// <inheritdoc cref="CalendarEvent.Cancellation" />
-    public HashId? CanceledBy => CalendarEvent.CanceledBy;
+    public HashId? CanceledBy => Event.CanceledBy;
 
     /// <inheritdoc cref="CalendarEvent.IsCanceled" />
-    public bool IsCanceled => CalendarEvent.IsCanceled;
+    public bool IsCanceled => Event.IsCanceled;
 
     /// <inheritdoc cref="CalendarEvent.IsPrivate" />
-    public bool IsPrivate => CalendarEvent.IsPrivate;
+    public bool IsPrivate => Event.IsPrivate;
     #endregion
 
     #region Constructors
@@ -101,28 +101,28 @@ public class CalendarEventEvent
         [JsonProperty(Required = Required.Always)]
         HashId serverId
     ) =>
-        (ServerId, CalendarEvent) = (serverId, calendarEvent);
+        (ServerId, Event) = (serverId, calendarEvent);
     #endregion
 
     #region Methods
     /// <inheritdoc cref="CalendarEvent.UpdateAsync(string?, string?, string?, DateTime?, Uri?, Color?, uint?, bool?)" />
     public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
-        CalendarEvent.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
+        Event.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
 
     /// <inheritdoc cref="CalendarEvent.UpdateAsync(string?, string?, string?, DateTime?, Uri?, Color?, TimeSpan?, bool?)" />
     public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        CalendarEvent.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
+        Event.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
 
     /// <inheritdoc cref="CalendarEvent.DeleteAsync" />
     public Task DeleteAsync() =>
-        CalendarEvent.DeleteAsync();
+        Event.DeleteAsync();
 
     /// <inheritdoc cref="CalendarEvent.AddReactionAsync(uint)" />
     public Task AddReactionAsync(uint emoteId) =>
-        CalendarEvent.AddReactionAsync(emoteId);
+        Event.AddReactionAsync(emoteId);
 
     /// <inheritdoc cref="CalendarEvent.RemoveReactionAsync(uint)" />
     public Task RemoveReactionAsync(uint emoteId) =>
-        CalendarEvent.RemoveReactionAsync(emoteId);
+        Event.RemoveReactionAsync(emoteId);
     #endregion
 }

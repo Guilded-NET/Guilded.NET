@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Json;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -153,6 +155,93 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public HashId? CanceledBy => Cancellation?.CreatedBy;
     #endregion
 
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<CalendarEventEvent> Updated =>
+        ParentClient
+            .EventUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Event.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event</see> gets deleted</returns>
+    /// <seealso cref="Updated" />
+    public IObservable<CalendarEventEvent> Deleted =>
+        ParentClient
+            .EventDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Event.Id == Id
+            )
+            .Take(1);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets added/edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets added/edited</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="RsvpDeleted" />
+    /// <seealso cref="RsvpManyUpdated" />
+    public IObservable<CalendarRsvpEvent> RsvpUpdated =>
+        ParentClient
+            .RsvpUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.EventId == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets deleted</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="RsvpUpdated" />
+    /// <seealso cref="RsvpManyUpdated" />
+    public IObservable<CalendarRsvpEvent> RsvpDeleted =>
+        ParentClient
+            .RsvpDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.EventId == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarRsvp">RSVPs</see> gets added/edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarRsvp">RSVPs</see> gets added/edited</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="RsvpUpdated" />
+    /// <seealso cref="RsvpDeleted" />
+    public IObservable<CalendarRsvpManyEvent> RsvpManyUpdated =>
+        ParentClient
+            .RsvpManyUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.EventId == Id
+            );
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="CalendarEvent" /> from the specified JSON properties.
@@ -226,48 +315,48 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 
     #region Methods Event
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, uint?, bool?)" />
-    public async Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, uint? duration = null, bool? isPrivate = null) =>
-        await ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate).ConfigureAwait(false);
+    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, uint? duration = null, bool? isPrivate = null) =>
+        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, TimeSpan?, bool?)" />
-    public async Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        await ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate).ConfigureAwait(false);
+    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
+        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteEventAsync(Guid, uint)" />
-    public async Task DeleteAsync() =>
-        await ParentClient.DeleteEventAsync(ChannelId, Id).ConfigureAwait(false);
+    public Task DeleteAsync() =>
+        ParentClient.DeleteEventAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />
     /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to add</param>
-    public async Task AddReactionAsync(uint emoteId) =>
-        await ParentClient.AddReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+    public Task AddReactionAsync(uint emoteId) =>
+        ParentClient.AddReactionAsync(ChannelId, Id, emoteId);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
     /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to remove</param>
-    public async Task RemoveReactionAsync(uint emoteId) =>
-        await ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId).ConfigureAwait(false);
+    public Task RemoveReactionAsync(uint emoteId) =>
+        ParentClient.RemoveReactionAsync(ChannelId, Id, emoteId);
     #endregion
 
     #region Methods RSVP
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpsAsync(Guid, uint)" />
-    public async Task<IList<CalendarRsvp>> GetRsvpsAsync() =>
-        await ParentClient.GetRsvpsAsync(ChannelId, Id).ConfigureAwait(false);
+    public Task<IList<CalendarRsvp>> GetRsvpsAsync() =>
+        ParentClient.GetRsvpsAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
     /// <param name="user">The identifier of <see cref="User">the user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
-    public async Task<CalendarRsvp> GetRsvpAsync(HashId user) =>
-        await ParentClient.GetRsvpAsync(ChannelId, Id, user).ConfigureAwait(false);
+    public Task<CalendarRsvp> GetRsvpAsync(HashId user) =>
+        ParentClient.GetRsvpAsync(ChannelId, Id, user);
 
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
     /// <param name="user">The identifier of <see cref="User">the user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
-    public async Task<CalendarRsvp> SetRsvpAsync(HashId user, CalendarRsvpStatus status) =>
-        await ParentClient.SetRsvpAsync(ChannelId, Id, user, status).ConfigureAwait(false);
+    public Task<CalendarRsvp> SetRsvpAsync(HashId user, CalendarRsvpStatus status) =>
+        ParentClient.SetRsvpAsync(ChannelId, Id, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     /// <param name="user">The identifier of <see cref="User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
-    public async Task RemoveRsvpAsync(HashId user) =>
-        await ParentClient.RemoveRsvpAsync(ChannelId, Id, user).ConfigureAwait(false);
+    public Task RemoveRsvpAsync(HashId user) =>
+        ParentClient.RemoveRsvpAsync(ChannelId, Id, user);
     #endregion
 }
 

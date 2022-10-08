@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Guilded.Base;
+using Guilded.Base.Embeds;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -11,7 +12,7 @@ namespace Guilded.Content;
 /// <summary>
 /// Represents a collection of mentions of certain element or user.
 /// </summary>
-/// <seealso cref="Embeds.Embed" />
+/// <seealso cref="Embed" />
 public class Mentions
 {
     #region Properties JSON

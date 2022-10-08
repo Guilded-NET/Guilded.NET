@@ -1,7 +1,9 @@
 using System;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -9,12 +11,12 @@ using Newtonsoft.Json;
 namespace Guilded.Content;
 
 /// <summary>
-/// Represents an item in <see cref="Servers.ChannelType.List">a list channel</see>.
+/// Represents an item in a <see cref="ListChannel">list channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached list item.</para>
+/// <para>Either an existing or a cached <see cref="ListItem">list item</see>.</para>
 /// </remarks>
-/// <typeparam name="T">The type of the list item's note</typeparam>
+/// <typeparam name="T">The type of the <see cref="ListItem">list item's</see> note</typeparam>
 /// <seealso cref="ListItem" />
 /// <seealso cref="ListItemSummary" />
 /// <seealso cref="ListItemNote" />
@@ -88,6 +90,78 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// </summary>
     /// <returns><see cref="ListItem">List item</see> is completed</returns>
     public bool IsCompleted => CompletedAt is not null;
+    #endregion
+
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="Completed" />
+    /// <seealso cref="Uncompleted" />
+    public IObservable<ListItemEvent> Updated =>
+        ParentClient
+            .ItemUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Item.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets deleted</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Completed" />
+    /// <seealso cref="Uncompleted" />
+    public IObservable<ListItemEvent> Deleted =>
+        ParentClient
+            .ItemDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Item.Id == Id
+            )
+            .Take(1);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as completed.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as completed</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="Uncompleted" />
+    public IObservable<ListItemEvent> Completed =>
+        ParentClient
+            .ItemCompleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Item.Id == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as non-completed.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as non-completed</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="Completed" />
+    public IObservable<ListItemEvent> Uncompleted =>
+        ParentClient
+            .ItemUncompleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.Item.Id == Id
+            );
     #endregion
 
     #region Constructors
@@ -179,10 +253,10 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
 }
 
 /// <summary>
-/// Represents an item in a list channel.
+/// Represents an item in a <see cref="ListChannel">list channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached list item.</para>
+/// <para>Either an existing or a cached <see cref="ListItem">list item</see>.</para>
 /// </remarks>
 /// <seealso cref="ListItemSummary" />
 /// <seealso cref="ListItemNote" />
@@ -261,10 +335,10 @@ public class ListItem : ListItemBase<ListItemNote>
 }
 
 /// <summary>
-/// Represents an item in a list channel.
+/// Represents an item in a <see cref="ListChannel">list channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached list item.</para>
+/// <para>Either an existing or a cached <see cref="ListItem">list item</see>.</para>
 /// </remarks>
 /// <seealso cref="ListItem" />
 /// <seealso cref="ListItemNote" />
@@ -339,121 +413,5 @@ public class ListItemSummary : ListItemBase<ListItemNote>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentListItemId = null
     ) : base(id, channelId, serverId, message, createdBy, createdAt, createdByWebhookId, mentions, note, updatedAt, updatedBy, completedAt, completedBy, parentListItemId) { }
-    #endregion
-}
-/// <summary>
-/// Represents the summary of <see cref="ListItemSummary">the list item's</see> note.
-/// </summary>
-public class ListItemNoteSummary : ICreatableContent, IUpdatableContent
-{
-    #region Properties
-
-    #region Who, when
-    /// <summary>
-    /// Gets the identifier of <see cref="User">the user</see> who created <see cref="ListItemNote">the note</see>.
-    /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
-    public HashId CreatedBy { get; }
-
-    /// <summary>
-    /// Gets the date when <see cref="ListItemNote">the note</see> was created.
-    /// </summary>
-    /// <value>Date</value>
-    public DateTime CreatedAt { get; }
-
-    /// <summary>
-    /// The identifier of <see cref="User">the user</see> who updated <see cref="ListItemNote">the note</see>.
-    /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
-    public HashId? UpdatedBy { get; }
-
-    /// <summary>
-    /// Gets the date when <see cref="ListItemNote">the note</see> was edited.
-    /// </summary>
-    /// <value>Date</value>
-    public DateTime? UpdatedAt { get; }
-    #endregion
-
-    #endregion
-
-    #region Constructors
-    /// <summary>
-    /// Initializes a new instance of <see cref="ListItemNoteSummary" /> from the specified JSON properties.
-    /// </summary>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the note</param>
-    /// <param name="createdAt">the date when the note was created</param>
-    /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
-    /// <param name="updatedAt">the date when the note was edited</param>
-    /// <returns>New <see cref="ListItemNoteSummary" /> JSON instance</returns>
-    /// <seealso cref="ListItemNoteSummary" />
-    [JsonConstructor]
-    public ListItemNoteSummary(
-        [JsonProperty(Required = Required.Always)]
-        HashId createdBy,
-
-        [JsonProperty(Required = Required.Always)]
-        DateTime createdAt,
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        HashId? updatedBy = null,
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        DateTime? updatedAt = null
-    ) =>
-        (CreatedAt, CreatedBy, UpdatedAt, UpdatedBy) = (createdAt, createdBy, updatedAt, updatedBy);
-    #endregion
-}
-/// <summary>
-/// Represents the full information about <see cref="ListItem">the list item's</see> note.
-/// </summary>
-public class ListItemNote : ListItemNoteSummary
-{
-    #region Properties
-    /// <summary>
-    /// Gets the contents of <see cref="ListItemNote">the note</see> in <see cref="ListItem">the item</see>.
-    /// </summary>
-    /// <value>Markdown string</value>
-    public string Content { get; set; }
-
-    /// <summary>
-    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="Content">the content</see>.
-    /// </summary>
-    /// <value><see cref="Content.Mentions" />?</value>
-    public Mentions? Mentions { get; set; }
-    #endregion
-
-    #region Constructors
-    /// <summary>
-    /// Initializes a new instance of <see cref="ListItemNote" /> from the specified JSON properties.
-    /// </summary>
-    /// <param name="content">The contents of the note</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the list item's note</param>
-    /// <param name="createdAt">the date when the list item's note was created</param>
-    /// <param name="updatedBy">The identifier of <see cref="User">user</see> that updated the note</param>
-    /// <param name="updatedAt">the date when the note was edited</param>
-    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Message">the content</see></param>
-    /// <returns>New <see cref="ListItemNote" /> JSON instance</returns>
-    /// <seealso cref="ListItemNote" />
-    [JsonConstructor]
-    public ListItemNote(
-        [JsonProperty(Required = Required.Always)]
-        string content,
-
-        [JsonProperty(Required = Required.Always)]
-        HashId createdBy,
-
-        [JsonProperty(Required = Required.Always)]
-        DateTime createdAt,
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        HashId? updatedBy = null,
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        DateTime? updatedAt = null,
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        Mentions? mentions = null
-    ) : base(createdBy, createdAt, updatedBy, updatedAt) =>
-        (Content, Mentions) = (content, mentions);
     #endregion
 }
