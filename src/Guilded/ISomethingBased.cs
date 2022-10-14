@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
@@ -26,8 +27,8 @@ public interface IServerBased : IHasParentClient
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.GetServerAsync(HashId)" />
-    public async Task<Server> GetServerAsync() =>
-        await ParentClient.GetServerAsync(ServerId);
+    public Task<Server> GetServerAsync() =>
+        ParentClient.GetServerAsync(ServerId);
     #endregion
 }
 
@@ -39,10 +40,10 @@ public interface IGlobalContent : IHasParentClient
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the <see cref="Server">server</see> where the item is if it's in a <see cref="Server">server</see>.
+    /// Gets the identifier of the <see cref="Server">server</see> where the item is.
     /// </summary>
-    /// <value><see cref="Server.Id">Server ID</see>?</value>
-    /// <seealso cref="IGlobalContent" />
+    /// <value><see cref="Server.Id">Server ID</see></value>
+    /// <seealso cref="IServerBased" />
     /// <seealso cref="Content.ChannelContent{TId, TServer}.ServerId" />
     HashId? ServerId { get; }
     #endregion

@@ -30,21 +30,36 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     /// An observable event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
     /// <returns>Prepared subject</returns>
-    protected Subject<Me> PreparedSubject { get; } = new();
+    protected Subject<ClientUser> PreparedSubject { get; } = new();
     #endregion
 
     #region Properties
     /// <inheritdoc cref="WelcomeEvent.User" />
-    public Me? Me { get; protected set; }
+    public ClientUser? Me { get; protected set; }
 
     /// <inheritdoc cref="PreparedSubject" />
-    public IObservable<Me> Prepared => PreparedSubject.AsObservable();
+    public IObservable<ClientUser> Prepared => PreparedSubject.AsObservable();
 
     /// <summary>
     /// Gets whether the client is <see cref="Prepared">prepared</see>.
     /// </summary>
     /// <value>Whether the client is <see cref="Prepared">prepared</see></value>
     public bool IsPrepared { get; protected set; }
+
+    /// <inheritdoc cref="ClientUser.Id" />
+    public HashId? Id => Me?.Id;
+
+    /// <inheritdoc cref="ClientUser.BotId" />
+    public Guid? BotId => Me?.BotId;
+
+    /// <inheritdoc cref="ClientUser.CreatedBy" />
+    public HashId? CreatedBy => Me?.CreatedBy;
+
+    /// <inheritdoc cref="ClientUser.CreatedAt" />
+    public DateTime? CreatedAt => Me?.CreatedAt;
+
+    /// <inheritdoc cref="ClientUser.Name" />
+    public string? Name => Me?.Name;
     #endregion
 
     #region Constructors

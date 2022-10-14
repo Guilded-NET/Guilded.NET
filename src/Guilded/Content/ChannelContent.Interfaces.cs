@@ -120,7 +120,7 @@ public interface IReactibleContent
 }
 
 /// <summary>
-/// Represents <see cref="ChannelContent{TId, TServer}">the channel content</see> that allow inline formatting.
+/// Represents the <see cref="ChannelContent{TId, TServer}">channel content</see> that allow inline formatting.
 /// </summary>
 public interface IContentMarkdown
 {
@@ -134,15 +134,27 @@ public interface IContentMarkdown
 }
 
 /// <summary>
-/// Represents <see cref="ChannelContent{TId, TServer}">the channel content</see> that allow block formatting.
+/// Represents the <see cref="ChannelContent{TId, TServer}">channel content</see> that allow block formatting.
 /// </summary>
 public interface IContentBlockMarkdown : IContentMarkdown
 {
     #region Properties
     /// <summary>
-    /// Gets the list of <see cref="Embed">custom embeds</see> that <see cref="ChannelContent{TId, TServer}">the channel content</see> contain.
+    /// Gets the list of <see cref="Embed">custom embeds</see> that the <see cref="ChannelContent{TId, TServer}">channel content</see> contain.
     /// </summary>
     /// <value>List of <see cref="Embed">embeds</see></value>
     IList<Embed>? Embeds { get; }
     #endregion
+}
+
+/// <summary>
+/// Represents the <see cref="ChannelContent{TId, TServer}">channel content</see> that can be set as private.
+/// </summary>
+public interface IPrivatableContent
+{
+    /// <summary>
+    /// Gets whether the <see cref="ChannelContent{TId, TServer}">channel content</see> cannot be accessed publicly.
+    /// </summary>
+    /// <value>Whether the <see cref="ChannelContent{TId, TServer}">channel content</see> cannot be accessed publicly</value>
+    public bool IsPrivate { get; }
 }

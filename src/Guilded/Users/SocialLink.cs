@@ -5,7 +5,7 @@ namespace Guilded.Users;
 /// <summary>
 /// Represents a social media link of a <see cref="User">user</see>.
 /// </summary>
-/// <seealso cref="Me" />
+/// <seealso cref="ClientUser" />
 /// <seealso cref="User" />
 /// <seealso cref="Servers.Member" />
 /// <seealso cref="UserSummary" />

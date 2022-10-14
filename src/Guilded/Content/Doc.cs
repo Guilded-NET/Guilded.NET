@@ -41,7 +41,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// Gets the identifier of <see cref="Member">the member</see> who updated <see cref="Doc">the document</see>.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes <see cref="User">the user</see> who updated <see cref="Doc">the document</see> most recently.</para>
+    /// <para>Only includes the <see cref="User">user</see> who updated <see cref="Doc">the document</see> most recently.</para>
     /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     /// <seealso cref="Doc" />

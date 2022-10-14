@@ -1,3 +1,18 @@
+# v1.1.0
+
+Package changes:
+- `Guilded.Base` is now very barebones for Guilded REST stuff. Doesn't contain things like `client.CreateMessageAsync` or anything. Still contains embeds and `MessageContent`
+- `Guilded.Connection`. This has `Guilded.Base` as a dependency and builds upon it for WebSocket stuff. Only `Guilded` package uses it, but this is primarily made for unofficial Guilded libraries.
+
+Actual changes:
+- Added `client.Id`, `client.BotId`, `client.CreatedBy`, `client.CreatedAt`, `client.Name` that get the named properties from `client.Me`
+- Added `message.Replied`, `message.Updated`, `topic.Updated`, `topicEvent.Updated`, `user.MemberUpdated`, `member.Updated` and similar events
+- Added `Guilded.GuildedObservableExtensions` that add `observable.ElapseOn(TimeSpan)`, `observable.ElapseOnIfNothing(TimeSpan)`, `guildedObservable.InServer(HashId)`, `guildedObservable.InChannel(Guid)`, `guildedObservable.CreatedBy(HashId)`, etc.
+- Renamed `BaseGuildedClient` to `BaseGuildedConnection`, made it for webhook stuff only
+- Renamed `GuildedWebsocketException` to `GuildedSocketException` for consistency with `GuildedSocketMessage`
+- Moved most of the models from `Guilded.Base` package to `Guilded` package. `Guilded.Base` now only contains exception types, `HashId`, `FormId`, embed stuff, `BaseGuildedService`, `GuildedUrl`, `IWebhook`, `MessageContent` and some JSON converters.
+- Moved `GuildedSocketException`, `GuildedSocketMessage`, `BaseGuildedConnection` and `SocketOpcode` to `Guilded.Connection` package
+
 # v1.0.1-v1.0.2
 
 - Fixed channel conversion (v1.0.1)
@@ -39,7 +54,6 @@
 - Added `RemoveAsync`, `AddBanAsync`, `GetSocialLinkAsync`, etc. to `Member` and `MemberSummary`
 - Moved `GuildedWebhookClient` and `WebhookSkeleton` to `Guilded.Webhook` package
 - Fixed client hanging on reconnect
-- Removed/commented out `FormId` (might come back in the future, but not now)
 
 # v0.9.3-beta
 

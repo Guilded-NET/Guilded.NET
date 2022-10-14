@@ -22,7 +22,7 @@ namespace Guilded.Content;
 /// <seealso cref="Doc" />
 /// <seealso cref="ListItemBase{T}" />
 /// <seealso cref="Message" />
-public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IServerBased
+public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IServerBased, IPrivatableContent
 {
     #region Properties Content
     /// <summary>
@@ -343,18 +343,18 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         ParentClient.GetRsvpsAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
-    /// <param name="user">The identifier of <see cref="User">the user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
     public Task<CalendarRsvp> GetRsvpAsync(HashId user) =>
         ParentClient.GetRsvpAsync(ChannelId, Id, user);
 
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
-    /// <param name="user">The identifier of <see cref="User">the user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
     public Task<CalendarRsvp> SetRsvpAsync(HashId user, CalendarRsvpStatus status) =>
         ParentClient.SetRsvpAsync(ChannelId, Id, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
-    /// <param name="user">The identifier of <see cref="User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
     public Task RemoveRsvpAsync(HashId user) =>
         ParentClient.RemoveRsvpAsync(ChannelId, Id, user);
     #endregion

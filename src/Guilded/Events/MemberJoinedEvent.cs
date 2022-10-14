@@ -1,5 +1,6 @@
 using System;
 using Guilded.Base;
+using Guilded.Client;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="WebhookEvent" />
 /// <seealso cref="Servers.Member" />
-public class MemberJoinedEvent
+public class MemberJoinedEvent : IUser, IServerBased
 {
     #region Properties
     /// <summary>
@@ -37,7 +38,14 @@ public class MemberJoinedEvent
 
     #region Properties Additional
     /// <inheritdoc cref="MemberSummary{User}.Id" />
+    [Obsolete($"Use `{nameof(Id)}` instead")]
     public HashId UserId => Member.Id;
+
+    /// <inheritdoc cref="MemberSummary{User}.Id" />
+    public HashId Id => Member.Id;
+
+    /// <inheritdoc cref="MemberSummary{User}.User" />
+    public User User => Member.User;
 
     /// <inheritdoc cref="MemberSummary{User}.Name" />
     public string Name => Member.Name;
@@ -56,6 +64,9 @@ public class MemberJoinedEvent
 
     /// <inheritdoc cref="Member.JoinedAt" />
     public DateTime JoinedAt => Member.JoinedAt;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => User.ParentClient;
     #endregion
 
     #region Constructors

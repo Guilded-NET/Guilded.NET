@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Client;
 using Guilded.Content;
 using Guilded.Servers;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class ListItemEvent
+public class ListItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreatable, IUpdatableContent, IServerBased, IChannelBased
 {
     #region Properties
     /// <summary>
@@ -31,6 +32,9 @@ public class ListItemEvent
     #endregion
 
     #region Properties Additional
+    /// <inheritdoc cref="ChannelContent{T, S}.Id" />
+    public Guid Id => Item.Id;
+
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Item.ChannelId;
 
@@ -66,6 +70,9 @@ public class ListItemEvent
 
     /// <inheritdoc cref="ListItemBase{T}.ParentId" />
     public Guid? ParentId => Item.ParentId;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Item.ParentClient;
     #endregion
 
     #region Constructors

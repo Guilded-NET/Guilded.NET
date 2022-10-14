@@ -50,9 +50,9 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     public T? Note { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Servers.Webhook">the webhook</see> that created the list item.
+    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created the list item.
     /// </summary>
-    /// <value><see cref="Servers.Webhook.Id">Webhook ID</see>?</value>
+    /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     public Guid? CreatedByWebhook { get; }
 
     /// <summary>

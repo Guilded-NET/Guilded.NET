@@ -2,6 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Events;
+using Guilded.Servers;
 using Newtonsoft.Json;
 
 namespace Guilded.Users;
@@ -14,7 +16,7 @@ namespace Guilded.Users;
 /// </remarks>
 /// <seealso cref="User" />
 /// <seealso cref="SocialLink" />
-public class UserSummary : ContentModel, IModelHasId<HashId>
+public class UserSummary : ContentModel, IUser
 {
     #region Properties
     /// <summary>
@@ -28,7 +30,7 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
     public HashId Id { get; }
 
     /// <summary>
-    /// Gets the type of <see cref="Users.User">the user</see> they are.
+    /// Gets the type of the <see cref="User">user</see> they are.
     /// </summary>
     /// <value>User type</value>
     /// <seealso cref="User" />
@@ -38,7 +40,7 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
     public UserType Type { get; }
 
     /// <summary>
-    /// Gets the global username of <see cref="Users.User">the user</see>.
+    /// Gets the global username of the <see cref="User">user</see>.
     /// </summary>
     /// <value>Name</value>
     /// <seealso cref="User" />
@@ -48,7 +50,7 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
     public string Name { get; }
 
     /// <summary>
-    /// Gets the global avatar of <see cref="Users.User">the user</see>.
+    /// Gets the global avatar of the <see cref="User">user</see>.
     /// </summary>
     /// <value>Media URL</value>
     /// <seealso cref="User" />
@@ -58,7 +60,7 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
     public Uri? Avatar { get; }
 
     /// <summary>
-    /// Gets whether <see cref="Users.User">the user</see> is a <see cref="UserType.Bot">bot</see>.
+    /// Gets whether the <see cref="User">user</see> is a <see cref="UserType.Bot">bot</see>.
     /// </summary>
     /// <value>Is a bot</value>
     /// <seealso cref="User" />
@@ -68,14 +70,96 @@ public class UserSummary : ContentModel, IModelHasId<HashId>
     public bool IsBot => Type == UserType.Bot;
     #endregion
 
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member</see> leaves the <see cref="Server">server</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Member">member</see> and <see cref="Server">server</see> specifically.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member</see> leaves the <see cref="Server">server</see></returns>
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="MemberUpdated" />
+    /// <seealso cref="MemberBanAdded" />
+    /// <seealso cref="MemberBanRemoved" />
+    public IObservable<MemberRemovedEvent> MemberRemoved =>
+        ParentClient
+            .MemberRemoved
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member</see> joins the <see cref="Server">server</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Member">member</see> and <see cref="Server">server</see> specifically.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member</see> joins the <see cref="Server">server</see></returns>
+    /// <seealso cref="MemberRemoved" />
+    /// <seealso cref="MemberUpdated" />
+    /// <seealso cref="MemberBanAdded" />
+    /// <seealso cref="MemberBanRemoved" />
+    public IObservable<MemberJoinedEvent> MemberJoined =>
+        ParentClient
+            .MemberJoined
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member's</see> nickname changes in the <see cref="Server">server</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Member">member</see> and <see cref="Server">server</see> specifically.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member's</see> nickname changes in the <see cref="Server">server</see></returns>
+    /// <seealso cref="MemberRemoved" />
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="MemberBanAdded" />
+    /// <seealso cref="MemberBanRemoved" />
+    public IObservable<MemberUpdatedEvent> MemberUpdated =>
+        ParentClient
+            .MemberUpdated
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member's</see> gets banned in the <see cref="Server">server</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Member">member</see> and <see cref="Server">server</see> specifically.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member's</see> gets banned in the <see cref="Server">server</see></returns>
+    /// <seealso cref="MemberRemoved" />
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="MemberUpdated" />
+    /// <seealso cref="MemberBanRemoved" />
+    public IObservable<MemberBanEvent> MemberBanAdded =>
+        ParentClient
+            .MemberBanAdded
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member's</see> gets unbanned in the <see cref="Server">server</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Member">member</see> and <see cref="Server">server</see> specifically.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">member's</see> gets unbanned in the <see cref="Server">server</see></returns>
+    /// <seealso cref="MemberRemoved" />
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="MemberUpdated" />
+    /// <seealso cref="MemberBanRemoved" />
+    public IObservable<MemberBanEvent> MemberBanRemoved =>
+        ParentClient
+            .MemberBanRemoved
+            .HasId(Id);
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="UserSummary" /> with specified properties.
     /// </summary>
     /// <param name="id">The identifier of <see cref="User">user</see></param>
-    /// <param name="type">The type of <see cref="Users.User">the user</see> they are</param>
-    /// <param name="name">The global username of <see cref="Users.User">the user</see></param>
-    /// <param name="avatar">The global avatar of <see cref="Users.User">the user</see></param>
+    /// <param name="type">The type of the <see cref="User">user</see> they are</param>
+    /// <param name="name">The global username of the <see cref="User">user</see></param>
+    /// <param name="avatar">The global avatar of the <see cref="User">user</see></param>
     /// <returns>New <see cref="UserSummary" /> JSON instance</returns>
     /// <seealso cref="UserSummary" />
     [JsonConstructor]

@@ -19,7 +19,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="User">the user</see> whose RSVP it is.
+    /// Gets the identifier of the <see cref="User">user</see> whose RSVP it is.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="CalendarRsvp" />
@@ -95,7 +95,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     /// Gets the identifier of <see cref="Member">the member</see> who updated <see cref="CalendarRsvp">the RSVP</see>.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes <see cref="User">the user</see> who updated <see cref="CalendarRsvp">the RSVP</see> most recently.</para>
+    /// <para>Only includes the <see cref="User">user</see> who updated <see cref="CalendarRsvp">the RSVP</see> most recently.</para>
     /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     /// <seealso cref="CalendarRsvp" />

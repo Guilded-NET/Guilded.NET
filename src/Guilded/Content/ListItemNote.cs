@@ -12,7 +12,7 @@ public class ListItemNoteSummary : ICreatableContent, IUpdatableContent
 {
     #region Properties Who, when
     /// <summary>
-    /// Gets the identifier of <see cref="User">the user</see> who created <see cref="ListItemNote">the note</see>.
+    /// Gets the identifier of the <see cref="User">user</see> who created <see cref="ListItemNote">the note</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId CreatedBy { get; }
@@ -24,7 +24,7 @@ public class ListItemNoteSummary : ICreatableContent, IUpdatableContent
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// The identifier of <see cref="User">the user</see> who updated <see cref="ListItemNote">the note</see>.
+    /// The identifier of the <see cref="User">user</see> who updated <see cref="ListItemNote">the note</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     public HashId? UpdatedBy { get; }

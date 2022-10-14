@@ -1,5 +1,6 @@
 using System;
 using Guilded.Base;
+using Guilded.Client;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -15,7 +16,7 @@ namespace Guilded.Events;
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="MemberRemovedEvent" />
 /// <seealso cref="Member" />
-public class MemberBanEvent
+public class MemberBanEvent : IUser, IServerBased
 {
     #region Properties
     /// <summary>
@@ -38,7 +39,13 @@ public class MemberBanEvent
 
     #region Properties Additional
     /// <inheritdoc cref="MemberBan.User" />
+    public HashId Id => User.Id;
+
+    /// <inheritdoc cref="MemberBan.User" />
     public UserSummary User => MemberBan.User;
+
+    /// <inheritdoc cref="UserSummary.Name" />
+    public string Name => User.Name;
 
     /// <inheritdoc cref="MemberBan.Reason" />
     public string? Reason => MemberBan.Reason;
@@ -48,6 +55,9 @@ public class MemberBanEvent
 
     /// <inheritdoc cref="MemberBan.CreatedBy" />
     public HashId CreatedBy => MemberBan.CreatedBy;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => User.ParentClient;
     #endregion
 
     #region Constructors

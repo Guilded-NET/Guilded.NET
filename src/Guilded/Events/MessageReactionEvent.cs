@@ -15,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="MessageDeletedEvent" />
 /// <seealso cref="Content.Reaction" />
-public class MessageReactionEvent
+public class MessageReactionEvent : IModelHasId<uint>, IGlobalContent, IChannelBased
 {
     #region Properties
     /// <summary>
@@ -53,6 +53,9 @@ public class MessageReactionEvent
 
     /// <inheritdoc cref="Emote.Name" />
     public string Name => Emote.Name;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Reaction.ParentClient;
     #endregion
 
     #region Constructors
@@ -89,7 +92,7 @@ public class MessageReactionEvent
     /// </summary>
     /// <seealso cref="Content.Reaction" />
     /// <seealso cref="MessageReactionEvent" />
-    public class EventReaction : ContentModel
+    public class EventReaction : ContentModel, IModelHasId<uint>, IChannelBased
     {
         #region Properties
         /// <summary>
@@ -125,7 +128,7 @@ public class MessageReactionEvent
         /// Initializes a new instance of <see cref="EventReaction" /> from the specified JSON properties.
         /// </summary>
         /// <param name="emote"><see cref="Content.Emote">The emote</see> with which <see cref="CreatedBy">the user</see> reacted</param>
-        /// <param name="createdBy">The identifier of <see cref="User">the user</see> that reacted</param>
+        /// <param name="createdBy">The identifier of the <see cref="User">user</see> that reacted</param>
         /// <param name="channelId">The identifier of <see cref="ServerChannel">the channel</see> where <see cref="Message">the message</see> is</param>
         /// <param name="messageId">The identifier of <see cref="Message">the message</see> that <see cref="CreatedBy">user</see> reacted on</param>
         /// <returns>New <see cref="EventReaction" /> JSON instance</returns>

@@ -17,7 +17,7 @@ namespace Guilded.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class CalendarRsvpEvent
+public class CalendarRsvpEvent : IChannelBased, IServerBased, ICreatableContent, IUpdatableContent
 {
     #region Properties
     /// <summary>
@@ -65,6 +65,9 @@ public class CalendarRsvpEvent
 
     /// <inheritdoc cref="CalendarRsvp.UpdatedAt" />
     public DateTime? UpdatedAt => Rsvp.UpdatedAt;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Rsvp.ParentClient;
     #endregion
 
     #region Constructors

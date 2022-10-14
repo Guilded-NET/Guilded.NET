@@ -45,7 +45,7 @@ public class WelcomeEvent
     /// <seealso cref="WelcomeEvent" />
     /// <seealso cref="LastMessageId" />
     /// <seealso cref="HeartbeatInterval" />
-    public Me User { get; }
+    public ClientUser User { get; }
     #endregion
 
     #region Constructors
@@ -63,7 +63,7 @@ public class WelcomeEvent
         int heartbeatIntervalMs,
 
         [JsonProperty(Required = Required.Always)]
-        Me user,
+        ClientUser user,
 
         string? lastMessageId
     ) =>

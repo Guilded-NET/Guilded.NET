@@ -4,7 +4,7 @@ namespace Guilded;
 /// Represents a model that has <see cref="Id">an identifier</see>.
 /// </summary>
 /// <typeparam name="T">The type of <see cref="Id">the identifier</see></typeparam>
-public interface IModelHasId<out T>
+public interface IModelHasId<out T> where T : notnull
 {
     /// <summary>
     /// Gets the identifier of <see cref="IModelHasId{T}">the content</see>.

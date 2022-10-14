@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Base.Embeds;
 using Guilded.Content;
-using Guilded.Embeds;
 using Guilded.Servers;
 using Newtonsoft.Json;
 
@@ -17,7 +17,7 @@ namespace Guilded.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public abstract class MessageEvent<T> : ContentModel
+public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBased, IPrivatableContent, IModelHasId<Guid> where T : IModelHasId<Guid>, IGlobalContent, IChannelBased, IPrivatableContent
 {
     #region Properties
     /// <summary>
@@ -37,6 +37,15 @@ public abstract class MessageEvent<T> : ContentModel
     /// <seealso cref="MessageEvent{T}" />
     /// <seealso cref="Message" />
     public HashId? ServerId { get; }
+
+    /// <inheritdoc cref="ChannelContent{TId, TServer}.Id" />
+    public Guid Id => Message.Id;
+
+    /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
+    public Guid ChannelId => Message.ChannelId;
+
+    /// <inheritdoc cref="Message.IsPrivate" />
+    public bool IsPrivate => Message.IsPrivate;
     #endregion
 
     #region Constructors
@@ -64,9 +73,6 @@ public abstract class MessageEvent<T> : ContentModel
 public class MessageEvent : MessageEvent<Message>, IReactibleContent
 {
     #region Properties
-    /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
-    public Guid ChannelId => Message.ChannelId;
-
     /// <inheritdoc cref="Message.Content" />
     public string? Content => Message.Content;
 
@@ -96,9 +102,6 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
 
     /// <inheritdoc cref="Message.IsReply" />
     public bool IsReply => Message.IsReply;
-
-    /// <inheritdoc cref="Message.IsPrivate" />
-    public bool IsPrivate => Message.IsPrivate;
 
     /// <inheritdoc cref="Message.IsSilent" />
     public bool IsSilent => Message.IsSilent;

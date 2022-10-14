@@ -16,7 +16,7 @@ namespace Guilded.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
-public class DocEvent
+public class DocEvent : ICreatableContent, IUpdatableContent
 {
     #region Properties
     /// <summary>

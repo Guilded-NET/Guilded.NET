@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Content;
 using Guilded.Servers;
 using Newtonsoft.Json;
 
@@ -13,7 +14,7 @@ namespace Guilded.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
-public class ChannelEvent
+public class ChannelEvent : ICreatableContent, IUpdatableContent
 {
     #region Properties
     /// <summary>

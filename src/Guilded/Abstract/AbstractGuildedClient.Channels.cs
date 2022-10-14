@@ -919,7 +919,7 @@ public abstract partial class AbstractGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
-    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -934,7 +934,7 @@ public abstract partial class AbstractGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
-    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -956,7 +956,7 @@ public abstract partial class AbstractGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where <see cref="CalendarRsvp">the RSVP</see> is</param>
-    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />

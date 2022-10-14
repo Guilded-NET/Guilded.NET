@@ -113,7 +113,7 @@ public readonly struct HashId : IEquatable<HashId>
     /// <param name="other">Another object to compare</param>
     /// <returns>Both are equal</returns>
     public override bool Equals(object? other) =>
-        other is HashId id && Equals(id);
+        other is not null && other is HashId id && Equals(id);
     #endregion
 
     #region Operators

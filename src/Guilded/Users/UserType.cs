@@ -12,7 +12,7 @@ namespace Guilded.Users;
 /// <seealso cref="Servers.Member" />
 /// <seealso cref="Users.User" />
 /// <seealso cref="UserSummary" />
-/// <seealso cref="Me" />
+/// <seealso cref="ClientUser" />
 [JsonConverter(typeof(StringEnumConverter), true)]
 public enum UserType
 {

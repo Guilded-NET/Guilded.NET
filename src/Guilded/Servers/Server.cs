@@ -1,11 +1,12 @@
 using System;
 using Guilded.Base;
+using Guilded.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Servers;
 
 /// <summary>
-/// /// Represents a team or a guild in Guilded.
+/// Represents a team or a guild in Guilded.
 /// </summary>
 public class Server : ContentModel, IModelHasId<HashId>
 {
@@ -114,7 +115,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     public Guid? DefaultChannelId { get; }
 
     /// <summary>
-    /// Gets <see cref="Users.User">the user</see> that created the <see cref="Server">server</see>.
+    /// Gets the <see cref="User">user</see> that created the <see cref="Server">server</see>.
     /// </summary>
     /// <value><see cref="Users.UserSummary.Id">User ID</see></value>
     /// <seealso cref="Server" />

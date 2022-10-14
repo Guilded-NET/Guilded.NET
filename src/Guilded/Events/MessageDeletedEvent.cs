@@ -15,17 +15,8 @@ namespace Guilded.Events;
 public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDeleted>
 {
     #region Properties
-    /// <inheritdoc cref="MessageDeleted.Id" />
-    public Guid Id => Message.Id;
-
-    /// <inheritdoc cref="MessageDeleted.ChannelId" />
-    public Guid ChannelId => Message.ChannelId;
-
     /// <inheritdoc cref="MessageDeleted.DeletedAt" />
     public DateTime DeletedAt => Message.DeletedAt;
-
-    /// <inheritdoc cref="MessageDeleted.IsPrivate" />
-    public bool IsPrivate => Message.IsPrivate;
     #endregion
 
     #region Constructors
@@ -51,7 +42,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// </summary>
     /// <seealso cref="Message" />
     /// <seealso cref="MessageDeletedEvent" />
-    public class MessageDeleted
+    public class MessageDeleted : ContentModel, IModelHasId<Guid>, IPrivatableContent, IChannelBased, IGlobalContent
     {
         #region Properties
         /// <summary>
@@ -63,7 +54,7 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
         /// <summary>
         /// Gets the identifier of the channel where the message was.
         /// </summary>
-        /// <value><see cref="Servers.ServerChannel.Id">Channel ID</see></value>
+        /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
         public Guid ChannelId { get; }
 
         /// <summary>

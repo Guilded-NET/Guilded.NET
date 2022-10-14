@@ -150,20 +150,20 @@ public class CalendarChannel : ServerChannel
 
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
-    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
     public Task<CalendarRsvp> GetRsvpAsync(uint calendarEvent, HashId user) =>
         ParentClient.GetRsvpAsync(Id, calendarEvent, user);
 
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
-    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
     public Task<CalendarRsvp> SetRsvpAsync(uint calendarEvent, HashId user, CalendarRsvpStatus status) =>
         ParentClient.SetRsvpAsync(Id, calendarEvent, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where <see cref="CalendarRsvp">the RSVP</see> is</param>
-    /// <param name="user">The identifier of <see cref="Users.User">the user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
     public Task RemoveRsvpAsync(uint calendarEvent, HashId user) =>
         ParentClient.RemoveRsvpAsync(Id, calendarEvent, user);
     #endregion

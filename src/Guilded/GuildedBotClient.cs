@@ -63,9 +63,11 @@ public class GuildedBotClient : AbstractGuildedClient
     /// <seealso cref="ConnectAsync(string)" />
     /// <seealso cref="GuildedBotClient(string)" />
     protected string? AuthToken { get; }
+
     #endregion
 
     #region Constructors
+
     /// <summary>
     /// Creates a new <see cref="GuildedBotClient" /> instance without authentication token.
     /// </summary>
@@ -77,7 +79,9 @@ public class GuildedBotClient : AbstractGuildedClient
     /// <seealso cref="GuildedBotClient" />
     /// <seealso cref="GuildedBotClient(string)" />
     /// <seealso cref="AuthToken" />
-    public GuildedBotClient() { }
+    public GuildedBotClient()
+    {
+    }
 
     /// <summary>
     /// Creates a new <see cref="GuildedBotClient" /> instance with given <paramref name="auth" />.
@@ -101,9 +105,11 @@ public class GuildedBotClient : AbstractGuildedClient
 
         AuthToken = auth;
     }
+
     #endregion
 
     #region Methods
+
     /// <summary>
     /// Connects to Guilded bot using parameter as an auth.
     /// </summary>

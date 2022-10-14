@@ -1,13 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using Guilded.Base;
+using Guilded.Events;
 using Guilded.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Servers;
 
 /// <summary>
-/// Represents information about <see cref="User">the user</see> in <see cref="Server">a server</see>.
+/// Represents information about the <see cref="User">user</see> in <see cref="Server">a server</see>.
 /// </summary>
 /// <seealso cref="MemberSummary{T}" />
 /// <seealso cref="MemberBan" />
@@ -74,7 +76,7 @@ public class Member : MemberSummary<User>
     /// <summary>
     /// Initializes a new instance of <see cref="Member" />f rom the specified JSON properties.
     /// </summary>
-    /// <param name="user"><see cref="User">the user</see> who is a member of the <see cref="Server">server</see></param>
+    /// <param name="user">the <see cref="User">user</see> who is a member of the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles that member holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
     /// <param name="joinedAt">the date when the member joined</param>

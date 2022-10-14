@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Embeds;
 using Guilded.Client;
+using Guilded.Content;
 using Guilded.Servers;
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="Member" />
-public class WebhookEvent
+public class WebhookEvent : IModelHasId<Guid>, ICreatableContent, IServerBased, IChannelBased
 {
     #region Properties
     /// <summary>
@@ -37,6 +38,9 @@ public class WebhookEvent
     #endregion
 
     #region Properties Additional
+    /// <inheritdoc cref="Webhook.Id" />
+    public Guid Id => Webhook.Id;
+
     /// <inheritdoc cref="Webhook.Name" />
     public string Name => Webhook.Name;
 
@@ -51,6 +55,9 @@ public class WebhookEvent
 
     /// <inheritdoc cref="Webhook.CreatedBy" />
     public HashId CreatedBy => Webhook.CreatedBy;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Webhook.ParentClient;
     #endregion
 
     #region Constructors

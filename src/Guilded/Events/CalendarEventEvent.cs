@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Client;
 using Guilded.Content;
 using Guilded.Servers;
 using Newtonsoft.Json;
@@ -14,18 +15,18 @@ namespace Guilded.Events;
 /// Represents an event that occurs when someone creates, updates or deletes <see cref="Content.CalendarEvent">a calendar event</see>.
 /// </summary>
 /// <seealso cref="CalendarRsvpEvent" />
-/// <seealso cref="Content.CalendarEvent" />
+/// <seealso cref="CalendarEvent" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class CalendarEventEvent
+public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServerBased, IChannelBased, ICreatableContent
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Content.CalendarEvent">the calendar event</see> received from the event.
+    /// Gets <see cref="CalendarEvent">the calendar event</see> received from the event.
     /// </summary>
-    /// <value><see cref="Content.CalendarEvent">Calendar event</see></value>
+    /// <value><see cref="CalendarEvent">Calendar event</see></value>
     /// <seealso cref="CalendarEventEvent" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
@@ -36,6 +37,9 @@ public class CalendarEventEvent
     #endregion
 
     #region Properties Additional
+    /// <inheritdoc cref="ChannelContent{T, S}.Id" />
+    public uint Id => Event.Id;
+
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Event.ChannelId;
 
@@ -83,6 +87,9 @@ public class CalendarEventEvent
 
     /// <inheritdoc cref="CalendarEvent.IsPrivate" />
     public bool IsPrivate => Event.IsPrivate;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Event.ParentClient;
     #endregion
 
     #region Constructors

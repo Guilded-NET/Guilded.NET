@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Guilded.Base.Embeds;
 using Guilded.Client;
-using Guilded.Embeds;
 using Newtonsoft.Json;
 
 namespace Guilded;

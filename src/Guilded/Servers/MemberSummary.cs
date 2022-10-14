@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Users;
 using Newtonsoft.Json;
 
@@ -11,16 +13,16 @@ namespace Guilded.Servers;
 /// <summary>
 /// Represents the base type for <see cref="Member">member models</see>.
 /// </summary>
-/// <typeparam name="T">The type of <see cref="Users.User">the user</see> object</typeparam>
+/// <typeparam name="T">The type of the <see cref="User">user</see> object</typeparam>
 /// <seealso cref="Member" />
 /// <seealso cref="MemberBan" />
 /// <seealso cref="UserSummary" />
 /// <seealso cref="Webhook" />
-public class MemberSummary<T> : IModelHasId<HashId> where T : UserSummary
+public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : UserSummary
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Users.User">the user</see> they are.
+    /// Gets the <see cref="User">user</see> they are.
     /// </summary>
     /// <value>User</value>
     /// <seealso cref="MemberSummary{T}" />
@@ -59,6 +61,32 @@ public class MemberSummary<T> : IModelHasId<HashId> where T : UserSummary
 
     /// <inheritdoc cref="UserSummary.IsBot" />
     public bool IsBot => User.IsBot;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => User.ParentClient;
+    #endregion
+
+
+    #region Properties Events
+    /// <inheritdoc cref="UserSummary.MemberRemoved" />
+    public IObservable<MemberRemovedEvent> Removed =>
+        User.MemberRemoved.InServer(ServerId);
+
+    /// <inheritdoc cref="UserSummary.MemberJoined" />
+    public IObservable<MemberJoinedEvent> Joined =>
+        User.MemberJoined.InServer(ServerId);
+
+    /// <inheritdoc cref="UserSummary.MemberUpdated" />
+    public IObservable<MemberUpdatedEvent> Updated =>
+        User.MemberUpdated.InServer(ServerId);
+
+    /// <inheritdoc cref="UserSummary.MemberBanAdded" />
+    public IObservable<MemberBanEvent> BanAdded =>
+        User.MemberBanAdded.InServer(ServerId);
+
+    /// <inheritdoc cref="UserSummary.MemberBanRemoved" />
+    public IObservable<MemberBanEvent> BanRemoved =>
+        User.MemberBanRemoved.InServer(ServerId);
     #endregion
 
     #region Constructors

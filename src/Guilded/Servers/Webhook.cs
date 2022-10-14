@@ -5,6 +5,7 @@ using Guilded.Base;
 using Guilded.Base.Embeds;
 using Guilded.Client;
 using Guilded.Content;
+using Guilded.Events;
 using Guilded.Permissions;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -125,6 +126,21 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public bool IsExecutable => Token is not null;
     #endregion
 
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Webhook">webhook</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Webhook">webhook</see> and <see cref="Server">server</see> specifically.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when <see cref="Webhook">webhook</see> gets edited</returns>
+    public IObservable<WebhookEvent> Updated =>
+        ParentClient
+            .WebhookUpdated
+            .HasId(Id)
+            .InServer(ServerId);
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="Webhook" /> from the specified JSON properties.
@@ -135,7 +151,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <param name="channelId">The identifier of the channel where webhook is</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where webhook is</param>
     /// <param name="createdAt">the date when <see cref="Webhook">the webhook</see> was created</param>
-    /// <param name="createdBy">The identifier of <see cref="User">the user</see> that created <see cref="Webhook">the webhook</see></param>
+    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that created <see cref="Webhook">the webhook</see></param>
     /// <param name="deletedAt">the date when <see cref="Webhook">the webhook</see> was deleted</param>
     /// <returns>New <see cref="Webhook" /> JSON instance</returns>
     /// <seealso cref="Webhook" />
@@ -167,8 +183,6 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     ) =>
         (Id, Name, Token, ChannelId, ServerId, CreatedAt, CreatedBy, DeletedAt) = (id, name, token, channelId, serverId, createdAt, createdBy, deletedAt);
     #endregion
-
-    #region Methods
 
     #region Method CreateMessageAsync
     /// <inheritdoc cref="AbstractGuildedClient.CreateHookMessageAsync(Guid, string, MessageContent)" />
@@ -208,6 +222,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
         CreateMessageAsync(new MessageContent(embeds));
     #endregion
 
+    #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.UpdateWebhookAsync(HashId, Guid, string, Guid?)" />
     /// <param name="name">The new name of the <see cref="Webhook">webhook</see></param>
     public Task<Webhook> UpdateAsync(string name) =>
