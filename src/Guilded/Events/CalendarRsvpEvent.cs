@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
@@ -68,6 +69,20 @@ public class CalendarRsvpEvent : IChannelBased, IServerBased, ICreatableContent,
 
     /// <inheritdoc cref="IHasParentClient.ParentClient" />
     public AbstractGuildedClient ParentClient => Rsvp.ParentClient;
+    #endregion
+
+    #region Properties Event
+    /// <inheritdoc cref="CalendarRsvp.Updated" />
+    public IObservable<CalendarRsvpEvent> Updated =>
+        Rsvp.Updated;
+
+    /// <inheritdoc cref="CalendarRsvp.Deleted" />
+    public IObservable<CalendarRsvpEvent> Deleted =>
+        Rsvp.Deleted;
+
+    /// <inheritdoc cref="CalendarRsvp.ManyUpdated" />
+    public IObservable<CalendarRsvpManyEvent> ManyUpdated =>
+        Rsvp.ManyUpdated;
     #endregion
 
     #region Constructors

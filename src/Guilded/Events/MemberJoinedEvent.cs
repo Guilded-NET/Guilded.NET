@@ -69,6 +69,28 @@ public class MemberJoinedEvent : IUser, IServerBased
     public AbstractGuildedClient ParentClient => User.ParentClient;
     #endregion
 
+    #region Properties Events
+    /// <inheritdoc cref="UserSummary.MemberRemoved" />
+    public IObservable<MemberRemovedEvent> Removed =>
+        Member.Removed;
+
+    /// <inheritdoc cref="UserSummary.MemberJoined" />
+    public IObservable<MemberJoinedEvent> Joined =>
+        Member.Joined;
+
+    /// <inheritdoc cref="UserSummary.MemberUpdated" />
+    public IObservable<MemberUpdatedEvent> Updated =>
+        Member.Updated;
+
+    /// <inheritdoc cref="UserSummary.MemberBanAdded" />
+    public IObservable<MemberBanEvent> BanAdded =>
+        Member.BanAdded;
+
+    /// <inheritdoc cref="UserSummary.MemberBanRemoved" />
+    public IObservable<MemberBanEvent> BanRemoved =>
+        Member.BanRemoved;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="MemberJoinedEvent" /> from the specified JSON properties.

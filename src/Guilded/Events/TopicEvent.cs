@@ -68,6 +68,32 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     public AbstractGuildedClient ParentClient => Topic.ParentClient;
     #endregion
 
+    #region Properties Events
+    /// <inheritdoc cref="TopicSummary.Updated" />
+    public IObservable<TopicEvent> Updated =>
+        Topic.Updated;
+
+    /// <inheritdoc cref="TopicSummary.Deleted" />
+    public IObservable<TopicEvent> Deleted =>
+        Topic.Deleted;
+
+    /// <inheritdoc cref="TopicSummary.Locked" />
+    public IObservable<TopicEvent> Locked =>
+        Topic.Locked;
+
+    /// <inheritdoc cref="TopicSummary.Unlocked" />
+    public IObservable<TopicEvent> Unlocked =>
+        Topic.Unlocked;
+
+    /// <inheritdoc cref="TopicSummary.Pinned" />
+    public IObservable<TopicEvent> Pinned =>
+        Topic.Pinned;
+
+    /// <inheritdoc cref="TopicSummary.Unpinned" />
+    public IObservable<TopicEvent> Unpinned =>
+        Topic.Unpinned;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="TopicEvent" /> from the specified JSON properties.

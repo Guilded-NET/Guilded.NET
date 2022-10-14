@@ -110,6 +110,28 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
     public bool IsSystemMessage => Message.IsSystemMessage;
     #endregion
 
+    #region Properties Events
+    /// <inheritdoc cref="Message.Replied" />
+    public IObservable<MessageEvent> Replied =>
+        Message.Replied;
+
+    /// <inheritdoc cref="Message.Updated" />
+    public IObservable<MessageEvent> Updated =>
+        Message.Updated;
+
+    /// <inheritdoc cref="Message.Deleted" />
+    public IObservable<MessageDeletedEvent> Deleted =>
+        Message.Deleted;
+
+    /// <inheritdoc cref="Message.ReactionAdded" />
+    public IObservable<MessageReactionEvent> ReactionAdded =>
+        Message.ReactionAdded;
+
+    /// <inheritdoc cref="Message.ReactionRemoved" />
+    public IObservable<MessageReactionEvent> ReactionRemoved =>
+        Message.ReactionRemoved;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.

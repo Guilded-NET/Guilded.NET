@@ -92,6 +92,28 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
     public AbstractGuildedClient ParentClient => Event.ParentClient;
     #endregion
 
+    #region Properties Event
+    /// <inheritdoc cref="CalendarEvent.Updated" />
+    public IObservable<CalendarEventEvent> Updated =>
+        Event.Updated;
+
+    /// <inheritdoc cref="CalendarEvent.Deleted" />
+    public IObservable<CalendarEventEvent> Deleted =>
+        Event.Deleted;
+
+    /// <inheritdoc cref="CalendarEvent.RsvpUpdated" />
+    public IObservable<CalendarRsvpEvent> RsvpUpdated =>
+        Event.RsvpUpdated;
+
+    /// <inheritdoc cref="CalendarEvent.RsvpDeleted" />
+    public IObservable<CalendarRsvpEvent> RsvpDeleted =>
+        Event.RsvpDeleted;
+
+    /// <inheritdoc cref="CalendarEvent.RsvpManyUpdated" />
+    public IObservable<CalendarRsvpManyEvent> RsvpManyUpdated =>
+        Event.RsvpManyUpdated;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="CalendarEventEvent" /> from the specified JSON properties.

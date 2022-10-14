@@ -10,6 +10,8 @@ Actual changes:
 - Added `Guilded.GuildedObservableExtensions` that add `observable.ElapseOn(TimeSpan)`, `observable.ElapseOnIfNothing(TimeSpan)`, `guildedObservable.InServer(HashId)`, `guildedObservable.InChannel(Guid)`, `guildedObservable.CreatedBy(HashId)`, etc.
 - Renamed `BaseGuildedClient` to `BaseGuildedConnection`, made it for webhook stuff only
 - Renamed `GuildedWebsocketException` to `GuildedSocketException` for consistency with `GuildedSocketMessage`
+- Renamed `RolesUpdatedEvent.RolesUpdated` class to `RolessUpdatedEvent.UserRoleUpdate`
+- Renamed tons of things like `UserId`, `EmoteId`, etc. etc. in models like `RolesUpdatedEvent.UserRoleUpdate` to just `Id` to use `IModelHasId<T>` interface (this adds additional extensions to things like observables and `IList<T>`).
 - Moved most of the models from `Guilded.Base` package to `Guilded` package. `Guilded.Base` now only contains exception types, `HashId`, `FormId`, embed stuff, `BaseGuildedService`, `GuildedUrl`, `IWebhook`, `MessageContent` and some JSON converters.
 - Moved `GuildedSocketException`, `GuildedSocketMessage`, `BaseGuildedConnection` and `SocketOpcode` to `Guilded.Connection` package
 

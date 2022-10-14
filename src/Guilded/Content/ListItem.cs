@@ -92,7 +92,6 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     public bool IsCompleted => CompletedAt is not null;
     #endregion
 
-
     #region Properties Events
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets edited.

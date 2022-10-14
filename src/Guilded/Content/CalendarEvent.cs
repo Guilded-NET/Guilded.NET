@@ -188,7 +188,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
             .Take(1);
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets added/edited.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets added/edited.
     /// </summary>
     /// <remarks>
     /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>

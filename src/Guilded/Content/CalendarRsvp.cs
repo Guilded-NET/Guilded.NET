@@ -1,7 +1,10 @@
 using System;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Events;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -116,6 +119,57 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="UpdatedBy" />
     public DateTime? UpdatedAt { get; }
+    #endregion
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> and <see cref="User">author</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets edited</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    /// <seealso cref="ManyUpdated" />
+    public IObservable<CalendarRsvpEvent> Updated =>
+        ParentClient
+            .RsvpUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.EventId == EventId && x.CreatedBy == CreatedBy
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> and <see cref="User">author</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets deleted</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="ManyUpdated" />
+    public IObservable<CalendarRsvpEvent> Deleted =>
+        ParentClient
+            .RsvpDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.EventId == EventId && x.CreatedBy == CreatedBy
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarRsvp">RSVPs</see> gets added/edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specifically and <see cref="CalendarRsvpManyEvent">multiple RSVP event</see> that contains this <see cref="User">author</see>.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarRsvp">RSVPs</see> gets added/edited</returns>
+    /// <seealso cref="Updated" />
+    /// <seealso cref="Deleted" />
+    public IObservable<CalendarRsvpManyEvent> ManyUpdated =>
+        ParentClient
+            .RsvpManyUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.EventId == EventId && x.Rsvps.Any(x => UserId == x.UserId)
+            );
     #endregion
 
     #region Constructors

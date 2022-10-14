@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Guilded.Base;
@@ -29,7 +30,7 @@ public class RolesUpdatedEvent : ContentModel, IServerBased
     /// <seealso cref="RolesUpdatedEvent" />
     /// <seealso cref="UpdatedUsers" />
     /// <seealso cref="ServerId" />
-    public IList<RolesUpdated> MemberRoleIds { get; }
+    public IList<UserRoleUpdate> MemberRoleIds { get; }
 
     /// <summary>
     /// Gets the identifier of the <see cref="Server">server</see> where user's roles were given or removed.
@@ -66,7 +67,7 @@ public class RolesUpdatedEvent : ContentModel, IServerBased
         HashId serverId,
 
         [JsonProperty(Required = Required.Always)]
-        IList<RolesUpdated> memberRoleIds
+        IList<UserRoleUpdate> memberRoleIds
     ) =>
         (ServerId, MemberRoleIds) = (serverId, memberRoleIds);
     #endregion
@@ -79,13 +80,17 @@ public class RolesUpdatedEvent : ContentModel, IServerBased
     /// </remarks>
     /// <seealso cref="MemberUpdatedEvent" />
     /// <seealso cref="Member" />
-    public class RolesUpdated
+    public class UserRoleUpdate : IModelHasId<HashId>
     {
         #region Properties
         /// <summary>
         /// Gets the identifier of <see cref="User">user</see> that lost or received <see cref="RoleIds">roles</see>.
         /// </summary>
         /// <value><see cref="UserSummary.Id">User ID</see></value>
+        public HashId Id { get; }
+
+        /// <inheritdoc cref="Id" />
+        [Obsolete($"Use `{nameof(Id)}` instead")]
         public HashId UserId { get; }
 
         /// <summary>
@@ -100,12 +105,12 @@ public class RolesUpdatedEvent : ContentModel, IServerBased
 
         #region Constructors
         /// <summary>
-        /// Initializes a new instance of <see cref="RolesUpdated" /> from the specified JSON properties.
+        /// Initializes a new instance of <see cref="UserRoleUpdate" /> from the specified JSON properties.
         /// </summary>
         /// <param name="userId">The identifier of <see cref="User">user</see> who holds the roles</param>
         /// <param name="roleIds">The list of role identifiers user holds</param>
         [JsonConstructor]
-        public RolesUpdated(
+        public UserRoleUpdate(
             [JsonProperty(Required = Required.Always)]
             HashId userId,
 

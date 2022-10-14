@@ -66,7 +66,6 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     public AbstractGuildedClient ParentClient => User.ParentClient;
     #endregion
 
-
     #region Properties Events
     /// <inheritdoc cref="UserSummary.MemberRemoved" />
     public IObservable<MemberRemovedEvent> Removed =>

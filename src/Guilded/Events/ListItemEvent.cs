@@ -75,6 +75,24 @@ public class ListItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreat
     public AbstractGuildedClient ParentClient => Item.ParentClient;
     #endregion
 
+    #region Properties Events
+    /// <inheritdoc cref="ListItemBase{T}.Updated" />
+    public IObservable<ListItemEvent> Updated =>
+        Item.Updated;
+
+    /// <inheritdoc cref="ListItemBase{T}.Deleted" />
+    public IObservable<ListItemEvent> Deleted =>
+        Item.Deleted;
+
+    /// <inheritdoc cref="ListItemBase{T}.Completed" />
+    public IObservable<ListItemEvent> Completed =>
+        Item.Completed;
+
+    /// <inheritdoc cref="ListItemBase{T}.Uncompleted" />
+    public IObservable<ListItemEvent> Uncompleted =>
+        Item.Uncompleted;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="ListItemEvent" /> from the specified JSON properties.

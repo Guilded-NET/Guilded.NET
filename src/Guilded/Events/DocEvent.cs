@@ -58,6 +58,16 @@ public class DocEvent : ICreatableContent, IUpdatableContent
     public DateTime? UpdatedAt => Doc.UpdatedAt;
     #endregion
 
+    #region Properties Events
+    /// <inheritdoc cref="Doc.Updated" />
+    public IObservable<DocEvent> Updated =>
+        Doc.Updated;
+
+    /// <inheritdoc cref="Doc.Deleted" />
+    public IObservable<DocEvent> Deleted =>
+        Doc.Deleted;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="DocEvent" /> from the specified JSON properties.

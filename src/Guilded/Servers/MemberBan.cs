@@ -1,6 +1,7 @@
 using System;
 using Guilded.Base;
 using Guilded.Content;
+using Guilded.Events;
 using Guilded.Users;
 using Newtonsoft.Json;
 
@@ -40,6 +41,7 @@ public class MemberBan : ICreatableContent
     public HashId CreatedBy { get; }
     #endregion
 
+    #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="MemberBan" /> with the provided details.
     /// </summary>
@@ -64,4 +66,5 @@ public class MemberBan : ICreatableContent
         string? reason = null
     ) =>
         (User, CreatedBy, CreatedAt, Reason) = (user, createdBy, createdAt, reason);
+    #endregion
 }

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
 using Guilded.Base;
-using Guilded.Events;
 using Guilded.Users;
 using Newtonsoft.Json;
 

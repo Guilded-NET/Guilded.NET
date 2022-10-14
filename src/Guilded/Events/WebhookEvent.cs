@@ -60,6 +60,12 @@ public class WebhookEvent : IModelHasId<Guid>, ICreatableContent, IServerBased, 
     public AbstractGuildedClient ParentClient => Webhook.ParentClient;
     #endregion
 
+    #region Properties Events
+    /// <inheritdoc cref="Webhook.Updated" />
+    public IObservable<WebhookEvent> Updated =>
+        Webhook.Updated;
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="WebhookEvent" /> from the specified JSON properties.

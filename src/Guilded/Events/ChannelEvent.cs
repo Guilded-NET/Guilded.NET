@@ -14,7 +14,7 @@ namespace Guilded.Events;
 /// <seealso cref="ListItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
-public class ChannelEvent : ICreatableContent, IUpdatableContent
+public class ChannelEvent : IModelHasId<Guid>, IChannel, ICreatableContent, IUpdatableContent, IServerBased
 {
     #region Properties
     /// <summary>
@@ -29,6 +29,9 @@ public class ChannelEvent : ICreatableContent, IUpdatableContent
     #endregion
 
     #region Properties Additional
+    /// <inheritdoc cref="ServerChannel.Id" />
+    public Guid Id => Channel.Id;
+
     /// <inheritdoc />
     public HashId ServerId { get; }
 
@@ -76,6 +79,19 @@ public class ChannelEvent : ICreatableContent, IUpdatableContent
 
     /// <inheritdoc cref="ServerChannel.IsPublic" />
     public bool IsPublic => Channel.IsPublic;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Channel.ParentClient;
+    #endregion
+
+    #region Properties Events
+    /// <inheritdoc cref="ServerChannel.Updated" />
+    public IObservable<ChannelEvent> Updated =>
+        Channel.Updated;
+
+    /// <inheritdoc cref="ServerChannel.Deleted" />
+    public IObservable<ChannelEvent> Deleted =>
+        Channel.Deleted;
     #endregion
 
     #region Constructors

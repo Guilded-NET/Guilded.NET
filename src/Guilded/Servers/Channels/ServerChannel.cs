@@ -1,8 +1,10 @@
 using System;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
 using Guilded.Content;
+using Guilded.Events;
 using Guilded.Users;
 using Newtonsoft.Json;
 
@@ -15,7 +17,7 @@ namespace Guilded.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
 //[JsonConverter(typeof(ServerChannelConverter))]
-public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel
+public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel, IServerBased
 {
     #region Constants
     /// <summary>
@@ -205,6 +207,35 @@ public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatabl
     /// <seealso cref="IsThread" />
     /// <seealso cref="IsArchived" />
     public bool IsCategorized => CategoryId is not null;
+    #endregion
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ServerChannel">channel</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ServerChannel">channel</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ServerChannel">channel</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<ChannelEvent> Updated =>
+        ParentClient
+            .ChannelUpdated
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ServerChannel">channel</see> gets removed.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ServerChannel">channel</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ServerChannel">channel</see> gets removed</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<ChannelEvent> Deleted =>
+        ParentClient
+            .ChannelUpdated
+            .HasId(Id)
+            .Take(1);
     #endregion
 
     #region Constructors
