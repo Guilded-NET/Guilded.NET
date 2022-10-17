@@ -119,7 +119,7 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
     /// Initializes a new instance of <see cref="CalendarEventEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="CalendarEventEvent">calendar event event</see> occurred</param>
-    /// <param name="calendarEvent"><see cref="Content.CalendarEvent">The calendar event</see> received from the event</param>
+    /// <param name="calendarEvent"><see cref="CalendarEvent">The calendar event</see> received from the event</param>
     /// <returns>New <see cref="CalendarEventEvent" /> JSON instance</returns>
     /// <seealso cref="CalendarEventEvent" />
     [JsonConstructor]

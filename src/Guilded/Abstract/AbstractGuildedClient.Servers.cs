@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Permissions;
@@ -67,17 +68,13 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The list of fetched <see cref="Member">members</see> in the specified <paramref name="server" /></returns>
-    public async Task<IList<MemberSummary>> GetMembersAsync(HashId server)
-    {
-        IList<JObject>? response = await GetResponseProperty<IList<JObject>>(new RestRequest($"servers/{server}/members", Method.Get), "members").ConfigureAwait(false);
-
-        return response.Select(x =>
+    public Task<IList<MemberSummary>> GetMembersAsync(HashId server) =>
+        TransformListResponseAsync(new RestRequest($"servers/{server}/members", Method.Get), "members", x =>
         {
             // Add serverId property to them
             x.Add("serverId", JValue.CreateString(server.ToString()));
             return x.ToObject<MemberSummary>(GuildedSerializer)!;
-        }).ToList();
-    }
+        });
 
     /// <summary>
     /// Gets full information about the specified <paramref name="member" />.
@@ -89,14 +86,13 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns><paramref name="member">Specified member</paramref></returns>
-    public async Task<Member> GetMemberAsync(HashId server, HashId member)
-    {
-        JObject? response = await GetResponseProperty<JObject>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member").ConfigureAwait(false);
+    public Task<Member> GetMemberAsync(HashId server, HashId member) =>
+        TransformResponseAsync<Member>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member", value =>
+        {
+            value.Add("serverId", JValue.CreateString(server.ToString()));
 
-        response.Add("serverId", JValue.CreateString(server.ToString()));
-
-        return response.ToObject<Member>(GuildedSerializer)!;
-    }
+            return value;
+        });
 
     /// <summary>
     /// Gets the list of roles the specified <paramref name="member" /> holds.
@@ -294,7 +290,11 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>The list of fetched <see cref="MemberBan">member bans</see> in the specified <paramref name="server" /></returns>
     public Task<IList<MemberBan>> GetMemberBansAsync(HashId server) =>
-        GetResponseProperty<IList<MemberBan>>(new RestRequest($"servers/{server}/bans", Method.Get), "serverMemberBans");
+        TransformListResponseAsync<MemberBan>(new RestRequest($"servers/{server}/bans", Method.Get), "serverMemberBans", value =>
+        {
+            value.Add("serverId", JValue.CreateString(server.ToString()));
+            return value.ToObject<MemberBan>(GuildedSerializer)!;
+        });
 
     /// <inheritdoc cref="GetMemberBansAsync(HashId)" />
     [Obsolete("Use `GetMemberBansAsync` instead")]
@@ -314,7 +314,11 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>The <see cref="MemberBan">ban</see> of the <see cref="Member">member</see> that was specified in the arguments</returns>
     public Task<MemberBan> GetMemberBanAsync(HashId server, HashId member) =>
-        GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Get), "serverMemberBan");
+        TransformResponseAsync<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Get), "serverMemberBan", token =>
+        {
+            token.Add("serverId", JValue.CreateString(server.ToString()));
+            return token;
+        });
 
     /// <inheritdoc cref="GetMemberBanAsync(HashId, HashId)" />
     [Obsolete("Use `GetMemberBanAsync` instead")]
@@ -338,12 +342,15 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>Created <see cref="MemberBan">member's ban</see></returns>
     public Task<MemberBan> AddMemberBanAsync(HashId server, HashId member, string? reason = null) =>
-        GetResponseProperty<MemberBan>(new RestRequest($"servers/{server}/bans/{member}", Method.Post)
-            .AddJsonBody(new
+        TransformResponseAsync<MemberBan>(
+            new RestRequest($"servers/{server}/bans/{member}", Method.Post).AddJsonBody(new { reason }),
+            "serverMemberBan",
+            value =>
             {
-                reason
-            })
-        , "serverMemberBan");
+                value.Add("serverId", JValue.CreateString(server.ToString()));
+                return value;
+            }
+        );
 
     /// <summary>
     /// Unbans the specified <paramref name="member" />.

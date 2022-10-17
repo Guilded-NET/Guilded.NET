@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Connection;
@@ -86,7 +88,19 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             // Team events
             { "TeamXpAdded",                   new EventInfo<XpAddedEvent>() },
             { "TeamMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
-            { "TeamMemberBanned",              new EventInfo<MemberBanEvent>() },
+            { "TeamMemberBanned",
+                new EventInfo<MemberBanEvent>((type, serializer, message) =>
+                {
+                    // Add `serverId` to memberBan
+                    JObject data = message.RawData!;
+                    JToken? serverId = data["serverId"];
+                    JObject? ban = data["serverMemberBan"] as JObject;
+                    ban?.Add("serverId", serverId);
+
+                    // Transform modified value
+                    return data.ToObject(type, serializer)!;
+                })
+            },
             { "TeamMemberUnbanned",            new EventInfo<MemberBanEvent>() },
             { "TeamChannelCreated",            new EventInfo<ChannelEvent>() },
             { "TeamChannelUpdated",            new EventInfo<ChannelEvent>() },
@@ -179,6 +193,12 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     {
         if (value is not null) EnforceLimit(name, value, limit);
     }
+
+    private async Task<T> TransformResponseAsync<T>(RestRequest request, object key, Func<JObject, JObject> transform) =>
+        transform(await GetResponseProperty<JObject>(request, key)).ToObject<T>(GuildedSerializer)!;
+
+    private async Task<IList<T>> TransformListResponseAsync<T>(RestRequest request, object key, Func<JObject, T> transform) =>
+        (await GetResponseProperty<IList<JObject>>(request, key).ConfigureAwait(false)).Select(transform).ToList();
 
     private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>
         (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;

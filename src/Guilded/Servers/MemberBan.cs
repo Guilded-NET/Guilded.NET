@@ -1,5 +1,6 @@
 using System;
 using Guilded.Base;
+using Guilded.Client;
 using Guilded.Content;
 using Guilded.Events;
 using Guilded.Users;
@@ -13,42 +14,67 @@ namespace Guilded.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="MemberSummary{T}" />
 /// <seealso cref="Users.User" />
-public class MemberBan : ICreatableContent
+public class MemberBan : ICreatableContent, IServerBased
 {
     #region Properties
     /// <summary>
-    /// Gets the banned user.
+    /// Gets the <see cref="Users.User">user</see> who has been banned.
     /// </summary>
-    /// <value>User's summary</value>
+    /// <value>The <see cref="Users.User">user</see> who has been banned</value>
     public UserSummary User { get; }
 
     /// <summary>
     /// Gets the reason why the <see cref="User">user</see> has been banned, if the reason was specified.
     /// </summary>
-    /// <value>Text?</value>
+    /// <value>The reason why the <see cref="User">user</see> has been banned</value>
     public string? Reason { get; }
 
     /// <summary>
-    /// Gets the date when the <see cref="User">user</see> was banned
+    /// Gets the date when the <see cref="User">user</see> has been banned.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="User">user</see> has been banned</value>
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of the staff who banned.
+    /// Gets the identifier of the staff <see cref="Member">member</see> who has banned the <see cref="User">user</see>.
     /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of the staff <see cref="Member">member</see> who has banned the <see cref="User">user</see></value>
     public HashId CreatedBy { get; }
+
+    /// <summary>
+    /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="User">user</see> has been banned.
+    /// </summary>
+    /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="User">user</see> has been banned</value>
+    /// <seealso cref="MemberBan" />
+    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="User" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="Reason" />
+    public HashId ServerId { get; }
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => User.ParentClient;
+    #endregion
+
+    #region Properties Events
+    /// <inheritdoc cref="UserSummary.MemberBanAdded" />
+    public IObservable<MemberBanEvent> Added =>
+        User.MemberBanAdded.InServer(ServerId);
+
+    /// <inheritdoc cref="UserSummary.MemberBanRemoved" />
+    public IObservable<MemberBanEvent> Removed =>
+        User.MemberBanRemoved.InServer(ServerId);
     #endregion
 
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="MemberBan" /> with the provided details.
     /// </summary>
-    /// <param name="user">The user who has been banned</param>
-    /// <param name="createdBy">The author of the ban</param>
-    /// <param name="createdAt">the date when the member was banned</param>
-    /// <param name="reason">The reason why the user has been banned</param>
+    /// <param name="user">The <see cref="Users.User">user</see> who has been banned</param>
+    /// <param name="createdBy">The identifier of the staff <see cref="Member">member</see> who has banned the <see cref="User">user</see></param>
+    /// <param name="createdAt">The date when the <see cref="User">user</see> has been banned</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="User">user</see> has been banned</param>
+    /// <param name="reason">The reason why the <see cref="User">user</see> has been banned, if the reason was specified</param>
     /// <returns>New <see cref="MemberBan" /> JSON instance</returns>
     /// <seealso cref="MemberBan" />
     [JsonConstructor]
@@ -62,9 +88,12 @@ public class MemberBan : ICreatableContent
         [JsonProperty(Required = Required.Always)]
         DateTime createdAt,
 
+        [JsonProperty(Required = Required.Always)]
+        HashId serverId,
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         string? reason = null
     ) =>
-        (User, CreatedBy, CreatedAt, Reason) = (user, createdBy, createdAt, reason);
+        (User, CreatedBy, CreatedAt, Reason, ServerId) = (user, createdBy, createdAt, reason, serverId);
     #endregion
 }
