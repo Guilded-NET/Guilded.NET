@@ -18,7 +18,7 @@ public class ChannelEvent : IModelHasId<Guid>, IChannel, ICreatableContent, IUpd
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="ServerChannel">the channel</see> received from the event.
+    /// Gets the <see cref="ServerChannel">channel</see> received from the event.
     /// </summary>
     /// <value><see cref="ServerChannel">Channel</see></value>
     /// <seealso cref="ChannelEvent" />

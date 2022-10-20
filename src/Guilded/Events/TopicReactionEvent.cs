@@ -17,7 +17,7 @@ namespace Guilded.Events;
 /// <seealso cref="Reaction" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="MessageDeletedEvent" />
-public class MessageReactionEvent : ReactionEvent<MessageReaction>
+public class TopicReactionEvent : ReactionEvent<MessageReaction>
 {
     #region Properties
     /// <inheritdoc cref="MessageReaction.MessageId" />
@@ -26,14 +26,14 @@ public class MessageReactionEvent : ReactionEvent<MessageReaction>
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="MessageReactionEvent" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="TopicReactionEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="reaction">The received <see cref="Reaction">reaction</see> from the event</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the event occurred</param>
-    /// <returns>New <see cref="MessageReactionEvent" /> JSON instance</returns>
-    /// <seealso cref="MessageReactionEvent" />
+    /// <returns>New <see cref="TopicReactionEvent" /> JSON instance</returns>
+    /// <seealso cref="TopicReactionEvent" />
     [JsonConstructor]
-    public MessageReactionEvent(
+    public TopicReactionEvent(
         [JsonProperty(Required = Required.Always)]
         MessageReaction reaction,
 

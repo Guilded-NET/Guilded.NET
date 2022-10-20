@@ -222,9 +222,6 @@ public class Topic : TopicSummary
     /// <summary>
     /// Gets the text contents of the <see cref="Topic">topic</see>.
     /// </summary>
-    /// <remarks>
-    /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
-    /// </remarks>
     /// <value>Markdown string</value>
     /// <seealso cref="Topic" />
     /// <seealso cref="TitledContent.Title" />

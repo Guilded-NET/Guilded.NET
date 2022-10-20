@@ -362,7 +362,7 @@ public abstract partial class AbstractGuildedClient
         RemoveReactionAsync(channel, message, emote.Id);
     #endregion
 
-    #region Methods Forum channels
+    #region Methods Forum channels > Topics
     /// <summary>
     /// Gets a list of <see cref="Topic">forum topics</see>.
     /// </summary>
@@ -532,11 +532,27 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/lock", Method.Delete));
     #endregion
 
+    #region Methods Forum channels > Topic replies
+    /// <summary>
+    /// Gets a list of <see cref="Topic">forum topics</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to get <see cref="TopicComment">forum topic replies</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <returns>The list of fetched <see cref="TopicComment">forum topic replies</see> in the specified <paramref name="topic" /></returns>
+    public Task<IList<TopicComment>> GetTopicCommentsAsync(Guid channel, uint topic) =>
+        GetResponseProperty<IList<TopicComment>>(new RestRequest($"channels/{channel}/topics/{topic}/comments", Method.Get), "forumTopicComments");
+    #endregion
+
     #region Methods List channels
     /// <summary>
     /// Gets a set of <see cref="ListItem">list items</see> from the specified <paramref name="channel" />.
     /// </summary>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> to get list items from</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get list items from</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -620,7 +636,7 @@ public abstract partial class AbstractGuildedClient
     /// <summary>
     /// Deletes the specified <paramref name="listItem">list item</paramref>.
     /// </summary>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ListItem">list item</see> is</param>
     /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -634,7 +650,7 @@ public abstract partial class AbstractGuildedClient
     /// <summary>
     /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">completed</see>.
     /// </summary>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the <see cref="ListItem">list item</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ListItem">list item</see> is</param>
     /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -648,7 +664,7 @@ public abstract partial class AbstractGuildedClient
     /// <summary>
     /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">not completed</see>.
     /// </summary>
-    /// <param name="channel">The identifier of <see cref="ServerChannel">the channel</see> where the list item is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the list item is</param>
     /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -983,7 +999,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <permission cref="CalendarPermissions.GetEvent" />
     public Task AddReactionAsync(Guid channel, uint content, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{content}/emotes/{emote}", Method.Put));
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{content}/emotes/{emote}", Method.Put));
 
     /// <inheritdoc cref="AddReactionAsync(Guid, uint, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
@@ -1007,7 +1023,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <permission cref="CalendarPermissions.GetEvent" />
     public Task RemoveReactionAsync(Guid channel, uint content, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{content}/emotes/{emote}", Method.Delete));
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{content}/emotes/{emote}", Method.Delete));
 
     /// <inheritdoc cref="RemoveReactionAsync(Guid, uint, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>

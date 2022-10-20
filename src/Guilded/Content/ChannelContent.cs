@@ -11,7 +11,7 @@ namespace Guilded.Content;
 /// <remarks>
 /// <para>This does not include deleted content.</para>
 /// </remarks>
-/// <typeparam name="TId">The type of <see cref="ChannelContent{TId, TServer}">the content</see> identifier (property <see cref="Id" />)</typeparam>
+/// <typeparam name="TId">The type of the <see cref="ChannelContent{TId, TServer}">content</see> identifier (property <see cref="Id" />)</typeparam>
 /// <typeparam name="TServer">The type of the <see cref="Server">server</see> identifier (property <see cref="ServerId" />)</typeparam>
 /// <seealso cref="Message" />
 /// <seealso cref="Topic" />
@@ -21,7 +21,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="ChannelContent{TId, TServer}">the content</see>.
+    /// Gets the identifier of the <see cref="ChannelContent{TId, TServer}">content</see>.
     /// </summary>
     /// <value>Content ID</value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
@@ -30,7 +30,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     public TId Id { get; }
 
     /// <summary>
-    /// Gets the identifier of the channel where <see cref="ChannelContent{TId, TServer}">the content</see> are.
+    /// Gets the identifier of the channel where the <see cref="ChannelContent{TId, TServer}">content</see> are.
     /// </summary>
     /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
@@ -39,9 +39,9 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     public Guid ChannelId { get; }
 
     /// <summary>
-    /// Gets the identifier of the <see cref="Server">server</see> where <see cref="ChannelContent{TId, TServer}">the content</see> are.
+    /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="ChannelContent{TId, TServer}">content</see> are.
     /// </summary>
-    /// <value>Server ID</value>
+    /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="ChannelContent{TId, TServer}">content</see> are</value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="Id" />
     /// <seealso cref="ChannelId" />
@@ -50,21 +50,21 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
 
     #region Properties Who, when
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that created <see cref="ChannelContent{TId, TServer}">the content</see>.
+    /// Gets the identifier of <see cref="User">user</see> that created the <see cref="ChannelContent{TId, TServer}">content</see>.
     /// </summary>
     /// <remarks>
     /// <para>If webhook or bot created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of <see cref="User">user</see> that created the <see cref="ChannelContent{TId, TServer}">content</see></value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="ChannelContent{TId, TServer}">the content</see> were created.
+    /// Gets the date when the <see cref="ChannelContent{TId, TServer}">content</see> were created.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="ChannelContent{TId, TServer}">content</see> were created</value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
@@ -75,11 +75,11 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <summary>
     /// Initializes a new instance of <see cref="ChannelContent{T, S}" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of <see cref="ChannelContent{TId, TServer}">the content</see></param>
-    /// <param name="channelId">The identifier of the channel where <see cref="ChannelContent{TId, TServer}">the content</see> is</param>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where <see cref="ChannelContent{TId, TServer}">the content</see> is</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of <see cref="ChannelContent{TId, TServer}">the content</see></param>
-    /// <param name="createdAt">the date when <see cref="ChannelContent{TId, TServer}">the content</see> was created</param>
+    /// <param name="id">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see></param>
+    /// <param name="channelId">The identifier of the channel where the <see cref="ChannelContent{TId, TServer}">content</see> is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="ChannelContent{TId, TServer}">content</see> is</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the <see cref="ChannelContent{TId, TServer}">content</see></param>
+    /// <param name="createdAt">the date when the <see cref="ChannelContent{TId, TServer}">content</see> was created</param>
     /// <returns>New <see cref="ChannelContent{TId, TServer}" /> JSON instance</returns>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     protected ChannelContent(TId id, Guid channelId, TServer serverId, HashId createdBy, DateTime createdAt) =>

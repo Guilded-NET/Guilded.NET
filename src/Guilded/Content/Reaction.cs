@@ -1,5 +1,8 @@
 using System;
+using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Client;
+using Guilded.Events;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -12,104 +15,186 @@ namespace Guilded.Content;
 /// <seealso cref="Message" />
 /// <seealso cref="Doc" />
 /// <seealso cref="Topic" />
-public class Reaction : ContentModel, IModelHasId<uint>, IWebhookCreatable, ICreatableContent, IGlobalContent
+public abstract class Reaction : ContentModel, IModelHasId<uint>
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the emote that was reacted with.
+    /// Gets the <see cref="Content.Emote">emote</see> with which the <see cref="CreatedBy">user</see> reacted.
     /// </summary>
-    /// <value>Emote ID</value>
+    /// <value>The <see cref="Content.Emote">emote</see> of the <see cref="Reaction">reaction</see></value>
     /// <seealso cref="Reaction" />
-    /// <seealso cref="ServerId" />
-    public uint Id { get; }
-
-    /// <summary>
-    /// Gets the identifier of <see cref="Reaction">the reaction</see> where the content is.
-    /// </summary>
-    /// <remarks>
-    /// <para>As some of the content are bound to servers and some can be global, the identifier of <see cref="Reaction">the reaction</see> may be <see langword="null" />.</para>
-    /// </remarks>
-    /// <value>Server ID?</value>
-    /// <seealso cref="Reaction" />
+    /// <seealso cref="Content.Emote" />
     /// <seealso cref="Id" />
-    public HashId? ServerId { get; }
-
-    /// <summary>
-    /// Gets the date when <see cref="Reaction">the reaction</see> was created.
-    /// </summary>
-    /// <value>Date</value>
-    /// <seealso cref="Reaction" />
-    /// <seealso cref="CreatedBy" />
-    /// <seealso cref="CreatedByWebhook" />
-    public DateTime CreatedAt { get; }
+    public Emote Emote { get; }
 
     /// <summary>
     /// Gets the identifier of the <see cref="User">user</see> that reacted.
     /// </summary>
     /// <remarks>
-    /// <para>If <see cref="Webhook">a webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
+    /// <para>If a <see cref="Webhook">webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The <see cref="User">creator</see> identifier of the <see cref="Reaction">reaction</see></value>
     /// <seealso cref="Reaction" />
-    /// <seealso cref="CreatedAt" />
-    /// <seealso cref="CreatedByWebhook" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="ChannelId" />
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Webhook">the webhook</see> that reacted.
+    /// Gets the identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Message">message</see> is.
     /// </summary>
-    /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
+    /// <value>The <see cref="ServerChannel">channel</see> identifier of the <see cref="Reaction">reaction</see></value>
     /// <seealso cref="Reaction" />
+    /// <seealso cref="Id" />
     /// <seealso cref="CreatedBy" />
-    /// <seealso cref="CreatedAt" />
-    public Guid? CreatedByWebhook { get; }
+    public Guid ChannelId { get; }
+
+    /// <inheritdoc cref="Emote.Id" />
+    public uint Id => Emote.Id;
+
+    /// <inheritdoc cref="Emote.Name" />
+    public string Name => Emote.Name;
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="Reaction" /> with provided details.
+    /// Initializes a new instance of <see cref="Reaction" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the <see cref="Emote">emote</see> reacted with</param>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the reaction is</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the reaction</param>
-    /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> creator of the reaction</param>
-    /// <param name="createdAt">the date when the reaction was created</param>
+    /// <param name="emote">the <see cref="Content.Emote">emote</see> with which the <see cref="CreatedBy">user</see> reacted</param>
+    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that reacted</param>
+    /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ChannelContent{TId, TServer}">channel content</see> are</param>
     /// <returns>New <see cref="Reaction" /> JSON instance</returns>
     /// <seealso cref="Reaction" />
+    /// <seealso cref="MessageReaction" />
+    /// <seealso cref="TopicReaction" />
+    protected Reaction(Emote emote, HashId createdBy, Guid channelId) =>
+        (Emote, CreatedBy, ChannelId) = (emote, createdBy, channelId);
+    #endregion
+
+    #region Methods
+    /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, Guid, uint)" />
+    public abstract Task AddAsync();
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
+    public abstract Task RemoveAsync();
+    #endregion
+}
+
+/// <summary>
+/// Represents a <see cref="Message">message</see> <see cref="Reaction">reaction</see>.
+/// </summary>
+/// <seealso cref="Reaction" />
+/// <seealso cref="TopicReaction" />
+/// <seealso cref="MessageReactionEvent" />
+public class MessageReaction : Reaction
+{
+    #region Properties
+    /// <summary>
+    /// Gets the identifier of the <see cref="Message">message</see> that <see cref="User">user</see> reacted on.
+    /// </summary>
+    /// <value>The <see cref="Message">message</see> identifier of the <see cref="Reaction">reaction</see></value>
+    /// <seealso cref="MessageReaction" />
+    /// <seealso cref="Reaction" />
+    /// <seealso cref="Message" />
+    /// <seealso cref="Reaction.ChannelId" />
+    /// <seealso cref="Reaction.Id" />
+    public Guid MessageId { get; }
+    #endregion
+
+    #region Constructor
+    /// <summary>
+    /// Initializes a new instance of <see cref="MessageReaction" /> from the specified JSON properties.
+    /// </summary>
+    /// <param name="emote">The <see cref="Emote">emote</see> with which the <see cref="Reaction.CreatedBy">user</see> reacted</param>
+    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that reacted</param>
+    /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Message">message</see> is</param>
+    /// <param name="messageId">The identifier of the <see cref="Message">message</see> that <see cref="Reaction.CreatedBy">user</see> reacted on</param>
+    /// <returns>New <see cref="MessageReaction" /> JSON instance</returns>
+    /// <seealso cref="MessageReaction" />
+    /// <seealso cref="MessageReactionEvent" />
     [JsonConstructor]
-    public Reaction(
+    public MessageReaction(
         [JsonProperty(Required = Required.Always)]
-        uint id,
+        Emote emote,
 
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 
         [JsonProperty(Required = Required.Always)]
-        DateTime createdAt,
+        Guid channelId,
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        HashId? serverId = null,
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        Guid? createdByWebhookId = null
-    ) =>
-        (Id, ServerId, CreatedAt, CreatedBy, CreatedByWebhook) = (id, serverId, createdAt, createdBy, createdByWebhookId);
+        [JsonProperty(Required = Required.Always)]
+        Guid messageId
+    ) : base(emote, createdBy, channelId) =>
+        MessageId = messageId;
     #endregion
 
-    #region Overrides
-    /// <summary>
-    /// Returns whether this and <paramref name="obj" /> are equal to each other.
-    /// </summary>
-    /// <param name="obj">Another object to compare</param>
-    /// <returns>Are equal</returns>
-    public override bool Equals(object? obj) =>
-        obj is Reaction reaction && Id == reaction.Id;
+    #region Methods
+    /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, Guid, uint)" />
+    public override Task AddAsync() =>
+        ParentClient.AddReactionAsync(ChannelId, MessageId, Emote.Id);
 
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
+    public override Task RemoveAsync() =>
+        ParentClient.RemoveReactionAsync(ChannelId, MessageId, Emote.Id);
+    #endregion
+}
+
+/// <summary>
+/// Represents a <see cref="Topic">forum topic</see> <see cref="Reaction">reaction</see>.
+/// </summary>
+/// <seealso cref="Reaction" />
+/// <seealso cref="MessageReaction" />
+/// <seealso cref="TopicReactionEvent" />
+public class TopicReaction : Reaction
+{
+    #region Properties
     /// <summary>
-    /// Gets a hashcode of this object.
+    /// Gets the identifier of the <see cref="Topic">forum topic</see> that <see cref="User">user</see> reacted on.
     /// </summary>
-    /// <returns>HashCode</returns>
-    public override int GetHashCode() =>
-        HashCode.Combine(Id, CreatedAt);
+    /// <value>The <see cref="Topic">forum topic</see> identifier of the <see cref="Reaction">reaction</see></value>
+    /// <seealso cref="TopicReaction" />
+    /// <seealso cref="Reaction" />
+    /// <seealso cref="Topic" />
+    /// <seealso cref="Reaction.ChannelId" />
+    /// <seealso cref="Reaction.Id" />
+    public uint TopicId { get; }
+    #endregion
+
+    #region Constructor
+    /// <summary>
+    /// Initializes a new instance of <see cref="TopicReaction" /> from the specified JSON properties.
+    /// </summary>
+    /// <param name="emote">The <see cref="Emote">emote</see> with which the <see cref="Reaction.CreatedBy">user</see> reacted</param>
+    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that reacted</param>
+    /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Topic">forum topic</see> is</param>
+    /// <param name="forumTopicId">The identifier of the <see cref="Topic">forum topic</see> that <see cref="Reaction.CreatedBy">user</see> reacted on</param>
+    /// <returns>New <see cref="TopicReaction" /> JSON instance</returns>
+    /// <seealso cref="TopicReaction" />
+    /// <seealso cref="TopicReactionEvent" />
+    [JsonConstructor]
+    public TopicReaction(
+        [JsonProperty(Required = Required.Always)]
+        Emote emote,
+
+        [JsonProperty(Required = Required.Always)]
+        HashId createdBy,
+
+        [JsonProperty(Required = Required.Always)]
+        Guid channelId,
+
+        [JsonProperty(Required = Required.Always)]
+        uint forumTopicId
+    ) : base(emote, createdBy, channelId) =>
+        TopicId = forumTopicId;
+    #endregion
+
+    #region Methods
+    /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />
+    public override Task AddAsync() =>
+        ParentClient.AddReactionAsync(ChannelId, TopicId, Emote.Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
+    public override Task RemoveAsync() =>
+        ParentClient.RemoveReactionAsync(ChannelId, TopicId, Emote.Id);
     #endregion
 }
