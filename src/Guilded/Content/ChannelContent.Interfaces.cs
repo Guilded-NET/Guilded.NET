@@ -80,7 +80,7 @@ public interface IWebhookCreatable
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created <see cref="ChannelContent{TId, TServer}">the content</see>.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created <see cref="ChannelContent{TId, TServer}">the content</see>.
     /// </summary>
     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="IWebhookCreatable" />

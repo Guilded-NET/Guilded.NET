@@ -150,7 +150,7 @@ public class Message :
 
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created the message.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created the message.
     /// </summary>
     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="Message" />

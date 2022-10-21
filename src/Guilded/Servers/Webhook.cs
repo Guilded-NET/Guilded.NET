@@ -29,7 +29,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
 
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Webhook">the webhook</see>.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see>.
     /// </summary>
     /// <value><see cref="Id">Webhook ID</see></value>
     /// <seealso cref="Webhook" />
@@ -40,7 +40,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public Guid Id { get; }
 
     /// <summary>
-    /// Gets the name of <see cref="Webhook">the webhook</see>.
+    /// Gets the name of the <see cref="Webhook">webhook</see>.
     /// </summary>
     /// <value>Name</value>
     /// <seealso cref="Webhook" />
@@ -51,7 +51,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public string Name { get; }
 
     /// <summary>
-    /// Gets the token of <see cref="Webhook">the webhook</see>.
+    /// Gets the token of the <see cref="Webhook">webhook</see>.
     /// </summary>
     /// <remarks>
     /// <para>This will only be given if you have <see cref="GeneralPermissions.ManageWebhook">manage webhooks permission</see>.</para>
@@ -65,7 +65,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public string? Token { get; }
 
     /// <summary>
-    /// Gets the identifier of the channel where <see cref="Webhook">the webhook</see> is.
+    /// Gets the identifier of the channel where the <see cref="Webhook">webhook</see> is.
     /// </summary>
     /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="Webhook" />
@@ -76,7 +76,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public Guid ChannelId { get; }
 
     /// <summary>
-    /// Gets the identifier of the <see cref="Server">server</see> where <see cref="Webhook">the webhook</see> is.
+    /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> is.
     /// </summary>
     /// <value>Server ID</value>
     /// <seealso cref="Webhook" />
@@ -87,7 +87,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public HashId ServerId { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="Webhook">the webhook</see> was created.
+    /// Gets the date when the <see cref="Webhook">webhook</see> was created.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="Webhook" />
@@ -96,7 +96,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that created <see cref="Webhook">the webhook</see>.
+    /// Gets the identifier of <see cref="User">user</see> that created the <see cref="Webhook">webhook</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="Webhook" />
@@ -105,7 +105,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="Webhook">the webhook</see> was deleted.
+    /// Gets the date when the <see cref="Webhook">webhook</see> was deleted.
     /// </summary>
     /// <remarks>
     /// <para><see cref="Webhook">The webhook</see> will remain present after being deleted for the clients to be able to render the webhook's avatar and name.</para>
@@ -145,14 +145,14 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Initializes a new instance of <see cref="Webhook" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of <see cref="Webhook">the webhook</see></param>
-    /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
-    /// <param name="token">The token of <see cref="Webhook">the webhook</see></param>
+    /// <param name="id">The identifier of the <see cref="Webhook">webhook</see></param>
+    /// <param name="name">The name of the <see cref="Webhook">webhook</see></param>
+    /// <param name="token">The token of the <see cref="Webhook">webhook</see></param>
     /// <param name="channelId">The identifier of the channel where webhook is</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where webhook is</param>
-    /// <param name="createdAt">the date when <see cref="Webhook">the webhook</see> was created</param>
-    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that created <see cref="Webhook">the webhook</see></param>
-    /// <param name="deletedAt">the date when <see cref="Webhook">the webhook</see> was deleted</param>
+    /// <param name="createdAt">the date when the <see cref="Webhook">webhook</see> was created</param>
+    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that created the <see cref="Webhook">webhook</see></param>
+    /// <param name="deletedAt">the date when the <see cref="Webhook">webhook</see> was deleted</param>
     /// <returns>New <see cref="Webhook" /> JSON instance</returns>
     /// <seealso cref="Webhook" />
     [JsonConstructor]

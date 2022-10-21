@@ -21,11 +21,11 @@ namespace Guilded.Content;
 /// <seealso cref="Message" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="CalendarEvent" />
-public class TopicSummary : TitledContent, IContentMarkdown
+public class TopicSummary : TitledContent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Webhook">the webhook</see> that created <see cref="TopicSummary">the forum thread</see>.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created <see cref="TopicSummary">the forum thread</see>.
     /// </summary>
     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="TopicSummary" />
@@ -35,7 +35,7 @@ public class TopicSummary : TitledContent, IContentMarkdown
     public Guid? CreatedByWebhook { get; }
 
     /// <summary>
-    /// Gets the date when the <see cref="TopicSummary">topic</see> was bumped.
+    /// Gets the date when the <see cref="TopicSummary">forum topic</see> was bumped.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="TopicSummary" />
@@ -43,8 +43,21 @@ public class TopicSummary : TitledContent, IContentMarkdown
     /// <seealso cref="TitledContent.UpdatedAt" />
     public DateTime BumpedAt { get; }
 
-    /// <inheritdoc />
-    public Mentions? Mentions { get; }
+    /// <summary>
+    /// Gets whether the <see cref="TopicSummary">forum topic</see> has been pinned.
+    /// </summary>
+    /// <value>Whether the <see cref="TopicSummary">forum topic</see> has been pinned</value>
+    /// <seealso cref="TopicSummary" />
+    /// <seealso cref="IsLocked" />
+    public bool IsPinned { get; }
+
+    /// <summary>
+    /// Gets whether the <see cref="TopicSummary">forum topic</see> has been locked.
+    /// </summary>
+    /// <value>Whether the <see cref="TopicSummary">forum topic</see> has been locked</value>
+    /// <seealso cref="TopicSummary" />
+    /// <seealso cref="IsLocked" />
+    public bool IsLocked { get; }
     #endregion
 
     #region Properties Events
@@ -157,7 +170,8 @@ public class TopicSummary : TitledContent, IContentMarkdown
     /// <param name="createdAt">The date when the forum thread was created</param>
     /// <param name="bumpedAt">The date when the <see cref="TopicSummary">topic</see> was bumped</param>
     /// <param name="updatedAt">The date when the forum thread was edited</param>
-    /// <param name="mentions">The <see cref="Mentions">mentions</see> found in <see cref="Message.Content">the content</see></param>
+    /// <param name="isPinned">Whether the <see cref="TopicSummary">forum topic</see> has been pinned</param>
+    /// <param name="isLocked">Whether the <see cref="TopicSummary">forum topic</see> has been locked</param>
     /// <returns>New <see cref="TopicSummary" /> JSON instance</returns>
     /// <seealso cref="TopicSummary" />
     [JsonConstructor]
@@ -190,9 +204,12 @@ public class TopicSummary : TitledContent, IContentMarkdown
         DateTime? updatedAt = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        Mentions? mentions = null
+        bool isPinned = false,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isLocked = false
     ) : base(id, channelId, serverId, title, createdBy, createdAt, updatedAt) =>
-        (Mentions, BumpedAt, CreatedByWebhook) = (mentions, bumpedAt, createdByWebhookId);
+        (BumpedAt, CreatedByWebhook, IsPinned, IsLocked) = (bumpedAt, createdByWebhookId, isPinned, isLocked);
     #endregion
 
     #region Methods
@@ -216,7 +233,7 @@ public class TopicSummary : TitledContent, IContentMarkdown
 /// <seealso cref="Message" />
 /// <seealso cref="ListItem" />
 /// <seealso cref="CalendarEvent" />
-public class Topic : TopicSummary
+public class Topic : TopicSummary, IContentMarkdown
 {
     #region Properties
     /// <summary>
@@ -224,8 +241,15 @@ public class Topic : TopicSummary
     /// </summary>
     /// <value>Markdown string</value>
     /// <seealso cref="Topic" />
+    /// <seealso cref="Mentions" />
     /// <seealso cref="TitledContent.Title" />
     public string Content { get; }
+
+    /// <inheritdoc />
+    /// <seealso cref="Topic" />
+    /// <seealso cref="Content" />
+    /// <seealso cref="TitledContent.Title" />
+    public Mentions? Mentions { get; }
     #endregion
 
     #region Constructors
@@ -242,6 +266,9 @@ public class Topic : TopicSummary
     /// <param name="createdAt">The date when the forum thread was created</param>
     /// <param name="bumpedAt">The date when the <see cref="Topic">topic</see> was bumped</param>
     /// <param name="updatedAt">The date when the forum thread was edited</param>
+    /// <param name="mentions">The <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see></param>
+    /// <param name="isPinned">Whether the <see cref="TopicSummary">forum topic</see> has been pinned</param>
+    /// <param name="isLocked">Whether the <see cref="TopicSummary">forum topic</see> has been locked</param>
     /// <returns>New <see cref="Topic" /> JSON instance</returns>
     /// <seealso cref="Topic" />
     [JsonConstructor]
@@ -274,9 +301,18 @@ public class Topic : TopicSummary
         Guid? createdByWebhookId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        DateTime? updatedAt = null
-    ) : base(id, channelId, serverId, title, createdBy, createdAt, bumpedAt, createdByWebhookId, updatedAt) =>
-        Content = content;
+        DateTime? updatedAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Mentions? mentions = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isPinned = false,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool isLocked = false
+    ) : base(id, channelId, serverId, title, createdBy, createdAt, bumpedAt, createdByWebhookId, updatedAt, isPinned, isLocked) =>
+        (Content, Mentions) = (content, mentions);
     #endregion
 }
 

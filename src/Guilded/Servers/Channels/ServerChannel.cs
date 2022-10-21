@@ -311,7 +311,7 @@ public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatabl
         ParentClient.DeleteChannelAsync(Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.CreateWebhookAsync(HashId, Guid, string)" />
-    /// <param name="name">The name of <see cref="Webhook">the webhook</see></param>
+    /// <param name="name">The name of the <see cref="Webhook">webhook</see></param>
     public Task<Webhook> CreateWebhookAsync(string name) =>
         ParentClient.CreateWebhookAsync(ServerId, Id, name);
     #endregion

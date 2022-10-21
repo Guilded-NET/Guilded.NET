@@ -46,7 +46,7 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     /// <inheritdoc cref="Topic.Content" />
     public string Content => Topic.Content;
 
-    /// <inheritdoc cref="TopicSummary.Mentions" />
+    /// <inheritdoc cref="Topic.Mentions" />
     public Mentions? Mentions => Topic.Mentions;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
@@ -63,6 +63,12 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
 
     /// <inheritdoc cref="TitledContent.UpdatedAt" />
     public DateTime? UpdatedAt => Topic.UpdatedAt;
+
+    /// <inheritdoc cref="TopicSummary.IsPinned" />
+    public bool IsPinned => Topic.IsPinned;
+
+    /// <inheritdoc cref="TopicSummary.IsLocked" />
+    public bool IsLocked => Topic.IsLocked;
 
     /// <inheritdoc cref="IHasParentClient.ParentClient" />
     public AbstractGuildedClient ParentClient => Topic.ParentClient;

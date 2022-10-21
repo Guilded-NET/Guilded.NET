@@ -56,7 +56,7 @@
 //     public HashId CreatedBy { get; }
 
 //     /// <summary>
-//     /// Gets the identifier of <see cref="Webhook">the webhook</see> that reacted.
+//     /// Gets the identifier of the <see cref="Webhook">webhook</see> that reacted.
 //     /// </summary>
 //     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
 //     /// <seealso cref="Reaction" />
