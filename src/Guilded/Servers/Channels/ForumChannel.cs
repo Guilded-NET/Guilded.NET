@@ -102,41 +102,41 @@ public class ForumChannel : ServerChannel
         ParentClient.GetTopicAsync(Id, topic);
 
     /// <inheritdoc cref="AbstractGuildedClient.CreateTopicAsync(Guid, string, string)" />
-    /// <param name="title">The title of <see cref="Topic">the forum topic</see></param>
-    /// <param name="content">The content of <see cref="Topic">the forum topic</see></param>
+    /// <param name="title">The title of the <see cref="Topic">forum topic</see></param>
+    /// <param name="content">The content of the <see cref="Topic">forum topic</see></param>
     public Task<Topic> CreateTopicAsync(string title, string content) =>
         ParentClient.CreateTopicAsync(Id, title, content);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateTopicAsync(Guid, uint, string, string)" />
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to update</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to update</param>
     /// <param name="title">The new title of the <see cref="Topic">forum topic</see></param>
     /// <param name="content">The new contents of the <see cref="Topic">forum topic</see></param>
     public Task<Topic> UpdateTopicAsync(uint topic, string title, string content) =>
         ParentClient.UpdateTopicAsync(Id, topic, title, content);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteTopicAsync(Guid, uint)" />
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to delete</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to delete</param>
     public Task DeleteTopicAsync(uint topic) =>
         ParentClient.DeleteTopicAsync(Id, topic);
 
     /// <inheritdoc cref="AbstractGuildedClient.AddTopicPinAsync(Guid, uint)" />
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to pin</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to pin</param>
     public Task PinTopicAsync(uint topic) =>
         ParentClient.PinTopicAsync(Id, topic);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveTopicPinAsync(Guid, uint)" />
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to unpin</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to unpin</param>
     public Task UnpinTopicAsync(uint topic) =>
         ParentClient.UnpinTopicAsync(Id, topic);
 
     /// <inheritdoc cref="AbstractGuildedClient.AddTopicPinAsync(Guid, uint)" />
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to pin</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to pin</param>
     [Obsolete($"Use `{nameof(PinTopicAsync)}` instead")]
     public Task AddTopicPinAsync(uint topic) =>
         PinTopicAsync(topic);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveTopicPinAsync(Guid, uint)" />
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to unpin</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to unpin</param>
     [Obsolete($"Use `{nameof(UnpinTopicAsync)}` instead")]
     public Task RemoveTopicPinAsync(uint topic) =>
         UnpinTopicAsync(topic);

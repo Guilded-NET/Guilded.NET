@@ -13,7 +13,7 @@ namespace Guilded.Events;
 /// <seealso cref="Content.Doc" />
 /// <seealso cref="TopicEvent" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
 public class DocEvent : ICreatableContent, IUpdatableContent

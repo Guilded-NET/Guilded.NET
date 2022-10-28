@@ -13,7 +13,7 @@ namespace Guilded;
 public interface IHasParentClient
 {
     /// <summary>
-    /// Gets <see cref="AbstractGuildedClient">the parent client</see> that adopts <see cref="ContentModel">this object</see>.
+    /// Gets the parent <see cref="AbstractGuildedClient">client</see> that adopts <see cref="ContentModel">this object</see>.
     /// </summary>
     /// <value>Client</value>
     /// <seealso cref="ContentModel.OnDeserialized" />

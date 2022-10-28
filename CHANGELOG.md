@@ -1,5 +1,9 @@
 # v1.1.0
 
+Important renames:
+
+- `ListItemBase<T>`, `ListItemSummary`, `ListItem`, `ListItemNoteSummary`, `ListItemNote`, `ListItemEvent` were renamed to `ItemBase<T>`, `ItemSummary`, `Item`, `ItemNoteSummary`, `ItemNote`, `ItemEvent` respectively to be more consistent with `Topic`, `TopicComment`, `Doc`, `Message` and future types like `Media`, `MediaComment`, `Schedule`, as well as to have `ListItemNoteSummary` shorter.
+
 Package changes:
 - `Guilded.Base` is now very barebones for Guilded REST stuff. Doesn't contain things like `client.CreateMessageAsync` or anything. Still contains embeds and `MessageContent`
 - `Guilded.Connection`. This has `Guilded.Base` as a dependency and builds upon it for WebSocket stuff. Only `Guilded` package uses it, but this is primarily made for unofficial Guilded libraries.

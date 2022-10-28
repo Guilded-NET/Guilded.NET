@@ -11,7 +11,7 @@ namespace Guilded.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes <see cref="ServerChannel">a channel</see>.
 /// </summary>
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
 public class ChannelEvent : IModelHasId<Guid>, IChannel, ICreatableContent, IUpdatableContent, IServerBased

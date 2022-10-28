@@ -9,23 +9,23 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when someone creates, updates, completes, uncompletes or deletes <see cref="Content.ListItem">a list item</see>.
+/// Represents an event that occurs when someone creates, updates, completes, uncompletes or deletes <see cref="Content.Item">a list item</see>.
 /// </summary>
-/// <seealso cref="ListItemBase{T}" />
+/// <seealso cref="ItemBase{T}" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class ListItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreatable, IUpdatableContent, IServerBased, IChannelBased
+public class ItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreatable, IUpdatableContent, IServerBased, IChannelBased
 {
     #region Properties
     /// <summary>
     /// Gets the list item received from the event.
     /// </summary>
     /// <value>List item</value>
-    /// <seealso cref="ListItemEvent" />
+    /// <seealso cref="ItemEvent" />
     /// <seealso cref="Message" />
     /// <seealso cref="ServerId" />
-    public ListItem Item { get; }
+    public Item Item { get; }
 
     /// <inheritdoc />
     public HashId ServerId { get; }
@@ -38,37 +38,37 @@ public class ListItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreat
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Item.ChannelId;
 
-    /// <inheritdoc cref="ListItemBase{T}.Message" />
+    /// <inheritdoc cref="ItemBase{T}.Message" />
     public string Message => Item.Message;
 
-    /// <inheritdoc cref="ListItemBase{T}.Mentions" />
+    /// <inheritdoc cref="ItemBase{T}.Mentions" />
     public Mentions? Mentions => Item.Mentions;
 
-    /// <inheritdoc cref="ListItemBase{T}.Note" />
-    public ListItemNote? Note => Item.Note;
+    /// <inheritdoc cref="ItemBase{T}.Note" />
+    public ItemNote? Note => Item.Note;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedBy" />
     public HashId CreatedBy => Item.CreatedBy;
 
-    /// <inheritdoc cref="ListItemBase{T}.CreatedByWebhook" />
+    /// <inheritdoc cref="ItemBase{T}.CreatedByWebhook" />
     public Guid? CreatedByWebhook => Item.CreatedByWebhook;
 
     /// <inheritdoc cref="ChannelContent{T, S}.CreatedAt" />
     public DateTime CreatedAt => Item.CreatedAt;
 
-    /// <inheritdoc cref="ListItemBase{T}.UpdatedAt" />
+    /// <inheritdoc cref="ItemBase{T}.UpdatedAt" />
     public DateTime? UpdatedAt => Item.UpdatedAt;
 
-    /// <inheritdoc cref="ListItemBase{T}.CompletedBy" />
+    /// <inheritdoc cref="ItemBase{T}.CompletedBy" />
     public HashId? CompletedBy => Item.CompletedBy;
 
-    /// <inheritdoc cref="ListItemBase{T}.CompletedAt" />
+    /// <inheritdoc cref="ItemBase{T}.CompletedAt" />
     public DateTime? CompletedAt => Item.CompletedAt;
 
-    /// <inheritdoc cref="ListItemBase{T}.IsCompleted" />
+    /// <inheritdoc cref="ItemBase{T}.IsCompleted" />
     public bool IsCompleted => Item.IsCompleted;
 
-    /// <inheritdoc cref="ListItemBase{T}.ParentId" />
+    /// <inheritdoc cref="ItemBase{T}.ParentId" />
     public Guid? ParentId => Item.ParentId;
 
     /// <inheritdoc cref="IHasParentClient.ParentClient" />
@@ -76,35 +76,35 @@ public class ListItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreat
     #endregion
 
     #region Properties Events
-    /// <inheritdoc cref="ListItemBase{T}.Updated" />
-    public IObservable<ListItemEvent> Updated =>
+    /// <inheritdoc cref="ItemBase{T}.Updated" />
+    public IObservable<ItemEvent> Updated =>
         Item.Updated;
 
-    /// <inheritdoc cref="ListItemBase{T}.Deleted" />
-    public IObservable<ListItemEvent> Deleted =>
+    /// <inheritdoc cref="ItemBase{T}.Deleted" />
+    public IObservable<ItemEvent> Deleted =>
         Item.Deleted;
 
-    /// <inheritdoc cref="ListItemBase{T}.Completed" />
-    public IObservable<ListItemEvent> Completed =>
+    /// <inheritdoc cref="ItemBase{T}.Completed" />
+    public IObservable<ItemEvent> Completed =>
         Item.Completed;
 
-    /// <inheritdoc cref="ListItemBase{T}.Uncompleted" />
-    public IObservable<ListItemEvent> Uncompleted =>
+    /// <inheritdoc cref="ItemBase{T}.Uncompleted" />
+    public IObservable<ItemEvent> Uncompleted =>
         Item.Uncompleted;
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItemEvent" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="ItemEvent" /> from the specified JSON properties.
     /// </summary>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the list item event occurred</param>
     /// <param name="listItem">The list item received from the event</param>
-    /// <returns>New <see cref="ListItemEvent" /> JSON instance</returns>
-    /// <seealso cref="ListItemEvent" />
+    /// <returns>New <see cref="ItemEvent" /> JSON instance</returns>
+    /// <seealso cref="ItemEvent" />
     [JsonConstructor]
-    public ListItemEvent(
+    public ItemEvent(
         [JsonProperty(Required = Required.Always)]
-        ListItem listItem,
+        Item listItem,
 
         [JsonProperty(Required = Required.Always)]
         HashId serverId
@@ -113,19 +113,19 @@ public class ListItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreat
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="ListItemBase{T}.UpdateAsync(string, string?)" />
-    public Task<ListItem> UpdateAsync(string message, string? note) =>
+    /// <inheritdoc cref="ItemBase{T}.UpdateAsync(string, string?)" />
+    public Task<Item> UpdateAsync(string message, string? note) =>
         Item.UpdateAsync(message, note);
 
-    /// <inheritdoc cref="ListItemBase{T}.DeleteAsync" />
+    /// <inheritdoc cref="ItemBase{T}.DeleteAsync" />
     public Task DeleteAsync() =>
         Item.DeleteAsync();
 
-    /// <inheritdoc cref="ListItemBase{T}.CompleteAsync" />
+    /// <inheritdoc cref="ItemBase{T}.CompleteAsync" />
     public Task CompleteAsync() =>
         Item.CompleteAsync();
 
-    /// <inheritdoc cref="ListItemBase{T}.UncompleteAsync" />
+    /// <inheritdoc cref="ItemBase{T}.UncompleteAsync" />
     public Task UncompleteAsync() =>
         Item.UncompleteAsync();
     #endregion

@@ -20,13 +20,13 @@ namespace Guilded.Content;
 /// <seealso cref="CalendarRsvp" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-/// <seealso cref="ListItemBase{T}" />
+/// <seealso cref="ItemBase{T}" />
 /// <seealso cref="Message" />
 public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IServerBased, IPrivatableContent
 {
     #region Properties Content
     /// <summary>
-    /// Gets the title of <see cref="CalendarEvent">the titled content</see>.
+    /// Gets the title of the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <remarks>
     /// <para>This does not have any Markdown formatting and will not contain <c>\n</c> or other line breaking characters.</para>
@@ -38,7 +38,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public string Name { get; }
 
     /// <summary>
-    /// Gets the description of <see cref="CalendarEvent">the calendar event</see>.
+    /// Gets the description of the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <remarks>
     /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
@@ -50,13 +50,13 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public string? Description { get; }
 
     /// <summary>
-    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="Description">the description</see>.
+    /// Gets <see cref="Content.Mentions">the mentions</see> found in the <see cref="Description">description</see>.
     /// </summary>
     /// <value><see cref="Content.Mentions" />?</value>
     public Mentions? Mentions { get; }
 
     /// <summary>
-    /// Gets the physical or non-physical location of <see cref="CalendarEvent">the calendar event</see>.
+    /// Gets the physical or non-physical location of the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <value>Single-line string</value>
     /// <seealso cref="CalendarEvent" />
@@ -67,7 +67,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public string? Location { get; }
 
     /// <summary>
-    /// Gets the URL to <see cref="CalendarEvent">the calendar event's</see> services, place or anything related.
+    /// Gets the URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related.
     /// </summary>
     /// <value><see cref="Uri">URL</see>?</value>
     /// <seealso cref="CalendarEvent" />
@@ -78,7 +78,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public Uri? Url { get; }
 
     /// <summary>
-    /// Gets the colour of <see cref="CalendarEvent">the calendar event</see>.
+    /// Gets the colour of the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <value><see cref="SystemColor">Colour</see>?</value>
     /// <seealso cref="CalendarEvent" />
@@ -92,7 +92,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 
     #region Properties Time
     /// <summary>
-    /// Gets the date when <see cref="CalendarEvent">the calendar event</see> starts.
+    /// Gets the date when the <see cref="CalendarEvent">calendar event</see> starts.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="CalendarEvent" />
@@ -101,7 +101,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public DateTime StartsAt { get; }
 
     /// <summary>
-    /// Gets the duration of <see cref="CalendarEvent">the calendar event</see> in minutes.
+    /// Gets the duration of the <see cref="CalendarEvent">calendar event</see> in minutes.
     /// </summary>
     /// <value><see cref="TimeSpan">Duration</see> in minutes</value>
     /// <seealso cref="CalendarEvent" />
@@ -110,7 +110,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public TimeSpan? Duration { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="CalendarEvent">the calendar event</see> starts.
+    /// Gets the date when the <see cref="CalendarEvent">calendar event</see> starts.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="CalendarEvent" />
@@ -121,7 +121,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 
     #region Properties
     /// <summary>
-    /// Gets whether <see cref="CalendarEvent">the calendar event</see> was set as private.
+    /// Gets whether the <see cref="CalendarEvent">calendar event</see> was set as private.
     /// </summary>
     /// <value><see cref="CalendarEvent">Calendar event</see> is private</value>
     /// <seealso cref="CalendarEvent" />
@@ -129,7 +129,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public bool IsPrivate { get; }
 
     /// <summary>
-    /// Gets the limit of how many <see cref="User">users</see> can join <see cref="CalendarEvent">the calendar event</see>.
+    /// Gets the limit of how many <see cref="User">users</see> can join the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <value><see cref="CalendarRsvp">RSVP</see> limit?</value>
     /// <seealso cref="CalendarEvent" />
@@ -137,13 +137,13 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public uint? RsvpLimit { get; }
 
     /// <summary>
-    /// Gets the information about <see cref="CalendarEvent">the calendar event's</see> cancellation.
+    /// Gets the information about the <see cref="CalendarEvent">calendar event's</see> cancellation.
     /// </summary>
     /// <value><see cref="CalendarEvent">Calendar event</see>'s <see cref="CalendarCancellation">cancellation info</see></value>
     public CalendarCancellation? Cancellation { get; }
 
     /// <summary>
-    /// Gets whether <see cref="CalendarEvent">the calendar event</see> was cancelled.
+    /// Gets whether the <see cref="CalendarEvent">calendar event</see> was cancelled.
     /// </summary>
     /// <value><see cref="CalendarEvent">Calendar event</see> is private</value>
     /// <seealso cref="CalendarEvent" />
@@ -249,18 +249,18 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="id">The identifier of the channel content</param>
     /// <param name="channelId">The identifier of the channel where the channel content are</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the channel content are</param>
-    /// <param name="name">The title of <see cref="CalendarEvent">the calendar event</see></param>
-    /// <param name="description">The description of <see cref="CalendarEvent">the calendar event</see></param>
-    /// <param name="mentions"><see cref="Content.Mentions">The mentions</see> found in <see cref="Description">the description</see></param>
-    /// <param name="location">The physical or non-physical location of <see cref="CalendarEvent">the calendar event</see></param>
-    /// <param name="url">The URL to <see cref="CalendarEvent">the calendar event's</see> services, place or anything related</param>
-    /// <param name="color">The colour of <see cref="CalendarEvent">the calendar event</see></param>
-    /// <param name="duration">The duration of <see cref="CalendarEvent">the calendar event</see> in minutes</param>
-    /// <param name="isPrivate">Whether <see cref="CalendarEvent">the calendar event</see> was set as private</param>
-    /// <param name="cancellation">The information about <see cref="CalendarEvent">the calendar event's</see> cancellation</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created <see cref="CalendarEvent">the calendar event</see></param>
-    /// <param name="createdAt">The date when <see cref="CalendarEvent">the calendar event</see> were created</param>
-    /// <param name="startsAt">The date when <see cref="CalendarEvent">the calendar event</see> starts</param>
+    /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="mentions"><see cref="Content.Mentions">The mentions</see> found in the <see cref="Description">description</see></param>
+    /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
+    /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> was set as private</param>
+    /// <param name="cancellation">The information about the <see cref="CalendarEvent">calendar event's</see> cancellation</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="createdAt">The date when the <see cref="CalendarEvent">calendar event</see> were created</param>
+    /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
     /// <returns>New <see cref="CalendarEvent" /> JSON instance</returns>
     /// <seealso cref="CalendarEvent" />
     [JsonConstructor]
@@ -349,7 +349,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
     /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
-    /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
+    /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
     public Task<CalendarRsvp> SetRsvpAsync(HashId user, CalendarRsvpStatus status) =>
         ParentClient.SetRsvpAsync(ChannelId, Id, user, status);
 
@@ -361,16 +361,16 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 }
 
 /// <summary>
-/// Represents the cancellation of <see cref="CalendarEvent">a calendar event</see>.
+/// Represents the cancellation of a <see cref="CalendarEvent">calendar event</see>.
 /// </summary>
 /// <seealso cref="CalendarEvent" />
-/// <seealso cref="ListItemNote" />
-/// <seealso cref="ListItemNoteSummary" />
+/// <seealso cref="ItemNote" />
+/// <seealso cref="ItemNoteSummary" />
 public class CalendarCancellation
 {
     #region Properties
     /// <summary>
-    /// Gets the reason why <see cref="CalendarEvent">the calendar event</see> was cancelled.
+    /// Gets the reason why the <see cref="CalendarEvent">calendar event</see> was cancelled.
     /// </summary>
     /// <value>String</value>
     /// <seealso cref="CalendarCancellation" />
@@ -379,7 +379,7 @@ public class CalendarCancellation
     public string Description { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that cancelled <see cref="CalendarEvent">the calendar event</see>.
+    /// Gets the identifier of <see cref="User">user</see> that cancelled the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="CalendarCancellation" />
@@ -393,8 +393,8 @@ public class CalendarCancellation
     /// <summary>
     /// Initializes a new instance of <see cref="CalendarCancellation" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="description">The reason why <see cref="CalendarEvent">the calendar event</see> was cancelled</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that cancelled <see cref="CalendarEvent">the calendar event</see></param>
+    /// <param name="description">The reason why the <see cref="CalendarEvent">calendar event</see> was cancelled</param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that cancelled the <see cref="CalendarEvent">calendar event</see></param>
     /// <returns>New <see cref="CalendarCancellation" /> JSON instance</returns>
     /// <seealso cref="CalendarCancellation" />
     /// <seealso cref="CalendarEvent" />

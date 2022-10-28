@@ -10,7 +10,7 @@ public class Emote : IModelHasId<uint>
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="Emote">the emote</see>.
+    /// Gets the identifier of the <see cref="Emote">emote</see>.
     /// </summary>
     /// <value><see cref="Id">Emote ID</see></value>
     /// <seealso cref="Emote" />
@@ -19,7 +19,7 @@ public class Emote : IModelHasId<uint>
     public uint Id { get; }
 
     /// <summary>
-    /// Gets the name of <see cref="Emote">the emote</see>.
+    /// Gets the name of the <see cref="Emote">emote</see>.
     /// </summary>
     /// <remarks>
     /// <para>This will never hold any whitespace.</para>
@@ -31,7 +31,7 @@ public class Emote : IModelHasId<uint>
     public string Name { get; }
 
     /// <summary>
-    /// Gets the URL to <see cref="Emote">the emote's</see> image.
+    /// Gets the URL to the <see cref="Emote">emote's</see> image.
     /// </summary>
     /// <value>Media URL</value>
     /// <seealso cref="Emote" />
@@ -44,9 +44,9 @@ public class Emote : IModelHasId<uint>
     /// <summary>
     /// Initializes a new instance of <see cref="Emote" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of <see cref="Emote">the emote</see></param>
-    /// <param name="name">The name of <see cref="Emote">the emote</see></param>
-    /// <param name="url">The URL to <see cref="Emote">the emote's</see> image</param>
+    /// <param name="id">The identifier of the <see cref="Emote">emote</see></param>
+    /// <param name="name">The name of the <see cref="Emote">emote</see></param>
+    /// <param name="url">The URL to the <see cref="Emote">emote's</see> image</param>
     /// <returns>New <see cref="Emote" /> JSON instance</returns>
     /// <seealso cref="Emote" />
     [JsonConstructor]
@@ -65,7 +65,7 @@ public class Emote : IModelHasId<uint>
 
     #region Methods
     /// <summary>
-    /// Gets the string representation of <see cref="Emote">the emote</see>.
+    /// Gets the string representation of the <see cref="Emote">emote</see>.
     /// </summary>
     /// <remarks>
     /// <para>Currently, this returns <c>:</c> followed by the name of the emote and <c>:</c>.</para>

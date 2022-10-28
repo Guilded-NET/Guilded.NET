@@ -1,14 +1,14 @@
 namespace Guilded;
 
 /// <summary>
-/// Represents a model that has <see cref="Id">an identifier</see>.
+/// Represents a model that has an <see cref="Id">identifier</see>.
 /// </summary>
-/// <typeparam name="T">The type of <see cref="Id">the identifier</see></typeparam>
+/// <typeparam name="T">The type of the <see cref="Id">identifier</see></typeparam>
 public interface IModelHasId<out T> where T : notnull
 {
     /// <summary>
-    /// Gets the identifier of <see cref="IModelHasId{T}">the content</see>.
+    /// Gets the identifier of the <see cref="IModelHasId{T}">content</see>.
     /// </summary>
-    /// <value><see cref="IModelHasId{T}.Id">Content ID</see></value>
+    /// <value>The identifier of the <see cref="IModelHasId{T}">content</see></value>
     T Id { get; }
 }

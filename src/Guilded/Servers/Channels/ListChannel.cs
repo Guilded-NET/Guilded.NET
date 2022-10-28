@@ -91,39 +91,39 @@ public class ListChannel : ServerChannel
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.GetItemsAsync(Guid)" />
-    public Task<IList<ListItemSummary>> GetItemsAsync() =>
+    public Task<IList<ItemSummary>> GetItemsAsync() =>
         ParentClient.GetItemsAsync(Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.GetItemAsync(Guid, Guid)" />
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to get</param>
-    public Task<ListItem> GetItemAsync(Guid listItem) =>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to get</param>
+    public Task<Item> GetItemAsync(Guid listItem) =>
         ParentClient.GetItemAsync(Id, listItem);
 
     /// <inheritdoc cref="AbstractGuildedClient.CreateItemAsync(Guid, string, string)" />
-    /// <param name="message">The text content of the <see cref="ListItem">list item</see></param>
-    /// <param name="note">The text content of an <see cref="ListItemNote">optional note</see> in the <see cref="ListItem">list item</see></param>
-    public Task<ListItem> CreateItemAsync(string message, string? note = null) =>
+    /// <param name="message">The text content of the <see cref="Item">list item</see></param>
+    /// <param name="note">The text content of an <see cref="ItemNote">optional note</see> in the <see cref="Item">list item</see></param>
+    public Task<Item> CreateItemAsync(string message, string? note = null) =>
         ParentClient.CreateItemAsync(Id, message, note);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateItemAsync(Guid, Guid, string, string)" />
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to edit</param>
-    /// <param name="message">The new text content of the <see cref="ListItem">list item</see></param>
-    /// <param name="note">The new text content of the note in the <see cref="ListItem">list item</see></param>
-    public Task<ListItem> UpdateItemAsync(Guid listItem, string message, string? note = null) =>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to edit</param>
+    /// <param name="message">The new text content of the <see cref="Item">list item</see></param>
+    /// <param name="note">The new text content of the note in the <see cref="Item">list item</see></param>
+    public Task<Item> UpdateItemAsync(Guid listItem, string message, string? note = null) =>
         ParentClient.UpdateItemAsync(Id, listItem, message, note);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteItemAsync(Guid, Guid)" />
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to delete</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to delete</param>
     public Task DeleteItemAsync(Guid listItem) =>
         ParentClient.DeleteItemAsync(Id, listItem);
 
     /// <inheritdoc cref="AbstractGuildedClient.CompleteItemAsync(Guid, Guid)" />
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to complete</param>
     public Task CompleteItemAsync(Guid listItem) =>
         ParentClient.CompleteItemAsync(Id, listItem);
 
     /// <inheritdoc cref="AbstractGuildedClient.CompleteItemAsync(Guid, Guid)" />
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to complete</param>
     public Task UncompleteItemAsync(Guid listItem) =>
         ParentClient.UncompleteItemAsync(Id, listItem);
     #endregion

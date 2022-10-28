@@ -11,15 +11,15 @@ using Newtonsoft.Json;
 namespace Guilded.Content;
 
 /// <summary>
-/// Represents a summary of a <see cref="Topic">topic</see> in a <see cref="ChannelType.Forums">forum channel</see>.
+/// Represents a summary of a <see cref="Topic">forum topic</see> in a <see cref="ChannelType.Forums">forum channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>This summary does not contain the <see cref="Topic.Content">content</see> of the <see cref="Topic">topic</see> and only the <see cref="TitledContent.Title">title</see></para>
+/// <para>This summary does not contain the <see cref="Topic.Content">content</see> of the <see cref="Topic">forum topic</see> and only the <see cref="TitledContent.Title">title</see></para>
 /// </remarks>
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 /// <seealso cref="Message" />
-/// <seealso cref="ListItem" />
+/// <seealso cref="Item" />
 /// <seealso cref="CalendarEvent" />
 public class TopicSummary : TitledContent
 {
@@ -214,8 +214,8 @@ public class TopicSummary : TitledContent
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.UpdateTopicAsync(Guid, uint, string, string)" />
-    /// <param name="title">The new title of the <see cref="Topic">topic</see></param>
-    /// <param name="content">The Markdown content of the <see cref="Topic">topic</see></param>
+    /// <param name="title">The new title of the <see cref="Topic">forum topic</see></param>
+    /// <param name="content">The Markdown content of the <see cref="Topic">forum topic</see></param>
     public Task<Topic> UpdateAsync(string title, string content) =>
         ParentClient.UpdateTopicAsync(ChannelId, Id, title, content);
 
@@ -231,13 +231,13 @@ public class TopicSummary : TitledContent
 /// <seealso cref="TopicSummary" />
 /// <seealso cref="Doc" />
 /// <seealso cref="Message" />
-/// <seealso cref="ListItem" />
+/// <seealso cref="Item" />
 /// <seealso cref="CalendarEvent" />
 public class Topic : TopicSummary, IContentMarkdown
 {
     #region Properties
     /// <summary>
-    /// Gets the text contents of the <see cref="Topic">topic</see>.
+    /// Gets the text contents of the <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <value>Markdown string</value>
     /// <seealso cref="Topic" />
@@ -260,11 +260,11 @@ public class Topic : TopicSummary, IContentMarkdown
     /// <param name="channelId">The identifier of the channel where the forum thread is</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the forum thread is</param>
     /// <param name="title">The title of the forum thread</param>
-    /// <param name="content">The text contents of the <see cref="Topic">topic</see></param>
+    /// <param name="content">The text contents of the <see cref="Topic">forum topic</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>
     /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
     /// <param name="createdAt">The date when the forum thread was created</param>
-    /// <param name="bumpedAt">The date when the <see cref="Topic">topic</see> was bumped</param>
+    /// <param name="bumpedAt">The date when the <see cref="Topic">forum topic</see> was bumped</param>
     /// <param name="updatedAt">The date when the forum thread was edited</param>
     /// <param name="mentions">The <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see></param>
     /// <param name="isPinned">Whether the <see cref="TopicSummary">forum topic</see> has been pinned</param>

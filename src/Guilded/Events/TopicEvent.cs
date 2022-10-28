@@ -14,7 +14,7 @@ namespace Guilded.Events;
 /// <seealso cref="Content.Topic" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
 public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreatableContent, IUpdatableContent

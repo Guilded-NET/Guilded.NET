@@ -15,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
 public class CalendarRsvpEvent : IChannelBased, IServerBased, ICreatableContent, IUpdatableContent
@@ -106,7 +106,7 @@ public class CalendarRsvpEvent : IChannelBased, IServerBased, ICreatableContent,
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
-    /// <param name="status">The new status of <see cref="CalendarEvent">the RSVP</see></param>
+    /// <param name="status">The new status of the <see cref="CalendarEvent">calendar RSVP</see></param>
     public Task<CalendarRsvp> SetAsync(CalendarRsvpStatus status) =>
         Rsvp.SetAsync(status);
 

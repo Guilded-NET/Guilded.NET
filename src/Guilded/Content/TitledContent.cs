@@ -13,13 +13,13 @@ namespace Guilded.Content;
 /// </summary>
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-/// <seealso cref="ListItemBase{T}" />
+/// <seealso cref="ItemBase{T}" />
 /// <seealso cref="Message" />
 public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableContent, IReactibleContent, IServerBased
 {
     #region Properties Content
     /// <summary>
-    /// Gets the title of <see cref="TitledContent">the titled content</see>.
+    /// Gets the title of the <see cref="TitledContent">titled content</see>.
     /// </summary>
     /// <remarks>
     /// <para>This does not have any Markdown formatting and will not contain <c>\n</c> or other line breaking characters.</para>
@@ -32,7 +32,7 @@ public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableCo
 
     #region Properties
     /// <summary>
-    /// Gets the date when <see cref="TitledContent">the titled content</see> were updated.
+    /// Gets the date when the <see cref="TitledContent">titled content</see> were updated.
     /// </summary>
     /// <value>Date?</value>
     /// <seealso cref="TitledContent" />
@@ -45,13 +45,13 @@ public abstract class TitledContent : ChannelContent<uint, HashId>, IUpdatableCo
     /// <summary>
     /// Initializes a new instance of <see cref="TitledContent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of <see cref="TitledContent">the titled content</see></param>
+    /// <param name="id">The identifier of the <see cref="TitledContent">titled content</see></param>
     /// <param name="channelId">The identifier of the channel where the channel content are</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the channel content are</param>
-    /// <param name="title">The title of <see cref="TitledContent">the titled content</see></param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created <see cref="ChannelContent{TId, TServer}">the content</see></param>
-    /// <param name="createdAt">The date when <see cref="ChannelContent{TId, TServer}">the content</see> were created</param>
-    /// <param name="updatedAt">The date when <see cref="TitledContent">the titled content</see> were updated</param>
+    /// <param name="title">The title of the <see cref="TitledContent">titled content</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="ChannelContent{TId, TServer}">content</see></param>
+    /// <param name="createdAt">The date when the <see cref="ChannelContent{TId, TServer}">content</see> were created</param>
+    /// <param name="updatedAt">The date when the <see cref="TitledContent">titled content</see> were updated</param>
     /// <returns>New <see cref="TitledContent" /> JSON instance</returns>
     /// <seealso cref="TitledContent" />
     [JsonConstructor]

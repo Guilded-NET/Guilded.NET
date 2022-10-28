@@ -21,7 +21,7 @@ public abstract partial class AbstractGuildedClient
     /// <param name="server">The identifier of the <see cref="Server">server</see> to get</param>
     /// <returns>The <see cref="Server">server</see> that was specified in the arguments</returns>
     public Task<Server> GetServerAsync(HashId server) =>
-        GetResponseProperty<Server>(new RestRequest($"servers/{server}", Method.Get), "server");
+        GetResponsePropertyAsync<Server>(new RestRequest($"servers/{server}", Method.Get), "server");
     #endregion
 
     #region Methods Groups
@@ -108,7 +108,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>List of role IDs</returns>
     public Task<IList<uint>> GetMemberRolesAsync(HashId server, HashId member) =>
-        GetResponseProperty<IList<uint>>(new RestRequest($"servers/{server}/members/{member}/roles", Method.Get), "roleIds");
+        GetResponsePropertyAsync<IList<uint>>(new RestRequest($"servers/{server}/members/{member}/roles", Method.Get), "roleIds");
 
     /// <summary>
     /// Changes the <see cref="Member.Nickname">nickname</see> of the specified <paramref name="member" />.
@@ -129,7 +129,7 @@ public abstract partial class AbstractGuildedClient
         ? throw new ArgumentNullException(nameof(nickname))
         : nickname.Length > 32
         ? throw new ArgumentOutOfRangeException(nameof(nickname), nickname, $"Argument {nameof(nickname)} must be 32 characters in length max")
-        : GetResponseProperty<string>(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Put)
+        : GetResponsePropertyAsync<string>(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Put)
             .AddJsonBody(new
             {
                 nickname
@@ -152,7 +152,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CustomPermissions.ManageMemberNickname">Required when changing nicknames of <see cref="Member">other members</see></permission>
-    /// <permission cref="CustomPermissions.ManageSelfNickname">Required when changing <see cref="AbstractGuildedClient">the client's</see> own nickname</permission>
+    /// <permission cref="CustomPermissions.ManageSelfNickname">Required when changing the <see cref="AbstractGuildedClient">client's</see> own nickname</permission>
     public Task RemoveNicknameAsync(HashId server, HashId member) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Delete));
 
@@ -168,7 +168,7 @@ public abstract partial class AbstractGuildedClient
     /// <para>If they hold the specified <paramref name="role" />, then nothing happens.</para>
     /// </remarks>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
-    /// <param name="member">The identifier of <see cref="Member">the receiving member</see></param>
+    /// <param name="member">The identifier of the receiving <see cref="Member">member</see></param>
     /// <param name="role">The identifier of the role to add</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -185,7 +185,7 @@ public abstract partial class AbstractGuildedClient
     /// <para>If they don't hold the specified <paramref name="role" />, then nothing happens.</para>
     /// </remarks>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
-    /// <param name="member">The identifier of <see cref="Member">the losing member</see></param>
+    /// <param name="member">The identifier of the losing <see cref="Member">member</see></param>
     /// <param name="role">The identifier of the role to remove</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -211,7 +211,7 @@ public abstract partial class AbstractGuildedClient
     public Task<long> AddXpAsync(HashId server, HashId member, short amount) =>
         amount is > 1000 or < -1000
         ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
-        : GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
+        : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
@@ -234,7 +234,7 @@ public abstract partial class AbstractGuildedClient
     public Task<long> SetXpAsync(HashId server, HashId member, long total) =>
         total is > 1000 or < -1000
         ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1000000000 and less than -1000000000 XP")
-        : GetResponseProperty<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Put)
+        : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Put)
             .AddJsonBody(new
             {
                 total
@@ -290,7 +290,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.RemoveMember" />
     /// <returns>The list of fetched <see cref="MemberBan">member bans</see> in the specified <paramref name="server" /></returns>
     public Task<IList<MemberBan>> GetMemberBansAsync(HashId server) =>
-        TransformListResponseAsync<MemberBan>(new RestRequest($"servers/{server}/bans", Method.Get), "serverMemberBans", value =>
+        TransformListResponseAsync(new RestRequest($"servers/{server}/bans", Method.Get), "serverMemberBans", value =>
         {
             value.Add("serverId", JValue.CreateString(server.ToString()));
             return value.ToObject<MemberBan>(GuildedSerializer)!;
@@ -375,7 +375,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets a list of <see cref="Webhook">webhooks</see>.
     /// </summary>
     /// <remarks>
-    /// <para>If <paramref name="channel" /> parameter is given, it gets all of <see cref="Webhook">the channel webhooks</see> instead.</para>
+    /// <para>If <paramref name="channel" /> parameter is given, it gets all of the channel <see cref="Webhook">webhooks</see> instead.</para>
     /// </remarks>
     /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Webhook">webhooks</see> from</param>
     /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get webhooks from</param>
@@ -386,7 +386,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The list of fetched <see cref="Webhook">webhooks</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid? channel = null) =>
-        GetResponseProperty<IList<Webhook>>(new RestRequest($"servers/{server}/webhooks", Method.Get)
+        GetResponsePropertyAsync<IList<Webhook>>(new RestRequest($"servers/{server}/webhooks", Method.Get)
             .AddOptionalQuery("channelId", channel)
         , "webhooks");
 
@@ -402,7 +402,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The <see cref="Webhook">webhook</see> that was specified in the arguments</returns>
     public Task<Webhook> GetWebhookAsync(HashId server, Guid webhook) =>
-        GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Get), "webhook");
+        GetResponsePropertyAsync<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Get), "webhook");
 
     /// <summary>
     /// Creates a new <see cref="Webhook">webhook</see> in the specified <paramref name="channel" />.
@@ -421,7 +421,7 @@ public abstract partial class AbstractGuildedClient
     public Task<Webhook> CreateWebhookAsync(HashId server, Guid channel, string name) =>
         string.IsNullOrWhiteSpace(name)
         ? throw new ArgumentNullException(nameof(name))
-        : GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks", Method.Post)
+        : GetResponsePropertyAsync<Webhook>(new RestRequest($"servers/{server}/webhooks", Method.Post)
             .AddJsonBody(new
             {
                 name,
@@ -450,7 +450,7 @@ public abstract partial class AbstractGuildedClient
     public Task<Webhook> UpdateWebhookAsync(HashId server, Guid webhook, string name, Guid? newChannel = null) =>
         string.IsNullOrWhiteSpace(name)
         ? throw new ArgumentNullException(nameof(name))
-        : GetResponseProperty<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Put)
+        : GetResponsePropertyAsync<Webhook>(new RestRequest($"servers/{server}/webhooks/{webhook}", Method.Put)
             .AddJsonBody(new
             {
                 name,
@@ -485,7 +485,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The <see cref="ServerChannel">channel</see> that was specified in the arguments</returns>
     public Task<ServerChannel> GetChannelAsync(Guid channel) =>
-        GetResponseProperty<ServerChannel>(new RestRequest($"channels/{channel}", Method.Get), "channel");
+        GetResponsePropertyAsync<ServerChannel>(new RestRequest($"channels/{channel}", Method.Get), "channel");
 
     /// <summary>
     /// Creates a new channel in the specified <paramref name="server" />.
@@ -513,7 +513,7 @@ public abstract partial class AbstractGuildedClient
         EnforceLimit(nameof(name), name, ServerChannel.NameLimit);
         EnforceLimitOnNullable(nameof(topic), topic, ServerChannel.TopicLimit);
 
-        return GetResponseProperty<ServerChannel>(new RestRequest($"channels", Method.Post)
+        return GetResponsePropertyAsync<ServerChannel>(new RestRequest($"channels", Method.Post)
             .AddJsonBody(new
             {
                 serverId = server,
@@ -543,7 +543,7 @@ public abstract partial class AbstractGuildedClient
     /// <returns>The <see cref="ServerChannel">channel</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<ServerChannel> UpdateChannelAsync(Guid channel, string? name = null, string? topic = null, bool? isPublic = null)
     {
-        return GetResponseProperty<ServerChannel>(new RestRequest($"channels/{channel}", Method.Patch)
+        return GetResponsePropertyAsync<ServerChannel>(new RestRequest($"channels/{channel}", Method.Patch)
             .AddJsonBody(new
             {
                 name,

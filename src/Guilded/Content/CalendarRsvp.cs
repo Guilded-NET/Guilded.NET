@@ -12,7 +12,7 @@ using Newtonsoft.Json;
 namespace Guilded.Content;
 
 /// <summary>
-/// Represents <see cref="User">user's</see> invitation to or <see cref="User">user's</see> status on <see cref="CalendarEvent">a calendar event</see>.
+/// Represents <see cref="User">user's</see> invitation to or <see cref="User">user's</see> status on a <see cref="CalendarEvent">calendar event</see>.
 /// </summary>
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="CalendarCancellation" />
@@ -41,7 +41,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public CalendarRsvpStatus Status { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="CalendarEvent">the parent calendar event</see>.
+    /// Gets the identifier of the parent <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <value><see cref="ChannelContent{TId, TServer}.Id">Calendar event ID</see></value>
     /// <seealso cref="CalendarRsvp" />
@@ -55,7 +55,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public uint CalendarEventId => EventId;
 
     /// <summary>
-    /// Gets the identifier of <see cref="ServerChannel">the parent channel</see> where <see cref="EventId">the calendar event</see> is.
+    /// Gets the identifier of the parent <see cref="CalendarChannel">channel</see> where the <see cref="CalendarEvent">calendar event</see> is.
     /// </summary>
     /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="CalendarRsvp" />
@@ -65,7 +65,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public Guid ChannelId { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Server">the parent server</see> where <see cref="EventId">the calendar event</see> is.
+    /// Gets the identifier of the parent <see cref="Server">server</see> where the parent <see cref="CalendarEvent">calendar event</see> is.
     /// </summary>
     /// <value><see cref="Server.Id">Server ID</see></value>
     /// <seealso cref="CalendarRsvp" />
@@ -75,7 +75,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public HashId ServerId { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Member">the member</see> who created <see cref="CalendarRsvp">the RSVP</see>.
+    /// Gets the identifier of <see cref="Member">the member</see> who created the <see cref="CalendarRsvp">calendar RSVP</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="CalendarRsvp" />
@@ -85,7 +85,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="CalendarRsvp">the RSVP</see> was created.
+    /// Gets the date when the <see cref="CalendarRsvp">calendar RSVP</see> was created.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="CalendarRsvp" />
@@ -95,10 +95,10 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Member">the member</see> who updated <see cref="CalendarRsvp">the RSVP</see>.
+    /// Gets the identifier of <see cref="Member">the member</see> who updated the <see cref="CalendarRsvp">calendar RSVP</see>.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes the <see cref="User">user</see> who updated <see cref="CalendarRsvp">the RSVP</see> most recently.</para>
+    /// <para>Only includes the <see cref="User">user</see> who updated the <see cref="CalendarRsvp">calendar RSVP</see> most recently.</para>
     /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     /// <seealso cref="CalendarRsvp" />
@@ -108,10 +108,10 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     public HashId? UpdatedBy { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="CalendarRsvp">the RSVP</see> was updated.
+    /// Gets the date when the <see cref="CalendarRsvp">calendar RSVP</see> was updated.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes date when <see cref="CalendarRsvp">the RSVP</see> was updated most recently.</para>
+    /// <para>Only includes date when the <see cref="CalendarRsvp">calendar RSVP</see> was updated most recently.</para>
     /// </remarks>
     /// <value>Date</value>
     /// <seealso cref="CalendarRsvp" />
@@ -126,7 +126,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets edited.
     /// </summary>
     /// <remarks>
-    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> and <see cref="User">author</see> specific.</para>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for the parent <see cref="CalendarEvent">calendar event</see> and <see cref="User">author</see> specific.</para>
     /// </remarks>
     /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets edited</returns>
     /// <seealso cref="Updated" />
@@ -212,7 +212,7 @@ public class CalendarRsvp : ContentModel, ICreatableContent, IUpdatableContent, 
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
-    /// <param name="status">The new status of <see cref="CalendarEvent">the RSVP</see></param>
+    /// <param name="status">The new status of the <see cref="CalendarEvent">calendar event RSVP</see></param>
     public Task<CalendarRsvp> SetAsync(CalendarRsvpStatus status) =>
         ParentClient.SetRsvpAsync(ChannelId, EventId, UserId, status);
 

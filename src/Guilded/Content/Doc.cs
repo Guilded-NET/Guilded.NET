@@ -15,7 +15,7 @@ namespace Guilded.Content;
 /// </summary>
 /// <seealso cref="Topic" />
 /// <seealso cref="CalendarEvent" />
-/// <seealso cref="ListItem" />
+/// <seealso cref="Item" />
 /// <seealso cref="Message" />
 public class Doc : TitledContent, IContentMarkdown
 {
@@ -32,16 +32,16 @@ public class Doc : TitledContent, IContentMarkdown
     public string Content { get; }
 
     /// <summary>
-    /// Gets <see cref="Content.Mentions">the mentions</see> found in <see cref="Content">the content</see>.
+    /// Gets <see cref="Content.Mentions">the mentions</see> found in the <see cref="Content">content</see>.
     /// </summary>
     /// <value><see cref="Content.Mentions" />?</value>
     public Mentions? Mentions { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Member">the member</see> who updated <see cref="Doc">the document</see>.
+    /// Gets the identifier of <see cref="Member">the member</see> who updated the <see cref="Doc">document</see>.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes the <see cref="User">user</see> who updated <see cref="Doc">the document</see> most recently.</para>
+    /// <para>Only includes the <see cref="User">user</see> who updated the <see cref="Doc">document</see> most recently.</para>
     /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     /// <seealso cref="Doc" />
@@ -97,7 +97,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// <param name="createdAt">the date when the document was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
     /// <param name="updatedAt">the date when the document was recently updated</param>
-    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Content">the content</see></param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in the <see cref="Content">content</see></param>
     /// <returns>New <see cref="Doc" /> JSON instance</returns>
     /// <seealso cref="Doc" />
     [JsonConstructor]

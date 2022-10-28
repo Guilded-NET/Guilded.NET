@@ -15,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
 public class CalendarRsvpManyEvent

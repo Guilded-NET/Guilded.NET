@@ -14,21 +14,21 @@ namespace Guilded.Content;
 /// Represents an item in a <see cref="ListChannel">list channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached <see cref="ListItem">list item</see>.</para>
+/// <para>Either an existing or a cached <see cref="Item">list item</see>.</para>
 /// </remarks>
-/// <typeparam name="T">The type of the <see cref="ListItem">list item's</see> note</typeparam>
-/// <seealso cref="ListItem" />
-/// <seealso cref="ListItemSummary" />
-/// <seealso cref="ListItemNote" />
-/// <seealso cref="ListItemNoteSummary" />
+/// <typeparam name="T">The type of the <see cref="Item">list item's</see> note</typeparam>
+/// <seealso cref="Item" />
+/// <seealso cref="ItemSummary" />
+/// <seealso cref="ItemNote" />
+/// <seealso cref="ItemNoteSummary" />
 /// <seealso cref="Content.Message" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown, IServerBased where T : ListItemNoteSummary
+public abstract class ItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown, IServerBased where T : ItemNoteSummary
 {
     #region Properties
     /// <summary>
-    /// Gets the text contents of the message in <see cref="ListItem">the item</see>.
+    /// Gets the text contents of the message in the <see cref="Item">list item</see>.
     /// </summary>
     /// <remarks>
     /// <para>The contents of the list item are formatted in Markdown. The contents must only be in a single line.</para>
@@ -38,13 +38,13 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     public string Message { get; }
 
     /// <summary>
-    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="Message">the content</see>.
+    /// Gets the <see cref="Mentions">mentions</see> found in <see cref="Message">the content</see>.
     /// </summary>
     /// <value><see cref="Mentions" />?</value>
     public Mentions? Mentions { get; }
 
     /// <summary>
-    /// Gets the note of <see cref="ListItem">the item</see>.
+    /// Gets the note of the <see cref="Item">list item</see>.
     /// </summary>
     /// <value>List item note?</value>
     public T? Note { get; }
@@ -56,54 +56,54 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     public Guid? CreatedByWebhook { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="ListItem">the item</see> was edited.
+    /// Gets the date when the <see cref="Item">list item</see> was edited.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? UpdatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> who updated <see cref="ListItem">the list item</see>.
+    /// Gets the identifier of <see cref="User">user</see> who updated the <see cref="Item">list item</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     public HashId? UpdatedBy { get; }
 
     /// <summary>
-    /// Gets the date when <see cref="ListItem">the item</see> was completed.
+    /// Gets the date when the <see cref="Item">list item</see> was completed.
     /// </summary>
     /// <value>Date?</value>
     public DateTime? CompletedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> who ticked off <see cref="ListItem">the item</see>.
+    /// Gets the identifier of <see cref="User">user</see> who ticked off the <see cref="Item">list item</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see>?</value>
     public HashId? CompletedBy { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="ListItem">the parent item</see> of <see cref="ListItem">the item</see>.
+    /// Gets the identifier of the parent <see cref="Item">list item</see> of the <see cref="Item">list item</see>.
     /// </summary>
     /// <value><see cref="ChannelContent{TId, TServer}.Id">List item ID</see>?</value>
     public Guid? ParentId { get; }
 
     /// <summary>
-    /// Gets whether <see cref="ListItem">the list item</see> was ticked off
+    /// Gets whether the <see cref="Item">list item</see> was ticked off
     /// </summary>
-    /// <returns><see cref="ListItem">List item</see> is completed</returns>
+    /// <returns><see cref="Item">List item</see> is completed</returns>
     public bool IsCompleted => CompletedAt is not null;
     #endregion
 
     #region Properties Events
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets edited.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> gets edited.
     /// </summary>
     /// <remarks>
-    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Item">list item</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets edited</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> gets edited</returns>
     /// <seealso cref="Deleted" />
     /// <seealso cref="Completed" />
     /// <seealso cref="Uncompleted" />
-    public IObservable<ListItemEvent> Updated =>
+    public IObservable<ItemEvent> Updated =>
         ParentClient
             .ItemUpdated
             .Where(x =>
@@ -111,16 +111,16 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
             );
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets deleted.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> gets deleted.
     /// </summary>
     /// <remarks>
-    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Item">list item</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> gets deleted</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> gets deleted</returns>
     /// <seealso cref="Updated" />
     /// <seealso cref="Completed" />
     /// <seealso cref="Uncompleted" />
-    public IObservable<ListItemEvent> Deleted =>
+    public IObservable<ItemEvent> Deleted =>
         ParentClient
             .ItemDeleted
             .Where(x =>
@@ -129,16 +129,16 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
             .Take(1);
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as completed.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> is set as completed.
     /// </summary>
     /// <remarks>
-    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Item">list item</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as completed</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> is set as completed</returns>
     /// <seealso cref="Updated" />
     /// <seealso cref="Deleted" />
     /// <seealso cref="Uncompleted" />
-    public IObservable<ListItemEvent> Completed =>
+    public IObservable<ItemEvent> Completed =>
         ParentClient
             .ItemCompleted
             .Where(x =>
@@ -146,16 +146,16 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
             );
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as non-completed.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> is set as non-completed.
     /// </summary>
     /// <remarks>
-    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ListItem">list item</see> specific.</para>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Item">list item</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ListItem">list item</see> is set as non-completed</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Item">list item</see> is set as non-completed</returns>
     /// <seealso cref="Updated" />
     /// <seealso cref="Deleted" />
     /// <seealso cref="Completed" />
-    public IObservable<ListItemEvent> Uncompleted =>
+    public IObservable<ItemEvent> Uncompleted =>
         ParentClient
             .ItemUncompleted
             .Where(x =>
@@ -165,7 +165,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItemBase{T}" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="ItemBase{T}" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
@@ -181,10 +181,10 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// <param name="completedAt">the date when the list item was completed</param>
     /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
     /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
-    /// <returns>New <see cref="ListItemBase{T}" /> JSON instance</returns>
-    /// <seealso cref="ListItemBase{T}" />
+    /// <returns>New <see cref="ItemBase{T}" /> JSON instance</returns>
+    /// <seealso cref="ItemBase{T}" />
     [JsonConstructor]
-    protected ListItemBase(
+    protected ItemBase(
         [JsonProperty(Required = Required.Always)]
         Guid id,
 
@@ -234,7 +234,7 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
     /// <inheritdoc cref="AbstractGuildedClient.UpdateItemAsync(Guid, Guid, string, string?)" />
     /// <param name="message">The new contents of the list item's message in Markdown plain text</param>
     /// <param name="note">The new contents of the list item's note in Markdown plain text</param>
-    public Task<ListItem> UpdateAsync(string message, string? note = null) =>
+    public Task<Item> UpdateAsync(string message, string? note = null) =>
         ParentClient.UpdateItemAsync(ChannelId, Id, message, note);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteItemAsync(Guid, Guid)" />
@@ -255,20 +255,20 @@ public abstract class ListItemBase<T> : ChannelContent<Guid, HashId>, IUpdatable
 /// Represents an item in a <see cref="ListChannel">list channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached <see cref="ListItem">list item</see>.</para>
+/// <para>Either an existing or a cached <see cref="Item">list item</see>.</para>
 /// </remarks>
-/// <seealso cref="ListItemSummary" />
-/// <seealso cref="ListItemNote" />
-/// <seealso cref="ListItemNoteSummary" />
-/// <seealso cref="ListItemBase{T}" />
+/// <seealso cref="ItemSummary" />
+/// <seealso cref="ItemNote" />
+/// <seealso cref="ItemNoteSummary" />
+/// <seealso cref="ItemBase{T}" />
 /// <seealso cref="Message" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-public class ListItem : ListItemBase<ListItemNote>
+public class Item : ItemBase<ItemNote>
 {
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItem" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="Item" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
@@ -284,10 +284,10 @@ public class ListItem : ListItemBase<ListItemNote>
     /// <param name="completedAt">the date when the list item was completed</param>
     /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
     /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
-    /// <returns>New <see cref="ListItem" /> JSON instance</returns>
-    /// <seealso cref="ListItem" />
+    /// <returns>New <see cref="Item" /> JSON instance</returns>
+    /// <seealso cref="Item" />
     [JsonConstructor]
-    public ListItem(
+    public Item(
         [JsonProperty(Required = Required.Always)]
         Guid id,
 
@@ -313,7 +313,7 @@ public class ListItem : ListItemBase<ListItemNote>
         Mentions? mentions = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        ListItemNote? note = null,
+        ItemNote? note = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null,
@@ -337,20 +337,20 @@ public class ListItem : ListItemBase<ListItemNote>
 /// Represents an item in a <see cref="ListChannel">list channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>Either an existing or a cached <see cref="ListItem">list item</see>.</para>
+/// <para>Either an existing or a cached <see cref="Item">list item</see>.</para>
 /// </remarks>
-/// <seealso cref="ListItem" />
-/// <seealso cref="ListItemNote" />
-/// <seealso cref="ListItemNoteSummary" />
-/// <seealso cref="ListItemBase{T}" />
+/// <seealso cref="Item" />
+/// <seealso cref="ItemNote" />
+/// <seealso cref="ItemNoteSummary" />
+/// <seealso cref="ItemBase{T}" />
 /// <seealso cref="Message" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-public class ListItemSummary : ListItemBase<ListItemNote>
+public class ItemSummary : ItemBase<ItemNote>
 {
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="ListItemSummary" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="ItemSummary" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the list item</param>
     /// <param name="channelId">The identifier of the channel where the list item is</param>
@@ -366,10 +366,10 @@ public class ListItemSummary : ListItemBase<ListItemNote>
     /// <param name="completedAt">the date when the list item was completed</param>
     /// <param name="completedBy">The identifier of <see cref="User">user</see> completer of the list item</param>
     /// <param name="parentListItemId">The identifier of the parent list item of this list item</param>
-    /// <returns>New <see cref="ListItemSummary" /> JSON instance</returns>
-    /// <seealso cref="ListItemSummary" />
+    /// <returns>New <see cref="ItemSummary" /> JSON instance</returns>
+    /// <seealso cref="ItemSummary" />
     [JsonConstructor]
-    public ListItemSummary(
+    public ItemSummary(
         [JsonProperty(Required = Required.Always)]
         Guid id,
 
@@ -395,7 +395,7 @@ public class ListItemSummary : ListItemBase<ListItemNote>
         Mentions? mentions = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        ListItemNote? note = null,
+        ItemNote? note = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null,

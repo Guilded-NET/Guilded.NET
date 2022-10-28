@@ -8,6 +8,7 @@ using Guilded.Content;
 using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
+using Newtonsoft.Json.Linq;
 using RestSharp;
 
 namespace Guilded.Client;
@@ -143,7 +144,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.GetPrivateMessage">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="AbstractGuildedClient">client</see> if <paramref name="includePrivate" /> is set as true</permission>
     /// <returns>The list of fetched <see cref="Message">messages</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null) =>
-        GetResponseProperty<IList<Message>>(
+        GetResponsePropertyAsync<IList<Message>>(
             new RestRequest($"channels/{channel}/messages", Method.Get)
                 // Because it gets uppercased
                 .AddQueryParameter("includePrivate", includePrivate ? "true" : "false", encode: false)
@@ -165,7 +166,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.GetPrivateMessage">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="AbstractGuildedClient">client</see></permission>
     /// <returns>The <see cref="Message">message</see> that was specified in the arguments</returns>
     public Task<Message> GetMessageAsync(Guid channel, Guid message) =>
-        GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Get), "message");
+        GetResponsePropertyAsync<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Get), "message");
 
     /// <summary>
     /// Creates a new <see cref="Message">message</see>.
@@ -177,7 +178,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <see cref="MessageContent.Content">content</see> only consists of whitespace or is <see langword="null" /> and <see cref="MessageContent.Embeds">embeds</see> are also null or its array is empty</exception>
-    /// <exception cref="ArgumentOutOfRangeException">When the <see cref="Message.Content" /> is above <see cref="Message.Content">the message content</see> limit of 4000 characters</exception>
+    /// <exception cref="ArgumentOutOfRangeException">When the <see cref="Message.Content" /> is above the <see cref="Message.Content">message content</see> limit of 4000 characters</exception>
     /// <permission cref="ChatPermissions.GetMessage" />
     /// <permission cref="ChatPermissions.CreateMessage">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
     /// <permission cref="ChatPermissions.CreateThreadMessage">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
@@ -200,7 +201,7 @@ public abstract partial class AbstractGuildedClient
             throw new ArgumentNullException(nameof(message.Content), "Message content cannot be null if there are no embeds");
         }
 
-        return GetResponseProperty<Message>(
+        return GetResponsePropertyAsync<Message>(
             new RestRequest($"channels/{channel}/messages", Method.Post).AddJsonBody(message),
             "message",
             // For slowmode handling
@@ -279,7 +280,7 @@ public abstract partial class AbstractGuildedClient
     public Task<Message> UpdateMessageAsync(Guid channel, Guid message, MessageContent content) =>
         content is null
         ? throw new ArgumentNullException(nameof(content))
-        : GetResponseProperty<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(content), "message");
+        : GetResponsePropertyAsync<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Put).AddJsonBody(content), "message");
 
     /// <inheritdoc cref="UpdateMessageAsync(Guid, Guid, MessageContent)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
@@ -376,14 +377,14 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <returns>The list of fetched <see cref="Topic">forum topics</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<TopicSummary>> GetTopicsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
-        GetResponseProperty<IList<TopicSummary>>(
+        GetResponsePropertyAsync<IList<TopicSummary>>(
             new RestRequest($"channels/{channel}/topics", Method.Get)
                 .AddOptionalQuery("limit", limit, encode: false)
                 .AddOptionalQuery("before", before)
         , "forumTopics");
 
     /// <summary>
-    /// Gets the specified <paramref name="topic" />.
+    /// Gets the <paramref name="topic">specified forum topic</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to get</param>
@@ -392,16 +393,16 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ForumPermissions.GetTopic" />
-    /// <returns>The <see cref="Topic">topic</see> that was specified in the arguments</returns>
+    /// <returns>The <see cref="Topic">forum topic</see> that was specified in the arguments</returns>
     public Task<Topic> GetTopicAsync(Guid channel, uint topic) =>
-        GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Get), "forumTopic");
+        GetResponsePropertyAsync<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Get), "forumTopic");
 
     /// <summary>
     /// Creates a new <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="title">The title of <see cref="Topic">the forum topic</see></param>
-    /// <param name="content">The content of <see cref="Topic">the forum topic</see></param>
+    /// <param name="title">The title of the <see cref="Topic">forum topic</see></param>
+    /// <param name="content">The content of the <see cref="Topic">forum topic</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -415,7 +416,7 @@ public abstract partial class AbstractGuildedClient
         ? throw new ArgumentNullException(nameof(title))
         : string.IsNullOrWhiteSpace(content)
         ? throw new ArgumentNullException(nameof(content))
-        : GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics", Method.Post)
+        : GetResponsePropertyAsync<Topic>(new RestRequest($"channels/{channel}/topics", Method.Post)
             .AddJsonBody(new
             {
                 title,
@@ -427,7 +428,7 @@ public abstract partial class AbstractGuildedClient
     /// Edits <see cref="Topic">forum topic's</see> <paramref name="title" /> and <paramref name="content" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to update</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to update</param>
     /// <param name="title">The new title of the <see cref="Topic">forum topic</see></param>
     /// <param name="content">The new contents of the <see cref="Topic">forum topic</see></param>
     /// <exception cref="GuildedException" />
@@ -443,7 +444,7 @@ public abstract partial class AbstractGuildedClient
         ? throw new ArgumentNullException(nameof(title))
         : string.IsNullOrWhiteSpace(content)
         ? throw new ArgumentNullException(nameof(content))
-        : GetResponseProperty<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Patch)
+        : GetResponsePropertyAsync<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Patch)
             .AddJsonBody(new
             {
                 title,
@@ -455,7 +456,7 @@ public abstract partial class AbstractGuildedClient
     /// Deletes a <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to delete</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -469,7 +470,7 @@ public abstract partial class AbstractGuildedClient
     /// Pins a <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to pin</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to pin</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -488,7 +489,7 @@ public abstract partial class AbstractGuildedClient
     /// Unpins a <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to unpin</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to unpin</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -507,7 +508,7 @@ public abstract partial class AbstractGuildedClient
     /// Locks a <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to lock</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to lock</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -521,7 +522,7 @@ public abstract partial class AbstractGuildedClient
     /// Unlocks a <see cref="Topic">forum topic</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="topic">The identifier of the <see cref="Topic">topic</see> to unlock</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to unlock</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -534,7 +535,7 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods Forum channels > Topic replies
     /// <summary>
-    /// Gets a list of <see cref="Topic">forum topics</see>.
+    /// Gets a list of <see cref="TopicComment">forum topic comments</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to get <see cref="TopicComment">forum topic replies</see> of</param>
@@ -545,12 +546,81 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <returns>The list of fetched <see cref="TopicComment">forum topic replies</see> in the specified <paramref name="topic" /></returns>
     public Task<IList<TopicComment>> GetTopicCommentsAsync(Guid channel, uint topic) =>
-        GetResponseProperty<IList<TopicComment>>(new RestRequest($"channels/{channel}/topics/{topic}/comments", Method.Get), "forumTopicComments");
+        GetResponsePropertyAsync<IList<TopicComment>>(new RestRequest($"channels/{channel}/topics/{topic}/comments", Method.Get), "forumTopicComments");
+
+    /// <summary>
+    /// Gets the <paramref name="topicComment">specified forum topic reply</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where the <see cref="TopicComment">forum topic comment</see> is</param>
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <returns>The <see cref="TopicComment">forum topic reply</see> that was specified in the arguments</returns>
+    public Task<TopicComment> GetTopicCommentAsync(Guid channel, uint topic, uint topicComment) =>
+        GetResponsePropertyAsync<TopicComment>(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}", Method.Get), "forumTopicComment");
+
+    /// <summary>
+    /// Creates a new <see cref="Topic">forum topic</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where the <see cref="TopicComment">forum topic comment</see> should be</param>
+    /// <param name="content">The content of the <see cref="TopicComment">forum topic comment</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="ForumPermissions.CreateTopicComment" />
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Topic">forum topic</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>The <see cref="TopicComment">forum topic comment</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<TopicComment> CreateTopicCommentAsync(Guid channel, uint topic, string content) =>
+        string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponsePropertyAsync<TopicComment>(new RestRequest($"channels/{channel}/topics/{topic}/comments", Method.Post).AddJsonBody(new { content }), "forumTopicComment");
+
+    /// <summary>
+    /// Edits <see cref="TopicComment">forum topic comment's</see> <paramref name="content" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where the <see cref="TopicComment">forum topic comment</see> is</param>
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to update</param>
+    /// <param name="content">The new contents of the <see cref="TopicComment">forum topic comment</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="ForumPermissions.CreateTopic" />
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>The <paramref name="topic">forum topic</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<TopicComment> UpdateTopicCommentAsync(Guid channel, uint topic, uint topicComment, string content) =>
+        string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponsePropertyAsync<TopicComment>(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}", Method.Patch).AddJsonBody(new { content }), "forumTopicComment");
+
+    /// <summary>
+    /// Deletes a <see cref="TopicComment">forum topic comment</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where the <see cref="TopicComment">forum topic comment</see> is</param>
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="ForumPermissions.ManageTopic">Required when deleting <see cref="Topic">forum topic</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    public Task DeleteTopicCommentAsync(Guid channel, uint topic, uint topicComment) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}", Method.Delete));
     #endregion
 
     #region Methods List channels
     /// <summary>
-    /// Gets a set of <see cref="ListItem">list items</see> from the specified <paramref name="channel" />.
+    /// Gets a set of <see cref="Item">list items</see> from the specified <paramref name="channel" />.
     /// </summary>
     /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get list items from</param>
     /// <exception cref="GuildedException" />
@@ -558,42 +628,42 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
-    /// <returns>The list of fetched <see cref="ListItem">list items</see> in the specified <paramref name="channel" /></returns>
-    public Task<IList<ListItemSummary>> GetItemsAsync(Guid channel) =>
-        GetResponseProperty<IList<ListItemSummary>>(new RestRequest($"channels/{channel}/items", Method.Get), "listItems");
+    /// <returns>The list of fetched <see cref="Item">list items</see> in the specified <paramref name="channel" /></returns>
+    public Task<IList<ItemSummary>> GetItemsAsync(Guid channel) =>
+        GetResponsePropertyAsync<IList<ItemSummary>>(new RestRequest($"channels/{channel}/items", Method.Get), "listItems");
 
     /// <summary>
     /// Gets the specified <paramref name="listItem">list item</paramref> from a <paramref name="channel">list channel</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to get</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to get</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
-    /// <returns>The <see cref="ListItem">list item</see> that was specified in the arguments</returns>
-    public Task<ListItem> GetItemAsync(Guid channel, Guid listItem) =>
-        GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem");
+    /// <returns>The <see cref="Item">list item</see> that was specified in the arguments</returns>
+    public Task<Item> GetItemAsync(Guid channel, Guid listItem) =>
+        GetResponsePropertyAsync<Item>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem");
 
     /// <summary>
-    /// Creates a new <see cref="ListItem">list item</see>.
+    /// Creates a new <see cref="Item">list item</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The text content of the <see cref="ListItem">list item</see></param>
-    /// <param name="note">The text content of an <see cref="ListItemNote">optional note</see> in the <see cref="ListItem">list item</see></param>
+    /// <param name="message">The text content of the <see cref="Item">list item</see></param>
+    /// <param name="note">The text content of an <see cref="ItemNote">optional note</see> in the <see cref="Item">list item</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
     /// <permission cref="ListPermissions.CreateItem" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting <see cref="ListItem">a list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
-    /// <returns>The <see cref="ListItem">list item</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<ListItem> CreateItemAsync(Guid channel, string message, string? note = null) =>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting <see cref="Item">a list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>The <see cref="Item">list item</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Item> CreateItemAsync(Guid channel, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message)
         ? throw new ArgumentNullException(nameof(message))
-        : GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items", Method.Post)
+        : GetResponsePropertyAsync<Item>(new RestRequest($"channels/{channel}/items", Method.Post)
             .AddJsonBody(new
             {
                 message,
@@ -608,21 +678,21 @@ public abstract partial class AbstractGuildedClient
     /// Edits the <paramref name="message">text contents</paramref> of the specified <paramref name="listItem">list item</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to edit</param>
-    /// <param name="message">The new text content of the <see cref="ListItem">list item</see></param>
-    /// <param name="note">The new text content of the note in the <see cref="ListItem">list item</see></param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to edit</param>
+    /// <param name="message">The new text content of the <see cref="Item">list item</see></param>
+    /// <param name="note">The new text content of the note in the <see cref="Item">list item</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.ManageItem">Required when updating <see cref="ListItem">list items</see> the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="ListItem">a list item</see></permission>
+    /// <permission cref="ListPermissions.ManageItem">Required when updating <see cref="Item">list items</see> the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="Item">a list item</see></permission>
     /// <returns>The <paramref name="listItem">list item</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<ListItem> UpdateItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
+    public Task<Item> UpdateItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note)
         ? throw new ArgumentNullException(nameof(message), "Either the message or the note of the list item's update must be specified")
-        : GetResponseProperty<ListItem>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
+        : GetResponsePropertyAsync<Item>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Put)
             .AddJsonBody(new
             {
                 message,
@@ -636,22 +706,22 @@ public abstract partial class AbstractGuildedClient
     /// <summary>
     /// Deletes the specified <paramref name="listItem">list item</paramref>.
     /// </summary>
-    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ListItem">list item</see> is</param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to delete</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Item">list item</see> is</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.RemoveItem">Required when deleting <see cref="ListItem">list items</see> you don't own</permission>
+    /// <permission cref="ListPermissions.RemoveItem">Required when deleting <see cref="Item">list items</see> you don't own</permission>
     public Task DeleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}", Method.Delete));
 
     /// <summary>
-    /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">completed</see>.
+    /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ItemBase{T}.IsCompleted">completed</see>.
     /// </summary>
-    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ListItem">list item</see> is</param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Item">list item</see> is</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to complete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -662,10 +732,10 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Post));
 
     /// <summary>
-    /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ListItemBase{T}.IsCompleted">not completed</see>.
+    /// Marks the specified <paramref name="listItem">list item</paramref> as <see cref="ItemBase{T}.IsCompleted">not completed</see>.
     /// </summary>
     /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the list item is</param>
-    /// <param name="listItem">The identifier of the <see cref="ListItem">list item</see> to complete</param>
+    /// <param name="listItem">The identifier of the <see cref="Item">list item</see> to complete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -690,7 +760,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="DocPermissions.GetDoc" />
     /// <returns>The list of fetched <see cref="Doc">documents</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<Doc>> GetDocsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
-        GetResponseProperty<IList<Doc>>(
+        GetResponsePropertyAsync<IList<Doc>>(
             new RestRequest($"channels/{channel}/docs", Method.Get)
                 .AddOptionalQuery("limit", limit, encode: false)
                 .AddOptionalQuery("before", before)
@@ -708,7 +778,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="DocPermissions.GetDoc" />
     /// <returns>The <see cref="Doc">document</see> that was specified in the arguments</returns>
     public Task<Doc> GetDocAsync(Guid channel, uint doc) =>
-        GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Get), "doc");
+        GetResponsePropertyAsync<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Get), "doc");
 
     /// <summary>
     /// Creates a <see cref="Doc">new document</see>.
@@ -729,7 +799,7 @@ public abstract partial class AbstractGuildedClient
         ? throw new ArgumentNullException(nameof(title))
         : string.IsNullOrWhiteSpace(content)
         ? throw new ArgumentNullException(nameof(content))
-        : GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs", Method.Post)
+        : GetResponsePropertyAsync<Doc>(new RestRequest($"channels/{channel}/docs", Method.Post)
             .AddJsonBody(new
             {
                 title,
@@ -760,7 +830,7 @@ public abstract partial class AbstractGuildedClient
         ? throw new ArgumentNullException(nameof(title))
         : string.IsNullOrWhiteSpace(content)
         ? throw new ArgumentNullException(nameof(content))
-        : GetResponseProperty<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Put)
+        : GetResponsePropertyAsync<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Put)
             .AddJsonBody(new
             {
                 title,
@@ -797,7 +867,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <returns>The list of fetched <see cref="CalendarEvent">calendar events</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
-        GetResponseProperty<IList<CalendarEvent>>(
+        GetResponsePropertyAsync<IList<CalendarEvent>>(
             new RestRequest($"channels/{channel}/events", Method.Get)
                 .AddOptionalQuery("limit", limit, encode: false)
                 .AddOptionalQuery("before", before)
@@ -815,7 +885,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was specified in the arguments</returns>
     public Task<CalendarEvent> GetEventAsync(Guid channel, uint calendarEvent) =>
-        GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Get), "calendarEvent");
+        GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Get), "calendarEvent");
 
     /// <summary>
     /// Creates a <see cref="CalendarEvent">new calendar event</see>.
@@ -824,7 +894,7 @@ public abstract partial class AbstractGuildedClient
     /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
-    /// <param name="url">The URL to <see cref="CalendarEvent">the calendar event's</see> services, place or anything related</param>
+    /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
     /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
     /// <param name="rsvpLimit">The limit of how many <see cref="Users.User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
@@ -836,12 +906,12 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <permission cref="CalendarPermissions.CreateEvent" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="CalendarEvent.Description">the calendar event's description</see></permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
         string.IsNullOrWhiteSpace(name)
         ? throw new ArgumentNullException(nameof(name))
-        : GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events", Method.Post)
+        : GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events", Method.Post)
             .AddJsonBody(new
             {
                 name,
@@ -879,10 +949,10 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <permission cref="CalendarPermissions.ManageEvent">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="CalendarEvent.Description">the calendar event's description</see></permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
-        GetResponseProperty<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Patch)
+        GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Patch)
             .AddJsonBody(new
             {
                 name,
@@ -928,7 +998,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <returns>The list of fetched <see cref="CalendarRsvp">calendar event RSVPs</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<CalendarRsvp>> GetRsvpsAsync(Guid channel, uint calendarEvent) =>
-        GetResponseProperty<IList<CalendarRsvp>>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps", Method.Get), "calendarEventRsvps");
+        GetResponsePropertyAsync<IList<CalendarRsvp>>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps", Method.Get), "calendarEventRsvps");
 
     /// <summary>
     /// Gets the specified <paramref name="calendarEvent">calendar event</paramref>.
@@ -943,7 +1013,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <returns>The <see cref="CalendarRsvp">calendar event RSVP</see> that was specified in the arguments</returns>
     public Task<CalendarRsvp> GetRsvpAsync(Guid channel, uint calendarEvent, HashId user) =>
-        GetResponseProperty<CalendarRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Get), "calendarEventRsvp");
+        GetResponsePropertyAsync<CalendarRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Get), "calendarEventRsvp");
 
     /// <summary>
     /// Creates or edits a <see cref="CalendarEvent">calendar event</see> <see cref="CalendarRsvp">RSVP</see>.
@@ -951,7 +1021,7 @@ public abstract partial class AbstractGuildedClient
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarRsvp">RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
-    /// <param name="status">The status of <see cref="CalendarEvent">the RSVP</see> to set</param>
+    /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -960,7 +1030,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.ManageRsvp">Required when setting <see cref="CalendarRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
     /// <returns>Set <see cref="CalendarRsvp">calendar event RSVP</see></returns>
     public Task<CalendarRsvp> SetRsvpAsync(Guid channel, uint calendarEvent, HashId user, CalendarRsvpStatus status) =>
-        GetResponseProperty<CalendarRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Put)
+        GetResponsePropertyAsync<CalendarRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Put)
             .AddJsonBody(new
             {
                 status
@@ -971,7 +1041,7 @@ public abstract partial class AbstractGuildedClient
     /// Deletes the specified <see cref="CalendarRsvp">calendar event RSVP</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where <see cref="CalendarRsvp">the RSVP</see> is</param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarRsvp">calendar RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />

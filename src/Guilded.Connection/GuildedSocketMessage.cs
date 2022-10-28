@@ -86,14 +86,14 @@ public class GuildedSocketMessage
 
     #region Methods
     /// <summary>
-    /// Returns the string representation of <see cref="GuildedSocketMessage">the socket message</see>.
+    /// Returns the string representation of the <see cref="GuildedSocketMessage">socket message</see>.
     /// </summary>
     /// <returns><see cref="GuildedSocketMessage" /> as a <see cref="string" /></returns>
     public override string ToString() =>
         ToString(Formatting.Indented);
 
     /// <summary>
-    /// Returns the string representation of <see cref="GuildedSocketMessage">the socket message</see>.
+    /// Returns the string representation of the <see cref="GuildedSocketMessage">socket message</see>.
     /// </summary>
     /// <returns><see cref="GuildedSocketMessage" /> as a <see cref="string" /></returns>
     public string ToString(Formatting formatting)

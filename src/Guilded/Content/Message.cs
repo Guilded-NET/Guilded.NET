@@ -23,7 +23,7 @@ namespace Guilded.Content;
 /// <seealso cref="MessageContent" />
 /// <seealso cref="MessageType" />
 /// <seealso cref="Doc" />
-/// <seealso cref="ListItem" />
+/// <seealso cref="Item" />
 /// <seealso cref="Topic" />
 public class Message :
     ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent,
@@ -102,7 +102,7 @@ public class Message :
     public IList<Embed>? Embeds { get; }
 
     /// <summary>
-    /// Gets <see cref="Mentions">the mentions</see> found in <see cref="Content">the content</see>.
+    /// Gets the <see cref="Mentions">mentions</see> found in the <see cref="Content">content</see>.
     /// </summary>
     /// <value><see cref="Mentions" />?</value>
     public Mentions? Mentions { get; }
@@ -304,7 +304,7 @@ public class Message :
     /// <param name="embeds">Gets the list of <see cref="Embed">custom embeds</see> that this message contains</param>
     /// <param name="isPrivate">Whether <see cref="IsReply">the reply</see> or mention is private</param>
     /// <param name="isSilent">Whether <see cref="IsReply">the reply</see> or mention is silent</param>
-    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in <see cref="Content">the content</see></param>
+    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in the <see cref="Content">content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
     /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> that created the message</param>
     /// <param name="createdAt">the date when the message was created</param>

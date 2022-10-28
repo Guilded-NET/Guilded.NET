@@ -10,34 +10,42 @@ using Guilded.Users;
 namespace Guilded.Content;
 
 /// <summary>
-/// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be created.
+/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be created by a <see cref="User">user</see>.
+/// </summary>
+public interface IUserCreated
+{
+    /// <summary>
+    /// Gets the identifier of <see cref="User">user</see> that created the content.
+    /// </summary>
+    /// <remarks>
+    /// <para>If <see cref="Webhook">a webhook</see> created the <see cref="ChannelContent{TId, TServer}">content</see>, the value of this property will be <c>Ann6LewA</c>.</para>
+    /// </remarks>
+    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <seealso cref="IUserCreated" />
+    /// <seealso cref="ICreatableContent" />
+    /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
+    /// <seealso cref="ICreatableContent.CreatedAt" />
+    /// <seealso cref="IUpdatableContent.UpdatedAt" />
+    HashId CreatedBy { get; }
+}
+
+/// <summary>
+/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be created and has specified <see cref="CreatedAt">creation date</see>.
 /// </summary>
 /// <seealso cref="ChannelContent{TId, TServer}" />
 /// <seealso cref="IUpdatableContent" />
 /// <seealso cref="IWebhookCreatable" />
 /// <seealso cref="IReactibleContent" />
-public interface ICreatableContent
+public interface ICreatableContent : IUserCreated
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that created the content.
-    /// </summary>
-    /// <remarks>
-    /// <para>If <see cref="Webhook">a webhook</see> created <see cref="ChannelContent{TId, TServer}">the content</see>, the value of this property will be <c>Ann6LewA</c>.</para>
-    /// </remarks>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
-    /// <seealso cref="ICreatableContent" />
-    /// <seealso cref="CreatedAt" />
-    /// <seealso cref="IUpdatableContent.UpdatedAt" />
-    /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
-    HashId CreatedBy { get; }
-
-    /// <summary>
-    /// Gets the date when <see cref="ChannelContent{TId, TServer}">the content</see> was created.
+    /// Gets the date when the <see cref="ChannelContent{TId, TServer}">content</see> was created.
     /// </summary>
     /// <value>Date</value>
     /// <seealso cref="ICreatableContent" />
-    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="IUserCreated" />
+    /// <seealso cref="IUserCreated.CreatedBy" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     DateTime CreatedAt { get; }
@@ -45,7 +53,7 @@ public interface ICreatableContent
 }
 
 /// <summary>
-/// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be edited.
+/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be edited.
 /// </summary>
 /// <seealso cref="ChannelContent{TId, TServer}" />
 /// <seealso cref="ICreatableContent" />
@@ -55,7 +63,7 @@ public interface IUpdatableContent
 {
     #region Properties
     /// <summary>
-    /// Gets the date when <see cref="ChannelContent{TId, TServer}">the content</see> were edited.
+    /// Gets the date when the <see cref="ChannelContent{TId, TServer}">content</see> were edited.
     /// </summary>
     /// <remarks>
     /// <para>Only returns the most recent update.</para>
@@ -63,14 +71,14 @@ public interface IUpdatableContent
     /// <value>Date?</value>
     /// <seealso cref="IUpdatableContent" />
     /// <seealso cref="ICreatableContent.CreatedAt" />
-    /// <seealso cref="ICreatableContent.CreatedBy" />
+    /// <seealso cref="IUserCreated.CreatedBy" />
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     DateTime? UpdatedAt { get; }
     #endregion
 }
 
 /// <summary>
-/// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be created by <see cref="Webhook">a webhook</see>.
+/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be created by <see cref="Webhook">a webhook</see>.
 /// </summary>
 /// <seealso cref="ChannelContent{TId, TServer}" />
 /// <seealso cref="ICreatableContent" />
@@ -80,19 +88,19 @@ public interface IWebhookCreatable
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created <see cref="ChannelContent{TId, TServer}">the content</see>.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created the <see cref="ChannelContent{TId, TServer}">content</see>.
     /// </summary>
     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="IWebhookCreatable" />
     /// <seealso cref="ICreatableContent.CreatedAt" />
-    /// <seealso cref="ICreatableContent.CreatedBy" />
+    /// <seealso cref="IUserCreated.CreatedBy" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     Guid? CreatedByWebhook { get; }
     #endregion
 }
 
 /// <summary>
-/// Represents <see cref="ChannelContent{TId, TServer}">the content</see> that can be <see cref="Reaction">reacted</see> on.
+/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be <see cref="Reaction">reacted</see> on.
 /// </summary>
 /// <seealso cref="ChannelContent{TId, TServer}" />
 /// <seealso cref="ICreatableContent" />

@@ -14,7 +14,7 @@ namespace Guilded.Events;
 /// </summary>
 /// <seealso cref="Content.Message" />
 /// <seealso cref="MessageDeletedEvent" />
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
 public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBased, IPrivatableContent, IModelHasId<Guid> where T : IModelHasId<Guid>, IGlobalContent, IChannelBased, IPrivatableContent

@@ -12,19 +12,19 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when someone creates, updates or deletes <see cref="Content.CalendarEvent">a calendar event</see>.
+/// Represents an event that occurs when someone creates, updates or deletes a <see cref="CalendarEvent">calendar event</see>.
 /// </summary>
 /// <seealso cref="CalendarRsvpEvent" />
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="MessageEvent" />
-/// <seealso cref="ListItemEvent" />
+/// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
 public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServerBased, IChannelBased, ICreatableContent
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="CalendarEvent">the calendar event</see> received from the event.
+    /// Gets the <see cref="CalendarEvent">calendar event</see> received from the event.
     /// </summary>
     /// <value><see cref="CalendarEvent">Calendar event</see></value>
     /// <seealso cref="CalendarEventEvent" />

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Connection;
@@ -29,7 +28,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
 {
     #region Fields
     /// <summary>
-    /// An observable event that occurs once Guilded client has connected and added finishing touches.
+    /// Gets an <see cref="IObservable{T}">observable</see> for the event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
     /// <returns>Prepared subject</returns>
     protected Subject<ClientUser> PreparedSubject { get; } = new();
@@ -85,7 +84,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { SocketOpcode.Welcome,            new EventInfo<WelcomeEvent>() },
             { SocketOpcode.Resume,             new EventInfo<ResumeEvent>() },
 
-            // Team events
+            // Server events
+            { "BotTeamMembershipCreated",      new EventInfo<BotMembershipEvent>() },
             { "TeamXpAdded",                   new EventInfo<XpAddedEvent>() },
             { "TeamMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
             { "TeamMemberBanned",
@@ -138,13 +138,18 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "ForumTopicUnpinned",            new EventInfo<TopicEvent>() },
             { "ForumTopicLocked",              new EventInfo<TopicEvent>() },
             { "ForumTopicUnlocked",            new EventInfo<TopicEvent>() },
+            { "ForumTopicCommentCreated",      new EventInfo<TopicCommentEvent>() },
+            { "ForumTopicCommentUpdated",      new EventInfo<TopicCommentEvent>() },
+            { "ForumTopicCommentDeleted",      new EventInfo<TopicCommentEvent>() },
+            { "ForumTopicReactionAdded",       new EventInfo<TopicReactionEvent>() },
+            { "ForumTopicReactionRemoved",     new EventInfo<TopicReactionEvent>() },
 
             // List items
-            { "ListItemCreated",               new EventInfo<ListItemEvent>() },
-            { "ListItemUpdated",               new EventInfo<ListItemEvent>() },
-            { "ListItemDeleted",               new EventInfo<ListItemEvent>() },
-            { "ListItemCompleted",             new EventInfo<ListItemEvent>() },
-            { "ListItemUncompleted",           new EventInfo<ListItemEvent>() },
+            { "ListItemCreated",               new EventInfo<ItemEvent>() },
+            { "ListItemUpdated",               new EventInfo<ItemEvent>() },
+            { "ListItemDeleted",               new EventInfo<ItemEvent>() },
+            { "ListItemCompleted",             new EventInfo<ItemEvent>() },
+            { "ListItemUncompleted",           new EventInfo<ItemEvent>() },
 
             // Docs
             { "DocCreated",                    new EventInfo<DocEvent>() },
@@ -195,15 +200,18 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     }
 
     private async Task<T> TransformResponseAsync<T>(RestRequest request, object key, Func<JObject, JObject> transform) =>
-        transform(await GetResponseProperty<JObject>(request, key)).ToObject<T>(GuildedSerializer)!;
+        transform((JObject)await GetResponsePropertyAsync(request, key)).ToObject<T>(GuildedSerializer)!;
 
     private async Task<IList<T>> TransformListResponseAsync<T>(RestRequest request, object key, Func<JObject, T> transform) =>
-        (await GetResponseProperty<IList<JObject>>(request, key).ConfigureAwait(false)).Select(transform).ToList();
+        (await GetResponsePropertyAsync<IList<JObject>>(request, key).ConfigureAwait(false)).Select(transform).ToList();
 
-    private async Task<T> GetResponseProperty<T>(RestRequest request, object key) =>
-        (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;
+    private async Task<T> GetResponsePropertyAsync<T>(RestRequest request, object key) =>
+        (await GetResponsePropertyAsync(request, key).ConfigureAwait(false)).ToObject<T>(GuildedSerializer)!;
 
-    private async Task<T> GetResponseProperty<T>(RestRequest request, object key, Guid channel) =>
+    private async Task<T> GetResponsePropertyAsync<T>(RestRequest request, object key, Guid channel) =>
         (await ExecuteRequestAsync<JContainer>(request, channel).ConfigureAwait(false)).Data![key]!.ToObject<T>(GuildedSerializer)!;
+
+    private async Task<JToken> GetResponsePropertyAsync(RestRequest request, object key) =>
+        (await ExecuteRequestAsync<JContainer>(request).ConfigureAwait(false)).Data![key]!;
     #endregion
 }

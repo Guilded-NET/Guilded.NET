@@ -58,13 +58,13 @@ public enum ForumPermissions
     /// <summary>
     /// Allows you to create forum topic replies
     /// </summary>
-    CreateTopicReply = 64,
+    CreateTopicComment = 64,
 
     #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateTopic | GetTopic | ManageTopic | PinTopic | LockTopic | CreateTopicReply,
+    All = CreateTopic | GetTopic | ManageTopic | PinTopic | LockTopic | CreateTopicComment,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -98,10 +98,10 @@ public enum ForumPermissions
     ///         <description><see cref="GetTopic" /></description>
     ///     </item>
     ///     <item>
-    ///         <description><see cref="CreateTopicReply" /></description>
+    ///         <description><see cref="CreateTopicComment" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateTopic | GetTopic | CreateTopicReply
+    Basic = CreateTopic | GetTopic | CreateTopicComment
     #endregion
 }
