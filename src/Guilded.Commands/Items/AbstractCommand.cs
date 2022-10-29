@@ -101,11 +101,7 @@ public abstract class AbstractCommand<TMember> : ICommand<TMember> where TMember
         return unsuffixedName.ToLowerInvariant();
     }
 
-    private static string TrimSuffix(string str, string substring)
-    {
-        int suffixIndex = str.LastIndexOf(substring);
-
-        return suffixIndex > -1 ? str[..suffixIndex] : str;
-    }
+    private static string TrimSuffix(string str, string substring) =>
+        str.EndsWith(substring) ? str[..substring.Length] : str;
     #endregion
 }

@@ -18,7 +18,7 @@ public static class GuildedListExtensions
     /// <typeparam name="TModel">The type of the <typeparamref name="TModel">element</typeparamref> that is being fetched</typeparam>
     /// <typeparam name="TId">The type of the <see cref="IModelHasId{T}.Id">identifier</see> of the <typeparamref name="TModel">element</typeparamref></typeparam>
     /// <returns>An <typeparamref name="TModel">element</typeparamref> in the list that has the specified <paramref name="id">identifier</paramref></returns>
-    public static TModel ById<TModel, TId>(this IList<TModel> list, TId id) where TModel : IModelHasId<TId> =>
+    public static TModel ById<TModel, TId>(this IList<TModel> list, TId id) where TId : notnull where TModel : IModelHasId<TId> =>
         list.First(x => x.Id!.Equals(id));
 
     /// <summary>
@@ -29,7 +29,7 @@ public static class GuildedListExtensions
     /// <typeparam name="TModel">The type of the <typeparamref name="TModel">element</typeparamref> that is being fetched</typeparam>
     /// <typeparam name="TId">The type of the <see cref="IModelHasId{T}.Id">identifier</see> of the <typeparamref name="TModel">element</typeparamref></typeparam>
     /// <returns>An <typeparamref name="TModel">element</typeparamref> in the list that has the specified <paramref name="id">identifier</paramref> or <see langword="default" /> of <typeparamref name="TModel" /> if no such element exists in the list</returns>
-    public static TModel? ByIdOrDefault<TModel, TId>(this IList<TModel> list, TId id) where TModel : IModelHasId<TId> =>
+    public static TModel? ByIdOrDefault<TModel, TId>(this IList<TModel> list, TId id) where TId : notnull where TModel : IModelHasId<TId> =>
         list.FirstOrDefault(x => x.Id!.Equals(id));
 
     /// <summary>
@@ -40,6 +40,6 @@ public static class GuildedListExtensions
     /// <typeparam name="TModel">The type of the <typeparamref name="TModel">element</typeparamref> that is being fetched</typeparam>
     /// <typeparam name="TId">The type of the <see cref="IModelHasId{T}.Id">identifier</see> of the <typeparamref name="TModel">element</typeparamref></typeparam>
     /// <returns>Whether the <paramref name="list" /> contains an <typeparamref name="TModel">element</typeparamref> with the specified <paramref name="id">identifier</paramref></returns>
-    public static bool Contains<TModel, TId>(this IList<TModel> list, TId id) where TModel : IModelHasId<TId> =>
+    public static bool Contains<TModel, TId>(this IList<TModel> list, TId id) where TId : notnull where TModel : IModelHasId<TId> =>
         list.Any(x => x.Id!.Equals(id));
 }

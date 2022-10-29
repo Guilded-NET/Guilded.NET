@@ -33,6 +33,21 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, ICreatableCont
 
     /// <inheritdoc cref="TopicComment.Id" />
     public uint Id => TopicComment.Id;
+
+    /// <inheritdoc cref="TopicComment.TopicId" />
+    public uint TopicId => TopicComment.TopicId;
+
+    /// <inheritdoc cref="TopicComment.CreatedBy" />
+    public HashId CreatedBy => TopicComment.CreatedBy;
+
+    /// <inheritdoc cref="TopicComment.CreatedAt" />
+    public DateTime CreatedAt => TopicComment.CreatedAt;
+
+    /// <inheritdoc cref="TopicComment.UpdatedAt" />
+    public DateTime? UpdatedAt => TopicComment.UpdatedAt;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => TopicComment.ParentClient;
     #endregion
 
     #region Constructors
@@ -52,23 +67,5 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, ICreatableCont
         HashId serverId
     ) =>
         (ServerId, TopicComment) = (serverId, forumTopicComment);
-    #endregion
-
-    #region Methods
-    /// <inheritdoc cref="TopicSummary.UpdateAsync(string, string)" />
-    public Task<Topic> UpdateAsync(string title, string content) =>
-        Topic.UpdateAsync(title, content);
-
-    /// <inheritdoc cref="TopicSummary.DeleteAsync" />
-    public Task DeleteAsync() =>
-        Topic.DeleteAsync();
-
-    /// <inheritdoc cref="TitledContent.AddReactionAsync(uint)" />
-    public Task AddReactionAsync(uint emoteId) =>
-        Topic.AddReactionAsync(emoteId);
-
-    /// <inheritdoc cref="TitledContent.RemoveReactionAsync(uint)" />
-    public Task RemoveReactionAsync(uint emoteId) =>
-        Topic.RemoveReactionAsync(emoteId);
     #endregion
 }

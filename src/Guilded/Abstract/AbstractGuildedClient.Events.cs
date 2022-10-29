@@ -438,7 +438,7 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCommentUpdated" />
     /// <seealso cref="TopicCommentDeleted" />
-    public IObservable<TopicEvent> TopicCommentCreated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicCommentCreated"]).Observable;
+    public IObservable<TopicCommentEvent> TopicCommentCreated => ((IEventInfo<TopicCommentEvent>)GuildedEvents["ForumTopicCommentCreated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="TopicComment">forum topic comment</see> is edited.
@@ -448,7 +448,7 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCommentCreated" />
     /// <seealso cref="TopicCommentDeleted" />
-    public IObservable<TopicEvent> TopicCommentUpdated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicCommentUpdated"]).Observable;
+    public IObservable<TopicCommentEvent> TopicCommentUpdated => ((IEventInfo<TopicCommentEvent>)GuildedEvents["ForumTopicCommentUpdated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="TopicComment">forum topic comment</see> is deleted.
@@ -458,7 +458,7 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCommentCreated" />
     /// <seealso cref="TopicCommentUpdated" />
-    public IObservable<TopicEvent> TopicCommentDeleted => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicCommentDeleted"]).Observable;
+    public IObservable<TopicCommentEvent> TopicCommentDeleted => ((IEventInfo<TopicCommentEvent>)GuildedEvents["ForumTopicCommentDeleted"]).Observable;
     #endregion
 
     #region Properties List channels
