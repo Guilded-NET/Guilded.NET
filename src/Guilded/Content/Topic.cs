@@ -222,6 +222,22 @@ public class TopicSummary : TitledContent
     /// <inheritdoc cref="AbstractGuildedClient.DeleteTopicAsync(Guid, uint)" />
     public Task DeleteAsync() =>
         ParentClient.DeleteTopicAsync(ChannelId, Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
+    /// <param name="content">The content of the <see cref="TopicComment">forum topic comment</see></param>
+    public Task<TopicComment> CreateCommentAsync(string content) =>
+        ParentClient.CreateTopicCommentAsync(ChannelId, Id, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateTopicCommentAsync(Guid, uint, uint, string)" />
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to update</param>
+    /// <param name="content">The new acontent of the <see cref="TopicComment">forum topic comment</see></param>
+    public Task<TopicComment> UpdateCommentAsync(uint topicComment, string content) =>
+        ParentClient.UpdateTopicCommentAsync(ChannelId, Id, topicComment, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to delete</param>
+    public Task DeleteCommentAsync(uint topicComment) =>
+        ParentClient.DeleteTopicCommentAsync(ChannelId, Id, topicComment);
     #endregion
 }
 
