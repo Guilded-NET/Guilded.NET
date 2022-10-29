@@ -32,6 +32,7 @@ public static class MarkdownBuilder
             .ReplaceLastValue("_", "\\_", start)
             .ReplaceLastValue("~~", "\\~\\~", start)
             .ReplaceLastValue("<@", "<\\@", start)
+            .ReplaceLastValue("<#", "<\\#", start)
             .ReplaceLastValue(":", "\\:", start);
     }
     #endregion

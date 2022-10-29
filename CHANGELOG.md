@@ -12,6 +12,9 @@ Actual changes:
 - Added `client.Id`, `client.BotId`, `client.CreatedBy`, `client.CreatedAt`, `client.Name` that get the named properties from `client.Me`
 - Added `message.Replied`, `message.Updated`, `topic.Updated`, `topicEvent.Updated`, `user.MemberUpdated`, `member.Updated` and similar events
 - Added `Guilded.GuildedObservableExtensions` that add `observable.ElapseOn(TimeSpan)`, `observable.ElapseOnIfNothing(TimeSpan)`, `guildedObservable.InServer(HashId)`, `guildedObservable.InChannel(Guid)`, `guildedObservable.CreatedBy(HashId)`, etc.
+- Added `TopicComment`, `CreateTopicCommentAsync`, etc.
+- Added `CreateCommentAsync`, `UpdateCommentAsync`, etc. to `Topic`
+- Added `LockTopicAsync`, `UnlockTopicAsync` to `ForumChannel`
 - Renamed `BaseGuildedClient` to `BaseGuildedConnection`, made it for webhook stuff only
 - Renamed `GuildedWebsocketException` to `GuildedSocketException` for consistency with `GuildedSocketMessage`
 - Renamed `RolesUpdatedEvent.RolesUpdated` class to `RolessUpdatedEvent.UserRoleUpdate`

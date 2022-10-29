@@ -51,11 +51,11 @@ await webhookClient.CreateMessageAsync("Everyone, we have an announcement to mak
 
 ## ⁉️ Support
 
-If you need help related to Guilded.NET, you can check out these places:
+If you need any help related to Guilded.NET, you can check out the following sources:
 
 - [Official Guilded.NET Server](https://guilded.gg/Guilded-NET)
 - [Programming Space](https://guilded.gg/programming)
 
 ## ✅ Goals
 
-Our goal is to provide a library or a framework that is consistent and fast, while also maintaining friendliness towards the bot developers. API library that does not bite bot developer's hand allows bot developers to focus more on their code, have fun in what they are doing and have easier time creating their bots. Consistency helps code be more predictable, easier to rewrite and waste less time. As such, these 3 points are our main goals while maintaining Guilded.NET.
+Our goal is to provide a library that is consistent and fast, while also maintaining ease of use. A library that does not bite a developer's hand allows them to focus more heavily on their code, have fun in what they are doing along, and have an easier time making bots. The consistency of code helps increase readability and collaboration.

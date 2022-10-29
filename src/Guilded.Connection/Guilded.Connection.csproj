@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Guilded.NET WebSocket</Product>
-    <Version>1.0.2</Version>
+    <Version>1.1.0</Version>
     <Description>WebSocket/Connection base on top of Guilded.Base package</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
