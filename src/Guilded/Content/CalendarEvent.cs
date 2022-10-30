@@ -376,7 +376,7 @@ public class CalendarCancellation
     /// <seealso cref="CalendarCancellation" />
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="CreatedBy" />
-    public string Description { get; }
+    public string? Description { get; }
 
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that cancelled the <see cref="CalendarEvent">calendar event</see>.
@@ -386,7 +386,7 @@ public class CalendarCancellation
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="Description" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
-    public HashId CreatedBy { get; }
+    public HashId? CreatedBy { get; }
     #endregion
 
     #region Constructors
@@ -400,11 +400,11 @@ public class CalendarCancellation
     /// <seealso cref="CalendarEvent" />
     [JsonConstructor]
     public CalendarCancellation(
-        [JsonProperty(Required = Required.Always)]
-        string description,
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? description = null,
 
-        [JsonProperty(Required = Required.Always)]
-        HashId createdBy
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? createdBy = null
     ) =>
         (Description, CreatedBy) = (description, createdBy);
     #endregion

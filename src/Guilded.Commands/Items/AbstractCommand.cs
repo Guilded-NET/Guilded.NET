@@ -102,6 +102,6 @@ public abstract class AbstractCommand<TMember> : ICommand<TMember> where TMember
     }
 
     private static string TrimSuffix(string str, string substring) =>
-        str.EndsWith(substring) ? str[..substring.Length] : str;
+        str.EndsWith(substring) ? str[..^substring.Length] : str;
     #endregion
 }

@@ -1,3 +1,7 @@
+# v1.1.1 (`Guilded.Commands` only)
+
+- Fixed where command names that end with `Command` and `Async` would cut down to the length of `Command` of `Async` strings
+
 # v1.1.0
 
 Important renames:
@@ -21,6 +25,10 @@ Actual changes:
 - Renamed tons of things like `UserId`, `EmoteId`, etc. etc. in models like `RolesUpdatedEvent.UserRoleUpdate` to just `Id` to use `IModelHasId<T>` interface (this adds additional extensions to things like observables and `IList<T>`).
 - Moved most of the models from `Guilded.Base` package to `Guilded` package. `Guilded.Base` now only contains exception types, `HashId`, `FormId`, embed stuff, `BaseGuildedService`, `GuildedUrl`, `IWebhook`, `MessageContent` and some JSON converters.
 - Moved `GuildedSocketException`, `GuildedSocketMessage`, `BaseGuildedConnection` and `SocketOpcode` to `Guilded.Connection` package
+
+Template changes:
+- Added VB.NET and F# templates for Webhook client
+- Added another example command to commands bot
 
 # v1.0.1-v1.0.2
 

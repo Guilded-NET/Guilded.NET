@@ -43,7 +43,7 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Connection" Version="1.0.2" />
+    <PackageReference Include="Guilded.Connection" Version="1.1.0" />
   </ItemGroup>
 
   <!-- Files to include in Guilded.NET -->
