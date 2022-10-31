@@ -1,3 +1,8 @@
+# v1.1.2
+
+- Made `CalendarCancellation.Description` optional
+- Made `ServerChannel` non-abstract for the time being because of Newtonsoft screaming about absolutely nothing (will fix later)
+
 # v1.1.1 (`Guilded.Commands` only)
 
 - Fixed where command names that end with `Command` and `Async` would cut down to the length of `Command` of `Async` strings
