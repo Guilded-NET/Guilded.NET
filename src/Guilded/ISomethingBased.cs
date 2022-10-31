@@ -73,15 +73,15 @@ public interface IChannelBased : IHasParentClient
 
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.GetChannelAsync(Guid)" />
-    public async Task<ServerChannel> GetChannelAsync() =>
-        await ParentClient.GetChannelAsync(ChannelId);
+    public Task<ServerChannel> GetChannelAsync() =>
+        ParentClient.GetChannelAsync(ChannelId);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateChannelAsync(Guid, string?, string?, bool?)" />
-    public async Task<ServerChannel> UpdateChannelAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
-        await ParentClient.UpdateChannelAsync(ChannelId, name, topic, isPublic).ConfigureAwait(false);
+    public Task<ServerChannel> UpdateChannelAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
+        ParentClient.UpdateChannelAsync(ChannelId, name, topic, isPublic);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteChannelAsync(Guid)" />
-    public async Task DeleteChannelAsync() =>
-        await ParentClient.DeleteChannelAsync(ChannelId);
+    public Task DeleteChannelAsync() =>
+        ParentClient.DeleteChannelAsync(ChannelId);
     #endregion
 }

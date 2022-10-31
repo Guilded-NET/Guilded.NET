@@ -72,7 +72,9 @@ public interface IEventInfo<out T>
 public class EventInfo<T> : IEventInfo<T>
 {
     #region Static fields
-    private static readonly Func<Type, JsonSerializer, GuildedSocketMessage, object> DefaultTransform = (type, serializer, message) => message.RawData!.ToObject(type, serializer)!;
+    private static readonly Func<Type, JsonSerializer, GuildedSocketMessage, object> DefaultTransform =
+        (type, serializer, message) =>
+            message.RawData!.ToObject(type, serializer)!;
     #endregion
 
     #region Fields

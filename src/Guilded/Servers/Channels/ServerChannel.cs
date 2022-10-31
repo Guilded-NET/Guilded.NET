@@ -17,7 +17,7 @@ namespace Guilded.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
 //[JsonConverter(typeof(ServerChannelConverter))]
-public abstract class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel, IServerBased
+public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel, IServerBased
 {
     #region Constants
     /// <summary>
