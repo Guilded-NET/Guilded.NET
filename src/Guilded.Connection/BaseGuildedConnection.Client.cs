@@ -54,6 +54,9 @@ public abstract partial class BaseGuildedConnection : BaseGuildedService, IAsync
     /// <seealso cref="DisconnectAsync" />
     /// <seealso cref="Connected" />
     public IObservable<DisconnectionInfo> Disconnected => Websocket.DisconnectionHappened;
+
+
+    public IObservable<DisconnectionInfo> DisconnectedWithError => Disconnected.Where(x => x.Exception is not null);
     #endregion
 
     #region Constructors

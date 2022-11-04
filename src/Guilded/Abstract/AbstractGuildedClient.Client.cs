@@ -27,6 +27,8 @@ namespace Guilded.Client;
 public abstract partial class AbstractGuildedClient : BaseGuildedConnection
 {
     #region Fields
+    private readonly Subject<Exception> _onWebsocketEventError = new();
+
     /// <summary>
     /// Gets an <see cref="IObservable{T}">observable</see> for the event that occurs once Guilded client has connected and added finishing touches.
     /// </summary>
@@ -40,6 +42,11 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
 
     /// <inheritdoc cref="PreparedSubject" />
     public IObservable<ClientUser> Prepared => PreparedSubject.AsObservable();
+
+    /// <summary>
+    /// Gets an <see cref="IObservable{T}">observable</see> that is invoked when there is an <see cref="Exception">error</see> while handling an <see cref="GuildedEvents">event</see>.
+    /// </summary>
+    public IObservable<Exception> WebsocketEventError => _onWebsocketEventError.AsObservable();
 
     /// <summary>
     /// Gets whether the client is <see cref="Prepared">prepared</see>.

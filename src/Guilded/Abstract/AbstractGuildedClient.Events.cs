@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive.Linq;
 using Guilded.Connection;
 using Guilded.Content;
 using Guilded.Events;
@@ -656,16 +657,23 @@ public abstract partial class AbstractGuildedClient
     /// <param name="message">A message received from a WebSocket</param>
     protected void OnSocketMessage(GuildedSocketMessage message)
     {
-        object eventName = message.EventName ?? (object)message.Opcode;
-
-        // Checks if this event is supported by Guilded.NET
-        if (GuildedEvents.ContainsKey(eventName))
+        try
         {
-            IEventInfo<object> ev = GuildedEvents[eventName];
+            object eventName = message.EventName ?? (object)message.Opcode;
 
-            object data = ev.Transform(ev.ArgumentType, GuildedSerializer, message);
+            // Checks if this event is supported by Guilded.NET
+            if (GuildedEvents.ContainsKey(eventName))
+            {
+                IEventInfo<object> ev = GuildedEvents[eventName];
 
-            ev.OnNext(data);
+                object data = ev.Transform(ev.ArgumentType, GuildedSerializer, message);
+
+                ev.OnNext(data);
+            }
+        }
+        catch (Exception e)
+        {
+            _onWebsocketEventError.OnNext(e);
         }
     }
     #endregion
