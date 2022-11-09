@@ -7,7 +7,7 @@
 
 Guilded.NET is a free and open-source unofficial API framework/library for [Guilded](https://guilded.gg/) written on .NET platform. It allows creating bots, webhooks and interacting any other way with Guilded API.
 
-[![Version](https://img.shields.io/badge/Version-1.1.2-blue?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Release-blue?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-1.1.4-blue?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Release-blue?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
 ## 📥 Installing
 
@@ -46,13 +46,15 @@ string auth   = "your_bots_auth_token",
 
 await using var client = new GuildedBotClient(auth);
 
-client.Prepared
-      .Subscribe(me =>
-          Console.WriteLine("The bot is prepared!\nLogged in as \"{0}\" with the ID \"{1}\"", me.Name, me.Id)
-      );
+client
+    .Prepared
+    .Subscribe(me =>
+        Console.WriteLine("The bot is prepared!\nLogged in as \"{0}\" with the ID \"{1}\"", me.Name, me.Id)
+    );
 
 // Wait for !ping messages
-client.MessageCreated
+client
+    .MessageCreated
     .Where(msgCreated => msgCreated.Content == prefix + "ping")
     .Subscribe(async msgCreated =>
         await msgCreated.ReplyAsync("Pong!")

@@ -92,10 +92,10 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { SocketOpcode.Resume,             new EventInfo<ResumeEvent>() },
 
             // Server events
-            { "BotTeamMembershipCreated",      new EventInfo<BotMembershipEvent>() },
-            { "TeamXpAdded",                   new EventInfo<XpAddedEvent>() },
-            { "TeamMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
-            { "TeamMemberBanned",
+            { "BotServerMembershipCreated",      new EventInfo<BotMembershipEvent>() },
+            { "ServerXpAdded",                   new EventInfo<XpAddedEvent>() },
+            { "ServerMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
+            { "ServerMemberBanned",
                 new EventInfo<MemberBanEvent>((type, serializer, message) =>
                 {
                     // Add `serverId` to memberBan
@@ -108,15 +108,15 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
                     return data.ToObject(type, serializer)!;
                 })
             },
-            { "TeamMemberUnbanned",            new EventInfo<MemberBanEvent>() },
-            { "TeamChannelCreated",            new EventInfo<ChannelEvent>() },
-            { "TeamChannelUpdated",            new EventInfo<ChannelEvent>() },
-            { "TeamChannelDeleted",            new EventInfo<ChannelEvent>() },
-            { "TeamWebhookCreated",            new EventInfo<WebhookEvent>() },
-            { "TeamWebhookUpdated",            new EventInfo<WebhookEvent>() },
-            { "TeamMemberUpdated",             new EventInfo<MemberUpdatedEvent>() },
-            { "teamRolesUpdated",              new EventInfo<RolesUpdatedEvent>() },
-            { "TeamMemberJoined",
+            { "ServerMemberUnbanned",            new EventInfo<MemberBanEvent>() },
+            { "ServerChannelCreated",            new EventInfo<ChannelEvent>() },
+            { "ServerChannelUpdated",            new EventInfo<ChannelEvent>() },
+            { "ServerChannelDeleted",            new EventInfo<ChannelEvent>() },
+            { "ServerWebhookCreated",            new EventInfo<WebhookEvent>() },
+            { "ServerWebhookUpdated",            new EventInfo<WebhookEvent>() },
+            { "ServerMemberUpdated",             new EventInfo<MemberUpdatedEvent>() },
+            { "ServerRolesUpdated",              new EventInfo<RolesUpdatedEvent>() },
+            { "ServerMemberJoined",
                 new EventInfo<MemberJoinedEvent>((type, serializer, message) =>
                 {
                     // Add `serverId` to member

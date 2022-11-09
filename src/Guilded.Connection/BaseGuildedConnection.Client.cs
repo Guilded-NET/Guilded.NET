@@ -26,7 +26,9 @@ public abstract partial class BaseGuildedConnection : BaseGuildedService, IAsync
     /// <para>This usually occurs once <see cref="ConnectAsync" /> is called and no errors get thrown.</para>
     /// </remarks>
     /// <seealso cref="ConnectAsync" />
+    /// <seealso cref="Reconnected" />
     /// <seealso cref="Disconnected" />
+    /// <seealso cref="DisconnectedWithError" />
     protected Subject<BaseGuildedConnection> ConnectedSubject { get; } = new();
     #endregion
 
@@ -40,22 +42,31 @@ public abstract partial class BaseGuildedConnection : BaseGuildedService, IAsync
     /// <remarks>
     /// <para>An event that occurs once Guilded client reconnects to Guilded.</para>
     /// </remarks>
-    /// <seealso cref="Disconnected" />
     /// <seealso cref="Connected" />
+    /// <seealso cref="Disconnected" />
+    /// <seealso cref="DisconnectedWithError" />
     public IObservable<ReconnectionInfo> Reconnected => Websocket.ReconnectionHappened;
 
     /// <summary>
-    /// An event when the client gets disconnected.
+    /// Gets an <see cref="IObservable{T}">observable</see> for an event when the client gets disconnected.
     /// </summary>
     /// <remarks>
     /// <para>An event that occurs once Guilded client disconnects from Guilded.</para>
     /// <para>This usually occurs once <see cref="DisconnectAsync" /> is called and no errors get thrown, or once an error occurs.</para>
     /// </remarks>
     /// <seealso cref="DisconnectAsync" />
+    /// <seealso cref="DisconnectedWithError" />
+    /// <seealso cref="Reconnected" />
     /// <seealso cref="Connected" />
     public IObservable<DisconnectionInfo> Disconnected => Websocket.DisconnectionHappened;
 
-
+    /// <summary>
+    /// Gets an <see cref="IObservable{T}">observable</see> for an event when the <see cref="BaseGuildedConnection">client</see> gets disconnected with an <see cref="Exception">error</see>.
+    /// </summary>
+    /// <seealso cref="DisconnectAsync" />
+    /// <seealso cref="DisconnectedWithError" />
+    /// <seealso cref="Reconnected" />
+    /// <seealso cref="Connected" />
     public IObservable<DisconnectionInfo> DisconnectedWithError => Disconnected.Where(x => x.Exception is not null);
     #endregion
 

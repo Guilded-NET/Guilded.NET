@@ -1,3 +1,12 @@
+# v1.1.4
+
+- Use the new `Server...` event naming scheme instead of `Team...`.
+
+# v1.1.3
+
+- Added `BaseGuildedConnection.DisconnectedWithError` observable
+- Fixed deserialization errors not being caught and crashing WS events
+
 # v1.1.2
 
 - Made `CalendarCancellation.Description` optional

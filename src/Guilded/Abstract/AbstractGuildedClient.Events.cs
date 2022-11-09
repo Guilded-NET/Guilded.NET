@@ -50,12 +50,12 @@ public abstract partial class AbstractGuildedClient
     public IObservable<ResumeEvent> Resume => ((IEventInfo<ResumeEvent>)GuildedEvents[SocketOpcode.Resume]).Observable;
     #endregion
 
-    #region Properties Teams
+    #region Properties Servers
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive <see cref="XpAddedEvent.Amount">XP</see>.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamXpAdded</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerXpAdded</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
@@ -66,7 +66,7 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["TeamXpAdded"]).Observable;
+    public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["ServerXpAdded"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
@@ -89,7 +89,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="GuildedBotClient">client bot</see> gets added to a <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>BotTeamMembershipCreated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>BotServerMembershipCreated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
@@ -100,7 +100,7 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberUnbanned" />
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
-    public IObservable<BotMembershipEvent> ServerAdded => ((IEventInfo<BotMembershipEvent>)GuildedEvents["BotTeamMembershipCreated"]).Observable;
+    public IObservable<BotMembershipEvent> ServerAdded => ((IEventInfo<BotMembershipEvent>)GuildedEvents["BotServerMembershipCreated"]).Observable;
     #endregion
 
     #region Properties Members
@@ -108,7 +108,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when server-wide profile of a <see cref="Member">member</see> gets changed.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamMemberUpdated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerMemberUpdated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="RolesUpdated" />
@@ -119,13 +119,13 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberUpdatedEvent> MemberUpdated => ((IEventInfo<MemberUpdatedEvent>)GuildedEvents["TeamMemberUpdated"]).Observable;
+    public IObservable<MemberUpdatedEvent> MemberUpdated => ((IEventInfo<MemberUpdatedEvent>)GuildedEvents["ServerMemberUpdated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Member">member</see> joins a <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamMemberJoined</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerMemberJoined</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -136,13 +136,13 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberJoinedEvent> MemberJoined => ((IEventInfo<MemberJoinedEvent>)GuildedEvents["TeamMemberJoined"]).Observable;
+    public IObservable<MemberJoinedEvent> MemberJoined => ((IEventInfo<MemberJoinedEvent>)GuildedEvents["ServerMemberJoined"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Member">member</see> leaves a <see cref="Server">server</see>, gets kicked or gets banned from a <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamMemberRemoved</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerMemberRemoved</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
@@ -153,13 +153,13 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberRemovedEvent> MemberRemoved => ((IEventInfo<MemberRemovedEvent>)GuildedEvents["TeamMemberRemoved"]).Observable;
+    public IObservable<MemberRemovedEvent> MemberRemoved => ((IEventInfo<MemberRemovedEvent>)GuildedEvents["ServerMemberRemoved"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Member">member</see> gets banned from the <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamMemberBanned</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerMemberBanned</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
@@ -170,7 +170,7 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberBanEvent> MemberBanAdded => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberBanned"]).Observable;
+    public IObservable<MemberBanEvent> MemberBanAdded => ((IEventInfo<MemberBanEvent>)GuildedEvents["ServerMemberBanned"]).Observable;
 
     /// <inheritdoc cref="MemberBanAdded" />
     [Obsolete("Use `MemberBanAdded` instead")]
@@ -180,7 +180,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="User">user</see> gets unbanned in a <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamMemberUnbanned</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerMemberUnbanned</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
@@ -191,7 +191,7 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberBanEvent> MemberBanRemoved => ((IEventInfo<MemberBanEvent>)GuildedEvents["TeamMemberUnbanned"]).Observable;
+    public IObservable<MemberBanEvent> MemberBanRemoved => ((IEventInfo<MemberBanEvent>)GuildedEvents["ServerMemberUnbanned"]).Observable;
 
     /// <inheritdoc cref="MemberBanRemoved" />
     [Obsolete("Use `MemberBanRemoved` instead")]
@@ -203,61 +203,61 @@ public abstract partial class AbstractGuildedClient
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Webhook">a new webhook</see> is created.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamWebhookCreated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerWebhookCreated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelUpdated" />
     /// <seealso cref="ChannelDeleted" />
-    public IObservable<WebhookEvent> WebhookCreated => ((IEventInfo<WebhookEvent>)GuildedEvents["TeamWebhookCreated"]).Observable;
+    public IObservable<WebhookEvent> WebhookCreated => ((IEventInfo<WebhookEvent>)GuildedEvents["ServerWebhookCreated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Webhook">webhook</see> is edited.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamWebhookUpdated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerWebhookUpdated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelUpdated" />
     /// <seealso cref="ChannelDeleted" />
-    public IObservable<WebhookEvent> WebhookUpdated => ((IEventInfo<WebhookEvent>)GuildedEvents["TeamWebhookUpdated"]).Observable;
+    public IObservable<WebhookEvent> WebhookUpdated => ((IEventInfo<WebhookEvent>)GuildedEvents["ServerWebhookUpdated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a new <see cref="ServerChannel">channel</see> is created.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamChannelCreated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerChannelCreated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelUpdated" />
     /// <seealso cref="ChannelDeleted" />
-    public IObservable<ChannelEvent> ChannelCreated => ((IEventInfo<ChannelEvent>)GuildedEvents["TeamChannelCreated"]).Observable;
+    public IObservable<ChannelEvent> ChannelCreated => ((IEventInfo<ChannelEvent>)GuildedEvents["ServerChannelCreated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="ServerChannel">channel</see> is edited.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamChannelUpdated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerChannelUpdated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelDeleted" />
-    public IObservable<ChannelEvent> ChannelUpdated => ((IEventInfo<ChannelEvent>)GuildedEvents["TeamChannelUpdated"]).Observable;
+    public IObservable<ChannelEvent> ChannelUpdated => ((IEventInfo<ChannelEvent>)GuildedEvents["ServerChannelUpdated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="ServerChannel">channel</see> is deleted.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>TeamChannelDeleted</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerChannelDeleted</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelUpdated" />
-    public IObservable<ChannelEvent> ChannelDeleted => ((IEventInfo<ChannelEvent>)GuildedEvents["TeamChannelDeleted"]).Observable;
+    public IObservable<ChannelEvent> ChannelDeleted => ((IEventInfo<ChannelEvent>)GuildedEvents["ServerChannelDeleted"]).Observable;
     #endregion
 
     #region Properties Chat channels
