@@ -1,3 +1,9 @@
+# v1.1.5
+
+- Added `Uri` as a type of a command argument
+- Added the ability to have multiple prefixes
+- Fixed `teamRolesUpdated` not being replaced
+
 # v1.1.4
 
 - Use the new `Server...` event naming scheme instead of `Team...`.

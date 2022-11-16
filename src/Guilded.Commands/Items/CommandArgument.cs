@@ -37,7 +37,7 @@ public class CommandArgument : AbstractCommandArgument
     internal static readonly Dictionary<Type, ArgumentConverter> _converters =
         new()
         {
-            { typeof(string),   (CommandArgument _, CommandConfiguration _, string x, out object y) => { y = x; return true; } },
+            { typeof(string),   (CommandArgument _, CommandConfiguration _, string x, [NotNullWhen(true)] out object? y) => { y = x; return true; } },
             { typeof(int),      FromParser<int>(int.TryParse) },
             { typeof(bool),     FromParser<bool>(bool.TryParse) },
             { typeof(Guid),     FromParser<Guid>(Guid.TryParse) },
@@ -55,7 +55,7 @@ public class CommandArgument : AbstractCommandArgument
             { typeof(char),     FromParser<char>(char.TryParse) },
             {
                 typeof(Match),
-                (CommandArgument arg, CommandConfiguration config, string y, out object z) =>
+                (CommandArgument arg, CommandConfiguration config, string y, [NotNullWhen(true)] out object? z) =>
                 {
                     CommandRegexAttribute attr = arg.Parameter.GetCustomAttribute<CommandRegexAttribute>()!;
 
@@ -67,7 +67,7 @@ public class CommandArgument : AbstractCommandArgument
             },
             {
                 typeof(MatchCollection),
-                (CommandArgument arg, CommandConfiguration config, string y, out object z) =>
+                (CommandArgument arg, CommandConfiguration config, string y, [NotNullWhen(true)] out object? z) =>
                 {
                     CommandRegexAttribute attr = arg.Parameter.GetCustomAttribute<CommandRegexAttribute>()!;
 
@@ -79,10 +79,19 @@ public class CommandArgument : AbstractCommandArgument
             },
             {
                 typeof(string[]),
-                (CommandArgument _, CommandConfiguration config, string argument, out object value) =>
+                (CommandArgument _, CommandConfiguration config, string argument, [NotNullWhen(true)] out object? value) =>
                 {
                     value = argument is null ? Array.Empty<string>() : argument.Split(config.Separators, config.SplitOptions);
                     return true;
+                }
+            },
+            { typeof(Uri),
+                (CommandArgument _, CommandConfiguration _, string argument, [NotNullWhen(true)] out object? value) =>
+                {
+                    // Since out object cannot get value from out Uri? for some reason
+                    bool b = Uri.TryCreate(argument, UriKind.Absolute, out Uri? uriValue);
+                    value = uriValue;
+                    return b;
                 }
             },
             { typeof(DateTime), FromParser<DateTime>(DateTime.TryParse) },
@@ -167,7 +176,7 @@ public class CommandArgument : AbstractCommandArgument
 
     private static ArgumentConverter FromParser<T>(ConverterParser<T> parser)
     {
-        return (CommandArgument _, CommandConfiguration _, string raw, out object value) =>
+        return (CommandArgument _, CommandConfiguration _, string raw, [NotNullWhen(true)] out object? value) =>
         {
             bool good = parser(raw, out var parsed);
             value = parsed!;

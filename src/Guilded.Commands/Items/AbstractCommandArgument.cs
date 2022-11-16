@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace Guilded.Commands.Items;
@@ -11,7 +12,7 @@ namespace Guilded.Commands.Items;
 /// <param name="raw">The given unparsed value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <param name="value">The value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <returns>Whether the argument was parsed</returns>
-public delegate bool ArgumentConverter(CommandArgument argument, CommandConfiguration config, string raw, out object value);
+public delegate bool ArgumentConverter(CommandArgument argument, CommandConfiguration config, string raw, [NotNullWhen(true)] out object? value);
 
 /// <summary>
 /// Represents the information about any command argument in <see name="CommandInfo">a command method</see>.

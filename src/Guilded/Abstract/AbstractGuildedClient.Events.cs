@@ -72,7 +72,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
     /// </summary>
     /// <remarks>
-    /// <para>An event with the name <c>teamRolesUpdated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>ServerRolesUpdated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
@@ -83,7 +83,7 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<RolesUpdatedEvent> RolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["teamRolesUpdated"]).Observable;
+    public IObservable<RolesUpdatedEvent> RolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["ServerRolesUpdated"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="GuildedBotClient">client bot</see> gets added to a <see cref="Server">server</see>.

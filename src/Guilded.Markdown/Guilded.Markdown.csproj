@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Guilded.Markdown</Product>
-    <Version>1.1.4</Version>
+    <Version>1.1.5</Version>
     <Description>Adds Markdown utilities to Guilded clients</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -24,7 +24,7 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded" Version="1.1.4" />
+    <PackageReference Include="Guilded" Version="1.1.5" />
   </ItemGroup>
 
   <!-- For testing purposes -->

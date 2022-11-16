@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -22,21 +23,10 @@ public abstract class CommandModule : CommandParent
     #endregion
 
     #region Methods
-    /// <summary>
-    /// Checks if any <see cref="CommandAttribute">commands</see> are called in the message and invokes them.
-    /// </summary>
-    /// <param name="msgCreated">The supposed command message</param>
-    /// <param name="prefix">The current prefix used for the command</param>
-    /// <param name="config">The configuration of client's commands</param>
-    /// <param name="additionalContext">The additional context for the commands</param>
-    /// <returns>Whether any <see cref="CommandAttribute">command</see> has been invoked</returns>
-    public virtual async Task<bool> DoCommandsAsync(MessageEvent msgCreated, string prefix, CommandConfiguration config, object? additionalContext)
+    private async Task<bool> HandleCommandAsync(MessageEvent msgCreated, string prefix, CommandConfiguration config, object? additionalContext)
     {
-        if (!msgCreated.Content!.StartsWith(prefix, StringComparison.InvariantCulture))
-            return false;
-
         string[] splitContent = msgCreated
-            .Content[prefix.Length..]
+            .Content![prefix.Length..]
             .Split(config.Separators, 2, config.SplitOptions);
 
         string? commandName = splitContent.FirstOrDefault();
@@ -53,6 +43,40 @@ public abstract class CommandModule : CommandParent
         RootCommandEvent context = new(msgCreated, config, prefix, commandName, args, additionalContext);
 
         return await InvokeCommandByNameAsync(context, commandName, args, totalArgCount).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Checks if any <see cref="CommandAttribute">commands</see> are called in the message and invokes them.
+    /// </summary>
+    /// <param name="msgCreated">The supposed command message</param>
+    /// <param name="prefixes">The current available prefixes usable for the command</param>
+    /// <param name="config">The configuration of client's commands</param>
+    /// <param name="additionalContext">The additional context for the commands</param>
+    /// <returns>Whether any <see cref="CommandAttribute">command</see> has been invoked</returns>
+    public virtual async Task<bool> DoCommandsAsync(MessageEvent msgCreated, IEnumerable<string> prefixes, CommandConfiguration config, object? additionalContext)
+    {
+        string? foundPrefix = prefixes.FirstOrDefault(prefix => msgCreated.Content!.StartsWith(prefix));
+
+        if (foundPrefix is null)
+            return false;
+
+        return await HandleCommandAsync(msgCreated, foundPrefix, config, additionalContext);
+    }
+
+    /// <summary>
+    /// Checks if any <see cref="CommandAttribute">commands</see> are called in the message and invokes them.
+    /// </summary>
+    /// <param name="msgCreated">The supposed command message</param>
+    /// <param name="prefix">The current available prefixes usable for the command</param>
+    /// <param name="config">The configuration of client's commands</param>
+    /// <param name="additionalContext">The additional context for the commands</param>
+    /// <returns>Whether any <see cref="CommandAttribute">command</see> has been invoked</returns>
+    public virtual async Task<bool> DoCommandsAsync(MessageEvent msgCreated, string prefix, CommandConfiguration config, object? additionalContext)
+    {
+        if (!msgCreated.Content!.StartsWith(prefix, StringComparison.InvariantCulture))
+            return false;
+
+        return await HandleCommandAsync(msgCreated, prefix, config, additionalContext);
     }
 
     /// <summary>
