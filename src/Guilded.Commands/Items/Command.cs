@@ -21,7 +21,7 @@ public class Command : AbstractCommand<MethodInfo>
         typeof(short), typeof(sbyte), typeof(uint), typeof(ulong),
         typeof(ushort), typeof(byte), typeof(float), typeof(double),
         typeof(decimal), typeof(char), typeof(DateTime), typeof(TimeSpan),
-        typeof(Guid), typeof(HashId),
+        typeof(Guid), typeof(HashId), typeof(Uri),
         typeof(string[]), typeof(Match), typeof(MatchCollection)
     };
 

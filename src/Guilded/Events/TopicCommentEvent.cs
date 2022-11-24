@@ -11,13 +11,13 @@ namespace Guilded.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes a <see cref="Content.Topic">forum topic</see>.
 /// </summary>
-/// <seealso cref="Content.Topic" />
+/// <seealso cref="Topic" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="ItemEvent" />
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
-public class TopicCommentEvent : IModelHasId<uint>, IServerBased, ICreatableContent, IUpdatableContent
+public class TopicCommentEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreatableContent, IUpdatableContent
 {
     #region Properties
     /// <summary>
@@ -37,6 +37,9 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, ICreatableCont
     /// <inheritdoc cref="TopicComment.TopicId" />
     public uint TopicId => TopicComment.TopicId;
 
+    /// <inheritdoc cref="TopicComment.ChannelId" />
+    public Guid ChannelId => TopicComment.ChannelId;
+
     /// <inheritdoc cref="TopicComment.CreatedBy" />
     public HashId CreatedBy => TopicComment.CreatedBy;
 
@@ -48,6 +51,12 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, ICreatableCont
 
     /// <inheritdoc cref="IHasParentClient.ParentClient" />
     public AbstractGuildedClient ParentClient => TopicComment.ParentClient;
+
+    /// <inheritdoc cref="TopicComment.Updated" />
+    public IObservable<TopicCommentEvent> Updated => TopicComment.Updated;
+
+    /// <inheritdoc cref="TopicComment.Deleted" />
+    public IObservable<TopicCommentEvent> Deleted => TopicComment.Deleted;
     #endregion
 
     #region Constructors

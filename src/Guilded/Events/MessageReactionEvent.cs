@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when someone adds or removes <see cref="Content.Reaction">a reaction</see>.
+/// Represents an event that occurs when someone adds or removes a <see cref="Reaction">reaction</see>.
 /// </summary>
 /// <seealso cref="ReactionEvent{T}" />
 /// <seealso cref="TopicReactionEvent" />

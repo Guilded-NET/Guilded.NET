@@ -98,6 +98,18 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     /// <inheritdoc cref="TopicSummary.Unpinned" />
     public IObservable<TopicEvent> Unpinned =>
         Topic.Unpinned;
+
+    /// <inheritdoc cref="TopicSummary.CommentCreated" />
+    public IObservable<TopicCommentEvent> CommentCreated =>
+        Topic.CommentCreated;
+
+    /// <inheritdoc cref="TopicSummary.CommentUpdated" />
+    public IObservable<TopicCommentEvent> CommentUpdated =>
+        Topic.CommentUpdated;
+
+    /// <inheritdoc cref="TopicSummary.CommentDeleted" />
+    public IObservable<TopicCommentEvent> CommentDeleted =>
+        Topic.CommentDeleted;
     #endregion
 
     #region Constructors

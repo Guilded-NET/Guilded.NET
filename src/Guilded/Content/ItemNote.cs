@@ -67,7 +67,7 @@ public class ItemNoteSummary : ICreatableContent, IUpdatableContent
 /// <summary>
 /// Represents the full information about the <see cref="Item">list item's</see> note.
 /// </summary>
-public class ItemNote : ItemNoteSummary
+public class ItemNote : ItemNoteSummary, IContentMarkdown
 {
     #region Properties
     /// <summary>

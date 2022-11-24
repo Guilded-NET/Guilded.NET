@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
 using Guilded.Connection;
 using Guilded.Content;
 using Guilded.Events;
@@ -91,6 +90,7 @@ public abstract partial class AbstractGuildedClient
     /// <remarks>
     /// <para>An event with the name <c>BotServerMembershipCreated</c> and opcode <c>0</c>.</para>
     /// </remarks>
+    /// <seealso cref="ServerRemoved" />
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
@@ -100,7 +100,25 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberUnbanned" />
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
-    public IObservable<BotMembershipEvent> ServerAdded => ((IEventInfo<BotMembershipEvent>)GuildedEvents["BotServerMembershipCreated"]).Observable;
+    public IObservable<ServerAddedEvent> ServerAdded => ((IEventInfo<ServerAddedEvent>)GuildedEvents["BotServerMembershipCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="GuildedBotClient">client bot</see> gets removed from a <see cref="Server">server</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>BotServerMembershipDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ServerAdded" />
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="MemberUpdated" />
+    /// <seealso cref="RolesUpdated" />
+    /// <seealso cref="XpAdded" />
+    /// <seealso cref="MemberRemoved" />
+    /// <seealso cref="MemberBanned" />
+    /// <seealso cref="MemberUnbanned" />
+    /// <seealso cref="WebhookCreated" />
+    /// <seealso cref="WebhookUpdated" />
+    public IObservable<ServerAddedEvent> ServerRemoved => ((IEventInfo<ServerAddedEvent>)GuildedEvents["BotServerMembershipDeleted"]).Observable;
     #endregion
 
     #region Properties Members

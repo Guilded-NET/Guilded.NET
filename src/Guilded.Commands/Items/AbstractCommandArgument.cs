@@ -5,7 +5,7 @@ using System.Reflection;
 namespace Guilded.Commands.Items;
 
 /// <summary>
-/// The type of the <see cref="CommandArgument.Converter">command argument converter</see>.
+/// The type of the <see cref="CommandConfiguration.ArgumentConverters">command argument converter</see>.
 /// </summary>
 /// <param name="argument">The <see cref="CommandArgument">command argument</see> that is being used for conversion</param>
 /// <param name="config">The given <see cref="CommandConfiguration">configuration</see> for the <see cref="CommandAttribute">commands</see></param>
@@ -21,25 +21,19 @@ public abstract class AbstractCommandArgument
 {
     #region Properties
     /// <summary>
-    /// Gets the type of <see cref="Parameter">the parameter</see>.
-    /// </summary>
-    /// <value>Type</value>
-    public Type ArgumentType => Parameter.ParameterType;
-
-    /// <summary>
     /// Gets the parameter that was declared in the method.
     /// </summary>
     /// <value>Reflection parameter</value>
     public ParameterInfo Parameter { get; set; }
 
     /// <summary>
-    /// Gets <see cref="CommandParamAttribute">the attribute</see> that was used to declare <see cref="CommandAttribute">the command parameter</see>.
+    /// Gets the <see cref="CommandParamAttribute">attribute</see> that was used to declare <see cref="CommandAttribute">the command parameter</see>.
     /// </summary>
     /// <value>Command param attribute</value>
     public CommandParamAttribute? Attribute { get; set; }
 
     /// <summary>
-    /// Gets the displayed name of <see cref="CommandParamAttribute.Name">the command argument</see>.
+    /// Gets the displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandArgument">command argument</see>.
     /// </summary>
     /// <value>Name</value>
     public string Name => Attribute?.Name ?? Parameter.Name ?? "";
@@ -78,12 +72,12 @@ public abstract class AbstractCommandArgument
 
     #region Methods
     /// <summary>
-    /// Gets the value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index.
+    /// Returns the value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index.
     /// </summary>
     /// <param name="config">The <see cref="CommandConfiguration">configuration</see> used for <see cref="CommandModule">commands</see></param>
     /// <param name="argument">The convertable <see cref="CommandEvent.Arguments">argument</see> fetched from <see cref="CommandEvent">the command invokation</see></param>
     /// <param name="value">The converted value</param>
-    /// <returns>Properly converted/parssed</returns>
+    /// <returns>Te value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index</returns>
     public abstract bool TryGetValueFrom(CommandConfiguration config, string? argument, out object? value);
     #endregion
 }

@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using System.Text.RegularExpressions;
-using Guilded.Base;
 
 namespace Guilded.Commands.Items;
 
@@ -31,74 +28,6 @@ public delegate bool ParserDelegate(CommandArgument commandArg, CommandConfigura
 /// </summary>
 public class CommandArgument : AbstractCommandArgument
 {
-    #region Static
-    // FIXME: Cast int.Parse, bool.Parse, etc. to Func<string, object> somehow or something like that
-    // I hate this
-    internal static readonly Dictionary<Type, ArgumentConverter> _converters =
-        new()
-        {
-            { typeof(string),   (CommandArgument _, CommandConfiguration _, string x, [NotNullWhen(true)] out object? y) => { y = x; return true; } },
-            { typeof(int),      FromParser<int>(int.TryParse) },
-            { typeof(bool),     FromParser<bool>(bool.TryParse) },
-            { typeof(Guid),     FromParser<Guid>(Guid.TryParse) },
-            { typeof(HashId),   FromParser<HashId>(HashId.TryParse) },
-            { typeof(uint),     FromParser<uint>(uint.TryParse) },
-            { typeof(long),     FromParser<long>(long.TryParse) },
-            { typeof(ulong),    FromParser<ulong>(ulong.TryParse) },
-            { typeof(float),    FromParser<float>(float.TryParse) },
-            { typeof(short),    FromParser<short>(short.TryParse) },
-            { typeof(ushort),   FromParser<ushort>(ushort.TryParse) },
-            { typeof(byte),     FromParser<byte>(byte.TryParse) },
-            { typeof(sbyte),    FromParser<sbyte>(sbyte.TryParse) },
-            { typeof(double),   FromParser<double>(double.TryParse) },
-            { typeof(decimal),  FromParser<decimal>(decimal.TryParse) },
-            { typeof(char),     FromParser<char>(char.TryParse) },
-            {
-                typeof(Match),
-                (CommandArgument arg, CommandConfiguration config, string y, [NotNullWhen(true)] out object? z) =>
-                {
-                    CommandRegexAttribute attr = arg.Parameter.GetCustomAttribute<CommandRegexAttribute>()!;
-
-                    Match match = attr.Regex.Match(y);
-                    z = match;
-
-                    return match.Success;
-                }
-            },
-            {
-                typeof(MatchCollection),
-                (CommandArgument arg, CommandConfiguration config, string y, [NotNullWhen(true)] out object? z) =>
-                {
-                    CommandRegexAttribute attr = arg.Parameter.GetCustomAttribute<CommandRegexAttribute>()!;
-
-                    MatchCollection matches = attr.Regex.Matches(y);
-                    z = matches;
-
-                    return matches.Count > 0;
-                }
-            },
-            {
-                typeof(string[]),
-                (CommandArgument _, CommandConfiguration config, string argument, [NotNullWhen(true)] out object? value) =>
-                {
-                    value = argument is null ? Array.Empty<string>() : argument.Split(config.Separators, config.SplitOptions);
-                    return true;
-                }
-            },
-            { typeof(Uri),
-                (CommandArgument _, CommandConfiguration _, string argument, [NotNullWhen(true)] out object? value) =>
-                {
-                    // Since out object cannot get value from out Uri? for some reason
-                    bool b = Uri.TryCreate(argument, UriKind.Absolute, out Uri? uriValue);
-                    value = uriValue;
-                    return b;
-                }
-            },
-            { typeof(DateTime), FromParser<DateTime>(DateTime.TryParse) },
-            { typeof(TimeSpan), FromParser<TimeSpan>(TimeSpan.TryParse) }
-        };
-    #endregion
-
     #region Properties
     /// <summary>
     /// Gets whether the value for the <see cref="CommandArgument">command argument</see> does not need to be provided.
@@ -119,10 +48,10 @@ public class CommandArgument : AbstractCommandArgument
     public bool IsRest => ArgumentType == typeof(string[]) || Parameter.GetCustomAttribute<CommandRestAttribute>() is not null;
 
     /// <summary>
-    /// Gets the <see cref="ArgumentConverter">converter</see> to convert string values to the <see cref="AbstractCommandArgument.ArgumentType">argument's type</see>.
+    /// Gets the <see cref="Type">type</see> of the <see cref="CommandArgument">command argument</see>.
     /// </summary>
-    /// <value>String to Object Converter</value>
-    internal ArgumentConverter Converter { get; }
+    /// <value>The <see cref="Type">type</see> of the <see cref="CommandArgument">command argument</see></value>
+    public Type ArgumentType { get; }
     #endregion
 
     #region Constructors
@@ -132,10 +61,10 @@ public class CommandArgument : AbstractCommandArgument
     /// <param name="isOptional">Whether the argument is optional</param>
     /// <param name="index">The index of the parameter in a <see cref="CommandAttribute">command</see></param>
     /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>
-    /// <param name="parameterType">The type of the <see cref="ParameterInfo">parameter</see></param>
+    /// <param name="argumentType">The type of the <see cref="CommandArgument">command argument</see> <see cref="Type">type</see></param>
     /// <param name="command">The parent <see cref="CommandAttribute">command</see> of this <see cref="CommandAttribute">argument</see></param>
-    public CommandArgument(bool isOptional, int index, ParameterInfo parameter, Type parameterType, Command command) : base(index, parameter, command) =>
-        (IsOptional, Converter, Parser) = (isOptional, GetParametersConverter(parameterType), GetParser(isOptional));
+    public CommandArgument(bool isOptional, int index, ParameterInfo parameter, Type argumentType, Command command) : base(index, parameter, command) =>
+        (IsOptional, Parser, ArgumentType) = (isOptional, GetParser(isOptional), argumentType);
     #endregion
 
     #region Methods
@@ -150,7 +79,7 @@ public class CommandArgument : AbstractCommandArgument
         ? (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
             {
                 // Convert properly
-                if (argument is not null) return commandArg.Converter(commandArg, config, argument, out value);
+                if (argument is not null) return config.ArgumentConverters[commandArg.ArgumentType](commandArg, config, argument, out value);
                 // = xyz or `null`
                 // This could be minimized to just .Value, but at this point maybe RAM would suffer and it's
                 // obsession over micro-optimizations
@@ -164,17 +93,9 @@ public class CommandArgument : AbstractCommandArgument
                 return true;
             }
     : (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
-        commandArg.Converter(commandArg, config, argument!, out value);
+        config.ArgumentConverters[commandArg.ArgumentType](commandArg, config, argument!, out value);
 
-    internal static ArgumentConverter GetParametersConverter(Type parameterType)
-    {
-        if (!_converters.ContainsKey(parameterType))
-            throw new FormatException($"Cannot have type {parameterType} as a command argument's type");
-
-        return _converters[parameterType];
-    }
-
-    private static ArgumentConverter FromParser<T>(ConverterParser<T> parser)
+    internal static ArgumentConverter FromParser<T>(ConverterParser<T> parser)
     {
         return (CommandArgument _, CommandConfiguration _, string raw, [NotNullWhen(true)] out object? value) =>
         {

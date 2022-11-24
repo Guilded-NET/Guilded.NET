@@ -157,6 +157,56 @@ public class TopicSummary : TitledContent
             );
     #endregion
 
+    #region Properties Events Comment
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="TopicComment">forum topic comment</see> gets created.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="TopicComment">forum topic comment</see> gets created</returns>
+    /// <seealso cref="CommentUpdated" />
+    /// <seealso cref="CommentDeleted" />
+    public IObservable<TopicCommentEvent> CommentCreated =>
+        ParentClient
+            .TopicCommentUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.TopicId == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="TopicComment">forum topic comment</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="TopicComment">forum topic comment</see> gets edited</returns>
+    /// <seealso cref="CommentCreated" />
+    /// <seealso cref="CommentDeleted" />
+    public IObservable<TopicCommentEvent> CommentUpdated =>
+        ParentClient
+            .TopicCommentUpdated
+            .Where(x =>
+                x.ChannelId == ChannelId && x.TopicId == Id
+            );
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="TopicComment">forum topic comment</see> gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Topic">forum topic</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="TopicComment">forum topic comment</see> gets deleted</returns>
+    /// <seealso cref="CommentCreated" />
+    /// <seealso cref="CommentUpdated" />
+    public IObservable<TopicCommentEvent> CommentDeleted =>
+        ParentClient
+            .TopicCommentDeleted
+            .Where(x =>
+                x.ChannelId == ChannelId && x.TopicId == Id
+            );
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="TopicSummary" /> from the specified JSON properties.

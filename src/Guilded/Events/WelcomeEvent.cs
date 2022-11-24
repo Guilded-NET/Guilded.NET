@@ -1,3 +1,4 @@
+using Guilded.Client;
 using Guilded.Connection;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -30,18 +31,18 @@ public class WelcomeEvent
     public int HeartbeatInterval { get; }
 
     /// <summary>
-    /// Gets the identifier of the last received WebSocket message.
+    /// Gets the identifier of the last received <see cref="GuildedSocketMessage">WebSocket message</see>.
     /// </summary>
-    /// <value>Event ID?</value>
+    /// <value>The identifier of the last received <see cref="GuildedSocketMessage">WebSocket message</see></value>
     /// <seealso cref="WelcomeEvent" />
     /// <seealso cref="HeartbeatInterval" />
     /// <seealso cref="User" />
     public string? LastMessageId { get; }
 
     /// <summary>
-    /// Gets the currently logged in user.
+    /// Gets the <see cref="Users.User">user</see> data of the <see cref="AbstractGuildedClient">client</see>.
     /// </summary>
-    /// <value>This User</value>
+    /// <value>The <see cref="Users.User">user</see> data of the <see cref="AbstractGuildedClient">client</see></value>
     /// <seealso cref="WelcomeEvent" />
     /// <seealso cref="LastMessageId" />
     /// <seealso cref="HeartbeatInterval" />

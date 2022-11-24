@@ -1,3 +1,11 @@
+# v1.2.0
+
+- Added `ArgumentConverters` to `CommandConfiguration` that exposes command argument converters that were previously internal. This will allow you to add new argument converters for types, as well as modify them (in cases where you want there to be more than `true` and `false` boolean values, for instance)
+- Added `ChannelId` to `TopicComment` and `TopicCommentEvent`
+- Added `Updated`, `Deleted` to `TopicComment` and `TopicCommentEvent`
+- Added `CommentCreated`, `CommentUpdated`, `CommentDeleted` to `Topic` and `TopicEvent`
+- Fixed `TopicReactionEvent` using `MessageReaction` instead of `TopicReaction`
+
 # v1.1.5
 
 - Added `Uri` as a type of a command argument

@@ -92,7 +92,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { SocketOpcode.Resume,             new EventInfo<ResumeEvent>() },
 
             // Server events
-            { "BotServerMembershipCreated",      new EventInfo<BotMembershipEvent>() },
+            { "BotServerMembershipCreated",      new EventInfo<ServerAddedEvent>() },
             { "ServerXpAdded",                   new EventInfo<XpAddedEvent>() },
             { "ServerMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
             { "ServerMemberBanned",
