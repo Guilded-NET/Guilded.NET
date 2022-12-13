@@ -319,48 +319,6 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.GetPrivateMessage">Required for deleting messages set as <see cref="Message.IsPrivate">private</see> made by others</permission>
     public Task DeleteMessageAsync(Guid channel, Guid message) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}", Method.Delete));
-
-    /// <summary>
-    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="message" />.
-    /// </summary>
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
-    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedPermissionException" />
-    /// <exception cref="GuildedResourceException" />
-    /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    public Task AddReactionAsync(Guid channel, Guid message, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Put));
-
-    /// <inheritdoc cref="AddReactionAsync(Guid, uint, uint)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
-    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
-    public Task AddReactionAsync(Guid channel, Guid message, Emote emote) =>
-        AddReactionAsync(channel, message, emote.Id);
-
-    /// <summary>
-    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="message" />.
-    /// </summary>
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
-    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
-    /// <exception cref="GuildedException" />
-    /// <exception cref="GuildedPermissionException" />
-    /// <exception cref="GuildedResourceException" />
-    /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    public Task RemoveReactionAsync(Guid channel, Guid message, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Delete));
-
-    /// <inheritdoc cref="RemoveReactionAsync(Guid, uint, uint)" />
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
-    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
-    public Task RemoveReactionAsync(Guid channel, Guid message, Emote emote) =>
-        RemoveReactionAsync(channel, message, emote.Id);
     #endregion
 
     #region Methods Forum channels > Topics
@@ -1053,12 +1011,56 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Delete));
     #endregion
 
-    #region Methods Content
+    #region Methods Reactions > Messages
     /// <summary>
-    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="content" />.
+    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="message" />.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ChatPermissions.GetMessage" />
+    public Task AddMessageReactionAsync(Guid channel, Guid message, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Put));
+
+    /// <inheritdoc cref="AddTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddMessageReactionAsync(Guid channel, Guid message, Emote emote) =>
+        AddMessageReactionAsync(channel, message, emote.Id);
+
+    /// <summary>
+    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="message" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="ChatPermissions.GetMessage" />
+    public Task RemoveMessageReactionAsync(Guid channel, Guid message, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Delete));
+
+    /// <inheritdoc cref="RemoveTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveMessageReactionAsync(Guid channel, Guid message, Emote emote) =>
+        RemoveMessageReactionAsync(channel, message, emote.Id);
+    #endregion
+
+    #region Methods Reactions > Topics
+    /// <summary>
+    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="topic">forum topic</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to add a <see cref="Reaction">reaction</see> to</param>
     /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -1068,21 +1070,21 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="MediaPermissions.GetMedia" />
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <permission cref="CalendarPermissions.GetEvent" />
-    public Task AddReactionAsync(Guid channel, uint content, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{content}/emotes/{emote}", Method.Put));
+    public Task AddTopicReactionAsync(Guid channel, uint topic, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/emotes/{emote}", Method.Put));
 
-    /// <inheritdoc cref="AddReactionAsync(Guid, uint, uint)" />
+    /// <inheritdoc cref="AddTopicReactionAsync(Guid, uint, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to add a <see cref="Reaction">reaction</see> to</param>
     /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
-    public Task AddReactionAsync(Guid channel, uint content, Emote emote) =>
-        AddReactionAsync(channel, content, emote.Id);
+    public Task AddTopicReactionAsync(Guid channel, uint topic, Emote emote) =>
+        AddTopicReactionAsync(channel, topic, emote.Id);
 
     /// <summary>
-    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="content" />.
+    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="topic">forum topic</paramref>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to remove a <see cref="Reaction">reaction</see> from</param>
     /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -1092,14 +1094,72 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="MediaPermissions.GetMedia" />
     /// <permission cref="ForumPermissions.GetTopic" />
     /// <permission cref="CalendarPermissions.GetEvent" />
-    public Task RemoveReactionAsync(Guid channel, uint content, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{content}/emotes/{emote}", Method.Delete));
+    public Task RemoveTopicReactionAsync(Guid channel, uint topic, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/emotes/{emote}", Method.Delete));
 
-    /// <inheritdoc cref="RemoveReactionAsync(Guid, uint, uint)" />
+    /// <inheritdoc cref="RemoveTopicReactionAsync(Guid, uint, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="content">The identifier of the <see cref="ChannelContent{TId, TServer}">content</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to remove a <see cref="Reaction">reaction</see> from</param>
     /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
-    public Task RemoveReactionAsync(Guid channel, uint content, Emote emote) =>
-        RemoveReactionAsync(channel, content, emote.Id);
+    public Task RemoveTopicReactionAsync(Guid channel, uint topic, Emote emote) =>
+        RemoveTopicReactionAsync(channel, topic, emote.Id);
+    #endregion
+
+    #region Methods Reactions > Vague
+    /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(Guid channel, Guid message, uint emote) =>
+        AddMessageReactionAsync(channel, message, emote);
+
+    /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(Guid channel, Guid message, Emote emote) =>
+        AddMessageReactionAsync(channel, message, emote);
+
+    /// <inheritdoc cref="RemoveMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(Guid channel, Guid message, uint emote) =>
+        RemoveMessageReactionAsync(channel, message, emote);
+
+    /// <inheritdoc cref="RemoveMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(Guid channel, Guid message, Emote emote) =>
+        RemoveMessageReactionAsync(channel, message, emote);
+
+    /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Message">message</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(Guid channel, uint topic, uint emote) =>
+        AddTopicReactionAsync(channel, topic, emote);
+
+    /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(Guid channel, uint topic, Emote emote) =>
+        AddTopicReactionAsync(channel, topic, emote);
+
+    /// <inheritdoc cref="RemoveMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(Guid channel, uint topic, uint emote) =>
+        RemoveTopicReactionAsync(channel, topic, emote);
+
+    /// <inheritdoc cref="RemoveMessageReactionAsync(Guid, Guid, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(Guid channel, uint topic, Emote emote) =>
+        RemoveTopicReactionAsync(channel, topic, emote);
     #endregion
 }

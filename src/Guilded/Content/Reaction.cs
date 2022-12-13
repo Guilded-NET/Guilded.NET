@@ -84,6 +84,7 @@ public abstract class Reaction : ContentModel, IModelHasId<uint>
 /// </summary>
 /// <seealso cref="Reaction" />
 /// <seealso cref="TopicReaction" />
+/// <seealso cref="TopicCommentReaction" />
 /// <seealso cref="MessageReactionEvent" />
 public class MessageReaction : Reaction
 {
@@ -136,65 +137,5 @@ public class MessageReaction : Reaction
     /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, Guid, uint)" />
     public override Task RemoveAsync() =>
         ParentClient.RemoveReactionAsync(ChannelId, MessageId, Emote.Id);
-    #endregion
-}
-
-/// <summary>
-/// Represents a <see cref="Topic">forum topic</see> <see cref="Reaction">reaction</see>.
-/// </summary>
-/// <seealso cref="Reaction" />
-/// <seealso cref="MessageReaction" />
-/// <seealso cref="TopicReactionEvent" />
-public class TopicReaction : Reaction
-{
-    #region Properties
-    /// <summary>
-    /// Gets the identifier of the <see cref="Topic">forum topic</see> that <see cref="User">user</see> reacted on.
-    /// </summary>
-    /// <value>The <see cref="Topic">forum topic</see> identifier of the <see cref="Reaction">reaction</see></value>
-    /// <seealso cref="TopicReaction" />
-    /// <seealso cref="Reaction" />
-    /// <seealso cref="Topic" />
-    /// <seealso cref="Reaction.ChannelId" />
-    /// <seealso cref="Reaction.Id" />
-    public uint TopicId { get; }
-    #endregion
-
-    #region Constructor
-    /// <summary>
-    /// Initializes a new instance of <see cref="TopicReaction" /> from the specified JSON properties.
-    /// </summary>
-    /// <param name="emote">The <see cref="Emote">emote</see> with which the <see cref="Reaction.CreatedBy">user</see> reacted</param>
-    /// <param name="createdBy">The identifier of the <see cref="User">user</see> that reacted</param>
-    /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Topic">forum topic</see> is</param>
-    /// <param name="forumTopicId">The identifier of the <see cref="Topic">forum topic</see> that <see cref="Reaction.CreatedBy">user</see> reacted on</param>
-    /// <returns>New <see cref="TopicReaction" /> JSON instance</returns>
-    /// <seealso cref="TopicReaction" />
-    /// <seealso cref="TopicReactionEvent" />
-    [JsonConstructor]
-    public TopicReaction(
-        [JsonProperty(Required = Required.Always)]
-        Emote emote,
-
-        [JsonProperty(Required = Required.Always)]
-        HashId createdBy,
-
-        [JsonProperty(Required = Required.Always)]
-        Guid channelId,
-
-        [JsonProperty(Required = Required.Always)]
-        uint forumTopicId
-    ) : base(emote, createdBy, channelId) =>
-        TopicId = forumTopicId;
-    #endregion
-
-    #region Methods
-    /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />
-    public override Task AddAsync() =>
-        ParentClient.AddReactionAsync(ChannelId, TopicId, Emote.Id);
-
-    /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
-    public override Task RemoveAsync() =>
-        ParentClient.RemoveReactionAsync(ChannelId, TopicId, Emote.Id);
     #endregion
 }

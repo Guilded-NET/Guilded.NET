@@ -353,6 +353,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicUnpinned" />
     /// <seealso cref="TopicLocked" />
     /// <seealso cref="TopicUnlocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicCreated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicCreated"]).Observable;
 
     /// <summary>
@@ -367,6 +369,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicUnpinned" />
     /// <seealso cref="TopicLocked" />
     /// <seealso cref="TopicUnlocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicUpdated => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUpdated"]).Observable;
 
     /// <summary>
@@ -381,6 +385,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicUnpinned" />
     /// <seealso cref="TopicLocked" />
     /// <seealso cref="TopicUnlocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicDeleted => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicDeleted"]).Observable;
 
     /// <summary>
@@ -395,6 +401,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicUnpinned" />
     /// <seealso cref="TopicLocked" />
     /// <seealso cref="TopicUnlocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicPinned => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicPinned"]).Observable;
 
     /// <inheritdoc cref="TopicPinned" />
@@ -413,6 +421,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicPinned" />
     /// <seealso cref="TopicLocked" />
     /// <seealso cref="TopicUnlocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicUnpinned => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUnpinned"]).Observable;
 
     /// <inheritdoc cref="TopicUnpinned" />
@@ -431,6 +441,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicPinned" />
     /// <seealso cref="TopicUnpinned" />
     /// <seealso cref="TopicUnlocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicLocked => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicLocked"]).Observable;
 
     /// <summary>
@@ -445,10 +457,44 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicPinned" />
     /// <seealso cref="TopicUnpinned" />
     /// <seealso cref="TopicLocked" />
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicUnlocked => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUnlocked"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="TopicReaction">reaction</see> is added to a <see cref="Topic">forum topic</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicReactionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicReactionRemoved" />
+    /// <seealso cref="TopicCreated" />
+    /// <seealso cref="TopicUpdated" />
+    /// <seealso cref="TopicDeleted" />
+    /// <seealso cref="TopicPinned" />
+    /// <seealso cref="TopicUnpinned" />
+    /// <seealso cref="TopicLocked" />
+    /// <seealso cref="TopicUnlocked" />
+    public IObservable<TopicReactionEvent> TopicReactionAdded => ((IEventInfo<TopicReactionEvent>)GuildedEvents["ForumTopicReactionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="TopicReaction">reaction</see> is removed from a <see cref="Topic">forum topic</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicReactionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicReactionAdded" />
+    /// <seealso cref="TopicCreated" />
+    /// <seealso cref="TopicUpdated" />
+    /// <seealso cref="TopicDeleted" />
+    /// <seealso cref="TopicPinned" />
+    /// <seealso cref="TopicUnpinned" />
+    /// <seealso cref="TopicLocked" />
+    /// <seealso cref="TopicUnlocked" />
+    public IObservable<TopicReactionEvent> TopicReactionRemoved => ((IEventInfo<TopicReactionEvent>)GuildedEvents["ForumTopicReactionDeleted"]).Observable;
     #endregion
 
-    #region Properties Forum channels
+    #region Properties Forum channels > Comments
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a new <see cref="TopicComment">forum topic comment</see> is posted.
     /// </summary>
@@ -457,6 +503,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCommentUpdated" />
     /// <seealso cref="TopicCommentDeleted" />
+    /// <seealso cref="TopicCommentReactionAdded" />
+    /// <seealso cref="TopicCommentReactionRemoved" />
     public IObservable<TopicCommentEvent> TopicCommentCreated => ((IEventInfo<TopicCommentEvent>)GuildedEvents["ForumTopicCommentCreated"]).Observable;
 
     /// <summary>
@@ -467,6 +515,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCommentCreated" />
     /// <seealso cref="TopicCommentDeleted" />
+    /// <seealso cref="TopicCommentReactionAdded" />
+    /// <seealso cref="TopicCommentReactionRemoved" />
     public IObservable<TopicCommentEvent> TopicCommentUpdated => ((IEventInfo<TopicCommentEvent>)GuildedEvents["ForumTopicCommentUpdated"]).Observable;
 
     /// <summary>
@@ -477,7 +527,33 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="TopicCommentCreated" />
     /// <seealso cref="TopicCommentUpdated" />
+    /// <seealso cref="TopicCommentReactionAdded" />
+    /// <seealso cref="TopicCommentReactionRemoved" />
     public IObservable<TopicCommentEvent> TopicCommentDeleted => ((IEventInfo<TopicCommentEvent>)GuildedEvents["ForumTopicCommentDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="TopicCommentReaction">reaction</see> is added to a <see cref="TopicComment">forum topic comment</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicCommentReactionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicCommentCreated" />
+    /// <seealso cref="TopicCommentUpdated" />
+    /// <seealso cref="TopicCommentDeleted" />
+    /// <seealso cref="TopicCommentReactionRemoved" />
+    public IObservable<TopicReactionEvent> TopicCommentReactionAdded => ((IEventInfo<TopicReactionEvent>)GuildedEvents["ForumTopicCommentReactionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="TopicCommentReaction">reaction</see> is added to a <see cref="TopicComment">forum topic comment</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ForumTopicCommentReactionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="TopicCommentCreated" />
+    /// <seealso cref="TopicCommentUpdated" />
+    /// <seealso cref="TopicCommentDeleted" />
+    /// <seealso cref="TopicCommentReactionAdded" />
+    public IObservable<TopicReactionEvent> TopicCommentReactionRemoved => ((IEventInfo<TopicReactionEvent>)GuildedEvents["ForumTopicCommentReactionDeleted"]).Observable;
     #endregion
 
     #region Properties List channels
