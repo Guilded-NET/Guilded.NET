@@ -1,3 +1,7 @@
+# v1.3.0
+
+- Added support for topic comment reactions
+
 # v1.2.0
 
 - Added `ArgumentConverters` to `CommandConfiguration` that exposes command argument converters that were previously internal. This will allow you to add new argument converters for types, as well as modify them (in cases where you want there to be more than `true` and `false` boolean values, for instance)

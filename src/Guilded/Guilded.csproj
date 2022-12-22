@@ -3,7 +3,7 @@
   <PropertyGroup>
     <!-- Library -->
     <Product>Guilded.NET</Product>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
     <Description>Consistent and easy-to-use API framework/library/wrapper for Guilded</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
