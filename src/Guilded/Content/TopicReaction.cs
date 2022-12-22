@@ -138,12 +138,12 @@ public class TopicCommentReaction : Reaction
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />
+    /// <inheritdoc cref="AbstractGuildedClient.AddTopicCommentReactionAsync(Guid, uint, uint, uint)" />
     public override Task AddAsync() =>
-        ParentClient.AddReactionAsync(ChannelId, TopicId, Emote.Id);
+        ParentClient.AddTopicCommentReactionAsync(ChannelId, TopicId, TopicCommentId, Emote.Id);
 
-    /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveTopicCommentReactionAsync(Guid, uint, uint, uint)" />
     public override Task RemoveAsync() =>
-        ParentClient.RemoveReactionAsync(ChannelId, TopicId, Emote.Id);
+        ParentClient.RemoveTopicCommentReactionAsync(ChannelId, TopicId, TopicCommentId, Emote.Id);
     #endregion
 }

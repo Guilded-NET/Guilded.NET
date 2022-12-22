@@ -150,8 +150,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "ForumTopicCommentDeleted",         new EventInfo<TopicCommentEvent>() },
             { "ForumTopicReactionCreated",        new EventInfo<TopicReactionEvent>() },
             { "ForumTopicReactionDeleted",        new EventInfo<TopicReactionEvent>() },
-            { "ForumTopicCommentReactionCreated", new EventInfo<TopicReactionEvent>() },
-            { "ForumTopicCommentReactionDeleted", new EventInfo<TopicReactionEvent>() },
+            { "ForumTopicCommentReactionCreated", new EventInfo<TopicCommentReactionEvent>() },
+            { "ForumTopicCommentReactionDeleted", new EventInfo<TopicCommentReactionEvent>() },
 
             // List items
             { "ListItemCreated",                  new EventInfo<ItemEvent>() },

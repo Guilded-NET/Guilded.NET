@@ -1,6 +1,7 @@
 # v1.3.0
 
 - Added support for topic comment reactions
+- Fixed topic comment bug where it used wrong API event name
 
 # v1.2.0
 

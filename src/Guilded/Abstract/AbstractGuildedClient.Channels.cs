@@ -1105,6 +1105,60 @@ public abstract partial class AbstractGuildedClient
         RemoveTopicReactionAsync(channel, topic, emote.Id);
     #endregion
 
+    #region Methods Reactions > Topic Comments
+    /// <summary>
+    /// Adds an <paramref name="emote" /> as a reaction to the specified <paramref name="comment">forum topic comment</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where <paramref name="comment" /> is</param>
+    /// <param name="comment">The identifier of the <see cref="TopicComment">forum topic comment</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="MediaPermissions.GetMedia" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="CalendarPermissions.GetEvent" />
+    public Task AddTopicCommentReactionAsync(Guid channel, uint topic, uint comment, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/comments/{comment}/emotes/{emote}", Method.Put));
+
+    /// <inheritdoc cref="AddTopicCommentReactionAsync(Guid, uint, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where <paramref name="comment" /> is</param>
+    /// <param name="comment">The identifier of the <see cref="TopicComment">forum topic comment</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddTopicCommentReactionAsync(Guid channel, uint topic, uint comment, Emote emote) =>
+        AddTopicCommentReactionAsync(channel, topic, comment, emote.Id);
+
+    /// <summary>
+    /// Removes an <paramref name="emote" /> as a reaction from the specified <paramref name="topicComment">forum topic comment</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where <paramref name="topicComment" /> is</param>
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="MediaPermissions.GetMedia" />
+    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="CalendarPermissions.GetEvent" />
+    public Task RemoveTopicCommentReactionAsync(Guid channel, uint topic, uint topicComment, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}/emotes/{emote}", Method.Delete));
+
+    /// <inheritdoc cref="RemoveTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where <paramref name="topicComment" /> is</param>
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveTopicCommentReactionAsync(Guid channel, uint topic, uint topicComment, Emote emote) =>
+        RemoveTopicCommentReactionAsync(channel, topic, topicComment, emote.Id);
+    #endregion
+
     #region Methods Reactions > Vague
     /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
