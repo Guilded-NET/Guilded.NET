@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Guilded.Events;
 
 namespace Guilded.Commands;

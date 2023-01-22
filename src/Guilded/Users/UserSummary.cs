@@ -184,7 +184,7 @@ public class UserSummary : ContentModel, IUser
     public Task<SocialLink> GetSocialLinkAsync(HashId server, SocialLinkType linkType) =>
         ParentClient.GetSocialLinkAsync(server, Id, linkType);
 
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
+    /// <inheritdoc cref="AbstractGuildedClient.SetNicknameAsync(HashId, HashId, string)" />
     public Task<string> SetNicknameAsync(HashId server, string nickname) =>
         ParentClient.SetNicknameAsync(server, Id, nickname);
 
@@ -225,10 +225,6 @@ public class UserSummary : ContentModel, IUser
         ParentClient.GetMemberBanAsync(server, Id);
 
     #region Methods Obsolete
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
-    [Obsolete("Use `SetNicknameAsync` instead")]
-    public Task<string> UpdateNicknameAsync(HashId server, string nickname) =>
-        SetNicknameAsync(server, nickname);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     [Obsolete("Use `RemoveNicknameAsync` instead")]

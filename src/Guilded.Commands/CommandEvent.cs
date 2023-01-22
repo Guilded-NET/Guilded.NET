@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Guilded.Base;
 using Guilded.Content;
 using Guilded.Events;
 

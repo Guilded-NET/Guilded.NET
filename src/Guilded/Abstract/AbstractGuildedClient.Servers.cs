@@ -42,6 +42,22 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"groups/{group}/members/{member}", Method.Put));
 
     /// <summary>
+    /// Adds the <paramref name="memberReference">referenced member</paramref> to the <paramref name="group" />.
+    /// </summary>
+    /// <remarks>
+    /// <para>This allows the <paramref name="memberReference">referenced member</paramref> to interact or see the specified group.</para>
+    /// </remarks>
+    /// <param name="group">The identifier of the parent group</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to some kind of <see cref="Member">member</see> to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageGroup" />
+    public Task AddMembershipAsync(HashId group, UserReference memberReference) =>
+        ExecuteRequestAsync(new RestRequest($"groups/{group}/members/@{memberReference.ToString().ToLower()}", Method.Put));
+
+    /// <summary>
     /// Removes the <paramref name="member" /> from the <paramref name="group" />.
     /// </summary>
     /// <remarks>
@@ -56,6 +72,22 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.ManageGroup" />
     public Task RemoveMembershipAsync(HashId group, HashId member) =>
         ExecuteRequestAsync(new RestRequest($"groups/{group}/members/{member}", Method.Delete));
+
+    /// <summary>
+    /// Removes the <paramref name="memberReference">referenced member</paramref> from the <paramref name="group" />.
+    /// </summary>
+    /// <remarks>
+    /// <para>This disallows the <paramref name="memberReference">referenced member</paramref> to interact or see the specified group.</para>
+    /// </remarks>
+    /// <param name="group">The identifier of the parent group</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to some kind of <see cref="Member">member</see> to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageGroup" />
+    public Task RemoveMembershipAsync(HashId group, UserReference memberReference) =>
+        ExecuteRequestAsync(new RestRequest($"groups/{group}/members/@{memberReference.ToString().ToLower()}", Method.Delete));
     #endregion
 
     #region Methods Members
@@ -85,9 +117,27 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <returns><paramref name="member">Specified member</paramref></returns>
+    /// <returns>The specified <see cref="Member">member</see></returns>
     public Task<Member> GetMemberAsync(HashId server, HashId member) =>
         TransformResponseAsync<Member>(new RestRequest($"servers/{server}/members/{member}", Method.Get), "member", value =>
+        {
+            value.Add("serverId", JValue.CreateString(server.ToString()));
+
+            return value;
+        });
+
+    /// <summary>
+    /// Gets full information about the <paramref name="memberReference">referenced member</paramref>.
+    /// </summary>
+    /// <param name="server">The server where the <see cref="Member">member</see> is</param>
+    /// <param name="memberReference">The identifier of the <see cref="Member">member</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The specified <see cref="Member">member</see> by <paramref name="memberReference">reference</paramref></returns>
+    public Task<Member> GetMemberAsync(HashId server, UserReference memberReference) =>
+        TransformResponseAsync<Member>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}", Method.Get), "member", value =>
         {
             value.Add("serverId", JValue.CreateString(server.ToString()));
 
@@ -109,6 +159,22 @@ public abstract partial class AbstractGuildedClient
     /// <returns>List of role IDs</returns>
     public Task<IList<uint>> GetMemberRolesAsync(HashId server, HashId member) =>
         GetResponsePropertyAsync<IList<uint>>(new RestRequest($"servers/{server}/members/{member}/roles", Method.Get), "roleIds");
+
+    /// <summary>
+    /// Gets the list of roles the <paramref name="memberReference">referenced member</paramref> holds.
+    /// </summary>
+    /// <remarks>
+    /// <para>No permissions are required.</para>
+    /// </remarks>
+    /// <param name="server">The server where to fetch <see cref="User">user</see>'s information</param>
+    /// <param name="memberReference">A <see cref="UserReference">user reference</see> of the role holder</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>List of role IDs</returns>
+    public Task<IList<uint>> GetMemberRolesAsync(HashId server, UserReference memberReference) =>
+        GetResponsePropertyAsync<IList<uint>>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/roles", Method.Get), "roleIds");
 
     /// <summary>
     /// Changes the <see cref="Member.Nickname">nickname</see> of the specified <paramref name="member" />.
@@ -136,10 +202,31 @@ public abstract partial class AbstractGuildedClient
             })
         , "nickname");
 
-    /// <inheritdoc cref="SetNicknameAsync(HashId, HashId, string)" />
-    [Obsolete("Use `SetNicknameAsync` instead")]
-    public Task<string> UpdateNicknameAsync(HashId server, HashId member, string nickname) =>
-        UpdateNicknameAsync(server, member, nickname);
+    /// <summary>
+    /// Changes the <see cref="Member.Nickname">nickname</see> of the <paramref name="memberReference">referenced member</paramref>.
+    /// </summary>
+    /// <param name="server">The server to modify member in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the <see cref="Member">member</see> to update</param>
+    /// <param name="nickname">The new nickname of the member</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CustomPermissions.ManageMemberNickname">Required when deleting nicknames of <see cref="Member">other members</see></permission>
+    /// <permission cref="CustomPermissions.ManageSelfNickname">Required when deleting the <see cref="AbstractGuildedClient">client's</see> own nickname</permission>
+    /// <returns>Updated <see cref="Member.Nickname">nickname</see></returns>
+    public Task<string> SetNicknameAsync(HashId server, UserReference memberReference, string nickname) =>
+        string.IsNullOrWhiteSpace(nickname)
+        ? throw new ArgumentNullException(nameof(nickname))
+        : nickname.Length > 32
+        ? throw new ArgumentOutOfRangeException(nameof(nickname), nickname, $"Argument {nameof(nickname)} must be 32 characters in length max")
+        : GetResponsePropertyAsync<string>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/nickname", Method.Put)
+            .AddJsonBody(new
+            {
+                nickname
+            })
+        , "nickname");
 
     /// <summary>
     /// Removes the <see cref="Member.Nickname">nickname</see> of the specified <paramref name="member" />.
@@ -156,10 +243,20 @@ public abstract partial class AbstractGuildedClient
     public Task RemoveNicknameAsync(HashId server, HashId member) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/nickname", Method.Delete));
 
-    /// <inheritdoc cref="RemoveNicknameAsync(HashId, HashId)" />
-    [Obsolete("Use `SetNicknameAsync` instead")]
-    public Task DeleteNicknameAsync(HashId server, HashId member) =>
-        RemoveNicknameAsync(server, member);
+    /// <summary>
+    /// Removes the <see cref="Member.Nickname">nickname</see> of the <paramref name="memberReference">referenced member</paramref>.
+    /// </summary>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the <see cref="Member">member</see> to update</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CustomPermissions.ManageMemberNickname">Required when changing nicknames of <see cref="Member">other members</see></permission>
+    /// <permission cref="CustomPermissions.ManageSelfNickname">Required when changing the <see cref="AbstractGuildedClient">client's</see> own nickname</permission>
+    public Task RemoveNicknameAsync(HashId server, UserReference memberReference) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/nickname", Method.Delete));
 
     /// <summary>
     /// Adds a <paramref name="role" /> to the <see cref="User">user</see>.
@@ -179,6 +276,23 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Put));
 
     /// <summary>
+    /// Adds a <paramref name="role" /> to the <see cref="User">user</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>If they hold the specified <paramref name="role" />, then nothing happens.</para>
+    /// </remarks>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the receiving <see cref="Member">member</see></param>
+    /// <param name="role">The identifier of the role to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageRole" />
+    public Task AddMemberRoleAsync(HashId server, UserReference memberReference, uint role) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/roles/{role}", Method.Put));
+
+    /// <summary>
     /// Removes the specified <paramref name="role" /> from the <see cref="User">user</see>.
     /// </summary>
     /// <remarks>
@@ -194,6 +308,23 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="GeneralPermissions.ManageRole" />
     public Task RemoveMemberRoleAsync(HashId server, HashId member, uint role) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}/roles/{role}", Method.Delete));
+
+    /// <summary>
+    /// Removes the specified <paramref name="role" /> from the <see cref="User">user</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>If they don't hold the specified <paramref name="role" />, then nothing happens.</para>
+    /// </remarks>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the losing <see cref="Member">member</see></param>
+    /// <param name="role">The identifier of the role to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageRole" />
+    public Task RemoveMemberRoleAsync(HashId server, UserReference memberReference, uint role) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/roles/{role}", Method.Delete));
 
     /// <summary>
     /// Gives the specified <paramref name="amount" /> of XP to the specified <paramref name="member" />.
@@ -219,6 +350,29 @@ public abstract partial class AbstractGuildedClient
         , "total");
 
     /// <summary>
+    /// Gives the specified <paramref name="amount" /> of XP to the <paramref name="memberReference">member reference</paramref>.
+    /// </summary>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the receiving <see cref="Member">member</see></param>
+    /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
+    /// <permission cref="XpPermissions.ManageXp" />
+    /// <returns>The total amount of XP that the <see cref="Member">member</see> has</returns>
+    public Task<long> AddXpAsync(HashId server, UserReference memberReference, short amount) =>
+        amount is > 1000 or < -1000
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
+        : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/xp", Method.Post)
+            .AddJsonBody(new
+            {
+                amount
+            })
+        , "total");
+
+    /// <summary>
     /// Sets how much <paramref name="total" /> XP the specified <paramref name="member" /> will have.
     /// </summary>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
@@ -235,6 +389,29 @@ public abstract partial class AbstractGuildedClient
         total is > 1000 or < -1000
         ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1000000000 and less than -1000000000 XP")
         : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Put)
+            .AddJsonBody(new
+            {
+                total
+            })
+        , "total");
+
+    /// <summary>
+    /// Sets how much <paramref name="total" /> XP the <paramref name="memberReference">member reference</paramref> will have.
+    /// </summary>
+    /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the modified <see cref="Member">member</see></param>
+    /// <param name="total">The amount of XP the <see cref="Member">member</see> should have (values — <c>[-1000000000, 1000000000]</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="ArgumentOutOfRangeException">When the amount of XP given exceeds the limit</exception>
+    /// <permission cref="XpPermissions.ManageXp" />
+    /// <returns>The <paramref name="total" /> amount of XP that the <see cref="Member">member</see> has</returns>
+    public Task<long> SetXpAsync(HashId server, UserReference memberReference, long total) =>
+        total is > 1000 or < -1000
+        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1000000000 and less than -1000000000 XP")
+        : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/xp", Method.Put)
             .AddJsonBody(new
             {
                 total
@@ -279,6 +456,20 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/{member}", Method.Delete));
 
     /// <summary>
+    /// Removes the <paramref name="memberReference">referenced member</paramref> from the <paramref name="server" />.
+    /// </summary>
+    /// <param name="server">The server to kick the <see cref="Member">member</see> from</param>
+    /// <param name="memberReference">A reference to the <see cref="Member">member</see> to kick</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
+    public Task RemoveMemberAsync(HashId server, UserReference memberReference) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}", Method.Delete));
+
+    /// <summary>
     /// Gets the list of <paramref name="server">server's</paramref> bans.
     /// </summary>
     /// <param name="server">The identifier of the <see cref="Server">server</see> to get bans of</param>
@@ -295,11 +486,6 @@ public abstract partial class AbstractGuildedClient
             value.Add("serverId", JValue.CreateString(server.ToString()));
             return value.ToObject<MemberBan>(GuildedSerializer)!;
         });
-
-    /// <inheritdoc cref="GetMemberBansAsync(HashId)" />
-    [Obsolete("Use `GetMemberBansAsync` instead")]
-    public Task<IList<MemberBan>> GetBansAsync(HashId server) =>
-        GetMemberBansAsync(server);
 
     /// <summary>
     /// Gets the information about the <see cref="MemberBan">ban</see> of the <paramref name="member" />.
@@ -320,11 +506,6 @@ public abstract partial class AbstractGuildedClient
             return token;
         });
 
-    /// <inheritdoc cref="GetMemberBanAsync(HashId, HashId)" />
-    [Obsolete("Use `GetMemberBanAsync` instead")]
-    public Task<IList<MemberBan>> GetBanAsync(HashId server) =>
-        GetMemberBansAsync(server);
-
     /// <summary>
     /// Bans the specified <paramref name="member" />.
     /// </summary>
@@ -344,6 +525,33 @@ public abstract partial class AbstractGuildedClient
     public Task<MemberBan> AddMemberBanAsync(HashId server, HashId member, string? reason = null) =>
         TransformResponseAsync<MemberBan>(
             new RestRequest($"servers/{server}/bans/{member}", Method.Post).AddJsonBody(new { reason }),
+            "serverMemberBan",
+            value =>
+            {
+                value.Add("serverId", JValue.CreateString(server.ToString()));
+                return value;
+            }
+        );
+
+    /// <summary>
+    /// Bans the <paramref name="memberReference">referenced member</paramref>.
+    /// </summary>
+    /// <remarks>
+    /// <para>Disallows them from joining again, until they receive an unban with <see cref="RemoveMemberBanAsync" /> method.</para>
+    /// </remarks>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to ban member from</param>
+    /// <param name="memberReference">A reference to the <see cref="Member">member</see> to ban</param>
+    /// <param name="reason">The reason for a ban</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.RemoveMember" />
+    /// <returns>Created <see cref="MemberBan">member's ban</see></returns>
+    public Task<MemberBan> AddMemberBanAsync(HashId server, UserReference memberReference, string? reason = null) =>
+        TransformResponseAsync<MemberBan>(
+            new RestRequest($"servers/{server}/bans/@{memberReference.ToString().ToLower()}", Method.Post).AddJsonBody(new { reason }),
             "serverMemberBan",
             value =>
             {

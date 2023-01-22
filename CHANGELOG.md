@@ -1,3 +1,8 @@
+# v1.4.0
+
+- Added `UserReference` and its single enum field `Me`
+- Added support for `UserReference` in most areas where user ID is required (except bans)
+
 # v1.3.0
 
 - Added support for topic comment reactions

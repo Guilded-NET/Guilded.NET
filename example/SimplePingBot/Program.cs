@@ -10,13 +10,15 @@ string auth = config.Value<string>("auth")!,
 
 using GuildedBotClient client = new(auth);
 
-client.Prepared
+client
+    .Prepared
     .Subscribe(me =>
         Console.WriteLine("The bot is prepared!\nLogged in as \"{0}\" with the ID \"{1}\"", me.Name, me.Id)
     );
 
 // Wait for !ping messages
-client.MessageCreated
+client
+    .MessageCreated
     .Where(msgCreated => msgCreated.Content == prefix + "ping")
     .Subscribe(async msgCreated =>
         await msgCreated.ReplyAsync("Pong!")
