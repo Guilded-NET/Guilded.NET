@@ -22,7 +22,7 @@ public class UserSummary : ContentModel, IUser
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see>.
     /// </summary>
-    /// <value><see cref="Id">User ID</see></value>
+    /// <value>The identifier of <see cref="User">user</see></value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     /// <seealso cref="Type" />
@@ -32,7 +32,7 @@ public class UserSummary : ContentModel, IUser
     /// <summary>
     /// Gets the type of the <see cref="User">user</see> they are.
     /// </summary>
-    /// <value>User type</value>
+    /// <value>The type of the <see cref="User">user</see> they are</value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     /// <seealso cref="Id" />
@@ -42,7 +42,7 @@ public class UserSummary : ContentModel, IUser
     /// <summary>
     /// Gets the global username of the <see cref="User">user</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The global username of the <see cref="User">user</see></value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     /// <seealso cref="Avatar" />
@@ -52,7 +52,7 @@ public class UserSummary : ContentModel, IUser
     /// <summary>
     /// Gets the global avatar of the <see cref="User">user</see>.
     /// </summary>
-    /// <value>Media URL</value>
+    /// <value>The global avatar of the <see cref="User">user</see></value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     /// <seealso cref="User.Banner" />
@@ -62,7 +62,7 @@ public class UserSummary : ContentModel, IUser
     /// <summary>
     /// Gets whether the <see cref="User">user</see> is a <see cref="UserType.Bot">bot</see>.
     /// </summary>
-    /// <value>Is a bot</value>
+    /// <value>Whether the <see cref="User">user</see> is a <see cref="UserType.Bot">bot</see></value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     /// <seealso cref="Type" />

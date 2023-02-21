@@ -21,7 +21,7 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
 {
     #region Properties
     /// <summary>
-    /// Gets the <see cref="Content.Topic">topic</see> received from the event.
+    /// Gets the <see cref="Content.Topic">forum topic</see> received from the event.
     /// </summary>
     /// <value><see cref="Content.Topic" /></value>
     /// <seealso cref="TopicEvent" />
@@ -116,8 +116,8 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     /// <summary>
     /// Initializes a new instance of <see cref="TopicEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicEvent">topic event</see> occurred</param>
-    /// <param name="forumTopic">The <see cref="Content.Topic">topic</see> received from the event</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicEvent">forum topic event</see> occurred</param>
+    /// <param name="forumTopic">The <see cref="Content.Topic">forum topic</see> received from the event</param>
     /// <returns>New <see cref="TopicEvent" /> JSON instance</returns>
     /// <seealso cref="TopicEvent" />
     [JsonConstructor]

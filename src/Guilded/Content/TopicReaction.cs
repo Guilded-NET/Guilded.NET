@@ -22,7 +22,7 @@ public class TopicReaction : Reaction
     /// <summary>
     /// Gets the identifier of the <see cref="Topic">forum topic</see> that <see cref="User">user</see> reacted on.
     /// </summary>
-    /// <value>The <see cref="Topic">forum topic</see> identifier of the <see cref="Reaction">reaction</see></value>
+    /// <value>The identifier of the <see cref="Topic">forum topic</see> that <see cref="User">user</see> reacted on</value>
     /// <seealso cref="TopicReaction" />
     /// <seealso cref="Reaction" />
     /// <seealso cref="Topic" />
@@ -62,11 +62,11 @@ public class TopicReaction : Reaction
     #region Methods
     /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />
     public override Task AddAsync() =>
-        ParentClient.AddReactionAsync(ChannelId, TopicId, Emote.Id);
+        ParentClient.AddTopicReactionAsync(ChannelId, TopicId, Emote.Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
     public override Task RemoveAsync() =>
-        ParentClient.RemoveReactionAsync(ChannelId, TopicId, Emote.Id);
+        ParentClient.RemoveTopicReactionAsync(ChannelId, TopicId, Emote.Id);
     #endregion
 }
 

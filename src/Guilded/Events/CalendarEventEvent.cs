@@ -14,7 +14,7 @@ namespace Guilded.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes a <see cref="CalendarEvent">calendar event</see>.
 /// </summary>
-/// <seealso cref="CalendarRsvpEvent" />
+/// <seealso cref="CalendarEventRsvpEvent" />
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="ItemEvent" />
@@ -102,15 +102,15 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
         Event.Deleted;
 
     /// <inheritdoc cref="CalendarEvent.RsvpUpdated" />
-    public IObservable<CalendarRsvpEvent> RsvpUpdated =>
+    public IObservable<CalendarEventRsvpEvent> RsvpUpdated =>
         Event.RsvpUpdated;
 
     /// <inheritdoc cref="CalendarEvent.RsvpDeleted" />
-    public IObservable<CalendarRsvpEvent> RsvpDeleted =>
+    public IObservable<CalendarEventRsvpEvent> RsvpDeleted =>
         Event.RsvpDeleted;
 
     /// <inheritdoc cref="CalendarEvent.RsvpManyUpdated" />
-    public IObservable<CalendarRsvpManyEvent> RsvpManyUpdated =>
+    public IObservable<CalendarEventRsvpManyEvent> RsvpManyUpdated =>
         Event.RsvpManyUpdated;
     #endregion
 

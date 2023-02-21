@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
 using Guilded.Content;
@@ -9,9 +8,9 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when someone creates, updates or deletes a <see cref="Content.Topic">forum topic</see>.
+/// Represents an event that occurs when someone creates, updates or deletes a <see cref="TopicComment">forum topic comment</see>.
 /// </summary>
-/// <seealso cref="Topic" />
+/// <seealso cref="Content.TopicComment" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="ItemEvent" />
@@ -31,22 +30,22 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, IChannelBased,
     /// <inheritdoc />
     public HashId ServerId { get; }
 
-    /// <inheritdoc cref="TopicComment.Id" />
+    /// <inheritdoc cref="BaseComment.Id" />
     public uint Id => TopicComment.Id;
 
     /// <inheritdoc cref="TopicComment.TopicId" />
     public uint TopicId => TopicComment.TopicId;
 
-    /// <inheritdoc cref="TopicComment.ChannelId" />
+    /// <inheritdoc cref="BaseComment.ChannelId" />
     public Guid ChannelId => TopicComment.ChannelId;
 
-    /// <inheritdoc cref="TopicComment.CreatedBy" />
+    /// <inheritdoc cref="BaseComment.CreatedBy" />
     public HashId CreatedBy => TopicComment.CreatedBy;
 
-    /// <inheritdoc cref="TopicComment.CreatedAt" />
+    /// <inheritdoc cref="BaseComment.CreatedAt" />
     public DateTime CreatedAt => TopicComment.CreatedAt;
 
-    /// <inheritdoc cref="TopicComment.UpdatedAt" />
+    /// <inheritdoc cref="BaseComment.UpdatedAt" />
     public DateTime? UpdatedAt => TopicComment.UpdatedAt;
 
     /// <inheritdoc cref="IHasParentClient.ParentClient" />
@@ -63,7 +62,7 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, IChannelBased,
     /// <summary>
     /// Initializes a new instance of <see cref="TopicCommentEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicEvent">topic event</see> occurred</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicCommentEvent">forum topic comment event</see> occurred</param>
     /// <param name="forumTopicComment">The <see cref="Content.TopicComment">forum topic comment</see> received from the event</param>
     /// <returns>New <see cref="TopicEvent" /> JSON instance</returns>
     /// <seealso cref="TopicCommentEvent" />

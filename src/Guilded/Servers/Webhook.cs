@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Embeds;
@@ -31,9 +32,10 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Gets the identifier of the <see cref="Webhook">webhook</see>.
     /// </summary>
-    /// <value><see cref="Id">Webhook ID</see></value>
+    /// <value>The identifier of the <see cref="Webhook">webhook</see></value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="Name" />
+    /// <seealso cref="Avatar" />
     /// <seealso cref="Token" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
@@ -42,13 +44,24 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Gets the name of the <see cref="Webhook">webhook</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The name of the <see cref="Webhook">webhook</see></value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="Id" />
-    /// <seealso cref="Token" />
+    /// <seealso cref="Avatar" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
     public string Name { get; }
+
+    /// <summary>
+    /// Gets the display avatar of the <see cref="Webhook">webhook</see>.
+    /// </summary>
+    /// <value>The display avatar of the <see cref="Webhook">webhook</see></value>
+    /// <seealso cref="Webhook" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="Name" />
+    /// <seealso cref="ChannelId" />
+    /// <seealso cref="ServerId" />
+    public Uri? Avatar { get; }
 
     /// <summary>
     /// Gets the token of the <see cref="Webhook">webhook</see>.
@@ -56,7 +69,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <remarks>
     /// <para>This will only be given if you have <see cref="GeneralPermissions.ManageWebhook">manage webhooks permission</see>.</para>
     /// </remarks>
-    /// <value>Token?</value>
+    /// <value>The token of the <see cref="Webhook">webhook</see></value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="Name" />
     /// <seealso cref="Id" />
@@ -67,7 +80,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Gets the identifier of the channel where the <see cref="Webhook">webhook</see> is.
     /// </summary>
-    /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
+    /// <value>The identifier of the channel where the <see cref="Webhook">webhook</see> is</value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="ServerId" />
     /// <seealso cref="Id" />
@@ -78,7 +91,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> is.
     /// </summary>
-    /// <value>Server ID</value>
+    /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> is</value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="Id" />
@@ -89,7 +102,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Gets the date when the <see cref="Webhook">webhook</see> was created.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="Webhook">webhook</see> was created</value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="DeletedAt" />
@@ -98,7 +111,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created the <see cref="Webhook">webhook</see>.
     /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of <see cref="User">user</see> that created the <see cref="Webhook">webhook</see></value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="DeletedAt" />
@@ -147,6 +160,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// </summary>
     /// <param name="id">The identifier of the <see cref="Webhook">webhook</see></param>
     /// <param name="name">The name of the <see cref="Webhook">webhook</see></param>
+    /// <param name="avatar">The profile picture of the <see cref="Webhook">webhook</see></param>
     /// <param name="token">The token of the <see cref="Webhook">webhook</see></param>
     /// <param name="channelId">The identifier of the channel where webhook is</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where webhook is</param>
@@ -176,12 +190,15 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
         HashId createdBy,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? avatar = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         string? token = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? deletedAt = null
     ) =>
-        (Id, Name, Token, ChannelId, ServerId, CreatedAt, CreatedBy, DeletedAt) = (id, name, token, channelId, serverId, createdAt, createdBy, deletedAt);
+        (Id, Name, Avatar, Token, ChannelId, ServerId, CreatedAt, CreatedBy, DeletedAt) = (id, name, avatar, token, channelId, serverId, createdAt, createdBy, deletedAt);
     #endregion
 
     #region Method CreateMessageAsync

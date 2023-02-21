@@ -17,7 +17,7 @@ namespace Guilded.Content;
 /// Represents a calendar event in <see cref="ChannelType.Calendar">a calendar channel</see>.
 /// </summary>
 /// <seealso cref="CalendarCancellation" />
-/// <seealso cref="CalendarRsvp" />
+/// <seealso cref="CalendarEventRsvp" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 /// <seealso cref="ItemBase{T}" />
@@ -131,9 +131,9 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <summary>
     /// Gets the limit of how many <see cref="User">users</see> can join the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
-    /// <value><see cref="CalendarRsvp">RSVP</see> limit?</value>
+    /// <value><see cref="CalendarEventRsvp">RSVP</see> limit?</value>
     /// <seealso cref="CalendarEvent" />
-    /// <seealso cref="CalendarRsvp" />
+    /// <seealso cref="CalendarEventRsvp" />
     public uint? RsvpLimit { get; }
 
     /// <summary>
@@ -188,55 +188,55 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
             .Take(1);
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets added/edited.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarEventRsvp">RSVP</see> gets added/edited.
     /// </summary>
     /// <remarks>
     /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets added/edited</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarEventRsvp">RSVP</see> gets added/edited</returns>
     /// <seealso cref="Updated" />
     /// <seealso cref="Deleted" />
     /// <seealso cref="RsvpDeleted" />
     /// <seealso cref="RsvpManyUpdated" />
-    public IObservable<CalendarRsvpEvent> RsvpUpdated =>
+    public IObservable<CalendarEventRsvpEvent> RsvpUpdated =>
         ParentClient
-            .RsvpUpdated
+            .EventRsvpUpdated
             .Where(x =>
                 x.ChannelId == ChannelId && x.EventId == Id
             );
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets deleted.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarEventRsvp">RSVP</see> gets deleted.
     /// </summary>
     /// <remarks>
     /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarRsvp">RSVP</see> gets deleted</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> <see cref="CalendarEventRsvp">RSVP</see> gets deleted</returns>
     /// <seealso cref="Updated" />
     /// <seealso cref="Deleted" />
     /// <seealso cref="RsvpUpdated" />
     /// <seealso cref="RsvpManyUpdated" />
-    public IObservable<CalendarRsvpEvent> RsvpDeleted =>
+    public IObservable<CalendarEventRsvpEvent> RsvpDeleted =>
         ParentClient
-            .RsvpDeleted
+            .EventRsvpDeleted
             .Where(x =>
                 x.ChannelId == ChannelId && x.EventId == Id
             );
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarRsvp">RSVPs</see> gets added/edited.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarEventRsvp">RSVPs</see> gets added/edited.
     /// </summary>
     /// <remarks>
     /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="CalendarEvent">calendar event</see> specific.</para>
     /// </remarks>
-    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarRsvp">RSVPs</see> gets added/edited</returns>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="CalendarEvent">calendar event's</see> multiple <see cref="CalendarEventRsvp">RSVPs</see> gets added/edited</returns>
     /// <seealso cref="Updated" />
     /// <seealso cref="Deleted" />
     /// <seealso cref="RsvpUpdated" />
     /// <seealso cref="RsvpDeleted" />
-    public IObservable<CalendarRsvpManyEvent> RsvpManyUpdated =>
+    public IObservable<CalendarEventRsvpManyEvent> RsvpManyUpdated =>
         ParentClient
-            .RsvpManyUpdated
+            .EventRsvpManyUpdated
             .Where(x =>
                 x.ChannelId == ChannelId && x.EventId == Id
             );
@@ -339,22 +339,22 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 
     #region Methods RSVP
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpsAsync(Guid, uint)" />
-    public Task<IList<CalendarRsvp>> GetRsvpsAsync() =>
+    public Task<IList<CalendarEventRsvp>> GetRsvpsAsync() =>
         ParentClient.GetRsvpsAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
-    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarRsvp">RSVP</see> of</param>
-    public Task<CalendarRsvp> GetRsvpAsync(HashId user) =>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarEventRsvp">RSVP</see> of</param>
+    public Task<CalendarEventRsvp> GetRsvpAsync(HashId user) =>
         ParentClient.GetRsvpAsync(ChannelId, Id, user);
 
-    /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarRsvpStatus)" />
-    /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarEventRsvpStatus)" />
+    /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarEventRsvp">RSVP</see> of</param>
     /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
-    public Task<CalendarRsvp> SetRsvpAsync(HashId user, CalendarRsvpStatus status) =>
+    public Task<CalendarEventRsvp> SetRsvpAsync(HashId user, CalendarEventRsvpStatus status) =>
         ParentClient.SetRsvpAsync(ChannelId, Id, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
-    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarRsvp">RSVP</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarEventRsvp">RSVP</see> of</param>
     public Task RemoveRsvpAsync(HashId user) =>
         ParentClient.RemoveRsvpAsync(ChannelId, Id, user);
     #endregion

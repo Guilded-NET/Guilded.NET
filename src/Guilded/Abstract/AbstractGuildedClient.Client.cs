@@ -88,13 +88,13 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
         GuildedEvents = new Dictionary<object, IEventInfo<object>>
         {
             // Event messages
-            { SocketOpcode.Welcome,            new EventInfo<WelcomeEvent>() },
-            { SocketOpcode.Resume,             new EventInfo<ResumeEvent>() },
+            { SocketOpcode.Welcome,                   new EventInfo<WelcomeEvent>() },
+            { SocketOpcode.Resume,                    new EventInfo<ResumeEvent>() },
 
             // Server events
-            { "BotServerMembershipCreated",      new EventInfo<ServerAddedEvent>() },
-            { "ServerXpAdded",                   new EventInfo<XpAddedEvent>() },
-            { "ServerMemberRemoved",             new EventInfo<MemberRemovedEvent>() },
+            { "BotServerMembershipCreated",           new EventInfo<ServerAddedEvent>() },
+            { "ServerXpAdded",                        new EventInfo<XpAddedEvent>() },
+            { "ServerMemberRemoved",                  new EventInfo<MemberRemovedEvent>() },
             { "ServerMemberBanned",
                 new EventInfo<MemberBanEvent>((type, serializer, message) =>
                 {
@@ -108,14 +108,14 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
                     return data.ToObject(type, serializer)!;
                 })
             },
-            { "ServerMemberUnbanned",            new EventInfo<MemberBanEvent>() },
-            { "ServerChannelCreated",            new EventInfo<ChannelEvent>() },
-            { "ServerChannelUpdated",            new EventInfo<ChannelEvent>() },
-            { "ServerChannelDeleted",            new EventInfo<ChannelEvent>() },
-            { "ServerWebhookCreated",            new EventInfo<WebhookEvent>() },
-            { "ServerWebhookUpdated",            new EventInfo<WebhookEvent>() },
-            { "ServerMemberUpdated",             new EventInfo<MemberUpdatedEvent>() },
-            { "ServerRolesUpdated",              new EventInfo<RolesUpdatedEvent>() },
+            { "ServerMemberUnbanned",                 new EventInfo<MemberBanEvent>() },
+            { "ServerChannelCreated",                 new EventInfo<ChannelEvent>() },
+            { "ServerChannelUpdated",                 new EventInfo<ChannelEvent>() },
+            { "ServerChannelDeleted",                 new EventInfo<ChannelEvent>() },
+            { "ServerWebhookCreated",                 new EventInfo<WebhookEvent>() },
+            { "ServerWebhookUpdated",                 new EventInfo<WebhookEvent>() },
+            { "ServerMemberUpdated",                  new EventInfo<MemberUpdatedEvent>() },
+            { "ServerRolesUpdated",                   new EventInfo<RolesUpdatedEvent>() },
             { "ServerMemberJoined",
                 new EventInfo<MemberJoinedEvent>((type, serializer, message) =>
                 {
@@ -131,47 +131,61 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             },
 
             // Chat messages
-            { "ChatMessageCreated",               new EventInfo<MessageEvent>() },
-            { "ChatMessageUpdated",               new EventInfo<MessageEvent>() },
-            { "ChatMessageDeleted",               new EventInfo<MessageDeletedEvent>() },
-            { "ChannelMessageReactionCreated",    new EventInfo<MessageReactionEvent>() },
-            { "ChannelMessageReactionDeleted",    new EventInfo<MessageReactionEvent>() },
+            { "ChatMessageCreated",                   new EventInfo<MessageEvent>() },
+            { "ChatMessageUpdated",                   new EventInfo<MessageEvent>() },
+            { "ChatMessageDeleted",                   new EventInfo<MessageDeletedEvent>() },
+            { "ChannelMessageReactionCreated",        new EventInfo<MessageReactionEvent>() },
+            { "ChannelMessageReactionDeleted",        new EventInfo<MessageReactionEvent>() },
 
             // Forum topics
-            { "ForumTopicCreated",                new EventInfo<TopicEvent>() },
-            { "ForumTopicUpdated",                new EventInfo<TopicEvent>() },
-            { "ForumTopicDeleted",                new EventInfo<TopicEvent>() },
-            { "ForumTopicPinned",                 new EventInfo<TopicEvent>() },
-            { "ForumTopicUnpinned",               new EventInfo<TopicEvent>() },
-            { "ForumTopicLocked",                 new EventInfo<TopicEvent>() },
-            { "ForumTopicUnlocked",               new EventInfo<TopicEvent>() },
-            { "ForumTopicCommentCreated",         new EventInfo<TopicCommentEvent>() },
-            { "ForumTopicCommentUpdated",         new EventInfo<TopicCommentEvent>() },
-            { "ForumTopicCommentDeleted",         new EventInfo<TopicCommentEvent>() },
-            { "ForumTopicReactionCreated",        new EventInfo<TopicReactionEvent>() },
-            { "ForumTopicReactionDeleted",        new EventInfo<TopicReactionEvent>() },
-            { "ForumTopicCommentReactionCreated", new EventInfo<TopicCommentReactionEvent>() },
-            { "ForumTopicCommentReactionDeleted", new EventInfo<TopicCommentReactionEvent>() },
+            { "ForumTopicCreated",                    new EventInfo<TopicEvent>() },
+            { "ForumTopicUpdated",                    new EventInfo<TopicEvent>() },
+            { "ForumTopicDeleted",                    new EventInfo<TopicEvent>() },
+            { "ForumTopicPinned",                     new EventInfo<TopicEvent>() },
+            { "ForumTopicUnpinned",                   new EventInfo<TopicEvent>() },
+            { "ForumTopicLocked",                     new EventInfo<TopicEvent>() },
+            { "ForumTopicUnlocked",                   new EventInfo<TopicEvent>() },
+            { "ForumTopicCommentCreated",             new EventInfo<TopicCommentEvent>() },
+            { "ForumTopicCommentUpdated",             new EventInfo<TopicCommentEvent>() },
+            { "ForumTopicCommentDeleted",             new EventInfo<TopicCommentEvent>() },
+            { "ForumTopicReactionCreated",            new EventInfo<TopicReactionEvent>() },
+            { "ForumTopicReactionDeleted",            new EventInfo<TopicReactionEvent>() },
+            { "ForumTopicCommentReactionCreated",     new EventInfo<TopicCommentReactionEvent>() },
+            { "ForumTopicCommentReactionDeleted",     new EventInfo<TopicCommentReactionEvent>() },
 
             // List items
-            { "ListItemCreated",                  new EventInfo<ItemEvent>() },
-            { "ListItemUpdated",                  new EventInfo<ItemEvent>() },
-            { "ListItemDeleted",                  new EventInfo<ItemEvent>() },
-            { "ListItemCompleted",                new EventInfo<ItemEvent>() },
-            { "ListItemUncompleted",              new EventInfo<ItemEvent>() },
+            { "ListItemCreated",                      new EventInfo<ItemEvent>() },
+            { "ListItemUpdated",                      new EventInfo<ItemEvent>() },
+            { "ListItemDeleted",                      new EventInfo<ItemEvent>() },
+            { "ListItemCompleted",                    new EventInfo<ItemEvent>() },
+            { "ListItemUncompleted",                  new EventInfo<ItemEvent>() },
 
             // Docs
-            { "DocCreated",                       new EventInfo<DocEvent>() },
-            { "DocUpdated",                       new EventInfo<DocEvent>() },
-            { "DocDeleted",                       new EventInfo<DocEvent>() },
+            { "DocCreated",                           new EventInfo<DocEvent>() },
+            { "DocUpdated",                           new EventInfo<DocEvent>() },
+            { "DocDeleted",                           new EventInfo<DocEvent>() },
+            { "DocCommentCreated",                    new EventInfo<DocCommentEvent>() },
+            { "DocCommentUpdated",                    new EventInfo<DocCommentEvent>() },
+            { "DocCommentDeleted",                    new EventInfo<DocCommentEvent>() },
+            { "DocReactionCreated",                   new EventInfo<DocReactionEvent>() },
+            { "DocReactionDeleted",                   new EventInfo<DocReactionEvent>() },
+            { "DocCommentReactionCreated",            new EventInfo<DocCommentReactionEvent>() },
+            { "DocCommentReactionDeleted",            new EventInfo<DocCommentReactionEvent>() },
 
             // Calendar events
-            { "CalendarEventCreated",             new EventInfo<CalendarEventEvent>() },
-            { "CalendarEventUpdated",             new EventInfo<CalendarEventEvent>() },
-            { "CalendarEventDeleted",             new EventInfo<CalendarEventEvent>() },
-            { "CalendarEventRsvpUpdated",         new EventInfo<CalendarRsvpEvent>() },
-            { "CalendarEventRsvpManyUpdated",     new EventInfo<CalendarRsvpManyEvent>() },
-            { "CalendarEventRsvpDeleted",         new EventInfo<CalendarRsvpEvent>() },
+            { "CalendarEventCreated",                 new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventUpdated",                 new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventDeleted",                 new EventInfo<CalendarEventEvent>() },
+            { "CalendarEventRsvpUpdated",             new EventInfo<CalendarEventRsvpEvent>() },
+            { "CalendarEventRsvpManyUpdated",         new EventInfo<CalendarEventRsvpManyEvent>() },
+            { "CalendarEventRsvpDeleted",             new EventInfo<CalendarEventRsvpEvent>() },
+            { "CalendarEventCommentCreated",          new EventInfo<CalendarEventCommentEvent>() },
+            { "CalendarEventCommentUpdated",          new EventInfo<CalendarEventCommentEvent>() },
+            { "CalendarEventCommentDeleted",          new EventInfo<CalendarEventCommentEvent>() },
+            { "CalendarEventReactionCreated",         new EventInfo<CalendarEventReactionEvent>() },
+            { "CalendarEventReactionDeleted",         new EventInfo<CalendarEventReactionEvent>() },
+            { "CalendarEventCommentReactionCreated",  new EventInfo<CalendarEventCommentReactionEvent>() },
+            { "CalendarEventCommentReactionDeleted",  new EventInfo<CalendarEventCommentReactionEvent>() },
         };
         #endregion
 
