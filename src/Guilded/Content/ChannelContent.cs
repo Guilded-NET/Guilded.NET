@@ -23,7 +23,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <summary>
     /// Gets the identifier of the <see cref="ChannelContent{TId, TServer}">content</see>.
     /// </summary>
-    /// <value>Content ID</value>
+    /// <value>The identifier of the <see cref="ChannelContent{TId, TServer}">content</see></value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
@@ -32,7 +32,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <summary>
     /// Gets the identifier of the channel where the <see cref="ChannelContent{TId, TServer}">content</see> are.
     /// </summary>
-    /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
+    /// <value>The identifier of the channel where the <see cref="ChannelContent{TId, TServer}">content</see> are</value>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     /// <seealso cref="Id" />
     /// <seealso cref="ServerId" />

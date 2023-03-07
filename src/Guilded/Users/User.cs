@@ -37,11 +37,11 @@ public class User : UserSummary
     /// Initializes a new instance of <see cref="UserSummary" /> from the specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of <see cref="User">user</see></param>
-    /// <param name="type">The type of the <see cref="User">user</see> they are</param>
     /// <param name="name">The global username of the <see cref="User">user</see></param>
     /// <param name="createdAt">the date when the <see cref="User">user</see> was created</param>
     /// <param name="avatar">The global avatar of the <see cref="User">user</see></param>
     /// <param name="banner">The global banner of the <see cref="User">user</see></param>
+    /// <param name="type">The type of the <see cref="User">user</see> they are</param>
     /// <returns>New <see cref="User" /> JSON instance</returns>
     /// <seealso cref="User" />
     [JsonConstructor]

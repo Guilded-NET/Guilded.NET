@@ -12,43 +12,17 @@ namespace Guilded.Users;
 /// <seealso cref="AbstractGuildedClient.Me" />
 /// <seealso cref="User" />
 /// <seealso cref="Servers.Member" />
-public class ClientUser : ICreatableContent, IUser
+public class ClientUser : User, ICreatableContent
 {
     #region Properties
-    /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> <see cref="AbstractGuildedClient">this client</see> is logged into.
-    /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
-    /// <seealso cref="ClientUser" />
-    /// <seealso cref="BotId" />
-    /// <seealso cref="Name" />
-    public HashId Id { get; set; }
-
     /// <summary>
     /// Gets the identifier of the bot <see cref="AbstractGuildedClient">this client</see> is logged into.
     /// </summary>
     /// <value>Bot ID</value>
     /// <seealso cref="ClientUser" />
-    /// <seealso cref="Id" />
-    /// <seealso cref="Name" />
+    /// <seealso cref="UserSummary.Id" />
+    /// <seealso cref="UserSummary.Name" />
     public Guid BotId { get; set; }
-
-    /// <summary>
-    /// Gets the name of <see cref="AbstractGuildedClient">this client</see>.
-    /// </summary>
-    /// <value>Name</value>
-    /// <seealso cref="ClientUser" />
-    /// <seealso cref="Id" />
-    /// <seealso cref="BotId" />
-    public string Name { get; set; }
-
-    /// <summary>
-    /// Gets the creation date of <see cref="AbstractGuildedClient">this client</see>.
-    /// </summary>
-    /// <value>Date</value>
-    /// <seealso cref="ClientUser" />
-    /// <seealso cref="CreatedBy" />
-    public DateTime CreatedAt { get; set; }
 
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that has created <see cref="AbstractGuildedClient">this client</see>.
@@ -58,7 +32,7 @@ public class ClientUser : ICreatableContent, IUser
     /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="ClientUser" />
-    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="User.CreatedAt" />
     public HashId CreatedBy { get; set; }
     #endregion
 
@@ -71,6 +45,9 @@ public class ClientUser : ICreatableContent, IUser
     /// <param name="name">The name of <see cref="AbstractGuildedClient">this client</see></param>
     /// <param name="createdAt">The creation date of <see cref="AbstractGuildedClient">this client</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that has created <see cref="AbstractGuildedClient">this client</see></param>
+    /// <param name="avatar">The global avatar of the <see cref="User">user</see></param>
+    /// <param name="banner">The global banner of the <see cref="User">user</see></param>
+    /// <param name="type">The type of the <see cref="User">user</see> they are</param>
     /// <returns>New <see cref="ClientUser" /> JSON instance</returns>
     /// <seealso cref="ClientUser" />
     [JsonConstructor]
@@ -88,8 +65,17 @@ public class ClientUser : ICreatableContent, IUser
         DateTime createdAt,
 
         [JsonProperty(Required = Required.Always)]
-        HashId createdBy
-    ) =>
-        (Id, BotId, Name, CreatedAt, CreatedBy) = (id, botId, name, createdAt, createdBy);
+        HashId createdBy,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? avatar = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? banner = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        UserType type = UserType.Bot
+    ) : base(id, name, createdAt, avatar, banner, type) =>
+        (BotId, CreatedBy) = (botId, createdBy);
     #endregion
 }

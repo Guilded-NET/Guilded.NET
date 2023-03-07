@@ -112,11 +112,11 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     public Task<SocialLink> GetSocialLinkAsync(SocialLinkType linkType) =>
         User.GetSocialLinkAsync(ServerId, linkType);
 
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
+    /// <inheritdoc cref="AbstractGuildedClient.SetNicknameAsync(HashId, HashId, string)" />
     public Task<string> SetNicknameAsync(string nickname) =>
         User.SetNicknameAsync(ServerId, nickname);
 
-    /// <inheritdoc cref="AbstractGuildedClient.DeleteNicknameAsync(HashId, HashId)" />
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveNicknameAsync(HashId, HashId)" />
     public Task RemoveNicknameAsync() =>
         User.RemoveNicknameAsync(ServerId);
 
@@ -151,18 +151,6 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     /// <inheritdoc cref="AbstractGuildedClient.GetMemberBanAsync(HashId, HashId)" />
     public Task GetBanAsync() =>
         User.GetMemberBanAsync(ServerId);
-    #endregion
-
-    #region Methods Obsolete
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateNicknameAsync(HashId, HashId, string)" />
-    [Obsolete("Use `SetNicknameAsync` instead")]
-    public Task<string> UpdateNicknameAsync(string nickname) =>
-        SetNicknameAsync(nickname);
-
-    /// <inheritdoc cref="AbstractGuildedClient.DeleteNicknameAsync(HashId, HashId)" />
-    [Obsolete("Use `RemoveNicknameAsync` instead")]
-    public Task DeleteNicknameAsync() =>
-        RemoveNicknameAsync();
     #endregion
 }
 

@@ -14,7 +14,7 @@ namespace Guilded.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="MemberSummary{T}" />
 /// <seealso cref="Users.User" />
-public class MemberBan : ICreatableContent, IServerBased
+public class MemberBan : IHasParentClient, ICreatableContent, IServerBased
 {
     #region Properties
     /// <summary>

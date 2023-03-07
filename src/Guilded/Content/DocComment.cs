@@ -43,7 +43,7 @@ public class DocComment : BaseComment
         ParentClient
             .DocCommentUpdated
             .Where(x =>
-                x.ChannelId == ChannelId && x.EventId == DocId && x.Id == Id
+                x.ChannelId == ChannelId && x.DocId == DocId && x.Id == Id
             );
 
     /// <summary>
@@ -58,7 +58,7 @@ public class DocComment : BaseComment
         ParentClient
             .DocCommentDeleted
             .Where(x =>
-                x.ChannelId == ChannelId && x.EventId == DocId && x.Id == Id
+                x.ChannelId == ChannelId && x.DocId == DocId && x.Id == Id
             )
             .Take(1);
     #endregion

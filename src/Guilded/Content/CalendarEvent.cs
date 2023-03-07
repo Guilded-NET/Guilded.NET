@@ -16,7 +16,7 @@ namespace Guilded.Content;
 /// <summary>
 /// Represents a calendar event in <see cref="ChannelType.Calendar">a calendar channel</see>.
 /// </summary>
-/// <seealso cref="CalendarCancellation" />
+/// <seealso cref="CalendarEventCancellation" />
 /// <seealso cref="CalendarEventRsvp" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
@@ -98,6 +98,9 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="ChannelContent{T, S}.CreatedAt" />
     /// <seealso cref="ChannelContent{T, S}.CreatedBy" />
+    /// <seealso cref="Duration" />
+    /// <seealso cref="EndsAt" />
+    /// <seealso cref="Repeats" />
     public DateTime StartsAt { get; }
 
     /// <summary>
@@ -107,7 +110,33 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="ChannelContent{T, S}.CreatedAt" />
     /// <seealso cref="ChannelContent{T, S}.CreatedBy" />
+    /// <seealso cref="StartsAt" />
+    /// <seealso cref="EndsAt" />
+    /// <seealso cref="Repeats" />
     public TimeSpan? Duration { get; }
+
+    /// <summary>
+    /// Gets whether the <see cref="CalendarEvent">calendar event</see> has more than one instance similar to itself.
+    /// </summary>
+    /// <value>Whether the <see cref="CalendarEvent">calendar event</see> has more than one instance similar to itself</value>
+    /// <seealso cref="CalendarEvent" />
+    /// <seealso cref="StartsAt" />
+    /// <seealso cref="Duration" />
+    /// <seealso cref="EndsAt" />
+    /// <seealso cref="IsPrivate" />
+    /// <seealso cref="IsCanceled" />
+    public bool Repeats { get; }
+
+    /// <summary>
+    /// Gets the identifier of the repetition of the <see cref="CalendarEvent">calendar event</see>.
+    /// </summary>
+    /// <value>The identifier of the repetition of the <see cref="CalendarEvent">calendar event</see></value>
+    /// <seealso cref="CalendarEvent" />
+    /// <seealso cref="StartsAt" />
+    /// <seealso cref="Duration" />
+    /// <seealso cref="EndsAt" />
+    /// <seealso cref="Repeats" />
+    public Guid? SeriesId { get; }
 
     /// <summary>
     /// Gets the date when the <see cref="CalendarEvent">calendar event</see> starts.
@@ -116,6 +145,9 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="ChannelContent{T, S}.CreatedAt" />
     /// <seealso cref="ChannelContent{T, S}.CreatedBy" />
+    /// <seealso cref="StartsAt" />
+    /// <seealso cref="Duration" />
+    /// <seealso cref="Repeats" />
     public DateTime? EndsAt => Duration is null ? null : (StartsAt + Duration);
     #endregion
 
@@ -123,15 +155,16 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <summary>
     /// Gets whether the <see cref="CalendarEvent">calendar event</see> was set as private.
     /// </summary>
-    /// <value><see cref="CalendarEvent">Calendar event</see> is private</value>
+    /// <value>Whether the <see cref="CalendarEvent">calendar event</see> was set as private</value>
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="IsCanceled" />
+    /// <seealso cref="Repeats" />
     public bool IsPrivate { get; }
 
     /// <summary>
     /// Gets the limit of how many <see cref="User">users</see> can join the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
-    /// <value><see cref="CalendarEventRsvp">RSVP</see> limit?</value>
+    /// <value>The limit of how many <see cref="User">users</see> can join the <see cref="CalendarEvent">calendar event</see></value>
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="CalendarEventRsvp" />
     public uint? RsvpLimit { get; }
@@ -139,8 +172,8 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <summary>
     /// Gets the information about the <see cref="CalendarEvent">calendar event's</see> cancellation.
     /// </summary>
-    /// <value><see cref="CalendarEvent">Calendar event</see>'s <see cref="CalendarCancellation">cancellation info</see></value>
-    public CalendarCancellation? Cancellation { get; }
+    /// <value><see cref="CalendarEvent">Calendar event</see>'s <see cref="CalendarEventCancellation">cancellation info</see></value>
+    public CalendarEventCancellation? Cancellation { get; }
 
     /// <summary>
     /// Gets whether the <see cref="CalendarEvent">calendar event</see> was cancelled.
@@ -151,7 +184,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="IsPrivate" />
     public bool IsCanceled => Cancellation is not null;
 
-    /// <inheritdoc cref="CalendarCancellation.CreatedBy" />
+    /// <inheritdoc cref="CalendarEventCancellation.CreatedBy" />
     public HashId? CanceledBy => Cancellation?.CreatedBy;
     #endregion
 
@@ -256,6 +289,8 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
     /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
+    /// <param name="repeats">Whether the <see cref="CalendarEvent">calendar event</see> has more than one instance similar to itself</param>
+    /// <param name="seriesId">The identifier of the repetition of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> was set as private</param>
     /// <param name="cancellation">The information about the <see cref="CalendarEvent">calendar event's</see> cancellation</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="CalendarEvent">calendar event</see></param>
@@ -305,12 +340,18 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         uint? duration = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool repeats = false,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? seriesId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         bool isPrivate = false,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        CalendarCancellation? cancellation = null
+        CalendarEventCancellation? cancellation = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Name, Description, Mentions, Location, Url, Color, StartsAt, Duration, IsPrivate, Cancellation) = (name, description, mentions, location, url, color, startsAt, duration is not null ? TimeSpan.FromMinutes((double)duration) : null, isPrivate, cancellation);
+        (Name, Description, Mentions, Location, Url, Color, StartsAt, Duration, Repeats, SeriesId, IsPrivate, Cancellation) = (name, description, mentions, location, url, color, startsAt, duration is not null ? TimeSpan.FromMinutes((double)duration) : null, repeats, seriesId, isPrivate, cancellation);
     #endregion
 
     #region Methods Event
@@ -366,14 +407,14 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="ItemNote" />
 /// <seealso cref="ItemNoteSummary" />
-public class CalendarCancellation
+public class CalendarEventCancellation
 {
     #region Properties
     /// <summary>
     /// Gets the reason why the <see cref="CalendarEvent">calendar event</see> was cancelled.
     /// </summary>
     /// <value>String</value>
-    /// <seealso cref="CalendarCancellation" />
+    /// <seealso cref="CalendarEventCancellation" />
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="CreatedBy" />
     public string? Description { get; }
@@ -382,7 +423,7 @@ public class CalendarCancellation
     /// Gets the identifier of <see cref="User">user</see> that cancelled the <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
-    /// <seealso cref="CalendarCancellation" />
+    /// <seealso cref="CalendarEventCancellation" />
     /// <seealso cref="CalendarEvent" />
     /// <seealso cref="Description" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
@@ -391,15 +432,15 @@ public class CalendarCancellation
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="CalendarCancellation" /> from the specified JSON properties.
+    /// Initializes a new instance of <see cref="CalendarEventCancellation" /> from the specified JSON properties.
     /// </summary>
     /// <param name="description">The reason why the <see cref="CalendarEvent">calendar event</see> was cancelled</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that cancelled the <see cref="CalendarEvent">calendar event</see></param>
-    /// <returns>New <see cref="CalendarCancellation" /> JSON instance</returns>
-    /// <seealso cref="CalendarCancellation" />
+    /// <returns>New <see cref="CalendarEventCancellation" /> JSON instance</returns>
+    /// <seealso cref="CalendarEventCancellation" />
     /// <seealso cref="CalendarEvent" />
     [JsonConstructor]
-    public CalendarCancellation(
+    public CalendarEventCancellation(
         [JsonProperty(Required = Required.Always)]
         HashId createdBy,
 

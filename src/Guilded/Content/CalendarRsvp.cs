@@ -15,7 +15,7 @@ namespace Guilded.Content;
 /// Represents <see cref="User">user's</see> invitation to or <see cref="User">user's</see> status on a <see cref="CalendarEvent">calendar event</see>.
 /// </summary>
 /// <seealso cref="CalendarEvent" />
-/// <seealso cref="CalendarCancellation" />
+/// <seealso cref="CalendarEventCancellation" />
 /// <seealso cref="User" />
 /// <seealso cref="Member" />
 public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableContent, IServerBased, IChannelBased

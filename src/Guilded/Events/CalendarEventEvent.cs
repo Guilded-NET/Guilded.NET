@@ -77,7 +77,7 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
     public DateTime CreatedAt => Event.CreatedAt;
 
     /// <inheritdoc cref="CalendarEvent.Cancellation" />
-    public CalendarCancellation? Cancellation => Event.Cancellation;
+    public CalendarEventCancellation? Cancellation => Event.Cancellation;
 
     /// <inheritdoc cref="CalendarEvent.Cancellation" />
     public HashId? CanceledBy => Event.CanceledBy;

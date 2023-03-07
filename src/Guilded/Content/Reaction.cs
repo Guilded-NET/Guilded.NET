@@ -15,7 +15,7 @@ namespace Guilded.Content;
 /// <seealso cref="Message" />
 /// <seealso cref="Doc" />
 /// <seealso cref="Topic" />
-public abstract class Reaction : ContentModel, IModelHasId<uint>
+public abstract class Reaction : ContentModel, IModelHasId<uint>, IChannelBased
 {
     #region Properties
     /// <summary>

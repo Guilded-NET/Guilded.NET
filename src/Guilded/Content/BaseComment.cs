@@ -12,7 +12,7 @@ namespace Guilded.Content;
 /// <seealso cref="TopicComment" />
 /// <seealso cref="CalendarEventComment" />
 /// <seealso cref="TitledContent" />
-public abstract class BaseComment : ContentModel, IModelHasId<uint>, ICreatableContent, IUpdatableContent
+public abstract class BaseComment : ContentModel, IModelHasId<uint>, ICreatableContent, IChannelBased, IUpdatableContent
 {
     #region Properties
     /// <summary>

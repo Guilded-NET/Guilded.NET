@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Client;
 using Guilded.Content;
 using Guilded.Servers;
 using Newtonsoft.Json;
@@ -16,7 +17,7 @@ namespace Guilded.Events;
 /// <seealso cref="ItemEvent" />
 /// <seealso cref="CalendarEventEvent" />
 /// <seealso cref="ChannelEvent" />
-public class DocEvent : ICreatableContent, IUpdatableContent
+public class DocEvent : IHasParentClient, ICreatableContent, IUpdatableContent, IServerBased, IChannelBased
 {
     #region Properties
     /// <summary>
@@ -56,6 +57,9 @@ public class DocEvent : ICreatableContent, IUpdatableContent
 
     /// <inheritdoc cref="TitledContent.UpdatedAt" />
     public DateTime? UpdatedAt => Doc.UpdatedAt;
+
+    /// <inheritdoc cref="IHasParentClient.ParentClient" />
+    public AbstractGuildedClient ParentClient => Doc.ParentClient;
     #endregion
 
     #region Properties Events
