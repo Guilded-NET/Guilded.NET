@@ -155,7 +155,7 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
 }
 
 /// <summary>
-/// Represents the summary of <see cref="Member">a member</see>.
+/// Represents the summary of a <see cref="Member">member</see>.
 /// </summary>
 /// <seealso cref="Member" />
 /// <seealso cref="MemberBan" />

@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when <see cref="Member">a member</see> receives a role or loses it.
+/// Represents an event that occurs when a <see cref="Member">member</see> receives a role or loses it.
 /// </summary>
 /// <remarks>
 /// <para>This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>

@@ -14,7 +14,7 @@ using SystemColor = System.Drawing.Color;
 namespace Guilded.Content;
 
 /// <summary>
-/// Represents a calendar event in <see cref="ChannelType.Calendar">a calendar channel</see>.
+/// Represents a calendar event in a <see cref="ChannelType.Calendar">calendar channel</see>.
 /// </summary>
 /// <seealso cref="CalendarEventCancellation" />
 /// <seealso cref="CalendarEventRsvp" />

@@ -308,7 +308,7 @@ public abstract partial class AbstractGuildedClient
     /// Deletes the specified <see cref="CalendarEventRsvp">calendar event RSVP</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
-    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">calendar RSVP</see> is</param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">calendar event RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarEventRsvp">RSVP</see> of</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />

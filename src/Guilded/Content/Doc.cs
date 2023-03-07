@@ -38,7 +38,7 @@ public class Doc : TitledContent, IContentMarkdown
     public Mentions? Mentions { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Member">the member</see> who updated the <see cref="Doc">document</see>.
+    /// Gets the identifier of the <see cref="Member">member</see> who updated the <see cref="Doc">document</see>.
     /// </summary>
     /// <remarks>
     /// <para>Only includes the <see cref="User">user</see> who updated the <see cref="Doc">document</see> most recently.</para>

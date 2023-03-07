@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Guilded.Content;
 
@@ -40,25 +41,65 @@ public class CalendarEventRepetition
     /// <para>This must have <see cref="Type" /> set to <see cref="CalendarEventRepetitionType.Custom" />.</para>
     /// </remarks>
     /// <value>The interval between each repeated <see cref="CalendarEvent">calendar event</see></value>
+    /// <seealso cref="CalendarEventRepetition" />
+    /// <seealso cref="Type" />
+    /// <seealso cref="On" />
     public CalendarEventInterval? Every { get; }
     #endregion
 
     #region Properties End
     /// <summary>
-    /// Gets the date that the <see cref="CalendarEventRepetition">calendar event repetition</see> ends at. Used to control the end date of the <see cref="CalendarEventRepetition">event repetition</see> (only used when <see cref="Type">type</see> is <see cref="CalendarEventRepetitionType.Custom"><c>custom</c></see>; if used with <see cref="EndsAfterOccurrences" />, the earliest resultant date of the two will be used)
+    /// Gets the date that the <see cref="CalendarEventRepetition">calendar event repetition</see> ends at.
     /// </summary>
+    /// <remarks>
+    /// <para>Used to control the end date of the <see cref="CalendarEventRepetition">calendar event repetition</see> (only used when <see cref="Type">type</see> is <see cref="CalendarEventRepetitionType.Custom"><c>custom</c></see>; if used with <see cref="EndsAfterOccurrences" />, the earliest resultant date of the two will be used).</para>
+    /// </remarks>
     /// <value>The date that the <see cref="CalendarEventRepetition">calendar event repetition</see> ends at</value>
     /// <seealso cref="CalendarEventRepetition" />
     /// <seealso cref="EndsAfterOccurrences" />
     public DateTime? EndDate { get; }
 
     /// <summary>
-    /// Gets the count after which the <see cref="CalendarEventRepetition">calendar event repetition</see> ends. Used to control the end date of the <see cref="CalendarEventRepetition">event repetition</see> (only used when <see cref="Type">type</see> is <see cref="CalendarEventRepetitionType.Custom"><c>custom</c></see>; if used with <see cref="EndsAfterOccurrences" />, the earliest resultant date of the two will be used).
+    /// Gets the count after which the <see cref="CalendarEventRepetition">calendar event repetition</see> ends.
     /// </summary>
+    /// <remarks>
+    /// <para>Used to control the end date of the <see cref="CalendarEventRepetition">calendar event repetition</see> (only used when <see cref="Type">type</see> is <see cref="CalendarEventRepetitionType.Custom"><c>custom</c></see>; if used with <see cref="EndsAfterOccurrences" />, the earliest resultant date of the two will be used).</para>
+    /// </remarks>
     /// <value>The count after which the <see cref="CalendarEventRepetition">calendar event repetition</see> ends</value>
     /// <seealso cref="CalendarEventRepetition" />
     /// <seealso cref="EndDate" />
     public uint? EndsAfterOccurrences { get; }
+    #endregion
+
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of <see cref="CalendarEventRepetition" /> from the specified JSON properties.
+    /// </summary>
+    /// <param name="type">How often a <see cref="CalendarEvent">calendar event</see> repeats</param>
+    /// <param name="on">The week days the <see cref="CalendarEvent">calendar event</see> repeats on</param>
+    /// <param name="every">The interval between each repeated <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="endDate">The date that the <see cref="CalendarEventRepetition">calendar event repetition</see> ends at. Used to control the end date of the <see cref="CalendarEventRepetition">event repetition</see> (only used when <see cref="Type">type</see> is <see cref="CalendarEventRepetitionType.Custom"><c>custom</c></see>; if used with <see cref="EndsAfterOccurrences" />, the earliest resultant date of the two will be used)</param>
+    /// <param name="endsAfterOccurrences">The count after which the <see cref="CalendarEventRepetition">calendar event repetition</see> ends. Used to control the end date of the <see cref="CalendarEventRepetition">event repetition</see> (only used when <see cref="Type">type</see> is <see cref="CalendarEventRepetitionType.Custom"><c>custom</c></see>; if used with <see cref="EndsAfterOccurrences" />, the earliest resultant date of the two will be used)</param>
+    /// <returns>New <see cref="CalendarEventRepetition" /> JSON instance</returns>
+    /// <seealso cref="CalendarEventRepetition" />
+    [JsonConstructor]
+    public CalendarEventRepetition(
+        [JsonProperty(Required = Required.Always)]
+        CalendarEventRepetitionType type,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        IList<DayOfWeek>? on = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        CalendarEventInterval? every = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? endDate = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        uint? endsAfterOccurrences = null
+    ) =>
+        (Type, On, Every, EndDate, EndsAfterOccurrences) = (type, on, every, endDate, endsAfterOccurrences);
     #endregion
 }
 
@@ -70,6 +111,7 @@ public class CalendarEventRepetition
 /// <seealso cref="CalendarEventIntervalType" />
 public class CalendarEventInterval
 {
+    #region Properties
     /// <summary>
     /// Gets on what the <see cref="CalendarEvent">calendar event</see> should repeat.
     /// </summary>
@@ -94,6 +136,7 @@ public class CalendarEventInterval
     /// <seealso cref="CalendarEventRepetition" />
     /// <seealso cref="Interval" />
     public uint Count { get; }
+    #endregion
 }
 
 /// <summary>

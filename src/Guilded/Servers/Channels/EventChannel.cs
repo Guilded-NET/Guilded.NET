@@ -162,7 +162,7 @@ public class CalendarChannel : ServerChannel
         ParentClient.SetRsvpAsync(Id, calendarEvent, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
-    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">calendar RSVP</see> is</param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">calendar event RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarEventRsvp">RSVP</see> of</param>
     public Task RemoveRsvpAsync(uint calendarEvent, HashId user) =>
         ParentClient.RemoveRsvpAsync(Id, calendarEvent, user);

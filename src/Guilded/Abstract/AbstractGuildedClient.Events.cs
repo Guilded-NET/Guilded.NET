@@ -50,22 +50,22 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Servers
-    /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive <see cref="XpAddedEvent.Amount">XP</see>.
-    /// </summary>
-    /// <remarks>
-    /// <para>An event with the name <c>ServerXpAdded</c> and opcode <c>0</c>.</para>
-    /// </remarks>
-    /// <seealso cref="MemberJoined" />
-    /// <seealso cref="MemberUpdated" />
-    /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="MemberRemoved" />
-    /// <seealso cref="MemberBanned" />
-    /// <seealso cref="MemberUnbanned" />
-    /// <seealso cref="WebhookCreated" />
-    /// <seealso cref="WebhookUpdated" />
-    /// <seealso cref="ServerAdded" />
-    public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["ServerXpAdded"]).Observable;
+    // /// <summary>
+    // /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive <see cref="XpAddedEvent.Amount">XP</see>.
+    // /// </summary>
+    // /// <remarks>
+    // /// <para>An event with the name <c>ServerXpAdded</c> and opcode <c>0</c>.</para>
+    // /// </remarks>
+    // /// <seealso cref="MemberJoined" />
+    // /// <seealso cref="MemberUpdated" />
+    // /// <seealso cref="RolesUpdated" />
+    // /// <seealso cref="MemberRemoved" />
+    // /// <seealso cref="MemberBanned" />
+    // /// <seealso cref="MemberUnbanned" />
+    // /// <seealso cref="WebhookCreated" />
+    // /// <seealso cref="WebhookUpdated" />
+    // /// <seealso cref="ServerAdded" />
+    // public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["ServerXpAdded"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
@@ -75,7 +75,6 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="MemberUnbanned" />
@@ -94,7 +93,6 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="MemberUnbanned" />
@@ -112,7 +110,6 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="MemberUnbanned" />
@@ -130,7 +127,6 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="MemberUnbanned" />
@@ -147,7 +143,6 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="MemberUnbanned" />
@@ -165,7 +160,6 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="MemberUnbanned" />
     /// <seealso cref="WebhookCreated" />
@@ -182,17 +176,16 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberUnbanned" />
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberBanEvent> MemberBanAdded => ((IEventInfo<MemberBanEvent>)GuildedEvents["ServerMemberBanned"]).Observable;
+    public IObservable<MemberBanEvent> MemberBanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["ServerMemberBanned"]).Observable;
 
-    /// <inheritdoc cref="MemberBanAdded" />
-    [Obsolete("Use `MemberBanAdded` instead")]
-    public IObservable<MemberBanEvent> MemberBanned => MemberBanAdded;
+    /// <inheritdoc cref="MemberBanRemoved" />
+    [Obsolete("Use `MemberBanned` instead")]
+    public IObservable<MemberBanEvent> MemberBanAdded => MemberBanned;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="User">user</see> gets unbanned in a <see cref="Server">server</see>.
@@ -203,17 +196,24 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="MemberJoined" />
     /// <seealso cref="MemberUpdated" />
     /// <seealso cref="RolesUpdated" />
-    /// <seealso cref="XpAdded" />
     /// <seealso cref="MemberRemoved" />
     /// <seealso cref="MemberBanned" />
     /// <seealso cref="WebhookCreated" />
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ServerAdded" />
-    public IObservable<MemberBanEvent> MemberBanRemoved => ((IEventInfo<MemberBanEvent>)GuildedEvents["ServerMemberUnbanned"]).Observable;
+    public IObservable<MemberBanEvent> MemberUnbanned => ((IEventInfo<MemberBanEvent>)GuildedEvents["ServerMemberUnbanned"]).Observable;
 
-    /// <inheritdoc cref="MemberBanRemoved" />
-    [Obsolete("Use `MemberBanRemoved` instead")]
-    public IObservable<MemberBanEvent> MemberUnbanned => MemberBanAdded;
+    /// <inheritdoc cref="MemberUnbanned" />
+    [Obsolete("Use `MemberUnbanned` instead")]
+    public IObservable<MemberBanEvent> MemberBanRemoved => MemberUnbanned;
+    #endregion
+
+    #region Properties Member Social Links
+    public IObservable<MemberSocialLinkEvent> MemberSocialLinkCreated => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkCreated"]).Observable;
+
+    public IObservable<MemberSocialLinkEvent> MemberSocialLinkUpdated => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkUpdated"]).Observable;
+
+    public IObservable<MemberSocialLinkEvent> MemberSocialLinkDeleted => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkDeleted"]).Observable;
     #endregion
 
     #region Properties Channels
@@ -405,10 +405,6 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicPinned => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicPinned"]).Observable;
 
-    /// <inheritdoc cref="TopicPinned" />
-    [Obsolete("Use `TopicPinned` instead")]
-    public IObservable<TopicEvent> TopicPinAdded => TopicPinned;
-
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Topic">forum topic</see> is unpinned.
     /// </summary>
@@ -424,10 +420,6 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="TopicReactionAdded" />
     /// <seealso cref="TopicReactionRemoved" />
     public IObservable<TopicEvent> TopicUnpinned => ((IEventInfo<TopicEvent>)GuildedEvents["ForumTopicUnpinned"]).Observable;
-
-    /// <inheritdoc cref="TopicUnpinned" />
-    [Obsolete("Use `TopicUnpinned` instead")]
-    public IObservable<TopicEvent> TopicPinRemoved => TopicUnpinned;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Topic">forum topic</see> is pinned.
@@ -829,6 +821,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="EventCreated" />
     /// <seealso cref="EventUpdated" />
     public IObservable<CalendarEventRsvpEvent> EventRsvpDeleted => ((IEventInfo<CalendarEventRsvpEvent>)GuildedEvents["CalendarEventRsvpDeleted"]).Observable;
+    #endregion
+
+    #region Properties Calendar channels > Series
+    public IObservable<CalendarEventSeriesEvent> EventSeriesUpdated => ((IEventInfo<CalendarEventSeriesEvent>)GuildedEvents["CalendarEventSeriesUpdated"]).Observable;
+
+    public IObservable<CalendarEventSeriesEvent> EventSeriesDeleted => ((IEventInfo<CalendarEventSeriesEvent>)GuildedEvents["CalendarEventSeriesDeleted"]).Observable;
     #endregion
 
     #region Properties Calendar channels > Comments

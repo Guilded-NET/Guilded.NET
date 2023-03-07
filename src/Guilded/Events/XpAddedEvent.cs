@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when <see cref="Member">a member</see> receives <see cref="Amount">XP</see>.
+/// Represents an event that occurs when a <see cref="Member">member</see> receives <see cref="Amount">XP</see>.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />

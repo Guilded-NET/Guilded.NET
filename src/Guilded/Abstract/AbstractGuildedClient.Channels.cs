@@ -530,7 +530,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
     /// <permission cref="ListPermissions.CreateItem" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting <see cref="Item">a list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Item">list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Item">list item</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Item> CreateItemAsync(Guid channel, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message)
@@ -559,7 +559,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="ListPermissions.GetItem" />
     /// <permission cref="ListPermissions.ManageItem">Required when updating <see cref="Item">list items</see> the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="Item">a list item</see></permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Item">list item</see></permission>
     /// <returns>The <paramref name="listItem">list item</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Item> UpdateItemAsync(Guid channel, Guid listItem, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message) && string.IsNullOrEmpty(note)

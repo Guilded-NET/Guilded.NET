@@ -22,9 +22,9 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the <see cref="User">user</see> whose RSVP it is.
+    /// Gets the identifier of the <see cref="User">user</see> whose <see cref="CalendarEventRsvp">RSVP</see> it is.
     /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of the <see cref="User">user</see> whose <see cref="CalendarEventRsvp">RSVP</see> it is</value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="EventId" />
     /// <seealso cref="ChannelId" />
@@ -34,7 +34,7 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     /// <summary>
     /// Gets the status of the <see cref="UserId">user's</see> <see cref="CalendarEventRsvp">RSVP</see>.
     /// </summary>
-    /// <value><see cref="CalendarEventRsvpStatus">RSVP Status</see></value>
+    /// <value>The status of the <see cref="UserId">user's</see> <see cref="CalendarEventRsvp">RSVP</see></value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="UserId" />
     /// <seealso cref="EventId" />
@@ -43,7 +43,7 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     /// <summary>
     /// Gets the identifier of the parent <see cref="CalendarEvent">calendar event</see>.
     /// </summary>
-    /// <value><see cref="ChannelContent{TId, TServer}.Id">Calendar event ID</see></value>
+    /// <value>The identifier of the parent <see cref="CalendarEvent">calendar event</see></value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
@@ -67,7 +67,7 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     /// <summary>
     /// Gets the identifier of the parent <see cref="Server">server</see> where the parent <see cref="CalendarEvent">calendar event</see> is.
     /// </summary>
-    /// <value><see cref="Server.Id">Server ID</see></value>
+    /// <value>The identifier of the parent <see cref="Server">server</see> where the parent <see cref="CalendarEvent">calendar event</see> is</value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="EventId" />
@@ -75,9 +75,9 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     public HashId ServerId { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Member">the member</see> who created the <see cref="CalendarEventRsvp">calendar RSVP</see>.
+    /// Gets the identifier of the <see cref="Member">member</see> who created the <see cref="CalendarEventRsvp">calendar event RSVP</see>.
     /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of the <see cref="Member">member</see> who created the <see cref="CalendarEventRsvp">calendar event RSVP</see></value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="UpdatedBy" />
@@ -85,9 +85,9 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the date when the <see cref="CalendarEventRsvp">calendar RSVP</see> was created.
+    /// Gets the date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was created.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was created</value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="UpdatedAt" />
@@ -95,12 +95,12 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="Member">the member</see> who updated the <see cref="CalendarEventRsvp">calendar RSVP</see>.
+    /// Gets the identifier of the <see cref="Member">member</see> who updated the <see cref="CalendarEventRsvp">calendar event RSVP</see>.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes the <see cref="User">user</see> who updated the <see cref="CalendarEventRsvp">calendar RSVP</see> most recently.</para>
+    /// <para>Only includes the <see cref="User">user</see> who updated the <see cref="CalendarEventRsvp">calendar event RSVP</see> most recently.</para>
     /// </remarks>
-    /// <value><see cref="UserSummary.Id">User ID</see>?</value>
+    /// <value>The identifier of the <see cref="Member">member</see> who updated the <see cref="CalendarEventRsvp">calendar event RSVP</see></value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="UpdatedAt" />
     /// <seealso cref="CreatedBy" />
@@ -108,12 +108,12 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     public HashId? UpdatedBy { get; }
 
     /// <summary>
-    /// Gets the date when the <see cref="CalendarEventRsvp">calendar RSVP</see> was updated.
+    /// Gets the date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was updated.
     /// </summary>
     /// <remarks>
-    /// <para>Only includes date when the <see cref="CalendarEventRsvp">calendar RSVP</see> was updated most recently.</para>
+    /// <para>Only includes date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was updated most recently.</para>
     /// </remarks>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was updated</value>
     /// <seealso cref="CalendarEventRsvp" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="CreatedBy" />
@@ -176,6 +176,15 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     /// <summary>
     /// Initializes a new instance of <see cref="CalendarEventRsvp" /> from the specified JSON properties.
     /// </summary>
+    /// <param name="calendarEventId">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventComment">calendar event comment</see> was created</param>
+    /// <param name="userId">The identifier of the <see cref="User">user</see> whose <see cref="CalendarEventRsvp">RSVP</see> it is</param>
+    /// <param name="channelId">The identifier of the <see cref="CalendarChannel">channel</see> where the <see cref="CalendarEventRsvp">calendar event RSVP</see> was created</param>
+    /// <param name="serverId">The identifier of the parent <see cref="Server">server</see> where the parent <see cref="CalendarEvent">calendar event</see> is</param>
+    /// <param name="status">The status of the <see cref="UserId">user's</see> <see cref="CalendarEventRsvp">RSVP</see></param>
+    /// <param name="createdBy">The identifier of the <see cref="Member">member</see> who created the <see cref="CalendarEventRsvp">calendar event RSVP</see></param>
+    /// <param name="createdAt">The date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was created</param>
+    /// <param name="updatedBy">The identifier of the <see cref="Member">member</see> who updated the <see cref="CalendarEventRsvp">calendar event RSVP</see></param>
+    /// <param name="updatedAt">The date when the <see cref="CalendarEventRsvp">calendar event RSVP</see> was updated</param>
     /// <returns>New <see cref="CalendarEventRsvp" /> JSON instance</returns>
     /// <seealso cref="CalendarEventRsvp" />
     [JsonConstructor]

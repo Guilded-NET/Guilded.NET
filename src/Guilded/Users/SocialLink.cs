@@ -12,7 +12,7 @@ namespace Guilded.Users;
 /// <seealso cref="Servers.Member" />
 /// <seealso cref="UserSummary" />
 /// <seealso cref="SocialLinkType" />
-public class SocialLink
+public class SocialLink : ContentModel
 {
     #region Properties
     /// <summary>

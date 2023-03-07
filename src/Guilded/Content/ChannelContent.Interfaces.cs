@@ -18,7 +18,7 @@ public interface IUserCreated
     /// Gets the identifier of <see cref="User">user</see> that created the content.
     /// </summary>
     /// <remarks>
-    /// <para>If <see cref="Webhook">a webhook</see> created the <see cref="ChannelContent{TId, TServer}">content</see>, the value of this property will be <c>Ann6LewA</c>.</para>
+    /// <para>If a <see cref="Webhook">webhook</see> created the <see cref="ChannelContent{TId, TServer}">content</see>, the value of this property will be <c>Ann6LewA</c>.</para>
     /// </remarks>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="IUserCreated" />
@@ -78,7 +78,7 @@ public interface IUpdatableContent
 }
 
 /// <summary>
-/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be created by <see cref="Webhook">a webhook</see>.
+/// Represents the <see cref="ChannelContent{TId, TServer}">content</see> that can be created by a <see cref="Webhook">webhook</see>.
 /// </summary>
 /// <seealso cref="ChannelContent{TId, TServer}" />
 /// <seealso cref="ICreatableContent" />

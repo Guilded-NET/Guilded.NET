@@ -47,7 +47,7 @@
 //     /// Gets the identifier of the <see cref="User">user</see> that reacted.
 //     /// </summary>
 //     /// <remarks>
-//     /// <para>If <see cref="Webhook">a webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
+//     /// <para>If a <see cref="Webhook">webhook</see> created this reaction, the value of this property will be <c>Ann6LewA</c>.</para>
 //     /// </remarks>
 //     /// <value><see cref="UserSummary.Id">User ID</see></value>
 //     /// <seealso cref="Reaction" />

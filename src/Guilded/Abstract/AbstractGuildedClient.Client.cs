@@ -54,7 +54,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     /// <value>Whether the client is <see cref="Prepared">prepared</see></value>
     public bool IsPrepared { get; protected set; }
 
-    /// <inheritdoc cref="ClientUser.Id" />
+    /// <inheritdoc cref="UserSummary.Id" />
     public HashId? Id => Me?.Id;
 
     /// <inheritdoc cref="ClientUser.BotId" />
@@ -63,11 +63,17 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     /// <inheritdoc cref="ClientUser.CreatedBy" />
     public HashId? CreatedBy => Me?.CreatedBy;
 
-    /// <inheritdoc cref="ClientUser.CreatedAt" />
+    /// <inheritdoc cref="User.CreatedAt" />
     public DateTime? CreatedAt => Me?.CreatedAt;
 
-    /// <inheritdoc cref="ClientUser.Name" />
+    /// <inheritdoc cref="UserSummary.Name" />
     public string? Name => Me?.Name;
+
+    /// <inheritdoc cref="UserSummary.Avatar" />
+    public Uri? Avatar => Me?.Avatar;
+
+    /// <inheritdoc cref="User.Banner" />
+    public Uri? Banner => Me?.Banner;
     #endregion
 
     #region Constructors
@@ -93,8 +99,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
 
             // Server events
             { "BotServerMembershipCreated",           new EventInfo<ServerAddedEvent>() },
-            { "ServerXpAdded",                        new EventInfo<XpAddedEvent>() },
-            { "ServerMemberRemoved",                  new EventInfo<MemberRemovedEvent>() },
+
             { "ServerMemberBanned",
                 new EventInfo<MemberBanEvent>((type, serializer, message) =>
                 {
@@ -109,12 +114,14 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
                 })
             },
             { "ServerMemberUnbanned",                 new EventInfo<MemberBanEvent>() },
-            { "ServerChannelCreated",                 new EventInfo<ChannelEvent>() },
-            { "ServerChannelUpdated",                 new EventInfo<ChannelEvent>() },
-            { "ServerChannelDeleted",                 new EventInfo<ChannelEvent>() },
-            { "ServerWebhookCreated",                 new EventInfo<WebhookEvent>() },
-            { "ServerWebhookUpdated",                 new EventInfo<WebhookEvent>() },
+            { "ServerMemberRemoved",                  new EventInfo<MemberRemovedEvent>() },
             { "ServerMemberUpdated",                  new EventInfo<MemberUpdatedEvent>() },
+
+            { "ServerMemberSocialLinkCreated",        new EventInfo<MemberSocialLinkEvent>() },
+            { "ServerMemberSocialLinkUpdated",        new EventInfo<MemberSocialLinkEvent>() },
+            { "ServerMemberSocialLinkDeleted",        new EventInfo<MemberSocialLinkEvent>() },
+
+            { "ServerXpAdded",                        new EventInfo<XpAddedEvent>() },
             { "ServerRolesUpdated",                   new EventInfo<RolesUpdatedEvent>() },
             { "ServerMemberJoined",
                 new EventInfo<MemberJoinedEvent>((type, serializer, message) =>
@@ -129,6 +136,13 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
                     return data.ToObject(type, serializer)!;
                 })
             },
+
+            // Channels
+            { "ServerChannelCreated",                 new EventInfo<ChannelEvent>() },
+            { "ServerChannelUpdated",                 new EventInfo<ChannelEvent>() },
+            { "ServerChannelDeleted",                 new EventInfo<ChannelEvent>() },
+            { "ServerWebhookCreated",                 new EventInfo<WebhookEvent>() },
+            { "ServerWebhookUpdated",                 new EventInfo<WebhookEvent>() },
 
             // Chat messages
             { "ChatMessageCreated",                   new EventInfo<MessageEvent>() },
@@ -176,14 +190,21 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "CalendarEventCreated",                 new EventInfo<CalendarEventEvent>() },
             { "CalendarEventUpdated",                 new EventInfo<CalendarEventEvent>() },
             { "CalendarEventDeleted",                 new EventInfo<CalendarEventEvent>() },
+
+            { "CalendarEventSeriesUpdated",           new EventInfo<CalendarEventSeriesEvent>() },
+            { "CalendarEventSeriesDeleted",           new EventInfo<CalendarEventSeriesEvent>() },
+
             { "CalendarEventRsvpUpdated",             new EventInfo<CalendarEventRsvpEvent>() },
             { "CalendarEventRsvpManyUpdated",         new EventInfo<CalendarEventRsvpManyEvent>() },
             { "CalendarEventRsvpDeleted",             new EventInfo<CalendarEventRsvpEvent>() },
+
             { "CalendarEventCommentCreated",          new EventInfo<CalendarEventCommentEvent>() },
             { "CalendarEventCommentUpdated",          new EventInfo<CalendarEventCommentEvent>() },
             { "CalendarEventCommentDeleted",          new EventInfo<CalendarEventCommentEvent>() },
+
             { "CalendarEventReactionCreated",         new EventInfo<CalendarEventReactionEvent>() },
             { "CalendarEventReactionDeleted",         new EventInfo<CalendarEventReactionEvent>() },
+
             { "CalendarEventCommentReactionCreated",  new EventInfo<CalendarEventCommentReactionEvent>() },
             { "CalendarEventCommentReactionDeleted",  new EventInfo<CalendarEventCommentReactionEvent>() },
         };

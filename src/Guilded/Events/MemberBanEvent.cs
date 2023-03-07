@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when <see cref="Member">a memner</see> gets banned or unbanned.
+/// Represents an event that occurs when a <see cref="Member">member</see> gets banned or unbanned.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
 /// <seealso cref="XpAddedEvent" />
@@ -20,7 +20,7 @@ public class MemberBanEvent : IUser, IServerBased
 {
     #region Properties
     /// <summary>
-    /// Gets the information about the member's ban.
+    /// Gets the information about the <see cref="Servers.MemberBan">member's ban</see>.
     /// </summary>
     /// <value>Member ban</value>
     /// <seealso cref="MemberBanEvent" />
@@ -29,9 +29,9 @@ public class MemberBanEvent : IUser, IServerBased
     public MemberBan MemberBan { get; }
 
     /// <summary>
-    /// Gets the identifier of the <see cref="Server">server</see> where member has been banned/unbanned.
+    /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> has been banned/unbanned.
     /// </summary>
-    /// <value>Server ID</value>
+    /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> has been banned/unbanned</value>
     /// <seealso cref="MemberBanEvent" />
     /// <seealso cref="MemberBan" />
     public HashId ServerId { get; }
