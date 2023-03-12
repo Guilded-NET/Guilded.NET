@@ -237,7 +237,7 @@ public abstract partial class AbstractGuildedClient
         RemoveTopicCommentReactionAsync(channel, topic, topicComment, emote.Id);
     #endregion
 
-    #region Methods Calendar channels > Rsvp
+    #region Methods Calendar channels > Rsvp 
     /// <summary>
     /// Gets a list of <see cref="CalendarEvent">calendar events</see>.
     /// </summary>
@@ -323,6 +323,29 @@ public abstract partial class AbstractGuildedClient
     [Obsolete($"Use `{nameof(RemoveEventRsvpAsync)}` instead")]
     public Task RemoveRsvpAsync(Guid channel, uint calendarEvent, HashId user) =>
         RemoveEventRsvpAsync(channel, calendarEvent, user);
+
+    /// <summary>
+    /// Creates or edits the specified <see cref="CalendarEventRsvp">calendar event RSVP</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">RSVP</see> is</param>
+    /// <param name="users">The list of identifiers of the <see cref="User">users</see> to set <see cref="CalendarEventRsvpStatus">RSVP status</see> of</param>
+    /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="CalendarPermissions.ManageRsvp">Required when setting <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
+    /// <returns>Set <see cref="CalendarEventRsvp">calendar event RSVP</see></returns>
+    public Task<CalendarEventRsvp> SetEventRsvpsAsync(Guid channel, uint calendarEvent, IList<HashId> users, CalendarEventRsvpStatus status) =>
+        GetResponsePropertyAsync<CalendarEventRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps", Method.Put)
+            .AddJsonBody(new
+            {
+                userIds = users,
+                status
+            })
+        , "calendarEventRsvp");
     #endregion
 
     #region Methods Calendar channels > Comments

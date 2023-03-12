@@ -209,10 +209,34 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Member Social Links
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="SocialLink">social link</see> is added to <see cref="Member">member's</see> profile.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ServerMemberSocialLinkCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MemberSocialLinkUpdated" />
+    /// <seealso cref="MemberSocialLinkDeleted" />
     public IObservable<MemberSocialLinkEvent> MemberSocialLinkCreated => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkCreated"]).Observable;
 
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="SocialLink">social link</see> in <see cref="Member">member's</see> profile gets updated.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ServerMemberSocialLinkUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MemberSocialLinkCreated" />
+    /// <seealso cref="MemberSocialLinkDeleted" />
     public IObservable<MemberSocialLinkEvent> MemberSocialLinkUpdated => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkUpdated"]).Observable;
 
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="SocialLink">social link</see> in <see cref="Member">member's</see> profile gets deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ServerMemberSocialLinkDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MemberSocialLinkCreated" />
+    /// <seealso cref="MemberSocialLinkUpdated" />
     public IObservable<MemberSocialLinkEvent> MemberSocialLinkDeleted => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkDeleted"]).Observable;
     #endregion
 
@@ -789,8 +813,7 @@ public abstract partial class AbstractGuildedClient
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="CalendarEventRsvp">RSVP</see> of a <see cref="CalendarEvent">calendar event</see> is edited.
     /// </summary>
     /// <remarks>
-    /// <para>This may include deletion as well. This hasn't been checked yet.</para>
-    /// <para>An event with the name <c>CalendarEventRssvpUpdated</c> and opcode <c>0</c>.</para>
+    /// <para>An event with the name <c>CalendarEventRsvpUpdated</c> and opcode <c>0</c>.</para>
     /// </remarks>
     /// <seealso cref="EventRsvpManyUpdated" />
     /// <seealso cref="EventRsvpDeleted" />
@@ -824,8 +847,22 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Calendar channels > Series
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="CalendarEventSeries">calendar event series</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventSeriesUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="EventSeriesDeleted" />
     public IObservable<CalendarEventSeriesEvent> EventSeriesUpdated => ((IEventInfo<CalendarEventSeriesEvent>)GuildedEvents["CalendarEventSeriesUpdated"]).Observable;
 
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="CalendarEventSeries">calendar event series</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CalendarEventSeriesDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="EventSeriesUpdated" />
     public IObservable<CalendarEventSeriesEvent> EventSeriesDeleted => ((IEventInfo<CalendarEventSeriesEvent>)GuildedEvents["CalendarEventSeriesDeleted"]).Observable;
     #endregion
 

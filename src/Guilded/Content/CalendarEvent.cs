@@ -355,13 +355,41 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     #endregion
 
     #region Methods Event
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, uint?, bool?)" />
-    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, uint? duration = null, bool? isPrivate = null) =>
-        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate);
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, TimeSpan?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition?)" />
+    public Task<CalendarEvent> UpdateAsync(
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        SystemColor? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, TimeSpan?, bool?)" />
-    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, SystemColor? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, isPrivate);
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition?)" />
+    public Task<CalendarEvent> UpdateAsync(
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        SystemColor? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteEventAsync(Guid, uint)" />
     public Task DeleteAsync() =>

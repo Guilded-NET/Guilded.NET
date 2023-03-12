@@ -769,9 +769,12 @@ public abstract partial class AbstractGuildedClient
     /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
     /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
-    /// <param name="rsvpLimit">The limit of how many <see cref="Users.User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is private</param>
     /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -780,7 +783,21 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.CreateEvent" />
     /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
+    public Task<CalendarEvent> CreateEventAsync(
+        Guid channel,
+        string name,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool isPrivate = false,
+        bool isAllDay = false,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
         string.IsNullOrWhiteSpace(name)
         ? throw new ArgumentNullException(nameof(name))
         : GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events", Method.Post)
@@ -794,13 +811,43 @@ public abstract partial class AbstractGuildedClient
                 color,
                 duration,
                 rsvpLimit,
-                isPrivate
+                isPrivate,
+                isAllDay,
+                roleIds,
+                repeatInfo
             })
         , "calendarEvent");
 
-    /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool)" />
-    public Task<CalendarEvent> CreateEventAsync(Guid channel, string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
-        CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate);
+    /// <inheritdoc cref="CreateEventAsync(Guid, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool, bool, uint[], CalendarEventRepetition)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
+    /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is private</param>
+    /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> CreateEventAsync(
+        Guid channel,
+        string name,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool isPrivate = false,
+        bool isAllDay = false,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        CreateEventAsync(channel, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, isAllDay, roleIds, repeatInfo);
 
     /// <summary>
     /// Edits the specified <paramref name="calendarEvent">calendar event</paramref>.
@@ -814,7 +861,12 @@ public abstract partial class AbstractGuildedClient
     /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -823,7 +875,23 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.ManageEvent">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
+    public Task<CalendarEvent> UpdateEventAsync(
+        Guid channel,
+        uint calendarEvent,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
         GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Patch)
             .AddJsonBody(new
             {
@@ -834,13 +902,49 @@ public abstract partial class AbstractGuildedClient
                 url,
                 color,
                 duration,
-                isPrivate
+                rsvpLimit,
+                isPrivate,
+                isAllDay,
+                autofillWhitelist,
+                roleIds,
+                repeatInfo
             })
         , "calendarEvent");
 
-    /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, bool?)" />
-    public Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        UpdateEventAsync(channel, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate);
+    /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The new starting date of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> UpdateEventAsync(
+        Guid channel,
+        uint calendarEvent,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        UpdateEventAsync(channel, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
     /// <summary>
     /// Deletes the specified <paramref name="calendarEvent">calendar event</paramref>.
@@ -855,5 +959,121 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="CalendarPermissions.RemoveEvent">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteEventAsync(Guid channel, uint calendarEvent) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Delete));
+
+    /// <summary>
+    /// Edits <see cref="CalendarEvent">calendar events</see> in the specified <paramref name="calendarEventSeries">calendar event series</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The new starting date of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="CalendarPermissions.ManageEvent">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
+    /// <returns>The <see cref="CalendarEvent">calendar event</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<CalendarEvent> UpdateEventSeriesAsync(
+        Guid channel,
+        Guid calendarEventSeries,
+        uint? calendarEvent = null,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/event_series/{calendarEventSeries}", Method.Patch)
+            .AddJsonBody(new
+            {
+                calendarEventId = calendarEvent,
+                name,
+                description,
+                location,
+                startsAt,
+                url,
+                color,
+                duration,
+                rsvpLimit,
+                isPrivate,
+                isAllDay,
+                autofillWhitelist,
+                roleIds,
+                repeatInfo
+            })
+        , "calendarEvent");
+
+    /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The new starting date of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> UpdateEventSeriesAsync(
+        Guid channel,
+        Guid calendarEventSeries,
+        uint? calendarEvent = null,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        UpdateEventSeriesAsync(channel, calendarEventSeries, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
+
+    /// <summary>
+    /// Deletes <see cref="CalendarEvent">calendar events</see> in the specified <paramref name="calendarEventSeries">calendar event series</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="CalendarPermissions.RemoveEvent">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    public Task DeleteEventSeriesAsync(Guid channel, Guid calendarEventSeries) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/event_series/{calendarEventSeries}", Method.Delete));
     #endregion
 }
