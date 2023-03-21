@@ -1,12 +1,11 @@
-using System;
-using System.Runtime.Serialization;
+using Guilded.Content;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace Guilded.Servers;
 
 /// <summary>
-/// Represents the type of content that <see cref="ServerChannel">a channel</see> serves.
+/// Represents the type of content that a <see cref="ServerChannel">channel</see> serves.
 /// </summary>
 /// <seealso cref="ServerChannel" />
 /// <seealso cref="Member" />
@@ -19,6 +18,7 @@ public enum ChannelType
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="AnnouncementChannel" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
@@ -31,11 +31,29 @@ public enum ChannelType
     Announcements,
 
     /// <summary>
-    /// Chat with messages and threaded messages.
+    /// Tournament bracket for competition.
+    /// </summary>
+    /// <seealso cref="ChannelType" />
+    /// <seealso cref="AnnouncementChannel" />
+    /// <seealso cref="Announcements" />
+    /// <seealso cref="Chat" />
+    /// <seealso cref="Calendar" />
+    /// <seealso cref="Docs" />
+    /// <seealso cref="Forums" />
+    /// <seealso cref="List" />
+    /// <seealso cref="Media" />
+    /// <seealso cref="Scheduling" />
+    /// <seealso cref="Stream" />
+    /// <seealso cref="Voice" />
+    Bracket,
+
+    /// <summary>
+    /// <see cref="ChatChannel">Chat</see> with messages and threaded messages.
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="ChatChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
     /// <seealso cref="Forums" />
@@ -47,11 +65,12 @@ public enum ChannelType
     Chat,
 
     /// <summary>
-    /// Events in calendar system.
+    /// <see cref="CalendarEvent">Events</see> in <see cref="CalendarChannel">calendar system</see>.
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="CalendarChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Docs" />
     /// <seealso cref="Forums" />
@@ -63,11 +82,12 @@ public enum ChannelType
     Calendar,
 
     /// <summary>
-    /// Documents containing any information.
+    /// <see cref="Doc">Documents</see> containing any information.
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="DocChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Forums" />
@@ -79,11 +99,12 @@ public enum ChannelType
     Docs,
 
     /// <summary>
-    /// Traditional forum threads with replies in them.
+    /// Traditional <see cref="Topic">forum topics</see> with replies in them.
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="ForumChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
@@ -95,11 +116,12 @@ public enum ChannelType
     Forums,
 
     /// <summary>
-    /// A list of completable tasks.
+    /// A <see cref="ListChannel">list</see> of <see cref="Item">completable tasks</see>.
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="ListChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
@@ -116,6 +138,7 @@ public enum ChannelType
     /// <seealso cref="ChannelType" />
     /// <seealso cref="MediaChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
@@ -132,6 +155,7 @@ public enum ChannelType
     /// <seealso cref="ChannelType" />
     /// <seealso cref="SchedulingChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
@@ -143,11 +167,12 @@ public enum ChannelType
     Scheduling,
 
     /// <summary>
-    /// A <see cref="Voice">voice channel</see> without voice rooms and with screensharing and camera capibilities.
+    /// A <see cref="VoiceChannel">voice channel</see> without voice rooms and with screensharing and camera capibilities.
     /// </summary>
     /// <seealso cref="ChannelType" />
     /// <seealso cref="StreamChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />
@@ -164,6 +189,7 @@ public enum ChannelType
     /// <seealso cref="ChannelType" />
     /// <seealso cref="VoiceChannel" />
     /// <seealso cref="Announcements" />
+    /// <seealso cref="Bracket" />
     /// <seealso cref="Chat" />
     /// <seealso cref="Calendar" />
     /// <seealso cref="Docs" />

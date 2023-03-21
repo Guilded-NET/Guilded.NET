@@ -50,23 +50,6 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Servers
-    // /// <summary>
-    // /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive <see cref="XpAddedEvent.Amount">XP</see>.
-    // /// </summary>
-    // /// <remarks>
-    // /// <para>An event with the name <c>ServerXpAdded</c> and opcode <c>0</c>.</para>
-    // /// </remarks>
-    // /// <seealso cref="MemberJoined" />
-    // /// <seealso cref="MemberUpdated" />
-    // /// <seealso cref="RolesUpdated" />
-    // /// <seealso cref="MemberRemoved" />
-    // /// <seealso cref="MemberBanned" />
-    // /// <seealso cref="MemberUnbanned" />
-    // /// <seealso cref="WebhookCreated" />
-    // /// <seealso cref="WebhookUpdated" />
-    // /// <seealso cref="ServerAdded" />
-    // public IObservable<XpAddedEvent> XpAdded => ((IEventInfo<XpAddedEvent>)GuildedEvents["ServerXpAdded"]).Observable;
-
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
     /// </summary>

@@ -79,7 +79,7 @@ public abstract class ChannelContent<TId, TServer> : ContentModel, IModelHasId<T
     /// <param name="channelId">The identifier of the channel where the <see cref="ChannelContent{TId, TServer}">content</see> is</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="ChannelContent{TId, TServer}">content</see> is</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> creator of the <see cref="ChannelContent{TId, TServer}">content</see></param>
-    /// <param name="createdAt">the date when the <see cref="ChannelContent{TId, TServer}">content</see> was created</param>
+    /// <param name="createdAt">The date when the <see cref="ChannelContent{TId, TServer}">content</see> was created</param>
     /// <returns>New <see cref="ChannelContent{TId, TServer}" /> JSON instance</returns>
     /// <seealso cref="ChannelContent{TId, TServer}" />
     protected ChannelContent(TId id, Guid channelId, TServer serverId, HashId createdBy, DateTime createdAt) =>

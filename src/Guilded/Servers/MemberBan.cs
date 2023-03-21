@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace Guilded.Servers;
 
 /// <summary>
-/// Represents the information of <see cref="User">user's</see> ban.
+/// Represents the information of <see cref="Users.User">user's</see> ban.
 /// </summary>
 /// <seealso cref="Member" />
 /// <seealso cref="MemberSummary{T}" />
@@ -21,24 +21,44 @@ public class MemberBan : IHasParentClient, ICreatableContent, IServerBased
     /// Gets the <see cref="Users.User">user</see> who has been banned.
     /// </summary>
     /// <value>The <see cref="Users.User">user</see> who has been banned</value>
+    /// <seealso cref="MemberBan" />
+    /// <seealso cref="ServerId" />
+    /// <seealso cref="Reason" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="CreatedBy" />
     public UserSummary User { get; }
 
     /// <summary>
-    /// Gets the reason why the <see cref="User">user</see> has been banned, if the reason was specified.
+    /// Gets the reason why the <see cref="User">user</see> has been banned, if the reason was specified by <see cref="Server">server's</see> staff <see cref="Member">member</see>.
     /// </summary>
     /// <value>The reason why the <see cref="User">user</see> has been banned</value>
+    /// <seealso cref="MemberBan" />
+    /// <seealso cref="ServerId" />
+    /// <seealso cref="User" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="CreatedBy" />
     public string? Reason { get; }
 
     /// <summary>
     /// Gets the date when the <see cref="User">user</see> has been banned.
     /// </summary>
     /// <value>The date when the <see cref="User">user</see> has been banned</value>
+    /// <seealso cref="MemberBan" />
+    /// <seealso cref="CreatedBy" />
+    /// <seealso cref="Reason" />
+    /// <seealso cref="User" />
+    /// <seealso cref="ServerId" />
     public DateTime CreatedAt { get; }
 
     /// <summary>
     /// Gets the identifier of the staff <see cref="Member">member</see> who has banned the <see cref="User">user</see>.
     /// </summary>
     /// <value>The identifier of the staff <see cref="Member">member</see> who has banned the <see cref="User">user</see></value>
+    /// <seealso cref="MemberBan" />
+    /// <seealso cref="CreatedAt" />
+    /// <seealso cref="User" />
+    /// <seealso cref="ServerId" />
+    /// <seealso cref="Reason" />
     public HashId CreatedBy { get; }
 
     /// <summary>
@@ -46,8 +66,8 @@ public class MemberBan : IHasParentClient, ICreatableContent, IServerBased
     /// </summary>
     /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="User">user</see> has been banned</value>
     /// <seealso cref="MemberBan" />
-    /// <seealso cref="CreatedBy" />
     /// <seealso cref="User" />
+    /// <seealso cref="CreatedBy" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="Reason" />
     public HashId ServerId { get; }

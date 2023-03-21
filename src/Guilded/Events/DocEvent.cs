@@ -21,7 +21,7 @@ public class DocEvent : IHasParentClient, ICreatableContent, IUpdatableContent, 
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Content.Doc">the document</see> received from the event.
+    /// Gets the <see cref="Content.Doc">document</see> received from the event.
     /// </summary>
     /// <value><see cref="Content.Doc" /></value>
     /// <seealso cref="DocEvent" />

@@ -11,7 +11,6 @@ namespace Guilded.Events;
 /// Represents an event that occurs when member's server profile receives any kind of change, besides <see cref="RolesUpdatedEvent">change in their role list</see>.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
-/// <seealso cref="XpAddedEvent" />
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberRemovedEvent" />
 /// <seealso cref="Member" />

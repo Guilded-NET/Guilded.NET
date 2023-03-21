@@ -77,7 +77,7 @@ public class Message :
     public string? Content { get; }
 
     /// <summary>
-    /// Gets the list of <see cref="Message">messages</see> being replied to.
+    /// Gets the list of <see cref="Message">messages</see> that the current <see cref="Message">message</see> is replying to.
     /// </summary>
     /// <remarks>
     /// <para>The max reply limit is 5.</para>
@@ -89,7 +89,7 @@ public class Message :
     public IList<Guid>? ReplyMessageIds { get; }
 
     /// <summary>
-    /// Gets the list of <see cref="Embed">custom embeds</see> that the <see cref="Message">message</see> contains.
+    /// Gets the list of <see cref="Embed">custom embeds</see> that are part of the <see cref="Message">message's</see> contents.
     /// </summary>
     /// <remarks>
     /// <para>The max <see cref="Embed">embed</see> limit as of now is <see cref="EmbedLimit">1</see>.</para>
@@ -108,7 +108,7 @@ public class Message :
     public Mentions? Mentions { get; }
 
     /// <summary>
-    /// Gets whether <see cref="IsReply">the reply</see> or mention is private.
+    /// Gets whether the reply or mention is private.
     /// </summary>
     /// <remarks>
     /// <para>This can only be <see langword="true" /> if <see cref="ReplyMessageIds" /> has a value or there is an user or role mention in the <see cref="Content" />.</para>
@@ -123,7 +123,7 @@ public class Message :
     public bool IsPrivate { get; }
 
     /// <summary>
-    /// Gets whether <see cref="IsReply">the reply</see> or mention is silent and doesn't ping any user.
+    /// Gets whether the reply or mention is silent and doesn't ping any user.
     /// </summary>
     /// <remarks>
     /// <para>This can only be <see langword="true" /> if <see cref="ReplyMessageIds" /> has a value or there is an user or role mention in the <see cref="Content" />.</para>
@@ -150,7 +150,7 @@ public class Message :
 
     #region Properties
     /// <summary>
-    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created the message.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created the <see cref="Message">message</see>.
     /// </summary>
     /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
     /// <seealso cref="Message" />
@@ -296,20 +296,20 @@ public class Message :
     /// <summary>
     /// Initializes a new instance of <see cref="Message" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the message</param>
-    /// <param name="channelId">The identifier of the channel where the message is</param>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message is</param>
-    /// <param name="content">The text contents of the message</param>
-    /// <param name="replyMessageIds">Gets the list of <see cref="Message">messages</see> being replied to</param>
-    /// <param name="embeds">Gets the list of <see cref="Embed">custom embeds</see> that this message contains</param>
-    /// <param name="isPrivate">Whether <see cref="IsReply">the reply</see> or mention is private</param>
-    /// <param name="isSilent">Whether <see cref="IsReply">the reply</see> or mention is silent</param>
-    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in the <see cref="Content">content</see></param>
+    /// <param name="id">The identifier of the <see cref="Message">message</see></param>
+    /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Message">message</see> is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Message">message</see> is</param>
+    /// <param name="content">The text contents of the <see cref="Message">message</see></param>
+    /// <param name="replyMessageIds">The list of <see cref="Message">messages</see> that the current <see cref="Message">message</see> is replying to</param>
+    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that are part of the <see cref="Message">message's</see> contents</param>
+    /// <param name="isPrivate">Whether the reply or mention is private</param>
+    /// <param name="isSilent">Whether the reply or mention is silent and doesn't ping any user</param>
+    /// <param name="mentions">The <see cref="Mentions">mentions</see> found in the <see cref="Content">content</see></param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
-    /// <param name="createdByWebhookId">The identifier of <see cref="Servers.Webhook">the webhook</see> that created the message</param>
-    /// <param name="createdAt">the date when the message was created</param>
-    /// <param name="updatedAt">the date when the message was edited</param>
-    /// <param name="type">The type of the message</param>
+    /// <param name="createdByWebhookId">The identifier of the <see cref="Webhook">webhook</see> that created the <see cref="Message">message</see></param>
+    /// <param name="createdAt">The date when the <see cref="Message">message</see> was created</param>
+    /// <param name="updatedAt">The date when the <see cref="Message">message</see> was edited</param>
+    /// <param name="type">The type of the <see cref="Message">message</see></param>
     /// <returns>New <see cref="Message" /> JSON instance</returns>
     /// <seealso cref="Message" />
     [JsonConstructor]

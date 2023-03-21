@@ -1,13 +1,15 @@
 // Big yikes for the name
 
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
 using Guilded.Content;
 using Guilded.Servers;
+using Guilded.Users;
 using Newtonsoft.Json;
+using SystemColor = System.Drawing.Color;
 
 namespace Guilded.Events;
 
@@ -26,7 +28,7 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
     /// <summary>
     /// Gets the <see cref="CalendarEvent">calendar event</see> received from the event.
     /// </summary>
-    /// <value><see cref="CalendarEvent">Calendar event</see></value>
+    /// <value>The <see cref="CalendarEvent">calendar event</see> received from the event</value>
     /// <seealso cref="CalendarEventEvent" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="ServerId" />
@@ -59,7 +61,7 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
     public Uri? Url => Event.Url;
 
     /// <inheritdoc cref="CalendarEvent.Color" />
-    public Color? Color => Event.Color;
+    public SystemColor? Color => Event.Color;
 
     /// <inheritdoc cref="CalendarEvent.StartsAt" />
     public DateTime StartsAt => Event.StartsAt;
@@ -133,25 +135,77 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
         (ServerId, Event) = (serverId, calendarEvent);
     #endregion
 
-    #region Methods
-    /// <inheritdoc cref="CalendarEvent.UpdateAsync(string?, string?, string?, DateTime?, Uri?, Color?, uint?, bool?)" />
-    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
-        Event.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
+    #region Methods Event
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, TimeSpan?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition?)" />
+    public Task<CalendarEvent> UpdateAsync(
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        SystemColor? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        ParentClient.UpdateEventAsync(ChannelId, Id, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
-    /// <inheritdoc cref="CalendarEvent.UpdateAsync(string?, string?, string?, DateTime?, Uri?, Color?, TimeSpan?, bool?)" />
-    public Task<CalendarEvent> UpdateAsync(string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        Event.UpdateAsync(name, description, location, startsAt, url, color, duration, isPrivate);
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, SystemColor?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition?)" />
+    public Task<CalendarEvent> UpdateAsync(
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        SystemColor? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        Event.UpdateAsync(name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
-    /// <inheritdoc cref="CalendarEvent.DeleteAsync" />
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteEventAsync(Guid, uint)" />
     public Task DeleteAsync() =>
         Event.DeleteAsync();
 
-    /// <inheritdoc cref="CalendarEvent.AddReactionAsync(uint)" />
+    /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />
+    /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to add</param>
     public Task AddReactionAsync(uint emoteId) =>
         Event.AddReactionAsync(emoteId);
 
-    /// <inheritdoc cref="CalendarEvent.RemoveReactionAsync(uint)" />
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveReactionAsync(Guid, uint, uint)" />
+    /// <param name="emoteId">The identifier of the <see cref="Emote">emote</see> to remove</param>
     public Task RemoveReactionAsync(uint emoteId) =>
         Event.RemoveReactionAsync(emoteId);
+    #endregion
+
+    #region Methods RSVP
+    /// <inheritdoc cref="AbstractGuildedClient.GetRsvpsAsync(Guid, uint)" />
+    public Task<IList<CalendarEventRsvp>> GetRsvpsAsync() =>
+        Event.GetRsvpsAsync();
+
+    /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarEventRsvp">RSVP</see> of</param>
+    public Task<CalendarEventRsvp> GetRsvpAsync(HashId user) =>
+        Event.GetRsvpAsync(user);
+
+    /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarEventRsvpStatus)" />
+    /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarEventRsvp">RSVP</see> of</param>
+    /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
+    public Task<CalendarEventRsvp> SetRsvpAsync(HashId user, CalendarEventRsvpStatus status) =>
+        Event.SetRsvpAsync(user, status);
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarEventRsvp">RSVP</see> of</param>
+    public Task RemoveRsvpAsync(HashId user) =>
+        Event.RemoveRsvpAsync(user);
     #endregion
 }

@@ -59,7 +59,7 @@ public abstract class Reaction : ContentModel, IModelHasId<uint>, IChannelBased
     /// <summary>
     /// Initializes a new instance of <see cref="Reaction" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="emote">the <see cref="Content.Emote">emote</see> with which the <see cref="CreatedBy">user</see> reacted</param>
+    /// <param name="emote">The <see cref="Content.Emote">emote</see> with which the <see cref="CreatedBy">user</see> reacted</param>
     /// <param name="createdBy">The identifier of the <see cref="User">user</see> that reacted</param>
     /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ChannelContent{TId, TServer}">channel content</see> are</param>
     /// <returns>New <see cref="Reaction" /> JSON instance</returns>

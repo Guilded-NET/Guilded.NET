@@ -11,7 +11,6 @@ namespace Guilded.Events;
 /// Represents an event that occurs when a <see cref="Member">member</see> gets banned or unbanned.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
-/// <seealso cref="XpAddedEvent" />
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="MemberRemovedEvent" />

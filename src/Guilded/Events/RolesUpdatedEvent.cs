@@ -15,7 +15,6 @@ namespace Guilded.Events;
 /// <para>This event does not give a list of lost/received events or give a previous role list, so previous role list must be cached, if necessary.</para>
 /// </remarks>
 /// <seealso cref="MemberUpdatedEvent" />
-/// <seealso cref="XpAddedEvent" />
 /// <seealso cref="Member" />
 public class RolesUpdatedEvent : ContentModel, IServerBased
 {

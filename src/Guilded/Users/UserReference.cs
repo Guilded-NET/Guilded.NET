@@ -7,7 +7,7 @@ using Newtonsoft.Json.Converters;
 namespace Guilded.Users;
 
 /// <summary>
-/// Represents a reference to a user without knowing their <see cref="HashId">user ID</see>.
+/// Represents a reference to a <see cref="User">user</see> without knowing their <see cref="HashId">user ID</see>.
 /// </summary>
 /// <seealso cref="HashId" />
 /// <seealso cref="UserSummary" />

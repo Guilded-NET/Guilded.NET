@@ -50,7 +50,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public string? Description { get; }
 
     /// <summary>
-    /// Gets <see cref="Content.Mentions">the mentions</see> found in the <see cref="Description">description</see>.
+    /// Gets the <see cref="Content.Mentions">mentions</see> found in the <see cref="Description">description</see>.
     /// </summary>
     /// <value><see cref="Content.Mentions" />?</value>
     public Mentions? Mentions { get; }

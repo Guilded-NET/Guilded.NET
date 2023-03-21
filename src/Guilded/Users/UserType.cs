@@ -17,14 +17,14 @@ namespace Guilded.Users;
 public enum UserType
 {
     /// <summary>
-    /// <see cref="Users.User">The user</see> is a normal user.
+    /// The <see cref="Users.User">user</see> is a normal user.
     /// </summary>
     /// <seealso cref="Bot" />
     /// <seealso cref="UserType" />
     User,
 
     /// <summary>
-    /// <see cref="Users.User">The user</see> is an API bot.
+    /// The <see cref="Users.User">user</see> is an API bot.
     /// </summary>
     /// <seealso cref="User" />
     /// <seealso cref="UserType" />

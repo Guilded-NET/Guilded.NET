@@ -22,34 +22,34 @@ public abstract class AbstractCommandArgument
     /// <summary>
     /// Gets the parameter that was declared in the method.
     /// </summary>
-    /// <value>Reflection parameter</value>
+    /// <value>The parameter that was declared in the method</value>
     public ParameterInfo Parameter { get; set; }
 
     /// <summary>
-    /// Gets the <see cref="CommandParamAttribute">attribute</see> that was used to declare <see cref="CommandAttribute">the command parameter</see>.
+    /// Gets the <see cref="CommandParamAttribute">attribute</see> that was used to declare a <see cref="CommandAttribute">command's</see> parameter.
     /// </summary>
-    /// <value>Command param attribute</value>
+    /// <value>The <see cref="CommandParamAttribute">attribute</see> that was used to declare a <see cref="CommandAttribute">command's</see> parameter</value>
     public CommandParamAttribute? Attribute { get; set; }
 
     /// <summary>
     /// Gets the displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandArgument">command argument</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandArgument">command argument</see></value>
     public string Name => Attribute?.Name ?? Parameter.Name ?? "";
 
     /// <summary>
-    /// Gets the index of the <see cref="Command">command's</see> <see cref="AbstractCommandArgument">argument</see>.
+    /// Gets the index of the <see cref="Command">command's</see> <see cref="AbstractCommandArgument">command argument</see>.
     /// </summary>
     /// <remarks>
     /// <para>The <see cref="CommandEvent" /> parameter will be ignored, so this starts from <c>0</c>.</para>
     /// </remarks>
-    /// <value>Index</value>
+    /// <value>The index of the <see cref="Command">command's</see> <see cref="AbstractCommandArgument">command argument</see></value>
     public int Index { get; }
 
     /// <summary>
-    /// Gets the <see cref="Command">command</see> where the <see cref="AbstractCommandArgument">argument</see> was declared.
+    /// Gets the <see cref="Command">command</see> where the <see cref="AbstractCommandArgument">command argument</see> was declared.
     /// </summary>
-    /// <value>Method command</value>
+    /// <value>The <see cref="Command">command</see> where the <see cref="AbstractCommandArgument">command argument</see> was declared</value>
     public Command ParentCommand { get; }
     #endregion
 
@@ -57,9 +57,9 @@ public abstract class AbstractCommandArgument
     /// <summary>
     /// Initializes a new instance of <see cref="AbstractCommandArgument" /> from a method <paramref name="parameter" />.
     /// </summary>
-    /// <param name="index">The index of the parameter in a command </param>
-    /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>
-    /// <param name="command">The parent <see cref="CommandAttribute">command</see> of this <see cref="CommandAttribute">argument</see></param>
+    /// <param name="index">The index of the <see cref="Command">command's</see> <see cref="AbstractCommandArgument">command argument</see></param>
+    /// <param name="parameter">The <see cref="Command">command</see> where the <see cref="AbstractCommandArgument">command argument</see> was declared</param>
+    /// <param name="command">The <see cref="Command">command</see> where the <see cref="AbstractCommandArgument">command argument</see> was declared</param>
     protected AbstractCommandArgument(int index, ParameterInfo parameter, Command command) =>
         (Index, Attribute, Parameter, ParentCommand) = (
             index,
@@ -71,12 +71,12 @@ public abstract class AbstractCommandArgument
 
     #region Methods
     /// <summary>
-    /// Returns the value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index.
+    /// Sets the converted <paramref name="value" /> and returns whether it was successful in setting the <paramref name="value" />.
     /// </summary>
-    /// <param name="config">The <see cref="CommandConfiguration">configuration</see> used for <see cref="CommandModule">commands</see></param>
-    /// <param name="argument">The convertable <see cref="CommandEvent.Arguments">argument</see> fetched from <see cref="CommandEvent">the command invokation</see></param>
+    /// <param name="configuration">The <see cref="CommandConfiguration">configuration</see> used for <see cref="CommandModule">commands</see></param>
+    /// <param name="argument">The convertable <see cref="CommandEvent.Arguments">argument</see> fetched from the <see cref="CommandEvent">command invokation</see></param>
     /// <param name="value">The converted value</param>
-    /// <returns>Te value for <see cref="AbstractCommandArgument">the argument</see> of <see cref="CommandEvent.Arguments">the provided invokation arguments</see> and current index</returns>
-    public abstract bool TryGetValueFrom(CommandConfiguration config, string? argument, out object? value);
+    /// <returns>Whether it was successful in setting the <paramref name="value" /></returns>
+    public abstract bool TryGetValueFrom(CommandConfiguration configuration, string? argument, out object? value);
     #endregion
 }

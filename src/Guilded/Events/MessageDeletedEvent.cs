@@ -46,45 +46,45 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     {
         #region Properties
         /// <summary>
-        /// Gets the identifier of the message.
+        /// Gets the identifier of the <see cref="MessageDeleted">deleted message</see>.
         /// </summary>
-        /// <value>Message ID</value>
+        /// <value>The identifier of the <see cref="MessageDeleted">deleted message</see></value>
         public Guid Id { get; }
 
         /// <summary>
-        /// Gets the identifier of the channel where the message was.
+        /// Gets the identifier of the <see cref="ServerChannel">channel</see> where the <see cref="MessageDeleted">deleted message</see> was.
         /// </summary>
-        /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
+        /// <value>The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="MessageDeleted">deleted message</see> was</value>
         public Guid ChannelId { get; }
 
         /// <summary>
-        /// Gets the identifier of the <see cref="Server">server</see> where the message was.
+        /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="MessageDeleted">deleted message</see> was.
         /// </summary>
-        /// <value>Server ID?</value>
+        /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="MessageDeleted">deleted message</see> was</value>
         public HashId? ServerId { get; }
 
         /// <summary>
-        /// Gets the date when the message was deleted.
+        /// Gets the date when the <see cref="MessageDeleted">message</see> was deleted.
         /// </summary>
-        /// <value>Date</value>
+        /// <value>The date when the <see cref="MessageDeleted">message</see> was deleted</value>
         public DateTime DeletedAt { get; }
 
         /// <summary>
-        /// Gets whether the deleted message was <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see>.
+        /// Gets whether the <see cref="MessageDeleted">deleted message</see> was a <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see>.
         /// </summary>
-        /// <value><see cref="Message" /> is private</value>
+        /// <value>Whether the <see cref="MessageDeleted">deleted message</see> was a <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></value>
         public bool IsPrivate { get; }
         #endregion
 
         #region Constructors
         /// <summary>
-        /// The identifier of the message.
+        /// Initializes a new instance of <see cref="MessageDeleted" /> from the specified JSON properties.
         /// </summary>
-        /// <param name="id">The identifier of the message</param>
-        /// <param name="channelId">The identifier of the channel where the message was</param>
-        /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message was</param>
-        /// <param name="isPrivate">Whether the deleted message was <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></param>
-        /// <param name="deletedAt">the date when the message was deleted</param>
+        /// <param name="id">The identifier of the <see cref="MessageDeleted">deleted message</see></param>
+        /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="MessageDeleted">deleted message</see> was</param>
+        /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="MessageDeleted">deleted message</see> was</param>
+        /// <param name="isPrivate">Whether the <see cref="MessageDeleted">deleted message</see> was a <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></param>
+        /// <param name="deletedAt">The date when the <see cref="MessageDeleted">message</see> was deleted</param>
         /// <returns>New <see cref="MessageDeleted" /> JSON instance</returns>
         /// <seealso cref="MessageDeleted" />
         [JsonConstructor]
@@ -109,24 +109,24 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
 
         #region Methods
         /// <summary>
-        /// Creates string equivalent of the message.
+        /// Returns a simple representation of the <see cref="MessageDeleted">deleted message</see>.
         /// </summary>
-        /// <returns>Message as string</returns>
+        /// <returns>A simple representation of the <see cref="MessageDeleted">deleted message</see></returns>
         public override string ToString() =>
-            $"Content {Id}";
+            $"Deleted Message {Id}";
 
         /// <summary>
-        /// Returns whether this and <paramref name="obj" /> are equal to each other.
+        /// Returns whether the current <see cref="MessageDeleted" /> instance and the <paramref name="obj">given parameter</paramref> are equal to each other.
         /// </summary>
         /// <param name="obj">Another object to compare</param>
-        /// <returns>Are equal</returns>
+        /// <returns>Whether the current <see cref="MessageDeleted" /> instance and the <paramref name="obj">given parameter</paramref> are equal to each other</returns>
         public override bool Equals(object? obj) =>
             obj is MessageDeleted message && message.ChannelId == ChannelId && message.Id == Id;
 
         /// <summary>
-        /// Gets a hashcode of this object.
+        /// Gets the hashcode of the <see cref="MessageDeleted">deleted message</see>.
         /// </summary>
-        /// <returns>HashCode</returns>
+        /// <returns>The hashcode of the <see cref="MessageDeleted">deleted message</see></returns>
         public override int GetHashCode() =>
             HashCode.Combine(ChannelId, Id);
         #endregion

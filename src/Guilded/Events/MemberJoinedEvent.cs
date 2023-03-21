@@ -8,10 +8,9 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs once <see cref="Servers.Member">a member</see> joins <see cref="Server">a server</see>.
+/// Represents an event that occurs once <see cref="Servers.Member">a member</see> joins a <see cref="Server">server</see>.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
-/// <seealso cref="XpAddedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="WebhookEvent" />
 /// <seealso cref="Servers.Member" />

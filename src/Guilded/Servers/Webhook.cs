@@ -16,6 +16,9 @@ namespace Guilded.Servers;
 /// <summary>
 /// Represents a channel webhook. This is a bot-like <see cref="ServerChannel">channel</see> member that creates messages, list items or forum threads once its URL is invoked.
 /// </summary>
+/// <remarks>
+/// <para>As of now, webhooks are only available in <see cref="ChatChannel">chat channels</see> and <see cref="ListChannel">list channels</see>. They cannot appear in <see cref="ChannelType.Chat">chat</see>-like <see cref="ServerChannel">channels</see> like <see cref="VoiceChannel">voice channels</see> or <see cref="StreamChannel">streaming channels</see>.</para>
+/// </remarks>
 /// <seealso cref="Member" />
 /// <seealso cref="ServerChannel" />
 /// <seealso cref="MemberSummary{T}" />
@@ -123,7 +126,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <remarks>
     /// <para><see cref="Webhook">The webhook</see> will remain present after being deleted for the clients to be able to render the webhook's avatar and name.</para>
     /// </remarks>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="Webhook">webhook</see> was deleted</value>
     /// <seealso cref="Webhook" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="CreatedAt" />
@@ -164,9 +167,9 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// <param name="token">The token of the <see cref="Webhook">webhook</see></param>
     /// <param name="channelId">The identifier of the channel where webhook is</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where webhook is</param>
-    /// <param name="createdAt">the date when the <see cref="Webhook">webhook</see> was created</param>
+    /// <param name="createdAt">The date when the <see cref="Webhook">webhook</see> was created</param>
     /// <param name="createdBy">The identifier of the <see cref="User">user</see> that created the <see cref="Webhook">webhook</see></param>
-    /// <param name="deletedAt">the date when the <see cref="Webhook">webhook</see> was deleted</param>
+    /// <param name="deletedAt">The date when the <see cref="Webhook">webhook</see> was deleted</param>
     /// <returns>New <see cref="Webhook" /> JSON instance</returns>
     /// <seealso cref="Webhook" />
     [JsonConstructor]

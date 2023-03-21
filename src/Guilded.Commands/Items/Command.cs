@@ -152,9 +152,8 @@ public class Command : AbstractCommand<MethodInfo>
 public class CommandContainer : AbstractCommand<Type>
 {
     #region Properties
-
     /// <summary>
-    /// Gets the created instance of <see cref="CommandAttribute">the command</see> type for this command.
+    /// Gets the created instance of the <see cref="CommandAttribute">command</see> type for this command.
     /// </summary>
     /// <value>Command instance</value>
     public CommandParent Instance { get; }

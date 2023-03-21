@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when someone creates, updates or deletes <see cref="ServerChannel">a channel</see>.
+/// Represents an event that occurs when someone creates, updates or deletes a <see cref="ServerChannel">channel</see>.
 /// </summary>
 /// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />

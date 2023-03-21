@@ -1,3 +1,40 @@
+# v1.5.0
+
+BREAKING:
+
+- Changed name from `CalendarRsvp` to `CalendarEventRsvp`
+- Changed name from `CalendarRsvpStatus` to `CalendarEventRsvpStatus`
+- Changed name from `CalendarCancellation` to `CalendarEventCancellation`
+- Changed `MessageDeleted.ToString()` return value to `Deleted Message message-id-here`
+- Removed long deleted `XpAddedEvent` and `AbstractGuildedClient.XpAdded`. These will be re-added once Guilded API adds them back.
+
+Non-breaking:
+
+## Events
+- Added `CalendarEventComment` class
+- Added `CreateEventCommentAsync`, `UpdateEventCommentAsync`, `DeleteEventCommentAsync`, `AddEventCommentReaction`, `RemoveEventCommentReaction` methods for calendar event comments
+- Added `CalendarEventReaction`, `CalendarEventCommentReaction` reaction classes
+- Added `CalendarEventSeries` for repeating events.
+- Added `CalendarEventRepetition` and `CalendarEventInterval` classes, `CalendarEventRepetitionType` and `CalendarEventIntervalType` enums for setting calendar repetition
+- Added the ability to create, update and delete event series through `CreateEventAsync`, `UpdateEventSeriesAsync`, `DeleteEventSeriesAsync`.
+
+- Added `EventSeriesUpdated`, `EventSeriesDeleted` events for calendar event repetition changes
+- Added `EventReactionAdded`, `EventReactionRemoved` events for calendar event reactions
+- Added `EventCommentCreated`, `EventCommentUpdated`, `EventCommentDeleted`, `EventCommentReactionAdded`, `EventCommentReactionRemoved` events for calendar event comments
+
+## Docs
+- Added `DocReactionAdded`, `DocReactionRemoved` events for doc reactions
+- Added `DocCommentCreated`, `DocCommentUpdated`, `DocCommentDeleted`, `DocCommentReactionAdded`, `DocCommentReactionRemoved` events for doc comments
+- Added `DocComment` class for document comments
+- Added `DocReaction`, `DocCommentReaction` classes for document reactions
+
+## Other stuff
+
+- Added `UserId` to `SocialLink`
+- Added `CreatedAt` to `SocialLink`
+- Added `MemberSocialLinkCreated`, `MemberSocialLinkUpdated`, `MemberSocialLinkDeleted` events for `SocialLink` changes
+- Changed lots of documentation
+
 # v1.4.0
 
 - Added `UserReference` and its single enum field `Me`

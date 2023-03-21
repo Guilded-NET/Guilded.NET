@@ -151,7 +151,6 @@ public class ForumChannel : ServerChannel
     public Task RemoveTopicPinAsync(uint topic) =>
         UnpinTopicAsync(topic);
 
-
     /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
     /// <param name="topic">The identifier of the <see cref="Topic">forum topic</see> where the <see cref="TopicComment">forum topic comment</see> should be</param>
     /// <param name="content">The content of the <see cref="TopicComment">forum topic comment</see></param>

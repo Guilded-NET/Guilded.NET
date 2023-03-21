@@ -16,7 +16,7 @@ public class User : UserSummary
     /// <summary>
     /// Gets the date when the <see cref="User">user</see> has registered their account.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="User">user</see> has registered their account</value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     public DateTime CreatedAt { get; }
@@ -24,7 +24,7 @@ public class User : UserSummary
     /// <summary>
     /// Gets the global banner of the <see cref="User">user</see>.
     /// </summary>
-    /// <value>Media URL?</value>
+    /// <value>The global banner of the <see cref="User">user</see></value>
     /// <seealso cref="User" />
     /// <seealso cref="UserSummary" />
     /// <seealso cref="UserSummary.Avatar" />
@@ -38,7 +38,7 @@ public class User : UserSummary
     /// </summary>
     /// <param name="id">The identifier of <see cref="User">user</see></param>
     /// <param name="name">The global username of the <see cref="User">user</see></param>
-    /// <param name="createdAt">the date when the <see cref="User">user</see> was created</param>
+    /// <param name="createdAt">The date when the <see cref="User">user</see> was created</param>
     /// <param name="avatar">The global avatar of the <see cref="User">user</see></param>
     /// <param name="banner">The global banner of the <see cref="User">user</see></param>
     /// <param name="type">The type of the <see cref="User">user</see> they are</param>

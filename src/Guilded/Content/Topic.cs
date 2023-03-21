@@ -25,9 +25,9 @@ public class TopicSummary : TitledContent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created <see cref="TopicSummary">the forum thread</see>.
+    /// Gets the identifier of the <see cref="Webhook">webhook</see> that created the <see cref="TopicSummary">forum thread</see>.
     /// </summary>
-    /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
+    /// <value>The identifier of the <see cref="Webhook">webhook</see> that created the <see cref="TopicSummary">forum thread</see></value>
     /// <seealso cref="TopicSummary" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
@@ -37,7 +37,7 @@ public class TopicSummary : TitledContent
     /// <summary>
     /// Gets the date when the <see cref="TopicSummary">forum topic</see> was bumped.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="TopicSummary">forum topic</see> was bumped</value>
     /// <seealso cref="TopicSummary" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     /// <seealso cref="TitledContent.UpdatedAt" />
@@ -211,15 +211,15 @@ public class TopicSummary : TitledContent
     /// <summary>
     /// Initializes a new instance of <see cref="TopicSummary" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of the forum thread</param>
-    /// <param name="channelId">The identifier of the channel where the forum thread is</param>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the forum thread is</param>
-    /// <param name="title">The title of the forum thread</param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the forum thread</param>
-    /// <param name="createdByWebhookId">The identifier of the webhook that created the forum thread</param>
-    /// <param name="createdAt">The date when the forum thread was created</param>
-    /// <param name="bumpedAt">The date when the <see cref="TopicSummary">topic</see> was bumped</param>
-    /// <param name="updatedAt">The date when the forum thread was edited</param>
+    /// <param name="id">The identifier of the <see cref="TopicSummary">forum topic</see></param>
+    /// <param name="channelId">The identifier of the <see cref="ForumChannel">channel</see> where the <see cref="TopicSummary">forum topic</see> is</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicSummary">forum topic</see> is</param>
+    /// <param name="title">The title of the <see cref="TopicSummary">forum topic</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="TopicSummary">forum topic</see></param>
+    /// <param name="createdByWebhookId">The identifier of the <see cref="Webhook">webhook</see> that created the <see cref="TopicSummary">forum topic</see></param>
+    /// <param name="createdAt">The date when the <see cref="TopicSummary">forum topic</see> was created</param>
+    /// <param name="bumpedAt">The date when the <see cref="TopicSummary">forum topic</see> was bumped</param>
+    /// <param name="updatedAt">The date when the <see cref="TopicSummary">forum topic</see> was edited</param>
     /// <param name="isPinned">Whether the <see cref="TopicSummary">forum topic</see> has been pinned</param>
     /// <param name="isLocked">Whether the <see cref="TopicSummary">forum topic</see> has been locked</param>
     /// <returns>New <see cref="TopicSummary" /> JSON instance</returns>

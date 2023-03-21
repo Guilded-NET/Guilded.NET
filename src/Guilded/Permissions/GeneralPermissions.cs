@@ -67,7 +67,7 @@ public enum GeneralPermissions
     AddEveryoneMention = 8192,
 
     /// <summary>
-    /// Allows you to update <see cref="Server">the server's</see> roles
+    /// Allows you to update the <see cref="Server">server's</see> roles
     /// </summary>
     ManageRole = 16384,
 

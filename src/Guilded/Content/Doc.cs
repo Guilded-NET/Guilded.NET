@@ -32,7 +32,7 @@ public class Doc : TitledContent, IContentMarkdown
     public string Content { get; }
 
     /// <summary>
-    /// Gets <see cref="Content.Mentions">the mentions</see> found in the <see cref="Content">content</see>.
+    /// Gets the <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see>.
     /// </summary>
     /// <value><see cref="Content.Mentions" />?</value>
     public Mentions? Mentions { get; }
@@ -94,9 +94,9 @@ public class Doc : TitledContent, IContentMarkdown
     /// <param name="title">The title of the document</param>
     /// <param name="content">The text contents of the document</param>
     /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the document</param>
-    /// <param name="createdAt">the date when the document was created</param>
+    /// <param name="createdAt">The date when the document was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
-    /// <param name="updatedAt">the date when the document was recently updated</param>
+    /// <param name="updatedAt">The date when the document was recently updated</param>
     /// <param name="mentions"><see cref="Mentions">The mentions</see> found in the <see cref="Content">content</see></param>
     /// <returns>New <see cref="Doc" /> JSON instance</returns>
     /// <seealso cref="Doc" />

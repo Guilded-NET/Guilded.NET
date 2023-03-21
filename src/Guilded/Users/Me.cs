@@ -16,21 +16,21 @@ public class ClientUser : User, ICreatableContent
 {
     #region Properties
     /// <summary>
-    /// Gets the identifier of the bot <see cref="AbstractGuildedClient">this client</see> is logged into.
+    /// Gets the identifier of the bot the <see cref="AbstractGuildedClient">client</see> is logged into.
     /// </summary>
-    /// <value>Bot ID</value>
+    /// <value>The identifier of the bot the <see cref="AbstractGuildedClient">client</see> is logged into</value>
     /// <seealso cref="ClientUser" />
     /// <seealso cref="UserSummary.Id" />
     /// <seealso cref="UserSummary.Name" />
     public Guid BotId { get; set; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that has created <see cref="AbstractGuildedClient">this client</see>.
+    /// Gets the identifier of <see cref="User">user</see> that has created the <see cref="AbstractGuildedClient">client</see>.
     /// </summary>
     /// <remarks>
     /// <para>This should usually be the identifier of your account or the <see cref="User">user</see> who owns the bot.</para>
     /// </remarks>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of <see cref="User">user</see> that has created the <see cref="AbstractGuildedClient">client</see></value>
     /// <seealso cref="ClientUser" />
     /// <seealso cref="User.CreatedAt" />
     public HashId CreatedBy { get; set; }
@@ -40,11 +40,11 @@ public class ClientUser : User, ICreatableContent
     /// <summary>
     /// Initializes a new instance of <see cref="ClientUser" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="id">The identifier of <see cref="User">user</see> <see cref="AbstractGuildedClient">this client</see> is logged into</param>
-    /// <param name="botId">The identifier of the bot <see cref="AbstractGuildedClient">this client</see> is logged into</param>
-    /// <param name="name">The name of <see cref="AbstractGuildedClient">this client</see></param>
-    /// <param name="createdAt">The creation date of <see cref="AbstractGuildedClient">this client</see></param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that has created <see cref="AbstractGuildedClient">this client</see></param>
+    /// <param name="id">The identifier of <see cref="User">user</see> the <see cref="AbstractGuildedClient">client</see> is logged into</param>
+    /// <param name="botId">The identifier of the bot the <see cref="AbstractGuildedClient">client</see> is logged into</param>
+    /// <param name="name">The name of the <see cref="AbstractGuildedClient">client</see></param>
+    /// <param name="createdAt">The creation date of the <see cref="AbstractGuildedClient">client</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that has created the <see cref="AbstractGuildedClient">client</see></param>
     /// <param name="avatar">The global avatar of the <see cref="User">user</see></param>
     /// <param name="banner">The global banner of the <see cref="User">user</see></param>
     /// <param name="type">The type of the <see cref="User">user</see> they are</param>

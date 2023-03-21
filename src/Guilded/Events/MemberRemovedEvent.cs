@@ -7,10 +7,9 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when a <see cref="Member">member</see> leaves <see cref="Server">a server</see> or gets removed from it.
+/// Represents an event that occurs when a <see cref="Member">member</see> leaves a <see cref="Server">server</see> or gets removed from it.
 /// </summary>
 /// <seealso cref="RolesUpdatedEvent" />
-/// <seealso cref="XpAddedEvent" />
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
 /// <seealso cref="MemberBanEvent" />

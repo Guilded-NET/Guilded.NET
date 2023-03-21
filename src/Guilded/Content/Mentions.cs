@@ -17,53 +17,53 @@ public class Mentions
 {
     #region Properties JSON
     /// <summary>
-    /// Gets whether <c>@everyone</c> has been <see cref="Mentions">mentioned</see>.
+    /// Gets whether <c>@everyone</c> have been mentioned.
     /// </summary>
-    /// <value>Everyone was mentioned</value>
+    /// <value>Whether <c>@everyone</c> have been mentioned</value>
     public bool Everyone { get; }
 
     /// <summary>
-    /// Gets whether <c>@here</c> has been <see cref="Mentions">mentioned</see>.
+    /// Gets whether <c>@here</c> have been mentioned.
     /// </summary>
-    /// <value>Here was mentioned</value>
+    /// <value>Whether <c>@here</c> have been mentioned</value>
     public bool Here { get; }
 
     /// <summary>
-    /// Gets the list of <see cref="User">users</see> that have been <see cref="Mentions">mentioned</see>.
+    /// Gets the list of <see cref="User">users</see> that have been mentioned.
     /// </summary>
-    /// <value>List of <see cref="User">user</see> mentions</value>
+    /// <value>The list of <see cref="User">users</see> that have been mentioned</value>
     public IList<UserMention>? Users { get; }
 
     /// <summary>
-    /// Gets the list of roles that have been <see cref="Mentions">mentioned</see>.
+    /// Gets the list of <see cref="ServerChannel">channels</see> that have been mentioned.
     /// </summary>
-    /// <value>List of role mentions</value>
-    public IList<RoleMention>? Roles { get; }
+    /// <value>The list of <see cref="ServerChannel">channels</see> that have been mentioned</value>
+    public IList<ChannelMention>? Channels { get; }
 
     /// <summary>
-    /// Gets the list of <see cref="ServerChannel">channels</see> that have been <see cref="Mentions">mentioned</see>.
+    /// Gets the list of roles that have been mentioned.
     /// </summary>
-    /// <value>List of <see cref="ServerChannel">channel</see> mentions</value>
-    public IList<ChannelMention>? Channels { get; }
+    /// <value>The list of roles that have been mentioned</value>
+    public IList<RoleMention>? Roles { get; }
     #endregion
 
     #region Properties
     /// <summary>
-    /// Gets the identifiers of <see cref="User">the users</see> that have been <see cref="Mentions">mentioned</see>.
+    /// Gets the identifiers of the <see cref="User">users</see> that have been mentioned.
     /// </summary>
-    /// <returns><see cref="UserSummary.Id">User IDs</see></returns>
+    /// <returns>The identifiers of the <see cref="User">users</see> that have been mentioned</returns>
     public IEnumerable<HashId>? UserIds => Users?.Select(x => x.Id);
 
     /// <summary>
-    /// Gets the identifiers of <see cref="ServerChannel">the channels</see> that have been <see cref="Mentions">mentioned</see>.
+    /// Gets the identifiers of the <see cref="ServerChannel">channels</see> that have been mentioned.
     /// </summary>
-    /// <returns><see cref="ServerChannel.Id">Channel IDs</see></returns>
+    /// <returns>The identifiers of the <see cref="ServerChannel">channels</see> that have been mentioned</returns>
     public IEnumerable<Guid>? ChannelIds => Channels?.Select(x => x.Id);
 
     /// <summary>
-    /// Gets the identifiers of <see cref="ServerChannel">the channels</see> that have been <see cref="Mentions">mentioned</see>.
+    /// Gets the identifiers of the roles that have been mentioned.
     /// </summary>
-    /// <returns>Role IDs</returns>
+    /// <returns>The identifiers of the roles that have been mentioned</returns>
     public IEnumerable<uint>? RoleIds => Roles?.Select(x => x.Id);
     #endregion
 
@@ -71,11 +71,11 @@ public class Mentions
     /// <summary>
     /// Initializes a new instance of <see cref="Mentions" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="everyone">Whether <c>@everyone</c> has been <see cref="Mentions">mentioned</see></param>
-    /// <param name="here">Whether <c>@here</c> has been <see cref="Mentions">mentioned</see></param>
-    /// <param name="users">The list of <see cref="User">users</see> that have been <see cref="Mentions">mentioned</see></param>
-    /// <param name="channels">The list of <see cref="ServerChannel">channels</see> that have been <see cref="Mentions">mentioned</see></param>
-    /// <param name="roles">The list of roles that have been <see cref="Mentions">mentioned</see></param>
+    /// <param name="everyone">Whether <c>@everyone</c> have been mentioned</param>
+    /// <param name="here">Whether <c>@here</c> have been mentioned</param>
+    /// <param name="users">The list of <see cref="User">users</see> that have been mentioned</param>
+    /// <param name="channels">The list of <see cref="ServerChannel">channels</see> that have been mentioned</param>
+    /// <param name="roles">The list of roles that have been mentioned</param>
     /// <returns>New <see cref="Mentions" /> JSON instance</returns>
     public Mentions(
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -98,15 +98,15 @@ public class Mentions
 
     #region Types
     /// <summary>
-    /// Represents a mention of <see cref="User">a user</see>.
+    /// Represents a mention of a <see cref="User">user</see>.
     /// </summary>
     public class UserMention : IModelHasId<HashId>
     {
         #region Properties
         /// <summary>
-        /// Gets the identifier of <see cref="User">the mentioned user</see>.
+        /// Gets the identifier of the mentioned <see cref="User">user</see>.
         /// </summary>
-        /// <value><see cref="UserSummary.Id">User ID</see></value>
+        /// <value>The identifier of the mentioned <see cref="User">user</see></value>
         public HashId Id { get; }
         #endregion
 
@@ -114,7 +114,7 @@ public class Mentions
         /// <summary>
         /// Initializes a new instance of <see cref="UserMention" />.
         /// </summary>
-        /// <param name="id">The identifier of <see cref="User">the mentioned user</see></param>
+        /// <param name="id">The identifier of the mentioned <see cref="User">user</see></param>
         /// <returns>New <see cref="UserMention" /> JSON instance</returns>
         public UserMention(
             [JsonProperty(Required = Required.Always)]
@@ -127,22 +127,22 @@ public class Mentions
         /// <summary>
         /// Returns the Markdown equivalent to the <see cref="UserMention">mention</see>.
         /// </summary>
-        /// <returns>Markdown role <see cref="UserMention">mention</see></returns>
+        /// <returns>The Markdown equivalent to the <see cref="UserMention">mention</see></returns>
         public override string ToString() =>
             $"<@{Id}>";
         #endregion
     }
 
     /// <summary>
-    /// Represents a mention of <see cref="ServerChannel">a channel</see>.
+    /// Represents a mention of a <see cref="ServerChannel">channel</see>.
     /// </summary>
     public class ChannelMention : IModelHasId<Guid>
     {
         #region Properties
         /// <summary>
-        /// Gets the identifier of <see cref="ServerChannel">the mentioned channel</see>.
+        /// Gets the identifier of the mentioned <see cref="ServerChannel">channel</see>.
         /// </summary>
-        /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
+        /// <value>The identifier of the mentioned <see cref="ServerChannel">channel</see></value>
         public Guid Id { get; }
         #endregion
 
@@ -150,7 +150,7 @@ public class Mentions
         /// <summary>
         /// Initializes a new instance of <see cref="ServerChannel" />.
         /// </summary>
-        /// <param name="id">The identifier of <see cref="ServerChannel">the mentioned channel</see></param>
+        /// <param name="id">The identifier of the mentioned <see cref="ServerChannel">channel</see></param>
         /// <returns>New <see cref="ChannelMention" /> JSON instance</returns>
         public ChannelMention(
             [JsonProperty(Required = Required.Always)]
@@ -163,7 +163,7 @@ public class Mentions
         /// <summary>
         /// Returns the Markdown equivalent to the <see cref="ChannelMention">mention</see>.
         /// </summary>
-        /// <returns>Markdown role <see cref="ChannelMention">mention</see></returns>
+        /// <returns>The Markdown equivalent to the <see cref="ChannelMention">mention</see></returns>
         public override string ToString() =>
             $"<#{Id}>";
         #endregion
@@ -178,7 +178,7 @@ public class Mentions
         /// <summary>
         /// Gets the identifier of the mentioned role.
         /// </summary>
-        /// <value>Role ID</value>
+        /// <value>The identifier of the mentioned role</value>
         public uint Id { get; }
         #endregion
 
@@ -199,7 +199,7 @@ public class Mentions
         /// <summary>
         /// Returns the Markdown equivalent to the <see cref="RoleMention">mention</see>.
         /// </summary>
-        /// <returns>Markdown role <see cref="RoleMention">mention</see></returns>
+        /// <returns>The Markdown equivalent to the <see cref="RoleMention">mention</see></returns>
         public override string ToString() =>
             $"<@{Id}>";
         #endregion

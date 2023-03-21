@@ -115,7 +115,7 @@ public class MessageContent
     /// <summary>
     /// Creates an instance of <see cref="MessageContent" />.
     /// </summary>
-    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that <see cref="T:Guilded.Content.Message">the message</see> contains</param>
+    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that the <see cref="T:Guilded.Content.Message">message</see> contains</param>
     public MessageContent(params Embed[] embeds) =>
         Embeds = embeds;
 
@@ -129,7 +129,7 @@ public class MessageContent
     /// Creates an instance of <see cref="MessageContent" /> from the JSON properties.
     /// </summary>
     /// <param name="content">The text contents of the <see cref="T:Guilded.Content.Message">message</see></param>
-    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that <see cref="T:Guilded.Content.Message">the message</see> contains</param>
+    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that the <see cref="T:Guilded.Content.Message">message</see> contains</param>
     /// <param name="replyMessageIds">The list of <see cref="T:Guilded.Content.Message">messages</see> being replied to</param>
     /// <param name="isPrivate">Whether the <see cref="T:Guilded.Content.Message.IsReply">reply</see> or mention is private</param>
     /// <param name="isSilent">Whether the <see cref="T:Guilded.Content.Message.IsReply">reply</see> or mention is silent and doesn't ping any user</param>

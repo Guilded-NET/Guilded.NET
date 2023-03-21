@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Guilded.Servers;
 
 /// <summary>
-/// Represents information about the <see cref="User">user</see> in <see cref="Server">a server</see>.
+/// Represents a <see cref="User">user</see> in a <see cref="Server">server</see> and information about their membership.
 /// </summary>
 /// <seealso cref="MemberSummary{T}" />
 /// <seealso cref="MemberBan" />
@@ -40,9 +40,9 @@ public class Member : MemberSummary<User>
 
     #region Properties
     /// <summary>
-    /// Gets the set nickname of the <see cref="Member">member</see> in the <see cref="Server">server</see>.
+    /// Gets the nickname of the <see cref="Member">member</see> that has been set in the <see cref="Server">server</see>.
     /// </summary>
-    /// <value>Name?</value>
+    /// <value>The nickname of the <see cref="Member">member</see> that has been set in the <see cref="Server">server</see></value>
     /// <seealso cref="Member" />
     /// <seealso cref="MemberSummary{T}.Name" />
     /// <seealso cref="MemberSummary{T}.RoleIds" />
@@ -51,7 +51,7 @@ public class Member : MemberSummary<User>
     /// <summary>
     /// Gets the date when the <see cref="Member">member</see> joined.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="Member">member</see> joined.</value>
     /// <seealso cref="Member" />
     /// <seealso cref="MemberSummary{T}.Id" />
     public DateTime JoinedAt { get; }
@@ -59,7 +59,10 @@ public class Member : MemberSummary<User>
     /// <summary>
     /// Gets whether the <see cref="Member">member</see> is the owner of the <see cref="Server">server</see>.
     /// </summary>
-    /// <value>Member is owner</value>
+    /// <remarks>
+    /// <para>This can be useful for checking if individual is member an owner of a particular <see cref="Server">server</see>. Never go through every member in a <see cref="Server">server</see> to see who is the owner of it. In those scenarios you should use <see cref="Server.OwnerId" />.</para>
+    /// </remarks>
+    /// <value>Whether the <see cref="Member">member</see> is the owner of the <see cref="Server">server</see></value>
     /// <seealso cref="Member" />
     public bool IsOwner { get; }
 
@@ -74,11 +77,11 @@ public class Member : MemberSummary<User>
     /// <summary>
     /// Initializes a new instance of <see cref="Member" />f rom the specified JSON properties.
     /// </summary>
-    /// <param name="user">the <see cref="User">user</see> who is a member of the <see cref="Server">server</see></param>
-    /// <param name="roleIds">The list of roles that member holds</param>
+    /// <param name="user">The <see cref="User">user</see> who is a <see cref="Member">member</see> of the <see cref="Server">server</see></param>
+    /// <param name="roleIds">The list of roles that the <see cref="Member">member</see> holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
-    /// <param name="joinedAt">the date when the member joined</param>
-    /// <param name="nickname">The nickname that member has</param>
+    /// <param name="joinedAt">The date when the <see cref="Member">member</see> joined</param>
+    /// <param name="nickname">The nickname of the <see cref="Member">member</see> that has been set in the <see cref="Server">server</see></param>
     /// <param name="isOwner">Whether the <see cref="Member">member</see> is the owner of the <see cref="Server">server</see></param>
     /// <returns>New <see cref="Member" /> JSON instance</returns>
     /// <seealso cref="Member" />

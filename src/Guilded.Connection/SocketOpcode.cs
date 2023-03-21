@@ -1,7 +1,7 @@
 namespace Guilded.Connection;
 
 /// <summary>
-/// Represents <see cref="GuildedSocketMessage.Opcode">the opcodes</see> in Guilded's WebSocket.
+/// Represents the <see cref="GuildedSocketMessage.Opcode">opcodes</see> in Guilded's WebSocket.
 /// </summary>
 /// <seealso cref="GuildedSocketMessage" />
 /// <seealso cref="GuildedSocketException" />

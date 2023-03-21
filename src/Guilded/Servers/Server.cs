@@ -1,5 +1,7 @@
 using System;
 using Guilded.Base;
+using Guilded.Content;
+using Guilded.Client;
 using Guilded.Users;
 using Newtonsoft.Json;
 
@@ -8,6 +10,8 @@ namespace Guilded.Servers;
 /// <summary>
 /// Represents a team or a guild in Guilded.
 /// </summary>
+/// <seealso cref="ServerChannel" />
+/// <seealso cref="ServerType" />
 public class Server : ContentModel, IModelHasId<HashId>
 {
     #region Properties
@@ -26,7 +30,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     /// Gets the displayed name of the <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
-    /// <para>This is sort of an ID onto itself. As of now, server names are always unique.</para>
+    /// <para>Server names are <b>not</b> unique.</para>
     /// </remarks>
     /// <value>The displayed name of the <see cref="Server">server</see></value>
     /// <seealso cref="Server" />
@@ -40,7 +44,7 @@ public class Server : ContentModel, IModelHasId<HashId>
     /// Gets the part of URL to the the <see cref="Server">server</see>.
     /// </summary>
     /// <example>
-    /// <para>If <see cref="Url" /> is set as <c>Guilded-NET</c>, then URL to the <see cref="Server">server</see> will be <see href="https://guilded.gg/Guilded-NET" />.</para>
+    /// <para>If <see cref="Url" /> would be set as <c>Guilded-NET</c>, then URL to the <see cref="Server">server</see> would be <see href="https://guilded.gg/Guilded-NET"><c>https://guilded.gg/Guilded-NET</c></see>.</para>
     /// </example>
     /// <value>The part of URL to the the <see cref="Server">server</see></value>
     /// <seealso cref="Server" />
@@ -61,6 +65,9 @@ public class Server : ContentModel, IModelHasId<HashId>
     /// <summary>
     /// Gets the selected <see cref="ServerType">type</see> of the <see cref="Server">server</see>.
     /// </summary>
+    /// <remarks>
+    /// <para>As of now, server types don't do anything, so you can use it in any way.</para>
+    /// </remarks>
     /// <value>The selected <see cref="ServerType">type</see> of the <see cref="Server">server</see></value>
     /// <seealso cref="Server" />
     /// <seealso cref="Banner" />
@@ -111,6 +118,10 @@ public class Server : ContentModel, IModelHasId<HashId>
     /// <summary>
     /// Gets the identifier of the <see cref="ServerChannel">channel</see> of the <see cref="Server">server</see> that is the main channel.
     /// </summary>
+    /// <remarks>
+    /// <para>Only <see cref="ChatChannel">chat channels</see> can be default channels.</para>
+    /// <para>This property might not always be populated with a value, nor can a <see cref="AbstractGuildedClient">client</see> always create a <see cref="Message">message</see> in it. This property is useful for bots posting info when joining a <see cref="Server">server</see>, but don't expect it to always post a <see cref="Message">message</see> successfully.</para>
+    /// </remarks>
     /// <value>The identifier of the <see cref="ServerChannel">channel</see> of the <see cref="Server">server</see> that is the main channel</value>
     /// <seealso cref="Server" />
     /// <seealso cref="Id" />

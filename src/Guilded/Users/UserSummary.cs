@@ -11,9 +11,6 @@ namespace Guilded.Users;
 /// <summary>
 /// Global minimal information about a user.
 /// </summary>
-/// <remarks>
-/// <para>Defines a normal user with minimal information.</para>
-/// </remarks>
 /// <seealso cref="User" />
 /// <seealso cref="SocialLink" />
 public class UserSummary : ContentModel, IUser
@@ -132,7 +129,7 @@ public class UserSummary : ContentModel, IUser
     /// <seealso cref="MemberBanRemoved" />
     public IObservable<MemberBanEvent> MemberBanAdded =>
         ParentClient
-            .MemberBanAdded
+            .MemberBanned
             .HasId(Id);
 
     /// <summary>
@@ -148,7 +145,7 @@ public class UserSummary : ContentModel, IUser
     /// <seealso cref="MemberBanRemoved" />
     public IObservable<MemberBanEvent> MemberBanRemoved =>
         ParentClient
-            .MemberBanRemoved
+            .MemberUnbanned
             .HasId(Id);
     #endregion
 

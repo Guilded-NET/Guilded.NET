@@ -965,7 +965,7 @@ public abstract partial class AbstractGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
-    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> after which all other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">series</see> should be updated/edited</param>
     /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
@@ -1028,7 +1028,7 @@ public abstract partial class AbstractGuildedClient
     /// <inheritdoc cref="UpdateEventAsync(Guid, uint, string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
-    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> after which all other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">series</see> should be updated/edited</param>
     /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
@@ -1067,13 +1067,19 @@ public abstract partial class AbstractGuildedClient
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> after which all other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">series</see> should be deleted</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="CalendarPermissions.GetEvent" />
     /// <permission cref="CalendarPermissions.RemoveEvent">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    public Task DeleteEventSeriesAsync(Guid channel, Guid calendarEventSeries) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/event_series/{calendarEventSeries}", Method.Delete));
+    public Task DeleteEventSeriesAsync(Guid channel, Guid calendarEventSeries, uint? calendarEvent = null) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/event_series/{calendarEventSeries}", Method.Delete)
+            .AddJsonBody(new
+            {
+                calendarEventId = calendarEvent
+            })
+        );
     #endregion
 }

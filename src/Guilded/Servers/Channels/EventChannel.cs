@@ -102,24 +102,65 @@ public class CalendarChannel : ServerChannel
     public Task<CalendarEvent> GetEventAsync(uint calendarEvent) =>
         ParentClient.GetEventAsync(Id, calendarEvent);
 
-    /// <inheritdoc cref="AbstractGuildedClient.GetEventsAsync(Guid, uint?, DateTime?)" />
+    /// <inheritdoc cref="AbstractGuildedClient.CreateEventAsync(Guid, string, string?, string?, DateTime?, Uri?, Color?, TimeSpan?, uint?, bool, bool, uint[], CalendarEventRepetition?)" />
     /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
     /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
-    /// <param name="rsvpLimit">The limit of how many <see cref="Users.User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is private</param>
     /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
-    public Task<CalendarEvent> CreateEventAsync(string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
-        ParentClient.CreateEventAsync(Id, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate);
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> CreateEventAsync(
+        string name,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool isPrivate = false,
+        bool isAllDay = false,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        ParentClient.CreateEventAsync(Id, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, roleIds, repeatInfo);
 
-    /// <inheritdoc cref="CreateEventAsync(string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool)" />
-    public Task<CalendarEvent> CreateEventAsync(string name, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, uint? rsvpLimit = null, bool isPrivate = false) =>
-        CreateEventAsync(name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate);
+    /// <inheritdoc cref="CreateEventAsync(string, string, string, DateTime?, Uri?, Color?, uint?, uint?, bool, bool, uint[], CalendarEventRepetition)" />
+    /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
+    /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is private</param>
+    /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> CreateEventAsync(
+        string name,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool isPrivate = false,
+        bool isAllDay = false,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        CreateEventAsync(name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, isAllDay, roleIds, repeatInfo);
 
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, Color?, uint?, bool?)" />
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, string?, string?, string?, DateTime?, Uri?, Color?, TimeSpan?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition?)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
     /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
@@ -128,18 +169,143 @@ public class CalendarChannel : ServerChannel
     /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
-    public Task<CalendarEvent> UpdateEventAsync(uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, uint? duration = null, bool? isPrivate = null) =>
-        ParentClient.UpdateEventAsync(Id, calendarEvent, name, description, location, startsAt, url, color, duration, isPrivate);
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> UpdateEventAsync(
+        uint calendarEvent,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        ParentClient.UpdateEventAsync(Id, calendarEvent, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
-    /// <inheritdoc cref="UpdateEventAsync(uint, string, string, string, DateTime?, Uri?, Color?, uint?, bool?)" />
-    public Task<CalendarEvent> UpdateEventAsync(uint calendarEvent, string? name = null, string? description = null, string? location = null, DateTime? startsAt = null, Uri? url = null, Color? color = null, TimeSpan? duration = null, bool? isPrivate = null) =>
-        UpdateEventAsync(calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, isPrivate);
+    /// <inheritdoc cref="UpdateEventAsync(uint, string?, string?, string?, DateTime?, Uri?, Color?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition)" />
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The new starting date of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> UpdateEventAsync(
+        uint calendarEvent,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        UpdateEventAsync(calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteEventAsync(Guid, uint)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to delete</param>
     public Task DeleteEventAsync(uint calendarEvent) =>
         ParentClient.DeleteEventAsync(Id, calendarEvent);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventSeriesAsync(Guid, Guid, uint?, string?, string?, string?, DateTime?, Uri?, Color?, TimeSpan?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition?)" />
+    /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The new starting date of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> UpdateEventSeriesAsync(
+        Guid calendarEventSeries,
+        uint? calendarEvent = null,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        uint? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        ParentClient.UpdateEventSeriesAsync(Id, calendarEventSeries, calendarEvent, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
+
+    /// <inheritdoc cref="UpdateEventAsync(uint, string?, string?, string?, DateTime?, Uri?, Color?, uint?, uint?, bool?, bool?, bool?, uint[], CalendarEventRepetition)" />
+    /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to update/edit</param>
+    /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The new description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The new location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The new starting date of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="url">The new URL of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="color">The new colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The new length/duration of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is now private or not private anymore</param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="autofillWhitelist">When rsvpLimit is set, users from the waitlist will be added as space becomes available in the event</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    public Task<CalendarEvent> UpdateEventSeriesAsync(
+        Guid calendarEventSeries,
+        uint? calendarEvent = null,
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? isAllDay = null,
+        bool? autofillWhitelist = null,
+        uint[]? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null
+    ) =>
+        UpdateEventSeriesAsync(calendarEventSeries, calendarEvent, name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, isAllDay, autofillWhitelist, roleIds, repeatInfo);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteEventSeriesAsync(Guid, Guid, uint?)" />
+    /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
+    /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> after which all other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">series</see> should be deleted</param>
+    public Task DeleteEventSeriesAsync(Guid calendarEventSeries, uint? calendarEvent = null) =>
+        ParentClient.DeleteEventSeriesAsync(Id, calendarEventSeries, calendarEvent);
     #endregion
 
     #region Methods Rsvp

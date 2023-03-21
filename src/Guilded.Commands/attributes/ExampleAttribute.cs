@@ -21,15 +21,15 @@ public sealed class ExampleAttribute : Attribute
 {
     #region Properties
     /// <summary>
-    /// Gets the example of <see cref="CommandAttribute">command's</see> usage.
+    /// Gets the example of a <see cref="CommandAttribute">command's</see> usage.
     /// </summary>
-    /// <value>Markdown string</value>
+    /// <value>The example of a <see cref="CommandAttribute">command's</see> usage</value>
     public string Content { get; }
 
     /// <summary>
-    /// Gets <see cref="CommandAttribute.Name">the name</see> or <see cref="CommandAttribute.Aliases">the alias</see> of <see cref="CommandAttribute">the command</see> in the example.
+    /// Gets the <see cref="CommandAttribute.Name">name</see> or the <see cref="CommandAttribute.Aliases">alias</see> of the <see cref="CommandAttribute">command</see> in the <see cref="ExampleAttribute">example</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The <see cref="CommandAttribute.Name">name</see> or the <see cref="CommandAttribute.Aliases">alias</see> of the <see cref="CommandAttribute">command</see> in the <see cref="ExampleAttribute">example</see></value>
     public string? Name { get; }
     #endregion
 
@@ -37,15 +37,15 @@ public sealed class ExampleAttribute : Attribute
     /// <summary>
     /// Defines an example for <see cref="CommandAttribute">a command</see>.
     /// </summary>
-    /// <param name="content">The description of <see cref="CommandAttribute">command</see></param>
+    /// <param name="content">The example of a <see cref="CommandAttribute">command's</see> usage</param>
     public ExampleAttribute(string content) =>
         Content = content;
 
     /// <summary>
     /// Defines an example for <see cref="CommandAttribute">a command</see>.
     /// </summary>
-    /// <param name="name"><see cref="CommandAttribute.Name">The name</see> or <see cref="CommandAttribute.Aliases">the alias</see> of <see cref="CommandAttribute">the command</see> in the example</param>
-    /// <param name="content">The description of <see cref="CommandAttribute">command</see></param>
+    /// <param name="name">The <see cref="CommandAttribute.Name">name</see> or the <see cref="CommandAttribute.Aliases">alias</see> of the <see cref="CommandAttribute">command</see> in the <see cref="ExampleAttribute">example</see></param>
+    /// <param name="content">The example of a <see cref="CommandAttribute">command's</see> usage</param>
     public ExampleAttribute(string name, string content) : this(content) =>
         Name = name;
     #endregion

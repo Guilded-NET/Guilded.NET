@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
+/// Represents an event that occurs when someone creates, updates or deletes a <see cref="Servers.Webhook">webhook</see>.
 /// </summary>
 /// <seealso cref="MemberJoinedEvent" />
 /// <seealso cref="MemberUpdatedEvent" />
@@ -19,18 +20,18 @@ public class WebhookEvent : IModelHasId<Guid>, ICreatableContent, IServerBased, 
 {
     #region Properties
     /// <summary>
-    /// Gets <see cref="Servers.Webhook">the webhook</see> that has been created or updated.
+    /// Gets the <see cref="Servers.Webhook">webhook</see> that has been created or updated.
     /// </summary>
-    /// <value>Webhook</value>
+    /// <value>The <see cref="Servers.Webhook">webhook</see> that has been created or updated</value>
     /// <seealso cref="WebhookEvent" />
     /// <seealso cref="Name" />
     /// <seealso cref="ServerId" />
     public Webhook Webhook { get; }
 
     /// <summary>
-    /// Gets the identifier of the <see cref="Server">server</see> where <see cref="Servers.Webhook">the webhook</see> has been created/updated.
+    /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="Servers.Webhook">webhook</see> has been created/updated.
     /// </summary>
-    /// <value>Server ID</value>
+    /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="Servers.Webhook">webhook</see> has been created/updated</value>
     /// <seealso cref="WebhookEvent" />
     /// <seealso cref="ChannelId" />
     /// <seealso cref="Webhook" />
@@ -70,7 +71,7 @@ public class WebhookEvent : IModelHasId<Guid>, ICreatableContent, IServerBased, 
     /// <summary>
     /// Initializes a new instance of <see cref="WebhookEvent" /> from the specified JSON properties.
     /// </summary>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where <see cref="Servers.Webhook">the webhook</see> got created/updated</param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Servers.Webhook">webhook</see> got created/updated</param>
     /// <param name="webhook"><see cref="Servers.Webhook">The webhook</see> that got created or updated</param>
     /// <returns>New <see cref="WebhookEvent" /> JSON instance</returns>
     /// <seealso cref="WebhookEvent" />

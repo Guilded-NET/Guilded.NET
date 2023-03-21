@@ -35,7 +35,7 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     /// <summary>
     /// Gets the list of roles <see cref="Member">member</see> holds.
     /// </summary>
-    /// <value>List of role IDs</value>
+    /// <value>The list of roles <see cref="Member">member</see> holds</value>
     /// <seealso cref="MemberSummary{T}" />
     /// <seealso cref="Member" />
     /// <seealso cref="Id" />
@@ -44,7 +44,7 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     /// <summary>
     /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is.
     /// </summary>
-    /// <value><see cref="Server.Id">Server ID</see></value>
+    /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</value>
     public HashId ServerId { get; }
 
     /// <inheritdoc cref="UserSummary.Id" />
@@ -92,7 +92,7 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user"><see cref="Users.User">The user</see> who is present in the <see cref="Server">server</see></param>
+    /// <param name="user">The <see cref="Users.User">user</see> who is present in the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles user holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
     /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>
@@ -155,7 +155,7 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
 }
 
 /// <summary>
-/// Represents the summary of a <see cref="Member">member</see>.
+/// Represents the summary of a <see cref="User">user</see> in a <see cref="Server">server</see> and information about their membership.
 /// </summary>
 /// <seealso cref="Member" />
 /// <seealso cref="MemberBan" />
@@ -167,7 +167,7 @@ public class MemberSummary : MemberSummary<UserSummary>
     /// <summary>
     /// Initializes a new instance of <see cref="MemberSummary{T}" />.
     /// </summary>
-    /// <param name="user"><see cref="User">The user</see> who is present in the <see cref="Server">server</see></param>
+    /// <param name="user">The <see cref="User">user</see> who is present in the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles user holds</param>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Member">member</see> is</param>
     /// <returns>New <see cref="MemberSummary{T}" /> JSON instance</returns>

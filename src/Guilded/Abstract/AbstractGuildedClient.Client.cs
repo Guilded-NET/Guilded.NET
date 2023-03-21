@@ -121,7 +121,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "ServerMemberSocialLinkUpdated",        new EventInfo<MemberSocialLinkEvent>() },
             { "ServerMemberSocialLinkDeleted",        new EventInfo<MemberSocialLinkEvent>() },
 
-            { "ServerXpAdded",                        new EventInfo<XpAddedEvent>() },
             { "ServerRolesUpdated",                   new EventInfo<RolesUpdatedEvent>() },
             { "ServerMemberJoined",
                 new EventInfo<MemberJoinedEvent>((type, serializer, message) =>
