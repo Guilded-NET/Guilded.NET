@@ -6,7 +6,7 @@ namespace Guilded.Commands.Items;
 /// <summary>
 /// The type of the <see cref="CommandConfiguration.ArgumentConverters">command argument converter</see>.
 /// </summary>
-/// <param name="argument">The <see cref="CommandArgument">command argument</see> that is being used for conversion</param>
+/// <param name="argument">The <see cref="CommandParamAttribute">command argument</see> that is being used for conversion</param>
 /// <param name="config">The given <see cref="CommandConfiguration">configuration</see> for the <see cref="CommandAttribute">commands</see></param>
 /// <param name="raw">The given unparsed value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <param name="value">The value of the <see cref="CommandParamAttribute">argument</see></param>
@@ -32,9 +32,9 @@ public abstract class AbstractCommandArgument
     public CommandParamAttribute? Attribute { get; set; }
 
     /// <summary>
-    /// Gets the displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandArgument">command argument</see>.
+    /// Gets the displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandParamAttribute">command argument</see>.
     /// </summary>
-    /// <value>The displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandArgument">command argument</see></value>
+    /// <value>The displayed <see cref="CommandParamAttribute.Name">name</see> of the <see cref="CommandParamAttribute">command argument</see></value>
     public string Name => Attribute?.Name ?? Parameter.Name ?? "";
 
     /// <summary>

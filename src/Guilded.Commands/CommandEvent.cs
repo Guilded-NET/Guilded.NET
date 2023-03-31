@@ -13,11 +13,9 @@ namespace Guilded.Commands;
 /// <seealso cref="CommandAttribute" />
 public class CommandEvent : MessageEvent, IHasParentClient
 {
-    #region Properties
-
-    #region CommandEvent properties
+    #region Properties CommandEvent
     /// <summary>
-    /// Getss the most-top command that was invoked.
+    /// Gets the most-top <see cref="CommandAttribute">command</see> that was invoked.
     /// </summary>
     /// <example>
     /// <para>Let's say we have this command structure:</para>
@@ -28,43 +26,65 @@ public class CommandEvent : MessageEvent, IHasParentClient
     /// </code>
     /// <para>Even if we invoke <q>config items add</q> command, the root command will always remain <q>config</q>.</para>
     /// </example>
-    /// <value>Command context</value>
+    /// <value>The most-top <see cref="CommandAttribute">command</see> that was invoked</value>
+    /// <seealso cref="CommandEvent" />
+    /// <seealso cref="RootCommandName" />
+    /// <seealso cref="RootArguments" />
     public RootCommandEvent RootCommand { get; }
 
     /// <summary>
-    /// Gets the prefix that has been used on the command.
+    /// Gets the prefix that has been used on the <see cref="CommandAttribute">command</see>.
     /// </summary>
-    /// <value>Prefix</value>
+    /// <value>The prefix that has been used on the <see cref="CommandAttribute">command</see></value>
+    /// <seealso cref="CommandEvent" />
+    /// <seealso cref="RootCommandName" />
+    /// <seealso cref="RootArguments" />
+    /// <seealso cref="CommandName" />
+    /// <seealso cref="Arguments" />
     public string Prefix => RootCommand.Prefix;
 
     /// <summary>
-    /// Gets the name of the root-level command that was used in the <see cref="Message">message</see>.
+    /// Gets the name of the root-level <see cref="CommandAttribute">command</see> that was used in the <see cref="Message">message</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The name of the root-level <see cref="CommandAttribute">command</see> that was used in the <see cref="Message">message</see></value>
+    /// <seealso cref="CommandEvent" />
+    /// <seealso cref="RootArguments" />
+    /// <seealso cref="Prefix" />
+    /// <seealso cref="CommandName" />
     public string RootCommandName => RootCommand.CommandName;
 
     /// <summary>
-    /// Gets the enumerable of string arguments that were given to the root-level command in the <see cref="Message">message</see>.
+    /// Gets the string arguments that were given to the root-level <see cref="CommandAttribute">command</see> in the <see cref="Message">message</see>.
     /// </summary>
-    /// <value>Enumerable of arguments</value>
+    /// <value>The string arguments that were given to the root-level <see cref="CommandAttribute">command</see> in the <see cref="Message">message</see></value>
+    /// <seealso cref="CommandEvent" />
+    /// <seealso cref="RootCommandName" />
+    /// <seealso cref="Prefix" />
+    /// <seealso cref="Arguments" />
     public string RootArguments => RootCommand.Arguments;
 
     /// <summary>
-    /// Gets the name of that was used in the command.
+    /// Gets the name of that was used in the <see cref="CommandAttribute">command</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The name of that was used in the <see cref="CommandAttribute">command</see></value>
+    /// <seealso cref="CommandEvent" />
+    /// <seealso cref="Arguments" />
+    /// <seealso cref="RootCommandName" />
+    /// <seealso cref="Prefix" />
     public string CommandName { get; }
 
     /// <summary>
-    /// Gets the enumerable of string arguments that were given to the command.
+    /// Gets the enumerable of string arguments that were given to the <see cref="CommandAttribute">command</see>.
     /// </summary>
-    /// <value>Enumerable of arguments</value>
+    /// <value>The enumerable of string arguments that were given to the <see cref="CommandAttribute">command</see></value>
+    /// <seealso cref="CommandEvent" />
+    /// <seealso cref="CommandName" />
+    /// <seealso cref="RootArguments" />
+    /// <seealso cref="Prefix" />
     public IEnumerable<string> Arguments { get; }
 
     /// <inheritdoc cref="RootCommandEvent.AdditionalContext" />
     public object? AdditionalContext => RootCommand.AdditionalContext;
-    #endregion
-
     #endregion
 
     #region Constructors

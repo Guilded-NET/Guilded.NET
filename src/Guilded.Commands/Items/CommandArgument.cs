@@ -14,13 +14,13 @@ namespace Guilded.Commands.Items;
 public delegate bool ConverterParser<T>([NotNullWhen(true)] string? raw, out T value);
 
 /// <summary>
-/// The function to parse provided <see cref="CommandArgument">command argument</see> values.
+/// The function to parse provided <see cref="CommandParamAttribute">command argument</see> values.
 /// </summary>
-/// <param name="commandArg">The <see cref="CommandArgument">command argument</see> that is being parsed</param>
+/// <param name="commandArg">The <see cref="CommandParamAttribute">command argument</see> that is being parsed</param>
 /// <param name="config">The given <see cref="CommandConfiguration">configuration</see> for the <see cref="CommandAttribute">commands</see></param>
-/// <param name="argument">The given unparsed <see cref="CommandArgument">command argument</see></param>
-/// <param name="value">The parsed value of the <see cref="CommandArgument">command argument</see></param>
-/// <returns>Whether the <see cref="CommandArgument">command argument</see> was parsed correctly</returns>
+/// <param name="argument">The given unparsed <see cref="CommandParamAttribute">command argument</see></param>
+/// <param name="value">The parsed value of the <see cref="CommandParamAttribute">command argument</see></param>
+/// <returns>Whether the <see cref="CommandParamAttribute">command argument</see> was parsed correctly</returns>
 public delegate bool ParserDelegate(CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value);
 
 /// <summary>
@@ -30,9 +30,9 @@ public class CommandArgument : AbstractCommandArgument
 {
     #region Properties
     /// <summary>
-    /// Gets whether the value for the <see cref="CommandArgument">command argument</see> does not need to be provided.
+    /// Gets whether the value for the <see cref="CommandParamAttribute">command argument</see> does not need to be provided.
     /// </summary>
-    /// <value>Whether the <see cref="CommandArgument">command argument</see> value is optional</value>
+    /// <value>Whether the <see cref="CommandParamAttribute">command argument</see> value is optional</value>
     public bool IsOptional { get; }
 
     /// <summary>
@@ -42,15 +42,15 @@ public class CommandArgument : AbstractCommandArgument
     public ParserDelegate Parser { get; }
 
     /// <summary>
-    /// Gets whether the <see cref="CommandArgument">command argument</see> takes in spaces and other splittable characters.
+    /// Gets whether the <see cref="CommandParamAttribute">command argument</see> takes in spaces and other splittable characters.
     /// </summary>
-    /// <returns>Whether the <see cref="CommandArgument">command argument</see> is rest argument</returns>
+    /// <returns>Whether the <see cref="CommandParamAttribute">command argument</see> is rest argument</returns>
     public bool IsRest => ArgumentType == typeof(string[]) || Parameter.GetCustomAttribute<CommandRestAttribute>() is not null;
 
     /// <summary>
-    /// Gets the <see cref="Type">type</see> of the <see cref="CommandArgument">command argument</see>.
+    /// Gets the <see cref="Type">type</see> of the <see cref="CommandParamAttribute">command argument</see>.
     /// </summary>
-    /// <value>The <see cref="Type">type</see> of the <see cref="CommandArgument">command argument</see></value>
+    /// <value>The <see cref="Type">type</see> of the <see cref="CommandParamAttribute">command argument</see></value>
     public Type ArgumentType { get; }
     #endregion
 
@@ -61,7 +61,7 @@ public class CommandArgument : AbstractCommandArgument
     /// <param name="isOptional">Whether the argument is optional</param>
     /// <param name="index">The index of the parameter in a <see cref="CommandAttribute">command</see></param>
     /// <param name="parameter">The <see cref="ParameterInfo">parameter</see> that was declared as a <see cref="CommandParamAttribute">command argument</see></param>
-    /// <param name="argumentType">The type of the <see cref="CommandArgument">command argument</see> <see cref="Type">type</see></param>
+    /// <param name="argumentType">The type of the <see cref="CommandParamAttribute">command argument</see> <see cref="Type">type</see></param>
     /// <param name="command">The parent <see cref="CommandAttribute">command</see> of this <see cref="CommandAttribute">argument</see></param>
     public CommandArgument(bool isOptional, int index, ParameterInfo parameter, Type argumentType, Command command) : base(index, parameter, command) =>
         (IsOptional, Parser, ArgumentType) = (isOptional, GetParser(isOptional), argumentType);

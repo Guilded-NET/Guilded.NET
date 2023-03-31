@@ -33,9 +33,9 @@ public class Command : AbstractCommand<MethodInfo>
 
     #region Properties
     /// <summary>
-    /// Gets the sequence of <see cref="CommandArgument">command argument</see> that can be specified by users.
+    /// Gets the sequence of <see cref="CommandParamAttribute">command argument</see> that can be specified by users.
     /// </summary>
-    /// <value>Sequence of <see cref="CommandArgument">command argument</see></value>
+    /// <value>Sequence of <see cref="CommandParamAttribute">command argument</see></value>
     public CommandArgument[] Arguments { get; }
 
     /// <summary>
@@ -45,9 +45,9 @@ public class Command : AbstractCommand<MethodInfo>
     public bool HasRestArgument { get; private set; }
 
     /// <summary>
-    /// Gets the count of total mandatory <see cref="CommandArgument">command arguments</see>.
+    /// Gets the count of total mandatory <see cref="CommandParamAttribute">command arguments</see>.
     /// </summary>
-    /// <value>Count of required <see cref="CommandArgument">command arguments</see></value>
+    /// <value>Count of required <see cref="CommandParamAttribute">command arguments</see></value>
     public int RequiredCount { get; private set; }
     #endregion
 

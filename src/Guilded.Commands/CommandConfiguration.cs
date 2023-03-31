@@ -25,7 +25,7 @@ public record CommandConfiguration
     /// <remarks>
     /// <para>By default, <c> </c>, <c>\t</c>, <c>\v</c>, <c>\n</c> and <c>\r</c> will be used.</para>
     /// </remarks>
-    /// <value>Argument separator characters</value>
+    /// <value>The default argument separator characters</value>
     /// <seealso cref="CommandConfiguration" />
     /// <seealso cref="Separators" />
     /// <seealso cref="DefaultSplitOptions" />
@@ -33,12 +33,12 @@ public record CommandConfiguration
     public static readonly char[] DefaultSeparators = new char[] { ' ', '\t', '\n' };
 
     /// <summary>
-    /// The default splitting options for command arguments.
+    /// The default splitting options for <see cref="CommandParamAttribute">command arguments</see>.
     /// </summary>
     /// <remarks>
     /// <para>By default, it uses <see cref="StringSplitOptions.RemoveEmptyEntries" />.</para>
     /// </remarks>
-    /// <value>Split options</value>
+    /// <value>The default splitting options for <see cref="CommandParamAttribute">command arguments</see></value>
     /// <seealso cref="CommandConfiguration" />
     /// <seealso cref="SplitOptions" />
     /// <seealso cref="DefaultSeparators" />
@@ -51,7 +51,7 @@ public record CommandConfiguration
     /// <remarks>
     /// <para>By default, it's <c>/</c>.</para>
     /// </remarks>
-    /// <value>Prefix</value>
+    /// <value>The prefix that will be used by default if not specified</value>
     /// <seealso cref="CommandConfiguration" />
     /// <seealso cref="Prefix" />
     /// <seealso cref="DefaultSeparators" />
@@ -63,7 +63,10 @@ public record CommandConfiguration
     /// <summary>
     /// Gets the piece of text with which commands need to start with.
     /// </summary>
-    /// <value>Prefix</value>
+    /// <remarks>
+    /// <para>If no prefix is specified, <see cref="DefaultPrefix">Guilded.NET's default prefix</see> will be used instead.</para>
+    /// </remarks>
+    /// <value>The piece of text with which commands need to start with</value>
     /// <seealso cref="CommandConfiguration" />
     /// <seealso cref="DefaultPrefix" />
     /// <seealso cref="Separators" />
@@ -71,9 +74,12 @@ public record CommandConfiguration
     public string Prefix { get; set; }
 
     /// <summary>
-    /// Gets the characters that will be used to separate <see cref="CommandArgument">command arguments</see>.
+    /// Gets the characters that will be used to separate <see cref="CommandParamAttribute">command arguments</see>.
     /// </summary>
-    /// <value>Separator characters</value>
+    /// <remarks>
+    /// <para>If no separators are specified, <see cref="DefaultSeparators">Guilded.NET's default separators</see> will be used instead.</para>
+    /// </remarks>
+    /// <value>The characters that will be used to separate <see cref="CommandParamAttribute">command arguments</see></value>
     /// <seealso cref="CommandConfiguration" />
     /// <seealso cref="Prefix" />
     /// <seealso cref="SplitOptions" />
@@ -81,9 +87,12 @@ public record CommandConfiguration
     public char[] Separators { get; set; }
 
     /// <summary>
-    /// Gets the splitting options that will be used for splitting the <see cref="CommandArgument">command arguments</see>.
+    /// Gets the splitting options that will be used for splitting the <see cref="CommandParamAttribute">command arguments</see>.
     /// </summary>
-    /// <value>Splitting options</value>
+    /// <remarks>
+    /// <para>If no split options are specified, <see cref="DefaultSplitOptions">Guilded.NET's default split options</see> will be used instead.</para>
+    /// </remarks>
+    /// <value>The splitting options that will be used for splitting the <see cref="CommandParamAttribute">command arguments</see></value>
     /// <seealso cref="CommandConfiguration" />
     /// <seealso cref="Prefix" />
     /// <seealso cref="Separators" />

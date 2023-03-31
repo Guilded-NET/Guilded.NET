@@ -6,7 +6,7 @@ using Guilded.Events;
 namespace Guilded.Commands;
 
 /// <summary>
-/// Represents an event that occurs once someone invokes a command.
+/// Represents an event that occurs when someone incorrectly invokes a <see cref="CommandAttribute">command</see>.
 /// </summary>
 /// <seealso cref="Message" />
 /// <seealso cref="MessageEvent" />
@@ -18,7 +18,7 @@ public class FailedCommandEvent : CommandEvent
     /// <summary>
     /// Gets the type of the error that occurred.
     /// </summary>
-    /// <value>Event type</value>
+    /// <value>The type of the error that occurred</value>
     public FallbackType FailType { get; }
     #endregion
 
@@ -36,7 +36,7 @@ public class FailedCommandEvent : CommandEvent
 }
 
 /// <summary>
-/// Represents an event that occurs once someone invokes a command.
+/// Represents an event that occurs when one of the <see cref="CommandParamAttribute">arguments</see> is incorrect for all <see cref="CommandAttribute">commands</see>.
 /// </summary>
 /// <seealso cref="Message" />
 /// <seealso cref="MessageEvent" />
@@ -46,9 +46,9 @@ public class BadCommandArgumentEvent : FailedCommandEvent
 {
     #region Properties
     /// <summary>
-    /// Gets the type of the error that occurred.
+    /// Gets the <see cref="CommandParamAttribute">arguments</see> of each <see cref="CommandAttribute">command</see> by the same name that were incorrect.
     /// </summary>
-    /// <value>Event type</value>
+    /// <value>The <see cref="CommandParamAttribute">arguments</see> of each <see cref="CommandAttribute">command</see> by the same name that were incorrect</value>
     public IList<AbstractCommandArgument> BadArguments { get; }
     #endregion
 

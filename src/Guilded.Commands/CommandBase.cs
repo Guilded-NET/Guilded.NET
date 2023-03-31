@@ -40,9 +40,9 @@ public abstract class CommandBase : CommandParent
     public IEnumerable<ExampleAttribute> Examples => InstanceInfo.Examples;
 
     /// <summary>
-    /// Gets the information about the <see cref="CommandBase">command</see>.
+    /// Gets the information about the <see cref="CommandAttribute">command</see>.
     /// </summary>
-    /// <value>Command info</value>
+    /// <value>The information about the <see cref="CommandAttribute">command</see></value>
     /// <seealso cref="CommandBase" />
     /// <seealso cref="Examples" />
     /// <seealso cref="Description" />
