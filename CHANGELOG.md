@@ -1,6 +1,6 @@
 # v1.5.0
 
-BREAKING:
+## BREAKING
 
 - Changed name from `CalendarRsvp` to `CalendarEventRsvp`
 - Changed name from `CalendarRsvpStatus` to `CalendarEventRsvpStatus`
@@ -8,9 +8,9 @@ BREAKING:
 - Changed `MessageDeleted.ToString()` return value to `Deleted Message message-id-here`
 - Removed long deleted `XpAddedEvent` and `AbstractGuildedClient.XpAdded`. These will be re-added once Guilded API adds them back.
 
-Non-breaking:
+## Non-breaking
 
-## Events
+**Events:**
 - Added `CalendarEventComment` class
 - Added `CreateEventCommentAsync`, `UpdateEventCommentAsync`, `DeleteEventCommentAsync`, `AddEventCommentReaction`, `RemoveEventCommentReaction` methods for calendar event comments
 - Added `CalendarEventReaction`, `CalendarEventCommentReaction` reaction classes
@@ -22,17 +22,18 @@ Non-breaking:
 - Added `EventReactionAdded`, `EventReactionRemoved` events for calendar event reactions
 - Added `EventCommentCreated`, `EventCommentUpdated`, `EventCommentDeleted`, `EventCommentReactionAdded`, `EventCommentReactionRemoved` events for calendar event comments
 
-## Docs
+**Docs:**
 - Added `DocReactionAdded`, `DocReactionRemoved` events for doc reactions
 - Added `DocCommentCreated`, `DocCommentUpdated`, `DocCommentDeleted`, `DocCommentReactionAdded`, `DocCommentReactionRemoved` events for doc comments
 - Added `DocComment` class for document comments
 - Added `DocReaction`, `DocCommentReaction` classes for document reactions
 
-## Other stuff
+**Other stuff:**
 
 - Added `UserId` to `SocialLink`
 - Added `CreatedAt` to `SocialLink`
 - Added `MemberSocialLinkCreated`, `MemberSocialLinkUpdated`, `MemberSocialLinkDeleted` events for `SocialLink` changes
+- Changed `client.UpdateItemAsync`'s `message` argument to be nullable.
 - Changed lots of documentation
 
 # v1.4.0

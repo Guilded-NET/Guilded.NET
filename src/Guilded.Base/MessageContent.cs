@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Guilded.Base;
 
 /// <summary>
-/// Represents the complete contents of a message.
+/// Represents the contents of a message for creation and updating.
 /// </summary>
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
             ItemNullValueHandling = NullValueHandling.Ignore)]
