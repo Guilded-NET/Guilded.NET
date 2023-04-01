@@ -28,6 +28,7 @@
 - Added `DocCommentCreated`, `DocCommentUpdated`, `DocCommentDeleted`, `DocCommentReactionAdded`, `DocCommentReactionRemoved` events for doc comments
 - Added `DocComment` class for document comments
 - Added `DocReaction`, `DocCommentReaction` classes for document reactions
+- Added `Id` getter to `DocEvent`
 
 **Other stuff:**
 

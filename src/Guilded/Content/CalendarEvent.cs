@@ -209,7 +209,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="Cancellation" />
     /// <seealso cref="IsPrivate" />
     /// <seealso cref="InSeries" />
-    [MemberNotNullWhen(true, nameof(Cancellation))]
+    [MemberNotNullWhen(true, nameof(Cancellation), nameof(CanceledBy))]
     public bool IsCanceled => Cancellation is not null;
 
     /// <inheritdoc cref="CalendarEventCancellation.CreatedBy" />
@@ -408,10 +408,9 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     #endregion
 
     #region Methods Event
-
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, CalendarEventContent)" />
     /// <param name="calendarEventContent">The new contents of the <see cref="CalendarEvent">calendar event</see> that is being updated</param>
-    public Task<CalendarEvent> UpdateEventAsync(CalendarEventContent calendarEventContent) =>
+    public Task<CalendarEvent> UpdateAsync(CalendarEventContent calendarEventContent) =>
         ParentClient.UpdateEventAsync(ChannelId, Id, calendarEventContent);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, CalendarEventContent)" />
@@ -428,7 +427,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="autofillWaitlist">Whether <see cref="Member">members</see> in the waitlist should be added to the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
     /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
-    public Task<CalendarEvent> UpdateEventAsync(
+    public Task<CalendarEvent> UpdateAsync(
         string? name = null,
         string? description = null,
         string? location = null,
@@ -443,7 +442,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         bool? isAllDay = null,
         IList<uint>? roleIds = null
     ) =>
-        UpdateEventAsync(new CalendarEventContent(name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds));
+        UpdateAsync(new CalendarEventContent(name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds));
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventAsync(Guid, uint, CalendarEventContent)" />
     /// <param name="name">The new name of the <see cref="CalendarEvent">calendar event</see></param>
@@ -459,7 +458,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="autofillWaitlist">Whether <see cref="Member">members</see> in the waitlist should be added to the <see cref="CalendarEvent">calendar event</see></param>
     /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
     /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
-    public Task<CalendarEvent> UpdateEventAsync(
+    public Task<CalendarEvent> UpdateAsync(
         string? name = null,
         string? description = null,
         string? location = null,
@@ -474,15 +473,15 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         bool? isAllDay = null,
         IList<uint>? roleIds = null
     ) =>
-        UpdateEventAsync(name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds);
+        UpdateAsync(name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteEventAsync(Guid, uint)" />
-    public Task DeleteEventAsync() =>
+    public Task DeleteAsync() =>
         ParentClient.DeleteEventAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventSeriesAsync(Guid, Guid, CalendarEventSeriesContent)" />
     /// <param name="calendarEventSeriesContent">The new contents of all the <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">series</see> or other informations</param>
-    public Task UpdateEventSeriesAsync(CalendarEventSeriesContent calendarEventSeriesContent) =>
+    public Task UpdateSeriesAsync(CalendarEventSeriesContent calendarEventSeriesContent) =>
         InSeries ? ParentClient.UpdateEventSeriesAsync(ChannelId, (Guid)SeriesId, calendarEventSeriesContent) : throw new InvalidOperationException("Cannot update events in the calendar series that don't exist. CalendarEvent.SeriesId is null.");
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventSeriesAsync(Guid, Guid, CalendarEventSeriesContent)" />
@@ -501,7 +500,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
     /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
     /// <param name="updateAfterCalendarEvent">Whether all the other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">calendar event series</see> after the current <see cref="CalendarEvent">calendar events</see> should be updated</param>
-    public Task UpdateEventSeriesAsync(
+    public Task UpdateSeriesAsync(
         string? name = null,
         string? description = null,
         string? location = null,
@@ -518,7 +517,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         CalendarEventRepetition? repeatInfo = null,
         bool updateAfterCalendarEvent = false
     ) =>
-        UpdateEventSeriesAsync(new CalendarEventSeriesContent(name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo, updateAfterCalendarEvent ? Id : null));
+        UpdateSeriesAsync(new CalendarEventSeriesContent(name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo, updateAfterCalendarEvent ? Id : null));
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateEventSeriesAsync(Guid, Guid, CalendarEventSeriesContent)" />
     /// <param name="calendarEventSeries">The identifier of the <see cref="CalendarEventSeries">calendar event series</see> to update/edit <see cref="CalendarEvent">calendar events</see> in </param>
@@ -537,7 +536,7 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
     /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
     /// <param name="updateAfterCalendarEvent">Whether all the other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">calendar event series</see> after the current <see cref="CalendarEvent">calendar events</see> should be updated</param>
-    public Task UpdateEventSeriesAsync(
+    public Task UpdateSeriesAsync(
         Guid calendarEventSeries,
         string? name = null,
         string? description = null,
@@ -555,11 +554,11 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
         CalendarEventRepetition? repeatInfo = null,
         bool updateAfterCalendarEvent = false
     ) =>
-        UpdateEventSeriesAsync(calendarEventSeries, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo, updateAfterCalendarEvent);
+        UpdateSeriesAsync(calendarEventSeries, name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo, updateAfterCalendarEvent);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteEventSeriesAsync(Guid, Guid, uint?)" />
     /// <param name="deleteAfterCalendarEvent">Whether all the other <see cref="CalendarEvent">calendar events</see> in the <see cref="CalendarEventSeries">calendar event series</see> after the current <see cref="CalendarEvent">calendar events</see> should be deleted</param>
-    public Task DeleteEventSeriesAsync(bool deleteAfterCalendarEvent = false) =>
+    public Task DeleteSeriesAsync(bool deleteAfterCalendarEvent = false) =>
         InSeries ? ParentClient.DeleteEventSeriesAsync(ChannelId, SeriesId.Value, deleteAfterCalendarEvent ? Id : null) : throw new InvalidOperationException("Cannot delete events in the calendar series that don't exist. CalendarEvent.SeriesId is null.");
 
     /// <inheritdoc cref="AbstractGuildedClient.AddReactionAsync(Guid, uint, uint)" />

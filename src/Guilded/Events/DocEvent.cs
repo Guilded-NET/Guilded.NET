@@ -34,6 +34,9 @@ public class DocEvent : IHasParentClient, ICreatableContent, IUpdatableContent, 
     #endregion
 
     #region Properties Additional
+    /// <inheritdoc cref="ChannelContent{T, S}.Id" />
+    public uint Id => Doc.Id;
+
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Doc.ChannelId;
 

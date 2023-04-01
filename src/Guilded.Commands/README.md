@@ -1,7 +1,6 @@
-# Guilded.Commands
+# 🟡 Guilded.Commands
 
 Adds the ability for Guilded.NET clients to process text commands.
-
 
 ## 📥 Installing
 
