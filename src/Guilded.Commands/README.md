@@ -70,7 +70,7 @@ public partial class BotCommands : CommandModule
     [Command(Aliases = new string[] { "commands", "h" })]
     public Task Help(CommandEvent invokation)
     {
-        var commandNames = CommandLookup.Select(group => group.Key);
+        var commandNames = CommandNames;
 
         return invokation.ReplyAsync($"Here are available commands: `{string.Join("`, `", commandNames)}`");
     }

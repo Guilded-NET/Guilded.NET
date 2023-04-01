@@ -22,9 +22,9 @@ public abstract class CommandParent
 
     #region Properties
     /// <summary>
-    /// Gets the list of commands or sub-commands of this command.
+    /// Gets the list of <see cref="CommandAttribute">commands or sub-commands</see> of this command.
     /// </summary>
-    /// <value>Commands</value>
+    /// <value>The list of <see cref="CommandAttribute">commands or sub-commands</see> of this command</value>
     /// <seealso cref="CommandParent" />
     /// <seealso cref="CommandLookup" />
     /// <seealso cref="CommandNames" />
@@ -33,16 +33,23 @@ public abstract class CommandParent
     /// <summary>
     /// Gets the lookup of <see cref="Commands">commands or sub-commands</see> based on their <see cref="ICommand{T}.Name">name</see>.
     /// </summary>
-    /// <returns><see cref="ILookup{TKey, TElement}">Lookup</see> of <see cref="ICommand{T}.Name">names</see> to <see cref="Commands">commands</see></returns>
+    /// <example>
+    /// <para>Since the keys of the lookup are always going to be <see cref="Commands">command</see> names and they are going to be unique, this can be used in help commands by getting all the keys in the lookup:</para>
+    /// <code>
+    /// var commandList = CommandLookup.Select(group => group.Key);
+    /// </code>
+    /// <para>This will not give you any duplicate command names. This is what <see cref="CommandNames" /> is for, so it's recommended to use <see cref="CommandNames" /> when you need to get list of unique command names.</para>
+    /// </example>
+    /// <returns>The lookup of <see cref="Commands">commands or sub-commands</see> based on their <see cref="ICommand{T}.Name">name</see></returns>
     /// <seealso cref="CommandParent" />
     /// <seealso cref="Commands" />
     /// <seealso cref="CommandNames" />
     public ILookup<string, ICommand<MemberInfo>> CommandLookup => Commands.ToLookup(command => command.Name);
 
     /// <summary>
-    /// Gets the list of the <see cref="CommandAttribute.Name">names</see> of all <see cref="Commands">commands or sub-commands</see> .
+    /// Gets the list of the <see cref="CommandAttribute.Name">names</see> of all <see cref="Commands">commands or sub-commands</see>.
     /// </summary>
-    /// <returns><see cref="CommandAttribute.Name">Command names</see></returns>
+    /// <returns>Te list of the <see cref="CommandAttribute.Name">names</see> of all <see cref="Commands">commands or sub-commands</see></returns>
     /// <seealso cref="CommandParent" />
     /// <seealso cref="CommandLookup" />
     /// <seealso cref="Commands" />
