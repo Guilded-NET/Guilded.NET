@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
@@ -123,12 +124,12 @@ public class Message :
     public bool IsPrivate { get; }
 
     /// <summary>
-    /// Gets whether the reply or mention is silent and doesn't ping any user.
+    /// Gets whether the reply or mention is silent and doesn't ping any <see cref="User">user</see>.
     /// </summary>
     /// <remarks>
     /// <para>This can only be <see langword="true" /> if <see cref="ReplyMessageIds" /> has a value or there is an user or role mention in the <see cref="Content" />.</para>
     /// </remarks>
-    /// <value><see cref="Message" /> is silent</value>
+    /// <value>Whether the reply or mention is silent and doesn't ping any <see cref="User">user</see></value>
     /// <seealso cref="Message" />
     /// <seealso cref="IsPrivate" />
     /// <seealso cref="IsReply" />
@@ -140,11 +141,12 @@ public class Message :
     /// <summary>
     /// Gets whether the <see cref="Message">message</see> is <see cref="ReplyMessageIds">a reply</see> to another message.
     /// </summary>
-    /// <value><see cref="Message" /> is <see cref="ReplyMessageIds">a reply</see></value>
+    /// <value>Whether the <see cref="Message">message</see> is <see cref="ReplyMessageIds">a reply</see> to another message</value>
     /// <seealso cref="Message" />
     /// <seealso cref="ReplyMessageIds" />
     /// <seealso cref="IsPrivate" />
     /// <seealso cref="IsSilent" />
+    [MemberNotNullWhen(true, nameof(ReplyMessageIds))]
     public bool IsReply => ReplyMessageIds?.Count > 0;
     #endregion
 
@@ -152,7 +154,7 @@ public class Message :
     /// <summary>
     /// Gets the identifier of the <see cref="Webhook">webhook</see> that created the <see cref="Message">message</see>.
     /// </summary>
-    /// <value><see cref="Webhook.Id">Webhook ID</see>?</value>
+    /// <value>The identifier of the <see cref="Webhook">webhook</see> that created the <see cref="Message">message</see></value>
     /// <seealso cref="Message" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
@@ -165,7 +167,7 @@ public class Message :
     /// <remarks>
     /// <para>Only returns the most recent update.</para>
     /// </remarks>
-    /// <value>Date?</value>
+    /// <value>The date when the <see cref="Message">message</see> was edited</value>
     /// <seealso cref="Message" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
@@ -178,7 +180,7 @@ public class Message :
     /// <remarks>
     /// <para>Distinguishes the <see cref="Message">message</see> by what content they contain.</para>
     /// </remarks>
-    /// <value><see cref="MessageType">Message type</see></value>
+    /// <value>The type of the <see cref="Message">message</see></value>
     /// <seealso cref="Message" />
     /// <seealso cref="Content" />
     /// <seealso cref="Embeds" />
@@ -186,12 +188,12 @@ public class Message :
     public MessageType Type { get; }
 
     /// <summary>
-    /// Gets whether the <see cref="Message">message</see> is <see cref="MessageType.System">a system message</see>.
+    /// Gets whether the <see cref="Message">message</see> is a <see cref="MessageType.System">system message</see>.
     /// </summary>
     /// <remarks>
-    /// <para>A <see cref="MessageType.System">a system message</see> is a message that is created automatically on specific events, such as renaming the channel. Usually, it's something like "User has renamed the channel from X to Y"</para>
+    /// <para>A <see cref="MessageType.System">system message</see> is a <see cref="Message">message</see> that is created automatically on specific events, such as renaming a <see cref="ServerChannel">channel</see>. Usually, it's something like "User has renamed the channel from X to Y"</para>
     /// </remarks>
-    /// <value><see cref="Message" /> is <see cref="MessageType.System">a system message</see></value>
+    /// <value>Whether the <see cref="Message">message</see> is a <see cref="MessageType.System">system message</see></value>
     /// <seealso cref="Message" />
     /// <seealso cref="Content" />
     /// <seealso cref="Embeds" />

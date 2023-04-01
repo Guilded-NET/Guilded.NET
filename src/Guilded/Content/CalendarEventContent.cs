@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;
@@ -10,6 +11,7 @@ namespace Guilded.Content;
 /// <summary>
 /// Represents the contents of a <see cref="CalendarEvent">calendar event</see> for creation and updating.
 /// </summary>
+/// <seealso cref="CalendarEventSeriesContent" />
 /// <seealso cref="Base.MessageContent" />
 /// <seealso cref="CalendarEvent" />
 [JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
@@ -298,6 +300,7 @@ public class CalendarEventContent
     /// </summary>
     /// <value>The information about <see cref="CalendarEventSeries">calendar event repetition</see></value>
     /// <seealso cref="CalendarEventContent" />
+    /// <seealso cref="CalendarEventSeriesContent.CalendarEvent" />
     /// <seealso cref="Name" />
     /// <seealso cref="Description" />
     /// <seealso cref="Location" />
@@ -416,5 +419,135 @@ public class CalendarEventContent
         IList<uint>? roleIds = null,
         CalendarEventRepetition? repeatInfo = null
     ) : this(name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo) { }
+    #endregion
+}
+
+/// <summary>
+/// Represents the contents of a <see cref="CalendarEvent">calendar event</see> for creation and updating.
+/// </summary>
+/// <seealso cref="CalendarEventContent" />
+/// <seealso cref="Base.MessageContent" />
+/// <seealso cref="CalendarEvent" />
+[JsonObject(MissingMemberHandling = MissingMemberHandling.Ignore,
+            ItemNullValueHandling = NullValueHandling.Ignore)]
+public class CalendarEventSeriesContent : CalendarEventContent
+{
+    #region Properties
+    /// <summary>
+    /// Gets or sets from which <see cref="CalendarEvent">calendar event</see> onwards the <see cref="CalendarEventSeries">calendar event series</see> should be updated.
+    /// </summary>
+    /// <value>From which <see cref="CalendarEvent">calendar event</see> onwards the <see cref="CalendarEventSeries">calendar event series</see> should be updated</value>
+    /// <seealso cref="CalendarEventSeriesContent" />
+    /// <seealso cref="CalendarEventContent.RepeatInfo" />
+    public uint? CalendarEvent { get; set; }
+    #endregion
+
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of <see cref="CalendarEventContent" /> from the specified JSON properties.
+    /// </summary>
+    /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
+    /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
+    /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is private</param>
+    /// <param name="rsvpDisabled">Whether <see cref="Member">members</see> can attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="autofillWaitlist">Whether <see cref="Member">members</see> in the waitlist should be added to the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    /// <param name="calendarEvent">From which <see cref="CalendarEvent">calendar event</see> onwards the <see cref="CalendarEventSeries">calendar event series</see> should be updated</param>
+    /// <returns>New <see cref="CalendarEventSeriesContent" /> JSON instance</returns>
+    /// <seealso cref="CalendarEventSeriesContent" />
+    [JsonConstructor]
+    public CalendarEventSeriesContent(
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? name = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? description = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        string? location = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        DateTime? startsAt = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Uri? url = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Color? color = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        uint? duration = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        uint? rsvpLimit = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool? isPrivate = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool? rsvpDisabled = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool? autofillWaitlist = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        bool? isAllDay = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        IList<uint>? roleIds = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        CalendarEventRepetition? repeatInfo = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        uint? calendarEvent = null
+    ) : base(name, description, location, startsAt, url, color, duration, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo) =>
+        CalendarEvent = calendarEvent;
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="CalendarEventContent" /> from the specified JSON properties.
+    /// </summary>
+    /// <param name="name">The title of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="description">The description of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="location">The physical or non-physical location of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="startsAt">The date when the <see cref="CalendarEvent">calendar event</see> starts</param>
+    /// <param name="url">The URL to the <see cref="CalendarEvent">calendar event's</see> services, place or anything related</param>
+    /// <param name="color">The colour of the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="duration">The duration of the <see cref="CalendarEvent">calendar event</see> in minutes</param>
+    /// <param name="rsvpLimit">The limit of how many <see cref="User">users</see> can be invited or attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isPrivate">Whether the <see cref="CalendarEvent">calendar event</see> is private</param>
+    /// <param name="rsvpDisabled">Whether <see cref="Member">members</see> can attend the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="autofillWaitlist">Whether <see cref="Member">members</see> in the waitlist should be added to the <see cref="CalendarEvent">calendar event</see></param>
+    /// <param name="isAllDay">Whether the <see cref="CalendarEvent">calendar event</see> lasts all day</param>
+    /// <param name="roleIds">The list of identifiers of roles to restrict <see cref="CalendarEvent">calendar events</see></param>
+    /// <param name="repeatInfo">The information about <see cref="CalendarEventSeries">calendar event repetition</see></param>
+    /// <param name="calendarEvent">From which <see cref="CalendarEvent">calendar event</see> onwards the <see cref="CalendarEventSeries">calendar event series</see> should be updated</param>
+    /// <returns>New <see cref="CalendarEventContent" /> JSON instance</returns>
+    /// <seealso cref="CalendarEventContent" />
+    public CalendarEventSeriesContent(
+        string? name = null,
+        string? description = null,
+        string? location = null,
+        DateTime? startsAt = null,
+        Uri? url = null,
+        Color? color = null,
+        TimeSpan? duration = null,
+        uint? rsvpLimit = null,
+        bool? isPrivate = null,
+        bool? rsvpDisabled = null,
+        bool? autofillWaitlist = null,
+        bool? isAllDay = null,
+        IList<uint>? roleIds = null,
+        CalendarEventRepetition? repeatInfo = null,
+        uint? calendarEvent = null
+    ) : this(name, description, location, startsAt, url, color, (uint?)duration?.TotalMinutes, rsvpLimit, isPrivate, rsvpDisabled, autofillWaitlist, isAllDay, roleIds, repeatInfo, calendarEvent) { }
     #endregion
 }

@@ -21,6 +21,7 @@
 - Added `EventSeriesUpdated`, `EventSeriesDeleted` events for calendar event repetition changes
 - Added `EventReactionAdded`, `EventReactionRemoved` events for calendar event reactions
 - Added `EventCommentCreated`, `EventCommentUpdated`, `EventCommentDeleted`, `EventCommentReactionAdded`, `EventCommentReactionRemoved` events for calendar event comments
+- Added `UpdateEventSeriesAsync` and `DeleteEventSeriesAsync` to `EventChannel` and `CalendarEvent`
 
 **Docs:**
 - Added `DocReactionAdded`, `DocReactionRemoved` events for doc reactions

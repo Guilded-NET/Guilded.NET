@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Permissions;
 using System.Threading.Tasks;
 using Guilded.Base;
@@ -139,6 +140,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// Gets whether the <see cref="Webhook">webhook</see> can be executed.
     /// </summary>
     /// <returns><see cref="Webhook" /> is executable</returns>
+    [MemberNotNullWhen(true, nameof(Token))]
     public bool IsExecutable => Token is not null;
     #endregion
 

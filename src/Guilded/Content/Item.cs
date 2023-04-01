@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
@@ -89,6 +90,7 @@ public abstract class ItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableCont
     /// Gets whether the <see cref="Item">list item</see> was ticked off.
     /// </summary>
     /// <returns>Whether the <see cref="Item">list item</see> was ticked off</returns>
+    [MemberNotNullWhen(true, nameof(CompletedAt), nameof(CompletedBy))]
     public bool IsCompleted => CompletedAt is not null;
     #endregion
 

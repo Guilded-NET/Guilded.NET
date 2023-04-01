@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
@@ -44,12 +45,12 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public Guid Id { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent channel of this channel.
+    /// Gets the identifier of the parent channel of the <see cref="ServerChannel">channel</see>.
     /// </summary>
     /// <remarks>
     /// <para>This property is only present in threads. This can be used to determine if this is a thread, and as such, <see cref="IsThread" /> property exists.</para>
     /// </remarks>
-    /// <value><see cref="Id">Channel ID</see>?</value>
+    /// <value>The identifier of the parent channel of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="CategoryId" />
@@ -58,9 +59,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public Guid? ParentId { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent category of this channel.
+    /// Gets the identifier of the parent category of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>Category ID?</value>
+    /// <value>The identifier of the parent category of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="ParentId" />
@@ -69,9 +70,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public uint? CategoryId { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent group of this channel.
+    /// Gets the identifier of the parent group of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>Group ID</value>
+    /// <value>The identifier of the parent group of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="ParentId" />
@@ -80,9 +81,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public HashId GroupId { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent server of this channel.
+    /// Gets the identifier of the parent server of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>Server ID</value>
+    /// <value>The identifier of the parent server of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="ParentId" />
@@ -91,41 +92,41 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public HashId ServerId { get; }
 
     /// <summary>
-    /// Gets the type of content the channel holds.
+    /// Gets the type of content the <see cref="ServerChannel">channel</see> holds.
     /// </summary>
-    /// <value>Channel type</value>
+    /// <value>The type of content the <see cref="ServerChannel">channel</see> holds</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="IsPublic" />
     public ChannelType Type { get; }
 
     /// <summary>
-    /// Gets the name of the channel.
+    /// Gets the name of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The name of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Topic" />
     public string Name { get; }
 
     /// <summary>
-    /// Gets the topic describing what the channel is about.
+    /// Gets the topic describing what the <see cref="ServerChannel">channel</see> is about.
     /// </summary>
-    /// <value>Single-line description?</value>
+    /// <value>The topic describing what the <see cref="ServerChannel">channel</see> is about</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Name" />
     public string? Topic { get; }
 
     /// <summary>
-    /// Gets whether the channel is globally viewable.
+    /// Gets whether the <see cref="ServerChannel">channel</see> is globally viewable.
     /// </summary>
-    /// <value>Channel is public?</value>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> is globally viewable</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Type" />
     public bool IsPublic { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that created the channel.
+    /// Gets the identifier of <see cref="User">user</see> that created the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value><see cref="UserSummary.Id">User ID</see></value>
+    /// <value>The identifier of <see cref="User">user</see> that created the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="UpdatedAt" />
@@ -134,9 +135,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public HashId CreatedBy { get; }
 
     /// <summary>
-    /// Gets the date when the channel was created.
+    /// Gets the date when the <see cref="ServerChannel">channel</see> was created.
     /// </summary>
-    /// <value>Date</value>
+    /// <value>The date when the <see cref="ServerChannel">channel</see> was created</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="UpdatedAt" />
@@ -145,9 +146,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the date when the channel was edited.
+    /// Gets the date when the <see cref="ServerChannel">channel</see> was edited.
     /// </summary>
-    /// <value>Date?</value>
+    /// <value>The date when the <see cref="ServerChannel">channel</see> was edited</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="CreatedAt" />
     /// <seealso cref="CreatedBy" />
@@ -156,7 +157,7 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public DateTime? UpdatedAt { get; }
 
     /// <summary>
-    /// Gets the identifier of <see cref="User">user</see> that archived the channel.
+    /// Gets the identifier of <see cref="User">user</see> that archived the <see cref="ServerChannel">channel</see>.
     /// </summary>
     /// <value><see cref="UserSummary.Id">User ID</see></value>
     /// <seealso cref="ServerChannel" />
@@ -167,9 +168,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public HashId? ArchivedBy { get; }
 
     /// <summary>
-    /// Gets the date when the channel was archived.
+    /// Gets the date when the <see cref="ServerChannel">channel</see> was archived.
     /// </summary>
-    /// <value>Date?</value>
+    /// <value>The date when the <see cref="ServerChannel">channel</see> was archived</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="ArchivedBy" />
     /// <seealso cref="CreatedAt" />
@@ -178,34 +179,37 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public DateTime? ArchivedAt { get; }
 
     /// <summary>
-    /// Gets whether the channel is a thread of <see cref="ChannelContent{TId, TServer}">a channel content</see>.
+    /// Gets whether the <see cref="ServerChannel">channel</see> is a thread of a <see cref="ChannelContent{TId, TServer}">channel content</see>.
     /// </summary>
-    /// <value>Channel is thread</value>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> is a thread of a <see cref="ChannelContent{TId, TServer}">channel content</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="ParentId" />
     /// <seealso cref="IsArchived" />
     /// <seealso cref="IsCategorized" />
+    [MemberNotNullWhen(true, nameof(ParentId))]
     public bool IsThread => ParentId is not null;
 
     /// <summary>
-    /// Gets whether the channel has been archived.
+    /// Gets whether the <see cref="ServerChannel">channel</see> has been archived.
     /// </summary>
-    /// <value>Channel is archived</value>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> has been archived</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="ArchivedAt" />
     /// <seealso cref="ArchivedBy" />
     /// <seealso cref="IsThread" />
     /// <seealso cref="IsCategorized" />
+    [MemberNotNullWhen(true, nameof(ArchivedAt), nameof(ArchivedBy))]
     public bool IsArchived => ArchivedAt is not null;
 
     /// <summary>
-    /// Gets whether the channel is in a category.
+    /// Gets whether the <see cref="ServerChannel">channel</see> is in a category.
     /// </summary>
-    /// <value>Channel is in a category</value>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> is in a category</value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="CategoryId" />
     /// <seealso cref="IsThread" />
     /// <seealso cref="IsArchived" />
+    [MemberNotNullWhen(true, nameof(CategoryId))]
     public bool IsCategorized => CategoryId is not null;
     #endregion
 
