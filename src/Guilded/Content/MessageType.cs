@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Content;
 
@@ -7,7 +8,7 @@ namespace Guilded.Content;
 /// Represents the type of a <see cref="Message">message</see> that was created or updated.
 /// </summary>
 /// <seealso cref="Message" />
-[JsonConverter(typeof(StringEnumConverter), true)]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum MessageType
 {
     /// <summary>

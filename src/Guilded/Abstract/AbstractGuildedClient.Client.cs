@@ -9,6 +9,7 @@ using Guilded.Connection;
 using Guilded.Events;
 using Guilded.Json;
 using Guilded.Users;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 using Websocket.Client;
@@ -85,6 +86,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     protected AbstractGuildedClient()
     {
         SerializerSettings.Converters.Add(new ServerChannelConverter());
+        SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
 
         #region Event list
         // Dictionary of supported events, so we wouldn't need to manually do it.

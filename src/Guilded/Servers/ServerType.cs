@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Servers;
 
@@ -11,7 +12,7 @@ namespace Guilded.Servers;
 /// </remarks>
 /// <seealso cref="Server" />
 /// <seealso cref="ChannelType" />
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum ServerType
 {
     /// <summary>

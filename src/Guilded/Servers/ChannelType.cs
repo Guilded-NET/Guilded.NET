@@ -1,6 +1,7 @@
 using Guilded.Content;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Servers;
 
@@ -10,7 +11,7 @@ namespace Guilded.Servers;
 /// <seealso cref="ServerChannel" />
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
-[JsonConverter(typeof(StringEnumConverter))]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum ChannelType
 {
     /// <summary>

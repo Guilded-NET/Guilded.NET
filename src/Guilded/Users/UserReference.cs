@@ -3,6 +3,7 @@ using Guilded.Base;
 using Guilded.Client;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Users;
 
@@ -12,7 +13,7 @@ namespace Guilded.Users;
 /// <seealso cref="HashId" />
 /// <seealso cref="UserSummary" />
 /// <seealso cref="User" />
-[JsonConverter(typeof(StringEnumConverter), true)]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum UserReference
 {
     /// <summary>

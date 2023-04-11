@@ -1,3 +1,7 @@
+# v1.5.1
+
+- Fix some serialization issues and channel creation specifically
+
 # v1.5.0
 
 ## BREAKING

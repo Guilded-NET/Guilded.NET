@@ -1,6 +1,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Users;
 
@@ -10,7 +11,7 @@ namespace Guilded.Users;
 /// <seealso cref="SocialLink" />
 /// <seealso cref="User" />
 /// <seealso cref="UserSummary" />
-[JsonConverter(typeof(StringEnumConverter), true)]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum SocialLinkType
 {
     /// <summary>

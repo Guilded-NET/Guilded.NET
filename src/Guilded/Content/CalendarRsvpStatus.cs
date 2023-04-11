@@ -1,6 +1,7 @@
 using Guilded.Users;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Content;
 
@@ -10,7 +11,7 @@ namespace Guilded.Content;
 /// <seealso cref="CalendarEventRsvp" />
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="MessageType" />
-[JsonConverter(typeof(StringEnumConverter), true)]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum CalendarEventRsvpStatus
 {
     /// <summary>

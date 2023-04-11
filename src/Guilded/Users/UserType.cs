@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 namespace Guilded.Users;
 
@@ -13,7 +14,7 @@ namespace Guilded.Users;
 /// <seealso cref="Users.User" />
 /// <seealso cref="UserSummary" />
 /// <seealso cref="ClientUser" />
-[JsonConverter(typeof(StringEnumConverter), true)]
+[JsonConverter(typeof(StringEnumConverter), typeof(CamelCaseNamingStrategy))]
 public enum UserType
 {
     /// <summary>
