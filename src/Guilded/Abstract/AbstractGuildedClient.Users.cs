@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Content;
 using Guilded.Users;
 using RestSharp;
 
@@ -7,6 +8,26 @@ namespace Guilded.Client;
 
 public abstract partial class AbstractGuildedClient
 {
+    #region Methods Short Info
+    /// <summary>
+    /// Adds or edits the status of the <see cref="AbstractGuildedClient">client's</see> bot account.
+    /// </summary>
+    /// <param name="content">The text contents of the status</param>
+    /// <param name="emoteId">The identifier of the status's <see cref="Emote">emote</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    public Task SetStatusAsync(string content, uint emoteId) =>
+        ExecuteRequestAsync(new RestRequest("/users/@me/status", Method.Put).AddBody(new { content, emoteId }));
+
+    /// <summary>
+    /// Removes the status of the <see cref="AbstractGuildedClient">client's</see> bot account.
+    /// </summary>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    public Task RemoveStatusAsync() =>
+        ExecuteRequestAsync(new RestRequest("/users/@me/status", Method.Delete));
+    #endregion
+
     #region Methods Profile info
     /// <summary>
     /// Gets the specified <paramref name="member">member's</paramref> social link based on given <paramref name="linkType">social link type</paramref>.

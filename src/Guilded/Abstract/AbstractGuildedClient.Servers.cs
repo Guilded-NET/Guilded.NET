@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Permissions;
@@ -641,7 +639,7 @@ public abstract partial class AbstractGuildedClient
     /// Edits the specified <paramref name="webhook" />.
     /// </summary>
     /// <remarks>
-    /// <para><see cref="Webhook" /> can moved between <see cref="ServerChannel">channels</see> using '<paramref name="newChannel" />' parameter.</para>
+    /// <para><see cref="Webhook" /> can moved between <see cref="ServerChannel">channels</see> using <paramref name="newChannel" /> parameter.</para>
     /// </remarks>
     /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Webhook">webhook</see> is</param>
     /// <param name="webhook">The identifier of the <see cref="Webhook">webhook</see> to update</param>

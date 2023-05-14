@@ -69,7 +69,7 @@ public class Message :
     /// <remarks>
     /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
     /// </remarks>
-    /// <value>Markdown string?</value>
+    /// <value>The text contents of the <see cref="Message">message</see></value>
     /// <seealso cref="Message" />
     /// <seealso cref="IsPrivate" />
     /// <seealso cref="ReplyMessageIds" />
