@@ -723,7 +723,7 @@ public abstract partial class AbstractGuildedClient
     public IObservable<DocCommentReactionEvent> DocCommentReactionAdded => ((IEventInfo<DocCommentReactionEvent>)GuildedEvents["DocCommentReactionCreated"]).Observable;
 
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="CalendarEventCommentReaction">reaction</see> is added to a <see cref="DocComment">document comment</see>.
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="DocCommentReaction">reaction</see> is added to a <see cref="DocComment">document comment</see>.
     /// </summary>
     /// <remarks>
     /// <para>An event with the name <c>DocCommentReactionDeleted</c> and opcode <c>0</c>.</para>
@@ -733,6 +733,124 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="DocCommentDeleted" />
     /// <seealso cref="DocCommentReactionAdded" />
     public IObservable<DocCommentReactionEvent> DocCommentReactionRemoved => ((IEventInfo<DocCommentReactionEvent>)GuildedEvents["DocCommentReactionDeleted"]).Observable;
+    #endregion
+
+    #region Properties Announcements channels
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a new <see cref="Announcement">announcement</see> is posted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementUpdated" />
+    /// <seealso cref="AnnouncementDeleted" />
+    public IObservable<AnnouncementEvent> AnnouncementCreated => ((IEventInfo<AnnouncementEvent>)GuildedEvents["AnnouncementCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Announcement">announcement</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCreated" />
+    /// <seealso cref="AnnouncementDeleted" />
+    public IObservable<AnnouncementEvent> AnnouncementUpdated => ((IEventInfo<AnnouncementEvent>)GuildedEvents["AnnouncementUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Announcement">announcement</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCreated" />
+    /// <seealso cref="AnnouncementUpdated" />
+    public IObservable<AnnouncementEvent> AnnouncementDeleted => ((IEventInfo<AnnouncementEvent>)GuildedEvents["AnnouncementDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="AnnouncementReaction">reaction</see> is added to a <see cref="Announcement">announcement</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementReactionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCreated" />
+    /// <seealso cref="AnnouncementUpdated" />
+    /// <seealso cref="AnnouncementDeleted" />
+    /// <seealso cref="AnnouncementReactionRemoved" />
+    public IObservable<AnnouncementReactionEvent> AnnouncementReactionAdded => ((IEventInfo<AnnouncementReactionEvent>)GuildedEvents["AnnouncementReactionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="AnnouncementReaction">reaction</see> is added to a <see cref="Announcement">announcement</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementReactionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCreated" />
+    /// <seealso cref="AnnouncementUpdated" />
+    /// <seealso cref="AnnouncementDeleted" />
+    /// <seealso cref="AnnouncementReactionAdded" />
+    public IObservable<AnnouncementReactionEvent> AnnouncementReactionRemoved => ((IEventInfo<AnnouncementReactionEvent>)GuildedEvents["AnnouncementReactionDeleted"]).Observable;
+    #endregion
+
+    #region Properties Announcements channels > Comments
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a new <see cref="AnnouncementComment">announcement comment</see> is posted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementCommentCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCommentUpdated" />
+    /// <seealso cref="AnnouncementCommentDeleted" />
+    /// <seealso cref="AnnouncementCommentReactionAdded" />
+    /// <seealso cref="AnnouncementCommentReactionRemoved" />
+    public IObservable<AnnouncementCommentEvent> AnnouncementCommentCreated => ((IEventInfo<AnnouncementCommentEvent>)GuildedEvents["AnnouncementCommentCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="AnnouncementComment">announcement comment</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementCommentUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCommentCreated" />
+    /// <seealso cref="AnnouncementCommentDeleted" />
+    /// <seealso cref="AnnouncementCommentReactionAdded" />
+    /// <seealso cref="AnnouncementCommentReactionRemoved" />
+    public IObservable<AnnouncementCommentEvent> AnnouncementCommentUpdated => ((IEventInfo<AnnouncementCommentEvent>)GuildedEvents["AnnouncementCommentUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="AnnouncementComment">announcement comment</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementCommentDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCommentCreated" />
+    /// <seealso cref="AnnouncementCommentUpdated" />
+    /// <seealso cref="AnnouncementCommentReactionAdded" />
+    /// <seealso cref="AnnouncementCommentReactionRemoved" />
+    public IObservable<AnnouncementCommentEvent> AnnouncementCommentDeleted => ((IEventInfo<AnnouncementCommentEvent>)GuildedEvents["AnnouncementCommentDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="AnnouncementCommentReaction">reaction</see> is added to a <see cref="AnnouncementComment">announcement comment</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementCommentReactionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCommentCreated" />
+    /// <seealso cref="AnnouncementCommentUpdated" />
+    /// <seealso cref="AnnouncementCommentDeleted" />
+    /// <seealso cref="AnnouncementCommentReactionRemoved" />
+    public IObservable<AnnouncementCommentReactionEvent> AnnouncementCommentReactionAdded => ((IEventInfo<AnnouncementCommentReactionEvent>)GuildedEvents["AnnouncementCommentReactionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="AnnouncementCommentReaction">reaction</see> is added to a <see cref="AnnouncementComment">announcement comment</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>AnnouncementCommentReactionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="AnnouncementCommentCreated" />
+    /// <seealso cref="AnnouncementCommentUpdated" />
+    /// <seealso cref="AnnouncementCommentDeleted" />
+    /// <seealso cref="AnnouncementCommentReactionAdded" />
+    public IObservable<AnnouncementCommentReactionEvent> AnnouncementCommentReactionRemoved => ((IEventInfo<AnnouncementCommentReactionEvent>)GuildedEvents["AnnouncementCommentReactionDeleted"]).Observable;
     #endregion
 
     #region Properties Calendar channels > Events

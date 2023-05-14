@@ -87,7 +87,7 @@ public class DocCommentReaction : Reaction
     /// <seealso cref="DocCommentReaction" />
     /// <seealso cref="DocCommentId" />
     /// <seealso cref="Reaction" />
-    /// <seealso cref="Topic" />
+    /// <seealso cref="Doc" />
     /// <seealso cref="Reaction.ChannelId" />
     /// <seealso cref="Reaction.Id" />
     public uint DocId { get; }
@@ -99,7 +99,7 @@ public class DocCommentReaction : Reaction
     /// <seealso cref="DocCommentReaction" />
     /// <seealso cref="DocId" />
     /// <seealso cref="Reaction" />
-    /// <seealso cref="Topic" />
+    /// <seealso cref="Doc" />
     /// <seealso cref="Reaction.ChannelId" />
     /// <seealso cref="Reaction.Id" />
     public uint DocCommentId { get; }

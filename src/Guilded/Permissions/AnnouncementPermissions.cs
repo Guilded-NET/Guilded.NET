@@ -33,23 +33,23 @@ public enum AnnouncementPermissions
     /// <summary>
     /// Allows you to view announcements
     /// </summary>
-    ViewAnnouncements = 2,
+    GetAnnouncement = 2,
 
     /// <summary>
     /// Allows you to create and remove announcements
     /// </summary>
-    CreateAnnouncements = 1,
+    CreateAnnouncement = 1,
 
     /// <summary>
     /// Allows you to delete announcements by other members or pin any announcement
     /// </summary>
-    ManageAnnouncements = 4,
+    ManageAnnouncement = 4,
 
     #region Properties
     /// <summary>
     /// All of the permissions combined.
     /// </summary>
-    All = CreateAnnouncements | ViewAnnouncements | ManageAnnouncements,
+    All = CreateAnnouncement | GetAnnouncement | ManageAnnouncement,
 
     /// <summary>
     /// All of the manage permissions combined.
@@ -58,11 +58,11 @@ public enum AnnouncementPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="ManageAnnouncements" /></description>
+    ///         <description><see cref="ManageAnnouncement" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Manage = ManageAnnouncements,
+    Manage = ManageAnnouncement,
 
     /// <summary>
     /// A simple permission combination allowing writing permissions and reading permissions.
@@ -71,10 +71,10 @@ public enum AnnouncementPermissions
     /// <para>Sets these permissions:</para>
     /// <list type="bullet">
     ///     <item>
-    ///         <description><see cref="CreateAnnouncements" /></description>
+    ///         <description><see cref="CreateAnnouncement" /></description>
     ///     </item>
     /// </list>
     /// </remarks>
-    Basic = CreateAnnouncements
+    Basic = CreateAnnouncement
     #endregion
 }

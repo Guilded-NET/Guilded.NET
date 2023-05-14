@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
@@ -15,14 +14,14 @@ namespace Guilded.Content;
 /// Represents a summary of a <see cref="Topic">forum topic</see> in a <see cref="ChannelType.Forums">forum channel</see>.
 /// </summary>
 /// <remarks>
-/// <para>This summary does not contain the <see cref="Topic.Content">content</see> of the <see cref="Topic">forum topic</see> and only the <see cref="TitledContent.Title">title</see></para>
+/// <para>This summary does not contain the <see cref="Topic.Content">content</see> of the <see cref="Topic">forum topic</see> and only the <see cref="TitledContent{T}.Title">title</see></para>
 /// </remarks>
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
 /// <seealso cref="Message" />
 /// <seealso cref="Item" />
 /// <seealso cref="CalendarEvent" />
-public class TopicSummary : TitledContent
+public class TopicSummary : TitledContent<uint>
 {
     #region Properties
     /// <summary>
@@ -32,8 +31,17 @@ public class TopicSummary : TitledContent
     /// <seealso cref="TopicSummary" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
-    /// <seealso cref="TitledContent.UpdatedAt" />
+    /// <seealso cref="UpdatedAt" />
     public Guid? CreatedByWebhook { get; }
+
+    /// <summary>
+    /// Gets the date when the <see cref="TopicSummary">forum topic</see> was updated.
+    /// </summary>
+    /// <value>The date when the <see cref="TopicSummary">forum topic</see> was updated</value>
+    /// <seealso cref="TitledContent{T}" />
+    /// <seealso cref="ChannelContent{T, S}.CreatedAt" />
+    /// <seealso cref="ChannelContent{T, S}.CreatedBy" />
+    public DateTime? UpdatedAt { get; }
 
     /// <summary>
     /// Gets the date when the <see cref="TopicSummary">forum topic</see> was bumped.
@@ -41,7 +49,7 @@ public class TopicSummary : TitledContent
     /// <value>The date when the <see cref="TopicSummary">forum topic</see> was bumped</value>
     /// <seealso cref="TopicSummary" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
-    /// <seealso cref="TitledContent.UpdatedAt" />
+    /// <seealso cref="UpdatedAt" />
     public DateTime BumpedAt { get; }
 
     /// <summary>
@@ -259,8 +267,8 @@ public class TopicSummary : TitledContent
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         bool isLocked = false
-    ) : base(id, channelId, serverId, title, createdBy, createdAt, updatedAt) =>
-        (BumpedAt, CreatedByWebhook, IsPinned, IsLocked) = (bumpedAt, createdByWebhookId, isPinned, isLocked);
+    ) : base(id, channelId, serverId, title, createdBy, createdAt) =>
+        (BumpedAt, UpdatedAt, CreatedByWebhook, IsPinned, IsLocked) = (bumpedAt, updatedAt, createdByWebhookId, isPinned, isLocked);
     #endregion
 
     #region Methods
@@ -274,6 +282,18 @@ public class TopicSummary : TitledContent
     public Task DeleteAsync() =>
         ParentClient.DeleteTopicAsync(ChannelId, Id);
 
+    /// <inheritdoc cref="AbstractGuildedClient.AddTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    public override Task AddReactionAsync(uint emote) =>
+        ParentClient.AddTopicReactionAsync(ChannelId, Id, emote);
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    public override Task RemoveReactionAsync(uint emote) =>
+        ParentClient.RemoveTopicReactionAsync(ChannelId, Id, emote);
+    #endregion
+
+    #region Methods Comments
     /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
     /// <param name="content">The content of the <see cref="TopicComment">forum topic comment</see></param>
     public Task<TopicComment> CreateCommentAsync(string content) =>
@@ -285,7 +305,7 @@ public class TopicSummary : TitledContent
     public Task<TopicComment> UpdateCommentAsync(uint topicComment, string content) =>
         ParentClient.UpdateTopicCommentAsync(ChannelId, Id, topicComment, content);
 
-    /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteTopicCommentAsync(Guid, uint, uint)" />
     /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to delete</param>
     public Task DeleteCommentAsync(uint topicComment) =>
         ParentClient.DeleteTopicCommentAsync(ChannelId, Id, topicComment);
@@ -309,13 +329,13 @@ public class Topic : TopicSummary, IContentMarkdown
     /// <value>Markdown string</value>
     /// <seealso cref="Topic" />
     /// <seealso cref="Mentions" />
-    /// <seealso cref="TitledContent.Title" />
+    /// <seealso cref="TitledContent{T}.Title" />
     public string Content { get; }
 
     /// <inheritdoc />
     /// <seealso cref="Topic" />
     /// <seealso cref="Content" />
-    /// <seealso cref="TitledContent.Title" />
+    /// <seealso cref="TitledContent{T}.Title" />
     public Mentions? Mentions { get; }
     #endregion
 

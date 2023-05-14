@@ -697,6 +697,181 @@ public abstract partial class AbstractGuildedClient
         RemoveDocCommentReactionAsync(channel, doc, docComment, emote.Id);
     #endregion
 
+    #region Methods Announcements channels > Comments
+    /// <summary>
+    /// Gets a list of <see cref="AnnouncementComment">announcement comments</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to get <see cref="DocComment">comments</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <returns>The list of fetched <see cref="AnnouncementComment">announcement comments</see> in the specified <paramref name="channel" /></returns>
+    public Task<IList<AnnouncementComment>> GetAnnouncementCommentsAsync(Guid channel, HashId announcement) =>
+        GetResponsePropertyAsync<IList<AnnouncementComment>>(new RestRequest($"channels/{channel}/announcements/{announcement}/comments", Method.Get), "announcementComments");
+
+    /// <summary>
+    /// Gets the <paramref name="announcementComment">specified announcement comment</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to get <see cref="AnnouncementComment">comment</see> of</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <returns>The <see cref="AnnouncementComment">announcement comment</see> that was specified in the arguments</returns>
+    public Task<AnnouncementComment> GetAnnouncementCommentAsync(Guid channel, HashId announcement, uint announcementComment) =>
+        GetResponsePropertyAsync<AnnouncementComment>(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}", Method.Get), "announcementComment");
+
+    /// <summary>
+    /// Creates a new <see cref="AnnouncementComment">comment</see> on a <see cref="Announcement">announcement</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where the <see cref="DocComment">document comment</see> should be</param>
+    /// <param name="content">The content of the <see cref="AnnouncementComment">announcement comment</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>The <see cref="AnnouncementComment">announcement comment</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<AnnouncementComment> CreateAnnouncementCommentAsync(Guid channel, HashId announcement, string content) =>
+        string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponsePropertyAsync<AnnouncementComment>(new RestRequest($"channels/{channel}/announcements/{announcement}/comments", Method.Post).AddJsonBody(new { content }), "announcementComment");
+
+    /// <summary>
+    /// Edits <see cref="AnnouncementComment">announcement comment's</see> <paramref name="content" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where the <see cref="DocComment">document comment</see> is</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to update</param>
+    /// <param name="content">The new contents of the <see cref="AnnouncementComment">announcement comment</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>The <paramref name="announcementComment">announcement comment</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<AnnouncementComment> UpdateAnnouncementCommentAsync(Guid channel, HashId announcement, uint announcementComment, string content) =>
+        string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponsePropertyAsync<AnnouncementComment>(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}", Method.Patch).AddJsonBody(new { content }), "announcementComment");
+
+    /// <summary>
+    /// Deletes a <see cref="AnnouncementComment">announcement comment</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where the <see cref="AnnouncementComment">announcement comment</see> is</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="DocPermissions.ManageDoc">Required when deleting <see cref="DocComment">document comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    public Task DeleteAnnouncementCommentAsync(Guid channel, HashId announcement, uint announcementComment) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}", Method.Delete));
+    #endregion
+
+    #region Methods Reactions > Announcements
+    /// <summary>
+    /// Adds an <paramref name="emote" /> as a reaction to the <paramref name="announcement">specified announcement</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Doc">document</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    public Task AddAnnouncementReactionAsync(Guid channel, HashId announcement, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/emotes/{emote}", Method.Put));
+
+    /// <inheritdoc cref="AddAnnouncementReactionAsync(Guid, HashId, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddAnnouncementReactionAsync(Guid channel, HashId announcement, Emote emote) =>
+        AddAnnouncementReactionAsync(channel, announcement, emote.Id);
+
+    /// <summary>
+    /// Removes an <paramref name="emote" /> as a reaction from the <paramref name="announcement">specified announcement</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    public Task RemoveAnnouncementReactionAsync(Guid channel, HashId announcement, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/emotes/{emote}", Method.Delete));
+
+    /// <inheritdoc cref="RemoveAnnouncementReactionAsync(Guid, HashId, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveAnnouncementReactionAsync(Guid channel, HashId announcement, Emote emote) =>
+        RemoveAnnouncementReactionAsync(channel, announcement, emote.Id);
+    #endregion
+
+    #region Methods Reactions > Announcement Comments
+    /// <summary>
+    /// Adds an <paramref name="emote" /> as a reaction to the <paramref name="announcementComment">specified announcement comment</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where the <paramref name="announcementComment">announcement comment</paramref> is</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    public Task AddAnnouncementCommentReactionAsync(Guid channel, HashId announcement, uint announcementComment, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}/emotes/{emote}", Method.Put));
+
+    /// <inheritdoc cref="AddAnnouncementCommentReactionAsync(Guid, HashId, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where the <paramref name="announcementComment">announcement comment</paramref> is</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to add a <see cref="Reaction">reaction</see> to</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to add</param>
+    public Task AddAnnouncementCommentReactionAsync(Guid channel, HashId announcement, uint announcementComment, Emote emote) =>
+        AddAnnouncementCommentReactionAsync(channel, announcement, announcementComment, emote.Id);
+
+    /// <summary>
+    /// Removes an <paramref name="emote" /> as a reaction from the <paramref name="announcementComment">specified announcement comment</paramref>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where the <paramref name="announcementComment">announcement comment</paramref> is</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    public Task RemoveAnnouncementCommentReactionAsync(Guid channel, HashId announcement, uint announcementComment, uint emote) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcement/{announcement}/comments/{announcementComment}/emotes/{emote}", Method.Delete));
+
+    /// <inheritdoc cref="RemoveTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> where <paramref name="announcementComment">announcement comment</paramref> is</param>
+    /// <param name="announcementComment">The identifier of the <see cref="AnnouncementComment">announcement comment</see> to remove a <see cref="Reaction">reaction</see> from</param>
+    /// <param name="emote">The <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveAnnouncementCommentReactionAsync(Guid channel, HashId announcement, uint announcementComment, Emote emote) =>
+        RemoveAnnouncementCommentReactionAsync(channel, announcement, announcementComment, emote.Id);
+    #endregion
+
     #region Methods Reactions > Vague
     /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>

@@ -71,7 +71,7 @@ public class CalendarEventComment : BaseComment
     /// <param name="calendarEventId">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventComment">calendar event comment</see> was created</param>
     /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="CalendarEventComment">calendar event comment</see> was created</param>
     /// <param name="content">The full-Markdown text contents of the <see cref="CalendarEventComment">calendar event comment</see></param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="CalendarEventComment">forum topic</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="CalendarEventComment">calendar event comment</see></param>
     /// <param name="createdAt">The date when the <see cref="CalendarEventComment">calendar event comment</see> was created</param>
     /// <param name="updatedAt">The date when the <see cref="CalendarEventComment">calendar event comment</see> was edited</param>
     /// <returns>New <see cref="CalendarEventComment" /> JSON instance</returns>

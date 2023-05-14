@@ -17,7 +17,7 @@ namespace Guilded.Content;
 /// <seealso cref="CalendarEvent" />
 /// <seealso cref="Item" />
 /// <seealso cref="Message" />
-public class Doc : TitledContent, IContentMarkdown
+public class Doc : TitledContent<uint>, IContentMarkdown
 {
     #region Properties
     /// <summary>
@@ -28,7 +28,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// </remarks>
     /// <value>Markdown string</value>
     /// <seealso cref="Doc" />
-    /// <seealso cref="TitledContent.Title" />
+    /// <seealso cref="TitledContent{T}.Title" />
     public string Content { get; }
 
     /// <summary>
@@ -38,13 +38,24 @@ public class Doc : TitledContent, IContentMarkdown
     public Mentions? Mentions { get; }
 
     /// <summary>
+    /// Gets the date when the <see cref="TitledContent{T}">titled content</see> were updated.
+    /// </summary>
+    /// <value>The date when the <see cref="TitledContent{T}">titled content</see> were updated</value>
+    /// <seealso cref="TitledContent{T}" />
+    /// <seealso cref="UpdatedBy" />
+    /// <seealso cref="ChannelContent{T, S}.CreatedAt" />
+    /// <seealso cref="ChannelContent{T, S}.CreatedBy" />
+    public DateTime? UpdatedAt { get; }
+
+    /// <summary>
     /// Gets the identifier of the <see cref="Member">member</see> who updated the <see cref="Doc">document</see>.
     /// </summary>
     /// <remarks>
     /// <para>Only includes the <see cref="User">user</see> who updated the <see cref="Doc">document</see> most recently.</para>
     /// </remarks>
-    /// <value><see cref="UserSummary.Id">User ID</see>?</value>
+    /// <value>The identifier of the <see cref="Member">member</see> who updated the <see cref="Doc">document</see></value>
     /// <seealso cref="Doc" />
+    /// <seealso cref="UpdatedAt" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
     /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
@@ -97,7 +108,7 @@ public class Doc : TitledContent, IContentMarkdown
     /// <param name="createdAt">The date when the document was created</param>
     /// <param name="updatedBy">The identifier of <see cref="User">user</see> who recently updated the document</param>
     /// <param name="updatedAt">The date when the document was recently updated</param>
-    /// <param name="mentions"><see cref="Mentions">The mentions</see> found in the <see cref="Content">content</see></param>
+    /// <param name="mentions">The <see cref="Mentions">mentions</see> found in the <see cref="Content">content</see></param>
     /// <returns>New <see cref="Doc" /> JSON instance</returns>
     /// <seealso cref="Doc" />
     [JsonConstructor]
@@ -131,8 +142,8 @@ public class Doc : TitledContent, IContentMarkdown
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Mentions? mentions = null
-    ) : base(id, channelId, serverId, title, createdBy, createdAt, updatedAt) =>
-        (Content, Mentions, UpdatedBy) = (content, mentions, updatedBy);
+    ) : base(id, channelId, serverId, title, createdBy, createdAt) =>
+        (Content, Mentions, UpdatedAt, UpdatedBy) = (content, mentions, updatedAt, updatedBy);
     #endregion
 
     #region Methods
@@ -145,5 +156,33 @@ public class Doc : TitledContent, IContentMarkdown
     /// <inheritdoc cref="AbstractGuildedClient.DeleteDocAsync(Guid, uint)" />
     public Task DeleteAsync() =>
         ParentClient.DeleteDocAsync(ChannelId, Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.AddDocReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    public override Task AddReactionAsync(uint emote) =>
+        ParentClient.AddDocReactionAsync(ChannelId, Id, emote);
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveDocReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    public override Task RemoveReactionAsync(uint emote) =>
+        ParentClient.RemoveDocReactionAsync(ChannelId, Id, emote);
+    #endregion
+
+    #region Methods Comments
+    /// <inheritdoc cref="AbstractGuildedClient.CreateDocCommentAsync(Guid, uint, string)" />
+    /// <param name="content">The content of the <see cref="DocComment">document comment</see></param>
+    public Task<DocComment> CreateCommentAsync(string content) =>
+        ParentClient.CreateDocCommentAsync(ChannelId, Id, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateDocCommentAsync(Guid, uint, uint, string)" />
+    /// <param name="docComment">The identifier of the <see cref="DocComment">document comment</see> to update</param>
+    /// <param name="content">The new acontent of the <see cref="DocComment">document comment</see></param>
+    public Task<DocComment> UpdateCommentAsync(uint docComment, string content) =>
+        ParentClient.UpdateDocCommentAsync(ChannelId, Id, docComment, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteDocCommentAsync(Guid, uint, uint)" />
+    /// <param name="docComment">The identifier of the <see cref="DocComment">document comment</see> to delete</param>
+    public Task DeleteCommentAsync(uint docComment) =>
+        ParentClient.DeleteDocCommentAsync(ChannelId, Id, docComment);
     #endregion
 }

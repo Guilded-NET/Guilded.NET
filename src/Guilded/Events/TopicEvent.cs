@@ -40,7 +40,7 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     /// <inheritdoc cref="ChannelContent{T, S}.ChannelId" />
     public Guid ChannelId => Topic.ChannelId;
 
-    /// <inheritdoc cref="TitledContent.Title" />
+    /// <inheritdoc cref="TitledContent{T}.Title" />
     public string Title => Topic.Title;
 
     /// <inheritdoc cref="Topic.Content" />
@@ -61,7 +61,7 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     /// <inheritdoc cref="TopicSummary.BumpedAt" />
     public DateTime BumpedAt => Topic.BumpedAt;
 
-    /// <inheritdoc cref="TitledContent.UpdatedAt" />
+    /// <inheritdoc cref="TopicSummary.UpdatedAt" />
     public DateTime? UpdatedAt => Topic.UpdatedAt;
 
     /// <inheritdoc cref="TopicSummary.IsPinned" />
@@ -132,20 +132,42 @@ public class TopicEvent : IModelHasId<uint>, IServerBased, IChannelBased, ICreat
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="TopicSummary.UpdateAsync(string, string)" />
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateTopicAsync(Guid, uint, string, string)" />
+    /// <param name="title">The new title of the <see cref="Content.Topic">forum topic</see></param>
+    /// <param name="content">The Markdown content of the <see cref="Content.Topic">forum topic</see></param>
     public Task<Topic> UpdateAsync(string title, string content) =>
         Topic.UpdateAsync(title, content);
 
-    /// <inheritdoc cref="TopicSummary.DeleteAsync" />
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteTopicAsync(Guid, uint)" />
     public Task DeleteAsync() =>
         Topic.DeleteAsync();
 
-    /// <inheritdoc cref="TitledContent.AddReactionAsync(uint)" />
-    public Task AddReactionAsync(uint emoteId) =>
-        Topic.AddReactionAsync(emoteId);
+    /// <inheritdoc cref="AbstractGuildedClient.AddTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>
+    public Task AddReactionAsync(uint emote) =>
+        Topic.AddReactionAsync(emote);
 
-    /// <inheritdoc cref="TitledContent.RemoveReactionAsync(uint)" />
-    public Task RemoveReactionAsync(uint emoteId) =>
-        Topic.RemoveReactionAsync(emoteId);
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveTopicReactionAsync(Guid, uint, uint)" />
+    /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to remove</param>
+    public Task RemoveReactionAsync(uint emote) =>
+        Topic.RemoveReactionAsync(emote);
+    #endregion
+
+    #region Methods Comments
+    /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
+    /// <param name="content">The content of the <see cref="DocComment">document comment</see></param>
+    public Task<TopicComment> CreateCommentAsync(string content) =>
+        Topic.CreateCommentAsync(content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateTopicCommentAsync(Guid, uint, uint, string)" />
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to update</param>
+    /// <param name="content">The new acontent of the <see cref="TopicComment">forum topic comment</see></param>
+    public Task<TopicComment> UpdateCommentAsync(uint topicComment, string content) =>
+        Topic.UpdateCommentAsync(topicComment, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteTopicCommentAsync(Guid, uint, uint)" />
+    /// <param name="topicComment">The identifier of the <see cref="TopicComment">forum topic comment</see> to delete</param>
+    public Task DeleteCommentAsync(uint topicComment) =>
+        Topic.DeleteCommentAsync(topicComment);
     #endregion
 }

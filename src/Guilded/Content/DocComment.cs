@@ -71,7 +71,7 @@ public class DocComment : BaseComment
     /// <param name="docId">The identifier of the <see cref="Doc">document</see> where the <see cref="DocComment">document comment</see> was created</param>
     /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="DocComment">document comment</see> was created</param>
     /// <param name="content">The full-Markdown text contents of the <see cref="DocComment">document comment</see></param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="DocComment">forum topic</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="DocComment">document comment</see></param>
     /// <param name="createdAt">The date when the <see cref="DocComment">document comment</see> was created</param>
     /// <param name="updatedAt">The date when the <see cref="DocComment">document comment</see> was edited</param>
     /// <returns>New <see cref="DocComment" /> JSON instance</returns>

@@ -187,6 +187,18 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "DocCommentReactionCreated",            new EventInfo<DocCommentReactionEvent>() },
             { "DocCommentReactionDeleted",            new EventInfo<DocCommentReactionEvent>() },
 
+            // Announcements
+            { "AnnouncementCreated",                  new EventInfo<AnnouncementEvent>() },
+            { "AnnouncementUpdated",                  new EventInfo<AnnouncementEvent>() },
+            { "AnnouncementDeleted",                  new EventInfo<AnnouncementEvent>() },
+            { "AnnouncementCommentCreated",           new EventInfo<AnnouncementCommentEvent>() },
+            { "AnnouncementCommentUpdated",           new EventInfo<AnnouncementCommentEvent>() },
+            { "AnnouncementCommentDeleted",           new EventInfo<AnnouncementCommentEvent>() },
+            { "AnnouncementReactionCreated",          new EventInfo<AnnouncementReactionEvent>() },
+            { "AnnouncementReactionDeleted",          new EventInfo<AnnouncementReactionEvent>() },
+            { "AnnouncementCommentReactionCreated",   new EventInfo<AnnouncementCommentReactionEvent>() },
+            { "AnnouncementCommentReactionDeleted",   new EventInfo<AnnouncementCommentReactionEvent>() },
+
             // Calendar events
             { "CalendarEventCreated",                 new EventInfo<CalendarEventEvent>() },
             { "CalendarEventUpdated",                 new EventInfo<CalendarEventEvent>() },

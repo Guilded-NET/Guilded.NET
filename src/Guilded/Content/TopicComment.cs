@@ -15,7 +15,7 @@ namespace Guilded.Content;
 /// </summary>
 /// <seealso cref="Topic" />
 /// <seealso cref="ForumChannel" />
-/// <seealso cref="TitledContent" />
+/// <seealso cref="TitledContent{TId}" />
 public class TopicComment : BaseComment, IContentMarkdown
 {
     #region Properties
@@ -83,7 +83,7 @@ public class TopicComment : BaseComment, IContentMarkdown
     /// <param name="forumTopicId">The identifier of the <see cref="Topic">forum topic</see> where the <see cref="TopicComment">forum topic reply</see> was created</param>
     /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="TopicComment">forum topic reply</see> was created</param>
     /// <param name="content">The full-Markdown text contents of the <see cref="TopicComment">forum topic reply</see></param>
-    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="TopicComment">forum topic</see></param>
+    /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the <see cref="TopicComment">forum topic reply</see></param>
     /// <param name="createdAt">The date when the <see cref="TopicComment">forum topic reply</see> was created</param>
     /// <param name="updatedAt">The date when the <see cref="TopicComment">forum topic reply</see> was edited</param>
     /// <param name="mentions">The <see cref="Mentions">mentions</see> found in the <see cref="BaseComment.Content">content</see></param>

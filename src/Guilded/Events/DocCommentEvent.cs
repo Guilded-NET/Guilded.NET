@@ -64,7 +64,7 @@ public class DocCommentEvent : IModelHasId<uint>, IServerBased, IChannelBased, I
     /// </summary>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="DocCommentEvent">document comment event</see> occurred</param>
     /// <param name="docComment">The <see cref="Content.DocComment">document comment</see> received from the event</param>
-    /// <returns>New <see cref="TopicEvent" /> JSON instance</returns>
+    /// <returns>New <see cref="DocCommentEvent" /> JSON instance</returns>
     /// <seealso cref="DocCommentEvent" />
     [JsonConstructor]
     public DocCommentEvent(

@@ -9,9 +9,11 @@ namespace Guilded.Content;
 /// <summary>
 /// Represents a reply in any kind of <see cref="ChannelContent{TId, TServer}">channel content</see>.
 /// </summary>
+/// <seealso cref="DocComment" />
 /// <seealso cref="TopicComment" />
+/// <seealso cref="AnnouncementComment" />
 /// <seealso cref="CalendarEventComment" />
-/// <seealso cref="TitledContent" />
+/// <seealso cref="TitledContent{T}" />
 public abstract class BaseComment : ContentModel, IModelHasId<uint>, ICreatableContent, IChannelBased, IUpdatableContent
 {
     #region Properties

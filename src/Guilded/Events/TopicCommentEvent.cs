@@ -64,7 +64,7 @@ public class TopicCommentEvent : IModelHasId<uint>, IServerBased, IChannelBased,
     /// </summary>
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="TopicCommentEvent">forum topic comment event</see> occurred</param>
     /// <param name="forumTopicComment">The <see cref="Content.TopicComment">forum topic comment</see> received from the event</param>
-    /// <returns>New <see cref="TopicEvent" /> JSON instance</returns>
+    /// <returns>New <see cref="TopicCommentEvent" /> JSON instance</returns>
     /// <seealso cref="TopicCommentEvent" />
     [JsonConstructor]
     public TopicCommentEvent(

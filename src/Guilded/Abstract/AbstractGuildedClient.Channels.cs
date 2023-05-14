@@ -661,7 +661,7 @@ public abstract partial class AbstractGuildedClient
         GetResponsePropertyAsync<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Get), "doc");
 
     /// <summary>
-    /// Creates a <see cref="Doc">new document</see>.
+    /// Creates a new <see cref="Doc">document</see>.
     /// </summary>
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
     /// <param name="title">The title of the <see cref="Doc">document</see></param>
@@ -672,7 +672,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="DocPermissions.GetDoc" />
     /// <permission cref="DocPermissions.CreateDoc" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting <see cref="Doc">a document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Doc">document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Doc">document</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Doc> CreateDocAsync(Guid channel, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -693,7 +693,7 @@ public abstract partial class AbstractGuildedClient
     /// <remarks>
     /// <para>The updated <paramref name="doc">document</paramref> will be bumped to the top.</para>
     /// </remarks>
-    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="channel">The identifier of the parent <see cref="DocChannel">channel</see></param>
     /// <param name="doc">The identifier of the <see cref="Doc">document</see> to update/edit</param>
     /// <param name="title">The new title of this <see cref="Doc">document</see></param>
     /// <param name="content">The new Markdown content of this <see cref="Doc">document</see></param>
@@ -703,7 +703,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="DocPermissions.GetDoc" />
     /// <permission cref="DocPermissions.ManageDoc">Required when editing <see cref="Doc">documents</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to <see cref="Doc">a document</see></permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Doc">document</see></permission>
     /// <returns>The <see cref="Doc">document</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Doc> UpdateDocAsync(Guid channel, uint doc, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -731,6 +731,113 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="DocPermissions.RemoveDoc">Required when deleting <see cref="Doc">documents</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteDocAsync(Guid channel, uint doc) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}", Method.Delete));
+    #endregion
+
+    #region Methods Announcement channels
+    /// <summary>
+    /// Gets a list of <see cref="Announcement">announcements</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="AnnouncementChannel">channel</see></param>
+    /// <param name="limit">The limit of how many <see cref="Announcement">announcements</see> to get (default — <c>25</c>, values — <c>(0, 100]</c>)</param>
+    /// <param name="before">The max limit of the creation date of the fetched <see cref="Announcement">announcements</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <returns>The list of fetched <see cref="Announcement">announcements</see> in the specified <paramref name="channel" /></returns>
+    public Task<IList<Announcement>> GetAnnouncementsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
+        GetResponsePropertyAsync<IList<Announcement>>(
+            new RestRequest($"channels/{channel}/announcements", Method.Get)
+                .AddOptionalQuery("limit", limit, encode: false)
+                .AddOptionalQuery("before", before)
+        , "docs");
+
+    /// <summary>
+    /// Gets the specified <paramref name="announcement" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <returns>The <see cref="Announcement">announcement</see> that was specified in the arguments</returns>
+    public Task<Announcement> GetAnnouncementAsync(Guid channel, HashId announcement) =>
+        GetResponsePropertyAsync<Announcement>(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Get), "doc");
+
+    /// <summary>
+    /// Creates a new <see cref="Announcement">announcement</see>.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="title">The title of the <see cref="Announcement">announcement</see></param>
+    /// <param name="content">The Markdown content of the <see cref="Announcement">announcement</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="AnnouncementPermissions.CreateAnnouncement" />
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Announcement">announcement</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <returns>The <see cref="Announcement">announcement</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Announcement> CreateAnnouncementAsync(Guid channel, string title, string content) =>
+        string.IsNullOrWhiteSpace(title)
+        ? throw new ArgumentNullException(nameof(title))
+        : string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponsePropertyAsync<Announcement>(new RestRequest($"channels/{channel}/announcements", Method.Post)
+            .AddJsonBody(new
+            {
+                title,
+                content
+            })
+        , "announcement");
+
+    /// <summary>
+    /// Edits the text <paramref name="content" /> or the <paramref name="title" /> of the specified <paramref name="announcement" />.
+    /// </summary>
+    /// <remarks>
+    /// <para>The updated <paramref name="announcement" /> will be bumped to the top.</para>
+    /// </remarks>
+    /// <param name="channel">The identifier of the parent <see cref="AnnouncementChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to update/edit</param>
+    /// <param name="title">The new title of this <see cref="Announcement">announcement</see></param>
+    /// <param name="content">The new Markdown content of this <see cref="Announcement">announcement</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="AnnouncementPermissions.ManageAnnouncement">Required when editing <see cref="Announcement">announcements</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Doc">document</see></permission>
+    /// <returns>The <see cref="Announcement">announcement</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Announcement> UpdateAnnouncementAsync(Guid channel, HashId announcement, string title, string content) =>
+        string.IsNullOrWhiteSpace(title)
+        ? throw new ArgumentNullException(nameof(title))
+        : string.IsNullOrWhiteSpace(content)
+        ? throw new ArgumentNullException(nameof(content))
+        : GetResponsePropertyAsync<Announcement>(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Put)
+            .AddJsonBody(new
+            {
+                title,
+                content
+            })
+        , "announcement");
+
+    /// <summary>
+    /// Deletes the specified <paramref name="announcement" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="announcement">The identifier of the <see cref="Announcement">announcement</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="AnnouncementPermissions.ManageAnnouncement">Required when deleting <see cref="Announcement">announcements</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    public Task DeleteAnnouncementAsync(Guid channel, HashId announcement) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Delete));
     #endregion
 
     #region Methods Calendar channels > Events

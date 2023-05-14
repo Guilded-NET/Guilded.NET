@@ -593,6 +593,24 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     public Task RemoveRsvpAsync(HashId user) =>
         ParentClient.RemoveRsvpAsync(ChannelId, Id, user);
     #endregion
+
+    #region Methods Comments
+    /// <inheritdoc cref="AbstractGuildedClient.CreateEventCommentAsync(Guid, uint, string)" />
+    /// <param name="content">The content of the <see cref="CalendarEventComment">calendar event comment</see></param>
+    public Task<CalendarEventComment> CreateCommentAsync(string content) =>
+        ParentClient.CreateEventCommentAsync(ChannelId, Id, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateEventCommentAsync(Guid, uint, uint, string)" />
+    /// <param name="comment">The identifier of the <see cref="CalendarEventComment">calendar event comment</see> to update</param>
+    /// <param name="content">The new acontent of the <see cref="CalendarEventComment">calendar event comment</see></param>
+    public Task<CalendarEventComment> UpdateCommentAsync(uint comment, string content) =>
+        ParentClient.UpdateEventCommentAsync(ChannelId, Id, comment, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteEventCommentAsync(Guid, uint, uint)" />
+    /// <param name="comment">The identifier of the <see cref="CalendarEventComment">calendar event comment</see> to delete</param>
+    public Task DeleteCommentAsync(uint comment) =>
+        ParentClient.DeleteEventCommentAsync(ChannelId, Id, comment);
+    #endregion
 }
 
 /// <summary>

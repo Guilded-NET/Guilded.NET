@@ -342,4 +342,22 @@ public class CalendarEventEvent : IModelHasId<uint>, IPrivatableContent, IServer
     public Task RemoveRsvpAsync(HashId user) =>
         Event.RemoveRsvpAsync(user);
     #endregion
+
+    #region Methods Comments
+    /// <inheritdoc cref="AbstractGuildedClient.CreateTopicCommentAsync(Guid, uint, string)" />
+    /// <param name="content">The content of the <see cref="CalendarEventComment">calendar event comment</see></param>
+    public Task<CalendarEventComment> CreateCommentAsync(string content) =>
+        Event.CreateCommentAsync(content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateTopicCommentAsync(Guid, uint, uint, string)" />
+    /// <param name="comment">The identifier of the <see cref="CalendarEventComment">calendar event comment</see> to update</param>
+    /// <param name="content">The new acontent of the <see cref="CalendarEventComment">calendar event comment</see></param>
+    public Task<CalendarEventComment> UpdateCommentAsync(uint comment, string content) =>
+        Event.UpdateCommentAsync(comment, content);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteTopicCommentAsync(Guid, uint, uint)" />
+    /// <param name="comment">The identifier of the <see cref="TopicComment">forum topic comment</see> to delete</param>
+    public Task DeleteCommentAsync(uint comment) =>
+        Event.DeleteCommentAsync(comment);
+    #endregion
 }
