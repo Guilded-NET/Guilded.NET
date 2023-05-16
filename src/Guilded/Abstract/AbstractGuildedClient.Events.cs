@@ -223,6 +223,26 @@ public abstract partial class AbstractGuildedClient
     public IObservable<MemberSocialLinkEvent> MemberSocialLinkDeleted => ((IEventInfo<MemberSocialLinkEvent>)GuildedEvents["ServerMemberSocialLinkDeleted"]).Observable;
     #endregion
 
+    #region Properties User status
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="UserStatus">user status</see> is added or changed.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>UserStatusCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="UserStatusDeleted" />
+    public IObservable<UserStatusEvent> UserStatusCreated => ((IEventInfo<UserStatusEvent>)GuildedEvents["UserStatusCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="UserStatus">user status</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>UserStatusDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="UserStatusCreated" />
+    public IObservable<UserStatusEvent> UserStatusDeleted => ((IEventInfo<UserStatusEvent>)GuildedEvents["UserStatusDeleted"]).Observable;
+    #endregion
+
     #region Properties Channels
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Webhook">a new webhook</see> is created.

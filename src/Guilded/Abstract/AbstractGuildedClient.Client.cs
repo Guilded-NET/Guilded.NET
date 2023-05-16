@@ -119,10 +119,6 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "ServerMemberRemoved",                  new EventInfo<MemberRemovedEvent>() },
             { "ServerMemberUpdated",                  new EventInfo<MemberUpdatedEvent>() },
 
-            { "ServerMemberSocialLinkCreated",        new EventInfo<MemberSocialLinkEvent>() },
-            { "ServerMemberSocialLinkUpdated",        new EventInfo<MemberSocialLinkEvent>() },
-            { "ServerMemberSocialLinkDeleted",        new EventInfo<MemberSocialLinkEvent>() },
-
             { "ServerRolesUpdated",                   new EventInfo<RolesUpdatedEvent>() },
             { "ServerMemberJoined",
                 new EventInfo<MemberJoinedEvent>((type, serializer, message) =>
@@ -137,6 +133,13 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
                     return data.ToObject(type, serializer)!;
                 })
             },
+
+            // Global user changes
+            { "ServerMemberSocialLinkCreated",        new EventInfo<MemberSocialLinkEvent>() },
+            { "ServerMemberSocialLinkUpdated",        new EventInfo<MemberSocialLinkEvent>() },
+            { "ServerMemberSocialLinkDeleted",        new EventInfo<MemberSocialLinkEvent>() },
+            { "UserStatusCreated",                    new EventInfo<UserStatusEvent>() },
+            { "UserStatusDeleted",                    new EventInfo<UserStatusEvent>() },
 
             // Channels
             { "ServerChannelCreated",                 new EventInfo<ChannelEvent>() },
