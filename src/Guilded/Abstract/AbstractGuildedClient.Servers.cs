@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Content;
 using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
@@ -17,6 +18,8 @@ public abstract partial class AbstractGuildedClient
     /// Gets the specified <see cref="Server">server</see>.
     /// </summary>
     /// <param name="server">The identifier of the <see cref="Server">server</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The <see cref="Server">server</see> that was specified in the arguments</returns>
     public Task<Server> GetServerAsync(HashId server) =>
         GetResponsePropertyAsync<Server>(new RestRequest($"servers/{server}", Method.Get), "server");
@@ -24,7 +27,122 @@ public abstract partial class AbstractGuildedClient
 
     #region Methods Groups
     /// <summary>
-    /// Adds the <paramref name="member" /> to the <paramref name="group" />.
+    /// Gets a list of <see cref="Group">groups</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Group">groups</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The list of fetched <see cref="Group">group</see> in the specified <paramref name="server" /></returns>
+    public Task<IList<Group>> GetGroupsAsync(HashId server) =>
+        GetResponsePropertyAsync<IList<Group>>(new RestRequest($"servers/{server}/groups", Method.Get), "groups");
+
+    /// <summary>
+    /// Gets the specified <paramref name="group" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> is</param>
+    /// <param name="group">The identifier of the <see cref="Group">group</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The <see cref="ServerChannel">channel</see> that was specified in the arguments</returns>
+    public Task<Group> GetGroupAsync(HashId server, HashId group) =>
+        GetResponsePropertyAsync<Group>(new RestRequest($"servers/{server}/groups/{group}", Method.Get), "group");
+
+    /// <summary>
+    /// Creates a new <see cref="Group">group</see> in the specified <paramref name="server" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be created</param>
+    /// <param name="name">The name of the <see cref="Group">group</see></param>
+    /// <param name="description">The description of the <see cref="Group">group</see></param>
+    /// <param name="emote">The emote icon of the <see cref="Group">group</see></param>
+    /// <param name="isPublic">Whether anyone can join the <see cref="Group">group</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
+    /// <permission cref="GeneralPermissions.ManageGroup" />
+    /// <returns>The <see cref="Group">group</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Group> CreateGroupAsync(HashId server, string name, string? description = null, uint? emote = null, bool isPublic = false) =>
+        GetResponsePropertyAsync<Group>(new RestRequest($"servers/{server}/groups", Method.Post)
+            .AddBody(new
+            {
+                name,
+                description,
+                emote,
+                isPublic
+            })
+        , "group");
+
+    /// <inheritdoc cref="CreateGroupAsync(HashId, string, string, uint?, bool)" />
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be created</param>
+    /// <param name="name">The name of the <see cref="Group">group</see></param>
+    /// <param name="description">The description of the <see cref="Group">group</see></param>
+    /// <param name="emote">The emote icon of the <see cref="Group">group</see></param>
+    /// <param name="isPublic">Whether anyone can join the <see cref="Group">group</see></param>
+    public Task<Group> CreateGroupAsync(HashId server, string name, string? description = null, Emote? emote = null, bool isPublic = false) =>
+        CreateGroupAsync(server, name, description, emote?.Id, isPublic);
+
+    /// <summary>
+    /// Updates the specified <paramref name="group" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be updated</param>
+    /// <param name="group">The identifier of the <see cref="Group">group</see> to update</param>
+    /// <param name="name">The new name of the <see cref="Group">group</see></param>
+    /// <param name="description">The new description of the <see cref="Group">group</see></param>
+    /// <param name="emote">The new emote icon of the <see cref="Group">group</see></param>
+    /// <param name="isPublic">Whether anyone should be able to join the <see cref="Group">group</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageGroup" />
+    /// <returns>The <see cref="Group">group</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Group> UpdateGroupAsync(HashId server, HashId group, string? name = null, string? description = null, uint? emote = null, bool? isPublic = null)
+    {
+        return GetResponsePropertyAsync<Group>(new RestRequest($"servers/{server}/groups/{group}", Method.Patch)
+            .AddJsonBody(new
+            {
+                name,
+                description,
+                emoteId = emote,
+                isPublic
+            })
+        , "group");
+    }
+
+    /// <inheritdoc cref="UpdateGroupAsync(HashId, HashId, string?, string?, uint?, bool?)" />
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be updated</param>
+    /// <param name="group">The identifier of the <see cref="Group">group</see> to update</param>
+    /// <param name="name">The new name of the <see cref="Group">group</see></param>
+    /// <param name="description">The new description of the <see cref="Group">group</see></param>
+    /// <param name="emote">The new emote icon of the <see cref="Group">group</see></param>
+    /// <param name="isPublic">Whether anyone should be able to join the <see cref="Group">group</see></param>
+    public Task<Group> UpdateGroupAsync(HashId server, HashId group, string? name = null, string? description = null, Emote? emote = null, bool? isPublic = null) =>
+        UpdateGroupAsync(server, group, name, description, emote?.Id, isPublic);
+
+    /// <summary>
+    /// Deletes the specified <paramref name="group" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be deleted</param>
+    /// <param name="group">The identifier of the <see cref="Group">group</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="GeneralPermissions.ManageGroup" />
+    public Task DeleteGroupAsync(HashId server, HashId group) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/groups/{group}", Method.Delete));
+
+    /// <summary>
+    /// Adds the <paramref name="member" /> to a <paramref name="group" />.
     /// </summary>
     /// <remarks>
     /// <para>This allows the <paramref name="member" /> to interact or see the specified group.</para>
@@ -40,7 +158,7 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"groups/{group}/members/{member}", Method.Put));
 
     /// <summary>
-    /// Adds the <paramref name="memberReference">referenced member</paramref> to the <paramref name="group" />.
+    /// Adds the <paramref name="memberReference">referenced member</paramref> to a <paramref name="group" />.
     /// </summary>
     /// <remarks>
     /// <para>This allows the <paramref name="memberReference">referenced member</paramref> to interact or see the specified group.</para>
@@ -56,7 +174,7 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"groups/{group}/members/@{memberReference.ToString().ToLower()}", Method.Put));
 
     /// <summary>
-    /// Removes the <paramref name="member" /> from the <paramref name="group" />.
+    /// Removes the <paramref name="member" /> from a <paramref name="group" />.
     /// </summary>
     /// <remarks>
     /// <para>This disallows the <paramref name="member" /> to interact or see the specified group.</para>
@@ -584,7 +702,7 @@ public abstract partial class AbstractGuildedClient
     /// <para>If <paramref name="channel" /> parameter is given, it gets all of the channel <see cref="Webhook">webhooks</see> instead.</para>
     /// </remarks>
     /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Webhook">webhooks</see> from</param>
-    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get webhooks from</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get <see cref="Webhook">webhooks</see> from</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />

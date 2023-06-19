@@ -49,7 +49,7 @@ public class RolesUpdatedEvent : ContentModel, IServerBased
     /// <seealso cref="RolesUpdatedEvent" />
     /// <seealso cref="MemberRoleIds" />
     /// <seealso cref="ServerId" />
-    public HashId[] UpdatedUsers => MemberRoleIds.Select(x => x.UserId).ToArray();
+    public HashId[] UpdatedUsers => MemberRoleIds.Select(x => x.Id).ToArray();
     #endregion
 
     #region Constructors
@@ -116,7 +116,7 @@ public class RolesUpdatedEvent : ContentModel, IServerBased
             [JsonProperty(Required = Required.Always)]
             IList<uint> roleIds
         ) =>
-            (UserId, RoleIds) = (userId, roleIds);
+            (Id, RoleIds) = (userId, roleIds);
         #endregion
     }
 }

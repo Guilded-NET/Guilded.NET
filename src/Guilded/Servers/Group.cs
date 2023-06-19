@@ -1,8 +1,13 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Content;
+using Guilded.Client;
 using Guilded.Users;
 using Newtonsoft.Json;
+using Guilded.Events;
+using System.Reactive.Linq;
 
 namespace Guilded.Servers;
 
@@ -150,6 +155,45 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     /// <seealso cref="UpdatedAt" />
     /// <seealso cref="CreatedAt" />
     public HashId? ArchivedBy { get; }
+
+    /// <summary>
+    /// Gets whether the <see cref="Group">group</see> is archived.
+    /// </summary>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> is archived</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ArchivedAt" />
+    /// <seealso cref="ArchivedBy" />
+    [MemberNotNullWhen(true, nameof(ArchivedAt), nameof(ArchivedBy))]
+    public bool IsArchived => ArchivedAt is not null;
+    #endregion
+
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Group">group</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Group">group</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Group">group</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<GroupEvent> Updated =>
+        ParentClient
+            .GroupUpdated
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Group">group</see> gets removed.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Group">group</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Group">group</see> gets removed</returns>
+    /// <seealso cref="Updated" />
+    public IObservable<GroupEvent> Deleted =>
+        ParentClient
+            .GroupDeleted
+            .HasId(Id)
+            .Take(1);
     #endregion
 
     #region Constructors
@@ -216,5 +260,47 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
         bool isHome = false
     ) =>
         (Id, ServerId, Name, Avatar, EmoteId, Description, IsPublic, IsHome, CreatedAt, CreatedBy, UpdatedAt, UpdatedBy, ArchivedAt, ArchivedBy) = (id, serverId, name, avatar, emoteId, description, isPublic, isHome, createdAt, createdBy, updatedAt, updatedBy, archivedAt, archivedBy);
+    #endregion
+
+    #region Methods
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateGroupAsync(HashId, HashId, string?, string?, uint?, bool?)" />
+    /// <param name="name">The new name of the <see cref="Group">group</see></param>
+    /// <param name="description">The new description of the <see cref="Group">group</see></param>
+    /// <param name="emote">The new emote icon of the <see cref="Group">group</see></param>
+    /// <param name="isPublic">Whether anyone should be able to join the <see cref="Group">group</see></param>
+    public Task<Group> UpdateAsync(string? name = null, string? description = null, uint? emote = null, bool? isPublic = null) =>
+        ParentClient.UpdateGroupAsync(ServerId, Id, name, description, emote, isPublic);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateGroupAsync(HashId, HashId, string?, string?, uint?, bool?)" />
+    /// <param name="name">The new name of the <see cref="Group">group</see></param>
+    /// <param name="description">The new description of the <see cref="Group">group</see></param>
+    /// <param name="emote">The new emote icon of the <see cref="Group">group</see></param>
+    /// <param name="isPublic">Whether anyone should be able to join the <see cref="Group">group</see></param>
+    public Task<Group> UpdateAsync(string? name = null, string? description = null, Emote? emote = null, bool? isPublic = null) =>
+        ParentClient.UpdateGroupAsync(ServerId, Id, name, description, emote, isPublic);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteGroupAsync(HashId, HashId)" />
+    public Task DeleteAsync() =>
+        ParentClient.DeleteGroupAsync(ServerId, Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.AddMembershipAsync(HashId, HashId)" />
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to add</param>
+    public Task AddMembershipAsync(HashId member) =>
+        ParentClient.AddMembershipAsync(Id, member);
+
+    /// <inheritdoc cref="AbstractGuildedClient.AddMembershipAsync(HashId, HashId)" />
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to some kind of <see cref="Member">member</see> to add</param>
+    public Task AddMembershipAsync(UserReference memberReference) =>
+        ParentClient.AddMembershipAsync(Id, memberReference);
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveMembershipAsync(HashId, HashId)" />
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to remove</param>
+    public Task RemoveMembershipAsync(HashId member) =>
+        ParentClient.RemoveMembershipAsync(Id, member);
+
+    /// <inheritdoc cref="AbstractGuildedClient.RemoveMembershipAsync(HashId, HashId)" />
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to some kind of <see cref="Member">member</see> to remove</param>
+    public Task RemoveMembershipAsync(UserReference memberReference) =>
+        ParentClient.RemoveMembershipAsync(Id, memberReference);
     #endregion
 }

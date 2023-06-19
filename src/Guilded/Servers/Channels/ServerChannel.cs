@@ -184,7 +184,7 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <value>Whether the <see cref="ServerChannel">channel</see> is a thread of a <see cref="ChannelContent{TId, TServer}">channel content</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="ParentId" />
-    /// <seealso cref="IArchivableContent.IsArchived" />
+    /// <seealso cref="IsArchived" />
     /// <seealso cref="IsCategorized" />
     [MemberNotNullWhen(true, nameof(ParentId))]
     public bool IsThread => ParentId is not null;
@@ -196,9 +196,21 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="CategoryId" />
     /// <seealso cref="IsThread" />
-    /// <seealso cref="IArchivableContent.IsArchived" />
+    /// <seealso cref="IsArchived" />
     [MemberNotNullWhen(true, nameof(CategoryId))]
     public bool IsCategorized => CategoryId is not null;
+
+    /// <summary>
+    /// Gets whether the <see cref="ServerChannel">channel</see> is archived.
+    /// </summary>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> is archived</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="ArchivedAt" />
+    /// <seealso cref="ArchivedBy" />
+    /// <seealso cref="IsThread" />
+    /// <seealso cref="IsCategorized" />
+    [MemberNotNullWhen(true, nameof(ArchivedAt), nameof(ArchivedBy))]
+    public bool IsArchived => ArchivedAt is not null;
     #endregion
 
     #region Properties Events
@@ -222,10 +234,10 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="ServerChannel">channel</see> specific.</para>
     /// </remarks>
     /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="ServerChannel">channel</see> gets removed</returns>
-    /// <seealso cref="Deleted" />
+    /// <seealso cref="Updated" />
     public IObservable<ChannelEvent> Deleted =>
         ParentClient
-            .ChannelUpdated
+            .ChannelDeleted
             .HasId(Id)
             .Take(1);
     #endregion

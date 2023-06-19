@@ -243,6 +243,38 @@ public abstract partial class AbstractGuildedClient
     public IObservable<UserStatusEvent> UserStatusDeleted => ((IEventInfo<UserStatusEvent>)GuildedEvents["UserStatusDeleted"]).Observable;
     #endregion
 
+    #region Properties Groups
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a new <see cref="Group">group</see> is created.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>GroupCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="GroupUpdated" />
+    /// <seealso cref="GroupDeleted" />
+    public IObservable<GroupEvent> GroupCreated => ((IEventInfo<GroupEvent>)GuildedEvents["GroupCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Group">group</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>GroupUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="GroupCreated" />
+    /// <seealso cref="GroupDeleted" />
+    public IObservable<GroupEvent> GroupUpdated => ((IEventInfo<GroupEvent>)GuildedEvents["GroupUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Group">group</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>GroupDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="GroupCreated" />
+    /// <seealso cref="GroupUpdated" />
+    public IObservable<GroupEvent> GroupDeleted => ((IEventInfo<GroupEvent>)GuildedEvents["GroupDeleted"]).Observable;
+    #endregion
+
     #region Properties Channels
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Webhook">a new webhook</see> is created.
