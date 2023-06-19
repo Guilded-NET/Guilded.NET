@@ -64,6 +64,15 @@ public class Message :
 
     #region Properties Content
     /// <summary>
+    /// Gets the identifier of the group where the <see cref="Message">message</see> is.
+    /// </summary>
+    /// <value>The identifier of the group where the <see cref="Message">message</see> is</value>
+    /// <seealso cref="Message" />
+    /// <seealso cref="ChannelContent{TId, TServer}.Id" />
+    /// <seealso cref="ChannelContent{TId, TServer}.ServerId" />
+    public HashId? GroupId { get; }
+
+    /// <summary>
     /// Gets the text contents of the <see cref="Message">message</see>.
     /// </summary>
     /// <remarks>
@@ -83,7 +92,7 @@ public class Message :
     /// <remarks>
     /// <para>The max reply limit is 5.</para>
     /// </remarks>
-    /// <value>List of <see cref="ChannelContent{TId, TServer}.Id">message IDs</see>?</value>
+    /// <value>The list of <see cref="Message">messages</see> that the current <see cref="Message">message</see> is replying to</value>
     /// <seealso cref="Message" />
     /// <seealso cref="IsPrivate" />
     /// <seealso cref="IsReply" />
@@ -95,7 +104,7 @@ public class Message :
     /// <remarks>
     /// <para>The max <see cref="Embed">embed</see> limit as of now is <see cref="EmbedLimit">1</see>.</para>
     /// </remarks>
-    /// <value>List of <see cref="Embeds" />?</value>
+    /// <value>The list of <see cref="Embed">custom embeds</see> that are part of the <see cref="Message">message's</see> contents</value>
     /// <seealso cref="Message" />
     /// <seealso cref="IsPrivate" />
     /// <seealso cref="ReplyMessageIds" />
@@ -105,7 +114,7 @@ public class Message :
     /// <summary>
     /// Gets the <see cref="Mentions">mentions</see> found in the <see cref="Content">content</see>.
     /// </summary>
-    /// <value><see cref="Mentions" />?</value>
+    /// <value>The <see cref="Mentions">mentions</see> found in the <see cref="Content">content</see></value>
     public Mentions? Mentions { get; }
 
     /// <summary>
@@ -114,7 +123,7 @@ public class Message :
     /// <remarks>
     /// <para>This can only be <see langword="true" /> if <see cref="ReplyMessageIds" /> has a value or there is an user or role mention in the <see cref="Content" />.</para>
     /// </remarks>
-    /// <value><see cref="Message" /> is private</value>
+    /// <value>Whether the reply or mention is private</value>
     /// <seealso cref="Message" />
     /// <seealso cref="IsSilent" />
     /// <seealso cref="IsReply" />
