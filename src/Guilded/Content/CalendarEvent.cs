@@ -575,23 +575,23 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     #region Methods RSVP
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpsAsync(Guid, uint)" />
     public Task<IList<CalendarEventRsvp>> GetRsvpsAsync() =>
-        ParentClient.GetRsvpsAsync(ChannelId, Id);
+        ParentClient.GetEventRsvpsAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
     /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarEventRsvp">RSVP</see> of</param>
     public Task<CalendarEventRsvp> GetRsvpAsync(HashId user) =>
-        ParentClient.GetRsvpAsync(ChannelId, Id, user);
+        ParentClient.GetEventRsvpAsync(ChannelId, Id, user);
 
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarEventRsvpStatus)" />
     /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarEventRsvp">RSVP</see> of</param>
     /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
     public Task<CalendarEventRsvp> SetRsvpAsync(HashId user, CalendarEventRsvpStatus status) =>
-        ParentClient.SetRsvpAsync(ChannelId, Id, user, status);
+        ParentClient.SetEventRsvpAsync(ChannelId, Id, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarEventRsvp">RSVP</see> of</param>
     public Task RemoveRsvpAsync(HashId user) =>
-        ParentClient.RemoveRsvpAsync(ChannelId, Id, user);
+        ParentClient.RemoveEventRsvpAsync(ChannelId, Id, user);
     #endregion
 
     #region Methods Comments

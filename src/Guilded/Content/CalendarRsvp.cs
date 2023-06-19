@@ -223,10 +223,10 @@ public class CalendarEventRsvp : ContentModel, ICreatableContent, IUpdatableCont
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarEventRsvpStatus)" />
     /// <param name="status">The new status of the <see cref="CalendarEvent">calendar event RSVP</see></param>
     public Task<CalendarEventRsvp> SetAsync(CalendarEventRsvpStatus status) =>
-        ParentClient.SetRsvpAsync(ChannelId, EventId, UserId, status);
+        ParentClient.SetEventRsvpAsync(ChannelId, EventId, UserId, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     public Task RemoveAsync() =>
-        ParentClient.RemoveRsvpAsync(ChannelId, EventId, UserId);
+        ParentClient.RemoveEventRsvpAsync(ChannelId, EventId, UserId);
     #endregion
 }
