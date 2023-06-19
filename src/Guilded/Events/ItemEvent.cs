@@ -15,7 +15,7 @@ namespace Guilded.Events;
 /// <seealso cref="MessageEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public class ItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreatable, IUpdatableContent, IServerBased, IChannelBased
+public class ItemEvent : IModelHasId<Guid>, ICreatableContent, IWebhookCreated, IUpdatableContent, IServerBased, IChannelBased
 {
     #region Properties
     /// <summary>

@@ -18,7 +18,7 @@ namespace Guilded.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="Webhook" />
 //[JsonConverter(typeof(ServerChannelConverter))]
-public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel, IServerBased
+public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent, IChannel, IServerBased, IArchivableContent
 {
     #region Constants
     /// <summary>
@@ -184,22 +184,10 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <value>Whether the <see cref="ServerChannel">channel</see> is a thread of a <see cref="ChannelContent{TId, TServer}">channel content</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="ParentId" />
-    /// <seealso cref="IsArchived" />
+    /// <seealso cref="IArchivableContent.IsArchived" />
     /// <seealso cref="IsCategorized" />
     [MemberNotNullWhen(true, nameof(ParentId))]
     public bool IsThread => ParentId is not null;
-
-    /// <summary>
-    /// Gets whether the <see cref="ServerChannel">channel</see> has been archived.
-    /// </summary>
-    /// <value>Whether the <see cref="ServerChannel">channel</see> has been archived</value>
-    /// <seealso cref="ServerChannel" />
-    /// <seealso cref="ArchivedAt" />
-    /// <seealso cref="ArchivedBy" />
-    /// <seealso cref="IsThread" />
-    /// <seealso cref="IsCategorized" />
-    [MemberNotNullWhen(true, nameof(ArchivedAt), nameof(ArchivedBy))]
-    public bool IsArchived => ArchivedAt is not null;
 
     /// <summary>
     /// Gets whether the <see cref="ServerChannel">channel</see> is in a category.
@@ -208,7 +196,7 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="CategoryId" />
     /// <seealso cref="IsThread" />
-    /// <seealso cref="IsArchived" />
+    /// <seealso cref="IArchivableContent.IsArchived" />
     [MemberNotNullWhen(true, nameof(CategoryId))]
     public bool IsCategorized => CategoryId is not null;
     #endregion

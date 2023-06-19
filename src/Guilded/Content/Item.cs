@@ -25,7 +25,7 @@ namespace Guilded.Content;
 /// <seealso cref="Content.Message" />
 /// <seealso cref="Topic" />
 /// <seealso cref="Doc" />
-public abstract class ItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreatable, IContentMarkdown, IServerBased where T : ItemNoteSummary
+public abstract class ItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableContent, IWebhookCreated, IContentMarkdown, IServerBased where T : ItemNoteSummary
 {
     #region Properties
     /// <summary>

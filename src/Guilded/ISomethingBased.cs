@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Content;
 using Guilded.Servers;
 
 namespace Guilded;
@@ -10,7 +10,7 @@ namespace Guilded;
 /// <summary>
 /// Represents an interface for <see cref="Server">server</see> items.
 /// </summary>
-/// <seealso cref="Content.Topic" />
+/// <seealso cref="Topic" />
 /// <seealso cref="Events.MemberJoinedEvent" />
 /// <seealso cref="Events.ChannelEvent" />
 public interface IServerBased : IHasParentClient
@@ -21,7 +21,7 @@ public interface IServerBased : IHasParentClient
     /// </summary>
     /// <value><see cref="Server.Id">Server ID</see></value>
     /// <seealso cref="IServerBased" />
-    /// <seealso cref="Content.ChannelContent{TId, TServer}.ServerId" />
+    /// <seealso cref="ChannelContent{TId, TServer}.ServerId" />
     HashId ServerId { get; }
     #endregion
 
@@ -35,7 +35,7 @@ public interface IServerBased : IHasParentClient
 /// <summary>
 /// Represents an interface for items that can be both inside a <see cref="Server">server</see> and outside it.
 /// </summary>
-/// <seealso cref="Content.Message" />
+/// <seealso cref="Message" />
 public interface IGlobalContent : IHasParentClient
 {
     #region Properties
@@ -44,7 +44,7 @@ public interface IGlobalContent : IHasParentClient
     /// </summary>
     /// <value><see cref="Server.Id">Server ID</see></value>
     /// <seealso cref="IServerBased" />
-    /// <seealso cref="Content.ChannelContent{TId, TServer}.ServerId" />
+    /// <seealso cref="ChannelContent{TId, TServer}.ServerId" />
     HashId? ServerId { get; }
     #endregion
 
@@ -58,7 +58,7 @@ public interface IGlobalContent : IHasParentClient
 /// <summary>
 /// Represents an interface for <see cref="ServerChannel">server channel</see> items.
 /// </summary>
-/// <seealso cref="Content.ChannelContent{TId, TServer}" />
+/// <seealso cref="ChannelContent{TId, TServer}" />
 public interface IChannelBased : IHasParentClient
 {
     #region Properties
@@ -67,7 +67,7 @@ public interface IChannelBased : IHasParentClient
     /// </summary>
     /// <value><see cref="ServerChannel.Id">Channel ID</see></value>
     /// <seealso cref="IChannelBased" />
-    /// <seealso cref="Content.ChannelContent{TId, TServer}.ChannelId" />
+    /// <seealso cref="ChannelContent{TId, TServer}.ChannelId" />
     Guid ChannelId { get; }
     #endregion
 

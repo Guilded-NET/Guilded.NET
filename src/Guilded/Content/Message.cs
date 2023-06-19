@@ -27,7 +27,7 @@ namespace Guilded.Content;
 /// <seealso cref="Item" />
 /// <seealso cref="Topic" />
 public class Message :
-    ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreatable, IReactibleContent,
+    ChannelContent<Guid, HashId?>, IUpdatableContent, IWebhookCreated, IReactibleContent,
     IContentBlockMarkdown, IGlobalContent, IPrivatableContent
 {
     #region Constants

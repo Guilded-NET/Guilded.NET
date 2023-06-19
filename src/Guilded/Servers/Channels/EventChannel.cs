@@ -342,25 +342,25 @@ public class CalendarChannel : ServerChannel
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpsAsync(Guid, uint)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> to get <see cref="CalendarEventRsvp">RSVPs</see> of</param>
     public Task<IList<CalendarEventRsvp>> GetRsvpsAsync(uint calendarEvent) =>
-        ParentClient.GetRsvpsAsync(Id, calendarEvent);
+        ParentClient.GetEventRsvpsAsync(Id, calendarEvent);
 
     /// <inheritdoc cref="AbstractGuildedClient.GetRsvpAsync(Guid, uint, HashId)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CalendarEventRsvp">RSVP</see> of</param>
     public Task<CalendarEventRsvp> GetRsvpAsync(uint calendarEvent, HashId user) =>
-        ParentClient.GetRsvpAsync(Id, calendarEvent, user);
+        ParentClient.GetEventRsvpAsync(Id, calendarEvent, user);
 
     /// <inheritdoc cref="AbstractGuildedClient.SetRsvpAsync(Guid, uint, HashId, CalendarEventRsvpStatus)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to set <see cref="CalendarEventRsvp">RSVP</see> of</param>
     /// <param name="status">The status of the <see cref="CalendarEvent">calendar RSVP</see> to set</param>
     public Task<CalendarEventRsvp> SetRsvpAsync(uint calendarEvent, HashId user, CalendarEventRsvpStatus status) =>
-        ParentClient.SetRsvpAsync(Id, calendarEvent, user, status);
+        ParentClient.SetEventRsvpAsync(Id, calendarEvent, user, status);
 
     /// <inheritdoc cref="AbstractGuildedClient.RemoveRsvpAsync(Guid, uint, HashId)" />
     /// <param name="calendarEvent">The identifier of the <see cref="CalendarEvent">calendar event</see> where the <see cref="CalendarEventRsvp">calendar event RSVP</see> is</param>
     /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CalendarEventRsvp">RSVP</see> of</param>
     public Task RemoveRsvpAsync(uint calendarEvent, HashId user) =>
-        ParentClient.RemoveRsvpAsync(Id, calendarEvent, user);
+        ParentClient.RemoveEventRsvpAsync(Id, calendarEvent, user);
     #endregion
 }

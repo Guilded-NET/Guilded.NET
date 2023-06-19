@@ -27,7 +27,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="VoicePermissions.AttendVoice" />
     /// <permission cref="StreamPermissions.GetStream" />
     public Task AddMessageReactionAsync(Guid channel, Guid message, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Put));
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}/emotes/{emote}", Method.Put));
 
     /// <inheritdoc cref="AddMessageReactionAsync(Guid, Guid, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
@@ -50,7 +50,7 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="VoicePermissions.AttendVoice" />
     /// <permission cref="StreamPermissions.GetStream" />
     public Task RemoveMessageReactionAsync(Guid channel, Guid message, uint emote) =>
-        ExecuteRequestAsync(new RestRequest($"channels/{channel}/content/{message}/emotes/{emote}", Method.Delete));
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}/emotes/{emote}", Method.Delete));
 
     /// <inheritdoc cref="RemoveMessageReactionAsync(Guid, Guid, uint)" />
     /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>

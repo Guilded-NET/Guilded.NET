@@ -57,7 +57,7 @@ public class Doc : TitledContent<uint>, IContentMarkdown
     /// <seealso cref="Doc" />
     /// <seealso cref="UpdatedAt" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedBy" />
-    /// <seealso cref="IWebhookCreatable.CreatedByWebhook" />
+    /// <seealso cref="IWebhookCreated.CreatedByWebhook" />
     /// <seealso cref="ChannelContent{TId, TServer}.CreatedAt" />
     public HashId? UpdatedBy { get; }
     #endregion
