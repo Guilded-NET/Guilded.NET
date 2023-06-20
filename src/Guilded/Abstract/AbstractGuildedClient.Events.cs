@@ -51,22 +51,6 @@ public abstract partial class AbstractGuildedClient
 
     #region Properties Servers
     /// <summary>
-    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
-    /// </summary>
-    /// <remarks>
-    /// <para>An event with the name <c>ServerRolesUpdated</c> and opcode <c>0</c>.</para>
-    /// </remarks>
-    /// <seealso cref="MemberJoined" />
-    /// <seealso cref="MemberUpdated" />
-    /// <seealso cref="MemberRemoved" />
-    /// <seealso cref="MemberBanned" />
-    /// <seealso cref="MemberUnbanned" />
-    /// <seealso cref="WebhookCreated" />
-    /// <seealso cref="WebhookUpdated" />
-    /// <seealso cref="ServerAdded" />
-    public IObservable<RolesUpdatedEvent> RolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["ServerRolesUpdated"]).Observable;
-
-    /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="GuildedBotClient">client bot</see> gets added to a <see cref="Server">server</see>.
     /// </summary>
     /// <remarks>
@@ -102,6 +86,26 @@ public abstract partial class AbstractGuildedClient
     #endregion
 
     #region Properties Members
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Member">members</see> receive or lose roles.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ServerRolesUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="MemberUpdated" />
+    /// <seealso cref="MemberRemoved" />
+    /// <seealso cref="MemberBanned" />
+    /// <seealso cref="MemberUnbanned" />
+    /// <seealso cref="WebhookCreated" />
+    /// <seealso cref="WebhookUpdated" />
+    /// <seealso cref="ServerAdded" />
+    public IObservable<RolesUpdatedEvent> MemberRolesUpdated => ((IEventInfo<RolesUpdatedEvent>)GuildedEvents["ServerRolesUpdated"]).Observable;
+
+    /// <inheritdoc cref="MemberRolesUpdated" />
+    [Obsolete($"Renamed to `{nameof(MemberRolesUpdated)}` due to possible confusion with RoleUpdated")]
+    public IObservable<RolesUpdatedEvent> RolesUpdated => MemberRolesUpdated;
+
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when server-wide profile of a <see cref="Member">member</see> gets changed.
     /// </summary>

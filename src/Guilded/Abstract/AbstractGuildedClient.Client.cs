@@ -101,6 +101,7 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
 
             // Server events
             { "BotServerMembershipCreated",           new EventInfo<ServerAddedEvent>() },
+            { "BotServerMembershipDeleted",           new EventInfo<ServerRemovedEvent>() },
 
             { "ServerMemberBanned",
                 new EventInfo<MemberBanEvent>((type, serializer, message) =>
