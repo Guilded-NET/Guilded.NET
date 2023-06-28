@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Content;
@@ -22,6 +24,31 @@ public abstract partial class AbstractGuildedClient
     /// <returns>The <see cref="Server">server</see> that was specified in the arguments</returns>
     public Task<Server> GetServerAsync(HashId server) =>
         GetResponsePropertyAsync<Server>(new RestRequest($"servers/{server}", Method.Get), "server");
+    #endregion
+
+    #region Methods Server subscriptions
+    /// <summary>
+    /// Gets a list of <see cref="SubscriptionTier">subscription tiers</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="SubscriptionTier">subscription tiers</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The list of fetched <see cref="SubscriptionTier">server subscription tiers</see> in the specified <paramref name="server" /></returns>
+    public Task<IList<SubscriptionTier>> GetSubscriptionTiersAsync(HashId server) =>
+        GetResponsePropertyAsync<IList<SubscriptionTier>>(new RestRequest($"servers/{server}/subscriptions/tiers", Method.Get), "serverSubscriptionTiers");
+
+    /// <summary>
+    /// Gets the specified <see cref="SubscriptionTier">server subscription tier</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="SubscriptionTier">subscription tier</see> from</param>
+    /// <param name="type">The <see cref="SubscriptionType">subscription tier type</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The <see cref="SubscriptionTier">server subscription tier</see> that was specified in the arguments</returns>
+    public Task<SubscriptionTier> GetSubscriptionTierAsync(HashId server, SubscriptionType type) =>
+        GetResponsePropertyAsync<SubscriptionTier>(new RestRequest($"servers/{server}/subscriptions/tiers/{type}", Method.Get), "serverSubscriptionTier");
     #endregion
 
     #region Methods Groups
@@ -47,7 +74,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <returns>The <see cref="ServerChannel">channel</see> that was specified in the arguments</returns>
+    /// <returns>The <see cref="Group">group</see> that was specified in the arguments</returns>
     public Task<Group> GetGroupAsync(HashId server, HashId group) =>
         GetResponsePropertyAsync<Group>(new RestRequest($"servers/{server}/groups/{group}", Method.Get), "group");
 
@@ -203,6 +230,162 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageGroups" />
     public Task RemoveMembershipAsync(HashId group, UserReference memberReference) =>
         ExecuteRequestAsync(new RestRequest($"groups/{group}/members/@{memberReference.ToString().ToLower()}", Method.Delete));
+    #endregion
+
+    #region Methods Roles
+    /// <summary>
+    /// Gets a list of <see cref="Role">roles</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Role">roles</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The list of fetched <see cref="Role">role</see> in the specified <paramref name="server" /></returns>
+    public Task<IList<Role>> GetRolesAsync(HashId server) =>
+        GetResponsePropertyAsync<IList<Role>>(new RestRequest($"servers/{server}/roles", Method.Get), "roles");
+
+    /// <summary>
+    /// Gets the specified <paramref name="role" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> is</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The <see cref="Role">role</see> that was specified in the arguments</returns>
+    public Task<Role> GetRoleAsync(HashId server, uint role) =>
+        GetResponsePropertyAsync<Role>(new RestRequest($"servers/{server}/roles/{role}", Method.Get), "role");
+
+    /// <summary>
+    /// Creates a new <see cref="Role">role</see> in the specified <paramref name="server" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> will be created</param>
+    /// <param name="name">The name of the <see cref="Role">role</see></param>
+    /// <param name="isDisplayedSeparately">Whether the <see cref="Role">role</see> displays its <see cref="Member">members</see> separately from others</param>
+    /// <param name="isSelfAssignable">Whether <see cref="Member">members</see> are allowed to assign themselves the <see cref="Role">role</see></param>
+    /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
+    /// <param name="colors">The displayed colours of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
+    /// <permission cref="Permission.ManageRoles" />
+    /// <returns>The <see cref="Role">role</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Role> CreateRoleAsync(HashId server, string name, bool isDisplayedSeparately = false, bool isSelfAssignable = false, bool isMentionable = false, IList<uint>? colors = null, IList<Permission>? permissions = null) =>
+        GetResponsePropertyAsync<Role>(new RestRequest($"servers/{server}/roles", Method.Post)
+            .AddBody(new
+            {
+                name,
+                isDisplayedSeparately,
+                isSelfAssignable,
+                isMentionable,
+                permissions,
+                colors,
+            })
+        , "role");
+
+    /// <inheritdoc cref="CreateRoleAsync(HashId, string, bool, bool, bool, IList{uint}?, IList{Permission}?)" />
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> will be created</param>
+    /// <param name="name">The name of the <see cref="Role">role</see></param>
+    /// <param name="isDisplayedSeparately">Whether the <see cref="Role">role</see> displays its <see cref="Member">members</see> separately from others</param>
+    /// <param name="isSelfAssignable">Whether <see cref="Member">members</see> are allowed to assign themselves the <see cref="Role">role</see></param>
+    /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
+    /// <param name="colors">The displayed colours of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    public Task<Role> CreateRoleAsync(HashId server, string name, bool isDisplayedSeparately = false, bool isSelfAssignable = false, bool isMentionable = false, IList<Color>? colors = null, IList<Permission>? permissions = null) =>
+        CreateRoleAsync(server, name, isDisplayedSeparately, isSelfAssignable, isMentionable, colors?.Select(color => (uint)color.ToArgb()).ToList(), permissions);
+
+    /// <summary>
+    /// Updates the specified <paramref name="role" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be updated</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to update</param>
+    /// <param name="name">The new name of the <see cref="Role">role</see></param>
+    /// <param name="isDisplayedSeparately">Whether the <see cref="Role">role</see> displays its <see cref="Member">members</see> separately from others</param>
+    /// <param name="isSelfAssignable">Whether <see cref="Member">members</see> are allowed to assign themselves the <see cref="Role">role</see></param>
+    /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
+    /// <param name="colors">The new displayed colours of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageRoles" />
+    /// <returns>The <see cref="Role">role</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Role> UpdateRoleAsync(HashId server, uint role, string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<uint>? colors = null, IList<Permission>? permissions = null)
+    {
+        return GetResponsePropertyAsync<Role>(new RestRequest($"servers/{server}/roles/{role}", Method.Patch)
+            .AddJsonBody(new
+            {
+                name,
+                isDisplayedSeparately,
+                isSelfAssignable,
+                isMentionable,
+                colors,
+                permissions,
+            })
+        , "role");
+    }
+
+    /// <inheritdoc cref="UpdateRoleAsync(HashId, uint, string?, bool?, bool?, bool?, IList{uint}?, IList{Permission}?)" />
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be updated</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to update</param>
+    /// <param name="name">The new name of the <see cref="Role">role</see></param>
+    /// <param name="isDisplayedSeparately">Whether the <see cref="Role">role</see> displays its <see cref="Member">members</see> separately from others</param>
+    /// <param name="isSelfAssignable">Whether <see cref="Member">members</see> are allowed to assign themselves the <see cref="Role">role</see></param>
+    /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
+    /// <param name="colors">The new displayed colours of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    public Task<Role> UpdateRoleAsync(HashId server, uint role, string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<Color>? colors = null, IList<Permission>? permissions = null) =>
+        UpdateRoleAsync(server, role, name, isDisplayedSeparately, isSelfAssignable, isMentionable, colors?.Select(color => (uint)color.ToArgb()).ToList(), permissions);
+
+    /// <summary>
+    /// Deletes the specified <paramref name="role" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> will be deleted</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageRoles" />
+    public Task DeleteRoleAsync(HashId server, uint role) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/roles/{role}", Method.Delete));
+
+    /// <summary>
+    /// Updates the specified <paramref name="role">role's</paramref> <see cref="Permission">permissions</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>Any permissions that exists in the role, but are not specified will be either left in the role or not added at all if it didn't exist prior.</para>
+    /// <para>To remove a permission, specify it with <see langword="false" />. Otherwise, to add a permission, specify it as <see langword="true" />.</para>
+    /// </remarks>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> will be updated</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to update <see cref="Permission">permissions</see> of </param>
+    /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageRoles" />
+    /// <returns>The <see cref="Role">role</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Role> UpdateRolePermissionsAsync(HashId server, uint role, IDictionary<Permission, bool> permissions)
+    {
+        return GetResponsePropertyAsync<Role>(new RestRequest($"servers/{server}/roles/{role}/permissions", Method.Patch)
+            .AddJsonBody(new
+            {
+                permissions,
+            })
+        , "role");
+    }
     #endregion
 
     #region Methods Members
@@ -440,6 +623,32 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageRoles" />
     public Task RemoveMemberRoleAsync(HashId server, UserReference memberReference, uint role) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/roles/{role}", Method.Delete));
+
+    /// <summary>
+    /// Gets a list of <see cref="Permission">permissions</see> that the <see cref="Member">member</see> has.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Member">member's</see> permissions in</param>
+    /// <param name="member">The identifier of the <see cref="Member">member</see> to get permissions of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The list of fetched <see cref="Permission">permissions</see> in the specified <paramref name="server" /></returns>
+    public Task<IList<Permission>> GetMemberPermissionsAsync(HashId server, HashId member) =>
+        GetResponsePropertyAsync<IList<Permission>>(new RestRequest($"servers/{server}/members/{member}/permissions", Method.Get), "permissions");
+
+    /// <summary>
+    /// Gets a list of <see cref="Permission">permissions</see> that the <see cref="Member">member</see> has.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> to get <see cref="Member">member's</see> permissions in</param>
+    /// <param name="memberReference">A <see cref="UserReference">reference</see> to the <see cref="Member">member</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The list of fetched <see cref="Permission">permissions</see> in the specified <paramref name="server" /></returns>
+    public Task<IList<Permission>> GetMemberPermissionsAsync(HashId server, UserReference memberReference) =>
+        GetResponsePropertyAsync<IList<Permission>>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/permissions", Method.Get), "permissions");
 
     /// <summary>
     /// Gives the specified <paramref name="amount" /> of XP to the specified <paramref name="member" />.

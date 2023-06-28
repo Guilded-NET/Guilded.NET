@@ -142,10 +142,15 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "UserStatusCreated",                    new EventInfo<UserStatusEvent>() },
             { "UserStatusDeleted",                    new EventInfo<UserStatusEvent>() },
 
-            // Channels
+            // Groups
             { "GroupCreated",                         new EventInfo<GroupEvent>() },
             { "GroupUpdated",                         new EventInfo<GroupEvent>() },
             { "GroupDeleted",                         new EventInfo<GroupEvent>() },
+
+            // Groups
+            { "RoleCreated",                          new EventInfo<RoleEvent>() },
+            { "RoleUpdated",                          new EventInfo<RoleEvent>() },
+            { "RoleDeleted",                          new EventInfo<RoleEvent>() },
 
             // Channels
             { "ServerChannelCreated",                 new EventInfo<ChannelEvent>() },

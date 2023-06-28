@@ -12,9 +12,9 @@ namespace Guilded.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes a <see cref="Servers.Group">group</see>.
 /// </summary>
-/// <seealso cref="ItemEvent" />
-/// <seealso cref="DocEvent" />
-/// <seealso cref="MessageEvent" />
+/// <seealso cref="ChannelEvent" />
+/// <seealso cref="RoleEvent" />
+/// <seealso cref="ServerEvent" />
 public class GroupEvent : IModelHasId<HashId>, ICreatableContent, IUpdatableContent, IArchivableContent, IServerBased
 {
     #region Properties

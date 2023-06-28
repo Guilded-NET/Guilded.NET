@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Client;
+using Guilded.Events;
 using Newtonsoft.Json;
 
 namespace Guilded.Servers;
@@ -139,9 +143,9 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     public bool IsMentionable { get; }
 
     /// <summary>
-    /// Gets the permissions of the <see cref="Role">role</see>.
+    /// Gets the <see cref="Permission">permissions</see> of the <see cref="Role">role</see>.
     /// </summary>
-    /// <value>The permissions of the <see cref="Role">role</see></value>
+    /// <value>The <see cref="Permission">permissions</see> of the <see cref="Role">role</see></value>
     /// <seealso cref="Role" />
     /// <seealso cref="IsBase" />
     /// <seealso cref="IsDisplayedSeparately" />
@@ -168,6 +172,35 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     public DateTime? UpdatedAt { get; }
     #endregion
 
+    #region Properties Events
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Role">role</see> gets edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Role">role</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Role">role</see> gets edited</returns>
+    /// <seealso cref="Deleted" />
+    public IObservable<RoleEvent> Updated =>
+        ParentClient
+            .RoleUpdated
+            .HasId(Id);
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when the <see cref="Role">role</see> gets removed.
+    /// </summary>
+    /// <remarks>
+    /// <para>The <see cref="IObservable{T}">observable</see> will be filtered for this <see cref="Role">role</see> specific.</para>
+    /// </remarks>
+    /// <returns>The <see cref="IObservable{T}">observable</see> for an event when the <see cref="Role">role</see> gets removed</returns>
+    /// <seealso cref="Updated" />
+    public IObservable<RoleEvent> Deleted =>
+        ParentClient
+            .RoleDeleted
+            .HasId(Id)
+            .Take(1);
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new instance of <see cref="Role" /> from specified JSON properties.
@@ -176,7 +209,7 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> is</param>
     /// <param name="name">The displayed name of the <see cref="Role">role</see></param>
     /// <param name="position">The position of the <see cref="Role">role</see> in the <see cref="Server">server's</see> role list</param>
-    /// <param name="permissions">The permissions of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
     /// <param name="createdAt">The date when the <see cref="Role">role</see> was created</param>
     /// <param name="icon">The <see cref="Uri">URL</see> to the icon image of the <see cref="Role">role</see></param>
     /// <param name="colors">The displayed colours of the <see cref="Role">role</see></param>
@@ -228,5 +261,36 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
         DateTime? updatedAt = null
     ) =>
         (Id, ServerId, Name, Icon, Colors, Position, IsBase, IsDisplayedSeparately, IsSelfAssignable, IsMentionable, Permissions, CreatedAt, UpdatedAt) = (id, serverId, name, icon, colors, position, isBase, isDisplayedSeparately, isSelfAssignable, isMentionable, permissions, createdAt, updatedAt);
+    #endregion
+
+    #region Methods
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateRoleAsync(HashId, uint, string?, bool?, bool?, bool?, IList{uint}?, IList{Permission}?)" />
+    /// <param name="name">The new name of the <see cref="Role">role</see></param>
+    /// <param name="isDisplayedSeparately">Whether the <see cref="Role">role</see> displays its <see cref="Member">members</see> separately from others</param>
+    /// <param name="isSelfAssignable">Whether <see cref="Member">members</see> are allowed to assign themselves the <see cref="Role">role</see></param>
+    /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
+    /// <param name="colors">The new displayed colours of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    public Task<Role> UpdateAsync(string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<uint>? colors = null, IList<Permission>? permissions = null) =>
+        ParentClient.UpdateRoleAsync(ServerId, Id, name, isDisplayedSeparately, isSelfAssignable, isMentionable, colors, permissions);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateRoleAsync(HashId, uint, string?, bool?, bool?, bool?, IList{uint}?, IList{Permission}?)" />
+    /// <param name="name">The new name of the <see cref="Role">role</see></param>
+    /// <param name="isDisplayedSeparately">Whether the <see cref="Role">role</see> displays its <see cref="Member">members</see> separately from others</param>
+    /// <param name="isSelfAssignable">Whether <see cref="Member">members</see> are allowed to assign themselves the <see cref="Role">role</see></param>
+    /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
+    /// <param name="colors">The new displayed colours of the <see cref="Role">role</see></param>
+    /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    public Task<Role> UpdateAsync(string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<Color>? colors = null, IList<Permission>? permissions = null) =>
+        ParentClient.UpdateRoleAsync(ServerId, Id, name, isDisplayedSeparately, isSelfAssignable, isMentionable, colors, permissions);
+
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteRoleAsync(HashId, uint)" />
+    public Task DeleteAsync() =>
+        ParentClient.DeleteRoleAsync(ServerId, Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateRolePermissionsAsync(HashId, uint, IDictionary{Permission, bool})" />
+    /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    public Task<Role> UpdatePermissionsAsync(IDictionary<Permission, bool> permissions) =>
+        ParentClient.UpdateRolePermissionsAsync(ServerId, Id, permissions);
     #endregion
 }

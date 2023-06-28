@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
-using Guilded.Content;
 using Guilded.Servers;
 using Newtonsoft.Json;
 
@@ -11,9 +10,9 @@ namespace Guilded.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes a <see cref="ServerChannel">channel</see>.
 /// </summary>
-/// <seealso cref="ItemEvent" />
-/// <seealso cref="DocEvent" />
-/// <seealso cref="MessageEvent" />
+/// <seealso cref="GroupEvent" />
+/// <seealso cref="RoleEvent" />
+/// <seealso cref="ServerEvent" />
 public class ChannelEvent : IModelHasId<Guid>, IChannel, ICreatableContent, IUpdatableContent, IServerBased
 {
     #region Properties
