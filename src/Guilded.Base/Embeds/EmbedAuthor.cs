@@ -30,31 +30,31 @@ public class EmbedAuthor
 {
     #region Properties
     /// <summary>
-    /// Gets the name of an embed author.
+    /// Gets the name of the <see cref="EmbedAuthor">author</see>.
     /// </summary>
     /// <remarks>
     /// <para>The provided Markdown is ignored.</para>
     /// </remarks>
-    /// <value>Name</value>
+    /// <value>The name of the <see cref="EmbedAuthor">author</see></value>
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets the URL that author links.
+    /// Gets the URL to the <see cref="EmbedAuthor">author</see>.
     /// </summary>
     /// <remarks>
     /// <para>Can be used to open up author's profile or link to the content of the embed.</para>
     /// </remarks>
-    /// <value>URL?</value>
+    /// <value>The URL to the <see cref="EmbedAuthor">author</see></value>
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public Uri? Url { get; set; }
 
     /// <summary>
-    /// Gets the URL to author's icon.
+    /// Gets the URL to the <see cref="Embed">author's</see> icon.
     /// </summary>
     /// <remarks>
     /// <para>Used to display the icon of the content's author.</para>
     /// </remarks>
-    /// <value>URL?</value>
+    /// <value>The URL to the <see cref="Embed">author's</see> icon</value>
     [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
     public Uri? IconUrl { get; set; }
     #endregion

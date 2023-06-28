@@ -4,25 +4,8 @@ using RestSharp;
 namespace Guilded.Base;
 
 /// <summary>
-/// Represents an exception thrown by Guilded API when a request has invalid parameters.
+/// Represents an exception thrown by Guilded API when Guilded API is being flood by too many requests.
 /// </summary>
-/// <remarks>
-/// <para>This has these leading causes:</para>
-/// <list type="bullet">
-///     <item>
-///         <term>Invalid/bad parameters</term>
-///         <description>The parameters of given method were invalid or expired</description>
-///     </item>
-///     <item>
-///         <term>Outdated methods</term>
-///         <description>If you are using newer version of API and older incompatible methods, this can lead to an exception. This would rarely be the case, but still a possibility.</description>
-///     </item>
-///     <item>
-///         <term>Guilded.NET related issue</term>
-///         <description>This could be related to Guilded.NET itself, especially if new breaking update came and Guilded.NET hasn't changed methods yet.</description>
-///     </item>
-/// </list>
-/// </remarks>
 /// <seealso cref="GuildedException" />
 /// <seealso cref="GuildedTooManyRequestsException" />
 /// <seealso cref="GuildedPermissionException" />

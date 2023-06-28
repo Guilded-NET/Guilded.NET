@@ -15,21 +15,21 @@ public class EmbedFooter
 {
     #region Properties
     /// <summary>
-    /// Gets the text contents of the footer.
+    /// Gets the text contents of the <see cref="EmbedFooter">embed footer</see>.
     /// </summary>
     /// <remarks>
     /// <para>The provided Markdown will be ignored.</para>
     /// </remarks>
-    /// <value>String</value>
+    /// <value>The text contents of the <see cref="EmbedFooter">embed footer</see></value>
     public string Text { get; set; }
 
     /// <summary>
-    /// The URL to the footer's icon.
+    /// Gets the URL to the <see cref="Embed">footer's</see> icon.
     /// </summary>
     /// <remarks>
     /// <para>Usually displayed before the footer text.</para>
     /// </remarks>
-    /// <value>Image URL?</value>
+    /// <value>The URL to the <see cref="Embed">footer's</see> icon</value>
     [JsonProperty("icon_url", NullValueHandling = NullValueHandling.Ignore)]
     public Uri? IconUrl { get; set; }
     #endregion
@@ -38,8 +38,8 @@ public class EmbedFooter
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedFooter" /> with text <paramref name="text" />.
     /// </summary>
-    /// <param name="text">The text contents of the footer</param>
-    /// <param name="icon">The URL to footer's icon</param>
+    /// <param name="text">The text contents of the <see cref="EmbedFooter">embed footer</see></param>
+    /// <param name="icon">The URL to the <see cref="Embed">footer's</see> icon</param>
     /// <exception cref="ArgumentNullException">When <paramref name="text" /> is <see langword="null" /></exception>
     /// <returns>New <see cref="EmbedFooter" /> instance</returns>
     /// <seealso cref="EmbedFooter" />

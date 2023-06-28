@@ -14,12 +14,12 @@ public class EmbedMedia
 {
     #region Properties
     /// <summary>
-    /// The source URL to the image.
+    /// Gets the source URL to the <see cref="EmbedMedia">image</see>.
     /// </summary>
     /// <remarks>
     /// <para><see cref="Uri" /> that points to image's/video's source location. This property will be used to fetch the image/video from the given URL.</para>
     /// </remarks>
-    /// <value>URL</value>
+    /// <value>The source URL to the <see cref="EmbedMedia">image</see></value>
     public Uri Url { get; set; }
     #endregion
 
@@ -27,7 +27,7 @@ public class EmbedMedia
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedMedia" /> with optional size parameters.
     /// </summary>
-    /// <param name="url">The source URL to the image</param>
+    /// <param name="url">The source URL to the <see cref="EmbedMedia">image</see></param>
     /// <returns>New <see cref="EmbedMedia" /> instance</returns>
     /// <seealso cref="EmbedMedia" />
     /// <seealso cref="EmbedMedia(string)" />
@@ -41,7 +41,7 @@ public class EmbedMedia
     /// <summary>
     /// Initializes a new instance of <see cref="EmbedMedia" /> with optional size parameters.
     /// </summary>
-    /// <param name="url">The source URL to the image</param>
+    /// <param name="url">The source URL to the <see cref="EmbedMedia">image</see></param>
     /// <exception cref="ArgumentNullException"><paramref name="url" /> is <see langword="null" />, empty or whitespace</exception>
     /// <exception cref="UriFormatException"><paramref name="url" /> has bad <see cref="Uri" /> formatting</exception>
     /// <returns>New <see cref="EmbedMedia" /> instance</returns>
@@ -58,8 +58,8 @@ public class EmbedMedia
     /// <para>Checks if <paramref name="url" /> is not <see langword="null" /> and then creates <see cref="EmbedMedia" /> instance.</para>
     /// <para>Only used in <see cref="Embed(Uri, Uri)" /></para>
     /// </remarks>
-    /// <param name="url">The source URL to the image</param>
-    /// <returns><see cref="EmbedMedia" />?</returns>
+    /// <param name="url">The source URL to the <see cref="EmbedMedia">image</see></param>
+    /// <returns>The created <see cref="EmbedMedia">embed media</see> or <see langword="null" /></returns>
     internal static EmbedMedia? CreateOrNull(Uri? url) =>
         url is not null ? new EmbedMedia(url) : null;
     #endregion

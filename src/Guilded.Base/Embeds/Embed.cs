@@ -53,7 +53,7 @@ public class Embed
     /// <remarks>
     /// <para>The contents are formatted in Markdown.</para>
     /// </remarks>
-    /// <value>Markdown string?</value>
+    /// <value>The title of the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Url" />
     /// <seealso cref="Description" />
@@ -62,28 +62,28 @@ public class Embed
     /// <summary>
     /// Gets the URL of the content that <see cref="Embed">embed</see> displays.
     /// </summary>
-    /// <value>URL?</value>
+    /// <value>The URL of the content that <see cref="Embed">embed</see> displays</value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Title" />
     /// <seealso cref="Description" />
     public Uri? Url { get; set; }
 
     /// <summary>
-    /// The description text of the <see cref="Embed">embed</see>.
+    /// Gets the description text of the <see cref="Embed">embed</see>.
     /// </summary>
     /// <remarks>
     /// <para>The contents are formatted in Markdown.</para>
     /// </remarks>
-    /// <value>Markdown string?</value>
+    /// <value>The description text of the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Title" />
     /// <seealso cref="Url" />
     public string? Description { get; set; }
 
     /// <summary>
-    /// Gets the author of the content that <see cref="Embed">embed</see> displays.
+    /// Gets the <see cref="EmbedAuthor">author</see> of the content that <see cref="Embed">embed</see> displays.
     /// </summary>
-    /// <value>Embed Author?</value>
+    /// <value>The <see cref="EmbedAuthor">author</see> of the content that <see cref="Embed">embed</see> displays</value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Footer" />
     /// <seealso cref="Timestamp" />
@@ -95,7 +95,7 @@ public class Embed
     /// <remarks>
     /// <para>This is displayed as left-side border in the official Guilded client, but may be displayed differently in other clients.</para>
     /// </remarks>
-    /// <value>Colour?</value>
+    /// <value>The colour of the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Timestamp" />
     /// <seealso cref="Description" />
@@ -108,7 +108,7 @@ public class Embed
     /// <remarks>
     /// <para>This is displayed as image at the right of <see cref="Embed">an embed</see> and as square in the official Guilded app.</para>
     /// </remarks>
-    /// <value>Embed media?</value>
+    /// <value>The thumbnail image of the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Image" />
     /// <seealso cref="Fields" />
@@ -120,19 +120,19 @@ public class Embed
     /// <remarks>
     /// <para>This appears at the bottom of <see cref="Embed">an embed</see> and above a footer in the official Guilded app.</para>
     /// </remarks>
-    /// <value>Embed media?</value>
+    /// <value>The image of the content that <see cref="Embed">embed</see> displays</value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Thumbnail" />
     /// <seealso cref="Fields" />
     public EmbedMedia? Image { get; set; }
 
     /// <summary>
-    /// Gets the list of fields in the <see cref="Embed">embed</see>.
+    /// Gets the list of <see cref="EmbedField">fields</see> in the <see cref="Embed">embed</see>.
     /// </summary>
     /// <remarks>
     /// <para>Fields can be both inline and blocks.</para>
     /// </remarks>
-    /// <value>List of embed fields?</value>
+    /// <value>The list of <see cref="EmbedField">fields</see> in the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Image" />
     /// <seealso cref="Thumbnail" />
@@ -140,25 +140,25 @@ public class Embed
     public IList<EmbedField>? Fields { get; set; }
 
     /// <summary>
-    /// The footer of <see cref="Embed">an embed</see>.
+    /// Gets the <see cref="EmbedFooter">footer content</see> of the <see cref="Embed">embed</see>.
     /// </summary>
     /// <remarks>
     /// <para>The bottom area of an embed that provides further information about anything.</para>
     /// <para>Footers can also have timestamps, but that can be used by setting <see cref="Timestamp" /> property. Timestamps are not officially part of footers, but that's the most common way they are displayed by the clients and official Guilded app.</para>
     /// </remarks>
-    /// <value>Embed Footer?</value>
+    /// <value>The <see cref="EmbedFooter">footer content</see> of the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Timestamp" />
     /// <seealso cref="Author" />
     public EmbedFooter? Footer { get; set; }
 
     /// <summary>
-    /// Gets the timestamp of <see cref="Embed">an embed</see>.
+    /// Gets the timestamp of the <see cref="Embed">embed</see>.
     /// </summary>
     /// <remarks>
     /// <para>Usually displayed in the footer.</para>
     /// </remarks>
-    /// <value>Date?</value>
+    /// <value>The timestamp of the <see cref="Embed">embed</see></value>
     /// <seealso cref="Embed" />
     /// <seealso cref="Footer" />
     /// <seealso cref="Author" />
@@ -168,7 +168,7 @@ public class Embed
 
     #region Constructors
     /// <summary>
-    /// Creates a new empty instance of <see cref="Embed" />.
+    /// Initializes a new empty instance of <see cref="Embed" />.
     /// </summary>
     /// <returns>Empty <see cref="Embed" /> instance</returns>
     public Embed() { }
@@ -489,12 +489,8 @@ public class Embed
     public Embed AddFields(IEnumerable<EmbedField> fields)
     {
         // Don't allow >25 fields
-        if ((Fields?.Count + fields.Count()) > FieldLimit)
-            throw new OverflowException("Cannot add more than 25 fields to an embed");
-        else if (Fields is null)
-            Fields = fields.ToList();
-        else
-            Fields = Fields.Concat(fields).ToList();
+        if ((Fields?.Count + fields.Count()) > FieldLimit) throw new OverflowException("Cannot add more than 25 fields to an embed");
+        else Fields = (Fields is null ? fields : Fields.Concat(fields)).ToList();
         return this;
     }
 

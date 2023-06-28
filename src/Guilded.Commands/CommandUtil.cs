@@ -84,17 +84,15 @@ internal static class CommandUtil
                         if (!type.IsSubclassOf(typeof(CommandBase)))
                             throw new NotSupportedException($"Cannot declare type as a command when it's not a subclass of {nameof(CommandBase)}.");
 
-                        ConstructorInfo? invokableConstructor =
+                        ConstructorInfo invokableConstructor =
                             type.GetConstructors()
                                 .FirstOrDefault(constructor =>
                                 {
                                     ParameterInfo[] parameters = constructor.GetParameters();
 
                                     return constructor.IsPublic && !parameters.Any();
-                                });
-
-                        if (invokableConstructor is null)
-                            throw new MemberAccessException($"Could not find public constructor with no parameters in type {type}");
+                                })
+                                ?? throw new MemberAccessException($"Could not find public constructor with no parameters in type {type}");
 
                         CommandBase instance = (CommandBase)invokableConstructor.Invoke(Array.Empty<object>());
 

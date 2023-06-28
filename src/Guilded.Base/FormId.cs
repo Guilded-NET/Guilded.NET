@@ -66,18 +66,18 @@ public readonly struct FormId : IEquatable<FormId>
 
     #region Methods
     /// <summary>
-    /// Returns the string representation of this <see cref="FormId" /> instance.
+    /// Returns the <see cref="string" /> representation of this <see cref="FormId" /> instance.
     /// </summary>
-    /// <returns><see cref="FormId" /> as <see cref="string" /></returns>
+    /// <returns>The <see cref="string" /> representation of this <see cref="FormId" /> instance</returns>
     public override string ToString() =>
         _;
 
     /// <summary>
-    /// Gets a hashcode of this object.
+    /// Gets the hashcode of the <see cref="FormId">form ID</see>.
     /// </summary>
-    /// <returns>HashCode</returns>
+    /// <returns>The hashcode of the <see cref="FormId">form ID</see></returns>
     public override int GetHashCode() =>
-        HashCode.Combine(_, 1);
+        _.GetHashCode();
 
     /// <summary>
     /// Returns whether this <see cref="FormId" /> instance and <paramref name="other" /> are equal.

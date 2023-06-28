@@ -19,7 +19,7 @@ public class EmbedField
     /// <remarks>
     /// <para>The provided Markdown is ignored.</para>
     /// </remarks>
-    /// <value>Title</value>
+    /// <value>The title of an <see cref="Embed">embed's</see> field</value>
     public string Name { get; set; }
 
     /// <summary>
@@ -28,7 +28,7 @@ public class EmbedField
     /// <remarks>
     /// <para>This allows any given Markdown.</para>
     /// </remarks>
-    /// <value>Markdown string</value>
+    /// <value>The text contents of an <see cref="Embed">embed's</see> field</value>
     public string Value { get; set; }
 
     /// <summary>
@@ -37,7 +37,7 @@ public class EmbedField
     /// <remarks>
     /// <para>If the value is <see langword="true" />, the field will be displayed next to other fields</para>
     /// </remarks>
-    /// <value>Field is inline</value>
+    /// <value>Whether the field should be inline with other fields</value>
     public bool Inline { get; set; }
     #endregion
 
