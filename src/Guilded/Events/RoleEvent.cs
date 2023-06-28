@@ -37,7 +37,7 @@ public class RoleEvent : IModelHasId<uint>, ICreationDated, IUpdatableContent, I
     public HashId ServerId { get; }
 
     /// <inheritdoc cref="Role.BotUserId" />
-    public Guid? BotUserId => Role.BotUserId;
+    public HashId? BotUserId => Role.BotUserId;
 
     /// <inheritdoc cref="Role.Name" />
     public string Name => Role.Name;

@@ -40,17 +40,17 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     public HashId ServerId { get; }
 
     /// <summary>
-    /// Gets the identifier of the bot that owns and gets represented by the <see cref="Role">role</see> in the role list.
+    /// Gets the user identifier of the bot that owns and gets represented by the <see cref="Role">role</see> in the role list.
     /// </summary>
     /// <remarks>
     /// <para>If this property has a value, the associated <see cref="Role">role</see> can only be deleted by removing the bot with this identifier.</para>
     /// </remarks>
-    /// <value>The identifier of the <see cref="Role">role</see></value>
+    /// <value>The user identifier of the bot that owns and gets represented by the <see cref="Role">role</see> in the role list</value>
     /// <seealso cref="Role" />
     /// <seealso cref="Id" />
     /// <seealso cref="ServerId" />
     /// <seealso cref="Name" />
-    public Guid? BotUserId { get; }
+    public HashId? BotUserId { get; }
 
     /// <summary>
     /// Gets the displayed name of the <see cref="Role">role</see>.
@@ -209,6 +209,7 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Role">role</see> is</param>
     /// <param name="name">The displayed name of the <see cref="Role">role</see></param>
     /// <param name="position">The position of the <see cref="Role">role</see> in the <see cref="Server">server's</see> role list</param>
+    /// <param name="botUserId">The user identifier of the bot that owns and gets represented by the <see cref="Role">role</see> in the role list</param>
     /// <param name="permissions">The <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
     /// <param name="createdAt">The date when the <see cref="Role">role</see> was created</param>
     /// <param name="icon">The <see cref="Uri">URL</see> to the icon image of the <see cref="Role">role</see></param>
@@ -246,6 +247,9 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
         IList<Color>? colors = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        HashId? botUserId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         bool isBase = false,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -260,7 +264,7 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null
     ) =>
-        (Id, ServerId, Name, Icon, Colors, Position, IsBase, IsDisplayedSeparately, IsSelfAssignable, IsMentionable, Permissions, CreatedAt, UpdatedAt) = (id, serverId, name, icon, colors, position, isBase, isDisplayedSeparately, isSelfAssignable, isMentionable, permissions, createdAt, updatedAt);
+        (Id, ServerId, BotUserId, Name, Icon, Colors, Position, IsBase, IsDisplayedSeparately, IsSelfAssignable, IsMentionable, Permissions, CreatedAt, UpdatedAt) = (id, serverId, botUserId, name, icon, colors, position, isBase, isDisplayedSeparately, isSelfAssignable, isMentionable, permissions, createdAt, updatedAt);
     #endregion
 
     #region Methods
