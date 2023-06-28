@@ -22,7 +22,7 @@ public interface IUserCreated
     /// <seealso cref="IUserCreated" />
     /// <seealso cref="ICreatableContent" />
     /// <seealso cref="IWebhookCreated.CreatedByWebhook" />
-    /// <seealso cref="ICreatableContent.CreatedAt" />
+    /// <seealso cref="ICreationDated.CreatedAt" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     HashId CreatedBy { get; }
     #endregion
@@ -52,9 +52,10 @@ public interface ICreationDated
 }
 
 /// <summary>
-/// Represents the <see cref="ICreatableContent">content</see> that can be created and has specified <see cref="CreatedAt">creation date</see>.
+/// Represents the <see cref="ICreatableContent">content</see> that can be created and has specified <see cref="ICreationDated.CreatedAt">creation date</see> and <see cref="IUserCreated.CreatedBy">user creator</see>.
 /// </summary>
 /// <seealso cref="IUserCreated" />
+/// <seealso cref="ICreationDated" />
 /// <seealso cref="IUpdatableContent" />
 /// <seealso cref="IWebhookCreated" />
 /// <seealso cref="Content.IReactibleContent" />
@@ -78,7 +79,7 @@ public interface IUpdatableContent
     /// </remarks>
     /// <value>The date when the <see cref="IUpdatableContent">content</see> were edited</value>
     /// <seealso cref="IUpdatableContent" />
-    /// <seealso cref="ICreatableContent.CreatedAt" />
+    /// <seealso cref="ICreationDated.CreatedAt" />
     /// <seealso cref="IUserCreated.CreatedBy" />
     /// <seealso cref="IWebhookCreated.CreatedByWebhook" />
     DateTime? UpdatedAt { get; }
@@ -100,8 +101,8 @@ public interface IWebhookCreated
     /// </summary>
     /// <value>The identifier of the <see cref="Webhook">webhook</see> that created the content</value>
     /// <seealso cref="IWebhookCreated" />
-    /// <seealso cref="ICreatableContent.CreatedAt" />
     /// <seealso cref="IUserCreated.CreatedBy" />
+    /// <seealso cref="ICreationDated.CreatedAt" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
     Guid? CreatedByWebhook { get; }
     #endregion

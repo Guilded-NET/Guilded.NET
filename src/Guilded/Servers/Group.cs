@@ -108,7 +108,7 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     public DateTime CreatedAt { get; }
 
     /// <summary>
-    /// Gets the <see cref="User">user</see> who created the <see cref="Group">group</see>.
+    /// Gets the identifier of the <see cref="User">user</see> who created the <see cref="Group">group</see>.
     /// </summary>
     /// <value>The <see cref="User">user</see> who created the <see cref="Group">group</see></value>
     /// <seealso cref="Group" />
@@ -127,7 +127,7 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     public DateTime? UpdatedAt { get; }
 
     /// <summary>
-    /// Gets the <see cref="User">user</see> who last updated the <see cref="Group">group</see>.
+    /// Gets the identifier of the <see cref="User">user</see> who last updated the <see cref="Group">group</see>.
     /// </summary>
     /// <value>The <see cref="User">user</see> who last updated the <see cref="Group">group</see></value>
     /// <seealso cref="Group" />
@@ -149,7 +149,7 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     public DateTime? ArchivedAt { get; }
 
     /// <summary>
-    /// Gets the <see cref="User">user</see> who archived the <see cref="Group">group</see>.
+    /// Gets the identifier of the <see cref="User">user</see> who archived the <see cref="Group">group</see>.
     /// </summary>
     /// <value>The <see cref="User">user</see> who archived the <see cref="Group">group</see></value>
     /// <seealso cref="Group" />
@@ -205,10 +205,10 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     /// Initializes a new instance of <see cref="Group" /> from specified JSON properties.
     /// </summary>
     /// <param name="id">The identifier of the <see cref="Group">group</see></param>
-    /// <param name="serverId">The identifier of <see cref="User">user</see> that created the <see cref="Server">server</see></param>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> is</param>
     /// <param name="name">The displayed name of the <see cref="Group">group</see></param>
     /// <param name="createdAt">The date when the <see cref="Group">group</see> was created</param>
-    /// <param name="createdBy">The <see cref="User">user</see> who created the <see cref="Group">group</see></param>
+    /// <param name="createdBy">The identifier of the <see cref="User">user</see> who created the <see cref="Group">group</see></param>
     /// <param name="updatedAt">The date when the <see cref="Group">group</see> was last updated</param>
     /// <param name="updatedBy">The <see cref="User">user</see> who last updated the <see cref="Group">group</see></param>
     /// <param name="archivedAt">The date when the <see cref="Group">group</see> was archived</param>
