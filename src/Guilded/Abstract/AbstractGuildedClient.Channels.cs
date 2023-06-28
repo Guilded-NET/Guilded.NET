@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Embeds;
 using Guilded.Content;
-using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
 using RestSharp;
@@ -140,8 +138,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="GeneralPermissions.GetPrivateMessage">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="AbstractGuildedClient">client</see> if <paramref name="includePrivate" /> is set as true</permission>
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.GetPrivateContent">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="AbstractGuildedClient">client</see> if <paramref name="includePrivate" /> is set as true</permission>
     /// <returns>The list of fetched <see cref="Message">messages</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<Message>> GetMessagesAsync(Guid channel, bool includePrivate = false, uint? limit = null, DateTime? before = null, DateTime? after = null) =>
         GetResponsePropertyAsync<IList<Message>>(
@@ -162,8 +160,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="GeneralPermissions.GetPrivateMessage">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="AbstractGuildedClient">client</see></permission>
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.GetPrivateContent">Required when viewing <see cref="Message">messages</see> set as <see cref="Message.IsPrivate">private</see> not sent by the <see cref="AbstractGuildedClient">client</see></permission>
     /// <returns>The <see cref="Message">message</see> that was specified in the arguments</returns>
     public Task<Message> GetMessageAsync(Guid channel, Guid message) =>
         GetResponsePropertyAsync<Message>(new RestRequest($"channels/{channel}/messages/{message}", Method.Get), "message");
@@ -179,12 +177,12 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <see cref="MessageContent.Content">content</see> only consists of whitespace or is <see langword="null" /> and <see cref="MessageContent.Embeds">embeds</see> are also null or its array is empty</exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <see cref="Message.Content" /> is above the <see cref="Message.Content">message content</see> limit of 4000 characters</exception>
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="ChatPermissions.CreateMessage">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
-    /// <permission cref="ChatPermissions.CreateThreadMessage">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
-    /// <permission cref="ChatPermissions.CreatePrivateMessage">Required when sending a <see cref="Message">message</see> that is set as <see cref="Message.IsPrivate">private</see></permission>
-    /// <permission cref="ChatPermissions.AddMedia">Required when sending a <see cref="Message">message</see> that contains an image or a video</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when sending a <see cref="Message">message</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.CreateMessages">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
+    /// <permission cref="Permission.CreateThreadMessages">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
+    /// <permission cref="Permission.CreatePrivateMessages">Required when sending a <see cref="Message">message</see> that is set as <see cref="Message.IsPrivate">private</see></permission>
+    /// <permission cref="Permission.CreateMessageMedia">Required when sending a <see cref="Message">message</see> that contains an image or a video</permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when sending a <see cref="Message">message</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Message">message</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Message> CreateMessageAsync(Guid channel, MessageContent message)
     {
@@ -271,11 +269,11 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> is <see langword="null" /></exception>
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="ChatPermissions.CreateMessage">Required when editing a <see cref="Message">message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
-    /// <permission cref="ChatPermissions.CreateThreadMessage">Required when editing a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
-    /// <permission cref="ChatPermissions.AddMedia">Required when adding an image or a video to a <see cref="Message">message</see></permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Message">message</see></permission>
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.CreateMessages">Required when editing a <see cref="Message">message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
+    /// <permission cref="Permission.CreateThreadMessages">Required when editing a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
+    /// <permission cref="Permission.CreateMessageMedia">Required when adding an image or a video to a <see cref="Message">message</see></permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Message">message</see></permission>
     /// <returns>The <paramref name="message" /> that was updated</returns>
     public Task<Message> UpdateMessageAsync(Guid channel, Guid message, MessageContent content) =>
         content is null
@@ -314,9 +312,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="ChatPermissions.ManageMessage">Required when deleting messages made by others</permission>
-    /// <permission cref="GeneralPermissions.GetPrivateMessage">Required for deleting messages set as <see cref="Message.IsPrivate">private</see> made by others</permission>
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.ManageMessages">Required when deleting messages made by others</permission>
+    /// <permission cref="Permission.GetPrivateContent">Required for deleting messages set as <see cref="Message.IsPrivate">private</see> made by others</permission>
     public Task DeleteMessageAsync(Guid channel, Guid message) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}", Method.Delete));
     #endregion
@@ -332,7 +330,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     /// <returns>The list of fetched <see cref="Topic">forum topics</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<TopicSummary>> GetTopicsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
         GetResponsePropertyAsync<IList<TopicSummary>>(
@@ -350,7 +348,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     /// <returns>The <see cref="Topic">forum topic</see> that was specified in the arguments</returns>
     public Task<Topic> GetTopicAsync(Guid channel, uint topic) =>
         GetResponsePropertyAsync<Topic>(new RestRequest($"channels/{channel}/topics/{topic}", Method.Get), "forumTopic");
@@ -365,9 +363,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.CreateTopic" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Topic">forum topic</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.CreateTopics" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when posting a <see cref="Topic">forum topic</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Topic">forum topic</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Topic> CreateTopicAsync(Guid channel, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -393,9 +391,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.CreateTopic" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.CreateTopics" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <paramref name="topic">forum topic</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Topic> UpdateTopicAsync(Guid channel, uint topic, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -419,8 +417,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.ManageTopic">Required when deleting <see cref="Topic">forum topic</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.ManageTopics">Required when deleting <see cref="Topic">forum topic</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteTopicAsync(Guid channel, uint topic) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}", Method.Delete));
 
@@ -433,8 +431,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.ManageTopic" />
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.ManageTopics" />
     public Task PinTopicAsync(Guid channel, uint topic) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/pin", Method.Put));
 
@@ -452,8 +450,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.ManageTopic" />
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.ManageTopics" />
     public Task UnpinTopicAsync(Guid channel, uint topic) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/pin", Method.Delete));
 
@@ -471,8 +469,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.LockTopic" />
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.LockTopics" />
     public Task LockTopicAsync(Guid channel, uint topic) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/lock", Method.Put));
 
@@ -485,8 +483,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.LockTopic" />
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.LockTopics" />
     public Task UnlockTopicAsync(Guid channel, uint topic) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/lock", Method.Delete));
     #endregion
@@ -500,7 +498,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
+    /// <permission cref="Permission.GetItems" />
     /// <returns>The list of fetched <see cref="Item">list items</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<ItemSummary>> GetItemsAsync(Guid channel) =>
         GetResponsePropertyAsync<IList<ItemSummary>>(new RestRequest($"channels/{channel}/items", Method.Get), "listItems");
@@ -514,7 +512,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
+    /// <permission cref="Permission.GetItems" />
     /// <returns>The <see cref="Item">list item</see> that was specified in the arguments</returns>
     public Task<Item> GetItemAsync(Guid channel, Guid listItem) =>
         GetResponsePropertyAsync<Item>(new RestRequest($"channels/{channel}/items/{listItem}", Method.Get), "listItem");
@@ -529,9 +527,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.CreateItem" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Item">list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetItems" />
+    /// <permission cref="Permission.CreateItems" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when posting a <see cref="Item">list item</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Item">list item</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Item> CreateItemAsync(Guid channel, string message, string? note = null) =>
         string.IsNullOrWhiteSpace(message)
@@ -558,9 +556,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.ManageItem">Required when updating <see cref="Item">list items</see> the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Item">list item</see></permission>
+    /// <permission cref="Permission.GetItems" />
+    /// <permission cref="Permission.UpdateItems">Required when updating <see cref="Item">list items</see> the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Item">list item</see></permission>
     /// <returns>The <paramref name="listItem">list item</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Item> UpdateItemAsync(Guid channel, Guid listItem, string? message = null, string? note = null)
     {
@@ -592,8 +590,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.RemoveItem">Required when deleting <see cref="Item">list items</see> you don't own</permission>
+    /// <permission cref="Permission.GetItems" />
+    /// <permission cref="Permission.DeleteItems">Required when deleting <see cref="Item">list items</see> you don't own</permission>
     public Task DeleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}", Method.Delete));
 
@@ -606,8 +604,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.CompleteItem" />
+    /// <permission cref="Permission.GetItems" />
+    /// <permission cref="Permission.CompleteItems" />
     public Task CompleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Post));
 
@@ -620,8 +618,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ListPermissions.GetItem" />
-    /// <permission cref="ListPermissions.CompleteItem" />
+    /// <permission cref="Permission.GetItems" />
+    /// <permission cref="Permission.CompleteItems" />
     public Task UncompleteItemAsync(Guid channel, Guid listItem) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/items/{listItem}/complete", Method.Delete));
     #endregion
@@ -637,7 +635,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     /// <returns>The list of fetched <see cref="Doc">documents</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<Doc>> GetDocsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
         GetResponsePropertyAsync<IList<Doc>>(
@@ -655,7 +653,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     /// <returns>The <see cref="Doc">document</see> that was specified in the arguments</returns>
     public Task<Doc> GetDocAsync(Guid channel, uint doc) =>
         GetResponsePropertyAsync<Doc>(new RestRequest($"channels/{channel}/docs/{doc}", Method.Get), "doc");
@@ -670,9 +668,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
-    /// <permission cref="DocPermissions.CreateDoc" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Doc">document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetDocs" />
+    /// <permission cref="Permission.CreateDocs" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when posting a <see cref="Doc">document</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Doc">document</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Doc> CreateDocAsync(Guid channel, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -701,9 +699,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
-    /// <permission cref="DocPermissions.ManageDoc">Required when editing <see cref="Doc">documents</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Doc">document</see></permission>
+    /// <permission cref="Permission.GetDocs" />
+    /// <permission cref="Permission.UpdateDocs">Required when editing <see cref="Doc">documents</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Doc">document</see></permission>
     /// <returns>The <see cref="Doc">document</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Doc> UpdateDocAsync(Guid channel, uint doc, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -727,8 +725,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
-    /// <permission cref="DocPermissions.RemoveDoc">Required when deleting <see cref="Doc">documents</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetDocs" />
+    /// <permission cref="Permission.DeleteDocs">Required when deleting <see cref="Doc">documents</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteDocAsync(Guid channel, uint doc) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}", Method.Delete));
     #endregion
@@ -744,7 +742,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     /// <returns>The list of fetched <see cref="Announcement">announcements</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<Announcement>> GetAnnouncementsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
         GetResponsePropertyAsync<IList<Announcement>>(
@@ -762,7 +760,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     /// <returns>The <see cref="Announcement">announcement</see> that was specified in the arguments</returns>
     public Task<Announcement> GetAnnouncementAsync(Guid channel, HashId announcement) =>
         GetResponsePropertyAsync<Announcement>(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Get), "doc");
@@ -777,9 +775,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
-    /// <permission cref="AnnouncementPermissions.CreateAnnouncement" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when posting a <see cref="Announcement">announcement</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetAnnouncements" />
+    /// <permission cref="Permission.CreateAnnouncements" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when posting a <see cref="Announcement">announcement</see> that contains an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="Announcement">announcement</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Announcement> CreateAnnouncementAsync(Guid channel, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -808,9 +806,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
-    /// <permission cref="AnnouncementPermissions.ManageAnnouncement">Required when editing <see cref="Announcement">announcements</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Doc">document</see></permission>
+    /// <permission cref="Permission.GetAnnouncements" />
+    /// <permission cref="Permission.ManageAnnouncements">Required when editing <see cref="Announcement">announcements</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to a <see cref="Doc">document</see></permission>
     /// <returns>The <see cref="Announcement">announcement</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Announcement> UpdateAnnouncementAsync(Guid channel, HashId announcement, string title, string content) =>
         string.IsNullOrWhiteSpace(title)
@@ -834,8 +832,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
-    /// <permission cref="AnnouncementPermissions.ManageAnnouncement">Required when deleting <see cref="Announcement">announcements</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetAnnouncements" />
+    /// <permission cref="Permission.ManageAnnouncements">Required when deleting <see cref="Announcement">announcements</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteAnnouncementAsync(Guid channel, HashId announcement) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Delete));
     #endregion
@@ -851,7 +849,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     /// <returns>The list of fetched <see cref="CalendarEvent">calendar events</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<CalendarEvent>> GetEventsAsync(Guid channel, uint? limit = null, DateTime? before = null) =>
         GetResponsePropertyAsync<IList<CalendarEvent>>(
@@ -869,7 +867,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was specified in the arguments</returns>
     public Task<CalendarEvent> GetEventAsync(Guid channel, uint calendarEvent) =>
         GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Get), "calendarEvent");
@@ -883,9 +881,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.CreateEvent" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.CreateEvents" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEvent> CreateEventAsync(Guid channel, CalendarEventContent calendarEvent)
     {
@@ -927,9 +925,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.CreateEvent" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.CreateEvents" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEvent> CreateEventAsync(
         Guid channel,
@@ -995,9 +993,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.ManageEvent">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UpdateEvents">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     /// <returns>The <see cref="CalendarEvent">calendar event</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEvent> UpdateEventAsync(Guid channel, uint calendarEvent, CalendarEventContent calendarEventContent) =>
         GetResponsePropertyAsync<CalendarEvent>(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Patch).AddJsonBody(calendarEventContent), "calendarEvent");
@@ -1081,8 +1079,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.RemoveEvent">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.DeleteEvents">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteEventAsync(Guid channel, uint calendarEvent) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}", Method.Delete));
 
@@ -1096,9 +1094,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.ManageEvent">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UpdateEvents">Required when editing <see cref="CalendarEvent">calendar events</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or a <c>@here</c> mention to the <see cref="CalendarEvent.Description">calendar event's description</see></permission>
     public Task UpdateEventSeriesAsync(
         Guid channel,
         Guid calendarEventSeries,
@@ -1194,8 +1192,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.RemoveEvent">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.DeleteEvents">Required when deleting <see cref="CalendarEvent">calendar event</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteEventSeriesAsync(Guid channel, Guid calendarEventSeries, uint? calendarEvent = null) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/event_series/{calendarEventSeries}", Method.Delete)
             .AddJsonBody(new

@@ -60,7 +60,7 @@ public enum Permission
     /// Allows you to use @everyone and @here <see cref="Content.Mentions">mentions</see>.
     /// </summary>
     [EnumMember(Value = "CanMentionEveryone")]
-    MentionEveryone,
+    UseEveryoneMention,
 
     /// <summary>
     /// Allows you to access the moderator view to see all <see cref="Message.IsPrivate">private replies</see>.

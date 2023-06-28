@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Content;
-using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
 using RestSharp;
@@ -23,9 +22,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="VoicePermissions.AttendVoice" />
-    /// <permission cref="StreamPermissions.GetStream" />
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.AddVoice" />
+    /// <permission cref="Permission.GetStreams" />
     public Task AddMessageReactionAsync(Guid channel, Guid message, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}/emotes/{emote}", Method.Put));
 
@@ -46,9 +45,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ChatPermissions.GetMessage" />
-    /// <permission cref="VoicePermissions.AttendVoice" />
-    /// <permission cref="StreamPermissions.GetStream" />
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.AddVoice" />
+    /// <permission cref="Permission.GetStreams" />
     public Task RemoveMessageReactionAsync(Guid channel, Guid message, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}/emotes/{emote}", Method.Delete));
 
@@ -70,7 +69,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     /// <returns>The list of fetched <see cref="TopicComment">forum topic replies</see> in the specified <paramref name="topic" /></returns>
     public Task<IList<TopicComment>> GetTopicCommentsAsync(Guid channel, uint topic) =>
         GetResponsePropertyAsync<IList<TopicComment>>(new RestRequest($"channels/{channel}/topics/{topic}/comments", Method.Get), "forumTopicComments");
@@ -85,7 +84,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     /// <returns>The <see cref="TopicComment">forum topic reply</see> that was specified in the arguments</returns>
     public Task<TopicComment> GetTopicCommentAsync(Guid channel, uint topic, uint topicComment) =>
         GetResponsePropertyAsync<TopicComment>(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}", Method.Get), "forumTopicComment");
@@ -100,9 +99,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.CreateTopicComment" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.CreateTopicComments" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="TopicComment">forum topic comment</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<TopicComment> CreateTopicCommentAsync(Guid channel, uint topic, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -120,9 +119,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.CreateTopicComment" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.CreateTopicComments" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <paramref name="topicComment">forum topic calendar</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<TopicComment> UpdateTopicCommentAsync(Guid channel, uint topic, uint topicComment, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -139,8 +138,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
-    /// <permission cref="ForumPermissions.ManageTopic">Required when deleting <see cref="TopicComment">forum topic comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetTopics" />
+    /// <permission cref="Permission.ManageTopics">Required when deleting <see cref="TopicComment">forum topic comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteTopicCommentAsync(Guid channel, uint topic, uint topicComment) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}", Method.Delete));
     #endregion
@@ -156,7 +155,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     public Task AddTopicReactionAsync(Guid channel, uint topic, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/emotes/{emote}", Method.Put));
 
@@ -177,7 +176,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     public Task RemoveTopicReactionAsync(Guid channel, uint topic, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/emotes/{emote}", Method.Delete));
 
@@ -201,7 +200,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     public Task AddTopicCommentReactionAsync(Guid channel, uint topic, uint topicComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}/emotes/{emote}", Method.Put));
 
@@ -224,7 +223,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="ForumPermissions.GetTopic" />
+    /// <permission cref="Permission.GetTopics" />
     public Task RemoveTopicCommentReactionAsync(Guid channel, uint topic, uint topicComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/topics/{topic}/comments/{topicComment}/emotes/{emote}", Method.Delete));
 
@@ -247,7 +246,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     /// <returns>The list of fetched <see cref="CalendarEventRsvp">calendar event RSVPs</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<CalendarEventRsvp>> GetEventRsvpsAsync(Guid channel, uint calendarEvent) =>
         GetResponsePropertyAsync<IList<CalendarEventRsvp>>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps", Method.Get), "calendarEventRsvps");
@@ -267,7 +266,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     /// <returns>The <see cref="CalendarEventRsvp">calendar event RSVP</see> that was specified in the arguments</returns>
     public Task<CalendarEventRsvp> GetEventRsvpAsync(Guid channel, uint calendarEvent, HashId user) =>
         GetResponsePropertyAsync<CalendarEventRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Get), "calendarEventRsvp");
@@ -288,8 +287,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.ManageRsvp">Required when setting <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UpdateEventRsvps">Required when setting <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
     /// <returns>Set <see cref="CalendarEventRsvp">calendar event RSVP</see></returns>
     public Task<CalendarEventRsvp> SetEventRsvpAsync(Guid channel, uint calendarEvent, HashId user, CalendarEventRsvpStatus status) =>
         GetResponsePropertyAsync<CalendarEventRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Put)
@@ -314,8 +313,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.ManageRsvp">Required when removing <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UpdateEventRsvps">Required when removing <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
     public Task RemoveEventRsvpAsync(Guid channel, uint calendarEvent, HashId user) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps/{user}", Method.Delete));
 
@@ -335,8 +334,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="CalendarPermissions.ManageRsvp">Required when setting <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UpdateEventRsvps">Required when setting <see cref="CalendarEventRsvp">calendar event RSVPs</see> that aren't for the <see cref="AbstractGuildedClient">client</see></permission>
     /// <returns>Set <see cref="CalendarEventRsvp">calendar event RSVP</see></returns>
     public Task<CalendarEventRsvp> SetEventRsvpsAsync(Guid channel, uint calendarEvent, IList<HashId> users, CalendarEventRsvpStatus status) =>
         GetResponsePropertyAsync<CalendarEventRsvp>(new RestRequest($"channels/{channel}/events/{calendarEvent}/rsvps", Method.Put)
@@ -358,7 +357,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     /// <returns>The list of fetched <see cref="CalendarEventComment">calendar event comments</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<CalendarEventComment>> GetEventCommentsAsync(Guid channel, uint calendarEvent) =>
         GetResponsePropertyAsync<IList<CalendarEventComment>>(new RestRequest($"channels/{channel}/events/{calendarEvent}/comments", Method.Get), "calendarEventComments");
@@ -373,7 +372,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     /// <returns>The <see cref="CalendarEventComment">calendar event comment</see> that was specified in the arguments</returns>
     public Task<CalendarEventComment> GetEventCommentAsync(Guid channel, uint calendarEvent, uint calendarEventComment) =>
         GetResponsePropertyAsync<CalendarEventComment>(new RestRequest($"channels/{channel}/events/{calendarEvent}/comments/{calendarEventComment}", Method.Get), "calendarEventComment");
@@ -388,8 +387,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="CalendarEventComment">calendar event comment</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEventComment> CreateEventCommentAsync(Guid channel, uint calendarEvent, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -407,8 +406,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetEvents" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <paramref name="calendarEventComment">calendar event comment</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<CalendarEventComment> UpdateEventCommentAsync(Guid channel, uint calendarEvent, uint calendarEventComment, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -425,7 +424,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     public Task DeleteEventCommentAsync(Guid channel, uint calendarEvent, uint calendarEventComment) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/comments/{calendarEventComment}", Method.Delete));
     #endregion
@@ -441,7 +440,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     public Task AddEventReactionAsync(Guid channel, uint calendarEvent, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/emotes/{emote}", Method.Put));
 
@@ -462,7 +461,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     public Task RemoveEventReactionAsync(Guid channel, uint calendarEvent, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/emotes/{emote}", Method.Delete));
 
@@ -486,7 +485,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     public Task AddEventCommentReactionAsync(Guid channel, uint calendarEvent, uint calendarEventComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/comments/{calendarEventComment}/emotes/{emote}", Method.Put));
 
@@ -509,7 +508,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="CalendarPermissions.GetEvent" />
+    /// <permission cref="Permission.GetEvents" />
     public Task RemoveEventCommentReactionAsync(Guid channel, uint calendarEvent, uint calendarEventComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/events/{calendarEvent}/comments/{calendarEventComment}/emotes/{emote}", Method.Delete));
 
@@ -532,7 +531,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     /// <returns>The list of fetched <see cref="DocComment">document comments</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<DocComment>> GetDocCommentsAsync(Guid channel, uint doc) =>
         GetResponsePropertyAsync<IList<DocComment>>(new RestRequest($"channels/{channel}/docs/{doc}/comments", Method.Get), "docComments");
@@ -547,7 +546,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     /// <returns>The <see cref="DocComment">document comment</see> that was specified in the arguments</returns>
     public Task<DocComment> GetDocCommentAsync(Guid channel, uint doc, uint docComment) =>
         GetResponsePropertyAsync<DocComment>(new RestRequest($"channels/{channel}/docs/{doc}/comments/{docComment}", Method.Get), "docComment");
@@ -562,8 +561,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetDocs" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="DocComment">document comment</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<DocComment> CreateDocCommentAsync(Guid channel, uint doc, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -581,8 +580,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetDocs" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <paramref name="docComment">document comment</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<DocComment> UpdateDocCommentAsync(Guid channel, uint doc, uint docComment, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -599,8 +598,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
-    /// <permission cref="DocPermissions.ManageDoc">Required when deleting <see cref="DocComment">document comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetDocs" />
+    /// <permission cref="Permission.UpdateDocs">Required when deleting <see cref="DocComment">document comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteDocCommentAsync(Guid channel, uint doc, uint docComment) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}/comments/{docComment}", Method.Delete));
     #endregion
@@ -616,7 +615,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     public Task AddDocReactionAsync(Guid channel, uint doc, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}/emotes/{emote}", Method.Put));
 
@@ -637,7 +636,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     public Task RemoveDocReactionAsync(Guid channel, uint doc, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}/emotes/{emote}", Method.Delete));
 
@@ -661,7 +660,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     public Task AddDocCommentReactionAsync(Guid channel, uint doc, uint docComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}/comments/{docComment}/emotes/{emote}", Method.Put));
 
@@ -684,7 +683,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="DocPermissions.GetDoc" />
+    /// <permission cref="Permission.GetDocs" />
     public Task RemoveDocCommentReactionAsync(Guid channel, uint doc, uint docComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/docs/{doc}/comments/{docComment}/emotes/{emote}", Method.Delete));
 
@@ -707,7 +706,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     /// <returns>The list of fetched <see cref="AnnouncementComment">announcement comments</see> in the specified <paramref name="channel" /></returns>
     public Task<IList<AnnouncementComment>> GetAnnouncementCommentsAsync(Guid channel, HashId announcement) =>
         GetResponsePropertyAsync<IList<AnnouncementComment>>(new RestRequest($"channels/{channel}/announcements/{announcement}/comments", Method.Get), "announcementComments");
@@ -722,7 +721,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     /// <returns>The <see cref="AnnouncementComment">announcement comment</see> that was specified in the arguments</returns>
     public Task<AnnouncementComment> GetAnnouncementCommentAsync(Guid channel, HashId announcement, uint announcementComment) =>
         GetResponsePropertyAsync<AnnouncementComment>(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}", Method.Get), "announcementComment");
@@ -737,8 +736,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetAnnouncements" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <see cref="AnnouncementComment">announcement comment</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<AnnouncementComment> CreateAnnouncementCommentAsync(Guid channel, HashId announcement, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -756,8 +755,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
-    /// <permission cref="GeneralPermissions.AddEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
+    /// <permission cref="Permission.GetAnnouncements" />
+    /// <permission cref="Permission.UseEveryoneMention">Required when adding an <c>@everyone</c> or <c>@here</c> mentions</permission>
     /// <returns>The <paramref name="announcementComment">announcement comment</paramref> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<AnnouncementComment> UpdateAnnouncementCommentAsync(Guid channel, HashId announcement, uint announcementComment, string content) =>
         string.IsNullOrWhiteSpace(content)
@@ -774,8 +773,8 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
-    /// <permission cref="DocPermissions.ManageDoc">Required when deleting <see cref="DocComment">document comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
+    /// <permission cref="Permission.GetAnnouncements" />
+    /// <permission cref="Permission.UpdateDocs">Required when deleting <see cref="DocComment">document comment</see> that the <see cref="AbstractGuildedClient">client</see> doesn't own</permission>
     public Task DeleteAnnouncementCommentAsync(Guid channel, HashId announcement, uint announcementComment) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}", Method.Delete));
     #endregion
@@ -791,7 +790,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     public Task AddAnnouncementReactionAsync(Guid channel, HashId announcement, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/emotes/{emote}", Method.Put));
 
@@ -812,7 +811,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     public Task RemoveAnnouncementReactionAsync(Guid channel, HashId announcement, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/emotes/{emote}", Method.Delete));
 
@@ -836,7 +835,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     public Task AddAnnouncementCommentReactionAsync(Guid channel, HashId announcement, uint announcementComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcements/{announcement}/comments/{announcementComment}/emotes/{emote}", Method.Put));
 
@@ -859,7 +858,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
     /// <exception cref="GuildedAuthorizationException" />
-    /// <permission cref="AnnouncementPermissions.GetAnnouncement" />
+    /// <permission cref="Permission.GetAnnouncements" />
     public Task RemoveAnnouncementCommentReactionAsync(Guid channel, HashId announcement, uint announcementComment, uint emote) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/announcement/{announcement}/comments/{announcementComment}/emotes/{emote}", Method.Delete));
 
