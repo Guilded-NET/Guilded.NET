@@ -3,11 +3,12 @@
 [![Banner](https://raw.githubusercontent.com/Guilded-NET/Guilded.NET/early-access/assets/Banner.png)](https://github.com/Guilded-NET/Guilded.NET)
 
 # 🟡 Guilded.NET
+
 </div>
 
 Guilded.NET is a free and open-source unofficial API framework/library for [Guilded](https://guilded.gg/) written on .NET platform. It allows creating bots, webhooks and interacting any other way with Guilded API.
 
-[![Version](https://img.shields.io/badge/Version-1.5.1-blue?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Release-blue?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
+[![Version](https://img.shields.io/badge/Version-1.6.0-blue?style=for-the-badge)](https://github.com/IdkGoodName/Guilded.NET) [![Version](https://img.shields.io/badge/Version-Release-blue?style=for-the-badge)](https://github.com/Guilded-NET/Guilded.NET)
 
 ## 📥 Installing
 
@@ -72,8 +73,8 @@ await Task.Delay(-1);
 
 If you need any help related to Guilded.NET, you can check out the following sources:
 
-- [Official Guilded.NET Server](https://guilded.gg/Guilded-NET)
-- [Programming Space](https://guilded.gg/programming)
+-   [Official Guilded.NET Server](https://guilded.gg/Guilded-NET)
+-   [Programming Space](https://guilded.gg/programming)
 
 ## ✅ Goals
 

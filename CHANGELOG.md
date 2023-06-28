@@ -3,6 +3,9 @@
 -   Added announcements, announcement reactions, announcement comments and their events, as well as CRUD
 -   Added user status CRUD and events
 -   Added Groups CRUD and events
+-   Added Role CRUD and events
+-   Added the ability to get member's permissions
+-   Added server subscription tiers and get server subscription tiers method
 -   Added `Message.GroupId`
 -   Added `IArchivableContent` that is now an interface for `Group` and `ServerChannel` objects
 -   Added `GetServersAsync` to fetch bot's servers
