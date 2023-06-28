@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
@@ -197,6 +198,10 @@ public class UserSummary : ContentModel, IUser
     public Task RemoveMemberRoleAsync(HashId server, uint role) =>
         ParentClient.RemoveMemberRoleAsync(server, Id, role);
 
+    /// <inheritdoc cref="AbstractGuildedClient.GetMemberPermissionsAsync(HashId, HashId)" />
+    public Task<IList<Permission>> GetMemberPermissionsAsync(HashId server) =>
+        ParentClient.GetMemberPermissionsAsync(server, Id);
+
     /// <inheritdoc cref="AbstractGuildedClient.AddXpAsync(HashId, HashId, short)" />
     public Task<long> AddXpAsync(HashId server, short amount) =>
         ParentClient.AddXpAsync(server, Id, amount);
@@ -220,9 +225,9 @@ public class UserSummary : ContentModel, IUser
     /// <inheritdoc cref="AbstractGuildedClient.GetMemberBanAsync(HashId, HashId)" />
     public Task GetMemberBanAsync(HashId server) =>
         ParentClient.GetMemberBanAsync(server, Id);
+    #endregion
 
     #region Methods Obsolete
-
     /// <inheritdoc cref="AbstractGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     [Obsolete("Use `RemoveNicknameAsync` instead")]
     public Task DeleteNicknameAsync(HashId server) =>
@@ -244,9 +249,7 @@ public class UserSummary : ContentModel, IUser
         ParentClient.GetMemberBanAsync(server, Id);
     #endregion
 
-    #endregion
-
-    #region Overrides
+    #region Methods Overrides
     /// <summary>
     /// Returns the string representation of this <see cref="UserSummary" /> instance.
     /// </summary>

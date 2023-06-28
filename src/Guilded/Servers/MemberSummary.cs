@@ -128,6 +128,10 @@ public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : 
     public Task RemoveRoleAsync(uint role) =>
         User.RemoveMemberRoleAsync(ServerId, role);
 
+    /// <inheritdoc cref="AbstractGuildedClient.GetMemberPermissionsAsync(HashId, HashId)" />
+    public Task<IList<Permission>> GetPermissionsAsync() =>
+        User.GetMemberPermissionsAsync(ServerId);
+
     /// <inheritdoc cref="AbstractGuildedClient.AddXpAsync(HashId, HashId, short)" />
     public Task<long> AddXpAsync(short amount) =>
         User.AddXpAsync(ServerId, amount);
