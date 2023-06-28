@@ -29,20 +29,20 @@ public interface IUserCreated
 }
 
 /// <summary>
-/// Represents the <see cref="ICreatableContent">content</see> that can be created and has specified <see cref="CreatedAt">creation date</see>.
+/// Represents the <see cref="ICreationDated">content</see> that can be created and has specified <see cref="CreatedAt">creation date</see>.
 /// </summary>
 /// <seealso cref="IUserCreated" />
 /// <seealso cref="IUpdatableContent" />
 /// <seealso cref="IWebhookCreated" />
 /// <seealso cref="Content.IReactibleContent" />
-public interface ICreatableContent : IUserCreated
+public interface ICreationDated
 {
     #region Properties
     /// <summary>
-    /// Gets the date when the <see cref="ICreatableContent">content</see> was created.
+    /// Gets the date when the <see cref="ICreationDated">content</see> was created.
     /// </summary>
-    /// <value>The date when the <see cref="ICreatableContent">content</see> was created</value>
-    /// <seealso cref="ICreatableContent" />
+    /// <value>The date when the <see cref="ICreationDated">content</see> was created</value>
+    /// <seealso cref="ICreationDated" />
     /// <seealso cref="IUserCreated" />
     /// <seealso cref="IUserCreated.CreatedBy" />
     /// <seealso cref="IUpdatableContent.UpdatedAt" />
@@ -50,6 +50,15 @@ public interface ICreatableContent : IUserCreated
     DateTime CreatedAt { get; }
     #endregion
 }
+
+/// <summary>
+/// Represents the <see cref="ICreatableContent">content</see> that can be created and has specified <see cref="CreatedAt">creation date</see>.
+/// </summary>
+/// <seealso cref="IUserCreated" />
+/// <seealso cref="IUpdatableContent" />
+/// <seealso cref="IWebhookCreated" />
+/// <seealso cref="Content.IReactibleContent" />
+public interface ICreatableContent : IUserCreated, ICreationDated { }
 
 /// <summary>
 /// Represents the content that can be edited.

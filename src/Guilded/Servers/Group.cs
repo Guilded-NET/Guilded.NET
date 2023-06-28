@@ -18,7 +18,7 @@ namespace Guilded.Servers;
 /// <seealso cref="ServerType" />
 public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUserCreated, IServerBased, IArchivableContent
 {
-    #region Properties
+    #region Properties Identification
     /// <summary>
     /// Gets the identifier of the <see cref="Group">group</see>.
     /// </summary>
@@ -48,9 +48,9 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     public string Name { get; }
 
     /// <summary>
-    /// Gets the description of the <see cref="Server">server</see>.
+    /// Gets the description of the <see cref="Group">group</see>.
     /// </summary>
-    /// <value>The description of the <see cref="Server">server</see></value>
+    /// <value>The description of the <see cref="Group">group</see></value>
     /// <seealso cref="Group" />
     /// <seealso cref="Name" />
     /// <seealso cref="Avatar" />
@@ -76,7 +76,9 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     /// <seealso cref="Name" />
     /// <seealso cref="Description" />
     public uint? EmoteId { get; }
+    #endregion
 
+    #region Properties Attributes
     /// <summary>
     /// Gets whether the <see cref="Group">group</see> is globally viewable and doesn't need permissions.
     /// </summary>
@@ -92,7 +94,9 @@ public class Group : ContentModel, IModelHasId<HashId>, ICreatableContent, IUser
     /// <seealso cref="Group" />
     /// <seealso cref="IsPublic" />
     public bool IsHome { get; }
+    #endregion
 
+    #region Properties When, who
     /// <summary>
     /// Gets the date when the <see cref="Group">group</see> was created.
     /// </summary>

@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Security.Permissions;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Base.Embeds;
 using Guilded.Client;
 using Guilded.Content;
 using Guilded.Events;
-using Guilded.Permissions;
 using Guilded.Users;
 using Newtonsoft.Json;
 
@@ -71,7 +69,7 @@ public class Webhook : ContentModel, ICreatableContent, IServerBased, IChannelBa
     /// Gets the token of the <see cref="Webhook">webhook</see>.
     /// </summary>
     /// <remarks>
-    /// <para>This will only be given if you have <see cref="GeneralPermissions.ManageWebhook">manage webhooks permission</see>.</para>
+    /// <para>This will only be given if you have <see cref="Permission.ManageWebhooks">manage webhooks permission</see>.</para>
     /// </remarks>
     /// <value>The token of the <see cref="Webhook">webhook</see></value>
     /// <seealso cref="Webhook" />

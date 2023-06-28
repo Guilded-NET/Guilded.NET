@@ -28,6 +28,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Twitch,
 
@@ -45,6 +46,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Bnet,
 
@@ -62,6 +64,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Psn,
 
@@ -79,6 +82,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Xbox,
 
@@ -96,6 +100,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Steam,
 
@@ -113,6 +118,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Origin,
 
@@ -130,6 +136,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     [EnumMember(Value = "youtube")]
     YouTube,
@@ -148,6 +155,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Twitter,
 
@@ -165,6 +173,7 @@ public enum SocialLinkType
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Facebook,
 
@@ -182,6 +191,7 @@ public enum SocialLinkType
     /// <seealso cref="Facebook" />
     /// <seealso cref="Patreon" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Switch,
 
@@ -199,6 +209,7 @@ public enum SocialLinkType
     /// <seealso cref="Facebook" />
     /// <seealso cref="Switch" />
     /// <seealso cref="Roblox" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
     Patreon,
 
@@ -216,6 +227,25 @@ public enum SocialLinkType
     /// <seealso cref="Facebook" />
     /// <seealso cref="Switch" />
     /// <seealso cref="Patreon" />
+    /// <seealso cref="Epic" />
     /// <seealso cref="SocialLinkType" />
-    Roblox
+    Roblox,
+
+    /// <summary>
+    /// User's Roblox profile socials.
+    /// </summary>
+    /// <seealso cref="Twitch" />
+    /// <seealso cref="Bnet" />
+    /// <seealso cref="Psn" />
+    /// <seealso cref="Xbox" />
+    /// <seealso cref="Steam" />
+    /// <seealso cref="Origin" />
+    /// <seealso cref="YouTube" />
+    /// <seealso cref="Twitter" />
+    /// <seealso cref="Facebook" />
+    /// <seealso cref="Switch" />
+    /// <seealso cref="Patreon" />
+    /// <seealso cref="Roblox" />
+    /// <seealso cref="SocialLinkType" />
+    Epic
 }
