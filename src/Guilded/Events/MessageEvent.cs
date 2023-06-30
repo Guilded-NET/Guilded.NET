@@ -194,6 +194,13 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
         Message.ReplyAsync(embeds);
     #endregion
 
+    #region Methods Threads
+    /// <inheritdoc cref="Message.CreateThreadAsync(string)" />
+    /// <param name="name">The name of the <see cref="ServerChannel">thread</see></param>
+    public Task<ChatChannel> CreateThreadAsync(string name) =>
+        Message.CreateThreadAsync(name);
+    #endregion
+
     #region Methods
     /// <inheritdoc cref="Message.UpdateAsync(string, IList{Embed})" />
     public Task<Message> UpdateAsync(string? content = null, IList<Embed>? embeds = null) =>

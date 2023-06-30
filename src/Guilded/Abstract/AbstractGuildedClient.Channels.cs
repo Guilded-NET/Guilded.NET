@@ -815,7 +815,7 @@ public abstract partial class AbstractGuildedClient
         ? throw new ArgumentNullException(nameof(title))
         : string.IsNullOrWhiteSpace(content)
         ? throw new ArgumentNullException(nameof(content))
-        : GetResponsePropertyAsync<Announcement>(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Put)
+        : GetResponsePropertyAsync<Announcement>(new RestRequest($"channels/{channel}/announcements/{announcement}", Method.Patch)
             .AddJsonBody(new
             {
                 title,
