@@ -1026,9 +1026,11 @@ public abstract partial class AbstractGuildedClient
     /// <param name="name">The name of the <see cref="ServerChannel">channel</see> (max — <c>100</c>)</param>
     /// <param name="type">The type of the content that the <see cref="ServerChannel">channel</see> will hold</param>
     /// <param name="topic">The topic describing what the <see cref="ServerChannel">channel</see> is about (max — <c>512</c>)</param>
+    /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
     /// <param name="group">The identifier of the group where the <see cref="ServerChannel">channel</see> will be created</param>
     /// <param name="category">The identifier of the category where the <see cref="ServerChannel">channel</see> will be created</param>
-    /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
+    /// <param name="parent">The identifier of the <see cref="ServerChannel">parent channel</see> where the <see cref="ServerChannel">thread</see> will be created</param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> from where the <see cref="ServerChannel">thread</see> will be created</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -1037,7 +1039,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
     /// <permission cref="Permission.ManageChannels" />
     /// <returns>The <see cref="ServerChannel">channel</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, HashId? group = null, uint? category = null, bool? isPublic = null)
+    public Task<ServerChannel> CreateChannelAsync(HashId server, string name, ChannelType type = ChannelType.Chat, string? topic = null, bool? isPublic = null, HashId? group = null, uint? category = null, Guid? parent = null, Guid? message = null)
     {
         if (string.IsNullOrWhiteSpace(name))
             throw new ArgumentNullException(nameof(name));
@@ -1051,6 +1053,8 @@ public abstract partial class AbstractGuildedClient
                 serverId = server,
                 groupId = group,
                 categoryId = category,
+                parentId = parent,
+                messageId = message,
                 name,
                 type,
                 topic,

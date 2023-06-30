@@ -1,5 +1,6 @@
 # v1.6.0
 
+-   Added the ability to create threads through `client.CreateChannelAsync` or `message.CreateThreadAsync`. Thread creation in `ServerChannel`/`ChatChannel`/`VoiceChannel`/`StreamChannel` is still missing
 -   Added announcements, announcement reactions, announcement comments and their events, as well as CRUD
 -   Added user status CRUD and events
 -   Added Groups CRUD and events

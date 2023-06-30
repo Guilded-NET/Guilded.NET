@@ -66,7 +66,7 @@ public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBa
 }
 
 /// <summary>
-/// Represents an event that occurs when someone creates or edits <see cref="Message">a message</see>.
+/// Represents an event that occurs when someone creates or edits a <see cref="Message">message</see>.
 /// </summary>
 /// <seealso cref="MessageDeletedEvent" />
 /// <seealso cref="Message" />

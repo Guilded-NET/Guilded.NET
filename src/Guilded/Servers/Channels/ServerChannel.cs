@@ -53,10 +53,41 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <value>The identifier of the parent channel of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
+    /// <seealso cref="RootId" />
     /// <seealso cref="CategoryId" />
     /// <seealso cref="GroupId" />
     /// <seealso cref="ServerId" />
     public Guid? ParentId { get; }
+
+    /// <summary>
+    /// Gets the identifier of the ancestor channel of the <see cref="ServerChannel">channel</see> that exist at the <see cref="Group">group</see> level.
+    /// </summary>
+    /// <remarks>
+    /// <para>This property is only present in threads. This can be used to determine if this is a thread, and as such, <see cref="IsThread" /> property exists.</para>
+    /// </remarks>
+    /// <value>The identifier of the ancestor channel of the <see cref="ServerChannel">channel</see> that exist at the <see cref="Group">group</see> level</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="GroupId" />
+    /// <seealso cref="ServerId" />
+    public Guid? RootId { get; }
+
+    /// <summary>
+    /// Gets the identifier of the <see cref="Message">message</see> that hosts the thread.
+    /// </summary>
+    /// <remarks>
+    /// <para>This property is only present in threads. This can be used to determine if this is a thread, and as such, <see cref="IsThread" /> property exists.</para>
+    /// </remarks>
+    /// <value>The identifier of the <see cref="Message">message</see> that hosts the thread</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Id" />
+    /// <seealso cref="ParentId" />
+    /// <seealso cref="CategoryId" />
+    /// <seealso cref="GroupId" />
+    /// <seealso cref="ServerId" />
+    public Guid? MessageId { get; }
 
     /// <summary>
     /// Gets the identifier of the parent category of the <see cref="ServerChannel">channel</see>.
@@ -257,7 +288,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <param name="archivedBy">The identifier of <see cref="User">user</see> that archived the <see cref="ServerChannel">channel</see></param>
     /// <param name="archivedAt">The date when the <see cref="ServerChannel">channel</see> was archived</param>
     /// <param name="topic">The topic describing what the <see cref="ServerChannel">channel</see> is about</param>
+    /// <param name="rootId">The identifier of the ancestor channel of the <see cref="ServerChannel">channel</see> that exist at the <see cref="Group">group</see> level</param>
     /// <param name="parentId">The identifier of the parent <see cref="ServerChannel">channel</see> of the <see cref="ServerChannel">channel</see></param>
+    /// <param name="messageId">The identifier of the <see cref="Message">message</see> that hosts the thread</param>
     /// <param name="categoryId">The identifier of the parent category of the <see cref="ServerChannel">channel</see></param>
     /// <returns>New <see cref="ServerChannel" /> JSON instance</returns>
     /// <seealso cref="ServerChannel" />
@@ -297,12 +330,18 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
         string? topic = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? rootId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         Guid? parentId = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        Guid? messageId = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         uint? categoryId = null
     ) =>
-        (Id, ParentId, CategoryId, GroupId, ServerId, Type, Name, Topic, CreatedBy, CreatedAt, UpdatedAt, ArchivedBy, ArchivedAt) = (id, parentId, categoryId, groupId, serverId, type, name, topic, createdBy, createdAt, updatedAt, archivedBy, archivedAt);
+        (Id, ParentId, RootId, MessageId, CategoryId, GroupId, ServerId, Type, Name, Topic, CreatedBy, CreatedAt, UpdatedAt, ArchivedBy, ArchivedAt) = (id, parentId, rootId, messageId, categoryId, groupId, serverId, type, name, topic, createdBy, createdAt, updatedAt, archivedBy, archivedAt);
     #endregion
 
     #region Methods

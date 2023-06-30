@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 namespace Guilded.Events;
 
 /// <summary>
-/// Represents an event that occurs when someone deletes <see cref="Message">a message</see>.
+/// Represents an event that occurs when someone deletes a <see cref="Message">message</see>.
 /// </summary>
 /// <seealso cref="MessageDeleted" />
 /// <seealso cref="MessageEvent" />

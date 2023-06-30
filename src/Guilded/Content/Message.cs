@@ -41,7 +41,7 @@ public class Message :
     public const short TextLimit = 4000;
 
     /// <summary>
-    /// The count of how many <see cref="Embeds">embeds</see> there can be in <see cref="Message">a message</see>.
+    /// The count of how many <see cref="Embeds">embeds</see> there can be in a <see cref="Message">message</see>.
     /// </summary>
     /// <value>Limit</value>
     /// <seealso cref="Message" />
@@ -459,10 +459,10 @@ public class Message :
     /// <exception cref="ArgumentNullException">When the <paramref name="content" /> only consists of whitespace or is <see langword="nu" /></exception>
     /// <exception cref="ArgumentOutOfRangeException">When the <paramref name="content" /> is above the message limit of 4000 characters</exception>
     /// <permission cref="Permission.GetMessages" />
-    /// <permission cref="Permission.CreateMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
-    /// <permission cref="Permission.CreateThreadMessages">Required when sending <see cref="Message">a message</see> in <see cref="ServerChannel">a thread</see></permission>
-    /// <permission cref="Permission.CreatePrivateMessages">Required when sending <see cref="Message">a message</see> that is set as <see cref="IsPrivate">private</see></permission>
-    /// <permission cref="Permission.CreateMessageMedia">Required when sending <see cref="Message">a message</see> that contains an image or a video</permission>
+    /// <permission cref="Permission.CreateMessages">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a top-most channel</see></permission>
+    /// <permission cref="Permission.CreateThreadMessages">Required when sending a <see cref="Message">message</see> in <see cref="ServerChannel">a thread</see></permission>
+    /// <permission cref="Permission.CreatePrivateMessages">Required when sending a <see cref="Message">message</see> that is set as <see cref="IsPrivate">private</see></permission>
+    /// <permission cref="Permission.CreateMessageMedia">Required when sending a <see cref="Message">message</see> that contains an image or a video</permission>
     /// <returns>The <see cref="Message">message</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
     public Task<Message> ReplyAsync(string? content = null, IList<Embed>? embeds = null, bool isPrivate = false, bool isSilent = true) =>
         CreateMessageAsync(content, embeds, new Guid[] { Id }, isPrivate, isSilent);
@@ -509,6 +509,29 @@ public class Message :
     /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
     public Task<Message> UpdateAsync(params Embed[] embeds) =>
         ParentClient.UpdateMessageAsync(ChannelId, Id, embeds);
+    #endregion
+
+    #region Methods Threads
+    /// <summary>
+    /// Creates a thread from the <see cref="Message">message</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>Includes this message as a parent of the thread.</para>
+    /// </remarks>
+    /// <param name="name">The name of the <see cref="ServerChannel">thread</see></param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="InvalidOperationException">When the <see cref="Message">message</see> is in direct messages</exception>
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.CreateThreads" />
+    /// <returns>The <see cref="ChatChannel">thread</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public async Task<ChatChannel> CreateThreadAsync(string name) =>
+        ServerId is null
+        ? throw new InvalidOperationException("Cannot create a thread in direct messages")
+        : (ChatChannel)await ParentClient.CreateChannelAsync((HashId)ServerId, name, message: Id);
     #endregion
 
     #region Methods
