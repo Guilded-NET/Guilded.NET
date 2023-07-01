@@ -26,7 +26,7 @@ public sealed class DescriptionAttribute : Attribute
     /// <summary>
     /// Gets the text that represents <see cref="CommandAttribute">command's</see> description.
     /// </summary>
-    /// <value>Text</value>
+    /// <value>The text that represents <see cref="CommandAttribute">command's</see> description</value>
     public string Text { get; }
     #endregion
 

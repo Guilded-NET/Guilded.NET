@@ -4,7 +4,7 @@ using Websocket.Client;
 namespace Guilded.Connection;
 
 /// <summary>
-/// Represents an error received from Guilded WebSocket.
+/// Represents an error received from <see cref="BaseGuildedConnection.Websocket">Guilded WebSocket</see>.
 /// </summary>
 /// <remarks>
 /// <para>This error can occur in these different ways:</para>
@@ -14,20 +14,21 @@ namespace Guilded.Connection;
 ///         <description>When the passed <c>guilded-last-message-id</c> is expired or invalid.</description>
 ///     </item>
 /// </list>
-/// <para>In API, this is a WebSocket event with an opcode of <c>8</c> and no name.</para>
+/// <para>In API, this is a <see cref="GuildedSocketMessage">WebSocket event</see> with an opcode of <c>8</c> and no name.</para>
 /// </remarks>
+/// <seealso cref="BaseGuildedConnection" />
 /// <seealso cref="GuildedSocketMessage" />
 [Serializable]
 public class GuildedSocketException : Exception
 {
     #region Properties
     /// <summary>
-    /// Gets the response message from Guilded WebSocket.
+    /// Gets the response message from <see cref="BaseGuildedConnection.Websocket">Guilded WebSocket</see>.
     /// </summary>
     /// <remarks>
     /// <para>Can be used if further information is necessary.</para>
     /// </remarks>
-    /// <value>WebSocket response</value>
+    /// <value>The response message from <see cref="BaseGuildedConnection.Websocket">Guilded WebSocket</see></value>
     /// <seealso cref="GuildedSocketException" />
     public ResponseMessage? Response { get; }
     #endregion
@@ -45,7 +46,7 @@ public class GuildedSocketException : Exception
     public GuildedSocketException(string message) : base(message) { }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedSocketException" /> from WebSocket response <paramref name="message" />.
+    /// Initializes a new instance of <see cref="GuildedSocketException" /> from <see cref="BaseGuildedConnection.Websocket">WebSocket</see> response message.
     /// </summary>
     /// <param name="response">The response message from Guilded WebSocket</param>
     /// <param name="message">The message that was received from Guilded WebSocket</param>
@@ -53,7 +54,7 @@ public class GuildedSocketException : Exception
         Response = response;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="GuildedSocketException" /> with an <paramref name="inner" /> exception explaining more.
+    /// Initializes a new instance of <see cref="GuildedSocketException" /> with an <paramref name="inner">inner exception</paramref> explaining more.
     /// </summary>
     /// <param name="message">The message that was received from Guilded WebSocket</param>
     /// <param name="inner">The inner exception of this error</param>

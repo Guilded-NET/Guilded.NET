@@ -20,9 +20,9 @@ public abstract class AbstractCommandArgument
 {
     #region Properties
     /// <summary>
-    /// Gets the parameter that was declared in the method.
+    /// Gets the parameter that was declared in the <see cref="AbstractCommand{T}.Member">command method</see>.
     /// </summary>
-    /// <value>The parameter that was declared in the method</value>
+    /// <value>The parameter that was declared in the <see cref="AbstractCommand{T}.Member">command method</see></value>
     public ParameterInfo Parameter { get; set; }
 
     /// <summary>

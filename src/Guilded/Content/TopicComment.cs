@@ -32,7 +32,7 @@ public class TopicComment : BaseComment, IContentMarkdown
     /// <summary>
     /// Gets the <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see>.
     /// </summary>
-    /// <value><see cref="Content.Mentions" />?</value>
+    /// <value>The <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see></value>
     /// <seealso cref="TopicComment" />
     /// <seealso cref="Content" />
     /// <seealso cref="BaseComment.CreatedBy" />

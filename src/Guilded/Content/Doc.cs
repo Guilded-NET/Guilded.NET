@@ -34,7 +34,7 @@ public class Doc : TitledContent<uint>, IContentMarkdown
     /// <summary>
     /// Gets the <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see>.
     /// </summary>
-    /// <value><see cref="Content.Mentions" />?</value>
+    /// <value>The <see cref="Content.Mentions">mentions</see> found in the <see cref="Content">content</see></value>
     public Mentions? Mentions { get; }
 
     /// <summary>

@@ -53,26 +53,26 @@ public class CommandParamAttribute : Attribute
 {
     #region Properties
     /// <summary>
-    /// Gets the displayed name of the parameter.
+    /// Gets the displayed name of the <see cref="CommandParamAttribute">parameter</see>.
     /// </summary>
     /// <remarks>
     /// <para>By default, the name of the parameter is used.</para>
-    /// <para>This is not used anywhere, so you can use it for command lists.</para>
+    /// <para>This is not used anywhere, so you can use it for <see cref="CommandParent.Commands">command lists</see>.</para>
     /// </remarks>
-    /// <value>Name?</value>
+    /// <value>The displayed name of the <see cref="CommandParamAttribute">parameter</see></value>
     public string? Name { get; set; }
     #endregion
 
     #region Constructors
     /// <summary>
-    /// Declares a command parameter with the display name as the parameter's name.
+    /// Declares a <see cref="CommandParamAttribute">command parameter</see> with the display name as the parameter's name.
     /// </summary>
     public CommandParamAttribute() { }
 
     /// <summary>
-    /// Declares a command parameter with the specified <paramref name="name" />.
+    /// Declares a <see cref="CommandParamAttribute">command parameter</see> with the specified <paramref name="name" />.
     /// </summary>
-    /// <param name="name">The displayed name of the parameter</param>
+    /// <param name="name">The displayed name of the <see cref="CommandParamAttribute">parameter</see></param>
     public CommandParamAttribute(string name) =>
         Name = name;
     #endregion

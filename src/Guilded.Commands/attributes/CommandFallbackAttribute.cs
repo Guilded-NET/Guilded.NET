@@ -27,7 +27,7 @@ public sealed class CommandFallbackAttribute : Attribute
     /// <summary>
     /// Gets the type of <see cref="CommandParent.FailedCommand">failed command</see> event to handle.
     /// </summary>
-    /// <value>Failed command type</value>
+    /// <value>The type of <see cref="CommandParent.FailedCommand">failed command</see> event to handle</value>
     public FallbackType Type { get; set; }
     #endregion
 

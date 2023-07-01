@@ -3,7 +3,7 @@
 namespace Guilded.Commands;
 
 /// <summary>
-/// Declares a method or a type as a command.
+/// Declares a method or a type as a <see cref="Items.Command">command</see>.
 /// </summary>
 /// <remarks>
 /// <para>By default, all the parameters will be seen as context parameters, unless a parameter has <see cref="CommandParamAttribute" />. Parameters with <see cref="CommandParamAttribute" /> will be declared as command's parameters.</para>
@@ -31,18 +31,18 @@ public class CommandAttribute : Attribute
 {
     #region Properties
     /// <summary>
-    /// Gets the overriden name of the command.
+    /// Gets the overriden name of the <see cref="Items.Command">command</see>.
     /// </summary>
     /// <remarks>
     /// <para>By default, lowercase name of the method will be used. <c>Async</c> and <c>Command</c> will also be trimmed from the end if the name comes from the method.</para>
     /// </remarks>
-    /// <value>Name?</value>
+    /// <value>The overriden name of the <see cref="Items.Command">command</see></value>
     public string? Name { get; set; }
 
     /// <summary>
-    /// Gets the alternative names of the command.
+    /// Gets the alternative names of the <see cref="Items.Command">command</see>.
     /// </summary>
-    /// <value>Array of names?</value>
+    /// <value>The alternative names of the <see cref="Items.Command">command</see></value>
     public string[]? Aliases { get; set; }
     #endregion
 

@@ -15,19 +15,19 @@ public interface ICommand<out TMember> where TMember : MemberInfo
     /// <summary>
     /// Gets the <see cref="CommandAttribute.Name">name</see> of the command.
     /// </summary>
-    /// <value>Name</value>
+    /// <value>The <see cref="CommandAttribute.Name">name</see> of the command</value>
     string Name { get; }
 
     /// <summary>
-    /// Gets the member who was declared as a command.
+    /// Gets the member who was declared as a <see cref="CommandAttribute">command</see>.
     /// </summary>
-    /// <value>Reflection member</value>
+    /// <value>The member who was declared as a <see cref="CommandAttribute">command</see></value>
     TMember Member { get; }
 
     /// <summary>
     /// Gets the <see cref="CommandAttribute">command attribute</see> that was given to the <see cref="Member">member</see>.
     /// </summary>
-    /// <value>Command attribute</value>
+    /// <value>The <see cref="CommandAttribute">command attribute</see> that was given to the <see cref="Member">member</see></value>
     CommandAttribute Attribute { get; }
 
     /// <inheritdoc cref="CommandAttribute.Aliases" />

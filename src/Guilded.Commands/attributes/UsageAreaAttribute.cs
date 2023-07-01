@@ -23,7 +23,7 @@ public sealed class UsageAreaAttribute : Attribute
     /// <summary>
     /// Gets the area where <see cref="CommandAttribute">commands</see> can be used.
     /// </summary>
-    /// <value>Area</value>
+    /// <value>The area where <see cref="CommandAttribute">commands</see> can be used</value>
     public CommandArea Area { get; }
     #endregion
 

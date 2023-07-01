@@ -35,19 +35,19 @@ public class Command : AbstractCommand<MethodInfo>
     /// <summary>
     /// Gets the sequence of <see cref="CommandParamAttribute">command argument</see> that can be specified by users.
     /// </summary>
-    /// <value>Sequence of <see cref="CommandParamAttribute">command argument</see></value>
+    /// <value>The sequence of <see cref="CommandParamAttribute">command argument</see> that can be specified by users</value>
     public CommandArgument[] Arguments { get; }
 
     /// <summary>
     /// Gets whether there is a <see cref="CommandArgument.IsRest">command rest argument</see> for the command.
     /// </summary>
-    /// <value><see cref="CommandAttribute">Command</see> has <see cref="CommandArgument.IsRest">rest argument</see></value>
+    /// <value>Whether there is a <see cref="CommandArgument.IsRest">command rest argument</see> for the command</value>
     public bool HasRestArgument { get; private set; }
 
     /// <summary>
     /// Gets the count of total mandatory <see cref="CommandParamAttribute">command arguments</see>.
     /// </summary>
-    /// <value>Count of required <see cref="CommandParamAttribute">command arguments</see></value>
+    /// <value>The count of total mandatory <see cref="CommandParamAttribute">command arguments</see></value>
     public int RequiredCount { get; private set; }
     #endregion
 
@@ -136,12 +136,11 @@ public class Command : AbstractCommand<MethodInfo>
     }
 
     /// <summary>
-    /// Invokes the command.
+    /// Invokes the <see cref="AbstractCommand{T}.Member">command's method</see> with the provided arguments and <see cref="CommandEvent">context</see>.
     /// </summary>
     /// <param name="parent">The parent command of this command</param>
     /// <param name="commandEvent">The command event that invoked the command</param>
     /// <param name="arguments">The arguments that have been used to invoke the command</param>
-    /// <returns>Whether the command was properly invoked</returns>
     public Task InvokeAsync(CommandParent parent, CommandEvent commandEvent, IEnumerable<object?> arguments) =>
         Task.Run(() => Member.Invoke(parent, new object[] { commandEvent }.Concat(arguments.ToArray()).ToArray()));
     #endregion

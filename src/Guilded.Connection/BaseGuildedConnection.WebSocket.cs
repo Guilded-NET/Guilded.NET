@@ -23,22 +23,23 @@ public abstract partial class BaseGuildedConnection
 
     #region Properties
     /// <summary>
-    /// The WebSocket that will be used by the client.
+    /// Gets the WebSocket that will be used by the <see cref="BaseGuildedConnection">client</see> to receive all Guilded events.
     /// </summary>
-    /// <remarks>
-    /// <para>The WebSocket that will be used by the client to receive all Guilded events and event messages.</para>
-    /// </remarks>
+    /// <value>The WebSocket that will be used by the <see cref="BaseGuildedConnection">client</see> to receive all Guilded events</value>
+    /// <seealso cref="BaseGuildedConnection" />
     /// <seealso cref="BaseGuildedService.Rest" />
-    /// <value>Main WebSocket</value>
-    public WebsocketClient Websocket { get; set; }
+    public WebsocketClient Websocket { get; }
 
     /// <summary>
-    /// Gets the identifier of the last WebSocket message.
+    /// Gets the identifier of the last <see cref="GuildedSocketMessage">WebSocket message</see>.
     /// </summary>
     /// <remarks>
     /// <para>Allows you to set the identifier of the last message to get events that weren't received.</para>
     /// </remarks>
-    /// <value>WebSocket Message ID?</value>
+    /// <value>The identifier of the last <see cref="GuildedSocketMessage">WebSocket message</see></value>
+    /// <seealso cref="BaseGuildedConnection" />
+    /// <seealso cref="Websocket" />
+    /// <seealso cref="BaseGuildedService.Rest" />
     protected string? LastMessageId { get; set; }
 
     /// <summary>
@@ -47,11 +48,19 @@ public abstract partial class BaseGuildedConnection
     /// <remarks>
     /// <para>If event with opcode <c>8</c> or <c>9</c> is received, <see cref="WebsocketError" /> is invoked instead.</para>
     /// </remarks>
+    /// <value>An <see cref="IObservable{T}">observable</see> that is invoked when <see cref="Websocket" /> receives a <see cref="GuildedSocketMessage">message</see></value>
+    /// <seealso cref="BaseGuildedConnection" />
+    /// <seealso cref="Websocket" />
+    /// <seealso cref="LastMessageId" />
     public IObservable<GuildedSocketMessage> WebsocketMessage => _onWebsocketMessage.AsObservable();
 
     /// <summary>
     /// Gets an <see cref="IObservable{T}">observable</see> that is invoked when <see cref="Websocket" /> receives an <see cref="GuildedSocketException">error</see>.
     /// </summary>
+    /// <value>An <see cref="IObservable{T}">observable</see> that is invoked when <see cref="Websocket" /> receives an <see cref="GuildedSocketException">error</see>.</value>
+    /// <seealso cref="BaseGuildedConnection" />
+    /// <seealso cref="Websocket" />
+    /// <seealso cref="LastMessageId" />
     public IObservable<GuildedSocketException> WebsocketError => _onWebsocketError.AsObservable();
     #endregion
 

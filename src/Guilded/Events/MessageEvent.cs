@@ -21,9 +21,9 @@ public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBa
 {
     #region Properties
     /// <summary>
-    /// Gets the message received from the event.
+    /// Gets the <see cref="Content.Message">message</see> received from the event.
     /// </summary>
-    /// <value>Message</value>
+    /// <value>The <see cref="Content.Message">message</see> received from the event</value>
     /// <seealso cref="MessageEvent" />
     /// <seealso cref="MessageEvent{T}" />
     /// <seealso cref="ServerId" />
@@ -32,7 +32,7 @@ public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBa
     /// <summary>
     /// Gets the identifier of the <see cref="Server">server</see> where the event occurred.
     /// </summary>
-    /// <value>Server ID?</value>
+    /// <value>The identifier of the <see cref="Server">server</see> where the event occurred</value>
     /// <seealso cref="MessageEvent" />
     /// <seealso cref="MessageEvent{T}" />
     /// <seealso cref="Message" />

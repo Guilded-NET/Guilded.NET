@@ -24,7 +24,7 @@ public sealed class CommandRegexAttribute : Attribute
     /// <summary>
     /// Gets the instance of <see cref="System.Text.RegularExpressions.Regex" /> for matching the  <see cref="CommandParamAttribute">command argument</see> values.
     /// </summary>
-    /// <value><see cref="CommandArgument">Command argument</see> value regex</value>
+    /// <value>The instance of <see cref="System.Text.RegularExpressions.Regex" /> for matching the  <see cref="CommandParamAttribute">command argument</see> values</value>
     public Regex Regex { get; }
 
     /// <summary>
