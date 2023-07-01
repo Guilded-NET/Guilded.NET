@@ -39,9 +39,9 @@ public abstract class ItemBase<T> : ChannelContent<Guid, HashId>, IUpdatableCont
     public string Message { get; }
 
     /// <summary>
-    /// Gets the <see cref="Mentions">mentions</see> found in the <see cref="Message">content</see>.
+    /// Gets the <see cref="Content.Mentions">mentions</see> found in the <see cref="Message">content</see>.
     /// </summary>
-    /// <value>The <see cref="Mentions">mentions</see> found in the <see cref="Message">content</see></value>
+    /// <value>The <see cref="Content.Mentions">mentions</see> found in the <see cref="Message">content</see></value>
     public Mentions? Mentions { get; }
 
     /// <summary>

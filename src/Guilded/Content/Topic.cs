@@ -326,7 +326,10 @@ public class Topic : TopicSummary, IContentMarkdown
     /// <summary>
     /// Gets the text contents of the <see cref="Topic">forum topic</see>.
     /// </summary>
-    /// <value>Markdown string</value>
+    /// <remarks>
+    /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
+    /// </remarks>
+    /// <value>The text contents of the <see cref="Topic">forum topic</see></value>
     /// <seealso cref="Topic" />
     /// <seealso cref="Mentions" />
     /// <seealso cref="TitledContent{T}.Title" />

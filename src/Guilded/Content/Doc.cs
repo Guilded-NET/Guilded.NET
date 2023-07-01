@@ -26,7 +26,7 @@ public class Doc : TitledContent<uint>, IContentMarkdown
     /// <remarks>
     /// <para>The contents are formatted in Markdown. This includes images and videos, which are in the format of <c>![](source_url)</c>.</para>
     /// </remarks>
-    /// <value>Markdown string</value>
+    /// <value>The text contents of the <see cref="Doc">document</see></value>
     /// <seealso cref="Doc" />
     /// <seealso cref="TitledContent{T}.Title" />
     public string Content { get; }

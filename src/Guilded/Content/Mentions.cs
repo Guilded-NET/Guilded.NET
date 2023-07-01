@@ -17,15 +17,15 @@ public class Mentions
 {
     #region Properties JSON
     /// <summary>
-    /// Gets whether <c>@everyone</c> have been mentioned.
+    /// Gets whether <c>@everyone</c> has been mentioned.
     /// </summary>
-    /// <value>Whether <c>@everyone</c> have been mentioned</value>
+    /// <value>Whether <c>@everyone</c> has been mentioned</value>
     public bool Everyone { get; }
 
     /// <summary>
-    /// Gets whether <c>@here</c> have been mentioned.
+    /// Gets whether <c>@here</c> has been mentioned.
     /// </summary>
-    /// <value>Whether <c>@here</c> have been mentioned</value>
+    /// <value>Whether <c>@here</c> has been mentioned</value>
     public bool Here { get; }
 
     /// <summary>
