@@ -26,10 +26,10 @@ public sealed class FrontMatterStartSection : ISection
             _ => "unknown"
         };
         writer.AppendLine("---")
-            .Append("title: ")
+            .Append("name: ")
             .AppendLine(item.Name)
-            .AppendLine("layout: references")
-            .AppendLine("section: references")
+            .Append("type: ")
+            .AppendLine(itemType)
             .AppendLine("tags:")
             .AppendLine("  - references")
             .Append("  - ")

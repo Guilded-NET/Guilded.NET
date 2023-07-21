@@ -62,24 +62,26 @@ public interface ICommand<out TMember> where TMember : MemberInfo
 /// <seealso cref="CommandContainer" />
 public abstract class AbstractCommand<TMember> : ICommand<TMember> where TMember : MemberInfo
 {
+    private readonly string _name;
+
     #region Properties
     /// <inheritdoc />
-    public string Name { get; }
+    public virtual string Name => _name;
 
     /// <inheritdoc />
     public TMember Member { get; }
 
     /// <inheritdoc />
-    public CommandAttribute Attribute { get; }
+    public virtual CommandAttribute Attribute { get; }
 
     /// <inheritdoc cref="CommandAttribute.Aliases" />
-    public string[]? Aliases => Attribute.Aliases;
+    public virtual string[]? Aliases => Attribute.Aliases;
 
     /// <inheritdoc cref="DescriptionAttribute.Text" />
-    public string? Description => Member.GetCustomAttribute<DescriptionAttribute>()?.Text;
+    public virtual string? Description => Member.GetCustomAttribute<DescriptionAttribute>()?.Text;
 
     /// <inheritdoc cref="ExampleAttribute.Content" />
-    public IEnumerable<ExampleAttribute> Examples => Member.GetCustomAttributes<ExampleAttribute>();
+    public virtual IEnumerable<ExampleAttribute> Examples => Member.GetCustomAttributes<ExampleAttribute>();
     #endregion
 
     #region Constructors
@@ -89,7 +91,7 @@ public abstract class AbstractCommand<TMember> : ICommand<TMember> where TMember
     /// <param name="attribute">The command attribute that was given to the member</param>
     /// <param name="member">The member who was declared as a command</param>
     protected AbstractCommand(CommandAttribute attribute, TMember member) =>
-        (Name, Member, Attribute) = (attribute.Name ?? TransformMethodName(member.Name), member, attribute);
+        (_name, Member, Attribute) = (attribute.Name ?? TransformMethodName(member.Name), member, attribute);
     #endregion
 
     #region Methods

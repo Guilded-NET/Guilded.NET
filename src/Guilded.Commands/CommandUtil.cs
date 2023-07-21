@@ -37,70 +37,106 @@ internal static class CommandUtil
                 );
         }
     }
+    #endregion
 
-    public static IEnumerable<ICommand<MemberInfo>> GetCommandsOf(Type type) =>
-        type.GetMembers()
+    #region Methods IsXyz
+    // Check if reflection type is correct enough to warrant trying to create a command out of it
+    private static bool TypeIsCommandType(MemberInfo memberInfo, MemberTypes memberType) =>
+        (memberType == MemberTypes.TypeInfo || memberType == MemberTypes.NestedType)
+        && ((TypeInfo)memberInfo).IsClass
+        && !((TypeInfo)memberInfo).IsAbstract;
+
+    // Check if reflection method is correct enough to warrant trying to create a command out of it
+    private static bool MethodIsCommandMethod(MemberInfo member, MemberTypes memberType) =>
+        memberType == MemberTypes.Method && !((MethodInfo)member).IsAbstract;
+    #endregion
+
+    #region Methods Create command
+    // Creates ICommandInfo<Type> / CommandContainer instance from the given type
+    // This assumes all the attribute and what kind of type it is checks are already done
+    private static CommandContainer CreateCommandContainer(Type type)
+    {
+        // Should extend/base/inherit from CommandBase
+        if (!type.IsSubclassOf(typeof(CommandBase)))
+            throw new NotSupportedException($"Cannot declare type as a command when it's not a subclass of {nameof(CommandBase)}.");
+
+        // Find public constructor that has no parameters
+        ConstructorInfo invokableConstructor =
+            type
+                .GetConstructors()
+                .FirstOrDefault(constructor =>
+                {
+                    ParameterInfo[] parameters = constructor.GetParameters();
+
+                    return constructor.IsPublic && !parameters.Any();
+                })
+                ?? throw new MemberAccessException($"Could not find public constructor with no parameters in type {type}");
+
+        // Create instance of it and let it all handle other stuff
+        CommandBase instance = (CommandBase)invokableConstructor.Invoke(Array.Empty<object>());
+
+        // Additional methods like not enough arguments, etc.
+        SubscribeToFailedCommands(instance, type);
+
+        return instance.InstanceInfo;
+    }
+
+    // Creates ICommandInfo<MethodInfo> / Command instance
+    // This assumes that all the checks of what kind of method it is are already done
+    public static Command CreateCommandFunction(MethodInfo method, CommandAttribute attribute)
+    {
+        ParameterInfo[] parameters = method.GetParameters();
+
+        // (CommandEvent command, string arg0, string arg1)
+        if (!parameters.Any())
+            throw new FormatException("Expected method with [Command] attribute to have at least one parameter");
+
+        ParameterInfo contextParameter = parameters.First();
+
+        if (contextParameter.ParameterType != typeof(CommandEvent))
+            throw new FormatException("Expected method with [Command] attribute to have first parameter with CommandEvent type");
+
+        return new Command(method, attribute, parameters[1..]);
+    }
+    #endregion
+
+    #region Methods Get commands from
+    // Find members that only have an attribute and are types of members that we are asking for them to be
+    private static IEnumerable<(T member, CommandAttribute attribute)> FindCorrectMembers<T>(T[] members, Func<MemberInfo, MemberTypes, bool> isMemberCorrect)
+        where T : MemberInfo =>
+        members
             .Select(member => (member, attribute: member.GetCustomAttribute<CommandAttribute>()))
-            // Ignore misc and instance methods
             .Where(memberInfo =>
             {
                 CommandAttribute? attribute = memberInfo.attribute;
                 MemberInfo member = memberInfo.member;
                 MemberTypes memberType = member.MemberType;
 
-                return
-                    attribute is not null &&
-                    (
-                        (memberType == MemberTypes.Method && !((MethodInfo)member).IsAbstract) ||
-                        (memberType == MemberTypes.NestedType && !((TypeInfo)member).IsAbstract)
-                    );
+                return attribute is not null && isMemberCorrect(member, memberType);
             })
-            // Looks really ugly
-            .Select<(MemberInfo member, CommandAttribute? attribute), ICommand<MemberInfo>>(
-                methodInfo =>
-                {
-                    MemberInfo member = methodInfo.member;
-                    CommandAttribute attribute = methodInfo.attribute!;
+            // Because forced to
+            .Select((tuple) => (tuple.member, tuple.attribute!));
 
-                    if (member is MethodInfo method)
-                    {
-                        ParameterInfo[] parameters = method.GetParameters();
-
-                        // (CommandEvent command, string arg0, string arg1)
-                        if (!parameters.Any())
-                            throw new FormatException("Expected method with [Command] attribute to have at least one parameter");
-
-                        ParameterInfo contextParameter = parameters.First();
-
-                        if (contextParameter.ParameterType != typeof(CommandEvent))
-                            throw new FormatException("Expected method with [Command] attribute to have first parameter with CommandEvent type");
-
-                        return new Command(method, attribute, parameters[1..]);
-                    }
-                    else
-                    {
-                        Type type = (Type)member;
-
-                        if (!type.IsSubclassOf(typeof(CommandBase)))
-                            throw new NotSupportedException($"Cannot declare type as a command when it's not a subclass of {nameof(CommandBase)}.");
-
-                        ConstructorInfo invokableConstructor =
-                            type.GetConstructors()
-                                .FirstOrDefault(constructor =>
-                                {
-                                    ParameterInfo[] parameters = constructor.GetParameters();
-
-                                    return constructor.IsPublic && !parameters.Any();
-                                })
-                                ?? throw new MemberAccessException($"Could not find public constructor with no parameters in type {type}");
-
-                        CommandBase instance = (CommandBase)invokableConstructor.Invoke(Array.Empty<object>());
-
-                        SubscribeToFailedCommands(instance, type);
-
-                        return instance.InstanceInfo;
-                    }
-                }
+    public static IEnumerable<CommandContainer> GetCommandsOf(Assembly assembly) =>
+        FindCorrectMembers(assembly.GetTypes(), TypeIsCommandType)
+            .Select((tuple) =>
+                CreateCommandContainer(tuple.member)
             );
+
+    public static IEnumerable<ICommand<MemberInfo>> GetCommandsOf(Type type) =>
+        // Get methods and classes of the type, then check if they have attributes and are classes or methods
+        FindCorrectMembers(type.GetMembers(), (member, memberType) =>
+            MethodIsCommandMethod(member, memberType) ||
+            TypeIsCommandType(member, memberType)
+        )
+            // Looks really ugly
+            .Select<(MemberInfo member, CommandAttribute attribute), ICommand<MemberInfo>>(memberInfo =>
+            {
+                MemberInfo member = memberInfo.member;
+                CommandAttribute attribute = memberInfo.attribute;
+
+                if (member is MethodInfo method) return CreateCommandFunction(method, attribute);
+                else return CreateCommandContainer((Type)member);
+            });
     #endregion
 }

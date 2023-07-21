@@ -25,21 +25,28 @@ public abstract class CommandModule : CommandParent
     #region Methods
     private async Task<bool> HandleCommandAsync(MessageEvent msgCreated, string prefix, CommandConfiguration config, object? additionalContext)
     {
+        // Unprefix the content and split it into command name and arguments (spaces and everything included)
+        // Arguments may not need to be split by space in some cases (like when we have rest args)
         string[] splitContent = msgCreated
             .Content![prefix.Length..]
             .Split(config.Separators, 2, config.SplitOptions);
 
         string? commandName = splitContent.FirstOrDefault();
 
+        // The prefix by itself doesn't mean anything, as people may put something like `?` by itself
+        // Maybe in the future, command modules may have indexes. In those cases, that can be invoked
+        // Can be useful as an alternative to help commands, but if someone sets prefix as `?`
+        // it can mean that confused people are granted help (up to bot developer)
         if (string.IsNullOrEmpty(commandName))
             return false;
 
         string? nullableArgs = splitContent.ElementAtOrDefault(1);
         string args = nullableArgs ?? string.Empty;
 
-        // First one is the name of the command
+        // FIXME: Legacy code: we still need argument count
         int totalArgCount = nullableArgs?.Split(config.Separators, config.SplitOptions).Length ?? 0;
 
+        // This stays permanent; no matter which command we invoke
         RootCommandEvent context = new(msgCreated, config, prefix, commandName, args, additionalContext);
 
         return await InvokeCommandByNameAsync(context, commandName, args, totalArgCount).ConfigureAwait(false);
