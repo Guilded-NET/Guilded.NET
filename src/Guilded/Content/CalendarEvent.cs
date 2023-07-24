@@ -95,7 +95,6 @@ public class CalendarEvent : ChannelContent<uint, HashId>, IReactibleContent, IS
     /// <seealso cref="Location" />
     /// <seealso cref="Name" />
     /// <seealso cref="Description" />
-    [JsonConverter(typeof(DecimalColorConverter))]
     public SystemColor? Color { get; }
     #endregion
 

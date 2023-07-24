@@ -102,7 +102,7 @@ public abstract class BaseGuildedService : IDisposable
             {
                 NamingStrategy = new CamelCaseNamingStrategy { OverrideSpecifiedNames = false }
             },
-            Converters = new List<JsonConverter>()
+            Converters = new List<JsonConverter>() { new Json.DecimalColorConverter() }
         };
         GuildedSerializer = JsonSerializer.Create(SerializerSettings);
 

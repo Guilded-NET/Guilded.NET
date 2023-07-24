@@ -99,7 +99,6 @@ public class Embed
     /// <seealso cref="Embed" />
     /// <seealso cref="Timestamp" />
     /// <seealso cref="Description" />
-    [JsonConverter(typeof(DecimalColorConverter))]
     public SystemColor? Color { get; set; }
 
     /// <summary>
