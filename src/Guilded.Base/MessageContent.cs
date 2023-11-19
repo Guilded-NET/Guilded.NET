@@ -187,26 +187,6 @@ public class MessageContent
     public MessageContent() { }
 
     /// <summary>
-    /// Creates an instance of <see cref="MessageContent" />.
-    /// </summary>
-    /// <param name="content">The text contents of the <see cref="T:Guilded.Content.Message">message</see></param>
-    public MessageContent(string? content) =>
-        Content = content;
-
-    /// <summary>
-    /// Creates an instance of <see cref="MessageContent" />.
-    /// </summary>
-    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that the <see cref="T:Guilded.Content.Message">message</see> contains</param>
-    public MessageContent(params Embed[] embeds) =>
-        Embeds = embeds;
-
-    /// <summary>
-    /// Creates an instance of <see cref="MessageContent" />.
-    /// </summary>
-    /// <param name="content">The text contents of the <see cref="T:Guilded.Content.Message">message</see></param>
-    public MessageContent(object? content) : this(content?.ToString()) { }
-
-    /// <summary>
     /// Creates an instance of <see cref="MessageContent" /> from the JSON properties.
     /// </summary>
     /// <param name="content">The text contents of the <see cref="T:Guilded.Content.Message">message</see></param>
@@ -244,5 +224,25 @@ public class MessageContent
         Uri? avatar = null
     ) : this(content) =>
         (Embeds, ReplyMessageIds, HiddenUrls, IsPrivate, IsSilent, Username, Avatar) = (embeds, replyMessageIds, hiddenLinkPreviewUrls, isPrivate, isSilent, username, avatar);
+
+    /// <summary>
+    /// Creates an instance of <see cref="MessageContent" />.
+    /// </summary>
+    /// <param name="content">The text contents of the <see cref="T:Guilded.Content.Message">message</see></param>
+    public MessageContent(string? content) =>
+        Content = content;
+
+    /// <summary>
+    /// Creates an instance of <see cref="MessageContent" />.
+    /// </summary>
+    /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that the <see cref="T:Guilded.Content.Message">message</see> contains</param>
+    public MessageContent(params Embed[] embeds) =>
+        Embeds = embeds;
+
+    /// <summary>
+    /// Creates an instance of <see cref="MessageContent" />.
+    /// </summary>
+    /// <param name="content">The text contents of the <see cref="T:Guilded.Content.Message">message</see></param>
+    public MessageContent(object? content) : this(content?.ToString()) { }
     #endregion
 }

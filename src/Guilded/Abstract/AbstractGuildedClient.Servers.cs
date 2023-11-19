@@ -667,8 +667,8 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageXp" />
     /// <returns>The total amount of XP that the <see cref="Member">member</see> has</returns>
     public Task<long> AddXpAsync(HashId server, HashId member, short amount) =>
-        amount is > 1000 or < -1000
-        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
+        amount is > Member.MaxAddXp or < Member.MinAddXp
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1 000 and less than -1 000 XP")
         : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Post)
             .AddJsonBody(new
             {
@@ -677,7 +677,7 @@ public abstract partial class AbstractGuildedClient
         , "total");
 
     /// <summary>
-    /// Gives the specified <paramref name="amount" /> of XP to the <paramref name="memberReference">member reference</paramref>.
+    /// Gives the specified <paramref name="amount" /> of XP to the <paramref name="memberReference">referenced member</paramref>.
     /// </summary>
     /// <param name="server">The server to modify <see cref="Member">member</see> in</param>
     /// <param name="memberReference">A <see cref="UserReference">reference</see> to the receiving <see cref="Member">member</see></param>
@@ -690,8 +690,8 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageXp" />
     /// <returns>The total amount of XP that the <see cref="Member">member</see> has</returns>
     public Task<long> AddXpAsync(HashId server, UserReference memberReference, short amount) =>
-        amount is > 1000 or < -1000
-        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
+        amount is > Member.MaxAddXp or < Member.MinAddXp
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1 000 and less than -1 000 XP")
         : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/xp", Method.Post)
             .AddJsonBody(new
             {
@@ -713,8 +713,8 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageXp" />
     /// <returns>The <paramref name="total" /> amount of XP that the <see cref="Member">member</see> has</returns>
     public Task<long> SetXpAsync(HashId server, HashId member, long total) =>
-        total is > 1000 or < -1000
-        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1000000000 and less than -1000000000 XP")
+        total is > Member.MaxSetXp or < Member.MinSetXp
+        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1 000 000 000 and less than -1 000 000 000 XP")
         : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/{member}/xp", Method.Put)
             .AddJsonBody(new
             {
@@ -736,8 +736,8 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageXp" />
     /// <returns>The <paramref name="total" /> amount of XP that the <see cref="Member">member</see> has</returns>
     public Task<long> SetXpAsync(HashId server, UserReference memberReference, long total) =>
-        total is > 1000 or < -1000
-        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1000000000 and less than -1000000000 XP")
+        total is > Member.MaxSetXp or < Member.MinSetXp
+        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot add more than 1 000 000 000 and less than -1 000 000 000 XP")
         : GetResponsePropertyAsync<long>(new RestRequest($"servers/{server}/members/@{memberReference.ToString().ToLower()}/xp", Method.Put)
             .AddJsonBody(new
             {
@@ -746,10 +746,10 @@ public abstract partial class AbstractGuildedClient
         , "total");
 
     /// <summary>
-    /// Gives the specified <paramref name="amount" /> of XP to the specified <paramref name="role">role's</paramref> members.
+    /// Gives the specified <paramref name="amount" /> of XP to the specified <paramref name="role">role's</paramref> <see cref="Member">members</see>.
     /// </summary>
-    /// <param name="server">The server where the role is</param>
-    /// <param name="role">The identifier of the receiving role</param>
+    /// <param name="server">The <see cref="Server">server</see> where the <see cref="Role">role</see> is</param>
+    /// <param name="role">The identifier of the receiving <see cref="Role">role</see></param>
     /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -757,13 +757,61 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="Permission.ManageXp" />
     public Task AddXpAsync(HashId server, uint role, short amount) =>
-        amount is > 1000 or < -1000
-        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1000 and less than -1000 XP")
+        amount is > Member.MaxAddXp or < Member.MinAddXp
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1 000 and less than -1 000 XP")
         : ExecuteRequestAsync(new RestRequest($"servers/{server}/roles/{role}/xp", Method.Post)
             .AddJsonBody(new
             {
                 amount
             })
+        );
+
+    /// <summary>
+    /// Gives the specified <paramref name="amount" /> of XP to all of the specified <paramref name="members" />.
+    /// </summary>
+    /// <param name="server">The server where the <see cref="Member">members</see> are</param>
+    /// <param name="amount">The amount of XP received (values — <c>[-1000, 1000]</c>)</param>
+    /// <param name="members">The list of <see cref="Member">members</see> that will be receiving the XP</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageXp" />
+    /// <returns>The total amount of XP that the each specified <see cref="Member">member</see> has</returns>
+    public Task<IDictionary<HashId, long>> AddBulkXpAsync(HashId server, short amount, params HashId[] members) =>
+        amount is > Member.MaxAddXp or < Member.MinAddXp
+        ? throw new ArgumentOutOfRangeException(nameof(amount), amount, "Cannot add more than 1 000 and less than -1 000 XP")
+        : GetResponsePropertyAsync<IDictionary<HashId, long>>(new RestRequest($"servers/{server}/xp", Method.Post)
+            .AddJsonBody(new
+            {
+                amount,
+                users = members,
+            }),
+            "totalsByUserId"
+        );
+
+    /// <summary>
+    /// Sets the specified <paramref name="total">total amount</paramref> of XP for all of the specified <paramref name="members" />.
+    /// </summary>
+    /// <param name="server">The server where the <see cref="Member">members</see> are</param>
+    /// <param name="total">The total amount of XP to set for the user</param>
+    /// <param name="members">The list of <see cref="Member">members</see> that will have their XP changed</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageXp" />
+    /// <returns>The total amount of XP that the each specified <see cref="Member">member</see> has</returns>
+    public Task<IDictionary<HashId, long>> SetBulkXpAsync(HashId server, long total, params HashId[] members) =>
+        total is > Member.MaxSetXp or < Member.MinSetXp
+        ? throw new ArgumentOutOfRangeException(nameof(total), total, "Cannot set more than 1 000 000 000 and less than -1 000 000 000 XP")
+        : GetResponsePropertyAsync<IDictionary<HashId, long>>(new RestRequest($"servers/{server}/xp", Method.Put)
+            .AddJsonBody(new
+            {
+                amount = total,
+                users = members,
+            }),
+            "totalsByUserId"
         );
     #endregion
 
