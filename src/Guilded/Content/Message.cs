@@ -98,6 +98,15 @@ public class Message :
     public IList<Guid>? ReplyMessageIds { get; }
 
     /// <summary>
+    /// Gets the list of links that will not be <see cref="Embed">embeded</see> in the <see cref="Message">message</see>.
+    /// </summary>
+    /// <value>The list of links that will not be <see cref="Embed">embeded</see> in the <see cref="Message">message</see></value>
+    /// <seealso cref="Message" />
+    /// <seealso cref="IsPrivate" />
+    /// <seealso cref="IsReply" />
+    public ISet<Uri>? HiddenUrls { get; }
+
+    /// <summary>
     /// Gets the list of <see cref="Embed">custom embeds</see> that are part of the <see cref="Message">message's</see> contents.
     /// </summary>
     /// <remarks>
@@ -311,6 +320,7 @@ public class Message :
     /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Message">message</see> is</param>
     /// <param name="content">The text contents of the <see cref="Message">message</see></param>
     /// <param name="replyMessageIds">The list of <see cref="Message">messages</see> that the current <see cref="Message">message</see> is replying to</param>
+    /// <param name="hiddenLinkPreviewUrls">The list of links that will not be <see cref="Embed">embeded</see> in the <see cref="Message">message</see></param>
     /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that are part of the <see cref="Message">message's</see> contents</param>
     /// <param name="isPrivate">Whether the reply or mention is private</param>
     /// <param name="isSilent">Whether the reply or mention is silent and doesn't ping any user</param>
@@ -346,6 +356,9 @@ public class Message :
         IList<Guid>? replyMessageIds = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        ISet<Uri>? hiddenLinkPreviewUrls = null,
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         string? content = null,
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -366,7 +379,7 @@ public class Message :
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         DateTime? updatedAt = null
     ) : base(id, channelId, serverId, createdBy, createdAt) =>
-        (Content, ReplyMessageIds, Embeds, IsPrivate, IsSilent, Mentions, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, embeds, isPrivate, isSilent, mentions, createdByWebhookId, updatedAt, type);
+        (Content, ReplyMessageIds, HiddenUrls, Embeds, IsPrivate, IsSilent, Mentions, CreatedByWebhook, UpdatedAt, Type) = (content, replyMessageIds, hiddenLinkPreviewUrls, embeds, isPrivate, isSilent, mentions, createdByWebhookId, updatedAt, type);
     #endregion
 
     #region Methods CreateMessageAsync
@@ -538,6 +551,14 @@ public class Message :
     /// <inheritdoc cref="AbstractGuildedClient.DeleteMessageAsync(Guid, Guid)" />
     public Task DeleteAsync() =>
         ParentClient.DeleteMessageAsync(ChannelId, Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.PinMessageAsync(Guid, Guid)" />
+    public Task PinAsync() =>
+        ParentClient.PinMessageAsync(ChannelId, Id);
+
+    /// <inheritdoc cref="AbstractGuildedClient.UnpinMessageAsync(Guid, Guid)" />
+    public Task UnpinAsync() =>
+        ParentClient.UnpinMessageAsync(ChannelId, Id);
 
     /// <inheritdoc cref="AbstractGuildedClient.AddMessageReactionAsync(Guid, Guid, uint)" />
     /// <param name="emote">The identifier of the <see cref="Emote">emote</see> to add</param>

@@ -10,6 +10,7 @@ namespace Guilded.Events;
 /// <summary>
 /// Represents an event that occurs when someone creates, updates or deletes a <see cref="ServerChannel">channel</see>.
 /// </summary>
+/// <seealso cref="CategoryEvent" />
 /// <seealso cref="GroupEvent" />
 /// <seealso cref="RoleEvent" />
 /// <seealso cref="ServerEvent" />
@@ -113,15 +114,19 @@ public class ChannelEvent : IModelHasId<Guid>, IChannel, ICreatableContent, IUpd
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="AbstractGuildedClient.DeleteChannelAsync(Guid)" />
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateChannelAsync(Guid, string?, string?, bool?)" />
+    /// <param name="name">A new name of the <see cref="ServerChannel">channel</see> (max — <c>100</c>)</param>
+    /// <param name="topic">A new topic describing what the <see cref="ServerChannel">channel</see> is about (max — <c>512</c>)</param>
+    /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
     public Task<ServerChannel> UpdateAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
         Channel.UpdateAsync(name, topic, isPublic);
 
-    /// <inheritdoc cref="ServerChannel.DeleteAsync" />
+    /// <inheritdoc cref="AbstractGuildedClient.DeleteChannelAsync(Guid)" />
     public Task DeleteAsync() =>
         Channel.DeleteAsync();
 
     /// <inheritdoc cref="ServerChannel.CreateWebhookAsync(string)" />
+    /// <param name="name">The name of the <see cref="Webhook">webhook</see></param>
     public Task<Webhook> CreateWebhookAsync(string name) =>
         Channel.CreateWebhookAsync(name);
     #endregion

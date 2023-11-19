@@ -313,6 +313,38 @@ public abstract partial class AbstractGuildedClient
 
     #region Properties Channels
     /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a new <see cref="Category">category</see> is created.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CategoryCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="CategoryUpdated" />
+    /// <seealso cref="CategoryDeleted" />
+    public IObservable<CategoryEvent> CategoryCreated => ((IEventInfo<CategoryEvent>)GuildedEvents["CategoryCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Category">category</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CategoryUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="CategoryCreated" />
+    /// <seealso cref="CategoryDeleted" />
+    public IObservable<CategoryEvent> CategoryUpdated => ((IEventInfo<CategoryEvent>)GuildedEvents["CategoryUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Category">category</see> is deleted.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>CategoryDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="CategoryCreated" />
+    /// <seealso cref="CategoryUpdated" />
+    public IObservable<CategoryEvent> CategoryDeleted => ((IEventInfo<CategoryEvent>)GuildedEvents["CategoryDeleted"]).Observable;
+    #endregion
+
+    #region Properties Channels
+    /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when <see cref="Webhook">a new webhook</see> is created.
     /// </summary>
     /// <remarks>
@@ -346,6 +378,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelUpdated" />
     /// <seealso cref="ChannelDeleted" />
+    /// <seealso cref="ChannelArchived" />
+    /// <seealso cref="ChannelRestored" />
     public IObservable<ChannelEvent> ChannelCreated => ((IEventInfo<ChannelEvent>)GuildedEvents["ServerChannelCreated"]).Observable;
 
     /// <summary>
@@ -358,6 +392,8 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelDeleted" />
+    /// <seealso cref="ChannelArchived" />
+    /// <seealso cref="ChannelRestored" />
     public IObservable<ChannelEvent> ChannelUpdated => ((IEventInfo<ChannelEvent>)GuildedEvents["ServerChannelUpdated"]).Observable;
 
     /// <summary>
@@ -370,7 +406,37 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="WebhookUpdated" />
     /// <seealso cref="ChannelCreated" />
     /// <seealso cref="ChannelUpdated" />
+    /// <seealso cref="ChannelArchived" />
+    /// <seealso cref="ChannelRestored" />
     public IObservable<ChannelEvent> ChannelDeleted => ((IEventInfo<ChannelEvent>)GuildedEvents["ServerChannelDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="ServerChannel">channel</see> is archived.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelArchived</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="WebhookCreated" />
+    /// <seealso cref="WebhookUpdated" />
+    /// <seealso cref="ChannelCreated" />
+    /// <seealso cref="ChannelUpdated" />
+    /// <seealso cref="ChannelDeleted" />
+    /// <seealso cref="ChannelRestored" />
+    public IObservable<ChannelEvent> ChannelArchived => ((IEventInfo<ChannelEvent>)GuildedEvents["ChannelArchived"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="ServerChannel">channel</see> is restored from being archived.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelRestored</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="WebhookCreated" />
+    /// <seealso cref="WebhookUpdated" />
+    /// <seealso cref="ChannelCreated" />
+    /// <seealso cref="ChannelUpdated" />
+    /// <seealso cref="ChannelDeleted" />
+    /// <seealso cref="ChannelArchived" />
+    public IObservable<ChannelEvent> ChannelRestored => ((IEventInfo<ChannelEvent>)GuildedEvents["ChannelRestored"]).Observable;
     #endregion
 
     #region Properties Chat channels
@@ -382,6 +448,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MessageUpdated" />
     /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="MessagePinned" />
+    /// <seealso cref="MessageUnpinned" />
     /// <seealso cref="MessageReactionAdded" />
     /// <seealso cref="MessageReactionRemoved" />
     public IObservable<MessageEvent> MessageCreated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageCreated"]).Observable;
@@ -394,6 +462,8 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MessageCreated" />
     /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="MessagePinned" />
+    /// <seealso cref="MessageUnpinned" />
     /// <seealso cref="MessageReactionAdded" />
     /// <seealso cref="MessageReactionRemoved" />
     public IObservable<MessageEvent> MessageUpdated => ((IEventInfo<MessageEvent>)GuildedEvents["ChatMessageUpdated"]).Observable;
@@ -406,9 +476,39 @@ public abstract partial class AbstractGuildedClient
     /// </remarks>
     /// <seealso cref="MessageCreated" />
     /// <seealso cref="MessageUpdated" />
+    /// <seealso cref="MessagePinned" />
+    /// <seealso cref="MessageUnpinned" />
     /// <seealso cref="MessageReactionAdded" />
     /// <seealso cref="MessageReactionRemoved" />
     public IObservable<MessageDeletedEvent> MessageDeleted => ((IEventInfo<MessageDeletedEvent>)GuildedEvents["ChatMessageDeleted"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Message">message</see> pin is added.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelMessagePinned</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MessageCreated" />
+    /// <seealso cref="MessageUpdated" />
+    /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="MessageUnpinned" />
+    /// <seealso cref="MessageReactionAdded" />
+    /// <seealso cref="MessageReactionRemoved" />
+    public IObservable<MessageEvent> MessagePinned => ((IEventInfo<MessageEvent>)GuildedEvents["ChannelMessagePinned"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Message">message</see> pin is removed.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelMessageUnpinned</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="MessageCreated" />
+    /// <seealso cref="MessageUpdated" />
+    /// <seealso cref="MessageDeleted" />
+    /// <seealso cref="MessagePinned" />
+    /// <seealso cref="MessageReactionAdded" />
+    /// <seealso cref="MessageReactionRemoved" />
+    public IObservable<MessageEvent> MessageUnpinned => ((IEventInfo<MessageEvent>)GuildedEvents["ChannelMessageUnppinned"]).Observable;
 
     /// <summary>
     /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="Reaction">reaction</see> on a <see cref="Message">message</see> is added.

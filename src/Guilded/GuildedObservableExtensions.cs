@@ -1,7 +1,6 @@
 using System;
 using System.Reactive.Linq;
 using Guilded.Base;
-using Guilded.Content;
 using Guilded.Servers;
 using Guilded.Users;
 

@@ -902,6 +902,92 @@ public abstract partial class AbstractGuildedClient
         ExecuteRequestAsync(new RestRequest($"servers/{server}/bans/{member}", Method.Delete));
     #endregion
 
+    #region Methods Channels
+    /// <summary>
+    /// Gets the specified <paramref name="category" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to get</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The <see cref="Category">category</see> that was specified in the arguments</returns>
+    public Task<Category> GetCategoryAsync(HashId server, uint category) =>
+        GetResponsePropertyAsync<Category>(new RestRequest($"servers/{server}/categories/{category}", Method.Get), "category");
+
+    /// <summary>
+    /// Creates a new channel in the specified <paramref name="server" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> will be created</param>
+    /// <param name="name">The name of the <see cref="Category">category</see> (max — <c>100</c>)</param>
+    /// <param name="group">The identifier of the group where the <see cref="ServerChannel">channel</see> will be created</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <exception cref="ArgumentNullException">The specified <paramref name="name" /> is null, empty or whitespace</exception>
+    /// <permission cref="Permission.ManageChannels" />
+    /// <returns>The <see cref="Category">category</see> that was created by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Category> CreateCategoryAsync(HashId server, string name, HashId? group = null)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        EnforceLimit(nameof(name), name, ServerChannel.NameLimit);
+
+        return GetResponsePropertyAsync<Category>(new RestRequest($"servers/{server}/categories", Method.Post)
+            .AddJsonBody(new
+            {
+                serverId = server,
+                groupId = group,
+                name,
+            })
+        , "category");
+    }
+
+    /// <summary>
+    /// Edits the specified <paramref name="category" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to update</param>
+    /// <param name="name">A new name of the <see cref="Category">category</see> (max — <c>100</c>)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageChannels" />
+    /// <returns>The <see cref="Category">category</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
+    public Task<Category> UpdateCategoryAsync(HashId server, uint category, string name)
+    {
+        EnforceLimit(nameof(name), name, ServerChannel.NameLimit);
+
+        return GetResponsePropertyAsync<Category>(new RestRequest($"servers/{server}/categories/{category}", Method.Patch)
+            .AddJsonBody(new
+            {
+                name,
+            })
+        , "category");
+    }
+
+    /// <summary>
+    /// Deletes the specified <paramref name="category" />.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to delete</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.ManageChannels" />
+    public Task DeleteCategoryAsync(HashId server, uint category) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/categories/{category}", Method.Delete));
+    #endregion
+
     #region Methods Webhooks
     /// <summary>
     /// Gets a list of <see cref="Webhook">webhooks</see>.
@@ -1064,7 +1150,7 @@ public abstract partial class AbstractGuildedClient
     }
 
     /// <summary>
-    /// Updates the specified <paramref name="channel" />.
+    /// Edits the specified <paramref name="channel" />.
     /// </summary>
     /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to update</param>
     /// <param name="name">A new name of the <see cref="ServerChannel">channel</see> (max — <c>100</c>)</param>
@@ -1092,7 +1178,7 @@ public abstract partial class AbstractGuildedClient
     /// <summary>
     /// Deletes the specified <paramref name="channel" />.
     /// </summary>
-    /// <param name="channel">The identifier of the channel to delete</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to delete</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />

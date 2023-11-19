@@ -153,6 +153,11 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "RoleDeleted",                          new EventInfo<RoleEvent>() },
 
             // Channels
+            { "CategoryCreated",                      new EventInfo<CategoryEvent>() },
+            { "CategoryUpdated",                      new EventInfo<CategoryEvent>() },
+            { "CategoryDeleted",                      new EventInfo<CategoryEvent>() },
+
+            // Channels
             { "ServerChannelCreated",                 new EventInfo<ChannelEvent>() },
             { "ServerChannelUpdated",                 new EventInfo<ChannelEvent>() },
             { "ServerChannelDeleted",                 new EventInfo<ChannelEvent>() },
@@ -163,6 +168,8 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
             { "ChatMessageCreated",                   new EventInfo<MessageEvent>() },
             { "ChatMessageUpdated",                   new EventInfo<MessageEvent>() },
             { "ChatMessageDeleted",                   new EventInfo<MessageDeletedEvent>() },
+            { "ChannelMessagePinned",                 new EventInfo<MessageEvent>() },
+            { "ChannelMessageUnpinned",               new EventInfo<MessageEvent>() },
             { "ChannelMessageReactionCreated",        new EventInfo<MessageReactionEvent>() },
             { "ChannelMessageReactionDeleted",        new EventInfo<MessageReactionEvent>() },
 

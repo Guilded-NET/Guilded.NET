@@ -317,6 +317,34 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.GetPrivateContent">Required for deleting messages set as <see cref="Message.IsPrivate">private</see> made by others</permission>
     public Task DeleteMessageAsync(Guid channel, Guid message) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}", Method.Delete));
+
+    /// <summary>
+    /// Adds the pin to the specified <paramref name="message" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to pin</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.ManageMessages" />
+    public Task PinMessageAsync(Guid channel, Guid message) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}/pin", Method.Post));
+
+    /// <summary>
+    /// Removes the pin from the specified <paramref name="message" />.
+    /// </summary>
+    /// <param name="channel">The identifier of the parent <see cref="ServerChannel">channel</see></param>
+    /// <param name="message">The identifier of the <see cref="Message">message</see> to remove pin from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <permission cref="Permission.GetMessages" />
+    /// <permission cref="Permission.ManageMessages" />
+    public Task UnpinMessageAsync(Guid channel, Guid message) =>
+        ExecuteRequestAsync(new RestRequest($"channels/{channel}/messages/{message}/pin", Method.Delete));
     #endregion
 
     #region Methods Forum channels > Topics

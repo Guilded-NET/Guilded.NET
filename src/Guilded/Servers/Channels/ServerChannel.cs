@@ -24,20 +24,20 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <summary>
     /// The count of how many <see cref="char">characters</see> there can be in <see cref="Name">channel's name</see>.
     /// </summary>
-    /// <value>Limit</value>
+    /// <value>The count of how many <see cref="char">characters</see> there can be in <see cref="Name">channel's name</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Name" />
     /// <seealso cref="TopicLimit" />
-    public const short NameLimit = 4000;
+    public const short NameLimit = 100;
 
     /// <summary>
     /// The count of how many <see cref="char">characters</see> there can be in <see cref="Topic">channel's topic</see>.
     /// </summary>
-    /// <value>Limit</value>
+    /// <value>The count of how many <see cref="char">characters</see> there can be in <see cref="Topic">channel's topic</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Topic" />
     /// <seealso cref="NameLimit" />
-    public const short TopicLimit = 4000;
+    public const short TopicLimit = 512;
     #endregion
 
     #region Properties
@@ -90,9 +90,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public Guid? MessageId { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent category of the <see cref="ServerChannel">channel</see>.
+    /// Gets the identifier of the parent <see cref="Category">category</see> of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>The identifier of the parent category of the <see cref="ServerChannel">channel</see></value>
+    /// <value>The identifier of the parent <see cref="Category">category</see> of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="ParentId" />
@@ -101,9 +101,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public uint? CategoryId { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent group of the <see cref="ServerChannel">channel</see>.
+    /// Gets the identifier of the parent <see cref="Group">group</see> of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>The identifier of the parent group of the <see cref="ServerChannel">channel</see></value>
+    /// <value>The identifier of the parent <see cref="Group">group</see> of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="ParentId" />
@@ -112,9 +112,9 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     public HashId GroupId { get; }
 
     /// <summary>
-    /// Gets the identifier of the parent server of the <see cref="ServerChannel">channel</see>.
+    /// Gets the identifier of the parent <see cref="Server">server</see> of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value>The identifier of the parent server of the <see cref="ServerChannel">channel</see></value>
+    /// <value>The identifier of the parent <see cref="Server">server</see> of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Id" />
     /// <seealso cref="ParentId" />
@@ -127,8 +127,18 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// </summary>
     /// <value>The type of content the <see cref="ServerChannel">channel</see> holds</value>
     /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Visibility" />
     /// <seealso cref="IsPublic" />
     public ChannelType Type { get; }
+
+    /// <summary>
+    /// Gets the visibility of the <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <value>The visibility of the <see cref="ServerChannel">channel</see></value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Type" />
+    /// <seealso cref="IsPublic" />
+    public ChannelVisibility? Visibility { get; }
 
     /// <summary>
     /// Gets the name of the <see cref="ServerChannel">channel</see>.
@@ -145,14 +155,6 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="Name" />
     public string? Topic { get; }
-
-    /// <summary>
-    /// Gets whether the <see cref="ServerChannel">channel</see> is globally viewable.
-    /// </summary>
-    /// <value>Whether the <see cref="ServerChannel">channel</see> is globally viewable</value>
-    /// <seealso cref="ServerChannel" />
-    /// <seealso cref="Type" />
-    public bool IsPublic { get; }
 
     /// <summary>
     /// Gets the identifier of <see cref="User">user</see> that created the <see cref="ServerChannel">channel</see>.
@@ -208,6 +210,14 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     /// <seealso cref="CreatedBy" />
     /// <seealso cref="UpdatedAt" />
     public DateTime? ArchivedAt { get; }
+
+    /// <summary>
+    /// Gets whether the <see cref="ServerChannel">channel</see> is globally viewable.
+    /// </summary>
+    /// <value>Whether the <see cref="ServerChannel">channel</see> is globally viewable</value>
+    /// <seealso cref="ServerChannel" />
+    /// <seealso cref="Type" />
+    public bool IsPublic => Visibility == ChannelVisibility.Public;
 
     /// <summary>
     /// Gets whether the <see cref="ServerChannel">channel</see> is a thread of a <see cref="ChannelContent{TId, TServer}">channel content</see>.
@@ -345,7 +355,10 @@ public class ServerChannel : ContentModel, IModelHasId<Guid>, ICreatableContent,
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="AbstractGuildedClient.DeleteChannelAsync(Guid)" />
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateChannelAsync(Guid, string?, string?, bool?)" />
+    /// <param name="name">A new name of the <see cref="ServerChannel">channel</see> (max — <c>100</c>)</param>
+    /// <param name="topic">A new topic describing what the <see cref="ServerChannel">channel</see> is about (max — <c>512</c>)</param>
+    /// <param name="isPublic">Whether the contents of the channel are publicly viewable</param>
     public Task<ServerChannel> UpdateAsync(string? name = null, string? topic = null, bool? isPublic = null) =>
         ParentClient.UpdateChannelAsync(Id, name, topic, isPublic);
 
