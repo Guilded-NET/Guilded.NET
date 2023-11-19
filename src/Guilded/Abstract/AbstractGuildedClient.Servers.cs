@@ -312,6 +312,7 @@ public abstract partial class AbstractGuildedClient
     /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
     /// <param name="colors">The new displayed colours of the <see cref="Role">role</see></param>
     /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
+    /// <param name="priority">The position of the <see cref="Role">role</see> in the <see cref="Server">server's</see> role list</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -319,7 +320,7 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="Permission.ManageRoles" />
     /// <returns>The <see cref="Role">role</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<Role> UpdateRoleAsync(HashId server, uint role, string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<uint>? colors = null, IList<Permission>? permissions = null)
+    public Task<Role> UpdateRoleAsync(HashId server, uint role, string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<uint>? colors = null, IList<Permission>? permissions = null, int? priority = null)
     {
         return GetResponsePropertyAsync<Role>(new RestRequest($"servers/{server}/roles/{role}", Method.Patch)
             .AddJsonBody(new
@@ -330,11 +331,12 @@ public abstract partial class AbstractGuildedClient
                 isMentionable,
                 colors,
                 permissions,
+                priority,
             })
         , "role");
     }
 
-    /// <inheritdoc cref="UpdateRoleAsync(HashId, uint, string?, bool?, bool?, bool?, IList{uint}?, IList{Permission}?)" />
+    /// <inheritdoc cref="UpdateRoleAsync(HashId, uint, string?, bool?, bool?, bool?, IList{uint}?, IList{Permission}?, int?)" />
     /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Group">group</see> will be updated</param>
     /// <param name="role">The identifier of the <see cref="Role">role</see> to update</param>
     /// <param name="name">The new name of the <see cref="Role">role</see></param>
@@ -343,7 +345,8 @@ public abstract partial class AbstractGuildedClient
     /// <param name="isMentionable">Whether the <see cref="Role">role</see> can be mentioned and its <see cref="Member">members</see> get pinged</param>
     /// <param name="colors">The new displayed colours of the <see cref="Role">role</see></param>
     /// <param name="permissions">The new <see cref="Permission">permissions</see> of the <see cref="Role">role</see></param>
-    public Task<Role> UpdateRoleAsync(HashId server, uint role, string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<Color>? colors = null, IList<Permission>? permissions = null) =>
+    /// <param name="priority">The position of the <see cref="Role">role</see> in the <see cref="Server">server's</see> role list</param>
+    public Task<Role> UpdateRoleAsync(HashId server, uint role, string? name = null, bool? isDisplayedSeparately = null, bool? isSelfAssignable = null, bool? isMentionable = null, IList<Color>? colors = null, IList<Permission>? permissions = null, int? priority = null) =>
         UpdateRoleAsync(server, role, name, isDisplayedSeparately, isSelfAssignable, isMentionable, colors?.Select(color => (uint)color.ToArgb()).ToList(), permissions);
 
     /// <summary>
