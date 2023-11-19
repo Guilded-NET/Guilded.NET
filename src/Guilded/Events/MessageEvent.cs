@@ -17,7 +17,7 @@ namespace Guilded.Events;
 /// <seealso cref="ItemEvent" />
 /// <seealso cref="DocEvent" />
 /// <seealso cref="ChannelEvent" />
-public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBased, IPrivatableContent, IModelHasId<Guid> where T : IModelHasId<Guid>, IGlobalContent, IChannelBased, IPrivatableContent
+public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBased, IPrivatableContent, IModelHasId<Guid> where T : Message
 {
     #region Properties
     /// <summary>
@@ -46,38 +46,15 @@ public abstract class MessageEvent<T> : ContentModel, IGlobalContent, IChannelBa
 
     /// <inheritdoc cref="Message.IsPrivate" />
     public bool IsPrivate => Message.IsPrivate;
-    #endregion
 
-    #region Constructors
-    /// <summary>
-    /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
-    /// </summary>
-    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message event occurred</param>
-    /// <param name="message">The message received from the event</param>
-    /// <returns>New <see cref="MessageEvent{T}" /> JSON instance</returns>
-    /// <seealso cref="MessageEvent{T}" />
-    protected MessageEvent(
-        HashId? serverId,
-
-        T message
-    ) =>
-        (ServerId, Message) = (serverId, message);
-    #endregion
-}
-
-/// <summary>
-/// Represents an event that occurs when someone creates or edits a <see cref="Message">message</see>.
-/// </summary>
-/// <seealso cref="MessageDeletedEvent" />
-/// <seealso cref="Message" />
-public class MessageEvent : MessageEvent<Message>, IReactibleContent
-{
-    #region Properties
     /// <inheritdoc cref="Message.Content" />
     public string? Content => Message.Content;
 
     /// <inheritdoc cref="Message.ReplyMessageIds" />
     public IList<Guid>? ReplyMessageIds => Message.ReplyMessageIds;
+
+    /// <inheritdoc cref="Message.HiddenUrls" />
+    public ISet<Uri>? HiddenUrls => Message.HiddenUrls;
 
     /// <inheritdoc cref="Message.Embeds" />
     public IList<Embed>? Embeds => Message.Embeds;
@@ -110,6 +87,30 @@ public class MessageEvent : MessageEvent<Message>, IReactibleContent
     public bool IsSystemMessage => Message.IsSystemMessage;
     #endregion
 
+    #region Constructors
+    /// <summary>
+    /// Initializes a new instance of <see cref="MessageEvent" /> from the specified JSON properties.
+    /// </summary>
+    /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the message event occurred</param>
+    /// <param name="message">The message received from the event</param>
+    /// <returns>New <see cref="MessageEvent{T}" /> JSON instance</returns>
+    /// <seealso cref="MessageEvent{T}" />
+    protected MessageEvent(
+        HashId? serverId,
+
+        T message
+    ) =>
+        (ServerId, Message) = (serverId, message);
+    #endregion
+}
+
+/// <summary>
+/// Represents an event that occurs when someone creates or edits a <see cref="Message">message</see>.
+/// </summary>
+/// <seealso cref="MessageDeletedEvent" />
+/// <seealso cref="Message" />
+public class MessageEvent : MessageEvent<Message>, IReactibleContent
+{
     #region Properties Events
     /// <inheritdoc cref="Message.Replied" />
     public IObservable<MessageEvent> Replied =>

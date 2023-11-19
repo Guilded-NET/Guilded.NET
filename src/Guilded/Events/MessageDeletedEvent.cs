@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Guilded.Base;
+using Guilded.Base.Embeds;
 using Guilded.Content;
 using Guilded.Servers;
+using Guilded.Users;
 using Newtonsoft.Json;
 
 namespace Guilded.Events;
@@ -42,49 +45,36 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
     /// </summary>
     /// <seealso cref="Message" />
     /// <seealso cref="MessageDeletedEvent" />
-    public class MessageDeleted : ContentModel, IModelHasId<Guid>, IPrivatableContent, IChannelBased, IGlobalContent
+    public class MessageDeleted : Message
     {
         #region Properties
-        /// <summary>
-        /// Gets the identifier of the <see cref="MessageDeleted">deleted message</see>.
-        /// </summary>
-        /// <value>The identifier of the <see cref="MessageDeleted">deleted message</see></value>
-        public Guid Id { get; }
-
-        /// <summary>
-        /// Gets the identifier of the <see cref="ServerChannel">channel</see> where the <see cref="MessageDeleted">deleted message</see> was.
-        /// </summary>
-        /// <value>The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="MessageDeleted">deleted message</see> was</value>
-        public Guid ChannelId { get; }
-
-        /// <summary>
-        /// Gets the identifier of the <see cref="Server">server</see> where the <see cref="MessageDeleted">deleted message</see> was.
-        /// </summary>
-        /// <value>The identifier of the <see cref="Server">server</see> where the <see cref="MessageDeleted">deleted message</see> was</value>
-        public HashId? ServerId { get; }
-
         /// <summary>
         /// Gets the date when the <see cref="MessageDeleted">message</see> was deleted.
         /// </summary>
         /// <value>The date when the <see cref="MessageDeleted">message</see> was deleted</value>
         public DateTime DeletedAt { get; }
-
-        /// <summary>
-        /// Gets whether the <see cref="MessageDeleted">deleted message</see> was a <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see>.
-        /// </summary>
-        /// <value>Whether the <see cref="MessageDeleted">deleted message</see> was a <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></value>
-        public bool IsPrivate { get; }
         #endregion
 
         #region Constructors
         /// <summary>
         /// Initializes a new instance of <see cref="MessageDeleted" /> from the specified JSON properties.
         /// </summary>
-        /// <param name="id">The identifier of the <see cref="MessageDeleted">deleted message</see></param>
-        /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="MessageDeleted">deleted message</see> was</param>
-        /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="MessageDeleted">deleted message</see> was</param>
-        /// <param name="isPrivate">Whether the <see cref="MessageDeleted">deleted message</see> was a <see cref="Message.IsPrivate">private mention</see> or a <see cref="Message.IsPrivate">private reply</see></param>
+        /// <param name="id">The identifier of the <see cref="Message">message</see></param>
+        /// <param name="channelId">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="Message">message</see> is</param>
+        /// <param name="serverId">The identifier of the <see cref="Server">server</see> where the <see cref="Message">message</see> is</param>
+        /// <param name="content">The text contents of the <see cref="Message">message</see></param>
+        /// <param name="replyMessageIds">The list of <see cref="Message">messages</see> that the current <see cref="Message">message</see> is replying to</param>
+        /// <param name="hiddenLinkPreviewUrls">The list of links that will not be <see cref="Embed">embeded</see> in the <see cref="Message">message</see></param>
+        /// <param name="embeds">The list of <see cref="Embed">custom embeds</see> that are part of the <see cref="Message">message's</see> contents</param>
+        /// <param name="isPrivate">Whether the reply or mention is private</param>
+        /// <param name="isSilent">Whether the reply or mention is silent and doesn't ping any user</param>
+        /// <param name="mentions">The <see cref="Mentions">mentions</see> found in the <see cref="Content">content</see></param>
+        /// <param name="createdBy">The identifier of <see cref="User">user</see> that created the message</param>
+        /// <param name="createdByWebhookId">The identifier of the <see cref="Webhook">webhook</see> that created the <see cref="Message">message</see></param>
+        /// <param name="createdAt">The date when the <see cref="Message">message</see> was created</param>
         /// <param name="deletedAt">The date when the <see cref="MessageDeleted">message</see> was deleted</param>
+        /// <param name="updatedAt">The date when the <see cref="Message">message</see> was edited</param>
+        /// <param name="type">The type of the <see cref="Message">message</see></param>
         /// <returns>New <see cref="MessageDeleted" /> JSON instance</returns>
         /// <seealso cref="MessageDeleted" />
         [JsonConstructor]
@@ -96,15 +86,48 @@ public class MessageDeletedEvent : MessageEvent<MessageDeletedEvent.MessageDelet
             Guid channelId,
 
             [JsonProperty(Required = Required.Always)]
+            HashId createdBy,
+
+            [JsonProperty(Required = Required.Always)]
+            DateTime createdAt,
+
+            [JsonProperty(Required = Required.Always)]
             DateTime deletedAt,
+
+            [JsonProperty(Required = Required.Always)]
+            MessageType type,
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
             HashId? serverId = null,
 
             [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-            bool isPrivate = false
-        ) =>
-            (Id, ChannelId, ServerId, DeletedAt, IsPrivate) = (id, channelId, serverId, deletedAt, isPrivate);
+            IList<Guid>? replyMessageIds = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            ISet<Uri>? hiddenLinkPreviewUrls = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            string? content = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            IList<Embed>? embeds = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            bool isPrivate = false,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            bool isSilent = false,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            Mentions? mentions = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            Guid? createdByWebhookId = null,
+
+            [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+            DateTime? updatedAt = null
+        ) : base(id, channelId, createdBy, createdAt, type, serverId, replyMessageIds, hiddenLinkPreviewUrls, content, embeds, isPrivate, isSilent, mentions, createdByWebhookId, updatedAt) =>
+            DeletedAt = deletedAt;
         #endregion
 
         #region Methods
