@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
+using Guilded.Permissions;
 using Guilded.Servers;
 using Newtonsoft.Json;
 
@@ -22,19 +23,25 @@ public class RoleEvent : IModelHasId<uint>, ICreationDated, IUpdatableContent, I
     /// Gets the <see cref="Servers.Role">role</see> received from the event.
     /// </summary>
     /// <value>The <see cref="Servers.Role">role</see> received from the event</value>
-    /// <seealso cref="GroupEvent" />
+    /// <seealso cref="RoleEvent" />
     /// <seealso cref="Name" />
     /// <seealso cref="Icon" />
     /// <seealso cref="ServerId" />
     public Role Role { get; }
+
+    /// <summary>
+    /// Gets the identifier of the <see cref="Servers.Server">server</see> where the event occurred.
+    /// </summary>
+    /// <value>The identifier of the <see cref="Servers.Server">server</see> where the event occurred</value>
+    /// <seealso cref="RoleEvent" />
+    /// <seealso cref="Role" />
+    /// <seealso cref="Id" />
+    public HashId ServerId { get; }
     #endregion
 
     #region Properties Additional
     /// <inheritdoc cref="Group.Id" />
     public uint Id => Role.Id;
-
-    /// <inheritdoc />
-    public HashId ServerId { get; }
 
     /// <inheritdoc cref="Role.BotUserId" />
     public HashId? BotUserId => Role.BotUserId;

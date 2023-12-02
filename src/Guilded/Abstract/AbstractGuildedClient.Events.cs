@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Guilded.Connection;
 using Guilded.Content;
 using Guilded.Events;
+using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
 
@@ -437,6 +438,242 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelDeleted" />
     /// <seealso cref="ChannelArchived" />
     public IObservable<ChannelEvent> ChannelRestored => ((IEventInfo<ChannelEvent>)GuildedEvents["ChannelRestored"]).Observable;
+    #endregion
+
+    #region Properties Role channel permissions
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerRolePermission">role permission override</see> is added to a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelRolePermissionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelRolePermissionEvent> ChannelRolePermissionCreated => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelRolePermissionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerRolePermission">role permission override</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelRolePermissionUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelRolePermissionEvent> ChannelRolePermissionUpdated => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelRolePermissionUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerRolePermission">role permission override</see> is removed from a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelRolePermissionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelRolePermissionEvent> ChannelRolePermissionDeleted => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelRolePermissionDeleted"]).Observable;
+    #endregion
+
+    #region Properties User channel permissions
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerUserPermission">user permission override</see> is added to a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelUserPermissionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelUserPermissionEvent> ChannelUserPermissionCreated => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerUserPermission">user permission override</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelUserPermissionUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelUserPermissionEvent> ChannelUserPermissionUpdated => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerUserPermission">user permission override</see> is removed from a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelUserPermissionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelUserPermissionEvent> ChannelUserPermissionDeleted => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionDeleted"]).Observable;
+    #endregion
+
+    #region Properties Role category permissions
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerRolePermission">role permission override</see> is added to a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelCategoryRolePermissionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<CategoryRolePermissionEvent> CategoryRolePermissionCreated => ((IEventInfo<CategoryRolePermissionEvent>)GuildedEvents["ChannelCategoryRolePermissionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerRolePermission">role permission override</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelCategoryRolePermissionUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<CategoryRolePermissionEvent> CategoryRolePermissionUpdated => ((IEventInfo<CategoryRolePermissionEvent>)GuildedEvents["ChannelCategoryRolePermissionUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerRolePermission">role permission override</see> is removed from a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelCategoryRolePermissionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    public IObservable<ChannelRolePermissionEvent> CategoryRolePermissionDeleted => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelCategoryRolePermissionDeleted"]).Observable;
+    #endregion
+
+    #region Properties User category permissions
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerUserPermission">user permission override</see> is added to a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelCategoryUserPermissionCreated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelUserPermissionEvent> CategoryUserPermissionCreated => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionCreated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerUserPermission">user permission override</see> is edited.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelCategoryUserPermissionUpdated</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionDeleted" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<ChannelUserPermissionEvent> CategoryUserPermissionUpdated => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionUpdated"]).Observable;
+
+    /// <summary>
+    /// Gets the <see cref="IObservable{T}">observable</see> for an event when a <see cref="IServerUserPermission">user permission override</see> is removed from a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <remarks>
+    /// <para>An event with the name <c>ChannelCategoryUserPermissionDeleted</c> and opcode <c>0</c>.</para>
+    /// </remarks>
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="CategoryUserPermissionCreated" />
+    /// <seealso cref="CategoryUserPermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionCreated" />
+    /// <seealso cref="CategoryRolePermissionUpdated" />
+    /// <seealso cref="CategoryRolePermissionDeleted" />
+    public IObservable<CategoryUserPermissionEvent> CategoryUserPermissionDeleted => ((IEventInfo<CategoryUserPermissionEvent>)GuildedEvents["ChannelCategoryUserPermissionDeleted"]).Observable;
     #endregion
 
     #region Properties Chat channels

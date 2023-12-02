@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Content;
+using Guilded.Permissions;
 using Guilded.Users;
 using RestSharp;
 

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
 using Guilded.Events;
+using Guilded.Permissions;
 using Guilded.Servers;
 using Newtonsoft.Json;
 

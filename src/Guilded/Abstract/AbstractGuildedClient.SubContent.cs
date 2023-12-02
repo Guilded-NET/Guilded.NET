@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Content;
+using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
 using RestSharp;

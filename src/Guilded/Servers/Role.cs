@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Client;
 using Guilded.Events;
+using Guilded.Permissions;
 using Newtonsoft.Json;
 
 namespace Guilded.Servers;

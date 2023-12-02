@@ -75,7 +75,7 @@ public class Member : MemberSummary<User>
 
     #region Constructors
     /// <summary>
-    /// Initializes a new instance of <see cref="Member" />f rom the specified JSON properties.
+    /// Initializes a new instance of <see cref="Member" /> from the specified JSON properties.
     /// </summary>
     /// <param name="user">The <see cref="User">user</see> who is a <see cref="Member">member</see> of the <see cref="Server">server</see></param>
     /// <param name="roleIds">The list of roles that the <see cref="Member">member</see> holds</param>

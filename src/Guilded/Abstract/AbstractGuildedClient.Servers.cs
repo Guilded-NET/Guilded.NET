@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Content;
+using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json.Linq;

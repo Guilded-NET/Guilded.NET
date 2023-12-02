@@ -16,7 +16,7 @@ public interface IChannel : IHasParentClient
     /// <summary>
     /// Gets the identifier of the <see cref="ServerChannel">channel</see>.
     /// </summary>
-    /// <value><see cref="Id">Channel ID</see></value>
+    /// <value>The identifier of the <see cref="ServerChannel">channel</see></value>
     /// <seealso cref="ServerChannel" />
     /// <seealso cref="ServerChannel.ParentId" />
     /// <seealso cref="ServerChannel.CategoryId" />
@@ -52,40 +52,43 @@ public interface IChatChannel : IChannel
     public Task<Message> CreateMessageAsync(MessageContent message) =>
         ParentClient.CreateMessageAsync(Id, message);
 
-    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, bool, bool)" />
+    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, ISet{Uri}?, bool, bool)" />
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
+    /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
-    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, IList<Guid>? replyTo = null, bool isPrivate = false, bool isSilent = false) =>
-        CreateMessageAsync(new MessageContent(content, embeds, replyTo, isPrivate, isSilent));
+    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, IList<Guid>? replyTo = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = false) =>
+        CreateMessageAsync(new MessageContent(content, embeds, replyTo, hiddenUrls, isPrivate, isSilent));
 
-    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, bool, bool)" />
+    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, ISet{Uri}?, bool, bool)" />
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
+    /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(string? content = null, IList<Guid>? replyTo = null, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
-        CreateMessageAsync(new MessageContent(content, embeds, replyTo, isPrivate, isSilent));
+    public Task<Message> CreateMessageAsync(string? content = null, IList<Guid>? replyTo = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        CreateMessageAsync(new MessageContent(content, embeds, replyTo, hiddenUrls, isPrivate, isSilent));
 
-    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, bool, bool)" />
+    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, ISet{Uri}?, bool, bool)" />
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
     /// <param name="isPrivate">Whether the mention is private</param>
     /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
     /// <param name="replyTo">The array of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
-    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
-        CreateMessageAsync(new MessageContent(content, embeds, replyTo, isPrivate, isSilent));
+    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
+        CreateMessageAsync(new MessageContent(content, embeds, replyTo, hiddenUrls, isPrivate, isSilent));
 
-    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, bool, bool)" />
+    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, ISet{Uri}?, bool, bool)" />
     /// <param name="content">The <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task<Message> CreateMessageAsync(string content, params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent(content, embeds));
 
-    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, bool, bool)" />
+    /// <inheritdoc cref="AbstractGuildedClient.CreateMessageAsync(Guid, string?, IList{Embed}?, IList{Guid}?, ISet{Uri}?, bool, bool)" />
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task<Message> CreateMessageAsync(params Embed[] embeds) =>
         CreateMessageAsync(new MessageContent(embeds));
@@ -100,7 +103,8 @@ public interface IChatChannel : IChannel
     /// <param name="message">The identifier of the <see cref="Message">message</see> to edit</param>
     /// <param name="content">The new <see cref="Message.Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The new <see cref="Embed">custom embeds</see> of the <see cref="Message">message</see> in Markdown (max — <c>1</c>)</param>
-    public Task<Message> UpdateMessageAsync(Guid message, string? content = null, IList<Embed>? embeds = null) =>
+    /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
+    public Task<Message> UpdateMessageAsync(Guid message, string? content = null, IList<Embed>? embeds = null, ISet<Uri>? hiddenUrls = null) =>
         UpdateMessageAsync(message, new MessageContent(content, embeds));
 
     /// <inheritdoc cref="AbstractGuildedClient.UpdateMessageAsync(Guid, Guid, MessageContent)" />
