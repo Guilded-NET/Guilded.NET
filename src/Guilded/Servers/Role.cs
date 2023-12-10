@@ -96,7 +96,7 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     /// <seealso cref="Name" />
     /// <seealso cref="Icon" />
     /// <seealso cref="Id" />
-    public uint Priority { get; }
+    public int Priority { get; }
 
     /// <summary>
     /// Gets the position of the <see cref="Role">role</see> in the <see cref="Server">server's</see> role list.
@@ -111,7 +111,7 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
     /// <seealso cref="Icon" />
     /// <seealso cref="Id" />
     [Obsolete($"Use {nameof(Priority)} instead")]
-    public uint Position => Priority;
+    public int Position => Priority;
     #endregion
 
     #region Properties Attributes
@@ -249,7 +249,7 @@ public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableC
         string name,
 
         [JsonProperty(Required = Required.Always)]
-        uint priority,
+        int priority,
 
         [JsonProperty(Required = Required.Always)]
         IList<Permission> permissions,

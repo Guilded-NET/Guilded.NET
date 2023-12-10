@@ -77,6 +77,25 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     public Uri? Banner => Me?.Banner;
     #endregion
 
+    #region Properties Events
+    /// <summary>
+    /// Gets the dictionary of Guilded events, their names and other event information.
+    /// </summary>
+    /// <remarks>
+    /// <para>You can add more events to this dictionary if Guilded.NET does not support certain events.</para>
+    /// </remarks>
+    /// <value>Dictionary of events</value>
+    /// <seealso cref="Welcome" />
+    /// <seealso cref="Resume" />
+    /// <seealso cref="MessageCreated" />
+    /// <seealso cref="WebhookCreated" />
+    /// <seealso cref="MemberJoined" />
+    /// <seealso cref="ChannelCreated" />
+    /// <seealso cref="ItemCreated" />
+    /// <seealso cref="DocCreated" />
+    protected Dictionary<object, IEventInfo<object>> GuildedEvents { get; set; }
+    #endregion
+
     #region Constructors
     /// <summary>
     /// Initializes a new base instance of <see cref="AbstractGuildedClient" /> children types.
@@ -283,6 +302,35 @@ public abstract partial class AbstractGuildedClient : BaseGuildedConnection
     #endregion
 
     #region Methods
+    /// <summary>
+    /// When the socket message event is invoked.
+    /// </summary>
+    /// <remarks>
+    /// <para>Receives and handles received <see cref="GuildedSocketMessage" /> messages.</para>
+    /// </remarks>
+    /// <param name="message">A message received from a WebSocket</param>
+    protected void OnSocketMessage(GuildedSocketMessage message)
+    {
+        try
+        {
+            object eventName = message.EventName ?? (object)message.Opcode;
+
+            // Checks if this event is supported by Guilded.NET
+            if (GuildedEvents.ContainsKey(eventName))
+            {
+                IEventInfo<object> ev = GuildedEvents[eventName];
+
+                object data = ev.Transform(ev.ArgumentType, GuildedSerializer, message);
+
+                ev.OnNext(data);
+            }
+        }
+        catch (Exception e)
+        {
+            _onWebsocketEventError.OnNext(e);
+        }
+    }
+
     private static void EnforceLimit(string name, string value, short limit)
     {
         if (value.Length > limit)

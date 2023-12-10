@@ -7,6 +7,7 @@ using Guilded.Base;
 using Guilded.Base.Embeds;
 using Guilded.Client;
 using Guilded.Events;
+using Guilded.Permissions;
 using Guilded.Servers;
 using Guilded.Users;
 using Newtonsoft.Json;

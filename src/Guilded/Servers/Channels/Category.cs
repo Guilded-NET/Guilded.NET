@@ -5,6 +5,7 @@ using Guilded.Base;
 using Guilded.Client;
 using Guilded.Content;
 using Guilded.Events;
+using Guilded.Permissions;
 using Newtonsoft.Json;
 
 namespace Guilded.Servers;

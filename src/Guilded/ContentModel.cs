@@ -25,7 +25,7 @@ public interface IHasParentClient
 /// Represents a base for Guilded models that require a <see cref="ParentClient">client</see>.
 /// </summary>
 /// <remarks>
-/// <para>This allows having methods like <see cref="Content.Message.CreateMessageAsync(string, IList{Embed}, IList{Guid}, bool, bool)" />, where it requires to call the parent client's methods.</para>
+/// <para>This allows having methods like <see cref="Content.Message.CreateMessageAsync(string, IList{Embed}, IList{Guid}, ISet{Uri}, bool, bool)" />, where it requires to call the parent client's methods.</para>
 /// </remarks>
 /// <seealso cref="AbstractGuildedClient" />
 public abstract class ContentModel : IHasParentClient
