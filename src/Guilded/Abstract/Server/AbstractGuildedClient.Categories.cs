@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Guilded.Base;
 using Guilded.Events;
 using Guilded.Permissions;
 using Guilded.Servers;
+using Guilded.Users;
 using RestSharp;
 
 namespace Guilded.Client;
@@ -244,5 +246,179 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageChannels" />
     public Task DeleteCategoryAsync(HashId server, uint category) =>
         ExecuteRequestAsync(new RestRequest($"servers/{server}/categories/{category}", Method.Delete));
+    #endregion
+
+    #region Methods Category role permissions
+    /// <summary>
+    /// Gets all of the specified <paramref name="category">category's</paramref> <see cref="CategoryRolePermission">role permissions</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to get <see cref="CategoryRolePermission">role permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryRolePermission">role permissions</see> in the <see cref="Category">category</see></returns>
+    public Task<IList<CategoryRolePermission>> GetCategoryRolePermissionsAsync(HashId server, uint category) =>
+        GetResponsePropertyAsync<IList<CategoryRolePermission>>(new RestRequest($"servers/{server}/categories/{category}/permissions/roles", Method.Get), "channelCategoryRolePermissions");
+
+    /// <summary>
+    /// Gets the <paramref name="category">category's</paramref> <see cref="CategoryRolePermission">permissions</see> of the specified of <see cref="Role">role</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to get <see cref="CategoryRolePermission">role permissions</see> of</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to get <see cref="CategoryRolePermission">category permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryRolePermission">permissions</see> of a <see cref="Role">role</see> in the <see cref="Category">category</see></returns>
+    public Task<CategoryRolePermission> GetCategoryRolePermissionAsync(HashId server, uint category, uint role) =>
+        GetResponsePropertyAsync<CategoryRolePermission>(new RestRequest($"servers/{server}/categories/{category}/permissions/roles/{role}", Method.Get), "channelCategoryRolePermission");
+
+    /// <summary>
+    /// Adds the <see cref="CategoryRolePermission">permissions</see> for the specified of <see cref="Role">role</see> in a <see cref="Category">category</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to add <see cref="CategoryRolePermission">role permissions</see> in</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to add <see cref="CategoryRolePermission">category permissions</see> to</param>
+    /// <param name="permissions">The dictionary of <see cref="CategoryRolePermission">role category permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryRolePermission">permissions</see> of a <see cref="Role">role</see> in the <see cref="Category">category</see></returns>
+    public Task<CategoryRolePermission> AddCategoryRolePermissionAsync(HashId server, uint category, uint role, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<CategoryRolePermission>(new RestRequest($"servers/{server}/categories/{category}/permissions/roles/{role}", Method.Post)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelCategoryRolePermission");
+
+    /// <summary>
+    /// Updates the <see cref="CategoryRolePermission">permissions</see> of the specified <see cref="Role">role</see> in a <see cref="Category">category</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> where the <see cref="CategoryRolePermission">role permissions</see> are</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to update <see cref="CategoryRolePermission">category permissions</see> of</param>
+    /// <param name="permissions">The dictionary of <see cref="CategoryRolePermission">role category permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryRolePermission">permissions</see> of a <see cref="Role">role</see> in the <see cref="Category">category</see></returns>
+    public Task<CategoryRolePermission> UpdateCategoryRolePermissionAsync(HashId server, uint category, uint role, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<CategoryRolePermission>(new RestRequest($"servers/{server}/categories/{category}/permissions/roles/{role}", Method.Patch)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelCategoryRolePermission");
+
+    /// <summary>
+    /// Removes <see cref="CategoryRolePermission">permissions</see> of the specified <see cref="Role">role</see> in a <see cref="Category">category</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> where the <see cref="CategoryRolePermission">role permissions</see> are</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to remove <see cref="CategoryRolePermission">category permissions</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    public Task RemoveCategoryRolePermissionAsync(HashId server, uint category, uint role) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/categories/{category}/permissions/roles/{role}", Method.Delete));
+    #endregion
+
+    #region Methods Category user permissions
+    /// <summary>
+    /// Gets all of the specified <paramref name="category">category's</paramref> <see cref="CategoryUserPermission">user permissions</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to get <see cref="CategoryUserPermission">user permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryUserPermission">user permissions</see> in the <see cref="Category">category</see></returns>
+    public Task<IList<CategoryUserPermission>> GetCategoryUserPermissionsAsync(HashId server, uint category) =>
+        GetResponsePropertyAsync<IList<CategoryUserPermission>>(new RestRequest($"servers/{server}/categories/{category}/permissions/users", Method.Get), "channelCategoryUserPermissions");
+
+    /// <summary>
+    /// Gets the <paramref name="category">category's</paramref> <see cref="CategoryUserPermission">permissions</see> of the specified of <see cref="User">user</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to get <see cref="CategoryUserPermission">user permissions</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="CategoryUserPermission">category permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryUserPermission">permissions</see> of a <see cref="User">user</see> in the <see cref="Category">category</see></returns>
+    public Task<CategoryUserPermission> GetCategoryUserPermissionAsync(HashId server, uint category, HashId user) =>
+        GetResponsePropertyAsync<CategoryUserPermission>(new RestRequest($"servers/{server}/categories/{category}/permissions/users/{user}", Method.Get), "channelCategoryUserPermission");
+
+    /// <summary>
+    /// Adds the <see cref="CategoryUserPermission">permissions</see> for the specified of <see cref="User">user</see> in a <see cref="Category">category</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> to add <see cref="CategoryUserPermission">user permissions</see> in</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to add <see cref="CategoryUserPermission">category permissions</see> to</param>
+    /// <param name="permissions">The dictionary of <see cref="CategoryUserPermission">user category permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryUserPermission">permissions</see> of a <see cref="User">user</see> in the <see cref="Category">category</see></returns>
+    public Task<CategoryUserPermission> AddCategoryUserPermissionAsync(HashId server, uint category, HashId user, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<CategoryUserPermission>(new RestRequest($"servers/{server}/categories/{category}/permissions/users/{user}", Method.Post)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelCategoryUserPermission");
+
+    /// <summary>
+    /// Updates the <see cref="CategoryUserPermission">permissions</see> of the specified <see cref="User">user</see> in a <see cref="Category">category</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> where the <see cref="CategoryUserPermission">user permissions</see> are</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to update <see cref="CategoryUserPermission">category permissions</see> of</param>
+    /// <param name="permissions">The dictionary of <see cref="CategoryUserPermission">user category permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="CategoryUserPermission">permissions</see> of a <see cref="User">user</see> in the <see cref="Category">category</see></returns>
+    public Task<CategoryUserPermission> UpdateCategoryUserPermissionAsync(HashId server, uint category, HashId user, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<CategoryUserPermission>(new RestRequest($"servers/{server}/categories/{category}/permissions/users/{user}", Method.Patch)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelCategoryUserPermission");
+
+    /// <summary>
+    /// Removes <see cref="CategoryUserPermission">permissions</see> of the specified <see cref="User">user</see> in a <see cref="Category">category</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
+    /// <param name="category">The identifier of the <see cref="Category">category</see> where the <see cref="CategoryUserPermission">user permissions</see> are</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="CategoryUserPermission">category permissions</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    public Task RemoveCategoryUserPermissionAsync(HashId server, uint category, HashId user) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/categories/{category}/permissions/users/{user}", Method.Delete));
     #endregion
 }

@@ -6,6 +6,7 @@ using Guilded.Content;
 using Guilded.Events;
 using Guilded.Permissions;
 using Guilded.Servers;
+using Guilded.Users;
 using RestSharp;
 
 namespace Guilded.Client;
@@ -120,12 +121,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelUserPermissionCreated" />
     /// <seealso cref="ChannelUserPermissionUpdated" />
     /// <seealso cref="ChannelUserPermissionDeleted" />
-    /// <seealso cref="CategoryUserPermissionCreated" />
-    /// <seealso cref="CategoryUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionDeleted" />
-    /// <seealso cref="CategoryRolePermissionCreated" />
-    /// <seealso cref="CategoryRolePermissionUpdated" />
-    /// <seealso cref="CategoryRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
     public IObservable<ChannelRolePermissionEvent> ChannelRolePermissionCreated => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelRolePermissionCreated"]).Observable;
 
     /// <summary>
@@ -139,12 +140,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelUserPermissionCreated" />
     /// <seealso cref="ChannelUserPermissionUpdated" />
     /// <seealso cref="ChannelUserPermissionDeleted" />
-    /// <seealso cref="CategoryUserPermissionCreated" />
-    /// <seealso cref="CategoryUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionDeleted" />
-    /// <seealso cref="CategoryRolePermissionCreated" />
-    /// <seealso cref="CategoryRolePermissionUpdated" />
-    /// <seealso cref="CategoryRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
     public IObservable<ChannelRolePermissionEvent> ChannelRolePermissionUpdated => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelRolePermissionUpdated"]).Observable;
 
     /// <summary>
@@ -158,12 +159,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelUserPermissionCreated" />
     /// <seealso cref="ChannelUserPermissionUpdated" />
     /// <seealso cref="ChannelUserPermissionDeleted" />
-    /// <seealso cref="CategoryUserPermissionCreated" />
-    /// <seealso cref="CategoryUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionDeleted" />
-    /// <seealso cref="CategoryRolePermissionCreated" />
-    /// <seealso cref="CategoryRolePermissionUpdated" />
-    /// <seealso cref="CategoryRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
     public IObservable<ChannelRolePermissionEvent> ChannelRolePermissionDeleted => ((IEventInfo<ChannelRolePermissionEvent>)GuildedEvents["ChannelRolePermissionDeleted"]).Observable;
     #endregion
 
@@ -179,12 +180,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelRolePermissionDeleted" />
     /// <seealso cref="ChannelUserPermissionUpdated" />
     /// <seealso cref="ChannelUserPermissionDeleted" />
-    /// <seealso cref="CategoryUserPermissionCreated" />
-    /// <seealso cref="CategoryUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionDeleted" />
-    /// <seealso cref="CategoryRolePermissionCreated" />
-    /// <seealso cref="CategoryRolePermissionUpdated" />
-    /// <seealso cref="CategoryRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
     public IObservable<ChannelUserPermissionEvent> ChannelUserPermissionCreated => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionCreated"]).Observable;
 
     /// <summary>
@@ -198,12 +199,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelRolePermissionDeleted" />
     /// <seealso cref="ChannelUserPermissionCreated" />
     /// <seealso cref="ChannelUserPermissionDeleted" />
-    /// <seealso cref="CategoryUserPermissionCreated" />
-    /// <seealso cref="CategoryUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionDeleted" />
-    /// <seealso cref="CategoryRolePermissionCreated" />
-    /// <seealso cref="CategoryRolePermissionUpdated" />
-    /// <seealso cref="CategoryRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
     public IObservable<ChannelUserPermissionEvent> ChannelUserPermissionUpdated => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionUpdated"]).Observable;
 
     /// <summary>
@@ -217,12 +218,12 @@ public abstract partial class AbstractGuildedClient
     /// <seealso cref="ChannelRolePermissionDeleted" />
     /// <seealso cref="ChannelUserPermissionCreated" />
     /// <seealso cref="ChannelUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionCreated" />
-    /// <seealso cref="CategoryUserPermissionUpdated" />
-    /// <seealso cref="CategoryUserPermissionDeleted" />
-    /// <seealso cref="CategoryRolePermissionCreated" />
-    /// <seealso cref="CategoryRolePermissionUpdated" />
-    /// <seealso cref="CategoryRolePermissionDeleted" />
+    /// <seealso cref="ChannelUserPermissionCreated" />
+    /// <seealso cref="ChannelUserPermissionUpdated" />
+    /// <seealso cref="ChannelUserPermissionDeleted" />
+    /// <seealso cref="ChannelRolePermissionCreated" />
+    /// <seealso cref="ChannelRolePermissionUpdated" />
+    /// <seealso cref="ChannelRolePermissionDeleted" />
     public IObservable<ChannelUserPermissionEvent> ChannelUserPermissionDeleted => ((IEventInfo<ChannelUserPermissionEvent>)GuildedEvents["ChannelUserPermissionDeleted"]).Observable;
     #endregion
 
@@ -241,9 +242,9 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedRequestException" />
     /// <exception cref="GuildedAuthorizationException" />
     /// <returns>The list of fetched <see cref="Webhook">webhooks</see> in the specified <paramref name="channel" /></returns>
-    public Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid? channel = null) =>
+    public Task<IList<Webhook>> GetWebhooksAsync(HashId server, Guid channel) =>
         GetResponsePropertyAsync<IList<Webhook>>(new RestRequest($"servers/{server}/webhooks", Method.Get)
-            .AddOptionalQuery("channelId", channel)
+            .AddOptionalQuery<Guid>("channelId", channel)
         , "webhooks");
 
     /// <summary>
@@ -425,5 +426,179 @@ public abstract partial class AbstractGuildedClient
     /// <permission cref="Permission.ManageChannels" />
     public Task DeleteChannelAsync(Guid channel) =>
         ExecuteRequestAsync(new RestRequest($"channels/{channel}", Method.Delete));
+    #endregion
+
+    #region Methods Channel role permissions
+    /// <summary>
+    /// Gets all of the specified <paramref name="channel">channel's</paramref> <see cref="ChannelRolePermission">role permissions</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get <see cref="ChannelRolePermission">role permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelRolePermission">role permissions</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<IList<ChannelRolePermission>> GetChannelRolePermissionsAsync(HashId server, Guid channel) =>
+        GetResponsePropertyAsync<IList<ChannelRolePermission>>(new RestRequest($"servers/{server}/channels/{channel}/permissions/roles", Method.Get), "channelRolePermissions");
+
+    /// <summary>
+    /// Gets the <paramref name="channel">channel's</paramref> <see cref="ChannelRolePermission">permissions</see> of the specified of <see cref="Role">role</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get <see cref="ChannelRolePermission">role permissions</see> of</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to get <see cref="ChannelRolePermission">channel permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelRolePermission">permissions</see> of a <see cref="Role">role</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<ChannelRolePermission> GetChannelRolePermissionAsync(HashId server, Guid channel, uint role) =>
+        GetResponsePropertyAsync<ChannelRolePermission>(new RestRequest($"servers/{server}/channels/{channel}/permissions/roles/{role}", Method.Get), "channelRolePermission");
+
+    /// <summary>
+    /// Adds the <see cref="ChannelRolePermission">permissions</see> for the specified of <see cref="Role">role</see> in a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to add <see cref="ChannelRolePermission">role permissions</see> in</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to add <see cref="ChannelRolePermission">channel permissions</see> to</param>
+    /// <param name="permissions">The dictionary of <see cref="ChannelRolePermission">role channel permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelRolePermission">permissions</see> of a <see cref="Role">role</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<ChannelRolePermission> AddChannelRolePermissionAsync(HashId server, Guid channel, uint role, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<ChannelRolePermission>(new RestRequest($"servers/{server}/channels/{channel}/permissions/roles/{role}", Method.Post)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelRolePermission");
+
+    /// <summary>
+    /// Updates the <see cref="ChannelRolePermission">permissions</see> of the specified <see cref="Role">role</see> in a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ChannelRolePermission">role permissions</see> are</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to update <see cref="ChannelRolePermission">channel permissions</see> of</param>
+    /// <param name="permissions">The dictionary of <see cref="ChannelRolePermission">role channel permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelRolePermission">permissions</see> of a <see cref="Role">role</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<ChannelRolePermission> UpdateChannelRolePermissionAsync(HashId server, Guid channel, uint role, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<ChannelRolePermission>(new RestRequest($"servers/{server}/channels/{channel}/permissions/roles/{role}", Method.Patch)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelRolePermission");
+
+    /// <summary>
+    /// Removes <see cref="ChannelRolePermission">permissions</see> of the specified <see cref="Role">role</see> in a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ChannelRolePermission">role permissions</see> are</param>
+    /// <param name="role">The identifier of the <see cref="Role">role</see> to remove <see cref="ChannelRolePermission">channel permissions</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    public Task RemoveChannelRolePermissionAsync(HashId server, Guid channel, uint role) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/channels/{channel}/permissions/roles/{role}", Method.Delete));
+    #endregion
+
+    #region Methods Channel user permissions
+    /// <summary>
+    /// Gets all of the specified <paramref name="channel">channel's</paramref> <see cref="ChannelUserPermission">user permissions</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get <see cref="ChannelUserPermission">user permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelUserPermission">user permissions</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<IList<ChannelUserPermission>> GetChannelUserPermissionsAsync(HashId server, Guid channel) =>
+        GetResponsePropertyAsync<IList<ChannelUserPermission>>(new RestRequest($"servers/{server}/channels/{channel}/permissions/users", Method.Get), "channelUserPermissions");
+
+    /// <summary>
+    /// Gets the <paramref name="channel">channel's</paramref> <see cref="ChannelUserPermission">permissions</see> of the specified of <see cref="User">user</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to get <see cref="ChannelUserPermission">user permissions</see> of</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to get <see cref="ChannelUserPermission">channel permissions</see> of</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelUserPermission">permissions</see> of a <see cref="User">user</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<ChannelUserPermission> GetChannelUserPermissionAsync(HashId server, Guid channel, HashId user) =>
+        GetResponsePropertyAsync<ChannelUserPermission>(new RestRequest($"servers/{server}/channels/{channel}/permissions/users/{user}", Method.Get), "channelUserPermission");
+
+    /// <summary>
+    /// Adds the <see cref="ChannelUserPermission">permissions</see> for the specified of <see cref="User">user</see> in a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> to add <see cref="ChannelUserPermission">user permissions</see> in</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to add <see cref="ChannelUserPermission">channel permissions</see> to</param>
+    /// <param name="permissions">The dictionary of <see cref="ChannelUserPermission">user channel permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelUserPermission">permissions</see> of a <see cref="User">user</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<ChannelUserPermission> AddChannelUserPermissionAsync(HashId server, Guid channel, HashId user, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<ChannelUserPermission>(new RestRequest($"servers/{server}/channels/{channel}/permissions/users/{user}", Method.Post)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelUserPermission");
+
+    /// <summary>
+    /// Updates the <see cref="ChannelUserPermission">permissions</see> of the specified <see cref="User">user</see> in a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ChannelUserPermission">user permissions</see> are</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to update <see cref="ChannelUserPermission">channel permissions</see> of</param>
+    /// <param name="permissions">The dictionary of <see cref="ChannelUserPermission">user channel permissions</see> to enable or disable (null — inherit, true — enabled, false — disabled)</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    /// <returns>The fetched <see cref="ChannelUserPermission">permissions</see> of a <see cref="User">user</see> in the <see cref="ServerChannel">channel</see></returns>
+    public Task<ChannelUserPermission> UpdateChannelUserPermissionAsync(HashId server, Guid channel, HashId user, IDictionary<Permission, bool?> permissions) =>
+        GetResponsePropertyAsync<ChannelUserPermission>(new RestRequest($"servers/{server}/channels/{channel}/permissions/users/{user}", Method.Patch)
+            .AddJsonBody(new
+            {
+                permissions
+            })
+        , "channelUserPermission");
+
+    /// <summary>
+    /// Removes <see cref="ChannelUserPermission">permissions</see> of the specified <see cref="User">user</see> in a <see cref="ServerChannel">channel</see>.
+    /// </summary>
+    /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="ServerChannel">channel</see> is</param>
+    /// <param name="channel">The identifier of the <see cref="ServerChannel">channel</see> where the <see cref="ChannelUserPermission">user permissions</see> are</param>
+    /// <param name="user">The identifier of the <see cref="User">user</see> to remove <see cref="ChannelUserPermission">channel permissions</see> from</param>
+    /// <exception cref="GuildedException" />
+    /// <exception cref="GuildedPermissionException" />
+    /// <exception cref="GuildedResourceException" />
+    /// <exception cref="GuildedRequestException" />
+    /// <exception cref="GuildedAuthorizationException" />
+    public Task RemoveChannelUserPermissionAsync(HashId server, Guid channel, HashId user) =>
+        ExecuteRequestAsync(new RestRequest($"servers/{server}/channels/{channel}/permissions/users/{user}", Method.Delete));
     #endregion
 }
