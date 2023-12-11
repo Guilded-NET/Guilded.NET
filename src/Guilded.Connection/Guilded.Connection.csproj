@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Product>Guilded.NET Connection</Product>
-    <Version>1.1.3</Version>
+    <Version>1.7.0</Version>
     <Description>WebSocket/Connection base on top of Guilded.Base package</Description>
     <RepositoryUrl>https://github.com/Guilded-NET/Guilded.NET</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -44,7 +44,7 @@
 
   <!-- For NuGet package -->
   <ItemGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PackageReference Include="Guilded.Base" Version="1.1.0" />
+    <PackageReference Include="Guilded.Base" Version="1.7.0" />
   </ItemGroup>
 
   <!-- Files to include in Guilded.NET.Base -->
