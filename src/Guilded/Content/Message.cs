@@ -409,8 +409,8 @@ public class Message :
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
-    /// <param name="isPrivate">Whether the mention is private</param>
-    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
+    /// <param name="isPrivate">Whether the reply or mention is private</param>
+    /// <param name="isSilent">Whether the reply or mention is silent and does not ping anyone</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, IList<Guid>? replyTo = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = false) =>
         ParentClient.CreateMessageAsync(ChannelId, content, embeds, replyTo, hiddenUrls, isPrivate, isSilent);
@@ -422,10 +422,10 @@ public class Message :
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
-    /// <param name="isPrivate">Whether the mention is private</param>
-    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
+    /// <param name="isPrivate">Whether the reply or mention is private</param>
+    /// <param name="isSilent">Whether the reply or mention is silent and does not ping anyone</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(string? content = null, IList<Guid>? replyTo = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+    public Task<Message> CreateMessageAsync(string? content, IList<Guid>? replyTo, ISet<Uri>? hiddenUrls, bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
         ParentClient.CreateMessageAsync(ChannelId, content, embeds, replyTo, hiddenUrls, isPrivate, isSilent);
 
     /// <inheritdoc cref="CreateMessageAsync(MessageContent)" />
@@ -435,10 +435,10 @@ public class Message :
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="replyTo">The list of all <see cref="Message">messages</see> it is replying to (max — <c>5</c>)</param>
     /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
-    /// <param name="isPrivate">Whether the reply is private</param>
-    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
+    /// <param name="isPrivate">Whether the reply or mention is private</param>
+    /// <param name="isSilent">Whether the reply or mention is silent and does not ping anyone</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(string? content = null, IList<Embed>? embeds = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
+    public Task<Message> CreateMessageAsync(string? content, IList<Embed>? embeds, ISet<Uri>? hiddenUrls, bool isPrivate = false, bool isSilent = false, params Guid[] replyTo) =>
         ParentClient.CreateMessageAsync(ChannelId, content, embeds, replyTo, hiddenUrls, isPrivate, isSilent);
 
     /// <inheritdoc cref="CreateMessageAsync(MessageContent)" />
@@ -447,13 +447,20 @@ public class Message :
     /// </remarks>
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> CreateMessageAsync(string content, params Embed[] embeds) =>
+    public Task<Message> CreateMessageAsync(string? content, params Embed[] embeds) =>
         ParentClient.CreateMessageAsync(ChannelId, content, embeds);
 
     /// <inheritdoc cref="CreateMessageAsync(MessageContent)" />
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task<Message> CreateMessageAsync(params Embed[] embeds) =>
         ParentClient.CreateMessageAsync(ChannelId, embeds);
+
+    /// <inheritdoc cref="CreateMessageAsync(MessageContent)" />
+    /// <param name="isPrivate">Whether the mention is private</param>
+    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task<Message> CreateMessageAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        ParentClient.CreateMessageAsync(ChannelId, isPrivate, isSilent, embeds);
     #endregion
 
     #region Methods ReplyAsync
@@ -466,8 +473,8 @@ public class Message :
     /// </remarks>
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
-    /// <param name="isPrivate">Whether the mention is private</param>
-    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
+    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
     /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
@@ -487,31 +494,54 @@ public class Message :
 
     /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
-    /// <param name="isPrivate">Whether the mention is private</param>
-    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
-    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> ReplyAsync(string? content = null, bool isPrivate = false, bool isSilent = true, params Embed[] embeds) =>
+    /// <param name="embeds">The list of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
+    public Task<Message> ReplyAsync(string? content, IList<Embed> embeds, bool isPrivate, bool isSilent) =>
         CreateMessageAsync(content, embeds, new Guid[] { Id }, null, isPrivate, isSilent);
 
     /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
-    /// <param name="isPrivate">Whether the mention is private</param>
-    /// <param name="isSilent">Whether the mention is silent and does not ping anyone</param>
+    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
+    public Task<Message> ReplyAsync(string? content, ISet<Uri> hiddenUrls, bool isPrivate, bool isSilent) =>
+        CreateMessageAsync(content, null, new Guid[] { Id }, hiddenUrls, isPrivate, isSilent);
+
+    /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
+    /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> ReplyAsync(string? content = null, ISet<Uri>? hiddenUrls = null, bool isPrivate = false, bool isSilent = true, params Embed[] embeds) =>
+    public Task<Message> ReplyAsync(string? content, bool isPrivate = false, bool isSilent = true, params Embed[] embeds) =>
+        CreateMessageAsync(content, embeds, new Guid[] { Id }, null, isPrivate, isSilent);
+
+    /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
+    /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
+    /// <param name="hiddenUrls">The <see cref="Uri">URLs</see> that will not have <see cref="Embed">link embeds</see></param>
+    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task<Message> ReplyAsync(string? content, ISet<Uri> hiddenUrls, bool isPrivate = false, bool isSilent = true, params Embed[] embeds) =>
         CreateMessageAsync(content, embeds, new Guid[] { Id }, hiddenUrls, isPrivate, isSilent);
 
     /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
     /// <param name="content">The <see cref="Content">text contents</see> of the <see cref="Message">message</see> in Markdown (max — <c>4000</c>)</param>
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
-    public Task<Message> ReplyAsync(string content, params Embed[] embeds) =>
+    public Task<Message> ReplyAsync(string? content, params Embed[] embeds) =>
         CreateMessageAsync(content, embeds, new Guid[] { Id });
 
     /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
     /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
     public Task<Message> ReplyAsync(params Embed[] embeds) =>
         CreateMessageAsync(null, embeds, replyTo: new Guid[] { Id });
+
+    /// <inheritdoc cref="ReplyAsync(string, IList{Embed}, ISet{Uri}, bool, bool)" />
+    /// <param name="isPrivate">Whether the reply is private</param>
+    /// <param name="isSilent">Whether the reply is silent and does not ping anyone</param>
+    /// <param name="embeds">The array of all <see cref="Embed">custom embeds</see> in the <see cref="Message">message</see> (max — <c>1</c>)</param>
+    public Task<Message> ReplyAsync(bool isPrivate = false, bool isSilent = false, params Embed[] embeds) =>
+        CreateMessageAsync(null, embeds, replyTo: new Guid[] { Id }, null, isPrivate, isSilent);
     #endregion
 
     #region Methods UpdateAsync

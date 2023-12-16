@@ -53,6 +53,6 @@ public class DecimalColorConverter : JsonConverter
     /// <param name="objectType">The type of object that potentially can be converted</param>
     /// <returns>Type can be converted</returns>
     public override bool CanConvert(Type objectType) =>
-        objectType == colour;
+        (Nullable.GetUnderlyingType(objectType) ?? objectType) == colour;
     #endregion
 }

@@ -91,20 +91,20 @@ public class GuildedException : Exception
     /// <seealso cref="GuildedException(string, string, RestResponse)" />
     public GuildedException(string message, Exception inner) : base(message, inner) { }
 
-    /// <summary>
-    /// Initializes a new instance of <see cref="GuildedException" /> with serialization information.
-    /// </summary>
-    /// <param name="info">The information about serialization that errored</param>
-    /// <param name="context">The streaming context of the serialization</param>
-    /// <returns>New message-only <see cref="GuildedException">Guilded exception</see> instance</returns>
-    /// <seealso cref="GuildedException" />
-    /// <seealso cref="GuildedException()" />
-    /// <seealso cref="GuildedException(string)" />
-    /// <seealso cref="GuildedException(string, Exception)" />
-    /// <seealso cref="GuildedException(string, string, RestResponse)" />
-    protected GuildedException(
-        SerializationInfo info,
-        StreamingContext context) : base(info, context) { }
+    // /// <summary>
+    // /// Initializes a new instance of <see cref="GuildedException" /> with serialization information.
+    // /// </summary>
+    // /// <param name="info">The information about serialization that errored</param>
+    // /// <param name="context">The streaming context of the serialization</param>
+    // /// <returns>New message-only <see cref="GuildedException">Guilded exception</see> instance</returns>
+    // /// <seealso cref="GuildedException" />
+    // /// <seealso cref="GuildedException()" />
+    // /// <seealso cref="GuildedException(string)" />
+    // /// <seealso cref="GuildedException(string, Exception)" />
+    // /// <seealso cref="GuildedException(string, string, RestResponse)" />
+    // protected GuildedException(
+    //     SerializationInfo info,
+    //     StreamingContext context) : base(info, context) { }
     #endregion
 
     #region Methods
