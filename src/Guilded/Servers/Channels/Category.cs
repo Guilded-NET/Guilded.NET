@@ -138,10 +138,11 @@ public class Category : ContentModel, IServerBased, IModelHasId<uint>
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateCategoryAsync(HashId, uint, string)" />
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateCategoryAsync(HashId, uint, string?, int?)" />
     /// <param name="name">A new name of the <see cref="Category">category</see> (max — <c>100</c>)</param>
-    public Task<Category> UpdateAsync(string name) =>
-        ParentClient.UpdateCategoryAsync(ServerId, Id, name);
+    /// <param name="priority">A new position of the <see cref="Category">category</see> (max — <c>100</c>)</param>
+    public Task<Category> UpdateAsync(string? name = null, int? priority = null) =>
+        ParentClient.UpdateCategoryAsync(ServerId, Id, name, priority);
 
     /// <inheritdoc cref="AbstractGuildedClient.DeleteCategoryAsync(HashId, uint)" />
     public Task DeleteAsync() =>

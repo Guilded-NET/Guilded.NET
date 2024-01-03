@@ -214,6 +214,7 @@ public abstract partial class AbstractGuildedClient
     /// <param name="server">The identifier of the <see cref="Server">server</see> where the <see cref="Category">category</see> is</param>
     /// <param name="category">The identifier of the <see cref="Category">category</see> to update</param>
     /// <param name="name">A new name of the <see cref="Category">category</see> (max — <c>100</c>)</param>
+    /// <param name="priority">A new position of the <see cref="Category">category</see> (max — <c>100</c>)</param>
     /// <exception cref="GuildedException" />
     /// <exception cref="GuildedPermissionException" />
     /// <exception cref="GuildedResourceException" />
@@ -221,14 +222,15 @@ public abstract partial class AbstractGuildedClient
     /// <exception cref="GuildedAuthorizationException" />
     /// <permission cref="Permission.ManageChannels" />
     /// <returns>The <see cref="Category">category</see> that was updated by the <see cref="AbstractGuildedClient">client</see></returns>
-    public Task<Category> UpdateCategoryAsync(HashId server, uint category, string name)
+    public Task<Category> UpdateCategoryAsync(HashId server, uint category, string? name = null, int? priority = null)
     {
-        EnforceLimit(nameof(name), name, ServerChannel.NameLimit);
+        EnforceLimitOnNullable(nameof(name), name, ServerChannel.NameLimit);
 
         return GetResponsePropertyAsync<Category>(new RestRequest($"servers/{server}/categories/{category}", Method.Patch)
             .AddJsonBody(new
             {
                 name,
+                priority,
             })
         , "category");
     }

@@ -1,5 +1,6 @@
 # v1.7.0
 
+-   Added the ability to use `Member`, `Role` and `ServerChannel`, as well as being able to parse through mentions
 -   Added `member.GetPermissionsAsync()` method
 -   Added message threading
 -   Added supports for categories
