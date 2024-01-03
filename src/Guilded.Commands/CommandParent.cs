@@ -6,6 +6,8 @@ using System.Reactive.Subjects;
 using System.Reflection;
 using System.Threading.Tasks;
 using Guilded.Commands.Items;
+using Guilded.Commands.Utils;
+using Guilded.Servers;
 
 namespace Guilded.Commands;
 
@@ -76,9 +78,7 @@ public abstract class CommandParent
         Commands = CommandUtil.GetCommandsOf(GetType()).OrderBy(command => command is CommandContainer);
     #endregion
 
-    #region Methods
-
-    #region Invokation
+    #region Methods Invokation
     /// <summary>
     /// Invokes any of the command's <see cref="Commands">sub-commands</see>.
     /// </summary>
@@ -91,7 +91,7 @@ public abstract class CommandParent
         if (string.IsNullOrEmpty(arguments))
         {
             // Command index
-            onFailedCommand.OnNext(new FailedCommandEvent(context, usedBaseName, context.Configuration.SplitWithConfig(arguments), FallbackType.Unspecified));
+            onFailedCommand.OnNext(new FailedCommandEvent(context, usedBaseName, arguments, FallbackType.Unspecified));
             return false;
         }
 
@@ -124,7 +124,7 @@ public abstract class CommandParent
         // Can't find it
         if (!commandsByName.Any())
         {
-            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, rootInvokation.Configuration.SplitWithConfig(arguments), FallbackType.NoCommandFound));
+            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.NoCommandFound));
             return false;
         }
 
@@ -137,11 +137,16 @@ public abstract class CommandParent
 
         if (!filteredSubCommands.Any())
         {
-            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, rootInvokation.Configuration.SplitWithConfig(arguments), FallbackType.BadArgumentCount));
+            onFailedCommand.OnNext(new FailedCommandEvent(rootInvokation, commandName, arguments, FallbackType.BadArgumentCount));
             return false;
         }
 
-        List<AbstractCommandArgument> badArguments = new();
+        List<AbstractCommandArgument> badArguments = [];
+
+        // Fill in required count of members, channels, roles for arguments from message mentions
+        var maxFetchRequired = CommandArgumentUtil.GetMaxNumbersOfFetchableArguments(filteredSubCommands);
+
+        await rootInvokation.FetchRequiredArgumentsAsync(maxFetchRequired);
 
         // Wait for one of them to be correctly invoked
         foreach (ICommand<MemberInfo> filteredCommand in filteredSubCommands)
@@ -155,11 +160,9 @@ public abstract class CommandParent
             {
                 Command command = (Command)filteredCommand;
 
-                string[] splitArgs = arguments.Split(rootInvokation.Configuration.Separators, command.Arguments.Length, rootInvokation.Configuration.SplitOptions);
-
-                if (command.GenerateMethodParameters(rootInvokation.Configuration, splitArgs, out List<object?> commandArgs, out AbstractCommandArgument? badArgument))
+                if (command.GenerateMethodParameters(rootInvokation, arguments, out List<object?> commandArgs, out AbstractCommandArgument? badArgument))
                 {
-                    await InvokeCommandAsync(command, rootInvokation, commandName, splitArgs, commandArgs).ConfigureAwait(false);
+                    await InvokeCommandAsync(command, rootInvokation, commandName, arguments, commandArgs).ConfigureAwait(false);
                     return true;
                 }
                 else
@@ -169,7 +172,7 @@ public abstract class CommandParent
             }
         }
 
-        onFailedCommand.OnNext(new BadCommandArgumentEvent(rootInvokation, commandName, rootInvokation.Configuration.SplitWithConfig(arguments), badArguments));
+        onFailedCommand.OnNext(new BadCommandArgumentEvent(rootInvokation, commandName, arguments, badArguments));
 
         return false;
     }
@@ -182,7 +185,7 @@ public abstract class CommandParent
     /// <param name="commandName">The used name of the invoking <paramref name="command" /></param>
     /// <param name="rawArguments">The unparsed arguments that were given to the command</param>
     /// <param name="arguments">The parsed arguments that were given to the command</param>
-    protected virtual Task InvokeCommandAsync(Command command, RootCommandEvent rootInvokation, string commandName, IEnumerable<string> rawArguments, IEnumerable<object?> arguments)
+    protected virtual Task InvokeCommandAsync(Command command, RootCommandEvent rootInvokation, string commandName, string rawArguments, IEnumerable<object?> arguments)
     {
         CommandEvent commandInvokation = new(rootInvokation, commandName, rawArguments);
 
@@ -199,7 +202,5 @@ public abstract class CommandParent
     /// <param name="count">The count of split arguments in the command used</param>
     protected virtual Task InvokeCommandAsync(CommandContainer command, RootCommandEvent rootInvokation, string commandName, string arguments, int count) =>
         command.Instance.InvokeAsync(commandName, rootInvokation, arguments, count);
-    #endregion
-
     #endregion
 }

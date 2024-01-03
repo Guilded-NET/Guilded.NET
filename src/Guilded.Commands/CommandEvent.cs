@@ -81,7 +81,7 @@ public class CommandEvent : MessageEvent, IHasParentClient
     /// <seealso cref="CommandName" />
     /// <seealso cref="RootArguments" />
     /// <seealso cref="Prefix" />
-    public IEnumerable<string> Arguments { get; }
+    public string Arguments { get; }
 
     /// <inheritdoc cref="RootCommandEvent.AdditionalContext" />
     public object? AdditionalContext => RootCommand.AdditionalContext;
@@ -94,7 +94,7 @@ public class CommandEvent : MessageEvent, IHasParentClient
     /// <param name="context">The the root-level command that was used</param>
     /// <param name="commandName">The name of the command that was used</param>
     /// <param name="arguments">The array of string arguments that were given to the command</param>
-    public CommandEvent(RootCommandEvent context, string commandName, IEnumerable<string> arguments) : base(context.MessageEvent.Message, context.MessageEvent.ServerId) =>
+    public CommandEvent(RootCommandEvent context, string commandName, string arguments) : base(context.MessageEvent.Message, context.MessageEvent.ServerId) =>
         (RootCommand, CommandName, Arguments, ParentClient) = (context, commandName, arguments, context.MessageEvent.ParentClient);
     #endregion
 }

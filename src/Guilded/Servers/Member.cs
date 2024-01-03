@@ -71,6 +71,15 @@ public class Member : MemberSummary<User>
 
     /// <inheritdoc cref="User.Banner" />
     public Uri? Banner => User.Banner;
+
+    /// <summary>
+    /// Gets the <see cref="Nickname">nickname</see> or the <see cref="MemberSummary{T}.Name">name</see> of the <see cref="Member">member</see>.
+    /// </summary>
+    /// <value>The <see cref="Nickname">nickname</see> or the <see cref="MemberSummary{T}.Name">name</see> of the <see cref="Member">member</see></value>
+    /// <seealso cref="Member" />
+    /// <seealso cref="Nickname" />
+    /// <seealso cref="MemberSummary{T}.Name" />
+    public string DisplayName => Nickname ?? Name;
     #endregion
 
     #region Constructors

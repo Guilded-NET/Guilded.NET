@@ -17,7 +17,7 @@ namespace Guilded.Servers;
 /// <seealso cref="Member" />
 /// <seealso cref="MemberBan" />
 /// <seealso cref="Permission" />
-public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableContent, IServerBased
+public class Role : ContentModel, IModelHasId<uint>, ICreationDated, IUpdatableContent, IServerBased, IModelHasName
 {
     #region Properties Identification
     /// <summary>

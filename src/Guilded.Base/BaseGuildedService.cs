@@ -129,8 +129,6 @@ public abstract class BaseGuildedService : IDisposable
         using StringWriter strWriter = new();
         using JsonWriter writer = new JsonTextWriter(strWriter);
 
-        Console.WriteLine("Serializing");
-
         GuildedSerializer!.Serialize(writer, obj);
         return strWriter.ToString();
     }
@@ -149,8 +147,6 @@ public abstract class BaseGuildedService : IDisposable
     {
         using StringReader strReader = new(json);
         using JsonReader reader = new JsonTextReader(strReader);
-
-        Console.WriteLine("Deserializing");
 
         return GuildedSerializer.Deserialize<T>(reader);
     }

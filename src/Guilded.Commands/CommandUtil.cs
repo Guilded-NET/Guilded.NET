@@ -73,7 +73,7 @@ internal static class CommandUtil
                 ?? throw new MemberAccessException($"Could not find public constructor with no parameters in type {type}");
 
         // Create instance of it and let it all handle other stuff
-        CommandBase instance = (CommandBase)invokableConstructor.Invoke(Array.Empty<object>());
+        CommandBase instance = (CommandBase)invokableConstructor.Invoke([]);
 
         // Additional methods like not enough arguments, etc.
         SubscribeToFailedCommands(instance, type);

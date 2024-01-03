@@ -6,6 +6,8 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Guilded.Base;
+using Guilded.Commands.Utils;
+using Guilded.Servers;
 
 namespace Guilded.Commands.Items;
 
@@ -15,20 +17,21 @@ namespace Guilded.Commands.Items;
 public class Command : AbstractCommand<MethodInfo>
 {
     #region Static
-    private static readonly Type[] s_allowedTypes = new Type[]
-    {
+    private static readonly Type[] s_allowedTypes =
+    [
         typeof(string), typeof(bool), typeof(int), typeof(long),
         typeof(short), typeof(sbyte), typeof(uint), typeof(ulong),
         typeof(ushort), typeof(byte), typeof(float), typeof(double),
-        typeof(decimal), typeof(char), typeof(DateTime), typeof(TimeSpan),
+        typeof(decimal), typeof(char),  typeof(Member), typeof(Role), typeof(ServerChannel),
+        typeof(DateTime), typeof(TimeSpan),
         typeof(Guid), typeof(HashId), typeof(Uri),
         typeof(string[]), typeof(Match), typeof(MatchCollection)
-    };
+    ];
 
-    private static readonly Type[] s_allowedRestTypes = new Type[]
-    {
+    private static readonly Type[] s_allowedRestTypes =
+    [
         typeof(string[]), typeof(string), typeof(Match), typeof(MatchCollection)
-    };
+    ];
     #endregion
 
     #region Properties
@@ -48,7 +51,25 @@ public class Command : AbstractCommand<MethodInfo>
     /// Gets the count of total mandatory <see cref="CommandParamAttribute">command arguments</see>.
     /// </summary>
     /// <value>The count of total mandatory <see cref="CommandParamAttribute">command arguments</see></value>
-    public int RequiredCount { get; private set; }
+    internal int RequiredCount { get; private set; }
+
+    /// <summary>
+    /// Gets the count of how many arguments require fetching <see cref="Member">member's</see> information.
+    /// </summary>
+    /// <value>The count of how many arguments require fetching <see cref="Member">member's</see> information</value>
+    internal int MemberArgumentCount { get; private set; }
+
+    /// <summary>
+    /// Gets the count of how many arguments require fetching <see cref="ServerChannel">server channel's</see> information.
+    /// </summary>
+    /// <value>The count of how many arguments require fetching <see cref="ServerChannel">server channel's</see> information</value>
+    internal int ChannelArgumentCount { get; private set; }
+
+    /// <summary>
+    /// Gets the count of how many arguments require fetching <see cref="Role">role's</see> information.
+    /// </summary>
+    /// <value>The count of how many arguments require fetching <see cref="Role">role's</see> information</value>
+    internal int RoleArgumentCount { get; private set; }
     #endregion
 
     #region Constructors
@@ -106,23 +127,30 @@ public class Command : AbstractCommand<MethodInfo>
 
             return new CommandArgument(isDefaultable, argIndex, arg, argumentType, this);
         }).ToArray();
+
+        MemberArgumentCount = CommandArgumentUtil.GetArgumentOfTypeCount(Arguments, typeof(Member));
+        ChannelArgumentCount = CommandArgumentUtil.GetArgumentOfTypeCount(Arguments, typeof(ServerChannel));
+        RoleArgumentCount = CommandArgumentUtil.GetArgumentOfTypeCount(Arguments, typeof(Role));
     }
     #endregion
 
     #region Methods
     internal bool HasCorrectCount(int count) =>
-        HasRestArgument ? count >= RequiredCount : count >= RequiredCount && count <= Arguments.Length;
+        count >= RequiredCount;
 
-    internal bool GenerateMethodParameters(CommandConfiguration config, IEnumerable<string> arguments, [NotNullWhen(true)] out List<object?> parsed, [NotNullWhen(false)] out AbstractCommandArgument? badArgument)
+    internal bool GenerateMethodParameters(RootCommandEvent rootInvokation, string arguments, [NotNullWhen(true)] out List<object?> parsed, [NotNullWhen(false)] out AbstractCommandArgument? badArgument)
     {
-        parsed = new();
+        parsed = [];
         badArgument = null;
+
+        // This variable is not constant and will be modified via TryGetValueFrom with its reference
+        string currentArgumentList = arguments;
 
         int i = 0;
         foreach (AbstractCommandArgument arg in Arguments)
         {
             // Find bad argument
-            if (!arg.TryGetValueFrom(config, arguments.ElementAtOrDefault(i), out object? value))
+            if (!arg.TryGetValueFrom(rootInvokation, ref currentArgumentList, out object? value))
             {
                 badArgument = arg;
                 return false;
@@ -132,7 +160,7 @@ public class Command : AbstractCommand<MethodInfo>
             parsed.Add(value);
             i++;
         }
-        return true;
+        return currentArgumentList == string.Empty;
     }
 
     /// <summary>

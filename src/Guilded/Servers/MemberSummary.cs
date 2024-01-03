@@ -19,7 +19,7 @@ namespace Guilded.Servers;
 /// <seealso cref="MemberBan" />
 /// <seealso cref="UserSummary" />
 /// <seealso cref="Webhook" />
-public class MemberSummary<T> : IHasParentClient, IUser, IServerBased where T : UserSummary
+public class MemberSummary<T> : IHasParentClient, IUser, IServerBased, IModelHasName where T : UserSummary
 {
     #region Properties
     /// <summary>

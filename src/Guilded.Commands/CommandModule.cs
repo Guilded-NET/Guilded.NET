@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Guilded.Client;
 using Guilded.Events;
+using Guilded.Servers;
 
 namespace Guilded.Commands;
 

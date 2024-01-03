@@ -11,7 +11,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TargetFrameworks>net5.0; net6.0; net7.0; net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
-    <LangVersion>10.0</LangVersion>
+    <LangVersion>12.0</LangVersion>
     <!-- Authors -->
     <Authors>IdkGoodName</Authors>
     <Author>IdkGoodName</Author>

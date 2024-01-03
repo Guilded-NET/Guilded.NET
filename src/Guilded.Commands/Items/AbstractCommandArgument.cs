@@ -1,5 +1,6 @@
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 using System.Reflection;
+using Guilded.Servers;
 
 namespace Guilded.Commands.Items;
 
@@ -7,11 +8,11 @@ namespace Guilded.Commands.Items;
 /// The type of the <see cref="CommandConfiguration.ArgumentConverters">command argument converter</see>.
 /// </summary>
 /// <param name="argument">The <see cref="CommandParamAttribute">command argument</see> that is being used for conversion</param>
-/// <param name="config">The given <see cref="CommandConfiguration">configuration</see> for the <see cref="CommandAttribute">commands</see></param>
-/// <param name="raw">The given unparsed value of the <see cref="CommandParamAttribute">argument</see></param>
+    /// <param name="rootInvokation">The context for <see cref="CommandModule.HandleCommandAsync(Events.MessageEvent, string, CommandConfiguration, object?)">invoked command</see></param>
+/// <param name="arguments">The given unparsed and unused part of the value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <param name="value">The value of the <see cref="CommandParamAttribute">argument</see></param>
 /// <returns>Whether the argument was parsed</returns>
-public delegate bool ArgumentConverter(CommandArgument argument, CommandConfiguration config, string raw, [NotNullWhen(true)] out object? value);
+public delegate bool ArgumentConverter(CommandArgument argument, RootCommandEvent rootInvokation, ref string arguments, out object? value);
 
 /// <summary>
 /// Represents the information about any command argument in <see name="CommandInfo">a command method</see>.
@@ -73,10 +74,10 @@ public abstract class AbstractCommandArgument
     /// <summary>
     /// Sets the converted <paramref name="value" /> and returns whether it was successful in setting the <paramref name="value" />.
     /// </summary>
-    /// <param name="configuration">The <see cref="CommandConfiguration">configuration</see> used for <see cref="CommandModule">commands</see></param>
-    /// <param name="argument">The convertable <see cref="CommandEvent.Arguments">argument</see> fetched from the <see cref="CommandEvent">command invokation</see></param>
+    /// <param name="rootInvokation">The context for <see cref="CommandModule.HandleCommandAsync(Events.MessageEvent, string, CommandConfiguration, object?)">invoked command</see></param>
+    /// <param name="arguments">The convertable <see cref="CommandEvent.Arguments">argument</see> fetched from the <see cref="CommandEvent">command invokation</see></param>
     /// <param name="value">The converted value</param>
     /// <returns>Whether it was successful in setting the <paramref name="value" /></returns>
-    public abstract bool TryGetValueFrom(CommandConfiguration configuration, string? argument, out object? value);
+    public abstract bool TryGetValueFrom(RootCommandEvent rootInvokation, ref string arguments, out object? value);
     #endregion
 }

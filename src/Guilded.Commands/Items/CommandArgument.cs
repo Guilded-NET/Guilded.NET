@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reflection;
 
 namespace Guilded.Commands.Items;
@@ -12,16 +13,6 @@ namespace Guilded.Commands.Items;
 /// <typeparam name="T">The type of the output</typeparam>
 /// <returns>Whether it was parsed</returns>
 public delegate bool ConverterParser<T>([NotNullWhen(true)] string? raw, out T value);
-
-/// <summary>
-/// The function to parse provided <see cref="CommandParamAttribute">command argument</see> values.
-/// </summary>
-/// <param name="commandArg">The <see cref="CommandParamAttribute">command argument</see> that is being parsed</param>
-/// <param name="config">The given <see cref="CommandConfiguration">configuration</see> for the <see cref="CommandAttribute">commands</see></param>
-/// <param name="argument">The given unparsed <see cref="CommandParamAttribute">command argument</see></param>
-/// <param name="value">The parsed value of the <see cref="CommandParamAttribute">command argument</see></param>
-/// <returns>Whether the <see cref="CommandParamAttribute">command argument</see> was parsed correctly</returns>
-public delegate bool ParserDelegate(CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value);
 
 /// <summary>
 /// Represents the information about one-value command argument in <see name="CommandInfo">a command method</see>.
@@ -39,7 +30,7 @@ public class CommandArgument : AbstractCommandArgument
     /// Gets the function to parse <see cref="CommandArgument">command argument's</see> provided values.
     /// </summary>
     /// <value><see cref="CommandArgument">Command argument</see> value parser</value>
-    public ParserDelegate Parser { get; }
+    public ArgumentConverter Parser { get; }
 
     /// <summary>
     /// Gets whether the <see cref="CommandParamAttribute">command argument</see> takes in spaces and other splittable characters.
@@ -69,17 +60,17 @@ public class CommandArgument : AbstractCommandArgument
 
     #region Methods
     /// <inheritdoc />
-    public override bool TryGetValueFrom(CommandConfiguration config, string? argument, out object? value) =>
-        Parser(this, config, argument, out value);
+    public override bool TryGetValueFrom(RootCommandEvent rootInvokation, ref string argument, out object? value) =>
+        Parser(this, rootInvokation, ref argument, out value);
     #endregion
 
     #region Static methods
-    internal static ParserDelegate GetParser(bool isOptional) =>
+    internal static ArgumentConverter GetParser(bool isOptional) =>
         isOptional
-        ? (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
+        ? (CommandArgument commandArg, RootCommandEvent rootInvokation, ref string argument, out object? value) =>
             {
                 // Convert properly
-                if (argument is not null) return config.ArgumentConverters[commandArg.ArgumentType](commandArg, config, argument, out value);
+                if (argument is not null) return rootInvokation.Configuration.ArgumentConverters[commandArg.ArgumentType](commandArg, rootInvokation, ref argument, out value);
                 // = xyz or `null`
                 // This could be minimized to just .Value, but at this point maybe RAM would suffer and it's
                 // obsession over micro-optimizations
@@ -92,15 +83,20 @@ public class CommandArgument : AbstractCommandArgument
                     : null;
                 return true;
             }
-    : (CommandArgument commandArg, CommandConfiguration config, string? argument, out object? value) =>
-        config.ArgumentConverters[commandArg.ArgumentType](commandArg, config, argument!, out value);
+    : (CommandArgument commandArg, RootCommandEvent rootInvokation, ref string argument, out object? value) =>
+        rootInvokation.Configuration.ArgumentConverters[commandArg.ArgumentType](commandArg, rootInvokation, ref argument, out value);
 
     internal static ArgumentConverter FromParser<T>(ConverterParser<T> parser)
     {
-        return (CommandArgument _, CommandConfiguration _, string raw, [NotNullWhen(true)] out object? value) =>
+        return (CommandArgument _, RootCommandEvent rootInvokation, ref string arguments, out object? value) =>
         {
-            bool good = parser(raw, out var parsed);
+            string[] split = arguments.Split(rootInvokation.Configuration.Separators, 2, rootInvokation.Configuration.SplitOptions);
+
+            bool good = parser(split.First(), out var parsed);
             value = parsed!;
+
+            arguments = split.ElementAtOrDefault(1) ?? string.Empty;
+
             return good;
         };
     }
