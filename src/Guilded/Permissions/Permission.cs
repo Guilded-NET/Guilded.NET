@@ -334,6 +334,12 @@ public enum Permission
     ManageVoiceGroupMembers,
 
     /// <summary>
+    /// Allows you to remove <see cref="Member">members</see> from voice rooms.
+    /// </summary>
+    [EnumMember(Value = "CanDisconnectUsers")]
+    RemoveVoiceGroupMembers,
+
+    /// <summary>
     /// Allows you to broadcast your voice to voice rooms lower in the hierarchy when speaking in <see cref="VoiceChannel">voice chat</see>.
     /// </summary>
     [EnumMember(Value = "CanBroadcastVoice")]

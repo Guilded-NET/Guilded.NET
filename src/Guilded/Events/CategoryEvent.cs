@@ -82,7 +82,7 @@ public class CategoryEvent : IModelHasId<uint>, ICreationDated, IUpdatableConten
     #endregion
 
     #region Methods
-    /// <inheritdoc cref="AbstractGuildedClient.UpdateCategoryAsync(HashId, uint, string)" />
+    /// <inheritdoc cref="AbstractGuildedClient.UpdateCategoryAsync(HashId, uint, string?, int?)" />
     /// <param name="name">A new name of the <see cref="Servers.Category">category</see> (max — <c>100</c>)</param>
     public Task<Category> UpdateAsync(string name) =>
         Category.UpdateAsync(name);
