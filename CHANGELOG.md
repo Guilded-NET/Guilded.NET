@@ -2,6 +2,7 @@
 
 -   Fixed some bugs to how new command stuff are handled due to mention support
 -   Fixed errors not being thrown when command itself throws an error. Now it can be caught in `CommandModule`.
+-   Added `Permission.RemoveVoiceGroupMembers`
 
 # v1.7.0
 
