@@ -1,3 +1,8 @@
+# v1.7.1
+
+-   Fixed some bugs to how new command stuff are handled due to mention support
+-   Fixed errors not being thrown when command itself throws an error. Now it can be caught in `CommandModule`.
+
 # v1.7.0
 
 -   Added the ability to use `Member`, `Role` and `ServerChannel`, as well as being able to parse through mentions

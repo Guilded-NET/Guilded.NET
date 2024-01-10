@@ -170,7 +170,19 @@ public class Command : AbstractCommand<MethodInfo>
     /// <param name="commandEvent">The command event that invoked the command</param>
     /// <param name="arguments">The arguments that have been used to invoke the command</param>
     public Task InvokeAsync(CommandParent parent, CommandEvent commandEvent, IEnumerable<object?> arguments) =>
-        Task.Run(() => Member.Invoke(parent, new object[] { commandEvent }.Concat(arguments.ToArray()).ToArray()));
+        Task
+            .Run(async () =>
+            {
+                var result = Member.Invoke(parent, [commandEvent, ..arguments]);
+
+                if (result is Task taskResult)
+                    await taskResult;
+            })
+            .ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                    throw task.Exception!;
+            });
     #endregion
 }
 /// <summary>

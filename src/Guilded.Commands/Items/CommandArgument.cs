@@ -70,8 +70,8 @@ public class CommandArgument : AbstractCommandArgument
         ? (CommandArgument commandArg, RootCommandEvent rootInvokation, ref string argument, out object? value) =>
             {
                 // Convert properly
-                if (argument is not null) return rootInvokation.Configuration.ArgumentConverters[commandArg.ArgumentType](commandArg, rootInvokation, ref argument, out value);
-                // = xyz or `null`
+                if (!string.IsNullOrEmpty(argument)) return rootInvokation.Configuration.ArgumentConverters[commandArg.ArgumentType](commandArg, rootInvokation, ref argument, out value);
+                // `= xyz` or `null`
                 // This could be minimized to just .Value, but at this point maybe RAM would suffer and it's
                 // obsession over micro-optimizations
                 // need to check RAM usage of the commands first

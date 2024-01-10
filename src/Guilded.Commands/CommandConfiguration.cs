@@ -1,16 +1,12 @@
 using System;
-using System.Buffers;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using Guilded.Base;
 using Guilded.Client;
 using Guilded.Commands.Items;
-using Guilded.Content;
 using Guilded.Servers;
 
 namespace Guilded.Commands;
@@ -117,8 +113,15 @@ public record CommandConfiguration
         {
             {
                 typeof(string),
-                (CommandArgument _, RootCommandEvent rootInvokation, ref string x, out object? y) =>
+                (CommandArgument arg, RootCommandEvent rootInvokation, ref string x, out object? y) =>
                 {
+                    if (arg.IsRest)
+                    {
+                        y = x;
+                        x = string.Empty;
+                        return true;
+                    }
+
                     string[] split = x.Split(rootInvokation.Configuration.Separators, 2, rootInvokation.Configuration.SplitOptions);
 
                     x = split.ElementAtOrDefault(1) ?? string.Empty;
@@ -153,6 +156,7 @@ public record CommandConfiguration
 
                     Match match = attr.Regex.Match(y);
                     z = match;
+                    y = y[match.Length..].TrimStart(rootInvokation.Configuration.Separators);
 
                     return match.Success;
                 }

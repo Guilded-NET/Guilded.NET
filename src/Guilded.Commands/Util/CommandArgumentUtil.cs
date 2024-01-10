@@ -21,6 +21,9 @@ internal static class CommandArgumentUtil
     {
         IEnumerable<Command> commands = anyCommands.Where((x) => x is Command).Select((x) => (Command)x);
 
+        if (!commands.Any())
+            return (0, 0, 0);
+
         return (commands.Max((x) => x.MemberArgumentCount), commands.Max((x) => x.RoleArgumentCount), commands.Max((x) => x.ChannelArgumentCount));
     }
 
